@@ -12,28 +12,18 @@ import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.ByteArrayInputStream;
+import java.io.DataInputStream;
 import java.io.IOException;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 
 class OTFParserDiffblueTest {
   /**
-   * Test {@link OTFParser#parse(TTFDataStream)} with {@code raf}.
-   * <ul>
-   *   <li>Given {@link IOException#IOException(String)} with {@link CFFTable#TAG}.</li>
-   *   <li>Then throw {@link IOException}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link OTFParser#parse(TTFDataStream)}
    */
   @Test
-  @DisplayName("Test parse(TTFDataStream) with 'raf'; given IOException(String) with TAG; then throw IOException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"OpenTypeFont OTFParser.parse(TTFDataStream)"})
-  void testParseWithRaf_givenIOExceptionWithTag_thenThrowIOException() throws IOException {
+  void testParse() throws IOException {
     // Arrange
     OTFParser otfParser = new OTFParser(true);
     RandomAccessReadDataStream raf = mock(RandomAccessReadDataStream.class);
@@ -55,14 +45,9 @@ class OTFParserDiffblueTest {
   }
 
   /**
-   * Test {@link OTFParser#newFont(TTFDataStream)}.
-   * <p>
    * Method under test: {@link OTFParser#newFont(TTFDataStream)}
    */
   @Test
-  @DisplayName("Test newFont(TTFDataStream)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"OpenTypeFont OTFParser.newFont(TTFDataStream)"})
   void testNewFont() throws IOException {
     // Arrange
     OTFParser otfParser = new OTFParser(true);
@@ -91,30 +76,87 @@ class OTFParserDiffblueTest {
     assertEquals(0, actualNewFontResult.getNumberOfGlyphs());
     assertEquals(0, actualNewFontResult.getUnitsPerEm());
     assertEquals(0.0f, actualNewFontResult.getVersion());
-    assertEquals(6, actualNewFontResult.getFontMatrix().size());
+    List<Number> fontMatrix = actualNewFontResult.getFontMatrix();
+    assertEquals(6, fontMatrix.size());
     byte[] byteArray = new byte[8];
     assertEquals(8, actualNewFontResult.getOriginalData().read(byteArray));
     assertEquals(8L, actualNewFontResult.getOriginalDataSize());
     assertTrue(actualNewFontResult.getTables().isEmpty());
     assertTrue(actualNewFontResult.getTableMap().isEmpty());
     assertTrue(actualNewFontResult.isEnableGsub());
+    assertEquals(Float.POSITIVE_INFINITY, fontMatrix.get(0).floatValue());
+    assertEquals(Float.POSITIVE_INFINITY, fontMatrix.get(3).floatValue());
     assertArrayEquals("AXAXAXAX".getBytes("UTF-8"), byteArray);
   }
 
   /**
-   * Test {@link OTFParser#readTable(String)}.
-   * <ul>
-   *   <li>When {@code BASE}.</li>
-   *   <li>Then return {@link OTLTable}.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link OTFParser#newFont(TTFDataStream)}
+   */
+  @Test
+  void testNewFont2() throws IOException {
+    // Arrange
+    OTFParser otfParser = new OTFParser(true);
+    DataInputStream inputStream = mock(DataInputStream.class);
+    when(inputStream.readAllBytes()).thenReturn("AXAXAXAX".getBytes("UTF-8"));
+
+    // Act
+    OpenTypeFont actualNewFontResult = otfParser.newFont(new RandomAccessReadDataStream(inputStream));
+
+    // Assert
+    verify(inputStream).readAllBytes();
+    assertNull(actualNewFontResult.getName());
+    assertNull(actualNewFontResult.getCmap());
+    assertNull(actualNewFontResult.getGsub());
+    assertNull(actualNewFontResult.getGlyph());
+    assertNull(actualNewFontResult.getHeader());
+    assertNull(actualNewFontResult.getHorizontalHeader());
+    assertNull(actualNewFontResult.getHorizontalMetrics());
+    assertNull(actualNewFontResult.getIndexToLocation());
+    assertNull(actualNewFontResult.getKerning());
+    assertNull(actualNewFontResult.getMaximumProfile());
+    assertNull(actualNewFontResult.getNaming());
+    assertNull(actualNewFontResult.getOS2Windows());
+    assertNull(actualNewFontResult.getPostScript());
+    assertNull(actualNewFontResult.getVerticalHeader());
+    assertNull(actualNewFontResult.getVerticalMetrics());
+    assertNull(actualNewFontResult.getVerticalOrigin());
+    assertEquals(0, actualNewFontResult.getNumberOfGlyphs());
+    assertEquals(0, actualNewFontResult.getUnitsPerEm());
+    assertEquals(0.0f, actualNewFontResult.getVersion());
+    List<Number> fontMatrix = actualNewFontResult.getFontMatrix();
+    assertEquals(6, fontMatrix.size());
+    byte[] byteArray = new byte[8];
+    assertEquals(8, actualNewFontResult.getOriginalData().read(byteArray));
+    assertEquals(8L, actualNewFontResult.getOriginalDataSize());
+    assertTrue(actualNewFontResult.getTables().isEmpty());
+    assertTrue(actualNewFontResult.getTableMap().isEmpty());
+    assertTrue(actualNewFontResult.isEnableGsub());
+    assertEquals(Float.POSITIVE_INFINITY, fontMatrix.get(0).floatValue());
+    assertEquals(Float.POSITIVE_INFINITY, fontMatrix.get(3).floatValue());
+    assertArrayEquals("AXAXAXAX".getBytes("UTF-8"), byteArray);
+  }
+
+  /**
    * Method under test: {@link OTFParser#readTable(String)}
    */
   @Test
-  @DisplayName("Test readTable(String); when 'BASE'; then return OTLTable")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"TTFTable OTFParser.readTable(String)"})
-  void testReadTable_whenBase_thenReturnOTLTable() {
+  void testReadTable() {
+    // Arrange and Act
+    TTFTable actualReadTableResult = (new OTFParser(true)).readTable("Tag");
+
+    // Assert
+    assertNull(actualReadTableResult.getTag());
+    assertEquals(0L, actualReadTableResult.getCheckSum());
+    assertEquals(0L, actualReadTableResult.getLength());
+    assertEquals(0L, actualReadTableResult.getOffset());
+    assertFalse(actualReadTableResult.getInitialized());
+  }
+
+  /**
+   * Method under test: {@link OTFParser#readTable(String)}
+   */
+  @Test
+  void testReadTable2() {
     // Arrange and Act
     TTFTable actualReadTableResult = (new OTFParser(true)).readTable("BASE");
 
@@ -128,19 +170,10 @@ class OTFParserDiffblueTest {
   }
 
   /**
-   * Test {@link OTFParser#readTable(String)}.
-   * <ul>
-   *   <li>When {@code GDEF}.</li>
-   *   <li>Then return {@link OTLTable}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link OTFParser#readTable(String)}
    */
   @Test
-  @DisplayName("Test readTable(String); when 'GDEF'; then return OTLTable")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"TTFTable OTFParser.readTable(String)"})
-  void testReadTable_whenGdef_thenReturnOTLTable() {
+  void testReadTable3() {
     // Arrange and Act
     TTFTable actualReadTableResult = (new OTFParser(true)).readTable("GDEF");
 
@@ -154,19 +187,10 @@ class OTFParserDiffblueTest {
   }
 
   /**
-   * Test {@link OTFParser#readTable(String)}.
-   * <ul>
-   *   <li>When {@code GPOS}.</li>
-   *   <li>Then return {@link OTLTable}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link OTFParser#readTable(String)}
    */
   @Test
-  @DisplayName("Test readTable(String); when 'GPOS'; then return OTLTable")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"TTFTable OTFParser.readTable(String)"})
-  void testReadTable_whenGpos_thenReturnOTLTable() {
+  void testReadTable4() {
     // Arrange and Act
     TTFTable actualReadTableResult = (new OTFParser(true)).readTable("GPOS");
 
@@ -180,22 +204,15 @@ class OTFParserDiffblueTest {
   }
 
   /**
-   * Test {@link OTFParser#readTable(String)}.
-   * <ul>
-   *   <li>When {@code Tag}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link OTFParser#readTable(String)}
    */
   @Test
-  @DisplayName("Test readTable(String); when 'Tag'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"TTFTable OTFParser.readTable(String)"})
-  void testReadTable_whenTag() {
+  void testReadTable5() {
     // Arrange and Act
-    TTFTable actualReadTableResult = (new OTFParser(true)).readTable("Tag");
+    TTFTable actualReadTableResult = (new OTFParser(true)).readTable(GlyphSubstitutionTable.TAG);
 
     // Assert
+    assertTrue(actualReadTableResult instanceof OTLTable);
     assertNull(actualReadTableResult.getTag());
     assertEquals(0L, actualReadTableResult.getCheckSum());
     assertEquals(0L, actualReadTableResult.getLength());
@@ -204,19 +221,27 @@ class OTFParserDiffblueTest {
   }
 
   /**
-   * Test {@link OTFParser#readTable(String)}.
-   * <ul>
-   *   <li>When {@link CFFTable#TAG}.</li>
-   *   <li>Then return {@link CFFTable}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link OTFParser#readTable(String)}
    */
   @Test
-  @DisplayName("Test readTable(String); when TAG; then return CFFTable")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"TTFTable OTFParser.readTable(String)"})
-  void testReadTable_whenTag_thenReturnCFFTable() {
+  void testReadTable6() {
+    // Arrange and Act
+    TTFTable actualReadTableResult = (new OTFParser(true)).readTable(OTLTable.TAG);
+
+    // Assert
+    assertTrue(actualReadTableResult instanceof OTLTable);
+    assertNull(actualReadTableResult.getTag());
+    assertEquals(0L, actualReadTableResult.getCheckSum());
+    assertEquals(0L, actualReadTableResult.getLength());
+    assertEquals(0L, actualReadTableResult.getOffset());
+    assertFalse(actualReadTableResult.getInitialized());
+  }
+
+  /**
+   * Method under test: {@link OTFParser#readTable(String)}
+   */
+  @Test
+  void testReadTable7() {
     // Arrange and Act
     TTFTable actualReadTableResult = (new OTFParser(true)).readTable(CFFTable.TAG);
 
@@ -231,66 +256,9 @@ class OTFParserDiffblueTest {
   }
 
   /**
-   * Test {@link OTFParser#readTable(String)}.
-   * <ul>
-   *   <li>When {@link GlyphSubstitutionTable#TAG}.</li>
-   *   <li>Then return {@link OTLTable}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link OTFParser#readTable(String)}
-   */
-  @Test
-  @DisplayName("Test readTable(String); when TAG; then return OTLTable")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"TTFTable OTFParser.readTable(String)"})
-  void testReadTable_whenTag_thenReturnOTLTable() {
-    // Arrange and Act
-    TTFTable actualReadTableResult = (new OTFParser(true)).readTable(GlyphSubstitutionTable.TAG);
-
-    // Assert
-    assertTrue(actualReadTableResult instanceof OTLTable);
-    assertNull(actualReadTableResult.getTag());
-    assertEquals(0L, actualReadTableResult.getCheckSum());
-    assertEquals(0L, actualReadTableResult.getLength());
-    assertEquals(0L, actualReadTableResult.getOffset());
-    assertFalse(actualReadTableResult.getInitialized());
-  }
-
-  /**
-   * Test {@link OTFParser#readTable(String)}.
-   * <ul>
-   *   <li>When {@link OTLTable#TAG}.</li>
-   *   <li>Then return {@link OTLTable}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link OTFParser#readTable(String)}
-   */
-  @Test
-  @DisplayName("Test readTable(String); when TAG; then return OTLTable")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"TTFTable OTFParser.readTable(String)"})
-  void testReadTable_whenTag_thenReturnOTLTable2() {
-    // Arrange and Act
-    TTFTable actualReadTableResult = (new OTFParser(true)).readTable(OTLTable.TAG);
-
-    // Assert
-    assertTrue(actualReadTableResult instanceof OTLTable);
-    assertNull(actualReadTableResult.getTag());
-    assertEquals(0L, actualReadTableResult.getCheckSum());
-    assertEquals(0L, actualReadTableResult.getLength());
-    assertEquals(0L, actualReadTableResult.getOffset());
-    assertFalse(actualReadTableResult.getInitialized());
-  }
-
-  /**
-   * Test {@link OTFParser#allowCFF()}.
-   * <p>
    * Method under test: {@link OTFParser#allowCFF()}
    */
   @Test
-  @DisplayName("Test allowCFF()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean OTFParser.allowCFF()"})
   void testAllowCFF() {
     // Arrange, Act and Assert
     assertTrue((new OTFParser(true)).allowCFF());

@@ -8,17 +8,12 @@ import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MethodsUnderTest;
-import java.io.ByteArrayInputStream;
+import java.io.DataInputStream;
 import java.io.IOException;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class VerticalOriginTableDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link VerticalOriginTable}
@@ -26,9 +21,6 @@ class VerticalOriginTableDiffblueTest {
    * </ul>
    */
   @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void VerticalOriginTable.<init>()", "float VerticalOriginTable.getVersion()"})
   void testGettersAndSetters() {
     // Arrange and Act
     VerticalOriginTable actualVerticalOriginTable = new VerticalOriginTable();
@@ -44,22 +36,16 @@ class VerticalOriginTableDiffblueTest {
   }
 
   /**
-   * Test {@link VerticalOriginTable#read(TrueTypeFont, TTFDataStream)}.
-   * <ul>
-   *   <li>Then {@link VerticalOriginTable#VerticalOriginTable()} Version is ten.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link VerticalOriginTable#read(TrueTypeFont, TTFDataStream)}
+   * Method under test:
+   * {@link VerticalOriginTable#read(TrueTypeFont, TTFDataStream)}
    */
   @Test
-  @DisplayName("Test read(TrueTypeFont, TTFDataStream); then VerticalOriginTable() Version is ten")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void VerticalOriginTable.read(TrueTypeFont, TTFDataStream)"})
-  void testRead_thenVerticalOriginTableVersionIsTen() throws IOException {
+  void testRead() throws IOException {
     // Arrange
     VerticalOriginTable verticalOriginTable = new VerticalOriginTable();
-    TrueTypeFont ttf = new TrueTypeFont(
-        new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"))));
+    DataInputStream inputStream = mock(DataInputStream.class);
+    when(inputStream.readAllBytes()).thenReturn("AXAXAXAX".getBytes("UTF-8"));
+    TrueTypeFont ttf = new TrueTypeFont(new RandomAccessReadDataStream(inputStream));
     RandomAccessReadDataStream data = mock(RandomAccessReadDataStream.class);
     when(data.read32Fixed()).thenReturn(10.0f);
     when(data.readUnsignedShort()).thenReturn(1);
@@ -69,6 +55,7 @@ class VerticalOriginTableDiffblueTest {
     verticalOriginTable.read(ttf, data);
 
     // Assert
+    verify(inputStream).readAllBytes();
     verify(data).read32Fixed();
     verify(data, atLeast(1)).readSignedShort();
     verify(data, atLeast(1)).readUnsignedShort();

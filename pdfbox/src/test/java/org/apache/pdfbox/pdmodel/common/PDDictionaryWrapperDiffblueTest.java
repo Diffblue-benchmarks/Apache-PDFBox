@@ -6,68 +6,17 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
 import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.cos.COSIncrement;
 import org.apache.pdfbox.cos.COSUpdateState;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class PDDictionaryWrapperDiffblueTest {
   /**
-   * Test {@link PDDictionaryWrapper#PDDictionaryWrapper(COSDictionary)}.
-   * <p>
-   * Method under test: {@link PDDictionaryWrapper#PDDictionaryWrapper(COSDictionary)}
-   */
-  @Test
-  @DisplayName("Test new PDDictionaryWrapper(COSDictionary)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDDictionaryWrapper.<init>(COSDictionary)"})
-  void testNewPDDictionaryWrapper() {
-    // Arrange
-    COSDictionary dictionary = new COSDictionary();
-
-    // Act and Assert
-    assertSame(dictionary, (new PDDictionaryWrapper(dictionary)).getCOSObject());
-  }
-
-  /**
-   * Test {@link PDDictionaryWrapper#PDDictionaryWrapper()}.
-   * <p>
-   * Method under test: {@link PDDictionaryWrapper#PDDictionaryWrapper()}
-   */
-  @Test
-  @DisplayName("Test new PDDictionaryWrapper()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDDictionaryWrapper.<init>()"})
-  void testNewPDDictionaryWrapper2() {
-    // Arrange and Act
-    COSDictionary actualCOSObject = (new PDDictionaryWrapper()).getCOSObject();
-
-    // Assert
-    COSUpdateState updateState = actualCOSObject.getUpdateState();
-    assertNull(updateState.getOriginDocumentState());
-    assertNull(actualCOSObject.getKey());
-    assertEquals(0, actualCOSObject.size());
-    COSIncrement toIncrementResult = actualCOSObject.toIncrement();
-    assertFalse(toIncrementResult.iterator().hasNext());
-    assertFalse(actualCOSObject.isDirect());
-    assertFalse(actualCOSObject.isNeedToBeUpdated());
-    assertFalse(updateState.isUpdated());
-    assertTrue(actualCOSObject.getValues().isEmpty());
-    assertTrue(toIncrementResult.getObjects().isEmpty());
-  }
-
-  /**
-   * Test {@link PDDictionaryWrapper#getCOSObject()}.
-   * <p>
    * Method under test: {@link PDDictionaryWrapper#getCOSObject()}
    */
   @Test
-  @DisplayName("Test getCOSObject()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"COSDictionary PDDictionaryWrapper.getCOSObject()"})
   void testGetCOSObject() {
     // Arrange and Act
     COSDictionary actualCOSObject = (new PDDictionaryWrapper()).getCOSObject();
@@ -87,12 +36,6 @@ class PDDictionaryWrapperDiffblueTest {
   }
 
   /**
-   * Test {@link PDDictionaryWrapper#equals(Object)}, and {@link PDDictionaryWrapper#hashCode()}.
-   * <ul>
-   *   <li>When other is same.</li>
-   *   <li>Then return equal.</li>
-   * </ul>
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link PDDictionaryWrapper#equals(Object)}
@@ -100,9 +43,6 @@ class PDDictionaryWrapperDiffblueTest {
    * </ul>
    */
   @Test
-  @DisplayName("Test equals(Object), and hashCode(); when other is same; then return equal")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean PDDictionaryWrapper.equals(Object)", "int PDDictionaryWrapper.hashCode()"})
   void testEqualsAndHashCode_whenOtherIsSame_thenReturnEqual() {
     // Arrange
     PDDictionaryWrapper pdDictionaryWrapper = new PDDictionaryWrapper();
@@ -114,18 +54,9 @@ class PDDictionaryWrapperDiffblueTest {
   }
 
   /**
-   * Test {@link PDDictionaryWrapper#equals(Object)}.
-   * <ul>
-   *   <li>When other is different.</li>
-   *   <li>Then return not equal.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDDictionaryWrapper#equals(Object)}
    */
   @Test
-  @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean PDDictionaryWrapper.equals(Object)", "int PDDictionaryWrapper.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual() {
     // Arrange
     PDDictionaryWrapper pdDictionaryWrapper = new PDDictionaryWrapper();
@@ -135,38 +66,64 @@ class PDDictionaryWrapperDiffblueTest {
   }
 
   /**
-   * Test {@link PDDictionaryWrapper#equals(Object)}.
-   * <ul>
-   *   <li>When other is {@code null}.</li>
-   *   <li>Then return not equal.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDDictionaryWrapper#equals(Object)}
    */
   @Test
-  @DisplayName("Test equals(Object); when other is 'null'; then return not equal")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean PDDictionaryWrapper.equals(Object)", "int PDDictionaryWrapper.hashCode()"})
+  void testEquals_whenOtherIsDifferent_thenReturnNotEqual2() {
+    // Arrange, Act and Assert
+    assertNotEquals(new PDDictionaryWrapper(), mock(PDTypedDictionaryWrapper.class));
+  }
+
+  /**
+   * Method under test: {@link PDDictionaryWrapper#equals(Object)}
+   */
+  @Test
   void testEquals_whenOtherIsNull_thenReturnNotEqual() {
     // Arrange, Act and Assert
     assertNotEquals(new PDDictionaryWrapper(), null);
   }
 
   /**
-   * Test {@link PDDictionaryWrapper#equals(Object)}.
-   * <ul>
-   *   <li>When other is wrong type.</li>
-   *   <li>Then return not equal.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDDictionaryWrapper#equals(Object)}
    */
   @Test
-  @DisplayName("Test equals(Object); when other is wrong type; then return not equal")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean PDDictionaryWrapper.equals(Object)", "int PDDictionaryWrapper.hashCode()"})
   void testEquals_whenOtherIsWrongType_thenReturnNotEqual() {
     // Arrange, Act and Assert
     assertNotEquals(new PDDictionaryWrapper(), "Different type to PDDictionaryWrapper");
+  }
+
+  /**
+   * Method under test:
+   * {@link PDDictionaryWrapper#PDDictionaryWrapper(COSDictionary)}
+   */
+  @Test
+  void testNewPDDictionaryWrapper() {
+    // Arrange
+    COSDictionary dictionary = new COSDictionary();
+
+    // Act and Assert
+    assertSame(dictionary, (new PDDictionaryWrapper(dictionary)).getCOSObject());
+  }
+
+  /**
+   * Method under test: {@link PDDictionaryWrapper#PDDictionaryWrapper()}
+   */
+  @Test
+  void testNewPDDictionaryWrapper2() {
+    // Arrange and Act
+    COSDictionary actualCOSObject = (new PDDictionaryWrapper()).getCOSObject();
+
+    // Assert
+    COSUpdateState updateState = actualCOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(actualCOSObject.getKey());
+    assertEquals(0, actualCOSObject.size());
+    COSIncrement toIncrementResult = actualCOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(actualCOSObject.isDirect());
+    assertFalse(actualCOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(actualCOSObject.getValues().isEmpty());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
   }
 }

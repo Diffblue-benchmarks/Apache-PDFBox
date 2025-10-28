@@ -1,7 +1,8 @@
 package org.apache.pdfbox.pdmodel.interactive.annotation.handlers;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.eq;
@@ -12,16 +13,26 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.awt.geom.AffineTransform;
+import java.io.IOException;
 import java.util.List;
+import java.util.Set;
+import org.apache.fontbox.FontBoxFont;
+import org.apache.fontbox.ttf.TrueTypeFont;
+import org.apache.fontbox.ttf.model.GsubData;
+import org.apache.fontbox.ttf.model.MapBackedGsubData;
 import org.apache.pdfbox.cos.COSArray;
 import org.apache.pdfbox.cos.COSBase;
 import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.cos.COSFloat;
+import org.apache.pdfbox.cos.COSIncrement;
+import org.apache.pdfbox.cos.COSName;
 import org.apache.pdfbox.cos.COSStream;
 import org.apache.pdfbox.cos.COSUpdateState;
+import org.apache.pdfbox.pdmodel.PDResources;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
+import org.apache.pdfbox.pdmodel.common.PDStream;
+import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.apache.pdfbox.pdmodel.graphics.color.PDColor;
 import org.apache.pdfbox.pdmodel.graphics.color.PDColorSpace;
@@ -36,86 +47,28 @@ import org.apache.pdfbox.pdmodel.interactive.annotation.PDAppearanceStream;
 import org.apache.pdfbox.pdmodel.interactive.annotation.PDBorderEffectDictionary;
 import org.apache.pdfbox.pdmodel.interactive.annotation.PDBorderStyleDictionary;
 import org.apache.pdfbox.util.Matrix;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 class PDPolygonAppearanceHandlerDiffblueTest {
   /**
-   * Test getters and setters.
-   * <ul>
-   *   <li>When {@link PDAnnotationCaret#PDAnnotationCaret()}.</li>
-   * </ul>
-   * <p>
-   * Methods under test:
-   * <ul>
-   *   <li>{@link PDPolygonAppearanceHandler#PDPolygonAppearanceHandler(PDAnnotation)}
-   *   <li>{@link PDPolygonAppearanceHandler#generateDownAppearance()}
-   *   <li>{@link PDPolygonAppearanceHandler#generateRolloverAppearance()}
-   * </ul>
+   * Method under test:
+   * {@link PDPolygonAppearanceHandler#generateNormalAppearance()}
    */
   @Test
-  @DisplayName("Test getters and setters; when PDAnnotationCaret()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDPolygonAppearanceHandler.<init>(PDAnnotation)",
-      "void PDPolygonAppearanceHandler.<init>(PDAnnotation, org.apache.pdfbox.pdmodel.PDDocument)",
-      "void PDPolygonAppearanceHandler.generateDownAppearance()",
-      "void PDPolygonAppearanceHandler.generateRolloverAppearance()"})
-  void testGettersAndSetters_whenPDAnnotationCaret() {
-    // Arrange
-    PDAnnotationCaret annotation = new PDAnnotationCaret();
-
-    // Act
-    PDPolygonAppearanceHandler actualPdPolygonAppearanceHandler = new PDPolygonAppearanceHandler(annotation);
-    actualPdPolygonAppearanceHandler.generateDownAppearance();
-    actualPdPolygonAppearanceHandler.generateRolloverAppearance();
-
-    // Assert
-    assertTrue(actualPdPolygonAppearanceHandler.getDefaultFont() instanceof PDType1Font);
-    assertSame(annotation, actualPdPolygonAppearanceHandler.getAnnotation());
-  }
-
-  /**
-   * Test {@link PDPolygonAppearanceHandler#generateNormalAppearance()}.
-   * <p>
-   * Method under test: {@link PDPolygonAppearanceHandler#generateNormalAppearance()}
-   */
-  @Test
-  @DisplayName("Test generateNormalAppearance()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDPolygonAppearanceHandler.generateNormalAppearance()"})
-  void testGenerateNormalAppearance() {
-    // Arrange
-    PDPolygonAppearanceHandler pdPolygonAppearanceHandler = new PDPolygonAppearanceHandler(new PDAnnotationPolygon());
-
-    // Act
-    pdPolygonAppearanceHandler.generateNormalAppearance();
-
-    // Assert that nothing has changed
-    assertTrue(pdPolygonAppearanceHandler.getDownAppearance().getCOSObject() instanceof COSStream);
-  }
-
-  /**
-   * Test {@link PDPolygonAppearanceHandler#generateNormalAppearance()}.
-   * <p>
-   * Method under test: {@link PDPolygonAppearanceHandler#generateNormalAppearance()}
-   */
-  @Test
-  @DisplayName("Test generateNormalAppearance()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDPolygonAppearanceHandler.generateNormalAppearance()"})
-  void testGenerateNormalAppearance2() {
+  void testGenerateNormalAppearance() throws IOException {
     // Arrange
     PDAnnotationPolygon annotation = mock(PDAnnotationPolygon.class);
     when(annotation.getConstantOpacity()).thenReturn(10.0f);
     when(annotation.getColor()).thenReturn(new PDColor(new COSArray(), PDDeviceGray.INSTANCE));
     when(annotation.getInteriorColor()).thenReturn(new PDColor(new COSArray(), PDDeviceGray.INSTANCE));
-    when(annotation.getAppearance()).thenReturn(new PDAppearanceDictionary());
+    PDAppearanceDictionary pdAppearanceDictionary = new PDAppearanceDictionary();
+    when(annotation.getAppearance()).thenReturn(pdAppearanceDictionary);
     when(annotation.getBorderEffect()).thenReturn(new PDBorderEffectDictionary());
     doNothing().when(annotation).setRectangle(Mockito.<PDRectangle>any());
     when(annotation.getPath()).thenReturn(new float[][]{new float[]{10.0f, 0.5f, 10.0f, 0.5f}});
-    when(annotation.getRectangle()).thenReturn(new PDRectangle());
+    PDRectangle pdRectangle = new PDRectangle();
+    when(annotation.getRectangle()).thenReturn(pdRectangle);
     when(annotation.getBorder()).thenReturn(new COSArray());
     when(annotation.getBorderStyle()).thenReturn(new PDBorderStyleDictionary());
     PDPolygonAppearanceHandler pdPolygonAppearanceHandler = new PDPolygonAppearanceHandler(annotation);
@@ -134,47 +87,114 @@ class PDPolygonAppearanceHandlerDiffblueTest {
     verify(annotation).getBorderEffect();
     verify(annotation).getInteriorColor();
     verify(annotation).getPath();
-    PDAppearanceDictionary appearance = pdPolygonAppearanceHandler.getAppearance();
-    PDAppearanceStream appearanceStream = appearance.getDownAppearance().getAppearanceStream();
+    PDAppearanceEntry downAppearance = pdPolygonAppearanceHandler.getDownAppearance();
+    PDAppearanceStream appearanceStream = downAppearance.getAppearanceStream();
+    PDResources resources = appearanceStream.getResources();
+    Iterable<COSName> colorSpaceNames = resources.getColorSpaceNames();
+    assertTrue(colorSpaceNames instanceof Set);
+    PDFont defaultFont = pdPolygonAppearanceHandler.getDefaultFont();
+    FontBoxFont fontBoxFont = ((PDType1Font) defaultFont).getFontBoxFont();
+    assertTrue(fontBoxFont instanceof TrueTypeFont);
+    GsubData gsubData = ((TrueTypeFont) fontBoxFont).getGsubData();
+    assertTrue(gsubData instanceof MapBackedGsubData);
+    COSDictionary cOSObject = downAppearance.getCOSObject();
+    assertTrue(cOSObject instanceof COSStream);
+    assertTrue(defaultFont instanceof PDType1Font);
+    COSDictionary cOSObject2 = resources.getCOSObject();
+    COSUpdateState updateState = cOSObject2.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject2.getKey());
+    assertNull(resources.getResourceCache());
+    Matrix matrix = appearanceStream.getMatrix();
+    assertEquals(-0.0f, matrix.getTranslateX());
+    float[][] values = matrix.getValues();
+    float[] floatArray = values[2];
+    assertEquals(-0.0f, floatArray[0]);
+    PDRectangle bBox = appearanceStream.getBBox();
+    assertEquals(-0.5f, bBox.getLowerLeftY());
+    PDAppearanceEntry rolloverAppearance = pdPolygonAppearanceHandler.getRolloverAppearance();
+    PDAppearanceStream appearanceStream2 = rolloverAppearance.getAppearanceStream();
+    PDRectangle bBox2 = appearanceStream2.getBBox();
+    assertEquals(-0.5f, bBox2.getLowerLeftY());
+    assertEquals(0, cOSObject2.size());
+    assertEquals(0.0f, bBox.getLowerLeftX());
+    assertEquals(0.0f, bBox2.getLowerLeftX());
+    assertEquals(0.5f, matrix.getTranslateY());
+    assertEquals(0.5f, floatArray[1]);
+    assertEquals(1.5f, bBox.getUpperRightY());
+    assertEquals(1.5f, bBox2.getUpperRightY());
+    assertEquals(11.0f, bBox.getUpperRightX());
+    assertEquals(11.0f, bBox2.getUpperRightX());
+    assertEquals(11.0f, bBox.getWidth());
+    assertEquals(11.0f, bBox2.getWidth());
     assertEquals(12, appearanceStream.getStream().getLength());
-    PDAppearanceStream appearanceStream2 = appearance.getNormalAppearance().getAppearanceStream();
-    assertEquals(12, appearanceStream2.getStream().getLength());
-    PDAppearanceStream appearanceStream3 = appearance.getRolloverAppearance().getAppearanceStream();
-    assertEquals(12, appearanceStream3.getStream().getLength());
-    PDAppearanceStream appearanceStream4 = pdPolygonAppearanceHandler.getDownAppearance().getAppearanceStream();
-    assertEquals(12, appearanceStream4.getStream().getLength());
-    PDAppearanceStream appearanceStream5 = pdPolygonAppearanceHandler.getRolloverAppearance().getAppearanceStream();
-    assertEquals(12, appearanceStream5.getStream().getLength());
+    PDStream stream = appearanceStream2.getStream();
+    assertEquals(12, stream.getLength());
     assertEquals(12, appearanceStream.getContentStream().getLength());
-    assertEquals(12, appearanceStream2.getContentStream().getLength());
-    assertEquals(12, appearanceStream3.getContentStream().getLength());
-    assertEquals(12, appearanceStream4.getContentStream().getLength());
-    assertEquals(12, appearanceStream5.getContentStream().getLength());
-    float[][] values = appearanceStream4.getMatrix().getValues();
+    PDStream contentStream = appearanceStream2.getContentStream();
+    assertEquals(12, contentStream.getLength());
+    assertEquals(2.0f, bBox.getHeight());
+    assertEquals(2.0f, bBox2.getHeight());
     assertEquals(3, values.length);
-    assertArrayEquals(new float[]{-0.0f, 0.5f, 1.0f}, values[2], 0.0f);
+    assertEquals(3, floatArray.length);
+    assertEquals(6, cOSObject.getValues().size());
+    assertEquals(6, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject2.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject2.isDirect());
+    assertFalse(cOSObject2.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(cOSObject2.getValues().isEmpty());
+    assertTrue(gsubData.getSupportedFeatures().isEmpty());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertTrue(defaultFont.getCOSObject().toIncrement().getObjects().isEmpty());
+    assertTrue(defaultFont.getFontDescriptor().getCOSObject().toIncrement().getObjects().isEmpty());
+    assertTrue(((Set<COSName>) colorSpaceNames).isEmpty());
+    assertTrue(((COSStream) cOSObject).hasData());
+    assertEquals(matrix, appearanceStream2.getMatrix());
+    assertSame(pdRectangle, pdPolygonAppearanceHandler.getRectangle());
+    assertSame(pdAppearanceDictionary, pdPolygonAppearanceHandler.getAppearance());
+    PDResources resources2 = appearanceStream2.getResources();
+    assertSame(cOSObject2, resources2.getCOSObject());
+    COSArray expectedCOSObject = bBox.getCOSArray();
+    assertSame(expectedCOSObject, bBox.getCOSObject());
+    assertSame(colorSpaceNames, resources2.getColorSpaceNames());
+    assertSame(colorSpaceNames, resources.getExtGStateNames());
+    assertSame(colorSpaceNames, resources2.getExtGStateNames());
+    assertSame(colorSpaceNames, resources.getFontNames());
+    assertSame(colorSpaceNames, resources2.getFontNames());
+    assertSame(colorSpaceNames, resources.getPatternNames());
+    assertSame(colorSpaceNames, resources2.getPatternNames());
+    assertSame(colorSpaceNames, resources.getPropertiesNames());
+    assertSame(colorSpaceNames, resources2.getPropertiesNames());
+    assertSame(colorSpaceNames, resources.getShadingNames());
+    assertSame(colorSpaceNames, resources2.getShadingNames());
+    assertSame(colorSpaceNames, resources.getXObjectNames());
+    assertSame(colorSpaceNames, resources2.getXObjectNames());
+    assertSame(cOSObject, stream.getCOSObject());
+    assertSame(cOSObject, contentStream.getCOSObject());
+    assertSame(cOSObject, appearanceStream2.getCOSObject());
+    assertSame(cOSObject, rolloverAppearance.getCOSObject());
   }
 
   /**
-   * Test {@link PDPolygonAppearanceHandler#generateNormalAppearance()}.
-   * <p>
-   * Method under test: {@link PDPolygonAppearanceHandler#generateNormalAppearance()}
+   * Method under test:
+   * {@link PDPolygonAppearanceHandler#generateNormalAppearance()}
    */
   @Test
-  @DisplayName("Test generateNormalAppearance()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDPolygonAppearanceHandler.generateNormalAppearance()"})
-  void testGenerateNormalAppearance3() {
+  void testGenerateNormalAppearance2() throws IOException {
     // Arrange
     PDAnnotationPolygon annotation = mock(PDAnnotationPolygon.class);
     when(annotation.getConstantOpacity()).thenReturn(Float.MIN_VALUE);
     when(annotation.getColor()).thenReturn(new PDColor(new COSArray(), PDDeviceGray.INSTANCE));
     when(annotation.getInteriorColor()).thenReturn(new PDColor(new COSArray(), PDDeviceGray.INSTANCE));
-    when(annotation.getAppearance()).thenReturn(new PDAppearanceDictionary());
+    PDAppearanceDictionary pdAppearanceDictionary = new PDAppearanceDictionary();
+    when(annotation.getAppearance()).thenReturn(pdAppearanceDictionary);
     when(annotation.getBorderEffect()).thenReturn(new PDBorderEffectDictionary());
     doNothing().when(annotation).setRectangle(Mockito.<PDRectangle>any());
     when(annotation.getPath()).thenReturn(new float[][]{new float[]{10.0f, 0.5f, 10.0f, 0.5f}});
-    when(annotation.getRectangle()).thenReturn(new PDRectangle());
+    PDRectangle pdRectangle = new PDRectangle();
+    when(annotation.getRectangle()).thenReturn(pdRectangle);
     when(annotation.getBorder()).thenReturn(new COSArray());
     when(annotation.getBorderStyle()).thenReturn(new PDBorderStyleDictionary());
     PDPolygonAppearanceHandler pdPolygonAppearanceHandler = new PDPolygonAppearanceHandler(annotation);
@@ -193,47 +213,116 @@ class PDPolygonAppearanceHandlerDiffblueTest {
     verify(annotation).getBorderEffect();
     verify(annotation).getInteriorColor();
     verify(annotation).getPath();
-    PDAppearanceDictionary appearance = pdPolygonAppearanceHandler.getAppearance();
-    PDAppearanceStream appearanceStream = appearance.getDownAppearance().getAppearanceStream();
+    PDAppearanceEntry downAppearance = pdPolygonAppearanceHandler.getDownAppearance();
+    PDAppearanceStream appearanceStream = downAppearance.getAppearanceStream();
+    PDResources resources = appearanceStream.getResources();
+    Iterable<COSName> colorSpaceNames = resources.getColorSpaceNames();
+    assertTrue(colorSpaceNames instanceof Set);
+    Iterable<COSName> extGStateNames = resources.getExtGStateNames();
+    assertTrue(extGStateNames instanceof Set);
+    PDFont defaultFont = pdPolygonAppearanceHandler.getDefaultFont();
+    FontBoxFont fontBoxFont = ((PDType1Font) defaultFont).getFontBoxFont();
+    assertTrue(fontBoxFont instanceof TrueTypeFont);
+    GsubData gsubData = ((TrueTypeFont) fontBoxFont).getGsubData();
+    assertTrue(gsubData instanceof MapBackedGsubData);
+    COSDictionary cOSObject = downAppearance.getCOSObject();
+    assertTrue(cOSObject instanceof COSStream);
+    assertTrue(defaultFont instanceof PDType1Font);
+    COSDictionary cOSObject2 = resources.getCOSObject();
+    COSUpdateState updateState = cOSObject2.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject2.getKey());
+    assertNull(resources.getResourceCache());
+    Matrix matrix = appearanceStream.getMatrix();
+    assertEquals(-0.0f, matrix.getTranslateX());
+    float[][] values = matrix.getValues();
+    float[] floatArray = values[2];
+    assertEquals(-0.0f, floatArray[0]);
+    PDRectangle bBox = appearanceStream.getBBox();
+    assertEquals(-0.5f, bBox.getLowerLeftY());
+    PDAppearanceEntry rolloverAppearance = pdPolygonAppearanceHandler.getRolloverAppearance();
+    PDAppearanceStream appearanceStream2 = rolloverAppearance.getAppearanceStream();
+    PDRectangle bBox2 = appearanceStream2.getBBox();
+    assertEquals(-0.5f, bBox2.getLowerLeftY());
+    assertEquals(0.0f, bBox.getLowerLeftX());
+    assertEquals(0.0f, bBox2.getLowerLeftX());
+    assertEquals(0.5f, matrix.getTranslateY());
+    assertEquals(0.5f, floatArray[1]);
+    assertEquals(1, cOSObject2.getValues().size());
+    assertEquals(1, ((Set<COSName>) extGStateNames).size());
+    assertEquals(1, cOSObject2.size());
+    assertEquals(1.5f, bBox.getUpperRightY());
+    assertEquals(1.5f, bBox2.getUpperRightY());
+    assertEquals(11.0f, bBox.getUpperRightX());
+    assertEquals(11.0f, bBox2.getUpperRightX());
+    assertEquals(11.0f, bBox.getWidth());
+    assertEquals(11.0f, bBox2.getWidth());
+    assertEquals(2.0f, bBox.getHeight());
+    assertEquals(2.0f, bBox2.getHeight());
     assertEquals(20, appearanceStream.getStream().getLength());
-    PDAppearanceStream appearanceStream2 = appearance.getNormalAppearance().getAppearanceStream();
-    assertEquals(20, appearanceStream2.getStream().getLength());
-    PDAppearanceStream appearanceStream3 = appearance.getRolloverAppearance().getAppearanceStream();
-    assertEquals(20, appearanceStream3.getStream().getLength());
-    PDAppearanceStream appearanceStream4 = pdPolygonAppearanceHandler.getDownAppearance().getAppearanceStream();
-    assertEquals(20, appearanceStream4.getStream().getLength());
-    PDAppearanceStream appearanceStream5 = pdPolygonAppearanceHandler.getRolloverAppearance().getAppearanceStream();
-    assertEquals(20, appearanceStream5.getStream().getLength());
+    PDStream stream = appearanceStream2.getStream();
+    assertEquals(20, stream.getLength());
     assertEquals(20, appearanceStream.getContentStream().getLength());
-    assertEquals(20, appearanceStream2.getContentStream().getLength());
-    assertEquals(20, appearanceStream3.getContentStream().getLength());
-    assertEquals(20, appearanceStream4.getContentStream().getLength());
-    assertEquals(20, appearanceStream5.getContentStream().getLength());
-    float[][] values = appearanceStream4.getMatrix().getValues();
+    PDStream contentStream = appearanceStream2.getContentStream();
+    assertEquals(20, contentStream.getLength());
     assertEquals(3, values.length);
-    assertArrayEquals(new float[]{-0.0f, 0.5f, 1.0f}, values[2], 0.0f);
+    assertEquals(3, floatArray.length);
+    assertEquals(6, cOSObject.getValues().size());
+    assertEquals(6, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject2.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject2.isDirect());
+    assertFalse(cOSObject2.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(gsubData.getSupportedFeatures().isEmpty());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertTrue(defaultFont.getCOSObject().toIncrement().getObjects().isEmpty());
+    assertTrue(defaultFont.getFontDescriptor().getCOSObject().toIncrement().getObjects().isEmpty());
+    assertTrue(((Set<COSName>) colorSpaceNames).isEmpty());
+    assertTrue(((COSStream) cOSObject).hasData());
+    assertEquals(matrix, appearanceStream2.getMatrix());
+    assertSame(pdRectangle, pdPolygonAppearanceHandler.getRectangle());
+    assertSame(pdAppearanceDictionary, pdPolygonAppearanceHandler.getAppearance());
+    PDResources resources2 = appearanceStream2.getResources();
+    assertSame(cOSObject2, resources2.getCOSObject());
+    COSArray expectedCOSObject = bBox.getCOSArray();
+    assertSame(expectedCOSObject, bBox.getCOSObject());
+    assertSame(colorSpaceNames, resources2.getColorSpaceNames());
+    assertSame(colorSpaceNames, resources.getFontNames());
+    assertSame(colorSpaceNames, resources2.getFontNames());
+    assertSame(colorSpaceNames, resources.getPatternNames());
+    assertSame(colorSpaceNames, resources2.getPatternNames());
+    assertSame(colorSpaceNames, resources.getPropertiesNames());
+    assertSame(colorSpaceNames, resources2.getPropertiesNames());
+    assertSame(colorSpaceNames, resources.getShadingNames());
+    assertSame(colorSpaceNames, resources2.getShadingNames());
+    assertSame(colorSpaceNames, resources.getXObjectNames());
+    assertSame(colorSpaceNames, resources2.getXObjectNames());
+    assertSame(extGStateNames, resources2.getExtGStateNames());
+    assertSame(cOSObject, stream.getCOSObject());
+    assertSame(cOSObject, contentStream.getCOSObject());
+    assertSame(cOSObject, appearanceStream2.getCOSObject());
+    assertSame(cOSObject, rolloverAppearance.getCOSObject());
   }
 
   /**
-   * Test {@link PDPolygonAppearanceHandler#generateNormalAppearance()}.
-   * <p>
-   * Method under test: {@link PDPolygonAppearanceHandler#generateNormalAppearance()}
+   * Method under test:
+   * {@link PDPolygonAppearanceHandler#generateNormalAppearance()}
    */
   @Test
-  @DisplayName("Test generateNormalAppearance()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDPolygonAppearanceHandler.generateNormalAppearance()"})
-  void testGenerateNormalAppearance4() {
+  void testGenerateNormalAppearance3() throws IOException {
     // Arrange
     PDAnnotationPolygon annotation = mock(PDAnnotationPolygon.class);
     when(annotation.getConstantOpacity()).thenReturn(10.0f);
     when(annotation.getColor()).thenReturn(new PDColor(new COSArray(), PDDeviceRGB.INSTANCE));
     when(annotation.getInteriorColor()).thenReturn(new PDColor(new COSArray(), PDDeviceGray.INSTANCE));
-    when(annotation.getAppearance()).thenReturn(new PDAppearanceDictionary());
+    PDAppearanceDictionary pdAppearanceDictionary = new PDAppearanceDictionary();
+    when(annotation.getAppearance()).thenReturn(pdAppearanceDictionary);
     when(annotation.getBorderEffect()).thenReturn(new PDBorderEffectDictionary());
     doNothing().when(annotation).setRectangle(Mockito.<PDRectangle>any());
     when(annotation.getPath()).thenReturn(new float[][]{new float[]{10.0f, 0.5f, 10.0f, 0.5f}});
-    when(annotation.getRectangle()).thenReturn(new PDRectangle());
+    PDRectangle pdRectangle = new PDRectangle();
+    when(annotation.getRectangle()).thenReturn(pdRectangle);
     when(annotation.getBorder()).thenReturn(new COSArray());
     when(annotation.getBorderStyle()).thenReturn(new PDBorderStyleDictionary());
     PDPolygonAppearanceHandler pdPolygonAppearanceHandler = new PDPolygonAppearanceHandler(annotation);
@@ -252,47 +341,114 @@ class PDPolygonAppearanceHandlerDiffblueTest {
     verify(annotation).getBorderEffect();
     verify(annotation).getInteriorColor();
     verify(annotation).getPath();
-    PDAppearanceDictionary appearance = pdPolygonAppearanceHandler.getAppearance();
-    PDAppearanceStream appearanceStream = appearance.getDownAppearance().getAppearanceStream();
+    PDAppearanceEntry downAppearance = pdPolygonAppearanceHandler.getDownAppearance();
+    PDAppearanceStream appearanceStream = downAppearance.getAppearanceStream();
+    PDResources resources = appearanceStream.getResources();
+    Iterable<COSName> colorSpaceNames = resources.getColorSpaceNames();
+    assertTrue(colorSpaceNames instanceof Set);
+    PDFont defaultFont = pdPolygonAppearanceHandler.getDefaultFont();
+    FontBoxFont fontBoxFont = ((PDType1Font) defaultFont).getFontBoxFont();
+    assertTrue(fontBoxFont instanceof TrueTypeFont);
+    GsubData gsubData = ((TrueTypeFont) fontBoxFont).getGsubData();
+    assertTrue(gsubData instanceof MapBackedGsubData);
+    COSDictionary cOSObject = downAppearance.getCOSObject();
+    assertTrue(cOSObject instanceof COSStream);
+    assertTrue(defaultFont instanceof PDType1Font);
+    COSDictionary cOSObject2 = resources.getCOSObject();
+    COSUpdateState updateState = cOSObject2.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject2.getKey());
+    assertNull(resources.getResourceCache());
+    Matrix matrix = appearanceStream.getMatrix();
+    assertEquals(-0.0f, matrix.getTranslateX());
+    float[][] values = matrix.getValues();
+    float[] floatArray = values[2];
+    assertEquals(-0.0f, floatArray[0]);
+    PDRectangle bBox = appearanceStream.getBBox();
+    assertEquals(-0.5f, bBox.getLowerLeftY());
+    PDAppearanceEntry rolloverAppearance = pdPolygonAppearanceHandler.getRolloverAppearance();
+    PDAppearanceStream appearanceStream2 = rolloverAppearance.getAppearanceStream();
+    PDRectangle bBox2 = appearanceStream2.getBBox();
+    assertEquals(-0.5f, bBox2.getLowerLeftY());
+    assertEquals(0, cOSObject2.size());
+    assertEquals(0.0f, bBox.getLowerLeftX());
+    assertEquals(0.0f, bBox2.getLowerLeftX());
+    assertEquals(0.5f, matrix.getTranslateY());
+    assertEquals(0.5f, floatArray[1]);
+    assertEquals(1.5f, bBox.getUpperRightY());
+    assertEquals(1.5f, bBox2.getUpperRightY());
+    assertEquals(11.0f, bBox.getUpperRightX());
+    assertEquals(11.0f, bBox2.getUpperRightX());
+    assertEquals(11.0f, bBox.getWidth());
+    assertEquals(11.0f, bBox2.getWidth());
     assertEquals(17, appearanceStream.getStream().getLength());
-    PDAppearanceStream appearanceStream2 = appearance.getNormalAppearance().getAppearanceStream();
-    assertEquals(17, appearanceStream2.getStream().getLength());
-    PDAppearanceStream appearanceStream3 = appearance.getRolloverAppearance().getAppearanceStream();
-    assertEquals(17, appearanceStream3.getStream().getLength());
-    PDAppearanceStream appearanceStream4 = pdPolygonAppearanceHandler.getDownAppearance().getAppearanceStream();
-    assertEquals(17, appearanceStream4.getStream().getLength());
-    PDAppearanceStream appearanceStream5 = pdPolygonAppearanceHandler.getRolloverAppearance().getAppearanceStream();
-    assertEquals(17, appearanceStream5.getStream().getLength());
+    PDStream stream = appearanceStream2.getStream();
+    assertEquals(17, stream.getLength());
     assertEquals(17, appearanceStream.getContentStream().getLength());
-    assertEquals(17, appearanceStream2.getContentStream().getLength());
-    assertEquals(17, appearanceStream3.getContentStream().getLength());
-    assertEquals(17, appearanceStream4.getContentStream().getLength());
-    assertEquals(17, appearanceStream5.getContentStream().getLength());
-    float[][] values = appearanceStream4.getMatrix().getValues();
+    PDStream contentStream = appearanceStream2.getContentStream();
+    assertEquals(17, contentStream.getLength());
+    assertEquals(2.0f, bBox.getHeight());
+    assertEquals(2.0f, bBox2.getHeight());
     assertEquals(3, values.length);
-    assertArrayEquals(new float[]{-0.0f, 0.5f, 1.0f}, values[2], 0.0f);
+    assertEquals(3, floatArray.length);
+    assertEquals(6, cOSObject.getValues().size());
+    assertEquals(6, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject2.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject2.isDirect());
+    assertFalse(cOSObject2.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(cOSObject2.getValues().isEmpty());
+    assertTrue(gsubData.getSupportedFeatures().isEmpty());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertTrue(defaultFont.getCOSObject().toIncrement().getObjects().isEmpty());
+    assertTrue(defaultFont.getFontDescriptor().getCOSObject().toIncrement().getObjects().isEmpty());
+    assertTrue(((Set<COSName>) colorSpaceNames).isEmpty());
+    assertTrue(((COSStream) cOSObject).hasData());
+    assertEquals(matrix, appearanceStream2.getMatrix());
+    assertSame(pdRectangle, pdPolygonAppearanceHandler.getRectangle());
+    assertSame(pdAppearanceDictionary, pdPolygonAppearanceHandler.getAppearance());
+    PDResources resources2 = appearanceStream2.getResources();
+    assertSame(cOSObject2, resources2.getCOSObject());
+    COSArray expectedCOSObject = bBox.getCOSArray();
+    assertSame(expectedCOSObject, bBox.getCOSObject());
+    assertSame(colorSpaceNames, resources2.getColorSpaceNames());
+    assertSame(colorSpaceNames, resources.getExtGStateNames());
+    assertSame(colorSpaceNames, resources2.getExtGStateNames());
+    assertSame(colorSpaceNames, resources.getFontNames());
+    assertSame(colorSpaceNames, resources2.getFontNames());
+    assertSame(colorSpaceNames, resources.getPatternNames());
+    assertSame(colorSpaceNames, resources2.getPatternNames());
+    assertSame(colorSpaceNames, resources.getPropertiesNames());
+    assertSame(colorSpaceNames, resources2.getPropertiesNames());
+    assertSame(colorSpaceNames, resources.getShadingNames());
+    assertSame(colorSpaceNames, resources2.getShadingNames());
+    assertSame(colorSpaceNames, resources.getXObjectNames());
+    assertSame(colorSpaceNames, resources2.getXObjectNames());
+    assertSame(cOSObject, stream.getCOSObject());
+    assertSame(cOSObject, contentStream.getCOSObject());
+    assertSame(cOSObject, appearanceStream2.getCOSObject());
+    assertSame(cOSObject, rolloverAppearance.getCOSObject());
   }
 
   /**
-   * Test {@link PDPolygonAppearanceHandler#generateNormalAppearance()}.
-   * <p>
-   * Method under test: {@link PDPolygonAppearanceHandler#generateNormalAppearance()}
+   * Method under test:
+   * {@link PDPolygonAppearanceHandler#generateNormalAppearance()}
    */
   @Test
-  @DisplayName("Test generateNormalAppearance()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDPolygonAppearanceHandler.generateNormalAppearance()"})
-  void testGenerateNormalAppearance5() {
+  void testGenerateNormalAppearance4() throws IOException {
     // Arrange
     PDAnnotationPolygon annotation = mock(PDAnnotationPolygon.class);
     when(annotation.getConstantOpacity()).thenReturn(10.0f);
     when(annotation.getColor()).thenReturn(new PDColor(new COSArray(), null));
     when(annotation.getInteriorColor()).thenReturn(new PDColor(new COSArray(), PDDeviceGray.INSTANCE));
-    when(annotation.getAppearance()).thenReturn(new PDAppearanceDictionary());
+    PDAppearanceDictionary pdAppearanceDictionary = new PDAppearanceDictionary();
+    when(annotation.getAppearance()).thenReturn(pdAppearanceDictionary);
     when(annotation.getBorderEffect()).thenReturn(new PDBorderEffectDictionary());
     doNothing().when(annotation).setRectangle(Mockito.<PDRectangle>any());
     when(annotation.getPath()).thenReturn(new float[][]{new float[]{10.0f, 0.5f, 10.0f, 0.5f}});
-    when(annotation.getRectangle()).thenReturn(new PDRectangle());
+    PDRectangle pdRectangle = new PDRectangle();
+    when(annotation.getRectangle()).thenReturn(pdRectangle);
     when(annotation.getBorder()).thenReturn(new COSArray());
     when(annotation.getBorderStyle()).thenReturn(new PDBorderStyleDictionary());
     PDPolygonAppearanceHandler pdPolygonAppearanceHandler = new PDPolygonAppearanceHandler(annotation);
@@ -311,37 +467,102 @@ class PDPolygonAppearanceHandlerDiffblueTest {
     verify(annotation).getBorderEffect();
     verify(annotation).getInteriorColor();
     verify(annotation).getPath();
-    PDAppearanceStream appearanceStream = pdPolygonAppearanceHandler.getDownAppearance().getAppearanceStream();
-    float[][] values = appearanceStream.getMatrix().getValues();
+    PDAppearanceEntry downAppearance = pdPolygonAppearanceHandler.getDownAppearance();
+    PDAppearanceStream appearanceStream = downAppearance.getAppearanceStream();
+    PDResources resources = appearanceStream.getResources();
+    Iterable<COSName> colorSpaceNames = resources.getColorSpaceNames();
+    assertTrue(colorSpaceNames instanceof Set);
+    PDFont defaultFont = pdPolygonAppearanceHandler.getDefaultFont();
+    FontBoxFont fontBoxFont = ((PDType1Font) defaultFont).getFontBoxFont();
+    assertTrue(fontBoxFont instanceof TrueTypeFont);
+    GsubData gsubData = ((TrueTypeFont) fontBoxFont).getGsubData();
+    assertTrue(gsubData instanceof MapBackedGsubData);
+    COSDictionary cOSObject = downAppearance.getCOSObject();
+    assertTrue(cOSObject instanceof COSStream);
+    assertTrue(defaultFont instanceof PDType1Font);
+    COSDictionary cOSObject2 = resources.getCOSObject();
+    COSUpdateState updateState = cOSObject2.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject2.getKey());
+    assertNull(resources.getResourceCache());
+    Matrix matrix = appearanceStream.getMatrix();
+    assertEquals(-0.0f, matrix.getTranslateX());
+    float[][] values = matrix.getValues();
+    float[] floatArray = values[2];
+    assertEquals(-0.0f, floatArray[0]);
+    PDRectangle bBox = appearanceStream.getBBox();
+    assertEquals(-0.5f, bBox.getLowerLeftY());
+    PDAppearanceEntry rolloverAppearance = pdPolygonAppearanceHandler.getRolloverAppearance();
+    PDAppearanceStream appearanceStream2 = rolloverAppearance.getAppearanceStream();
+    PDRectangle bBox2 = appearanceStream2.getBBox();
+    assertEquals(-0.5f, bBox2.getLowerLeftY());
+    assertEquals(0, cOSObject2.size());
+    assertEquals(0.0f, bBox.getLowerLeftX());
+    assertEquals(0.0f, bBox2.getLowerLeftX());
+    assertEquals(0.5f, matrix.getTranslateY());
+    assertEquals(0.5f, floatArray[1]);
+    assertEquals(1.5f, bBox.getUpperRightY());
+    assertEquals(1.5f, bBox2.getUpperRightY());
+    assertEquals(11.0f, bBox.getUpperRightX());
+    assertEquals(11.0f, bBox2.getUpperRightX());
+    assertEquals(11.0f, bBox.getWidth());
+    assertEquals(11.0f, bBox2.getWidth());
+    assertEquals(2.0f, bBox.getHeight());
+    assertEquals(2.0f, bBox2.getHeight());
     assertEquals(3, values.length);
-    PDAppearanceDictionary appearance = pdPolygonAppearanceHandler.getAppearance();
-    PDAppearanceStream appearanceStream2 = appearance.getDownAppearance().getAppearanceStream();
-    assertEquals(8, appearanceStream2.getStream().getLength());
-    PDAppearanceStream appearanceStream3 = appearance.getNormalAppearance().getAppearanceStream();
-    assertEquals(8, appearanceStream3.getStream().getLength());
-    PDAppearanceStream appearanceStream4 = appearance.getRolloverAppearance().getAppearanceStream();
-    assertEquals(8, appearanceStream4.getStream().getLength());
+    assertEquals(3, floatArray.length);
+    assertEquals(6, cOSObject.getValues().size());
+    assertEquals(6, cOSObject.size());
     assertEquals(8, appearanceStream.getStream().getLength());
-    PDAppearanceStream appearanceStream5 = pdPolygonAppearanceHandler.getRolloverAppearance().getAppearanceStream();
-    assertEquals(8, appearanceStream5.getStream().getLength());
-    assertEquals(8, appearanceStream2.getContentStream().getLength());
-    assertEquals(8, appearanceStream3.getContentStream().getLength());
-    assertEquals(8, appearanceStream4.getContentStream().getLength());
+    PDStream stream = appearanceStream2.getStream();
+    assertEquals(8, stream.getLength());
     assertEquals(8, appearanceStream.getContentStream().getLength());
-    assertEquals(8, appearanceStream5.getContentStream().getLength());
-    assertArrayEquals(new float[]{-0.0f, 0.5f, 1.0f}, values[2], 0.0f);
+    PDStream contentStream = appearanceStream2.getContentStream();
+    assertEquals(8, contentStream.getLength());
+    COSIncrement toIncrementResult = cOSObject2.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject2.isDirect());
+    assertFalse(cOSObject2.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(cOSObject2.getValues().isEmpty());
+    assertTrue(gsubData.getSupportedFeatures().isEmpty());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertTrue(defaultFont.getCOSObject().toIncrement().getObjects().isEmpty());
+    assertTrue(defaultFont.getFontDescriptor().getCOSObject().toIncrement().getObjects().isEmpty());
+    assertTrue(((Set<COSName>) colorSpaceNames).isEmpty());
+    assertTrue(((COSStream) cOSObject).hasData());
+    assertEquals(matrix, appearanceStream2.getMatrix());
+    assertSame(pdRectangle, pdPolygonAppearanceHandler.getRectangle());
+    assertSame(pdAppearanceDictionary, pdPolygonAppearanceHandler.getAppearance());
+    PDResources resources2 = appearanceStream2.getResources();
+    assertSame(cOSObject2, resources2.getCOSObject());
+    COSArray expectedCOSObject = bBox.getCOSArray();
+    assertSame(expectedCOSObject, bBox.getCOSObject());
+    assertSame(colorSpaceNames, resources2.getColorSpaceNames());
+    assertSame(colorSpaceNames, resources.getExtGStateNames());
+    assertSame(colorSpaceNames, resources2.getExtGStateNames());
+    assertSame(colorSpaceNames, resources.getFontNames());
+    assertSame(colorSpaceNames, resources2.getFontNames());
+    assertSame(colorSpaceNames, resources.getPatternNames());
+    assertSame(colorSpaceNames, resources2.getPatternNames());
+    assertSame(colorSpaceNames, resources.getPropertiesNames());
+    assertSame(colorSpaceNames, resources2.getPropertiesNames());
+    assertSame(colorSpaceNames, resources.getShadingNames());
+    assertSame(colorSpaceNames, resources2.getShadingNames());
+    assertSame(colorSpaceNames, resources.getXObjectNames());
+    assertSame(colorSpaceNames, resources2.getXObjectNames());
+    assertSame(cOSObject, stream.getCOSObject());
+    assertSame(cOSObject, contentStream.getCOSObject());
+    assertSame(cOSObject, appearanceStream2.getCOSObject());
+    assertSame(cOSObject, rolloverAppearance.getCOSObject());
   }
 
   /**
-   * Test {@link PDPolygonAppearanceHandler#generateNormalAppearance()}.
-   * <p>
-   * Method under test: {@link PDPolygonAppearanceHandler#generateNormalAppearance()}
+   * Method under test:
+   * {@link PDPolygonAppearanceHandler#generateNormalAppearance()}
    */
   @Test
-  @DisplayName("Test generateNormalAppearance()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDPolygonAppearanceHandler.generateNormalAppearance()"})
-  void testGenerateNormalAppearance6() {
+  void testGenerateNormalAppearance5() throws IOException {
     // Arrange
     PDColorSpace colorSpace = mock(PDColorSpace.class);
     when(colorSpace.getNumberOfComponents()).thenReturn(10);
@@ -351,11 +572,13 @@ class PDPolygonAppearanceHandlerDiffblueTest {
     when(annotation.getConstantOpacity()).thenReturn(10.0f);
     when(annotation.getColor()).thenReturn(pdColor);
     when(annotation.getInteriorColor()).thenReturn(new PDColor(new COSArray(), PDDeviceGray.INSTANCE));
-    when(annotation.getAppearance()).thenReturn(new PDAppearanceDictionary());
+    PDAppearanceDictionary pdAppearanceDictionary = new PDAppearanceDictionary();
+    when(annotation.getAppearance()).thenReturn(pdAppearanceDictionary);
     when(annotation.getBorderEffect()).thenReturn(new PDBorderEffectDictionary());
     doNothing().when(annotation).setRectangle(Mockito.<PDRectangle>any());
     when(annotation.getPath()).thenReturn(new float[][]{new float[]{10.0f, 0.5f, 10.0f, 0.5f}});
-    when(annotation.getRectangle()).thenReturn(new PDRectangle());
+    PDRectangle pdRectangle = new PDRectangle();
+    when(annotation.getRectangle()).thenReturn(pdRectangle);
     when(annotation.getBorder()).thenReturn(new COSArray());
     when(annotation.getBorderStyle()).thenReturn(new PDBorderStyleDictionary());
     PDPolygonAppearanceHandler pdPolygonAppearanceHandler = new PDPolygonAppearanceHandler(annotation);
@@ -375,37 +598,354 @@ class PDPolygonAppearanceHandlerDiffblueTest {
     verify(annotation).getBorderEffect();
     verify(annotation).getInteriorColor();
     verify(annotation).getPath();
-    PDAppearanceDictionary appearance = pdPolygonAppearanceHandler.getAppearance();
-    PDAppearanceStream appearanceStream = appearance.getDownAppearance().getAppearanceStream();
+    PDAppearanceEntry downAppearance = pdPolygonAppearanceHandler.getDownAppearance();
+    PDAppearanceStream appearanceStream = downAppearance.getAppearanceStream();
+    PDResources resources = appearanceStream.getResources();
+    Iterable<COSName> colorSpaceNames = resources.getColorSpaceNames();
+    assertTrue(colorSpaceNames instanceof Set);
+    PDFont defaultFont = pdPolygonAppearanceHandler.getDefaultFont();
+    FontBoxFont fontBoxFont = ((PDType1Font) defaultFont).getFontBoxFont();
+    assertTrue(fontBoxFont instanceof TrueTypeFont);
+    GsubData gsubData = ((TrueTypeFont) fontBoxFont).getGsubData();
+    assertTrue(gsubData instanceof MapBackedGsubData);
+    COSDictionary cOSObject = downAppearance.getCOSObject();
+    assertTrue(cOSObject instanceof COSStream);
+    assertTrue(defaultFont instanceof PDType1Font);
+    COSDictionary cOSObject2 = resources.getCOSObject();
+    COSUpdateState updateState = cOSObject2.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject2.getKey());
+    assertNull(resources.getResourceCache());
+    Matrix matrix = appearanceStream.getMatrix();
+    assertEquals(-0.0f, matrix.getTranslateX());
+    float[][] values = matrix.getValues();
+    float[] floatArray = values[2];
+    assertEquals(-0.0f, floatArray[0]);
+    PDRectangle bBox = appearanceStream.getBBox();
+    assertEquals(-0.5f, bBox.getLowerLeftY());
+    PDAppearanceEntry rolloverAppearance = pdPolygonAppearanceHandler.getRolloverAppearance();
+    PDAppearanceStream appearanceStream2 = rolloverAppearance.getAppearanceStream();
+    PDRectangle bBox2 = appearanceStream2.getBBox();
+    assertEquals(-0.5f, bBox2.getLowerLeftY());
+    assertEquals(0, cOSObject2.size());
+    assertEquals(0.0f, bBox.getLowerLeftX());
+    assertEquals(0.0f, bBox2.getLowerLeftX());
+    assertEquals(0.5f, matrix.getTranslateY());
+    assertEquals(0.5f, floatArray[1]);
+    assertEquals(1.5f, bBox.getUpperRightY());
+    assertEquals(1.5f, bBox2.getUpperRightY());
+    assertEquals(11.0f, bBox.getUpperRightX());
+    assertEquals(11.0f, bBox2.getUpperRightX());
+    assertEquals(11.0f, bBox.getWidth());
+    assertEquals(11.0f, bBox2.getWidth());
+    assertEquals(2.0f, bBox.getHeight());
+    assertEquals(2.0f, bBox2.getHeight());
     assertEquals(28, appearanceStream.getStream().getLength());
-    PDAppearanceStream appearanceStream2 = appearance.getNormalAppearance().getAppearanceStream();
-    assertEquals(28, appearanceStream2.getStream().getLength());
-    PDAppearanceStream appearanceStream3 = appearance.getRolloverAppearance().getAppearanceStream();
-    assertEquals(28, appearanceStream3.getStream().getLength());
-    PDAppearanceStream appearanceStream4 = pdPolygonAppearanceHandler.getDownAppearance().getAppearanceStream();
-    assertEquals(28, appearanceStream4.getStream().getLength());
-    PDAppearanceStream appearanceStream5 = pdPolygonAppearanceHandler.getRolloverAppearance().getAppearanceStream();
-    assertEquals(28, appearanceStream5.getStream().getLength());
+    PDStream stream = appearanceStream2.getStream();
+    assertEquals(28, stream.getLength());
     assertEquals(28, appearanceStream.getContentStream().getLength());
-    assertEquals(28, appearanceStream2.getContentStream().getLength());
-    assertEquals(28, appearanceStream3.getContentStream().getLength());
-    assertEquals(28, appearanceStream4.getContentStream().getLength());
-    assertEquals(28, appearanceStream5.getContentStream().getLength());
-    float[][] values = appearanceStream4.getMatrix().getValues();
+    PDStream contentStream = appearanceStream2.getContentStream();
+    assertEquals(28, contentStream.getLength());
     assertEquals(3, values.length);
-    assertArrayEquals(new float[]{-0.0f, 0.5f, 1.0f}, values[2], 0.0f);
+    assertEquals(3, floatArray.length);
+    assertEquals(6, cOSObject.getValues().size());
+    assertEquals(6, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject2.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject2.isDirect());
+    assertFalse(cOSObject2.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(cOSObject2.getValues().isEmpty());
+    assertTrue(gsubData.getSupportedFeatures().isEmpty());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertTrue(defaultFont.getCOSObject().toIncrement().getObjects().isEmpty());
+    assertTrue(defaultFont.getFontDescriptor().getCOSObject().toIncrement().getObjects().isEmpty());
+    assertTrue(((Set<COSName>) colorSpaceNames).isEmpty());
+    assertTrue(((COSStream) cOSObject).hasData());
+    assertEquals(matrix, appearanceStream2.getMatrix());
+    assertSame(pdRectangle, pdPolygonAppearanceHandler.getRectangle());
+    assertSame(pdAppearanceDictionary, pdPolygonAppearanceHandler.getAppearance());
+    PDResources resources2 = appearanceStream2.getResources();
+    assertSame(cOSObject2, resources2.getCOSObject());
+    COSArray expectedCOSObject = bBox.getCOSArray();
+    assertSame(expectedCOSObject, bBox.getCOSObject());
+    assertSame(colorSpaceNames, resources2.getColorSpaceNames());
+    assertSame(colorSpaceNames, resources.getExtGStateNames());
+    assertSame(colorSpaceNames, resources2.getExtGStateNames());
+    assertSame(colorSpaceNames, resources.getFontNames());
+    assertSame(colorSpaceNames, resources2.getFontNames());
+    assertSame(colorSpaceNames, resources.getPatternNames());
+    assertSame(colorSpaceNames, resources2.getPatternNames());
+    assertSame(colorSpaceNames, resources.getPropertiesNames());
+    assertSame(colorSpaceNames, resources2.getPropertiesNames());
+    assertSame(colorSpaceNames, resources.getShadingNames());
+    assertSame(colorSpaceNames, resources2.getShadingNames());
+    assertSame(colorSpaceNames, resources.getXObjectNames());
+    assertSame(colorSpaceNames, resources2.getXObjectNames());
+    assertSame(cOSObject, stream.getCOSObject());
+    assertSame(cOSObject, contentStream.getCOSObject());
+    assertSame(cOSObject, appearanceStream2.getCOSObject());
+    assertSame(cOSObject, rolloverAppearance.getCOSObject());
   }
 
   /**
-   * Test {@link PDPolygonAppearanceHandler#generateNormalAppearance()}.
-   * <p>
-   * Method under test: {@link PDPolygonAppearanceHandler#generateNormalAppearance()}
+   * Method under test:
+   * {@link PDPolygonAppearanceHandler#generateNormalAppearance()}
    */
   @Test
-  @DisplayName("Test generateNormalAppearance()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDPolygonAppearanceHandler.generateNormalAppearance()"})
-  void testGenerateNormalAppearance7() {
+  void testGenerateNormalAppearance6() throws IOException {
+    // Arrange
+    PDAnnotationPolygon annotation = mock(PDAnnotationPolygon.class);
+    when(annotation.getConstantOpacity()).thenReturn(10.0f);
+    when(annotation.getColor()).thenReturn(null);
+    when(annotation.getInteriorColor()).thenReturn(new PDColor(new COSArray(), PDDeviceGray.INSTANCE));
+    PDAppearanceDictionary pdAppearanceDictionary = new PDAppearanceDictionary();
+    when(annotation.getAppearance()).thenReturn(pdAppearanceDictionary);
+    when(annotation.getBorderEffect()).thenReturn(new PDBorderEffectDictionary());
+    doNothing().when(annotation).setRectangle(Mockito.<PDRectangle>any());
+    when(annotation.getPath()).thenReturn(new float[][]{new float[]{10.0f, 0.5f, 10.0f, 0.5f}});
+    PDRectangle pdRectangle = new PDRectangle();
+    when(annotation.getRectangle()).thenReturn(pdRectangle);
+    when(annotation.getBorder()).thenReturn(new COSArray());
+    when(annotation.getBorderStyle()).thenReturn(new PDBorderStyleDictionary());
+    PDPolygonAppearanceHandler pdPolygonAppearanceHandler = new PDPolygonAppearanceHandler(annotation);
+
+    // Act
+    pdPolygonAppearanceHandler.generateNormalAppearance();
+
+    // Assert
+    verify(annotation).getAppearance();
+    verify(annotation).getBorder();
+    verify(annotation).getColor();
+    verify(annotation, atLeast(1)).getRectangle();
+    verify(annotation).setRectangle(isA(PDRectangle.class));
+    verify(annotation, atLeast(1)).getBorderStyle();
+    verify(annotation).getConstantOpacity();
+    verify(annotation).getBorderEffect();
+    verify(annotation).getInteriorColor();
+    verify(annotation).getPath();
+    PDAppearanceEntry downAppearance = pdPolygonAppearanceHandler.getDownAppearance();
+    PDAppearanceStream appearanceStream = downAppearance.getAppearanceStream();
+    PDResources resources = appearanceStream.getResources();
+    Iterable<COSName> colorSpaceNames = resources.getColorSpaceNames();
+    assertTrue(colorSpaceNames instanceof Set);
+    PDFont defaultFont = pdPolygonAppearanceHandler.getDefaultFont();
+    FontBoxFont fontBoxFont = ((PDType1Font) defaultFont).getFontBoxFont();
+    assertTrue(fontBoxFont instanceof TrueTypeFont);
+    GsubData gsubData = ((TrueTypeFont) fontBoxFont).getGsubData();
+    assertTrue(gsubData instanceof MapBackedGsubData);
+    COSDictionary cOSObject = downAppearance.getCOSObject();
+    assertTrue(cOSObject instanceof COSStream);
+    assertTrue(defaultFont instanceof PDType1Font);
+    COSDictionary cOSObject2 = resources.getCOSObject();
+    COSUpdateState updateState = cOSObject2.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject2.getKey());
+    assertNull(resources.getResourceCache());
+    Matrix matrix = appearanceStream.getMatrix();
+    assertEquals(-0.0f, matrix.getTranslateX());
+    float[][] values = matrix.getValues();
+    float[] floatArray = values[2];
+    assertEquals(-0.0f, floatArray[0]);
+    PDRectangle bBox = appearanceStream.getBBox();
+    assertEquals(-0.5f, bBox.getLowerLeftY());
+    PDAppearanceEntry rolloverAppearance = pdPolygonAppearanceHandler.getRolloverAppearance();
+    PDAppearanceStream appearanceStream2 = rolloverAppearance.getAppearanceStream();
+    PDRectangle bBox2 = appearanceStream2.getBBox();
+    assertEquals(-0.5f, bBox2.getLowerLeftY());
+    assertEquals(0, cOSObject2.size());
+    assertEquals(0.0f, bBox.getLowerLeftX());
+    assertEquals(0.0f, bBox2.getLowerLeftX());
+    assertEquals(0.5f, matrix.getTranslateY());
+    assertEquals(0.5f, floatArray[1]);
+    assertEquals(1.5f, bBox.getUpperRightY());
+    assertEquals(1.5f, bBox2.getUpperRightY());
+    assertEquals(11.0f, bBox.getUpperRightX());
+    assertEquals(11.0f, bBox2.getUpperRightX());
+    assertEquals(11.0f, bBox.getWidth());
+    assertEquals(11.0f, bBox2.getWidth());
+    assertEquals(2.0f, bBox.getHeight());
+    assertEquals(2.0f, bBox2.getHeight());
+    assertEquals(3, values.length);
+    assertEquals(3, floatArray.length);
+    assertEquals(6, cOSObject.getValues().size());
+    assertEquals(6, cOSObject.size());
+    assertEquals(8, appearanceStream.getStream().getLength());
+    PDStream stream = appearanceStream2.getStream();
+    assertEquals(8, stream.getLength());
+    assertEquals(8, appearanceStream.getContentStream().getLength());
+    PDStream contentStream = appearanceStream2.getContentStream();
+    assertEquals(8, contentStream.getLength());
+    COSIncrement toIncrementResult = cOSObject2.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject2.isDirect());
+    assertFalse(cOSObject2.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(cOSObject2.getValues().isEmpty());
+    assertTrue(gsubData.getSupportedFeatures().isEmpty());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertTrue(defaultFont.getCOSObject().toIncrement().getObjects().isEmpty());
+    assertTrue(defaultFont.getFontDescriptor().getCOSObject().toIncrement().getObjects().isEmpty());
+    assertTrue(((Set<COSName>) colorSpaceNames).isEmpty());
+    assertTrue(((COSStream) cOSObject).hasData());
+    assertEquals(matrix, appearanceStream2.getMatrix());
+    assertSame(pdRectangle, pdPolygonAppearanceHandler.getRectangle());
+    assertSame(pdAppearanceDictionary, pdPolygonAppearanceHandler.getAppearance());
+    PDResources resources2 = appearanceStream2.getResources();
+    assertSame(cOSObject2, resources2.getCOSObject());
+    COSArray expectedCOSObject = bBox.getCOSArray();
+    assertSame(expectedCOSObject, bBox.getCOSObject());
+    assertSame(colorSpaceNames, resources2.getColorSpaceNames());
+    assertSame(colorSpaceNames, resources.getExtGStateNames());
+    assertSame(colorSpaceNames, resources2.getExtGStateNames());
+    assertSame(colorSpaceNames, resources.getFontNames());
+    assertSame(colorSpaceNames, resources2.getFontNames());
+    assertSame(colorSpaceNames, resources.getPatternNames());
+    assertSame(colorSpaceNames, resources2.getPatternNames());
+    assertSame(colorSpaceNames, resources.getPropertiesNames());
+    assertSame(colorSpaceNames, resources2.getPropertiesNames());
+    assertSame(colorSpaceNames, resources.getShadingNames());
+    assertSame(colorSpaceNames, resources2.getShadingNames());
+    assertSame(colorSpaceNames, resources.getXObjectNames());
+    assertSame(colorSpaceNames, resources2.getXObjectNames());
+    assertSame(cOSObject, stream.getCOSObject());
+    assertSame(cOSObject, contentStream.getCOSObject());
+    assertSame(cOSObject, appearanceStream2.getCOSObject());
+    assertSame(cOSObject, rolloverAppearance.getCOSObject());
+  }
+
+  /**
+   * Method under test:
+   * {@link PDPolygonAppearanceHandler#generateNormalAppearance()}
+   */
+  @Test
+  void testGenerateNormalAppearance7() throws IOException {
+    // Arrange
+    PDAnnotationPolygon annotation = mock(PDAnnotationPolygon.class);
+    when(annotation.getConstantOpacity()).thenReturn(10.0f);
+    when(annotation.getColor()).thenReturn(new PDColor(new float[]{10.0f, 0.5f, 10.0f, 0.5f}, PDDeviceGray.INSTANCE));
+    when(annotation.getInteriorColor()).thenReturn(new PDColor(new COSArray(), PDDeviceGray.INSTANCE));
+    PDAppearanceDictionary pdAppearanceDictionary = new PDAppearanceDictionary();
+    when(annotation.getAppearance()).thenReturn(pdAppearanceDictionary);
+    when(annotation.getBorderEffect()).thenReturn(new PDBorderEffectDictionary());
+    doNothing().when(annotation).setRectangle(Mockito.<PDRectangle>any());
+    when(annotation.getPath()).thenReturn(new float[][]{new float[]{10.0f, 0.5f, 10.0f, 0.5f}});
+    PDRectangle pdRectangle = new PDRectangle();
+    when(annotation.getRectangle()).thenReturn(pdRectangle);
+    when(annotation.getBorder()).thenReturn(new COSArray());
+    when(annotation.getBorderStyle()).thenReturn(new PDBorderStyleDictionary());
+    PDPolygonAppearanceHandler pdPolygonAppearanceHandler = new PDPolygonAppearanceHandler(annotation);
+
+    // Act
+    pdPolygonAppearanceHandler.generateNormalAppearance();
+
+    // Assert
+    verify(annotation).getAppearance();
+    verify(annotation).getBorder();
+    verify(annotation).getColor();
+    verify(annotation, atLeast(1)).getRectangle();
+    verify(annotation).setRectangle(isA(PDRectangle.class));
+    verify(annotation, atLeast(1)).getBorderStyle();
+    verify(annotation).getConstantOpacity();
+    verify(annotation).getBorderEffect();
+    verify(annotation).getInteriorColor();
+    verify(annotation).getPath();
+    PDAppearanceEntry downAppearance = pdPolygonAppearanceHandler.getDownAppearance();
+    PDAppearanceStream appearanceStream = downAppearance.getAppearanceStream();
+    PDResources resources = appearanceStream.getResources();
+    Iterable<COSName> colorSpaceNames = resources.getColorSpaceNames();
+    assertTrue(colorSpaceNames instanceof Set);
+    PDFont defaultFont = pdPolygonAppearanceHandler.getDefaultFont();
+    FontBoxFont fontBoxFont = ((PDType1Font) defaultFont).getFontBoxFont();
+    assertTrue(fontBoxFont instanceof TrueTypeFont);
+    GsubData gsubData = ((TrueTypeFont) fontBoxFont).getGsubData();
+    assertTrue(gsubData instanceof MapBackedGsubData);
+    COSDictionary cOSObject = downAppearance.getCOSObject();
+    assertTrue(cOSObject instanceof COSStream);
+    assertTrue(defaultFont instanceof PDType1Font);
+    COSDictionary cOSObject2 = resources.getCOSObject();
+    COSUpdateState updateState = cOSObject2.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject2.getKey());
+    assertNull(resources.getResourceCache());
+    Matrix matrix = appearanceStream.getMatrix();
+    assertEquals(-0.0f, matrix.getTranslateX());
+    float[][] values = matrix.getValues();
+    float[] floatArray = values[2];
+    assertEquals(-0.0f, floatArray[0]);
+    PDRectangle bBox = appearanceStream.getBBox();
+    assertEquals(-0.5f, bBox.getLowerLeftY());
+    PDAppearanceEntry rolloverAppearance = pdPolygonAppearanceHandler.getRolloverAppearance();
+    PDAppearanceStream appearanceStream2 = rolloverAppearance.getAppearanceStream();
+    PDRectangle bBox2 = appearanceStream2.getBBox();
+    assertEquals(-0.5f, bBox2.getLowerLeftY());
+    assertEquals(0, cOSObject2.size());
+    assertEquals(0.0f, bBox.getLowerLeftX());
+    assertEquals(0.0f, bBox2.getLowerLeftX());
+    assertEquals(0.5f, matrix.getTranslateY());
+    assertEquals(0.5f, floatArray[1]);
+    assertEquals(1.5f, bBox.getUpperRightY());
+    assertEquals(1.5f, bBox2.getUpperRightY());
+    assertEquals(11.0f, bBox.getUpperRightX());
+    assertEquals(11.0f, bBox2.getUpperRightX());
+    assertEquals(11.0f, bBox.getWidth());
+    assertEquals(11.0f, bBox2.getWidth());
+    assertEquals(13, appearanceStream.getStream().getLength());
+    PDStream stream = appearanceStream2.getStream();
+    assertEquals(13, stream.getLength());
+    assertEquals(13, appearanceStream.getContentStream().getLength());
+    PDStream contentStream = appearanceStream2.getContentStream();
+    assertEquals(13, contentStream.getLength());
+    assertEquals(2.0f, bBox.getHeight());
+    assertEquals(2.0f, bBox2.getHeight());
+    assertEquals(3, values.length);
+    assertEquals(3, floatArray.length);
+    assertEquals(6, cOSObject.getValues().size());
+    assertEquals(6, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject2.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject2.isDirect());
+    assertFalse(cOSObject2.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(cOSObject2.getValues().isEmpty());
+    assertTrue(gsubData.getSupportedFeatures().isEmpty());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertTrue(defaultFont.getCOSObject().toIncrement().getObjects().isEmpty());
+    assertTrue(defaultFont.getFontDescriptor().getCOSObject().toIncrement().getObjects().isEmpty());
+    assertTrue(((Set<COSName>) colorSpaceNames).isEmpty());
+    assertTrue(((COSStream) cOSObject).hasData());
+    assertEquals(matrix, appearanceStream2.getMatrix());
+    assertSame(pdRectangle, pdPolygonAppearanceHandler.getRectangle());
+    assertSame(pdAppearanceDictionary, pdPolygonAppearanceHandler.getAppearance());
+    PDResources resources2 = appearanceStream2.getResources();
+    assertSame(cOSObject2, resources2.getCOSObject());
+    COSArray expectedCOSObject = bBox.getCOSArray();
+    assertSame(expectedCOSObject, bBox.getCOSObject());
+    assertSame(colorSpaceNames, resources2.getColorSpaceNames());
+    assertSame(colorSpaceNames, resources.getExtGStateNames());
+    assertSame(colorSpaceNames, resources2.getExtGStateNames());
+    assertSame(colorSpaceNames, resources.getFontNames());
+    assertSame(colorSpaceNames, resources2.getFontNames());
+    assertSame(colorSpaceNames, resources.getPatternNames());
+    assertSame(colorSpaceNames, resources2.getPatternNames());
+    assertSame(colorSpaceNames, resources.getPropertiesNames());
+    assertSame(colorSpaceNames, resources2.getPropertiesNames());
+    assertSame(colorSpaceNames, resources.getShadingNames());
+    assertSame(colorSpaceNames, resources2.getShadingNames());
+    assertSame(colorSpaceNames, resources.getXObjectNames());
+    assertSame(colorSpaceNames, resources2.getXObjectNames());
+    assertSame(cOSObject, stream.getCOSObject());
+    assertSame(cOSObject, contentStream.getCOSObject());
+    assertSame(cOSObject, appearanceStream2.getCOSObject());
+    assertSame(cOSObject, rolloverAppearance.getCOSObject());
+  }
+
+  /**
+   * Method under test:
+   * {@link PDPolygonAppearanceHandler#generateNormalAppearance()}
+   */
+  @Test
+  void testGenerateNormalAppearance8() throws IOException {
     // Arrange
     PDColorSpace colorSpace = mock(PDColorSpace.class);
     when(colorSpace.getNumberOfComponents()).thenReturn(10);
@@ -415,11 +955,13 @@ class PDPolygonAppearanceHandlerDiffblueTest {
     when(annotation.getConstantOpacity()).thenReturn(10.0f);
     when(annotation.getColor()).thenReturn(pdColor);
     when(annotation.getInteriorColor()).thenReturn(new PDColor(new COSArray(), PDDeviceRGB.INSTANCE));
-    when(annotation.getAppearance()).thenReturn(new PDAppearanceDictionary());
+    PDAppearanceDictionary pdAppearanceDictionary = new PDAppearanceDictionary();
+    when(annotation.getAppearance()).thenReturn(pdAppearanceDictionary);
     when(annotation.getBorderEffect()).thenReturn(new PDBorderEffectDictionary());
     doNothing().when(annotation).setRectangle(Mockito.<PDRectangle>any());
     when(annotation.getPath()).thenReturn(new float[][]{new float[]{10.0f, 0.5f, 10.0f, 0.5f}});
-    when(annotation.getRectangle()).thenReturn(new PDRectangle());
+    PDRectangle pdRectangle = new PDRectangle();
+    when(annotation.getRectangle()).thenReturn(pdRectangle);
     when(annotation.getBorder()).thenReturn(new COSArray());
     when(annotation.getBorderStyle()).thenReturn(new PDBorderStyleDictionary());
     PDPolygonAppearanceHandler pdPolygonAppearanceHandler = new PDPolygonAppearanceHandler(annotation);
@@ -439,37 +981,102 @@ class PDPolygonAppearanceHandlerDiffblueTest {
     verify(annotation).getBorderEffect();
     verify(annotation).getInteriorColor();
     verify(annotation).getPath();
-    PDAppearanceStream appearanceStream = pdPolygonAppearanceHandler.getDownAppearance().getAppearanceStream();
-    float[][] values = appearanceStream.getMatrix().getValues();
+    PDAppearanceEntry downAppearance = pdPolygonAppearanceHandler.getDownAppearance();
+    PDAppearanceStream appearanceStream = downAppearance.getAppearanceStream();
+    PDResources resources = appearanceStream.getResources();
+    Iterable<COSName> colorSpaceNames = resources.getColorSpaceNames();
+    assertTrue(colorSpaceNames instanceof Set);
+    PDFont defaultFont = pdPolygonAppearanceHandler.getDefaultFont();
+    FontBoxFont fontBoxFont = ((PDType1Font) defaultFont).getFontBoxFont();
+    assertTrue(fontBoxFont instanceof TrueTypeFont);
+    GsubData gsubData = ((TrueTypeFont) fontBoxFont).getGsubData();
+    assertTrue(gsubData instanceof MapBackedGsubData);
+    COSDictionary cOSObject = downAppearance.getCOSObject();
+    assertTrue(cOSObject instanceof COSStream);
+    assertTrue(defaultFont instanceof PDType1Font);
+    COSDictionary cOSObject2 = resources.getCOSObject();
+    COSUpdateState updateState = cOSObject2.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject2.getKey());
+    assertNull(resources.getResourceCache());
+    Matrix matrix = appearanceStream.getMatrix();
+    assertEquals(-0.0f, matrix.getTranslateX());
+    float[][] values = matrix.getValues();
+    float[] floatArray = values[2];
+    assertEquals(-0.0f, floatArray[0]);
+    PDRectangle bBox = appearanceStream.getBBox();
+    assertEquals(-0.5f, bBox.getLowerLeftY());
+    PDAppearanceEntry rolloverAppearance = pdPolygonAppearanceHandler.getRolloverAppearance();
+    PDAppearanceStream appearanceStream2 = rolloverAppearance.getAppearanceStream();
+    PDRectangle bBox2 = appearanceStream2.getBBox();
+    assertEquals(-0.5f, bBox2.getLowerLeftY());
+    assertEquals(0, cOSObject2.size());
+    assertEquals(0.0f, bBox.getLowerLeftX());
+    assertEquals(0.0f, bBox2.getLowerLeftX());
+    assertEquals(0.5f, matrix.getTranslateY());
+    assertEquals(0.5f, floatArray[1]);
+    assertEquals(1.5f, bBox.getUpperRightY());
+    assertEquals(1.5f, bBox2.getUpperRightY());
+    assertEquals(11.0f, bBox.getUpperRightX());
+    assertEquals(11.0f, bBox2.getUpperRightX());
+    assertEquals(11.0f, bBox.getWidth());
+    assertEquals(11.0f, bBox2.getWidth());
+    assertEquals(2.0f, bBox.getHeight());
+    assertEquals(2.0f, bBox2.getHeight());
     assertEquals(3, values.length);
-    PDAppearanceDictionary appearance = pdPolygonAppearanceHandler.getAppearance();
-    PDAppearanceStream appearanceStream2 = appearance.getDownAppearance().getAppearanceStream();
-    assertEquals(33, appearanceStream2.getStream().getLength());
-    PDAppearanceStream appearanceStream3 = appearance.getNormalAppearance().getAppearanceStream();
-    assertEquals(33, appearanceStream3.getStream().getLength());
-    PDAppearanceStream appearanceStream4 = appearance.getRolloverAppearance().getAppearanceStream();
-    assertEquals(33, appearanceStream4.getStream().getLength());
+    assertEquals(3, floatArray.length);
     assertEquals(33, appearanceStream.getStream().getLength());
-    PDAppearanceStream appearanceStream5 = pdPolygonAppearanceHandler.getRolloverAppearance().getAppearanceStream();
-    assertEquals(33, appearanceStream5.getStream().getLength());
-    assertEquals(33, appearanceStream2.getContentStream().getLength());
-    assertEquals(33, appearanceStream3.getContentStream().getLength());
-    assertEquals(33, appearanceStream4.getContentStream().getLength());
+    PDStream stream = appearanceStream2.getStream();
+    assertEquals(33, stream.getLength());
     assertEquals(33, appearanceStream.getContentStream().getLength());
-    assertEquals(33, appearanceStream5.getContentStream().getLength());
-    assertArrayEquals(new float[]{-0.0f, 0.5f, 1.0f}, values[2], 0.0f);
+    PDStream contentStream = appearanceStream2.getContentStream();
+    assertEquals(33, contentStream.getLength());
+    assertEquals(6, cOSObject.getValues().size());
+    assertEquals(6, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject2.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject2.isDirect());
+    assertFalse(cOSObject2.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(cOSObject2.getValues().isEmpty());
+    assertTrue(gsubData.getSupportedFeatures().isEmpty());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertTrue(defaultFont.getCOSObject().toIncrement().getObjects().isEmpty());
+    assertTrue(defaultFont.getFontDescriptor().getCOSObject().toIncrement().getObjects().isEmpty());
+    assertTrue(((Set<COSName>) colorSpaceNames).isEmpty());
+    assertTrue(((COSStream) cOSObject).hasData());
+    assertEquals(matrix, appearanceStream2.getMatrix());
+    assertSame(pdRectangle, pdPolygonAppearanceHandler.getRectangle());
+    assertSame(pdAppearanceDictionary, pdPolygonAppearanceHandler.getAppearance());
+    PDResources resources2 = appearanceStream2.getResources();
+    assertSame(cOSObject2, resources2.getCOSObject());
+    COSArray expectedCOSObject = bBox.getCOSArray();
+    assertSame(expectedCOSObject, bBox.getCOSObject());
+    assertSame(colorSpaceNames, resources2.getColorSpaceNames());
+    assertSame(colorSpaceNames, resources.getExtGStateNames());
+    assertSame(colorSpaceNames, resources2.getExtGStateNames());
+    assertSame(colorSpaceNames, resources.getFontNames());
+    assertSame(colorSpaceNames, resources2.getFontNames());
+    assertSame(colorSpaceNames, resources.getPatternNames());
+    assertSame(colorSpaceNames, resources2.getPatternNames());
+    assertSame(colorSpaceNames, resources.getPropertiesNames());
+    assertSame(colorSpaceNames, resources2.getPropertiesNames());
+    assertSame(colorSpaceNames, resources.getShadingNames());
+    assertSame(colorSpaceNames, resources2.getShadingNames());
+    assertSame(colorSpaceNames, resources.getXObjectNames());
+    assertSame(colorSpaceNames, resources2.getXObjectNames());
+    assertSame(cOSObject, stream.getCOSObject());
+    assertSame(cOSObject, contentStream.getCOSObject());
+    assertSame(cOSObject, appearanceStream2.getCOSObject());
+    assertSame(cOSObject, rolloverAppearance.getCOSObject());
   }
 
   /**
-   * Test {@link PDPolygonAppearanceHandler#generateNormalAppearance()}.
-   * <p>
-   * Method under test: {@link PDPolygonAppearanceHandler#generateNormalAppearance()}
+   * Method under test:
+   * {@link PDPolygonAppearanceHandler#generateNormalAppearance()}
    */
   @Test
-  @DisplayName("Test generateNormalAppearance()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDPolygonAppearanceHandler.generateNormalAppearance()"})
-  void testGenerateNormalAppearance8() {
+  void testGenerateNormalAppearance9() throws IOException {
     // Arrange
     PDColorSpace colorSpace = mock(PDColorSpace.class);
     when(colorSpace.getNumberOfComponents()).thenReturn(10);
@@ -479,11 +1086,13 @@ class PDPolygonAppearanceHandlerDiffblueTest {
     when(annotation.getConstantOpacity()).thenReturn(10.0f);
     when(annotation.getColor()).thenReturn(pdColor);
     when(annotation.getInteriorColor()).thenReturn(new PDColor(new COSArray(), null));
-    when(annotation.getAppearance()).thenReturn(new PDAppearanceDictionary());
+    PDAppearanceDictionary pdAppearanceDictionary = new PDAppearanceDictionary();
+    when(annotation.getAppearance()).thenReturn(pdAppearanceDictionary);
     when(annotation.getBorderEffect()).thenReturn(new PDBorderEffectDictionary());
     doNothing().when(annotation).setRectangle(Mockito.<PDRectangle>any());
     when(annotation.getPath()).thenReturn(new float[][]{new float[]{10.0f, 0.5f, 10.0f, 0.5f}});
-    when(annotation.getRectangle()).thenReturn(new PDRectangle());
+    PDRectangle pdRectangle = new PDRectangle();
+    when(annotation.getRectangle()).thenReturn(pdRectangle);
     when(annotation.getBorder()).thenReturn(new COSArray());
     when(annotation.getBorderStyle()).thenReturn(new PDBorderStyleDictionary());
     PDPolygonAppearanceHandler pdPolygonAppearanceHandler = new PDPolygonAppearanceHandler(annotation);
@@ -503,37 +1112,102 @@ class PDPolygonAppearanceHandlerDiffblueTest {
     verify(annotation).getBorderEffect();
     verify(annotation).getInteriorColor();
     verify(annotation).getPath();
-    PDAppearanceDictionary appearance = pdPolygonAppearanceHandler.getAppearance();
-    PDAppearanceStream appearanceStream = appearance.getDownAppearance().getAppearanceStream();
+    PDAppearanceEntry downAppearance = pdPolygonAppearanceHandler.getDownAppearance();
+    PDAppearanceStream appearanceStream = downAppearance.getAppearanceStream();
+    PDResources resources = appearanceStream.getResources();
+    Iterable<COSName> colorSpaceNames = resources.getColorSpaceNames();
+    assertTrue(colorSpaceNames instanceof Set);
+    PDFont defaultFont = pdPolygonAppearanceHandler.getDefaultFont();
+    FontBoxFont fontBoxFont = ((PDType1Font) defaultFont).getFontBoxFont();
+    assertTrue(fontBoxFont instanceof TrueTypeFont);
+    GsubData gsubData = ((TrueTypeFont) fontBoxFont).getGsubData();
+    assertTrue(gsubData instanceof MapBackedGsubData);
+    COSDictionary cOSObject = downAppearance.getCOSObject();
+    assertTrue(cOSObject instanceof COSStream);
+    assertTrue(defaultFont instanceof PDType1Font);
+    COSDictionary cOSObject2 = resources.getCOSObject();
+    COSUpdateState updateState = cOSObject2.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject2.getKey());
+    assertNull(resources.getResourceCache());
+    Matrix matrix = appearanceStream.getMatrix();
+    assertEquals(-0.0f, matrix.getTranslateX());
+    float[][] values = matrix.getValues();
+    float[] floatArray = values[2];
+    assertEquals(-0.0f, floatArray[0]);
+    PDRectangle bBox = appearanceStream.getBBox();
+    assertEquals(-0.5f, bBox.getLowerLeftY());
+    PDAppearanceEntry rolloverAppearance = pdPolygonAppearanceHandler.getRolloverAppearance();
+    PDAppearanceStream appearanceStream2 = rolloverAppearance.getAppearanceStream();
+    PDRectangle bBox2 = appearanceStream2.getBBox();
+    assertEquals(-0.5f, bBox2.getLowerLeftY());
+    assertEquals(0, cOSObject2.size());
+    assertEquals(0.0f, bBox.getLowerLeftX());
+    assertEquals(0.0f, bBox2.getLowerLeftX());
+    assertEquals(0.5f, matrix.getTranslateY());
+    assertEquals(0.5f, floatArray[1]);
+    assertEquals(1.5f, bBox.getUpperRightY());
+    assertEquals(1.5f, bBox2.getUpperRightY());
+    assertEquals(11.0f, bBox.getUpperRightX());
+    assertEquals(11.0f, bBox2.getUpperRightX());
+    assertEquals(11.0f, bBox.getWidth());
+    assertEquals(11.0f, bBox2.getWidth());
+    assertEquals(2.0f, bBox.getHeight());
+    assertEquals(2.0f, bBox2.getHeight());
     assertEquals(24, appearanceStream.getStream().getLength());
-    PDAppearanceStream appearanceStream2 = appearance.getNormalAppearance().getAppearanceStream();
-    assertEquals(24, appearanceStream2.getStream().getLength());
-    PDAppearanceStream appearanceStream3 = appearance.getRolloverAppearance().getAppearanceStream();
-    assertEquals(24, appearanceStream3.getStream().getLength());
-    PDAppearanceStream appearanceStream4 = pdPolygonAppearanceHandler.getDownAppearance().getAppearanceStream();
-    assertEquals(24, appearanceStream4.getStream().getLength());
-    PDAppearanceStream appearanceStream5 = pdPolygonAppearanceHandler.getRolloverAppearance().getAppearanceStream();
-    assertEquals(24, appearanceStream5.getStream().getLength());
+    PDStream stream = appearanceStream2.getStream();
+    assertEquals(24, stream.getLength());
     assertEquals(24, appearanceStream.getContentStream().getLength());
-    assertEquals(24, appearanceStream2.getContentStream().getLength());
-    assertEquals(24, appearanceStream3.getContentStream().getLength());
-    assertEquals(24, appearanceStream4.getContentStream().getLength());
-    assertEquals(24, appearanceStream5.getContentStream().getLength());
-    float[][] values = appearanceStream4.getMatrix().getValues();
+    PDStream contentStream = appearanceStream2.getContentStream();
+    assertEquals(24, contentStream.getLength());
     assertEquals(3, values.length);
-    assertArrayEquals(new float[]{-0.0f, 0.5f, 1.0f}, values[2], 0.0f);
+    assertEquals(3, floatArray.length);
+    assertEquals(6, cOSObject.getValues().size());
+    assertEquals(6, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject2.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject2.isDirect());
+    assertFalse(cOSObject2.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(cOSObject2.getValues().isEmpty());
+    assertTrue(gsubData.getSupportedFeatures().isEmpty());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertTrue(defaultFont.getCOSObject().toIncrement().getObjects().isEmpty());
+    assertTrue(defaultFont.getFontDescriptor().getCOSObject().toIncrement().getObjects().isEmpty());
+    assertTrue(((Set<COSName>) colorSpaceNames).isEmpty());
+    assertTrue(((COSStream) cOSObject).hasData());
+    assertEquals(matrix, appearanceStream2.getMatrix());
+    assertSame(pdRectangle, pdPolygonAppearanceHandler.getRectangle());
+    assertSame(pdAppearanceDictionary, pdPolygonAppearanceHandler.getAppearance());
+    PDResources resources2 = appearanceStream2.getResources();
+    assertSame(cOSObject2, resources2.getCOSObject());
+    COSArray expectedCOSObject = bBox.getCOSArray();
+    assertSame(expectedCOSObject, bBox.getCOSObject());
+    assertSame(colorSpaceNames, resources2.getColorSpaceNames());
+    assertSame(colorSpaceNames, resources.getExtGStateNames());
+    assertSame(colorSpaceNames, resources2.getExtGStateNames());
+    assertSame(colorSpaceNames, resources.getFontNames());
+    assertSame(colorSpaceNames, resources2.getFontNames());
+    assertSame(colorSpaceNames, resources.getPatternNames());
+    assertSame(colorSpaceNames, resources2.getPatternNames());
+    assertSame(colorSpaceNames, resources.getPropertiesNames());
+    assertSame(colorSpaceNames, resources2.getPropertiesNames());
+    assertSame(colorSpaceNames, resources.getShadingNames());
+    assertSame(colorSpaceNames, resources2.getShadingNames());
+    assertSame(colorSpaceNames, resources.getXObjectNames());
+    assertSame(colorSpaceNames, resources2.getXObjectNames());
+    assertSame(cOSObject, stream.getCOSObject());
+    assertSame(cOSObject, contentStream.getCOSObject());
+    assertSame(cOSObject, appearanceStream2.getCOSObject());
+    assertSame(cOSObject, rolloverAppearance.getCOSObject());
   }
 
   /**
-   * Test {@link PDPolygonAppearanceHandler#generateNormalAppearance()}.
-   * <p>
-   * Method under test: {@link PDPolygonAppearanceHandler#generateNormalAppearance()}
+   * Method under test:
+   * {@link PDPolygonAppearanceHandler#generateNormalAppearance()}
    */
   @Test
-  @DisplayName("Test generateNormalAppearance()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDPolygonAppearanceHandler.generateNormalAppearance()"})
-  void testGenerateNormalAppearance9() {
+  void testGenerateNormalAppearance10() throws IOException {
     // Arrange
     PDColorSpace colorSpace = mock(PDColorSpace.class);
     when(colorSpace.getNumberOfComponents()).thenReturn(10);
@@ -547,11 +1221,13 @@ class PDPolygonAppearanceHandlerDiffblueTest {
     when(annotation.getConstantOpacity()).thenReturn(10.0f);
     when(annotation.getColor()).thenReturn(pdColor);
     when(annotation.getInteriorColor()).thenReturn(pdColor2);
-    when(annotation.getAppearance()).thenReturn(new PDAppearanceDictionary());
+    PDAppearanceDictionary pdAppearanceDictionary = new PDAppearanceDictionary();
+    when(annotation.getAppearance()).thenReturn(pdAppearanceDictionary);
     when(annotation.getBorderEffect()).thenReturn(new PDBorderEffectDictionary());
     doNothing().when(annotation).setRectangle(Mockito.<PDRectangle>any());
     when(annotation.getPath()).thenReturn(new float[][]{new float[]{10.0f, 0.5f, 10.0f, 0.5f}});
-    when(annotation.getRectangle()).thenReturn(new PDRectangle());
+    PDRectangle pdRectangle = new PDRectangle();
+    when(annotation.getRectangle()).thenReturn(pdRectangle);
     when(annotation.getBorder()).thenReturn(new COSArray());
     when(annotation.getBorderStyle()).thenReturn(new PDBorderStyleDictionary());
     PDPolygonAppearanceHandler pdPolygonAppearanceHandler = new PDPolygonAppearanceHandler(annotation);
@@ -572,37 +1248,604 @@ class PDPolygonAppearanceHandlerDiffblueTest {
     verify(annotation).getBorderEffect();
     verify(annotation).getInteriorColor();
     verify(annotation).getPath();
-    PDAppearanceStream appearanceStream = pdPolygonAppearanceHandler.getDownAppearance().getAppearanceStream();
-    float[][] values = appearanceStream.getMatrix().getValues();
+    PDAppearanceEntry downAppearance = pdPolygonAppearanceHandler.getDownAppearance();
+    PDAppearanceStream appearanceStream = downAppearance.getAppearanceStream();
+    PDResources resources = appearanceStream.getResources();
+    Iterable<COSName> colorSpaceNames = resources.getColorSpaceNames();
+    assertTrue(colorSpaceNames instanceof Set);
+    PDFont defaultFont = pdPolygonAppearanceHandler.getDefaultFont();
+    FontBoxFont fontBoxFont = ((PDType1Font) defaultFont).getFontBoxFont();
+    assertTrue(fontBoxFont instanceof TrueTypeFont);
+    GsubData gsubData = ((TrueTypeFont) fontBoxFont).getGsubData();
+    assertTrue(gsubData instanceof MapBackedGsubData);
+    COSDictionary cOSObject = downAppearance.getCOSObject();
+    assertTrue(cOSObject instanceof COSStream);
+    assertTrue(defaultFont instanceof PDType1Font);
+    COSDictionary cOSObject2 = resources.getCOSObject();
+    COSUpdateState updateState = cOSObject2.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject2.getKey());
+    assertNull(resources.getResourceCache());
+    Matrix matrix = appearanceStream.getMatrix();
+    assertEquals(-0.0f, matrix.getTranslateX());
+    float[][] values = matrix.getValues();
+    float[] floatArray = values[2];
+    assertEquals(-0.0f, floatArray[0]);
+    PDRectangle bBox = appearanceStream.getBBox();
+    assertEquals(-0.5f, bBox.getLowerLeftY());
+    PDAppearanceEntry rolloverAppearance = pdPolygonAppearanceHandler.getRolloverAppearance();
+    PDAppearanceStream appearanceStream2 = rolloverAppearance.getAppearanceStream();
+    PDRectangle bBox2 = appearanceStream2.getBBox();
+    assertEquals(-0.5f, bBox2.getLowerLeftY());
+    assertEquals(0, cOSObject2.size());
+    assertEquals(0.0f, bBox.getLowerLeftX());
+    assertEquals(0.0f, bBox2.getLowerLeftX());
+    assertEquals(0.5f, matrix.getTranslateY());
+    assertEquals(0.5f, floatArray[1]);
+    assertEquals(1.5f, bBox.getUpperRightY());
+    assertEquals(1.5f, bBox2.getUpperRightY());
+    assertEquals(11.0f, bBox.getUpperRightX());
+    assertEquals(11.0f, bBox2.getUpperRightX());
+    assertEquals(11.0f, bBox.getWidth());
+    assertEquals(11.0f, bBox2.getWidth());
+    assertEquals(2.0f, bBox.getHeight());
+    assertEquals(2.0f, bBox2.getHeight());
     assertEquals(3, values.length);
-    PDAppearanceDictionary appearance = pdPolygonAppearanceHandler.getAppearance();
-    PDAppearanceStream appearanceStream2 = appearance.getDownAppearance().getAppearanceStream();
-    assertEquals(44, appearanceStream2.getStream().getLength());
-    PDAppearanceStream appearanceStream3 = appearance.getNormalAppearance().getAppearanceStream();
-    assertEquals(44, appearanceStream3.getStream().getLength());
-    PDAppearanceStream appearanceStream4 = appearance.getRolloverAppearance().getAppearanceStream();
-    assertEquals(44, appearanceStream4.getStream().getLength());
+    assertEquals(3, floatArray.length);
     assertEquals(44, appearanceStream.getStream().getLength());
-    PDAppearanceStream appearanceStream5 = pdPolygonAppearanceHandler.getRolloverAppearance().getAppearanceStream();
-    assertEquals(44, appearanceStream5.getStream().getLength());
-    assertEquals(44, appearanceStream2.getContentStream().getLength());
-    assertEquals(44, appearanceStream3.getContentStream().getLength());
-    assertEquals(44, appearanceStream4.getContentStream().getLength());
+    PDStream stream = appearanceStream2.getStream();
+    assertEquals(44, stream.getLength());
     assertEquals(44, appearanceStream.getContentStream().getLength());
-    assertEquals(44, appearanceStream5.getContentStream().getLength());
-    assertArrayEquals(new float[]{-0.0f, 0.5f, 1.0f}, values[2], 0.0f);
+    PDStream contentStream = appearanceStream2.getContentStream();
+    assertEquals(44, contentStream.getLength());
+    assertEquals(6, cOSObject.getValues().size());
+    assertEquals(6, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject2.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject2.isDirect());
+    assertFalse(cOSObject2.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(cOSObject2.getValues().isEmpty());
+    assertTrue(gsubData.getSupportedFeatures().isEmpty());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertTrue(defaultFont.getCOSObject().toIncrement().getObjects().isEmpty());
+    assertTrue(defaultFont.getFontDescriptor().getCOSObject().toIncrement().getObjects().isEmpty());
+    assertTrue(((Set<COSName>) colorSpaceNames).isEmpty());
+    assertTrue(((COSStream) cOSObject).hasData());
+    assertEquals(matrix, appearanceStream2.getMatrix());
+    assertSame(pdRectangle, pdPolygonAppearanceHandler.getRectangle());
+    assertSame(pdAppearanceDictionary, pdPolygonAppearanceHandler.getAppearance());
+    PDResources resources2 = appearanceStream2.getResources();
+    assertSame(cOSObject2, resources2.getCOSObject());
+    COSArray expectedCOSObject = bBox.getCOSArray();
+    assertSame(expectedCOSObject, bBox.getCOSObject());
+    assertSame(colorSpaceNames, resources2.getColorSpaceNames());
+    assertSame(colorSpaceNames, resources.getExtGStateNames());
+    assertSame(colorSpaceNames, resources2.getExtGStateNames());
+    assertSame(colorSpaceNames, resources.getFontNames());
+    assertSame(colorSpaceNames, resources2.getFontNames());
+    assertSame(colorSpaceNames, resources.getPatternNames());
+    assertSame(colorSpaceNames, resources2.getPatternNames());
+    assertSame(colorSpaceNames, resources.getPropertiesNames());
+    assertSame(colorSpaceNames, resources2.getPropertiesNames());
+    assertSame(colorSpaceNames, resources.getShadingNames());
+    assertSame(colorSpaceNames, resources2.getShadingNames());
+    assertSame(colorSpaceNames, resources.getXObjectNames());
+    assertSame(colorSpaceNames, resources2.getXObjectNames());
+    assertSame(cOSObject, stream.getCOSObject());
+    assertSame(cOSObject, contentStream.getCOSObject());
+    assertSame(cOSObject, appearanceStream2.getCOSObject());
+    assertSame(cOSObject, rolloverAppearance.getCOSObject());
   }
 
   /**
-   * Test {@link PDPolygonAppearanceHandler#generateNormalAppearance()}.
-   * <p>
-   * Method under test: {@link PDPolygonAppearanceHandler#generateNormalAppearance()}
+   * Method under test:
+   * {@link PDPolygonAppearanceHandler#generateNormalAppearance()}
    */
   @Test
-  @DisplayName("Test generateNormalAppearance()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDPolygonAppearanceHandler.generateNormalAppearance()"})
-  void testGenerateNormalAppearance10() {
+  void testGenerateNormalAppearance11() throws IOException {
+    // Arrange
+    PDColorSpace colorSpace = mock(PDColorSpace.class);
+    when(colorSpace.getNumberOfComponents()).thenReturn(10);
+    PDColor pdColor = new PDColor(new COSArray(), colorSpace);
+
+    PDAnnotationPolygon annotation = mock(PDAnnotationPolygon.class);
+    when(annotation.getConstantOpacity()).thenReturn(10.0f);
+    when(annotation.getColor()).thenReturn(pdColor);
+    when(annotation.getInteriorColor()).thenReturn(null);
+    PDAppearanceDictionary pdAppearanceDictionary = new PDAppearanceDictionary();
+    when(annotation.getAppearance()).thenReturn(pdAppearanceDictionary);
+    when(annotation.getBorderEffect()).thenReturn(new PDBorderEffectDictionary());
+    doNothing().when(annotation).setRectangle(Mockito.<PDRectangle>any());
+    when(annotation.getPath()).thenReturn(new float[][]{new float[]{10.0f, 0.5f, 10.0f, 0.5f}});
+    PDRectangle pdRectangle = new PDRectangle();
+    when(annotation.getRectangle()).thenReturn(pdRectangle);
+    when(annotation.getBorder()).thenReturn(new COSArray());
+    when(annotation.getBorderStyle()).thenReturn(new PDBorderStyleDictionary());
+    PDPolygonAppearanceHandler pdPolygonAppearanceHandler = new PDPolygonAppearanceHandler(annotation);
+
+    // Act
+    pdPolygonAppearanceHandler.generateNormalAppearance();
+
+    // Assert
+    verify(colorSpace).getNumberOfComponents();
+    verify(annotation).getAppearance();
+    verify(annotation).getBorder();
+    verify(annotation).getColor();
+    verify(annotation, atLeast(1)).getRectangle();
+    verify(annotation).setRectangle(isA(PDRectangle.class));
+    verify(annotation, atLeast(1)).getBorderStyle();
+    verify(annotation).getConstantOpacity();
+    verify(annotation).getBorderEffect();
+    verify(annotation).getInteriorColor();
+    verify(annotation).getPath();
+    PDAppearanceEntry downAppearance = pdPolygonAppearanceHandler.getDownAppearance();
+    PDAppearanceStream appearanceStream = downAppearance.getAppearanceStream();
+    PDResources resources = appearanceStream.getResources();
+    Iterable<COSName> colorSpaceNames = resources.getColorSpaceNames();
+    assertTrue(colorSpaceNames instanceof Set);
+    PDFont defaultFont = pdPolygonAppearanceHandler.getDefaultFont();
+    FontBoxFont fontBoxFont = ((PDType1Font) defaultFont).getFontBoxFont();
+    assertTrue(fontBoxFont instanceof TrueTypeFont);
+    GsubData gsubData = ((TrueTypeFont) fontBoxFont).getGsubData();
+    assertTrue(gsubData instanceof MapBackedGsubData);
+    COSDictionary cOSObject = downAppearance.getCOSObject();
+    assertTrue(cOSObject instanceof COSStream);
+    assertTrue(defaultFont instanceof PDType1Font);
+    COSDictionary cOSObject2 = resources.getCOSObject();
+    COSUpdateState updateState = cOSObject2.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject2.getKey());
+    assertNull(resources.getResourceCache());
+    Matrix matrix = appearanceStream.getMatrix();
+    assertEquals(-0.0f, matrix.getTranslateX());
+    float[][] values = matrix.getValues();
+    float[] floatArray = values[2];
+    assertEquals(-0.0f, floatArray[0]);
+    PDRectangle bBox = appearanceStream.getBBox();
+    assertEquals(-0.5f, bBox.getLowerLeftY());
+    PDAppearanceEntry rolloverAppearance = pdPolygonAppearanceHandler.getRolloverAppearance();
+    PDAppearanceStream appearanceStream2 = rolloverAppearance.getAppearanceStream();
+    PDRectangle bBox2 = appearanceStream2.getBBox();
+    assertEquals(-0.5f, bBox2.getLowerLeftY());
+    assertEquals(0, cOSObject2.size());
+    assertEquals(0.0f, bBox.getLowerLeftX());
+    assertEquals(0.0f, bBox2.getLowerLeftX());
+    assertEquals(0.5f, matrix.getTranslateY());
+    assertEquals(0.5f, floatArray[1]);
+    assertEquals(1.5f, bBox.getUpperRightY());
+    assertEquals(1.5f, bBox2.getUpperRightY());
+    assertEquals(11.0f, bBox.getUpperRightX());
+    assertEquals(11.0f, bBox2.getUpperRightX());
+    assertEquals(11.0f, bBox.getWidth());
+    assertEquals(11.0f, bBox2.getWidth());
+    assertEquals(2.0f, bBox.getHeight());
+    assertEquals(2.0f, bBox2.getHeight());
+    assertEquals(24, appearanceStream.getStream().getLength());
+    PDStream stream = appearanceStream2.getStream();
+    assertEquals(24, stream.getLength());
+    assertEquals(24, appearanceStream.getContentStream().getLength());
+    PDStream contentStream = appearanceStream2.getContentStream();
+    assertEquals(24, contentStream.getLength());
+    assertEquals(3, values.length);
+    assertEquals(3, floatArray.length);
+    assertEquals(6, cOSObject.getValues().size());
+    assertEquals(6, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject2.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject2.isDirect());
+    assertFalse(cOSObject2.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(cOSObject2.getValues().isEmpty());
+    assertTrue(gsubData.getSupportedFeatures().isEmpty());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertTrue(defaultFont.getCOSObject().toIncrement().getObjects().isEmpty());
+    assertTrue(defaultFont.getFontDescriptor().getCOSObject().toIncrement().getObjects().isEmpty());
+    assertTrue(((Set<COSName>) colorSpaceNames).isEmpty());
+    assertTrue(((COSStream) cOSObject).hasData());
+    assertEquals(matrix, appearanceStream2.getMatrix());
+    assertSame(pdRectangle, pdPolygonAppearanceHandler.getRectangle());
+    assertSame(pdAppearanceDictionary, pdPolygonAppearanceHandler.getAppearance());
+    PDResources resources2 = appearanceStream2.getResources();
+    assertSame(cOSObject2, resources2.getCOSObject());
+    COSArray expectedCOSObject = bBox.getCOSArray();
+    assertSame(expectedCOSObject, bBox.getCOSObject());
+    assertSame(colorSpaceNames, resources2.getColorSpaceNames());
+    assertSame(colorSpaceNames, resources.getExtGStateNames());
+    assertSame(colorSpaceNames, resources2.getExtGStateNames());
+    assertSame(colorSpaceNames, resources.getFontNames());
+    assertSame(colorSpaceNames, resources2.getFontNames());
+    assertSame(colorSpaceNames, resources.getPatternNames());
+    assertSame(colorSpaceNames, resources2.getPatternNames());
+    assertSame(colorSpaceNames, resources.getPropertiesNames());
+    assertSame(colorSpaceNames, resources2.getPropertiesNames());
+    assertSame(colorSpaceNames, resources.getShadingNames());
+    assertSame(colorSpaceNames, resources2.getShadingNames());
+    assertSame(colorSpaceNames, resources.getXObjectNames());
+    assertSame(colorSpaceNames, resources2.getXObjectNames());
+    assertSame(cOSObject, stream.getCOSObject());
+    assertSame(cOSObject, contentStream.getCOSObject());
+    assertSame(cOSObject, appearanceStream2.getCOSObject());
+    assertSame(cOSObject, rolloverAppearance.getCOSObject());
+  }
+
+  /**
+   * Method under test:
+   * {@link PDPolygonAppearanceHandler#generateNormalAppearance()}
+   */
+  @Test
+  void testGenerateNormalAppearance12() throws IOException {
+    // Arrange
+    PDColorSpace colorSpace = mock(PDColorSpace.class);
+    when(colorSpace.getNumberOfComponents()).thenReturn(10);
+    PDColor pdColor = new PDColor(new COSArray(), colorSpace);
+
+    PDColorSpace colorSpace2 = mock(PDColorSpace.class);
+    when(colorSpace2.getNumberOfComponents()).thenReturn(10);
+    PDColor pdColor2 = new PDColor(new COSArray(), colorSpace2);
+
+    PDAnnotationPolygon annotation = mock(PDAnnotationPolygon.class);
+    when(annotation.getConstantOpacity()).thenReturn(10.0f);
+    when(annotation.getColor()).thenReturn(pdColor);
+    when(annotation.getInteriorColor()).thenReturn(pdColor2);
+    when(annotation.getAppearance()).thenReturn(null);
+    when(annotation.getBorderEffect()).thenReturn(new PDBorderEffectDictionary());
+    doNothing().when(annotation).setAppearance(Mockito.<PDAppearanceDictionary>any());
+    doNothing().when(annotation).setRectangle(Mockito.<PDRectangle>any());
+    when(annotation.getPath()).thenReturn(new float[][]{new float[]{10.0f, 0.5f, 10.0f, 0.5f}});
+    PDRectangle pdRectangle = new PDRectangle();
+    when(annotation.getRectangle()).thenReturn(pdRectangle);
+    when(annotation.getBorder()).thenReturn(new COSArray());
+    when(annotation.getBorderStyle()).thenReturn(new PDBorderStyleDictionary());
+    PDPolygonAppearanceHandler pdPolygonAppearanceHandler = new PDPolygonAppearanceHandler(annotation);
+
+    // Act
+    pdPolygonAppearanceHandler.generateNormalAppearance();
+
+    // Assert
+    verify(colorSpace).getNumberOfComponents();
+    verify(colorSpace2).getNumberOfComponents();
+    verify(annotation).getAppearance();
+    verify(annotation).getBorder();
+    verify(annotation).getColor();
+    verify(annotation, atLeast(1)).getRectangle();
+    verify(annotation).setAppearance(isA(PDAppearanceDictionary.class));
+    verify(annotation).setRectangle(isA(PDRectangle.class));
+    verify(annotation, atLeast(1)).getBorderStyle();
+    verify(annotation).getConstantOpacity();
+    verify(annotation).getBorderEffect();
+    verify(annotation).getInteriorColor();
+    verify(annotation).getPath();
+    PDFont defaultFont = pdPolygonAppearanceHandler.getDefaultFont();
+    FontBoxFont fontBoxFont = ((PDType1Font) defaultFont).getFontBoxFont();
+    assertTrue(fontBoxFont instanceof TrueTypeFont);
+    GsubData gsubData = ((TrueTypeFont) fontBoxFont).getGsubData();
+    assertTrue(gsubData instanceof MapBackedGsubData);
+    PDAppearanceEntry downAppearance = pdPolygonAppearanceHandler.getDownAppearance();
+    COSDictionary cOSObject = downAppearance.getCOSObject();
+    assertTrue(cOSObject instanceof COSStream);
+    PDAppearanceEntry rolloverAppearance = pdPolygonAppearanceHandler.getRolloverAppearance();
+    COSDictionary cOSObject2 = rolloverAppearance.getCOSObject();
+    assertTrue(cOSObject2 instanceof COSStream);
+    assertTrue(defaultFont instanceof PDType1Font);
+    PDAppearanceStream appearanceStream = downAppearance.getAppearanceStream();
+    assertNull(appearanceStream.getResources());
+    PDAppearanceStream appearanceStream2 = rolloverAppearance.getAppearanceStream();
+    assertNull(appearanceStream2.getResources());
+    assertNull(appearanceStream.getBBox());
+    assertNull(appearanceStream2.getBBox());
+    assertEquals(0, appearanceStream.getStream().getLength());
+    PDStream stream = appearanceStream2.getStream();
+    assertEquals(0, stream.getLength());
+    assertEquals(0, appearanceStream.getContentStream().getLength());
+    PDStream contentStream = appearanceStream2.getContentStream();
+    assertEquals(0, contentStream.getLength());
+    Matrix matrix = appearanceStream.getMatrix();
+    assertEquals(0.0f, matrix.getTranslateX());
+    assertEquals(0.0f, matrix.getTranslateY());
+    float[][] values = matrix.getValues();
+    float[] floatArray = values[2];
+    assertEquals(0.0f, floatArray[0]);
+    assertEquals(0.0f, floatArray[1]);
+    COSDictionary cOSObject3 = pdPolygonAppearanceHandler.getAppearance().getCOSObject();
+    assertEquals(1, cOSObject3.getValues().size());
+    assertEquals(1, cOSObject3.size());
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
+    assertEquals(3, values.length);
+    assertEquals(3, floatArray.length);
+    assertFalse(((COSStream) cOSObject).hasData());
+    assertTrue(gsubData.getSupportedFeatures().isEmpty());
+    assertTrue(defaultFont.getCOSObject().toIncrement().getObjects().isEmpty());
+    assertTrue(defaultFont.getFontDescriptor().getCOSObject().toIncrement().getObjects().isEmpty());
+    assertEquals(matrix, appearanceStream2.getMatrix());
+    assertSame(pdRectangle, pdPolygonAppearanceHandler.getRectangle());
+    assertSame(cOSObject2, stream.getCOSObject());
+    assertSame(cOSObject2, contentStream.getCOSObject());
+    assertSame(cOSObject2, appearanceStream2.getCOSObject());
+  }
+
+  /**
+   * Method under test:
+   * {@link PDPolygonAppearanceHandler#generateNormalAppearance()}
+   */
+  @Test
+  void testGenerateNormalAppearance13() throws IOException {
+    // Arrange
+    PDColorSpace colorSpace = mock(PDColorSpace.class);
+    when(colorSpace.getNumberOfComponents()).thenReturn(10);
+    PDColor pdColor = new PDColor(new COSArray(), colorSpace);
+
+    PDColorSpace colorSpace2 = mock(PDColorSpace.class);
+    when(colorSpace2.getNumberOfComponents()).thenReturn(10);
+    PDColor pdColor2 = new PDColor(new COSArray(), colorSpace2);
+
+    PDAnnotationPolygon annotation = mock(PDAnnotationPolygon.class);
+    when(annotation.getConstantOpacity()).thenReturn(10.0f);
+    when(annotation.getColor()).thenReturn(pdColor);
+    when(annotation.getInteriorColor()).thenReturn(pdColor2);
+    PDAppearanceDictionary pdAppearanceDictionary = new PDAppearanceDictionary();
+    when(annotation.getAppearance()).thenReturn(pdAppearanceDictionary);
+    when(annotation.getBorderEffect()).thenReturn(null);
+    doNothing().when(annotation).setRectangle(Mockito.<PDRectangle>any());
+    when(annotation.getPath()).thenReturn(new float[][]{new float[]{10.0f, 0.5f, 10.0f, 0.5f}});
+    PDRectangle pdRectangle = new PDRectangle();
+    when(annotation.getRectangle()).thenReturn(pdRectangle);
+    when(annotation.getBorder()).thenReturn(new COSArray());
+    when(annotation.getBorderStyle()).thenReturn(new PDBorderStyleDictionary());
+    PDPolygonAppearanceHandler pdPolygonAppearanceHandler = new PDPolygonAppearanceHandler(annotation);
+
+    // Act
+    pdPolygonAppearanceHandler.generateNormalAppearance();
+
+    // Assert
+    verify(colorSpace).getNumberOfComponents();
+    verify(colorSpace2).getNumberOfComponents();
+    verify(annotation).getAppearance();
+    verify(annotation).getBorder();
+    verify(annotation).getColor();
+    verify(annotation, atLeast(1)).getRectangle();
+    verify(annotation).setRectangle(isA(PDRectangle.class));
+    verify(annotation, atLeast(1)).getBorderStyle();
+    verify(annotation).getConstantOpacity();
+    verify(annotation).getBorderEffect();
+    verify(annotation).getInteriorColor();
+    verify(annotation).getPath();
+    PDAppearanceEntry downAppearance = pdPolygonAppearanceHandler.getDownAppearance();
+    PDAppearanceStream appearanceStream = downAppearance.getAppearanceStream();
+    PDResources resources = appearanceStream.getResources();
+    Iterable<COSName> colorSpaceNames = resources.getColorSpaceNames();
+    assertTrue(colorSpaceNames instanceof Set);
+    PDFont defaultFont = pdPolygonAppearanceHandler.getDefaultFont();
+    FontBoxFont fontBoxFont = ((PDType1Font) defaultFont).getFontBoxFont();
+    assertTrue(fontBoxFont instanceof TrueTypeFont);
+    GsubData gsubData = ((TrueTypeFont) fontBoxFont).getGsubData();
+    assertTrue(gsubData instanceof MapBackedGsubData);
+    COSDictionary cOSObject = downAppearance.getCOSObject();
+    assertTrue(cOSObject instanceof COSStream);
+    assertTrue(defaultFont instanceof PDType1Font);
+    COSDictionary cOSObject2 = resources.getCOSObject();
+    COSUpdateState updateState = cOSObject2.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject2.getKey());
+    assertNull(resources.getResourceCache());
+    Matrix matrix = appearanceStream.getMatrix();
+    assertEquals(-0.0f, matrix.getTranslateX());
+    float[][] values = matrix.getValues();
+    float[] floatArray = values[2];
+    assertEquals(-0.0f, floatArray[0]);
+    PDRectangle bBox = appearanceStream.getBBox();
+    assertEquals(-0.5f, bBox.getLowerLeftY());
+    PDAppearanceEntry rolloverAppearance = pdPolygonAppearanceHandler.getRolloverAppearance();
+    PDAppearanceStream appearanceStream2 = rolloverAppearance.getAppearanceStream();
+    PDRectangle bBox2 = appearanceStream2.getBBox();
+    assertEquals(-0.5f, bBox2.getLowerLeftY());
+    assertEquals(0, cOSObject2.size());
+    assertEquals(0.0f, bBox.getLowerLeftX());
+    assertEquals(0.0f, bBox2.getLowerLeftX());
+    assertEquals(0.5f, matrix.getTranslateY());
+    assertEquals(0.5f, floatArray[1]);
+    assertEquals(1.5f, bBox.getUpperRightY());
+    assertEquals(1.5f, bBox2.getUpperRightY());
+    assertEquals(11.0f, bBox.getUpperRightX());
+    assertEquals(11.0f, bBox2.getUpperRightX());
+    assertEquals(11.0f, bBox.getWidth());
+    assertEquals(11.0f, bBox2.getWidth());
+    assertEquals(2.0f, bBox.getHeight());
+    assertEquals(2.0f, bBox2.getHeight());
+    assertEquals(3, values.length);
+    assertEquals(3, floatArray.length);
+    assertEquals(44, appearanceStream.getStream().getLength());
+    PDStream stream = appearanceStream2.getStream();
+    assertEquals(44, stream.getLength());
+    assertEquals(44, appearanceStream.getContentStream().getLength());
+    PDStream contentStream = appearanceStream2.getContentStream();
+    assertEquals(44, contentStream.getLength());
+    assertEquals(6, cOSObject.getValues().size());
+    assertEquals(6, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject2.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject2.isDirect());
+    assertFalse(cOSObject2.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(cOSObject2.getValues().isEmpty());
+    assertTrue(gsubData.getSupportedFeatures().isEmpty());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertTrue(defaultFont.getCOSObject().toIncrement().getObjects().isEmpty());
+    assertTrue(defaultFont.getFontDescriptor().getCOSObject().toIncrement().getObjects().isEmpty());
+    assertTrue(((Set<COSName>) colorSpaceNames).isEmpty());
+    assertTrue(((COSStream) cOSObject).hasData());
+    assertEquals(matrix, appearanceStream2.getMatrix());
+    assertSame(pdRectangle, pdPolygonAppearanceHandler.getRectangle());
+    assertSame(pdAppearanceDictionary, pdPolygonAppearanceHandler.getAppearance());
+    PDResources resources2 = appearanceStream2.getResources();
+    assertSame(cOSObject2, resources2.getCOSObject());
+    COSArray expectedCOSObject = bBox.getCOSArray();
+    assertSame(expectedCOSObject, bBox.getCOSObject());
+    assertSame(colorSpaceNames, resources2.getColorSpaceNames());
+    assertSame(colorSpaceNames, resources.getExtGStateNames());
+    assertSame(colorSpaceNames, resources2.getExtGStateNames());
+    assertSame(colorSpaceNames, resources.getFontNames());
+    assertSame(colorSpaceNames, resources2.getFontNames());
+    assertSame(colorSpaceNames, resources.getPatternNames());
+    assertSame(colorSpaceNames, resources2.getPatternNames());
+    assertSame(colorSpaceNames, resources.getPropertiesNames());
+    assertSame(colorSpaceNames, resources2.getPropertiesNames());
+    assertSame(colorSpaceNames, resources.getShadingNames());
+    assertSame(colorSpaceNames, resources2.getShadingNames());
+    assertSame(colorSpaceNames, resources.getXObjectNames());
+    assertSame(colorSpaceNames, resources2.getXObjectNames());
+    assertSame(cOSObject, stream.getCOSObject());
+    assertSame(cOSObject, contentStream.getCOSObject());
+    assertSame(cOSObject, appearanceStream2.getCOSObject());
+    assertSame(cOSObject, rolloverAppearance.getCOSObject());
+  }
+
+  /**
+   * Method under test:
+   * {@link PDPolygonAppearanceHandler#generateNormalAppearance()}
+   */
+  @Test
+  void testGenerateNormalAppearance14() throws IOException {
+    // Arrange
+    PDColorSpace colorSpace = mock(PDColorSpace.class);
+    when(colorSpace.getNumberOfComponents()).thenReturn(10);
+    PDColor pdColor = new PDColor(new COSArray(), colorSpace);
+
+    PDColorSpace colorSpace2 = mock(PDColorSpace.class);
+    when(colorSpace2.getNumberOfComponents()).thenReturn(10);
+    PDColor pdColor2 = new PDColor(new COSArray(), colorSpace2);
+
+    PDBorderEffectDictionary pdBorderEffectDictionary = mock(PDBorderEffectDictionary.class);
+    when(pdBorderEffectDictionary.getStyle()).thenReturn("Style");
+    PDAnnotationPolygon annotation = mock(PDAnnotationPolygon.class);
+    when(annotation.getConstantOpacity()).thenReturn(10.0f);
+    when(annotation.getColor()).thenReturn(pdColor);
+    when(annotation.getInteriorColor()).thenReturn(pdColor2);
+    PDAppearanceDictionary pdAppearanceDictionary = new PDAppearanceDictionary();
+    when(annotation.getAppearance()).thenReturn(pdAppearanceDictionary);
+    when(annotation.getBorderEffect()).thenReturn(pdBorderEffectDictionary);
+    doNothing().when(annotation).setRectangle(Mockito.<PDRectangle>any());
+    when(annotation.getPath()).thenReturn(new float[][]{new float[]{10.0f, 0.5f, 10.0f, 0.5f}});
+    PDRectangle pdRectangle = new PDRectangle();
+    when(annotation.getRectangle()).thenReturn(pdRectangle);
+    when(annotation.getBorder()).thenReturn(new COSArray());
+    when(annotation.getBorderStyle()).thenReturn(new PDBorderStyleDictionary());
+    PDPolygonAppearanceHandler pdPolygonAppearanceHandler = new PDPolygonAppearanceHandler(annotation);
+
+    // Act
+    pdPolygonAppearanceHandler.generateNormalAppearance();
+
+    // Assert
+    verify(colorSpace).getNumberOfComponents();
+    verify(colorSpace2).getNumberOfComponents();
+    verify(annotation).getAppearance();
+    verify(annotation).getBorder();
+    verify(annotation).getColor();
+    verify(annotation, atLeast(1)).getRectangle();
+    verify(annotation).setRectangle(isA(PDRectangle.class));
+    verify(annotation, atLeast(1)).getBorderStyle();
+    verify(annotation).getConstantOpacity();
+    verify(annotation).getBorderEffect();
+    verify(annotation).getInteriorColor();
+    verify(annotation).getPath();
+    verify(pdBorderEffectDictionary).getStyle();
+    PDAppearanceEntry downAppearance = pdPolygonAppearanceHandler.getDownAppearance();
+    PDAppearanceStream appearanceStream = downAppearance.getAppearanceStream();
+    PDResources resources = appearanceStream.getResources();
+    Iterable<COSName> colorSpaceNames = resources.getColorSpaceNames();
+    assertTrue(colorSpaceNames instanceof Set);
+    PDFont defaultFont = pdPolygonAppearanceHandler.getDefaultFont();
+    FontBoxFont fontBoxFont = ((PDType1Font) defaultFont).getFontBoxFont();
+    assertTrue(fontBoxFont instanceof TrueTypeFont);
+    GsubData gsubData = ((TrueTypeFont) fontBoxFont).getGsubData();
+    assertTrue(gsubData instanceof MapBackedGsubData);
+    COSDictionary cOSObject = downAppearance.getCOSObject();
+    assertTrue(cOSObject instanceof COSStream);
+    assertTrue(defaultFont instanceof PDType1Font);
+    COSDictionary cOSObject2 = resources.getCOSObject();
+    COSUpdateState updateState = cOSObject2.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject2.getKey());
+    assertNull(resources.getResourceCache());
+    Matrix matrix = appearanceStream.getMatrix();
+    assertEquals(-0.0f, matrix.getTranslateX());
+    float[][] values = matrix.getValues();
+    float[] floatArray = values[2];
+    assertEquals(-0.0f, floatArray[0]);
+    PDRectangle bBox = appearanceStream.getBBox();
+    assertEquals(-0.5f, bBox.getLowerLeftY());
+    PDAppearanceEntry rolloverAppearance = pdPolygonAppearanceHandler.getRolloverAppearance();
+    PDAppearanceStream appearanceStream2 = rolloverAppearance.getAppearanceStream();
+    PDRectangle bBox2 = appearanceStream2.getBBox();
+    assertEquals(-0.5f, bBox2.getLowerLeftY());
+    assertEquals(0, cOSObject2.size());
+    assertEquals(0.0f, bBox.getLowerLeftX());
+    assertEquals(0.0f, bBox2.getLowerLeftX());
+    assertEquals(0.5f, matrix.getTranslateY());
+    assertEquals(0.5f, floatArray[1]);
+    assertEquals(1.5f, bBox.getUpperRightY());
+    assertEquals(1.5f, bBox2.getUpperRightY());
+    assertEquals(11.0f, bBox.getUpperRightX());
+    assertEquals(11.0f, bBox2.getUpperRightX());
+    assertEquals(11.0f, bBox.getWidth());
+    assertEquals(11.0f, bBox2.getWidth());
+    assertEquals(2.0f, bBox.getHeight());
+    assertEquals(2.0f, bBox2.getHeight());
+    assertEquals(3, values.length);
+    assertEquals(3, floatArray.length);
+    assertEquals(44, appearanceStream.getStream().getLength());
+    PDStream stream = appearanceStream2.getStream();
+    assertEquals(44, stream.getLength());
+    assertEquals(44, appearanceStream.getContentStream().getLength());
+    PDStream contentStream = appearanceStream2.getContentStream();
+    assertEquals(44, contentStream.getLength());
+    assertEquals(6, cOSObject.getValues().size());
+    assertEquals(6, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject2.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject2.isDirect());
+    assertFalse(cOSObject2.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(cOSObject2.getValues().isEmpty());
+    assertTrue(gsubData.getSupportedFeatures().isEmpty());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertTrue(defaultFont.getCOSObject().toIncrement().getObjects().isEmpty());
+    assertTrue(defaultFont.getFontDescriptor().getCOSObject().toIncrement().getObjects().isEmpty());
+    assertTrue(((Set<COSName>) colorSpaceNames).isEmpty());
+    assertTrue(((COSStream) cOSObject).hasData());
+    assertEquals(matrix, appearanceStream2.getMatrix());
+    assertSame(pdRectangle, pdPolygonAppearanceHandler.getRectangle());
+    assertSame(pdAppearanceDictionary, pdPolygonAppearanceHandler.getAppearance());
+    PDResources resources2 = appearanceStream2.getResources();
+    assertSame(cOSObject2, resources2.getCOSObject());
+    COSArray expectedCOSObject = bBox.getCOSArray();
+    assertSame(expectedCOSObject, bBox.getCOSObject());
+    assertSame(colorSpaceNames, resources2.getColorSpaceNames());
+    assertSame(colorSpaceNames, resources.getExtGStateNames());
+    assertSame(colorSpaceNames, resources2.getExtGStateNames());
+    assertSame(colorSpaceNames, resources.getFontNames());
+    assertSame(colorSpaceNames, resources2.getFontNames());
+    assertSame(colorSpaceNames, resources.getPatternNames());
+    assertSame(colorSpaceNames, resources2.getPatternNames());
+    assertSame(colorSpaceNames, resources.getPropertiesNames());
+    assertSame(colorSpaceNames, resources2.getPropertiesNames());
+    assertSame(colorSpaceNames, resources.getShadingNames());
+    assertSame(colorSpaceNames, resources2.getShadingNames());
+    assertSame(colorSpaceNames, resources.getXObjectNames());
+    assertSame(colorSpaceNames, resources2.getXObjectNames());
+    assertSame(cOSObject, stream.getCOSObject());
+    assertSame(cOSObject, contentStream.getCOSObject());
+    assertSame(cOSObject, appearanceStream2.getCOSObject());
+    assertSame(cOSObject, rolloverAppearance.getCOSObject());
+  }
+
+  /**
+   * Method under test:
+   * {@link PDPolygonAppearanceHandler#generateNormalAppearance()}
+   */
+  @Test
+  void testGenerateNormalAppearance15() throws IOException {
     // Arrange
     PDColorSpace colorSpace = mock(PDColorSpace.class);
     when(colorSpace.getNumberOfComponents()).thenReturn(10);
@@ -620,12 +1863,14 @@ class PDPolygonAppearanceHandlerDiffblueTest {
     when(annotation.getConstantOpacity()).thenReturn(10.0f);
     when(annotation.getColor()).thenReturn(pdColor);
     when(annotation.getInteriorColor()).thenReturn(pdColor2);
-    when(annotation.getAppearance()).thenReturn(new PDAppearanceDictionary());
+    PDAppearanceDictionary pdAppearanceDictionary = new PDAppearanceDictionary();
+    when(annotation.getAppearance()).thenReturn(pdAppearanceDictionary);
     when(annotation.getBorderEffect()).thenReturn(pdBorderEffectDictionary);
     doNothing().when(annotation).setRectangle(Mockito.<PDRectangle>any());
     when(annotation.getVertices()).thenReturn(new float[]{10.0f, 0.5f, 10.0f, 0.5f});
     when(annotation.getPath()).thenReturn(null);
-    when(annotation.getRectangle()).thenReturn(new PDRectangle());
+    PDRectangle pdRectangle = new PDRectangle();
+    when(annotation.getRectangle()).thenReturn(pdRectangle);
     when(annotation.getBorder()).thenReturn(new COSArray());
     when(annotation.getBorderStyle()).thenReturn(new PDBorderStyleDictionary());
     PDPolygonAppearanceHandler pdPolygonAppearanceHandler = new PDPolygonAppearanceHandler(annotation);
@@ -650,37 +1895,102 @@ class PDPolygonAppearanceHandlerDiffblueTest {
     verify(annotation).getVertices();
     verify(pdBorderEffectDictionary).getIntensity();
     verify(pdBorderEffectDictionary).getStyle();
-    PDAppearanceStream appearanceStream = pdPolygonAppearanceHandler.getDownAppearance().getAppearanceStream();
-    float[][] values = appearanceStream.getMatrix().getValues();
+    PDAppearanceEntry downAppearance = pdPolygonAppearanceHandler.getDownAppearance();
+    PDAppearanceStream appearanceStream = downAppearance.getAppearanceStream();
+    PDResources resources = appearanceStream.getResources();
+    Iterable<COSName> colorSpaceNames = resources.getColorSpaceNames();
+    assertTrue(colorSpaceNames instanceof Set);
+    PDFont defaultFont = pdPolygonAppearanceHandler.getDefaultFont();
+    FontBoxFont fontBoxFont = ((PDType1Font) defaultFont).getFontBoxFont();
+    assertTrue(fontBoxFont instanceof TrueTypeFont);
+    GsubData gsubData = ((TrueTypeFont) fontBoxFont).getGsubData();
+    assertTrue(gsubData instanceof MapBackedGsubData);
+    COSDictionary cOSObject = downAppearance.getCOSObject();
+    assertTrue(cOSObject instanceof COSStream);
+    assertTrue(defaultFont instanceof PDType1Font);
+    COSDictionary cOSObject2 = resources.getCOSObject();
+    COSUpdateState updateState = cOSObject2.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject2.getKey());
+    assertNull(resources.getResourceCache());
+    Matrix matrix = appearanceStream.getMatrix();
+    assertEquals(-0.0f, matrix.getTranslateX());
+    float[][] values = matrix.getValues();
+    float[] floatArray = values[2];
+    assertEquals(-0.0f, floatArray[0]);
+    PDRectangle bBox = appearanceStream.getBBox();
+    assertEquals(-0.5f, bBox.getLowerLeftY());
+    PDAppearanceEntry rolloverAppearance = pdPolygonAppearanceHandler.getRolloverAppearance();
+    PDAppearanceStream appearanceStream2 = rolloverAppearance.getAppearanceStream();
+    PDRectangle bBox2 = appearanceStream2.getBBox();
+    assertEquals(-0.5f, bBox2.getLowerLeftY());
+    assertEquals(0, cOSObject2.size());
+    assertEquals(0.0f, bBox.getLowerLeftX());
+    assertEquals(0.0f, bBox2.getLowerLeftX());
+    assertEquals(0.5f, matrix.getTranslateY());
+    assertEquals(0.5f, floatArray[1]);
+    assertEquals(1.5f, bBox.getUpperRightY());
+    assertEquals(1.5f, bBox2.getUpperRightY());
+    assertEquals(11.0f, bBox.getUpperRightX());
+    assertEquals(11.0f, bBox2.getUpperRightX());
+    assertEquals(11.0f, bBox.getWidth());
+    assertEquals(11.0f, bBox2.getWidth());
+    assertEquals(2.0f, bBox.getHeight());
+    assertEquals(2.0f, bBox2.getHeight());
     assertEquals(3, values.length);
-    PDAppearanceDictionary appearance = pdPolygonAppearanceHandler.getAppearance();
-    PDAppearanceStream appearanceStream2 = appearance.getDownAppearance().getAppearanceStream();
-    assertEquals(42, appearanceStream2.getStream().getLength());
-    PDAppearanceStream appearanceStream3 = appearance.getNormalAppearance().getAppearanceStream();
-    assertEquals(42, appearanceStream3.getStream().getLength());
-    PDAppearanceStream appearanceStream4 = appearance.getRolloverAppearance().getAppearanceStream();
-    assertEquals(42, appearanceStream4.getStream().getLength());
+    assertEquals(3, floatArray.length);
     assertEquals(42, appearanceStream.getStream().getLength());
-    PDAppearanceStream appearanceStream5 = pdPolygonAppearanceHandler.getRolloverAppearance().getAppearanceStream();
-    assertEquals(42, appearanceStream5.getStream().getLength());
-    assertEquals(42, appearanceStream2.getContentStream().getLength());
-    assertEquals(42, appearanceStream3.getContentStream().getLength());
-    assertEquals(42, appearanceStream4.getContentStream().getLength());
+    PDStream stream = appearanceStream2.getStream();
+    assertEquals(42, stream.getLength());
     assertEquals(42, appearanceStream.getContentStream().getLength());
-    assertEquals(42, appearanceStream5.getContentStream().getLength());
-    assertArrayEquals(new float[]{-0.0f, 0.5f, 1.0f}, values[2], 0.0f);
+    PDStream contentStream = appearanceStream2.getContentStream();
+    assertEquals(42, contentStream.getLength());
+    assertEquals(6, cOSObject.getValues().size());
+    assertEquals(6, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject2.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject2.isDirect());
+    assertFalse(cOSObject2.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(cOSObject2.getValues().isEmpty());
+    assertTrue(gsubData.getSupportedFeatures().isEmpty());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertTrue(defaultFont.getCOSObject().toIncrement().getObjects().isEmpty());
+    assertTrue(defaultFont.getFontDescriptor().getCOSObject().toIncrement().getObjects().isEmpty());
+    assertTrue(((Set<COSName>) colorSpaceNames).isEmpty());
+    assertTrue(((COSStream) cOSObject).hasData());
+    assertEquals(matrix, appearanceStream2.getMatrix());
+    assertSame(pdRectangle, pdPolygonAppearanceHandler.getRectangle());
+    assertSame(pdAppearanceDictionary, pdPolygonAppearanceHandler.getAppearance());
+    PDResources resources2 = appearanceStream2.getResources();
+    assertSame(cOSObject2, resources2.getCOSObject());
+    COSArray expectedCOSObject = bBox.getCOSArray();
+    assertSame(expectedCOSObject, bBox.getCOSObject());
+    assertSame(colorSpaceNames, resources2.getColorSpaceNames());
+    assertSame(colorSpaceNames, resources.getExtGStateNames());
+    assertSame(colorSpaceNames, resources2.getExtGStateNames());
+    assertSame(colorSpaceNames, resources.getFontNames());
+    assertSame(colorSpaceNames, resources2.getFontNames());
+    assertSame(colorSpaceNames, resources.getPatternNames());
+    assertSame(colorSpaceNames, resources2.getPatternNames());
+    assertSame(colorSpaceNames, resources.getPropertiesNames());
+    assertSame(colorSpaceNames, resources2.getPropertiesNames());
+    assertSame(colorSpaceNames, resources.getShadingNames());
+    assertSame(colorSpaceNames, resources2.getShadingNames());
+    assertSame(colorSpaceNames, resources.getXObjectNames());
+    assertSame(colorSpaceNames, resources2.getXObjectNames());
+    assertSame(cOSObject, stream.getCOSObject());
+    assertSame(cOSObject, contentStream.getCOSObject());
+    assertSame(cOSObject, appearanceStream2.getCOSObject());
+    assertSame(cOSObject, rolloverAppearance.getCOSObject());
   }
 
   /**
-   * Test {@link PDPolygonAppearanceHandler#generateNormalAppearance()}.
-   * <p>
-   * Method under test: {@link PDPolygonAppearanceHandler#generateNormalAppearance()}
+   * Method under test:
+   * {@link PDPolygonAppearanceHandler#generateNormalAppearance()}
    */
   @Test
-  @DisplayName("Test generateNormalAppearance()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDPolygonAppearanceHandler.generateNormalAppearance()"})
-  void testGenerateNormalAppearance11() {
+  void testGenerateNormalAppearance16() throws IOException {
     // Arrange
     PDColorSpace colorSpace = mock(PDColorSpace.class);
     when(colorSpace.getNumberOfComponents()).thenReturn(10);
@@ -701,12 +2011,14 @@ class PDPolygonAppearanceHandlerDiffblueTest {
     when(annotation.getConstantOpacity()).thenReturn(10.0f);
     when(annotation.getColor()).thenReturn(pdColor);
     when(annotation.getInteriorColor()).thenReturn(pdColor2);
-    when(annotation.getAppearance()).thenReturn(new PDAppearanceDictionary());
+    PDAppearanceDictionary pdAppearanceDictionary = new PDAppearanceDictionary();
+    when(annotation.getAppearance()).thenReturn(pdAppearanceDictionary);
     when(annotation.getBorderEffect()).thenReturn(pdBorderEffectDictionary);
     doNothing().when(annotation).setRectangle(Mockito.<PDRectangle>any());
     when(annotation.getVertices()).thenReturn(new float[]{10.0f, 0.5f, 10.0f, 0.5f});
     when(annotation.getPath()).thenReturn(null);
-    when(annotation.getRectangle()).thenReturn(new PDRectangle());
+    PDRectangle pdRectangle = new PDRectangle();
+    when(annotation.getRectangle()).thenReturn(pdRectangle);
     when(annotation.getBorder()).thenReturn(new COSArray());
     when(annotation.getBorderStyle()).thenReturn(new PDBorderStyleDictionary());
     PDPolygonAppearanceHandler pdPolygonAppearanceHandler = new PDPolygonAppearanceHandler(annotation);
@@ -733,120 +2045,102 @@ class PDPolygonAppearanceHandlerDiffblueTest {
     verify(annotation).getVertices();
     verify(pdBorderEffectDictionary).getIntensity();
     verify(pdBorderEffectDictionary).getStyle();
-    PDAppearanceStream appearanceStream = pdPolygonAppearanceHandler.getDownAppearance().getAppearanceStream();
-    float[][] values = appearanceStream.getMatrix().getValues();
+    PDAppearanceEntry downAppearance = pdPolygonAppearanceHandler.getDownAppearance();
+    PDAppearanceStream appearanceStream = downAppearance.getAppearanceStream();
+    PDResources resources = appearanceStream.getResources();
+    Iterable<COSName> colorSpaceNames = resources.getColorSpaceNames();
+    assertTrue(colorSpaceNames instanceof Set);
+    PDFont defaultFont = pdPolygonAppearanceHandler.getDefaultFont();
+    FontBoxFont fontBoxFont = ((PDType1Font) defaultFont).getFontBoxFont();
+    assertTrue(fontBoxFont instanceof TrueTypeFont);
+    GsubData gsubData = ((TrueTypeFont) fontBoxFont).getGsubData();
+    assertTrue(gsubData instanceof MapBackedGsubData);
+    COSDictionary cOSObject = downAppearance.getCOSObject();
+    assertTrue(cOSObject instanceof COSStream);
+    assertTrue(defaultFont instanceof PDType1Font);
+    COSDictionary cOSObject2 = resources.getCOSObject();
+    COSUpdateState updateState = cOSObject2.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject2.getKey());
+    assertNull(resources.getResourceCache());
+    Matrix matrix = appearanceStream.getMatrix();
+    assertEquals(-0.0f, matrix.getTranslateX());
+    float[][] values = matrix.getValues();
+    float[] floatArray = values[2];
+    assertEquals(-0.0f, floatArray[0]);
+    PDRectangle bBox = appearanceStream.getBBox();
+    assertEquals(-0.5f, bBox.getLowerLeftY());
+    PDAppearanceEntry rolloverAppearance = pdPolygonAppearanceHandler.getRolloverAppearance();
+    PDAppearanceStream appearanceStream2 = rolloverAppearance.getAppearanceStream();
+    PDRectangle bBox2 = appearanceStream2.getBBox();
+    assertEquals(-0.5f, bBox2.getLowerLeftY());
+    assertEquals(0, cOSObject2.size());
+    assertEquals(0.0f, bBox.getLowerLeftX());
+    assertEquals(0.0f, bBox2.getLowerLeftX());
+    assertEquals(0.5f, matrix.getTranslateY());
+    assertEquals(0.5f, floatArray[1]);
+    assertEquals(1.5f, bBox.getUpperRightY());
+    assertEquals(1.5f, bBox2.getUpperRightY());
+    assertEquals(11.0f, bBox.getUpperRightX());
+    assertEquals(11.0f, bBox2.getUpperRightX());
+    assertEquals(11.0f, bBox.getWidth());
+    assertEquals(11.0f, bBox2.getWidth());
+    assertEquals(2.0f, bBox.getHeight());
+    assertEquals(2.0f, bBox2.getHeight());
     assertEquals(3, values.length);
-    PDAppearanceDictionary appearance = pdPolygonAppearanceHandler.getAppearance();
-    PDAppearanceStream appearanceStream2 = appearance.getDownAppearance().getAppearanceStream();
-    assertEquals(42, appearanceStream2.getStream().getLength());
-    PDAppearanceStream appearanceStream3 = appearance.getNormalAppearance().getAppearanceStream();
-    assertEquals(42, appearanceStream3.getStream().getLength());
-    PDAppearanceStream appearanceStream4 = appearance.getRolloverAppearance().getAppearanceStream();
-    assertEquals(42, appearanceStream4.getStream().getLength());
+    assertEquals(3, floatArray.length);
     assertEquals(42, appearanceStream.getStream().getLength());
-    PDAppearanceStream appearanceStream5 = pdPolygonAppearanceHandler.getRolloverAppearance().getAppearanceStream();
-    assertEquals(42, appearanceStream5.getStream().getLength());
-    assertEquals(42, appearanceStream2.getContentStream().getLength());
-    assertEquals(42, appearanceStream3.getContentStream().getLength());
-    assertEquals(42, appearanceStream4.getContentStream().getLength());
+    PDStream stream = appearanceStream2.getStream();
+    assertEquals(42, stream.getLength());
     assertEquals(42, appearanceStream.getContentStream().getLength());
-    assertEquals(42, appearanceStream5.getContentStream().getLength());
-    assertArrayEquals(new float[]{-0.0f, 0.5f, 1.0f}, values[2], 0.0f);
+    PDStream contentStream = appearanceStream2.getContentStream();
+    assertEquals(42, contentStream.getLength());
+    assertEquals(6, cOSObject.getValues().size());
+    assertEquals(6, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject2.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject2.isDirect());
+    assertFalse(cOSObject2.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(cOSObject2.getValues().isEmpty());
+    assertTrue(gsubData.getSupportedFeatures().isEmpty());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertTrue(defaultFont.getCOSObject().toIncrement().getObjects().isEmpty());
+    assertTrue(defaultFont.getFontDescriptor().getCOSObject().toIncrement().getObjects().isEmpty());
+    assertTrue(((Set<COSName>) colorSpaceNames).isEmpty());
+    assertTrue(((COSStream) cOSObject).hasData());
+    assertEquals(matrix, appearanceStream2.getMatrix());
+    assertSame(pdRectangle, pdPolygonAppearanceHandler.getRectangle());
+    assertSame(pdAppearanceDictionary, pdPolygonAppearanceHandler.getAppearance());
+    PDResources resources2 = appearanceStream2.getResources();
+    assertSame(cOSObject2, resources2.getCOSObject());
+    COSArray expectedCOSObject = bBox.getCOSArray();
+    assertSame(expectedCOSObject, bBox.getCOSObject());
+    assertSame(colorSpaceNames, resources2.getColorSpaceNames());
+    assertSame(colorSpaceNames, resources.getExtGStateNames());
+    assertSame(colorSpaceNames, resources2.getExtGStateNames());
+    assertSame(colorSpaceNames, resources.getFontNames());
+    assertSame(colorSpaceNames, resources2.getFontNames());
+    assertSame(colorSpaceNames, resources.getPatternNames());
+    assertSame(colorSpaceNames, resources2.getPatternNames());
+    assertSame(colorSpaceNames, resources.getPropertiesNames());
+    assertSame(colorSpaceNames, resources2.getPropertiesNames());
+    assertSame(colorSpaceNames, resources.getShadingNames());
+    assertSame(colorSpaceNames, resources2.getShadingNames());
+    assertSame(colorSpaceNames, resources.getXObjectNames());
+    assertSame(colorSpaceNames, resources2.getXObjectNames());
+    assertSame(cOSObject, stream.getCOSObject());
+    assertSame(cOSObject, contentStream.getCOSObject());
+    assertSame(cOSObject, appearanceStream2.getCOSObject());
+    assertSame(cOSObject, rolloverAppearance.getCOSObject());
   }
 
   /**
-   * Test {@link PDPolygonAppearanceHandler#generateNormalAppearance()}.
-   * <p>
-   * Method under test: {@link PDPolygonAppearanceHandler#generateNormalAppearance()}
+   * Method under test:
+   * {@link PDPolygonAppearanceHandler#generateNormalAppearance()}
    */
   @Test
-  @DisplayName("Test generateNormalAppearance()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDPolygonAppearanceHandler.generateNormalAppearance()"})
-  void testGenerateNormalAppearance12() {
-    // Arrange
-    PDColorSpace colorSpace = mock(PDColorSpace.class);
-    when(colorSpace.getNumberOfComponents()).thenReturn(10);
-    PDColor pdColor = new PDColor(new COSArray(), colorSpace);
-
-    PDColorSpace colorSpace2 = mock(PDColorSpace.class);
-    when(colorSpace2.getNumberOfComponents()).thenReturn(10);
-    PDColor pdColor2 = new PDColor(new COSArray(), colorSpace2);
-
-    PDBorderEffectDictionary pdBorderEffectDictionary = mock(PDBorderEffectDictionary.class);
-    when(pdBorderEffectDictionary.getIntensity()).thenReturn(10.0f);
-    when(pdBorderEffectDictionary.getStyle()).thenReturn("C");
-    PDAppearanceStream pdAppearanceStream = mock(PDAppearanceStream.class);
-    doNothing().when(pdAppearanceStream).setBBox(Mockito.<PDRectangle>any());
-    doNothing().when(pdAppearanceStream).setMatrix(Mockito.<AffineTransform>any());
-    PDAnnotationPolygon annotation = mock(PDAnnotationPolygon.class);
-    when(annotation.getNormalAppearanceStream()).thenReturn(pdAppearanceStream);
-    when(annotation.getConstantOpacity()).thenReturn(Float.MIN_VALUE);
-    when(annotation.getColor()).thenReturn(pdColor);
-    when(annotation.getInteriorColor()).thenReturn(pdColor2);
-    when(annotation.getAppearance()).thenReturn(new PDAppearanceDictionary());
-    when(annotation.getBorderEffect()).thenReturn(pdBorderEffectDictionary);
-    doNothing().when(annotation).setRectangle(Mockito.<PDRectangle>any());
-    when(annotation.getVertices()).thenReturn(new float[]{10.0f, 0.5f, 10.0f, 0.5f});
-    when(annotation.getPath()).thenReturn(null);
-    when(annotation.getRectangle()).thenReturn(new PDRectangle());
-    when(annotation.getBorder()).thenReturn(new COSArray());
-    when(annotation.getBorderStyle()).thenReturn(new PDBorderStyleDictionary());
-    PDPolygonAppearanceHandler pdPolygonAppearanceHandler = new PDPolygonAppearanceHandler(annotation);
-
-    // Act
-    pdPolygonAppearanceHandler.generateNormalAppearance();
-
-    // Assert
-    verify(colorSpace).getNumberOfComponents();
-    verify(colorSpace2).getNumberOfComponents();
-    verify(pdAppearanceStream).setBBox(isA(PDRectangle.class));
-    verify(pdAppearanceStream).setMatrix(isA(AffineTransform.class));
-    verify(annotation).getAppearance();
-    verify(annotation).getBorder();
-    verify(annotation).getColor();
-    verify(annotation).getNormalAppearanceStream();
-    verify(annotation, atLeast(1)).getRectangle();
-    verify(annotation, atLeast(1)).setRectangle(Mockito.<PDRectangle>any());
-    verify(annotation, atLeast(1)).getBorderStyle();
-    verify(annotation).getConstantOpacity();
-    verify(annotation).getBorderEffect();
-    verify(annotation).getInteriorColor();
-    verify(annotation).getPath();
-    verify(annotation).getVertices();
-    verify(pdBorderEffectDictionary).getIntensity();
-    verify(pdBorderEffectDictionary).getStyle();
-    PDAppearanceStream appearanceStream = pdPolygonAppearanceHandler.getDownAppearance().getAppearanceStream();
-    float[][] values = appearanceStream.getMatrix().getValues();
-    assertEquals(3, values.length);
-    PDAppearanceDictionary appearance = pdPolygonAppearanceHandler.getAppearance();
-    PDAppearanceStream appearanceStream2 = appearance.getDownAppearance().getAppearanceStream();
-    assertEquals(50, appearanceStream2.getStream().getLength());
-    PDAppearanceStream appearanceStream3 = appearance.getNormalAppearance().getAppearanceStream();
-    assertEquals(50, appearanceStream3.getStream().getLength());
-    PDAppearanceStream appearanceStream4 = appearance.getRolloverAppearance().getAppearanceStream();
-    assertEquals(50, appearanceStream4.getStream().getLength());
-    assertEquals(50, appearanceStream.getStream().getLength());
-    PDAppearanceStream appearanceStream5 = pdPolygonAppearanceHandler.getRolloverAppearance().getAppearanceStream();
-    assertEquals(50, appearanceStream5.getStream().getLength());
-    assertEquals(50, appearanceStream2.getContentStream().getLength());
-    assertEquals(50, appearanceStream3.getContentStream().getLength());
-    assertEquals(50, appearanceStream4.getContentStream().getLength());
-    assertEquals(50, appearanceStream.getContentStream().getLength());
-    assertEquals(50, appearanceStream5.getContentStream().getLength());
-    assertArrayEquals(new float[]{-0.0f, 0.5f, 1.0f}, values[2], 0.0f);
-  }
-
-  /**
-   * Test {@link PDPolygonAppearanceHandler#generateNormalAppearance()}.
-   * <p>
-   * Method under test: {@link PDPolygonAppearanceHandler#generateNormalAppearance()}
-   */
-  @Test
-  @DisplayName("Test generateNormalAppearance()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDPolygonAppearanceHandler.generateNormalAppearance()"})
-  void testGenerateNormalAppearance13() {
+  void testGenerateNormalAppearance17() throws IOException {
     // Arrange
     PDColorSpace colorSpace = mock(PDColorSpace.class);
     when(colorSpace.getNumberOfComponents()).thenReturn(10);
@@ -867,12 +2161,14 @@ class PDPolygonAppearanceHandlerDiffblueTest {
     when(annotation.getConstantOpacity()).thenReturn(10.0f);
     when(annotation.getColor()).thenReturn(pdColor);
     when(annotation.getInteriorColor()).thenReturn(pdColor2);
-    when(annotation.getAppearance()).thenReturn(new PDAppearanceDictionary());
+    PDAppearanceDictionary pdAppearanceDictionary = new PDAppearanceDictionary();
+    when(annotation.getAppearance()).thenReturn(pdAppearanceDictionary);
     when(annotation.getBorderEffect()).thenReturn(pdBorderEffectDictionary);
     doNothing().when(annotation).setRectangle(Mockito.<PDRectangle>any());
     when(annotation.getVertices()).thenReturn(new float[]{10.0f, 0.5f, 10.0f, 0.5f});
     when(annotation.getPath()).thenReturn(null);
-    when(annotation.getRectangle()).thenReturn(new PDRectangle());
+    PDRectangle pdRectangle = new PDRectangle();
+    when(annotation.getRectangle()).thenReturn(pdRectangle);
     when(annotation.getBorder()).thenReturn(new COSArray());
     when(annotation.getBorderStyle()).thenReturn(new PDBorderStyleDictionary());
     PDPolygonAppearanceHandler pdPolygonAppearanceHandler = new PDPolygonAppearanceHandler(annotation);
@@ -899,37 +2195,102 @@ class PDPolygonAppearanceHandlerDiffblueTest {
     verify(annotation).getVertices();
     verify(pdBorderEffectDictionary).getIntensity();
     verify(pdBorderEffectDictionary).getStyle();
-    PDAppearanceStream appearanceStream = pdPolygonAppearanceHandler.getDownAppearance().getAppearanceStream();
-    float[][] values = appearanceStream.getMatrix().getValues();
+    PDAppearanceEntry downAppearance = pdPolygonAppearanceHandler.getDownAppearance();
+    PDAppearanceStream appearanceStream = downAppearance.getAppearanceStream();
+    PDResources resources = appearanceStream.getResources();
+    Iterable<COSName> colorSpaceNames = resources.getColorSpaceNames();
+    assertTrue(colorSpaceNames instanceof Set);
+    PDFont defaultFont = pdPolygonAppearanceHandler.getDefaultFont();
+    FontBoxFont fontBoxFont = ((PDType1Font) defaultFont).getFontBoxFont();
+    assertTrue(fontBoxFont instanceof TrueTypeFont);
+    GsubData gsubData = ((TrueTypeFont) fontBoxFont).getGsubData();
+    assertTrue(gsubData instanceof MapBackedGsubData);
+    COSDictionary cOSObject = downAppearance.getCOSObject();
+    assertTrue(cOSObject instanceof COSStream);
+    assertTrue(defaultFont instanceof PDType1Font);
+    COSDictionary cOSObject2 = resources.getCOSObject();
+    COSUpdateState updateState = cOSObject2.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject2.getKey());
+    assertNull(resources.getResourceCache());
+    Matrix matrix = appearanceStream.getMatrix();
+    assertEquals(-0.0f, matrix.getTranslateX());
+    float[][] values = matrix.getValues();
+    float[] floatArray = values[2];
+    assertEquals(-0.0f, floatArray[0]);
+    PDRectangle bBox = appearanceStream.getBBox();
+    assertEquals(-0.5f, bBox.getLowerLeftY());
+    PDAppearanceEntry rolloverAppearance = pdPolygonAppearanceHandler.getRolloverAppearance();
+    PDAppearanceStream appearanceStream2 = rolloverAppearance.getAppearanceStream();
+    PDRectangle bBox2 = appearanceStream2.getBBox();
+    assertEquals(-0.5f, bBox2.getLowerLeftY());
+    assertEquals(0, cOSObject2.size());
+    assertEquals(0.0f, bBox.getLowerLeftX());
+    assertEquals(0.0f, bBox2.getLowerLeftX());
+    assertEquals(0.5f, matrix.getTranslateY());
+    assertEquals(0.5f, floatArray[1]);
+    assertEquals(1.5f, bBox.getUpperRightY());
+    assertEquals(1.5f, bBox2.getUpperRightY());
+    assertEquals(11.0f, bBox.getUpperRightX());
+    assertEquals(11.0f, bBox2.getUpperRightX());
+    assertEquals(11.0f, bBox.getWidth());
+    assertEquals(11.0f, bBox2.getWidth());
+    assertEquals(2.0f, bBox.getHeight());
+    assertEquals(2.0f, bBox2.getHeight());
     assertEquals(3, values.length);
-    PDAppearanceDictionary appearance = pdPolygonAppearanceHandler.getAppearance();
-    PDAppearanceStream appearanceStream2 = appearance.getDownAppearance().getAppearanceStream();
-    assertEquals(66, appearanceStream2.getStream().getLength());
-    PDAppearanceStream appearanceStream3 = appearance.getNormalAppearance().getAppearanceStream();
-    assertEquals(66, appearanceStream3.getStream().getLength());
-    PDAppearanceStream appearanceStream4 = appearance.getRolloverAppearance().getAppearanceStream();
-    assertEquals(66, appearanceStream4.getStream().getLength());
+    assertEquals(3, floatArray.length);
+    assertEquals(6, cOSObject.getValues().size());
+    assertEquals(6, cOSObject.size());
     assertEquals(66, appearanceStream.getStream().getLength());
-    PDAppearanceStream appearanceStream5 = pdPolygonAppearanceHandler.getRolloverAppearance().getAppearanceStream();
-    assertEquals(66, appearanceStream5.getStream().getLength());
-    assertEquals(66, appearanceStream2.getContentStream().getLength());
-    assertEquals(66, appearanceStream3.getContentStream().getLength());
-    assertEquals(66, appearanceStream4.getContentStream().getLength());
+    PDStream stream = appearanceStream2.getStream();
+    assertEquals(66, stream.getLength());
     assertEquals(66, appearanceStream.getContentStream().getLength());
-    assertEquals(66, appearanceStream5.getContentStream().getLength());
-    assertArrayEquals(new float[]{-0.0f, 0.5f, 1.0f}, values[2], 0.0f);
+    PDStream contentStream = appearanceStream2.getContentStream();
+    assertEquals(66, contentStream.getLength());
+    COSIncrement toIncrementResult = cOSObject2.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject2.isDirect());
+    assertFalse(cOSObject2.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(cOSObject2.getValues().isEmpty());
+    assertTrue(gsubData.getSupportedFeatures().isEmpty());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertTrue(defaultFont.getCOSObject().toIncrement().getObjects().isEmpty());
+    assertTrue(defaultFont.getFontDescriptor().getCOSObject().toIncrement().getObjects().isEmpty());
+    assertTrue(((Set<COSName>) colorSpaceNames).isEmpty());
+    assertTrue(((COSStream) cOSObject).hasData());
+    assertEquals(matrix, appearanceStream2.getMatrix());
+    assertSame(pdRectangle, pdPolygonAppearanceHandler.getRectangle());
+    assertSame(pdAppearanceDictionary, pdPolygonAppearanceHandler.getAppearance());
+    PDResources resources2 = appearanceStream2.getResources();
+    assertSame(cOSObject2, resources2.getCOSObject());
+    COSArray expectedCOSObject = bBox.getCOSArray();
+    assertSame(expectedCOSObject, bBox.getCOSObject());
+    assertSame(colorSpaceNames, resources2.getColorSpaceNames());
+    assertSame(colorSpaceNames, resources.getExtGStateNames());
+    assertSame(colorSpaceNames, resources2.getExtGStateNames());
+    assertSame(colorSpaceNames, resources.getFontNames());
+    assertSame(colorSpaceNames, resources2.getFontNames());
+    assertSame(colorSpaceNames, resources.getPatternNames());
+    assertSame(colorSpaceNames, resources2.getPatternNames());
+    assertSame(colorSpaceNames, resources.getPropertiesNames());
+    assertSame(colorSpaceNames, resources2.getPropertiesNames());
+    assertSame(colorSpaceNames, resources.getShadingNames());
+    assertSame(colorSpaceNames, resources2.getShadingNames());
+    assertSame(colorSpaceNames, resources.getXObjectNames());
+    assertSame(colorSpaceNames, resources2.getXObjectNames());
+    assertSame(cOSObject, stream.getCOSObject());
+    assertSame(cOSObject, contentStream.getCOSObject());
+    assertSame(cOSObject, appearanceStream2.getCOSObject());
+    assertSame(cOSObject, rolloverAppearance.getCOSObject());
   }
 
   /**
-   * Test {@link PDPolygonAppearanceHandler#generateNormalAppearance()}.
-   * <p>
-   * Method under test: {@link PDPolygonAppearanceHandler#generateNormalAppearance()}
+   * Method under test:
+   * {@link PDPolygonAppearanceHandler#generateNormalAppearance()}
    */
   @Test
-  @DisplayName("Test generateNormalAppearance()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDPolygonAppearanceHandler.generateNormalAppearance()"})
-  void testGenerateNormalAppearance14() {
+  void testGenerateNormalAppearance18() throws IOException {
     // Arrange
     PDColorSpace colorSpace = mock(PDColorSpace.class);
     when(colorSpace.getNumberOfComponents()).thenReturn(10);
@@ -945,12 +2306,14 @@ class PDPolygonAppearanceHandlerDiffblueTest {
     when(annotation.getConstantOpacity()).thenReturn(10.0f);
     when(annotation.getColor()).thenReturn(pdColor);
     when(annotation.getInteriorColor()).thenReturn(pdColor2);
-    when(annotation.getAppearance()).thenReturn(new PDAppearanceDictionary());
+    PDAppearanceDictionary pdAppearanceDictionary = new PDAppearanceDictionary();
+    when(annotation.getAppearance()).thenReturn(pdAppearanceDictionary);
     when(annotation.getBorderEffect()).thenReturn(pdBorderEffectDictionary);
     doNothing().when(annotation).setRectangle(Mockito.<PDRectangle>any());
     when(annotation.getVertices()).thenReturn(new float[]{10.0f, 0.5f, 10.0f, 0.5f});
     when(annotation.getPath()).thenReturn(null);
-    when(annotation.getRectangle()).thenReturn(new PDRectangle());
+    PDRectangle pdRectangle = new PDRectangle();
+    when(annotation.getRectangle()).thenReturn(pdRectangle);
     when(annotation.getBorder()).thenReturn(new COSArray());
     when(annotation.getBorderStyle()).thenReturn(new PDBorderStyleDictionary());
     PDPolygonAppearanceHandler pdPolygonAppearanceHandler = new PDPolygonAppearanceHandler(annotation);
@@ -973,37 +2336,102 @@ class PDPolygonAppearanceHandlerDiffblueTest {
     verify(annotation).getPath();
     verify(annotation).getVertices();
     verify(pdBorderEffectDictionary).getStyle();
-    PDAppearanceStream appearanceStream = pdPolygonAppearanceHandler.getDownAppearance().getAppearanceStream();
-    float[][] values = appearanceStream.getMatrix().getValues();
+    PDAppearanceEntry downAppearance = pdPolygonAppearanceHandler.getDownAppearance();
+    PDAppearanceStream appearanceStream = downAppearance.getAppearanceStream();
+    PDResources resources = appearanceStream.getResources();
+    Iterable<COSName> colorSpaceNames = resources.getColorSpaceNames();
+    assertTrue(colorSpaceNames instanceof Set);
+    PDFont defaultFont = pdPolygonAppearanceHandler.getDefaultFont();
+    FontBoxFont fontBoxFont = ((PDType1Font) defaultFont).getFontBoxFont();
+    assertTrue(fontBoxFont instanceof TrueTypeFont);
+    GsubData gsubData = ((TrueTypeFont) fontBoxFont).getGsubData();
+    assertTrue(gsubData instanceof MapBackedGsubData);
+    COSDictionary cOSObject = downAppearance.getCOSObject();
+    assertTrue(cOSObject instanceof COSStream);
+    assertTrue(defaultFont instanceof PDType1Font);
+    COSDictionary cOSObject2 = resources.getCOSObject();
+    COSUpdateState updateState = cOSObject2.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject2.getKey());
+    assertNull(resources.getResourceCache());
+    Matrix matrix = appearanceStream.getMatrix();
+    assertEquals(-0.0f, matrix.getTranslateX());
+    float[][] values = matrix.getValues();
+    float[] floatArray = values[2];
+    assertEquals(-0.0f, floatArray[0]);
+    PDRectangle bBox = appearanceStream.getBBox();
+    assertEquals(-0.5f, bBox.getLowerLeftY());
+    PDAppearanceEntry rolloverAppearance = pdPolygonAppearanceHandler.getRolloverAppearance();
+    PDAppearanceStream appearanceStream2 = rolloverAppearance.getAppearanceStream();
+    PDRectangle bBox2 = appearanceStream2.getBBox();
+    assertEquals(-0.5f, bBox2.getLowerLeftY());
+    assertEquals(0, cOSObject2.size());
+    assertEquals(0.0f, bBox.getLowerLeftX());
+    assertEquals(0.0f, bBox2.getLowerLeftX());
+    assertEquals(0.5f, matrix.getTranslateY());
+    assertEquals(0.5f, floatArray[1]);
+    assertEquals(1.5f, bBox.getUpperRightY());
+    assertEquals(1.5f, bBox2.getUpperRightY());
+    assertEquals(11.0f, bBox.getUpperRightX());
+    assertEquals(11.0f, bBox2.getUpperRightX());
+    assertEquals(11.0f, bBox.getWidth());
+    assertEquals(11.0f, bBox2.getWidth());
+    assertEquals(2.0f, bBox.getHeight());
+    assertEquals(2.0f, bBox2.getHeight());
     assertEquals(3, values.length);
-    PDAppearanceDictionary appearance = pdPolygonAppearanceHandler.getAppearance();
-    PDAppearanceStream appearanceStream2 = appearance.getDownAppearance().getAppearanceStream();
-    assertEquals(62, appearanceStream2.getStream().getLength());
-    PDAppearanceStream appearanceStream3 = appearance.getNormalAppearance().getAppearanceStream();
-    assertEquals(62, appearanceStream3.getStream().getLength());
-    PDAppearanceStream appearanceStream4 = appearance.getRolloverAppearance().getAppearanceStream();
-    assertEquals(62, appearanceStream4.getStream().getLength());
+    assertEquals(3, floatArray.length);
+    assertEquals(6, cOSObject.getValues().size());
+    assertEquals(6, cOSObject.size());
     assertEquals(62, appearanceStream.getStream().getLength());
-    PDAppearanceStream appearanceStream5 = pdPolygonAppearanceHandler.getRolloverAppearance().getAppearanceStream();
-    assertEquals(62, appearanceStream5.getStream().getLength());
-    assertEquals(62, appearanceStream2.getContentStream().getLength());
-    assertEquals(62, appearanceStream3.getContentStream().getLength());
-    assertEquals(62, appearanceStream4.getContentStream().getLength());
+    PDStream stream = appearanceStream2.getStream();
+    assertEquals(62, stream.getLength());
     assertEquals(62, appearanceStream.getContentStream().getLength());
-    assertEquals(62, appearanceStream5.getContentStream().getLength());
-    assertArrayEquals(new float[]{-0.0f, 0.5f, 1.0f}, values[2], 0.0f);
+    PDStream contentStream = appearanceStream2.getContentStream();
+    assertEquals(62, contentStream.getLength());
+    COSIncrement toIncrementResult = cOSObject2.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject2.isDirect());
+    assertFalse(cOSObject2.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(cOSObject2.getValues().isEmpty());
+    assertTrue(gsubData.getSupportedFeatures().isEmpty());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertTrue(defaultFont.getCOSObject().toIncrement().getObjects().isEmpty());
+    assertTrue(defaultFont.getFontDescriptor().getCOSObject().toIncrement().getObjects().isEmpty());
+    assertTrue(((Set<COSName>) colorSpaceNames).isEmpty());
+    assertTrue(((COSStream) cOSObject).hasData());
+    assertEquals(matrix, appearanceStream2.getMatrix());
+    assertSame(pdRectangle, pdPolygonAppearanceHandler.getRectangle());
+    assertSame(pdAppearanceDictionary, pdPolygonAppearanceHandler.getAppearance());
+    PDResources resources2 = appearanceStream2.getResources();
+    assertSame(cOSObject2, resources2.getCOSObject());
+    COSArray expectedCOSObject = bBox.getCOSArray();
+    assertSame(expectedCOSObject, bBox.getCOSObject());
+    assertSame(colorSpaceNames, resources2.getColorSpaceNames());
+    assertSame(colorSpaceNames, resources.getExtGStateNames());
+    assertSame(colorSpaceNames, resources2.getExtGStateNames());
+    assertSame(colorSpaceNames, resources.getFontNames());
+    assertSame(colorSpaceNames, resources2.getFontNames());
+    assertSame(colorSpaceNames, resources.getPatternNames());
+    assertSame(colorSpaceNames, resources2.getPatternNames());
+    assertSame(colorSpaceNames, resources.getPropertiesNames());
+    assertSame(colorSpaceNames, resources2.getPropertiesNames());
+    assertSame(colorSpaceNames, resources.getShadingNames());
+    assertSame(colorSpaceNames, resources2.getShadingNames());
+    assertSame(colorSpaceNames, resources.getXObjectNames());
+    assertSame(colorSpaceNames, resources2.getXObjectNames());
+    assertSame(cOSObject, stream.getCOSObject());
+    assertSame(cOSObject, contentStream.getCOSObject());
+    assertSame(cOSObject, appearanceStream2.getCOSObject());
+    assertSame(cOSObject, rolloverAppearance.getCOSObject());
   }
 
   /**
-   * Test {@link PDPolygonAppearanceHandler#generateNormalAppearance()}.
-   * <p>
-   * Method under test: {@link PDPolygonAppearanceHandler#generateNormalAppearance()}
+   * Method under test:
+   * {@link PDPolygonAppearanceHandler#generateNormalAppearance()}
    */
   @Test
-  @DisplayName("Test generateNormalAppearance()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDPolygonAppearanceHandler.generateNormalAppearance()"})
-  void testGenerateNormalAppearance15() {
+  void testGenerateNormalAppearance19() throws IOException {
     // Arrange
     PDColorSpace colorSpace = mock(PDColorSpace.class);
     when(colorSpace.getNumberOfComponents()).thenReturn(10);
@@ -1024,12 +2452,14 @@ class PDPolygonAppearanceHandlerDiffblueTest {
     when(annotation.getConstantOpacity()).thenReturn(10.0f);
     when(annotation.getColor()).thenReturn(pdColor);
     when(annotation.getInteriorColor()).thenReturn(pdColor2);
-    when(annotation.getAppearance()).thenReturn(new PDAppearanceDictionary());
+    PDAppearanceDictionary pdAppearanceDictionary = new PDAppearanceDictionary();
+    when(annotation.getAppearance()).thenReturn(pdAppearanceDictionary);
     when(annotation.getBorderEffect()).thenReturn(pdBorderEffectDictionary);
     doNothing().when(annotation).setRectangle(Mockito.<PDRectangle>any());
     when(annotation.getVertices()).thenReturn(new float[]{1.0f, 0.5f, 10.0f, 0.5f});
     when(annotation.getPath()).thenReturn(null);
-    when(annotation.getRectangle()).thenReturn(new PDRectangle());
+    PDRectangle pdRectangle = new PDRectangle();
+    when(annotation.getRectangle()).thenReturn(pdRectangle);
     when(annotation.getBorder()).thenReturn(new COSArray());
     when(annotation.getBorderStyle()).thenReturn(new PDBorderStyleDictionary());
     PDPolygonAppearanceHandler pdPolygonAppearanceHandler = new PDPolygonAppearanceHandler(annotation);
@@ -1056,37 +2486,102 @@ class PDPolygonAppearanceHandlerDiffblueTest {
     verify(annotation).getVertices();
     verify(pdBorderEffectDictionary).getIntensity();
     verify(pdBorderEffectDictionary).getStyle();
-    PDAppearanceDictionary appearance = pdPolygonAppearanceHandler.getAppearance();
-    PDAppearanceStream appearanceStream = appearance.getDownAppearance().getAppearanceStream();
+    PDAppearanceEntry downAppearance = pdPolygonAppearanceHandler.getDownAppearance();
+    PDAppearanceStream appearanceStream = downAppearance.getAppearanceStream();
+    PDResources resources = appearanceStream.getResources();
+    Iterable<COSName> colorSpaceNames = resources.getColorSpaceNames();
+    assertTrue(colorSpaceNames instanceof Set);
+    PDFont defaultFont = pdPolygonAppearanceHandler.getDefaultFont();
+    FontBoxFont fontBoxFont = ((PDType1Font) defaultFont).getFontBoxFont();
+    assertTrue(fontBoxFont instanceof TrueTypeFont);
+    GsubData gsubData = ((TrueTypeFont) fontBoxFont).getGsubData();
+    assertTrue(gsubData instanceof MapBackedGsubData);
+    COSDictionary cOSObject = downAppearance.getCOSObject();
+    assertTrue(cOSObject instanceof COSStream);
+    assertTrue(defaultFont instanceof PDType1Font);
+    COSDictionary cOSObject2 = resources.getCOSObject();
+    COSUpdateState updateState = cOSObject2.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject2.getKey());
+    assertNull(resources.getResourceCache());
+    Matrix matrix = appearanceStream.getMatrix();
+    assertEquals(-0.0f, matrix.getTranslateX());
+    float[][] values = matrix.getValues();
+    float[] floatArray = values[2];
+    assertEquals(-0.0f, floatArray[0]);
+    PDRectangle bBox = appearanceStream.getBBox();
+    assertEquals(-0.5f, bBox.getLowerLeftY());
+    PDAppearanceEntry rolloverAppearance = pdPolygonAppearanceHandler.getRolloverAppearance();
+    PDAppearanceStream appearanceStream2 = rolloverAppearance.getAppearanceStream();
+    PDRectangle bBox2 = appearanceStream2.getBBox();
+    assertEquals(-0.5f, bBox2.getLowerLeftY());
+    assertEquals(0, cOSObject2.size());
+    assertEquals(0.0f, bBox.getLowerLeftX());
+    assertEquals(0.0f, bBox2.getLowerLeftX());
+    assertEquals(0.5f, matrix.getTranslateY());
+    assertEquals(0.5f, floatArray[1]);
+    assertEquals(1.5f, bBox.getUpperRightY());
+    assertEquals(1.5f, bBox2.getUpperRightY());
+    assertEquals(11.0f, bBox.getUpperRightX());
+    assertEquals(11.0f, bBox2.getUpperRightX());
+    assertEquals(11.0f, bBox.getWidth());
+    assertEquals(11.0f, bBox2.getWidth());
     assertEquals(172, appearanceStream.getStream().getLength());
-    PDAppearanceStream appearanceStream2 = appearance.getNormalAppearance().getAppearanceStream();
-    assertEquals(172, appearanceStream2.getStream().getLength());
-    PDAppearanceStream appearanceStream3 = appearance.getRolloverAppearance().getAppearanceStream();
-    assertEquals(172, appearanceStream3.getStream().getLength());
-    PDAppearanceStream appearanceStream4 = pdPolygonAppearanceHandler.getDownAppearance().getAppearanceStream();
-    assertEquals(172, appearanceStream4.getStream().getLength());
-    PDAppearanceStream appearanceStream5 = pdPolygonAppearanceHandler.getRolloverAppearance().getAppearanceStream();
-    assertEquals(172, appearanceStream5.getStream().getLength());
+    PDStream stream = appearanceStream2.getStream();
+    assertEquals(172, stream.getLength());
     assertEquals(172, appearanceStream.getContentStream().getLength());
-    assertEquals(172, appearanceStream2.getContentStream().getLength());
-    assertEquals(172, appearanceStream3.getContentStream().getLength());
-    assertEquals(172, appearanceStream4.getContentStream().getLength());
-    assertEquals(172, appearanceStream5.getContentStream().getLength());
-    float[][] values = appearanceStream4.getMatrix().getValues();
+    PDStream contentStream = appearanceStream2.getContentStream();
+    assertEquals(172, contentStream.getLength());
+    assertEquals(2.0f, bBox.getHeight());
+    assertEquals(2.0f, bBox2.getHeight());
     assertEquals(3, values.length);
-    assertArrayEquals(new float[]{-0.0f, 0.5f, 1.0f}, values[2], 0.0f);
+    assertEquals(3, floatArray.length);
+    assertEquals(6, cOSObject.getValues().size());
+    assertEquals(6, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject2.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject2.isDirect());
+    assertFalse(cOSObject2.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(cOSObject2.getValues().isEmpty());
+    assertTrue(gsubData.getSupportedFeatures().isEmpty());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertTrue(defaultFont.getCOSObject().toIncrement().getObjects().isEmpty());
+    assertTrue(defaultFont.getFontDescriptor().getCOSObject().toIncrement().getObjects().isEmpty());
+    assertTrue(((Set<COSName>) colorSpaceNames).isEmpty());
+    assertTrue(((COSStream) cOSObject).hasData());
+    assertEquals(matrix, appearanceStream2.getMatrix());
+    assertSame(pdRectangle, pdPolygonAppearanceHandler.getRectangle());
+    assertSame(pdAppearanceDictionary, pdPolygonAppearanceHandler.getAppearance());
+    PDResources resources2 = appearanceStream2.getResources();
+    assertSame(cOSObject2, resources2.getCOSObject());
+    COSArray expectedCOSObject = bBox.getCOSArray();
+    assertSame(expectedCOSObject, bBox.getCOSObject());
+    assertSame(colorSpaceNames, resources2.getColorSpaceNames());
+    assertSame(colorSpaceNames, resources.getExtGStateNames());
+    assertSame(colorSpaceNames, resources2.getExtGStateNames());
+    assertSame(colorSpaceNames, resources.getFontNames());
+    assertSame(colorSpaceNames, resources2.getFontNames());
+    assertSame(colorSpaceNames, resources.getPatternNames());
+    assertSame(colorSpaceNames, resources2.getPatternNames());
+    assertSame(colorSpaceNames, resources.getPropertiesNames());
+    assertSame(colorSpaceNames, resources2.getPropertiesNames());
+    assertSame(colorSpaceNames, resources.getShadingNames());
+    assertSame(colorSpaceNames, resources2.getShadingNames());
+    assertSame(colorSpaceNames, resources.getXObjectNames());
+    assertSame(colorSpaceNames, resources2.getXObjectNames());
+    assertSame(cOSObject, stream.getCOSObject());
+    assertSame(cOSObject, contentStream.getCOSObject());
+    assertSame(cOSObject, appearanceStream2.getCOSObject());
+    assertSame(cOSObject, rolloverAppearance.getCOSObject());
   }
 
   /**
-   * Test {@link PDPolygonAppearanceHandler#generateNormalAppearance()}.
-   * <p>
-   * Method under test: {@link PDPolygonAppearanceHandler#generateNormalAppearance()}
+   * Method under test:
+   * {@link PDPolygonAppearanceHandler#generateNormalAppearance()}
    */
   @Test
-  @DisplayName("Test generateNormalAppearance()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDPolygonAppearanceHandler.generateNormalAppearance()"})
-  void testGenerateNormalAppearance16() {
+  void testGenerateNormalAppearance20() throws IOException {
     // Arrange
     PDColorSpace colorSpace = mock(PDColorSpace.class);
     when(colorSpace.getNumberOfComponents()).thenReturn(10);
@@ -1107,12 +2602,14 @@ class PDPolygonAppearanceHandlerDiffblueTest {
     when(annotation.getConstantOpacity()).thenReturn(10.0f);
     when(annotation.getColor()).thenReturn(pdColor);
     when(annotation.getInteriorColor()).thenReturn(pdColor2);
-    when(annotation.getAppearance()).thenReturn(new PDAppearanceDictionary());
+    PDAppearanceDictionary pdAppearanceDictionary = new PDAppearanceDictionary();
+    when(annotation.getAppearance()).thenReturn(pdAppearanceDictionary);
     when(annotation.getBorderEffect()).thenReturn(pdBorderEffectDictionary);
     doNothing().when(annotation).setRectangle(Mockito.<PDRectangle>any());
     when(annotation.getVertices()).thenReturn(new float[]{10.0f, 0.5f, Float.NaN, 0.5f});
     when(annotation.getPath()).thenReturn(null);
-    when(annotation.getRectangle()).thenReturn(new PDRectangle());
+    PDRectangle pdRectangle = new PDRectangle();
+    when(annotation.getRectangle()).thenReturn(pdRectangle);
     when(annotation.getBorder()).thenReturn(new COSArray());
     when(annotation.getBorderStyle()).thenReturn(new PDBorderStyleDictionary());
     PDPolygonAppearanceHandler pdPolygonAppearanceHandler = new PDPolygonAppearanceHandler(annotation);
@@ -1139,37 +2636,102 @@ class PDPolygonAppearanceHandlerDiffblueTest {
     verify(annotation).getVertices();
     verify(pdBorderEffectDictionary).getIntensity();
     verify(pdBorderEffectDictionary).getStyle();
-    PDAppearanceStream appearanceStream = pdPolygonAppearanceHandler.getDownAppearance().getAppearanceStream();
-    assertEquals(121, appearanceStream.getStream().getLength());
-    PDAppearanceStream appearanceStream2 = pdPolygonAppearanceHandler.getRolloverAppearance().getAppearanceStream();
-    assertEquals(121, appearanceStream2.getStream().getLength());
-    assertEquals(121, appearanceStream.getContentStream().getLength());
-    assertEquals(121, appearanceStream2.getContentStream().getLength());
+    PDAppearanceEntry downAppearance = pdPolygonAppearanceHandler.getDownAppearance();
+    PDAppearanceStream appearanceStream = downAppearance.getAppearanceStream();
+    PDResources resources = appearanceStream.getResources();
+    Iterable<COSName> colorSpaceNames = resources.getColorSpaceNames();
+    assertTrue(colorSpaceNames instanceof Set);
+    PDFont defaultFont = pdPolygonAppearanceHandler.getDefaultFont();
+    FontBoxFont fontBoxFont = ((PDType1Font) defaultFont).getFontBoxFont();
+    assertTrue(fontBoxFont instanceof TrueTypeFont);
+    GsubData gsubData = ((TrueTypeFont) fontBoxFont).getGsubData();
+    assertTrue(gsubData instanceof MapBackedGsubData);
+    COSDictionary cOSObject = downAppearance.getCOSObject();
+    assertTrue(cOSObject instanceof COSStream);
+    assertTrue(defaultFont instanceof PDType1Font);
+    COSDictionary cOSObject2 = resources.getCOSObject();
+    COSUpdateState updateState = cOSObject2.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject2.getKey());
+    assertNull(resources.getResourceCache());
     PDRectangle bBox = appearanceStream.getBBox();
-    assertEquals(Float.NaN, bBox.getLowerLeftX());
+    assertEquals(-0.5f, bBox.getLowerLeftY());
+    PDAppearanceEntry rolloverAppearance = pdPolygonAppearanceHandler.getRolloverAppearance();
+    PDAppearanceStream appearanceStream2 = rolloverAppearance.getAppearanceStream();
     PDRectangle bBox2 = appearanceStream2.getBBox();
+    assertEquals(-0.5f, bBox2.getLowerLeftY());
+    assertEquals(0, cOSObject2.size());
+    Matrix matrix = appearanceStream.getMatrix();
+    assertEquals(0.5f, matrix.getTranslateY());
+    float[][] values = matrix.getValues();
+    float[] floatArray = values[2];
+    assertEquals(0.5f, floatArray[1]);
+    assertEquals(1.5f, bBox.getUpperRightY());
+    assertEquals(1.5f, bBox2.getUpperRightY());
+    assertEquals(121, appearanceStream.getStream().getLength());
+    PDStream stream = appearanceStream2.getStream();
+    assertEquals(121, stream.getLength());
+    assertEquals(121, appearanceStream.getContentStream().getLength());
+    PDStream contentStream = appearanceStream2.getContentStream();
+    assertEquals(121, contentStream.getLength());
+    assertEquals(2.0f, bBox.getHeight());
+    assertEquals(2.0f, bBox2.getHeight());
+    assertEquals(3, values.length);
+    assertEquals(3, floatArray.length);
+    assertEquals(6, cOSObject.getValues().size());
+    assertEquals(6, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject2.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject2.isDirect());
+    assertFalse(cOSObject2.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(cOSObject2.getValues().isEmpty());
+    assertTrue(gsubData.getSupportedFeatures().isEmpty());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertTrue(defaultFont.getCOSObject().toIncrement().getObjects().isEmpty());
+    assertTrue(defaultFont.getFontDescriptor().getCOSObject().toIncrement().getObjects().isEmpty());
+    assertTrue(((Set<COSName>) colorSpaceNames).isEmpty());
+    assertTrue(((COSStream) cOSObject).hasData());
+    assertEquals(matrix, appearanceStream2.getMatrix());
+    assertEquals(Float.NaN, bBox.getLowerLeftX());
     assertEquals(Float.NaN, bBox2.getLowerLeftX());
-    PDRectangle rectangle = pdPolygonAppearanceHandler.getRectangle();
-    assertEquals(Float.NaN, rectangle.getLowerLeftX());
     assertEquals(Float.NaN, bBox.getUpperRightX());
     assertEquals(Float.NaN, bBox2.getUpperRightX());
-    assertEquals(Float.NaN, rectangle.getUpperRightX());
     assertEquals(Float.NaN, bBox.getWidth());
     assertEquals(Float.NaN, bBox2.getWidth());
-    assertEquals(Float.NaN, rectangle.getWidth());
-    assertEquals(Float.NaN, appearanceStream.getMatrix().getTranslateX());
+    assertEquals(Float.NaN, matrix.getTranslateX());
+    assertEquals(Float.NaN, floatArray[0]);
+    assertSame(pdRectangle, pdPolygonAppearanceHandler.getRectangle());
+    assertSame(pdAppearanceDictionary, pdPolygonAppearanceHandler.getAppearance());
+    PDResources resources2 = appearanceStream2.getResources();
+    assertSame(cOSObject2, resources2.getCOSObject());
+    COSArray expectedCOSObject = bBox.getCOSArray();
+    assertSame(expectedCOSObject, bBox.getCOSObject());
+    assertSame(colorSpaceNames, resources2.getColorSpaceNames());
+    assertSame(colorSpaceNames, resources.getExtGStateNames());
+    assertSame(colorSpaceNames, resources2.getExtGStateNames());
+    assertSame(colorSpaceNames, resources.getFontNames());
+    assertSame(colorSpaceNames, resources2.getFontNames());
+    assertSame(colorSpaceNames, resources.getPatternNames());
+    assertSame(colorSpaceNames, resources2.getPatternNames());
+    assertSame(colorSpaceNames, resources.getPropertiesNames());
+    assertSame(colorSpaceNames, resources2.getPropertiesNames());
+    assertSame(colorSpaceNames, resources.getShadingNames());
+    assertSame(colorSpaceNames, resources2.getShadingNames());
+    assertSame(colorSpaceNames, resources.getXObjectNames());
+    assertSame(colorSpaceNames, resources2.getXObjectNames());
+    assertSame(cOSObject, stream.getCOSObject());
+    assertSame(cOSObject, contentStream.getCOSObject());
+    assertSame(cOSObject, appearanceStream2.getCOSObject());
+    assertSame(cOSObject, rolloverAppearance.getCOSObject());
   }
 
   /**
-   * Test {@link PDPolygonAppearanceHandler#generateNormalAppearance()}.
-   * <p>
-   * Method under test: {@link PDPolygonAppearanceHandler#generateNormalAppearance()}
+   * Method under test:
+   * {@link PDPolygonAppearanceHandler#generateNormalAppearance()}
    */
   @Test
-  @DisplayName("Test generateNormalAppearance()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDPolygonAppearanceHandler.generateNormalAppearance()"})
-  void testGenerateNormalAppearance17() {
+  void testGenerateNormalAppearance21() throws IOException {
     // Arrange
     PDColorSpace colorSpace = mock(PDColorSpace.class);
     when(colorSpace.getNumberOfComponents()).thenReturn(10);
@@ -1190,12 +2752,14 @@ class PDPolygonAppearanceHandlerDiffblueTest {
     when(annotation.getConstantOpacity()).thenReturn(10.0f);
     when(annotation.getColor()).thenReturn(pdColor);
     when(annotation.getInteriorColor()).thenReturn(pdColor2);
-    when(annotation.getAppearance()).thenReturn(new PDAppearanceDictionary());
+    PDAppearanceDictionary pdAppearanceDictionary = new PDAppearanceDictionary();
+    when(annotation.getAppearance()).thenReturn(pdAppearanceDictionary);
     when(annotation.getBorderEffect()).thenReturn(pdBorderEffectDictionary);
     doNothing().when(annotation).setRectangle(Mockito.<PDRectangle>any());
     when(annotation.getVertices()).thenReturn(new float[]{});
     when(annotation.getPath()).thenReturn(null);
-    when(annotation.getRectangle()).thenReturn(new PDRectangle());
+    PDRectangle pdRectangle = new PDRectangle();
+    when(annotation.getRectangle()).thenReturn(pdRectangle);
     when(annotation.getBorder()).thenReturn(new COSArray());
     when(annotation.getBorderStyle()).thenReturn(new PDBorderStyleDictionary());
     PDPolygonAppearanceHandler pdPolygonAppearanceHandler = new PDPolygonAppearanceHandler(annotation);
@@ -1222,38 +2786,102 @@ class PDPolygonAppearanceHandlerDiffblueTest {
     verify(annotation).getVertices();
     verify(pdBorderEffectDictionary).getIntensity();
     verify(pdBorderEffectDictionary).getStyle();
-    PDRectangle rectangle = pdPolygonAppearanceHandler.getRectangle();
-    List<? extends COSBase> toListResult = rectangle.getCOSArray().toList();
-    assertEquals(4, toListResult.size());
-    COSBase getResult = toListResult.get(3);
-    assertTrue(getResult instanceof COSFloat);
-    PDRectangle bBox = pdPolygonAppearanceHandler.getDownAppearance().getAppearanceStream().getBBox();
+    PDAppearanceEntry downAppearance = pdPolygonAppearanceHandler.getDownAppearance();
+    PDAppearanceStream appearanceStream = downAppearance.getAppearanceStream();
+    PDResources resources = appearanceStream.getResources();
+    Iterable<COSName> colorSpaceNames = resources.getColorSpaceNames();
+    assertTrue(colorSpaceNames instanceof Set);
+    PDFont defaultFont = pdPolygonAppearanceHandler.getDefaultFont();
+    FontBoxFont fontBoxFont = ((PDType1Font) defaultFont).getFontBoxFont();
+    assertTrue(fontBoxFont instanceof TrueTypeFont);
+    GsubData gsubData = ((TrueTypeFont) fontBoxFont).getGsubData();
+    assertTrue(gsubData instanceof MapBackedGsubData);
+    COSDictionary cOSObject = downAppearance.getCOSObject();
+    assertTrue(cOSObject instanceof COSStream);
+    assertTrue(defaultFont instanceof PDType1Font);
+    COSDictionary cOSObject2 = resources.getCOSObject();
+    COSUpdateState updateState = cOSObject2.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject2.getKey());
+    assertNull(resources.getResourceCache());
+    Matrix matrix = appearanceStream.getMatrix();
+    assertEquals(-0.0f, matrix.getTranslateX());
+    assertEquals(-0.0f, matrix.getTranslateY());
+    float[][] values = matrix.getValues();
+    float[] floatArray = values[2];
+    assertEquals(-0.0f, floatArray[0]);
+    assertEquals(-0.0f, floatArray[1]);
+    assertEquals(0, cOSObject2.size());
+    PDRectangle bBox = appearanceStream.getBBox();
+    assertEquals(0.0f, bBox.getLowerLeftX());
+    PDAppearanceEntry rolloverAppearance = pdPolygonAppearanceHandler.getRolloverAppearance();
+    PDAppearanceStream appearanceStream2 = rolloverAppearance.getAppearanceStream();
+    PDRectangle bBox2 = appearanceStream2.getBBox();
+    assertEquals(0.0f, bBox2.getLowerLeftX());
+    assertEquals(0.0f, bBox.getLowerLeftY());
+    assertEquals(0.0f, bBox2.getLowerLeftY());
     assertEquals(1.0f, bBox.getHeight());
-    PDRectangle bBox2 = pdPolygonAppearanceHandler.getRolloverAppearance().getAppearanceStream().getBBox();
     assertEquals(1.0f, bBox2.getHeight());
-    assertEquals(1.0f, rectangle.getHeight());
     assertEquals(1.0f, bBox.getUpperRightX());
     assertEquals(1.0f, bBox2.getUpperRightX());
-    assertEquals(1.0f, rectangle.getUpperRightX());
     assertEquals(1.0f, bBox.getUpperRightY());
     assertEquals(1.0f, bBox2.getUpperRightY());
-    assertEquals(1.0f, rectangle.getUpperRightY());
     assertEquals(1.0f, bBox.getWidth());
     assertEquals(1.0f, bBox2.getWidth());
-    assertEquals(1.0f, rectangle.getWidth());
-    assertEquals(toListResult.get(2), getResult);
+    assertEquals(3, values.length);
+    assertEquals(3, floatArray.length);
+    assertEquals(42, appearanceStream.getStream().getLength());
+    PDStream stream = appearanceStream2.getStream();
+    assertEquals(42, stream.getLength());
+    assertEquals(42, appearanceStream.getContentStream().getLength());
+    PDStream contentStream = appearanceStream2.getContentStream();
+    assertEquals(42, contentStream.getLength());
+    assertEquals(6, cOSObject.getValues().size());
+    assertEquals(6, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject2.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject2.isDirect());
+    assertFalse(cOSObject2.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(cOSObject2.getValues().isEmpty());
+    assertTrue(gsubData.getSupportedFeatures().isEmpty());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertTrue(defaultFont.getCOSObject().toIncrement().getObjects().isEmpty());
+    assertTrue(defaultFont.getFontDescriptor().getCOSObject().toIncrement().getObjects().isEmpty());
+    assertTrue(((Set<COSName>) colorSpaceNames).isEmpty());
+    assertTrue(((COSStream) cOSObject).hasData());
+    assertEquals(matrix, appearanceStream2.getMatrix());
+    assertSame(pdRectangle, pdPolygonAppearanceHandler.getRectangle());
+    assertSame(pdAppearanceDictionary, pdPolygonAppearanceHandler.getAppearance());
+    PDResources resources2 = appearanceStream2.getResources();
+    assertSame(cOSObject2, resources2.getCOSObject());
+    COSArray expectedCOSObject = bBox.getCOSArray();
+    assertSame(expectedCOSObject, bBox.getCOSObject());
+    assertSame(colorSpaceNames, resources2.getColorSpaceNames());
+    assertSame(colorSpaceNames, resources.getExtGStateNames());
+    assertSame(colorSpaceNames, resources2.getExtGStateNames());
+    assertSame(colorSpaceNames, resources.getFontNames());
+    assertSame(colorSpaceNames, resources2.getFontNames());
+    assertSame(colorSpaceNames, resources.getPatternNames());
+    assertSame(colorSpaceNames, resources2.getPatternNames());
+    assertSame(colorSpaceNames, resources.getPropertiesNames());
+    assertSame(colorSpaceNames, resources2.getPropertiesNames());
+    assertSame(colorSpaceNames, resources.getShadingNames());
+    assertSame(colorSpaceNames, resources2.getShadingNames());
+    assertSame(colorSpaceNames, resources.getXObjectNames());
+    assertSame(colorSpaceNames, resources2.getXObjectNames());
+    assertSame(cOSObject, stream.getCOSObject());
+    assertSame(cOSObject, contentStream.getCOSObject());
+    assertSame(cOSObject, appearanceStream2.getCOSObject());
+    assertSame(cOSObject, rolloverAppearance.getCOSObject());
   }
 
   /**
-   * Test {@link PDPolygonAppearanceHandler#generateNormalAppearance()}.
-   * <p>
-   * Method under test: {@link PDPolygonAppearanceHandler#generateNormalAppearance()}
+   * Method under test:
+   * {@link PDPolygonAppearanceHandler#generateNormalAppearance()}
    */
   @Test
-  @DisplayName("Test generateNormalAppearance()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDPolygonAppearanceHandler.generateNormalAppearance()"})
-  void testGenerateNormalAppearance18() {
+  void testGenerateNormalAppearance22() throws IOException {
     // Arrange
     PDColorSpace colorSpace = mock(PDColorSpace.class);
     when(colorSpace.getNumberOfComponents()).thenReturn(10);
@@ -1274,13 +2902,15 @@ class PDPolygonAppearanceHandlerDiffblueTest {
     when(annotation.getConstantOpacity()).thenReturn(10.0f);
     when(annotation.getColor()).thenReturn(pdColor);
     when(annotation.getInteriorColor()).thenReturn(pdColor2);
-    when(annotation.getAppearance()).thenReturn(new PDAppearanceDictionary());
+    PDAppearanceDictionary pdAppearanceDictionary = new PDAppearanceDictionary();
+    when(annotation.getAppearance()).thenReturn(pdAppearanceDictionary);
     when(annotation.getBorderEffect()).thenReturn(pdBorderEffectDictionary);
     doNothing().when(annotation).setRectangle(Mockito.<PDRectangle>any());
     when(annotation.getVertices()).thenReturn(
         new float[]{1.0f, Float.MAX_VALUE, 1.0f, Float.MAX_VALUE, 1.0f, Float.MAX_VALUE, 1.0f, Float.MAX_VALUE});
     when(annotation.getPath()).thenReturn(null);
-    when(annotation.getRectangle()).thenReturn(new PDRectangle());
+    PDRectangle pdRectangle = new PDRectangle();
+    when(annotation.getRectangle()).thenReturn(pdRectangle);
     when(annotation.getBorder()).thenReturn(new COSArray());
     when(annotation.getBorderStyle()).thenReturn(new PDBorderStyleDictionary());
     PDPolygonAppearanceHandler pdPolygonAppearanceHandler = new PDPolygonAppearanceHandler(annotation);
@@ -1307,33 +2937,112 @@ class PDPolygonAppearanceHandlerDiffblueTest {
     verify(annotation).getVertices();
     verify(pdBorderEffectDictionary).getIntensity();
     verify(pdBorderEffectDictionary).getStyle();
-    PDRectangle bBox = pdPolygonAppearanceHandler.getDownAppearance().getAppearanceStream().getBBox();
+    PDAppearanceEntry downAppearance = pdPolygonAppearanceHandler.getDownAppearance();
+    PDAppearanceStream appearanceStream = downAppearance.getAppearanceStream();
+    PDResources resources = appearanceStream.getResources();
+    Iterable<COSName> colorSpaceNames = resources.getColorSpaceNames();
+    assertTrue(colorSpaceNames instanceof Set);
+    PDFont defaultFont = pdPolygonAppearanceHandler.getDefaultFont();
+    FontBoxFont fontBoxFont = ((PDType1Font) defaultFont).getFontBoxFont();
+    assertTrue(fontBoxFont instanceof TrueTypeFont);
+    GsubData gsubData = ((TrueTypeFont) fontBoxFont).getGsubData();
+    assertTrue(gsubData instanceof MapBackedGsubData);
+    PDRectangle bBox = appearanceStream.getBBox();
+    COSArray cOSArray = bBox.getCOSArray();
+    List<? extends COSBase> toListResult = cOSArray.toList();
+    assertEquals(4, toListResult.size());
+    assertTrue(toListResult.get(0) instanceof COSFloat);
+    assertTrue(toListResult.get(1) instanceof COSFloat);
+    assertTrue(toListResult.get(2) instanceof COSFloat);
+    COSBase getResult = toListResult.get(3);
+    assertTrue(getResult instanceof COSFloat);
+    COSDictionary cOSObject = downAppearance.getCOSObject();
+    assertTrue(cOSObject instanceof COSStream);
+    assertTrue(defaultFont instanceof PDType1Font);
+    COSDictionary cOSObject2 = resources.getCOSObject();
+    COSUpdateState updateState = cOSObject2.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(getResult.getKey());
+    assertNull(cOSObject2.getKey());
+    assertNull(resources.getResourceCache());
+    Matrix matrix = appearanceStream.getMatrix();
+    assertEquals(-0.0f, matrix.getTranslateX());
+    assertEquals(-0.0f, matrix.getTranslateY());
+    float[][] values = matrix.getValues();
+    float[] floatArray = values[2];
+    assertEquals(-0.0f, floatArray[0]);
+    assertEquals(-0.0f, floatArray[1]);
+    assertEquals(0, cOSObject2.size());
+    assertEquals(0.0f, bBox.getLowerLeftX());
+    PDAppearanceEntry rolloverAppearance = pdPolygonAppearanceHandler.getRolloverAppearance();
+    PDAppearanceStream appearanceStream2 = rolloverAppearance.getAppearanceStream();
+    PDRectangle bBox2 = appearanceStream2.getBBox();
+    assertEquals(0.0f, bBox2.getLowerLeftX());
+    assertEquals(0.0f, bBox.getLowerLeftY());
+    assertEquals(0.0f, bBox2.getLowerLeftY());
     assertEquals(2.0f, bBox.getUpperRightX());
-    PDRectangle bBox2 = pdPolygonAppearanceHandler.getRolloverAppearance().getAppearanceStream().getBBox();
     assertEquals(2.0f, bBox2.getUpperRightX());
-    PDRectangle rectangle = pdPolygonAppearanceHandler.getRectangle();
-    assertEquals(2.0f, rectangle.getUpperRightX());
     assertEquals(2.0f, bBox.getWidth());
     assertEquals(2.0f, bBox2.getWidth());
-    assertEquals(2.0f, rectangle.getWidth());
     assertEquals(2.14748365E9f, bBox.getHeight());
     assertEquals(2.14748365E9f, bBox2.getHeight());
     assertEquals(2.14748365E9f, bBox.getUpperRightY());
     assertEquals(2.14748365E9f, bBox2.getUpperRightY());
-    assertEquals(Float.MAX_VALUE, rectangle.getHeight());
-    assertEquals(Float.MAX_VALUE, rectangle.getUpperRightY());
+    assertEquals(3, values.length);
+    assertEquals(3, floatArray.length);
+    assertEquals(42, appearanceStream.getStream().getLength());
+    PDStream stream = appearanceStream2.getStream();
+    assertEquals(42, stream.getLength());
+    assertEquals(42, appearanceStream.getContentStream().getLength());
+    PDStream contentStream = appearanceStream2.getContentStream();
+    assertEquals(42, contentStream.getLength());
+    assertEquals(6, cOSObject.getValues().size());
+    assertEquals(6, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject2.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(getResult.isDirect());
+    assertFalse(cOSObject2.isDirect());
+    assertFalse(cOSObject2.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(cOSObject2.getValues().isEmpty());
+    assertTrue(gsubData.getSupportedFeatures().isEmpty());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertTrue(defaultFont.getCOSObject().toIncrement().getObjects().isEmpty());
+    assertTrue(defaultFont.getFontDescriptor().getCOSObject().toIncrement().getObjects().isEmpty());
+    assertTrue(((Set<COSName>) colorSpaceNames).isEmpty());
+    assertTrue(((COSStream) cOSObject).hasData());
+    assertEquals(toListResult, bBox2.getCOSArray().toList());
+    assertEquals(matrix, appearanceStream2.getMatrix());
+    assertSame(pdRectangle, pdPolygonAppearanceHandler.getRectangle());
+    assertSame(pdAppearanceDictionary, pdPolygonAppearanceHandler.getAppearance());
+    PDResources resources2 = appearanceStream2.getResources();
+    assertSame(cOSObject2, resources2.getCOSObject());
+    assertSame(cOSArray, bBox.getCOSObject());
+    assertSame(colorSpaceNames, resources2.getColorSpaceNames());
+    assertSame(colorSpaceNames, resources.getExtGStateNames());
+    assertSame(colorSpaceNames, resources2.getExtGStateNames());
+    assertSame(colorSpaceNames, resources.getFontNames());
+    assertSame(colorSpaceNames, resources2.getFontNames());
+    assertSame(colorSpaceNames, resources.getPatternNames());
+    assertSame(colorSpaceNames, resources2.getPatternNames());
+    assertSame(colorSpaceNames, resources.getPropertiesNames());
+    assertSame(colorSpaceNames, resources2.getPropertiesNames());
+    assertSame(colorSpaceNames, resources.getShadingNames());
+    assertSame(colorSpaceNames, resources2.getShadingNames());
+    assertSame(colorSpaceNames, resources.getXObjectNames());
+    assertSame(colorSpaceNames, resources2.getXObjectNames());
+    assertSame(cOSObject, stream.getCOSObject());
+    assertSame(cOSObject, contentStream.getCOSObject());
+    assertSame(cOSObject, appearanceStream2.getCOSObject());
+    assertSame(cOSObject, rolloverAppearance.getCOSObject());
   }
 
   /**
-   * Test {@link PDPolygonAppearanceHandler#generateNormalAppearance()}.
-   * <p>
-   * Method under test: {@link PDPolygonAppearanceHandler#generateNormalAppearance()}
+   * Method under test:
+   * {@link PDPolygonAppearanceHandler#generateNormalAppearance()}
    */
   @Test
-  @DisplayName("Test generateNormalAppearance()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDPolygonAppearanceHandler.generateNormalAppearance()"})
-  void testGenerateNormalAppearance19() {
+  void testGenerateNormalAppearance23() throws IOException {
     // Arrange
     PDRectangle pdRectangle = mock(PDRectangle.class);
     when(pdRectangle.getLowerLeftX()).thenReturn(10.0f);
@@ -1364,105 +3073,8 @@ class PDPolygonAppearanceHandlerDiffblueTest {
     when(annotation.getConstantOpacity()).thenReturn(10.0f);
     when(annotation.getColor()).thenReturn(pdColor);
     when(annotation.getInteriorColor()).thenReturn(pdColor2);
-    when(annotation.getAppearance()).thenReturn(new PDAppearanceDictionary());
-    when(annotation.getBorderEffect()).thenReturn(pdBorderEffectDictionary);
-    doNothing().when(annotation).setRectangle(Mockito.<PDRectangle>any());
-    when(annotation.getVertices()).thenReturn(new float[]{10.0f, 0.5f, 10.0f, 0.5f});
-    when(annotation.getPath()).thenReturn(null);
-    when(annotation.getRectangle()).thenReturn(pdRectangle);
-    when(annotation.getBorder()).thenReturn(new COSArray());
-    when(annotation.getBorderStyle()).thenReturn(new PDBorderStyleDictionary());
-    PDPolygonAppearanceHandler pdPolygonAppearanceHandler = new PDPolygonAppearanceHandler(annotation);
-
-    // Act
-    pdPolygonAppearanceHandler.generateNormalAppearance();
-
-    // Assert
-    verify(pdRectangle).getCOSArray();
-    verify(pdRectangle, atLeast(1)).getLowerLeftX();
-    verify(pdRectangle, atLeast(1)).getLowerLeftY();
-    verify(pdRectangle).getUpperRightX();
-    verify(pdRectangle).getUpperRightY();
-    verify(pdRectangle).setLowerLeftX(eq(9.0f));
-    verify(pdRectangle).setLowerLeftY(eq(-0.5f));
-    verify(pdRectangle).setUpperRightX(eq(11.0f));
-    verify(pdRectangle).setUpperRightY(eq(10.0f));
-    verify(colorSpace).getNumberOfComponents();
-    verify(colorSpace2).getNumberOfComponents();
-    verify(pdAppearanceStream).setBBox(isA(PDRectangle.class));
-    verify(pdAppearanceStream).setMatrix(isA(AffineTransform.class));
-    verify(annotation).getAppearance();
-    verify(annotation).getBorder();
-    verify(annotation).getColor();
-    verify(annotation).getNormalAppearanceStream();
-    verify(annotation, atLeast(1)).getRectangle();
-    verify(annotation, atLeast(1)).setRectangle(Mockito.<PDRectangle>any());
-    verify(annotation, atLeast(1)).getBorderStyle();
-    verify(annotation).getConstantOpacity();
-    verify(annotation).getBorderEffect();
-    verify(annotation).getInteriorColor();
-    verify(annotation).getPath();
-    verify(annotation).getVertices();
-    verify(pdBorderEffectDictionary).getIntensity();
-    verify(pdBorderEffectDictionary).getStyle();
-    PDRectangle bBox = pdPolygonAppearanceHandler.getAppearance().getDownAppearance().getAppearanceStream().getBBox();
-    assertEquals(0.0f, bBox.getHeight());
-    PDAppearanceStream appearanceStream = pdPolygonAppearanceHandler.getDownAppearance().getAppearanceStream();
-    PDRectangle bBox2 = appearanceStream.getBBox();
-    assertEquals(0.0f, bBox2.getHeight());
-    assertEquals(0.0f, bBox.getUpperRightX());
-    assertEquals(0.0f, bBox2.getUpperRightX());
-    assertEquals(0.0f, bBox.getUpperRightY());
-    assertEquals(0.0f, bBox2.getUpperRightY());
-    assertEquals(0.0f, bBox.getWidth());
-    assertEquals(0.0f, bBox2.getWidth());
-    float[][] values = appearanceStream.getMatrix().getValues();
-    assertEquals(3, values.length);
-    assertEquals(4, bBox2.getCOSArray().toList().size());
-    assertArrayEquals(new float[]{-10.0f, -10.0f, 1.0f}, values[2], 0.0f);
-  }
-
-  /**
-   * Test {@link PDPolygonAppearanceHandler#generateNormalAppearance()}.
-   * <p>
-   * Method under test: {@link PDPolygonAppearanceHandler#generateNormalAppearance()}
-   */
-  @Test
-  @DisplayName("Test generateNormalAppearance()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDPolygonAppearanceHandler.generateNormalAppearance()"})
-  void testGenerateNormalAppearance20() {
-    // Arrange
-    PDRectangle pdRectangle = mock(PDRectangle.class);
-    when(pdRectangle.getLowerLeftX()).thenReturn(10.0f);
-    when(pdRectangle.getLowerLeftY()).thenReturn(10.0f);
-    when(pdRectangle.getUpperRightX()).thenReturn(10.0f);
-    when(pdRectangle.getUpperRightY()).thenReturn(10.0f);
-    when(pdRectangle.getCOSArray()).thenReturn(null);
-    doNothing().when(pdRectangle).setLowerLeftX(anyFloat());
-    doNothing().when(pdRectangle).setLowerLeftY(anyFloat());
-    doNothing().when(pdRectangle).setUpperRightX(anyFloat());
-    doNothing().when(pdRectangle).setUpperRightY(anyFloat());
-    PDColorSpace colorSpace = mock(PDColorSpace.class);
-    when(colorSpace.getNumberOfComponents()).thenReturn(10);
-    PDColor pdColor = new PDColor(new COSArray(), colorSpace);
-
-    PDColorSpace colorSpace2 = mock(PDColorSpace.class);
-    when(colorSpace2.getNumberOfComponents()).thenReturn(10);
-    PDColor pdColor2 = new PDColor(new COSArray(), colorSpace2);
-
-    PDBorderEffectDictionary pdBorderEffectDictionary = mock(PDBorderEffectDictionary.class);
-    when(pdBorderEffectDictionary.getIntensity()).thenReturn(10.0f);
-    when(pdBorderEffectDictionary.getStyle()).thenReturn("C");
-    PDAppearanceStream pdAppearanceStream = mock(PDAppearanceStream.class);
-    doNothing().when(pdAppearanceStream).setBBox(Mockito.<PDRectangle>any());
-    doNothing().when(pdAppearanceStream).setMatrix(Mockito.<AffineTransform>any());
-    PDAnnotationPolygon annotation = mock(PDAnnotationPolygon.class);
-    when(annotation.getNormalAppearanceStream()).thenReturn(pdAppearanceStream);
-    when(annotation.getConstantOpacity()).thenReturn(10.0f);
-    when(annotation.getColor()).thenReturn(pdColor);
-    when(annotation.getInteriorColor()).thenReturn(pdColor2);
-    when(annotation.getAppearance()).thenReturn(new PDAppearanceDictionary());
+    PDAppearanceDictionary pdAppearanceDictionary = new PDAppearanceDictionary();
+    when(annotation.getAppearance()).thenReturn(pdAppearanceDictionary);
     when(annotation.getBorderEffect()).thenReturn(pdBorderEffectDictionary);
     doNothing().when(annotation).setRectangle(Mockito.<PDRectangle>any());
     when(annotation.getVertices()).thenReturn(new float[]{10.0f, 0.5f, 10.0f, 0.5f});
@@ -1504,233 +3116,127 @@ class PDPolygonAppearanceHandlerDiffblueTest {
     verify(pdBorderEffectDictionary).getIntensity();
     verify(pdBorderEffectDictionary).getStyle();
     PDAppearanceEntry downAppearance = pdPolygonAppearanceHandler.getDownAppearance();
+    PDAppearanceStream appearanceStream = downAppearance.getAppearanceStream();
+    PDResources resources = appearanceStream.getResources();
+    Iterable<COSName> colorSpaceNames = resources.getColorSpaceNames();
+    assertTrue(colorSpaceNames instanceof Set);
+    PDFont defaultFont = pdPolygonAppearanceHandler.getDefaultFont();
+    FontBoxFont fontBoxFont = ((PDType1Font) defaultFont).getFontBoxFont();
+    assertTrue(fontBoxFont instanceof TrueTypeFont);
+    GsubData gsubData = ((TrueTypeFont) fontBoxFont).getGsubData();
+    assertTrue(gsubData instanceof MapBackedGsubData);
+    PDRectangle bBox = appearanceStream.getBBox();
+    COSArray cOSArray = bBox.getCOSArray();
+    List<? extends COSBase> toListResult = cOSArray.toList();
+    assertEquals(4, toListResult.size());
+    COSBase getResult = toListResult.get(0);
+    assertTrue(getResult instanceof COSFloat);
+    COSBase getResult2 = toListResult.get(1);
+    assertTrue(getResult2 instanceof COSFloat);
+    COSBase getResult3 = toListResult.get(2);
+    assertTrue(getResult3 instanceof COSFloat);
+    COSBase getResult4 = toListResult.get(3);
+    assertTrue(getResult4 instanceof COSFloat);
     COSDictionary cOSObject = downAppearance.getCOSObject();
     assertTrue(cOSObject instanceof COSStream);
-    Matrix matrix = downAppearance.getAppearanceStream().getMatrix();
+    assertTrue(defaultFont instanceof PDType1Font);
+    COSDictionary cOSObject2 = resources.getCOSObject();
+    COSUpdateState updateState = cOSObject2.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(getResult.getKey());
+    assertNull(cOSObject2.getKey());
+    assertNull(resources.getResourceCache());
+    Matrix matrix = appearanceStream.getMatrix();
     assertEquals(-10.0f, matrix.getTranslateX());
     assertEquals(-10.0f, matrix.getTranslateY());
     float[][] values = matrix.getValues();
+    float[] floatArray = values[2];
+    assertEquals(-10.0f, floatArray[0]);
+    assertEquals(-10.0f, floatArray[1]);
+    assertEquals(0, cOSObject2.size());
+    assertEquals(0.0f, bBox.getHeight());
+    PDAppearanceEntry rolloverAppearance = pdPolygonAppearanceHandler.getRolloverAppearance();
+    PDAppearanceStream appearanceStream2 = rolloverAppearance.getAppearanceStream();
+    PDRectangle bBox2 = appearanceStream2.getBBox();
+    assertEquals(0.0f, bBox2.getHeight());
+    assertEquals(0.0f, bBox.getLowerLeftX());
+    assertEquals(0.0f, bBox2.getLowerLeftX());
+    assertEquals(0.0f, bBox.getLowerLeftY());
+    assertEquals(0.0f, bBox2.getLowerLeftY());
+    assertEquals(0.0f, bBox.getUpperRightX());
+    assertEquals(0.0f, bBox2.getUpperRightX());
+    assertEquals(0.0f, bBox.getUpperRightY());
+    assertEquals(0.0f, bBox2.getUpperRightY());
+    assertEquals(0.0f, bBox.getWidth());
+    assertEquals(0.0f, bBox2.getWidth());
     assertEquals(3, values.length);
-    assertEquals(5, cOSObject.getValues().size());
-    assertEquals(5, cOSObject.size());
-    assertArrayEquals(new float[]{-10.0f, -10.0f, 1.0f}, values[2], 0.0f);
+    assertEquals(3, floatArray.length);
+    assertEquals(42, appearanceStream.getStream().getLength());
+    PDStream stream = appearanceStream2.getStream();
+    assertEquals(42, stream.getLength());
+    assertEquals(42, appearanceStream.getContentStream().getLength());
+    PDStream contentStream = appearanceStream2.getContentStream();
+    assertEquals(42, contentStream.getLength());
+    assertEquals(6, cOSObject.getValues().size());
+    assertEquals(6, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject2.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(getResult.isDirect());
+    assertFalse(cOSObject2.isDirect());
+    assertFalse(cOSObject2.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(cOSObject2.getValues().isEmpty());
+    assertTrue(gsubData.getSupportedFeatures().isEmpty());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertTrue(defaultFont.getCOSObject().toIncrement().getObjects().isEmpty());
+    assertTrue(defaultFont.getFontDescriptor().getCOSObject().toIncrement().getObjects().isEmpty());
+    assertTrue(((Set<COSName>) colorSpaceNames).isEmpty());
+    assertTrue(((COSStream) cOSObject).hasData());
+    assertEquals(toListResult, bBox2.getCOSArray().toList());
+    assertEquals(matrix, appearanceStream2.getMatrix());
+    assertEquals(getResult, getResult2);
+    assertEquals(getResult, getResult3);
+    assertEquals(getResult, getResult4);
+    assertSame(pdAppearanceDictionary, pdPolygonAppearanceHandler.getAppearance());
+    PDResources resources2 = appearanceStream2.getResources();
+    assertSame(cOSObject2, resources2.getCOSObject());
+    assertSame(cOSArray, bBox.getCOSObject());
+    assertSame(colorSpaceNames, resources2.getColorSpaceNames());
+    assertSame(colorSpaceNames, resources.getExtGStateNames());
+    assertSame(colorSpaceNames, resources2.getExtGStateNames());
+    assertSame(colorSpaceNames, resources.getFontNames());
+    assertSame(colorSpaceNames, resources2.getFontNames());
+    assertSame(colorSpaceNames, resources.getPatternNames());
+    assertSame(colorSpaceNames, resources2.getPatternNames());
+    assertSame(colorSpaceNames, resources.getPropertiesNames());
+    assertSame(colorSpaceNames, resources2.getPropertiesNames());
+    assertSame(colorSpaceNames, resources.getShadingNames());
+    assertSame(colorSpaceNames, resources2.getShadingNames());
+    assertSame(colorSpaceNames, resources.getXObjectNames());
+    assertSame(colorSpaceNames, resources2.getXObjectNames());
+    assertSame(cOSObject, stream.getCOSObject());
+    assertSame(cOSObject, contentStream.getCOSObject());
+    assertSame(cOSObject, appearanceStream2.getCOSObject());
+    assertSame(cOSObject, rolloverAppearance.getCOSObject());
   }
 
   /**
-   * Test {@link PDPolygonAppearanceHandler#generateNormalAppearance()}.
-   * <ul>
-   *   <li>Given {@link PDAnnotationPolygon} {@link PDAnnotationPolygon#getBorderEffect()} return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDPolygonAppearanceHandler#generateNormalAppearance()}
+   * Method under test:
+   * {@link PDPolygonAppearanceHandler#generateNormalAppearance()}
    */
   @Test
-  @DisplayName("Test generateNormalAppearance(); given PDAnnotationPolygon getBorderEffect() return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDPolygonAppearanceHandler.generateNormalAppearance()"})
-  void testGenerateNormalAppearance_givenPDAnnotationPolygonGetBorderEffectReturnNull() {
+  void testGenerateNormalAppearance24() throws IOException {
     // Arrange
-    PDColorSpace colorSpace = mock(PDColorSpace.class);
-    when(colorSpace.getNumberOfComponents()).thenReturn(10);
-    PDColor pdColor = new PDColor(new COSArray(), colorSpace);
-
-    PDColorSpace colorSpace2 = mock(PDColorSpace.class);
-    when(colorSpace2.getNumberOfComponents()).thenReturn(10);
-    PDColor pdColor2 = new PDColor(new COSArray(), colorSpace2);
-
-    PDAnnotationPolygon annotation = mock(PDAnnotationPolygon.class);
-    when(annotation.getConstantOpacity()).thenReturn(10.0f);
-    when(annotation.getColor()).thenReturn(pdColor);
-    when(annotation.getInteriorColor()).thenReturn(pdColor2);
-    when(annotation.getAppearance()).thenReturn(new PDAppearanceDictionary());
-    when(annotation.getBorderEffect()).thenReturn(null);
-    doNothing().when(annotation).setRectangle(Mockito.<PDRectangle>any());
-    when(annotation.getPath()).thenReturn(new float[][]{new float[]{10.0f, 0.5f, 10.0f, 0.5f}});
-    when(annotation.getRectangle()).thenReturn(new PDRectangle());
-    when(annotation.getBorder()).thenReturn(new COSArray());
-    when(annotation.getBorderStyle()).thenReturn(new PDBorderStyleDictionary());
-    PDPolygonAppearanceHandler pdPolygonAppearanceHandler = new PDPolygonAppearanceHandler(annotation);
-
-    // Act
-    pdPolygonAppearanceHandler.generateNormalAppearance();
-
-    // Assert
-    verify(colorSpace).getNumberOfComponents();
-    verify(colorSpace2).getNumberOfComponents();
-    verify(annotation).getAppearance();
-    verify(annotation).getBorder();
-    verify(annotation).getColor();
-    verify(annotation, atLeast(1)).getRectangle();
-    verify(annotation).setRectangle(isA(PDRectangle.class));
-    verify(annotation, atLeast(1)).getBorderStyle();
-    verify(annotation).getConstantOpacity();
-    verify(annotation).getBorderEffect();
-    verify(annotation).getInteriorColor();
-    verify(annotation).getPath();
-    PDAppearanceStream appearanceStream = pdPolygonAppearanceHandler.getDownAppearance().getAppearanceStream();
-    float[][] values = appearanceStream.getMatrix().getValues();
-    assertEquals(3, values.length);
-    PDAppearanceDictionary appearance = pdPolygonAppearanceHandler.getAppearance();
-    PDAppearanceStream appearanceStream2 = appearance.getDownAppearance().getAppearanceStream();
-    assertEquals(44, appearanceStream2.getStream().getLength());
-    PDAppearanceStream appearanceStream3 = appearance.getNormalAppearance().getAppearanceStream();
-    assertEquals(44, appearanceStream3.getStream().getLength());
-    PDAppearanceStream appearanceStream4 = appearance.getRolloverAppearance().getAppearanceStream();
-    assertEquals(44, appearanceStream4.getStream().getLength());
-    assertEquals(44, appearanceStream.getStream().getLength());
-    PDAppearanceStream appearanceStream5 = pdPolygonAppearanceHandler.getRolloverAppearance().getAppearanceStream();
-    assertEquals(44, appearanceStream5.getStream().getLength());
-    assertEquals(44, appearanceStream2.getContentStream().getLength());
-    assertEquals(44, appearanceStream3.getContentStream().getLength());
-    assertEquals(44, appearanceStream4.getContentStream().getLength());
-    assertEquals(44, appearanceStream.getContentStream().getLength());
-    assertEquals(44, appearanceStream5.getContentStream().getLength());
-    assertArrayEquals(new float[]{-0.0f, 0.5f, 1.0f}, values[2], 0.0f);
-  }
-
-  /**
-   * Test {@link PDPolygonAppearanceHandler#generateNormalAppearance()}.
-   * <ul>
-   *   <li>Given {@link PDAnnotationPolygon} {@link PDAnnotation#getColor()} return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDPolygonAppearanceHandler#generateNormalAppearance()}
-   */
-  @Test
-  @DisplayName("Test generateNormalAppearance(); given PDAnnotationPolygon getColor() return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDPolygonAppearanceHandler.generateNormalAppearance()"})
-  void testGenerateNormalAppearance_givenPDAnnotationPolygonGetColorReturnNull() {
-    // Arrange
-    PDAnnotationPolygon annotation = mock(PDAnnotationPolygon.class);
-    when(annotation.getConstantOpacity()).thenReturn(10.0f);
-    when(annotation.getColor()).thenReturn(null);
-    when(annotation.getInteriorColor()).thenReturn(new PDColor(new COSArray(), PDDeviceGray.INSTANCE));
-    when(annotation.getAppearance()).thenReturn(new PDAppearanceDictionary());
-    when(annotation.getBorderEffect()).thenReturn(new PDBorderEffectDictionary());
-    doNothing().when(annotation).setRectangle(Mockito.<PDRectangle>any());
-    when(annotation.getPath()).thenReturn(new float[][]{new float[]{10.0f, 0.5f, 10.0f, 0.5f}});
-    when(annotation.getRectangle()).thenReturn(new PDRectangle());
-    when(annotation.getBorder()).thenReturn(new COSArray());
-    when(annotation.getBorderStyle()).thenReturn(new PDBorderStyleDictionary());
-    PDPolygonAppearanceHandler pdPolygonAppearanceHandler = new PDPolygonAppearanceHandler(annotation);
-
-    // Act
-    pdPolygonAppearanceHandler.generateNormalAppearance();
-
-    // Assert
-    verify(annotation).getAppearance();
-    verify(annotation).getBorder();
-    verify(annotation).getColor();
-    verify(annotation, atLeast(1)).getRectangle();
-    verify(annotation).setRectangle(isA(PDRectangle.class));
-    verify(annotation, atLeast(1)).getBorderStyle();
-    verify(annotation).getConstantOpacity();
-    verify(annotation).getBorderEffect();
-    verify(annotation).getInteriorColor();
-    verify(annotation).getPath();
-    PDAppearanceStream appearanceStream = pdPolygonAppearanceHandler.getDownAppearance().getAppearanceStream();
-    float[][] values = appearanceStream.getMatrix().getValues();
-    assertEquals(3, values.length);
-    PDAppearanceDictionary appearance = pdPolygonAppearanceHandler.getAppearance();
-    PDAppearanceStream appearanceStream2 = appearance.getDownAppearance().getAppearanceStream();
-    assertEquals(8, appearanceStream2.getStream().getLength());
-    PDAppearanceStream appearanceStream3 = appearance.getNormalAppearance().getAppearanceStream();
-    assertEquals(8, appearanceStream3.getStream().getLength());
-    PDAppearanceStream appearanceStream4 = appearance.getRolloverAppearance().getAppearanceStream();
-    assertEquals(8, appearanceStream4.getStream().getLength());
-    assertEquals(8, appearanceStream.getStream().getLength());
-    PDAppearanceStream appearanceStream5 = pdPolygonAppearanceHandler.getRolloverAppearance().getAppearanceStream();
-    assertEquals(8, appearanceStream5.getStream().getLength());
-    assertEquals(8, appearanceStream2.getContentStream().getLength());
-    assertEquals(8, appearanceStream3.getContentStream().getLength());
-    assertEquals(8, appearanceStream4.getContentStream().getLength());
-    assertEquals(8, appearanceStream.getContentStream().getLength());
-    assertEquals(8, appearanceStream5.getContentStream().getLength());
-    assertArrayEquals(new float[]{-0.0f, 0.5f, 1.0f}, values[2], 0.0f);
-  }
-
-  /**
-   * Test {@link PDPolygonAppearanceHandler#generateNormalAppearance()}.
-   * <ul>
-   *   <li>Given {@link PDAnnotationPolygon} {@link PDAnnotationPolygon#getInteriorColor()} return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDPolygonAppearanceHandler#generateNormalAppearance()}
-   */
-  @Test
-  @DisplayName("Test generateNormalAppearance(); given PDAnnotationPolygon getInteriorColor() return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDPolygonAppearanceHandler.generateNormalAppearance()"})
-  void testGenerateNormalAppearance_givenPDAnnotationPolygonGetInteriorColorReturnNull() {
-    // Arrange
-    PDColorSpace colorSpace = mock(PDColorSpace.class);
-    when(colorSpace.getNumberOfComponents()).thenReturn(10);
-    PDColor pdColor = new PDColor(new COSArray(), colorSpace);
-
-    PDAnnotationPolygon annotation = mock(PDAnnotationPolygon.class);
-    when(annotation.getConstantOpacity()).thenReturn(10.0f);
-    when(annotation.getColor()).thenReturn(pdColor);
-    when(annotation.getInteriorColor()).thenReturn(null);
-    when(annotation.getAppearance()).thenReturn(new PDAppearanceDictionary());
-    when(annotation.getBorderEffect()).thenReturn(new PDBorderEffectDictionary());
-    doNothing().when(annotation).setRectangle(Mockito.<PDRectangle>any());
-    when(annotation.getPath()).thenReturn(new float[][]{new float[]{10.0f, 0.5f, 10.0f, 0.5f}});
-    when(annotation.getRectangle()).thenReturn(new PDRectangle());
-    when(annotation.getBorder()).thenReturn(new COSArray());
-    when(annotation.getBorderStyle()).thenReturn(new PDBorderStyleDictionary());
-    PDPolygonAppearanceHandler pdPolygonAppearanceHandler = new PDPolygonAppearanceHandler(annotation);
-
-    // Act
-    pdPolygonAppearanceHandler.generateNormalAppearance();
-
-    // Assert
-    verify(colorSpace).getNumberOfComponents();
-    verify(annotation).getAppearance();
-    verify(annotation).getBorder();
-    verify(annotation).getColor();
-    verify(annotation, atLeast(1)).getRectangle();
-    verify(annotation).setRectangle(isA(PDRectangle.class));
-    verify(annotation, atLeast(1)).getBorderStyle();
-    verify(annotation).getConstantOpacity();
-    verify(annotation).getBorderEffect();
-    verify(annotation).getInteriorColor();
-    verify(annotation).getPath();
-    PDAppearanceDictionary appearance = pdPolygonAppearanceHandler.getAppearance();
-    PDAppearanceStream appearanceStream = appearance.getDownAppearance().getAppearanceStream();
-    assertEquals(24, appearanceStream.getStream().getLength());
-    PDAppearanceStream appearanceStream2 = appearance.getNormalAppearance().getAppearanceStream();
-    assertEquals(24, appearanceStream2.getStream().getLength());
-    PDAppearanceStream appearanceStream3 = appearance.getRolloverAppearance().getAppearanceStream();
-    assertEquals(24, appearanceStream3.getStream().getLength());
-    PDAppearanceStream appearanceStream4 = pdPolygonAppearanceHandler.getDownAppearance().getAppearanceStream();
-    assertEquals(24, appearanceStream4.getStream().getLength());
-    PDAppearanceStream appearanceStream5 = pdPolygonAppearanceHandler.getRolloverAppearance().getAppearanceStream();
-    assertEquals(24, appearanceStream5.getStream().getLength());
-    assertEquals(24, appearanceStream.getContentStream().getLength());
-    assertEquals(24, appearanceStream2.getContentStream().getLength());
-    assertEquals(24, appearanceStream3.getContentStream().getLength());
-    assertEquals(24, appearanceStream4.getContentStream().getLength());
-    assertEquals(24, appearanceStream5.getContentStream().getLength());
-    float[][] values = appearanceStream4.getMatrix().getValues();
-    assertEquals(3, values.length);
-    assertArrayEquals(new float[]{-0.0f, 0.5f, 1.0f}, values[2], 0.0f);
-  }
-
-  /**
-   * Test {@link PDPolygonAppearanceHandler#generateNormalAppearance()}.
-   * <ul>
-   *   <li>Given {@link PDBorderEffectDictionary} {@link PDBorderEffectDictionary#getStyle()} return {@code Style}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDPolygonAppearanceHandler#generateNormalAppearance()}
-   */
-  @Test
-  @DisplayName("Test generateNormalAppearance(); given PDBorderEffectDictionary getStyle() return 'Style'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDPolygonAppearanceHandler.generateNormalAppearance()"})
-  void testGenerateNormalAppearance_givenPDBorderEffectDictionaryGetStyleReturnStyle() {
-    // Arrange
+    PDRectangle pdRectangle = mock(PDRectangle.class);
+    when(pdRectangle.getLowerLeftX()).thenReturn(10.0f);
+    when(pdRectangle.getLowerLeftY()).thenReturn(10.0f);
+    when(pdRectangle.getUpperRightX()).thenReturn(10.0f);
+    when(pdRectangle.getUpperRightY()).thenReturn(10.0f);
+    when(pdRectangle.getCOSArray()).thenReturn(null);
+    doNothing().when(pdRectangle).setLowerLeftX(anyFloat());
+    doNothing().when(pdRectangle).setLowerLeftY(anyFloat());
+    doNothing().when(pdRectangle).setUpperRightX(anyFloat());
+    doNothing().when(pdRectangle).setUpperRightY(anyFloat());
     PDColorSpace colorSpace = mock(PDColorSpace.class);
     when(colorSpace.getNumberOfComponents()).thenReturn(10);
     PDColor pdColor = new PDColor(new COSArray(), colorSpace);
@@ -1740,16 +3246,23 @@ class PDPolygonAppearanceHandlerDiffblueTest {
     PDColor pdColor2 = new PDColor(new COSArray(), colorSpace2);
 
     PDBorderEffectDictionary pdBorderEffectDictionary = mock(PDBorderEffectDictionary.class);
-    when(pdBorderEffectDictionary.getStyle()).thenReturn("Style");
+    when(pdBorderEffectDictionary.getIntensity()).thenReturn(10.0f);
+    when(pdBorderEffectDictionary.getStyle()).thenReturn("C");
+    PDAppearanceStream pdAppearanceStream = mock(PDAppearanceStream.class);
+    doNothing().when(pdAppearanceStream).setBBox(Mockito.<PDRectangle>any());
+    doNothing().when(pdAppearanceStream).setMatrix(Mockito.<AffineTransform>any());
     PDAnnotationPolygon annotation = mock(PDAnnotationPolygon.class);
+    when(annotation.getNormalAppearanceStream()).thenReturn(pdAppearanceStream);
     when(annotation.getConstantOpacity()).thenReturn(10.0f);
     when(annotation.getColor()).thenReturn(pdColor);
     when(annotation.getInteriorColor()).thenReturn(pdColor2);
-    when(annotation.getAppearance()).thenReturn(new PDAppearanceDictionary());
+    PDAppearanceDictionary pdAppearanceDictionary = new PDAppearanceDictionary();
+    when(annotation.getAppearance()).thenReturn(pdAppearanceDictionary);
     when(annotation.getBorderEffect()).thenReturn(pdBorderEffectDictionary);
     doNothing().when(annotation).setRectangle(Mockito.<PDRectangle>any());
-    when(annotation.getPath()).thenReturn(new float[][]{new float[]{10.0f, 0.5f, 10.0f, 0.5f}});
-    when(annotation.getRectangle()).thenReturn(new PDRectangle());
+    when(annotation.getVertices()).thenReturn(new float[]{10.0f, 0.5f, 10.0f, 0.5f});
+    when(annotation.getPath()).thenReturn(null);
+    when(annotation.getRectangle()).thenReturn(pdRectangle);
     when(annotation.getBorder()).thenReturn(new COSArray());
     when(annotation.getBorderStyle()).thenReturn(new PDBorderStyleDictionary());
     PDPolygonAppearanceHandler pdPolygonAppearanceHandler = new PDPolygonAppearanceHandler(annotation);
@@ -1758,53 +3271,114 @@ class PDPolygonAppearanceHandlerDiffblueTest {
     pdPolygonAppearanceHandler.generateNormalAppearance();
 
     // Assert
+    verify(pdRectangle).getCOSArray();
+    verify(pdRectangle, atLeast(1)).getLowerLeftX();
+    verify(pdRectangle, atLeast(1)).getLowerLeftY();
+    verify(pdRectangle).getUpperRightX();
+    verify(pdRectangle).getUpperRightY();
+    verify(pdRectangle).setLowerLeftX(eq(9.0f));
+    verify(pdRectangle).setLowerLeftY(eq(-0.5f));
+    verify(pdRectangle).setUpperRightX(eq(11.0f));
+    verify(pdRectangle).setUpperRightY(eq(10.0f));
     verify(colorSpace).getNumberOfComponents();
     verify(colorSpace2).getNumberOfComponents();
+    verify(pdAppearanceStream).setBBox(isA(PDRectangle.class));
+    verify(pdAppearanceStream).setMatrix(isA(AffineTransform.class));
     verify(annotation).getAppearance();
     verify(annotation).getBorder();
     verify(annotation).getColor();
+    verify(annotation).getNormalAppearanceStream();
     verify(annotation, atLeast(1)).getRectangle();
-    verify(annotation).setRectangle(isA(PDRectangle.class));
+    verify(annotation, atLeast(1)).setRectangle(Mockito.<PDRectangle>any());
     verify(annotation, atLeast(1)).getBorderStyle();
     verify(annotation).getConstantOpacity();
     verify(annotation).getBorderEffect();
     verify(annotation).getInteriorColor();
     verify(annotation).getPath();
+    verify(annotation).getVertices();
+    verify(pdBorderEffectDictionary).getIntensity();
     verify(pdBorderEffectDictionary).getStyle();
-    PDAppearanceStream appearanceStream = pdPolygonAppearanceHandler.getDownAppearance().getAppearanceStream();
-    float[][] values = appearanceStream.getMatrix().getValues();
+    PDAppearanceEntry downAppearance = pdPolygonAppearanceHandler.getDownAppearance();
+    PDAppearanceStream appearanceStream = downAppearance.getAppearanceStream();
+    PDResources resources = appearanceStream.getResources();
+    Iterable<COSName> colorSpaceNames = resources.getColorSpaceNames();
+    assertTrue(colorSpaceNames instanceof Set);
+    PDFont defaultFont = pdPolygonAppearanceHandler.getDefaultFont();
+    FontBoxFont fontBoxFont = ((PDType1Font) defaultFont).getFontBoxFont();
+    assertTrue(fontBoxFont instanceof TrueTypeFont);
+    GsubData gsubData = ((TrueTypeFont) fontBoxFont).getGsubData();
+    assertTrue(gsubData instanceof MapBackedGsubData);
+    COSDictionary cOSObject = downAppearance.getCOSObject();
+    assertTrue(cOSObject instanceof COSStream);
+    assertTrue(defaultFont instanceof PDType1Font);
+    COSDictionary cOSObject2 = resources.getCOSObject();
+    COSUpdateState updateState = cOSObject2.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject2.getKey());
+    assertNull(resources.getResourceCache());
+    assertNull(appearanceStream.getBBox());
+    PDAppearanceEntry rolloverAppearance = pdPolygonAppearanceHandler.getRolloverAppearance();
+    PDAppearanceStream appearanceStream2 = rolloverAppearance.getAppearanceStream();
+    assertNull(appearanceStream2.getBBox());
+    Matrix matrix = appearanceStream.getMatrix();
+    assertEquals(-10.0f, matrix.getTranslateX());
+    assertEquals(-10.0f, matrix.getTranslateY());
+    float[][] values = matrix.getValues();
+    float[] floatArray = values[2];
+    assertEquals(-10.0f, floatArray[0]);
+    assertEquals(-10.0f, floatArray[1]);
+    assertEquals(0, cOSObject2.size());
     assertEquals(3, values.length);
-    PDAppearanceDictionary appearance = pdPolygonAppearanceHandler.getAppearance();
-    PDAppearanceStream appearanceStream2 = appearance.getDownAppearance().getAppearanceStream();
-    assertEquals(44, appearanceStream2.getStream().getLength());
-    PDAppearanceStream appearanceStream3 = appearance.getNormalAppearance().getAppearanceStream();
-    assertEquals(44, appearanceStream3.getStream().getLength());
-    PDAppearanceStream appearanceStream4 = appearance.getRolloverAppearance().getAppearanceStream();
-    assertEquals(44, appearanceStream4.getStream().getLength());
-    assertEquals(44, appearanceStream.getStream().getLength());
-    PDAppearanceStream appearanceStream5 = pdPolygonAppearanceHandler.getRolloverAppearance().getAppearanceStream();
-    assertEquals(44, appearanceStream5.getStream().getLength());
-    assertEquals(44, appearanceStream2.getContentStream().getLength());
-    assertEquals(44, appearanceStream3.getContentStream().getLength());
-    assertEquals(44, appearanceStream4.getContentStream().getLength());
-    assertEquals(44, appearanceStream.getContentStream().getLength());
-    assertEquals(44, appearanceStream5.getContentStream().getLength());
-    assertArrayEquals(new float[]{-0.0f, 0.5f, 1.0f}, values[2], 0.0f);
+    assertEquals(3, floatArray.length);
+    assertEquals(42, appearanceStream.getStream().getLength());
+    PDStream stream = appearanceStream2.getStream();
+    assertEquals(42, stream.getLength());
+    assertEquals(42, appearanceStream.getContentStream().getLength());
+    PDStream contentStream = appearanceStream2.getContentStream();
+    assertEquals(42, contentStream.getLength());
+    assertEquals(5, cOSObject.getValues().size());
+    assertEquals(5, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject2.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject2.isDirect());
+    assertFalse(cOSObject2.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(cOSObject2.getValues().isEmpty());
+    assertTrue(gsubData.getSupportedFeatures().isEmpty());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertTrue(defaultFont.getCOSObject().toIncrement().getObjects().isEmpty());
+    assertTrue(defaultFont.getFontDescriptor().getCOSObject().toIncrement().getObjects().isEmpty());
+    assertTrue(((Set<COSName>) colorSpaceNames).isEmpty());
+    assertTrue(((COSStream) cOSObject).hasData());
+    assertEquals(matrix, appearanceStream2.getMatrix());
+    assertSame(pdAppearanceDictionary, pdPolygonAppearanceHandler.getAppearance());
+    PDResources resources2 = appearanceStream2.getResources();
+    assertSame(cOSObject2, resources2.getCOSObject());
+    assertSame(colorSpaceNames, resources2.getColorSpaceNames());
+    assertSame(colorSpaceNames, resources.getExtGStateNames());
+    assertSame(colorSpaceNames, resources2.getExtGStateNames());
+    assertSame(colorSpaceNames, resources.getFontNames());
+    assertSame(colorSpaceNames, resources2.getFontNames());
+    assertSame(colorSpaceNames, resources.getPatternNames());
+    assertSame(colorSpaceNames, resources2.getPatternNames());
+    assertSame(colorSpaceNames, resources.getPropertiesNames());
+    assertSame(colorSpaceNames, resources2.getPropertiesNames());
+    assertSame(colorSpaceNames, resources.getShadingNames());
+    assertSame(colorSpaceNames, resources2.getShadingNames());
+    assertSame(colorSpaceNames, resources.getXObjectNames());
+    assertSame(colorSpaceNames, resources2.getXObjectNames());
+    assertSame(cOSObject, stream.getCOSObject());
+    assertSame(cOSObject, contentStream.getCOSObject());
+    assertSame(cOSObject, appearanceStream2.getCOSObject());
+    assertSame(cOSObject, rolloverAppearance.getCOSObject());
   }
 
   /**
-   * Test {@link PDPolygonAppearanceHandler#generateNormalAppearance()}.
-   * <ul>
-   *   <li>Then calls {@link COSArray#getUpdateState()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDPolygonAppearanceHandler#generateNormalAppearance()}
+   * Method under test:
+   * {@link PDPolygonAppearanceHandler#generateNormalAppearance()}
    */
   @Test
-  @DisplayName("Test generateNormalAppearance(); then calls getUpdateState()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDPolygonAppearanceHandler.generateNormalAppearance()"})
-  void testGenerateNormalAppearance_thenCallsGetUpdateState() {
+  void testGenerateNormalAppearance25() throws IOException {
     // Arrange
     COSArray cosArray = mock(COSArray.class);
     when(cosArray.isDirect()).thenReturn(true);
@@ -1838,7 +3412,8 @@ class PDPolygonAppearanceHandlerDiffblueTest {
     when(annotation.getConstantOpacity()).thenReturn(10.0f);
     when(annotation.getColor()).thenReturn(pdColor);
     when(annotation.getInteriorColor()).thenReturn(pdColor2);
-    when(annotation.getAppearance()).thenReturn(new PDAppearanceDictionary());
+    PDAppearanceDictionary pdAppearanceDictionary = new PDAppearanceDictionary();
+    when(annotation.getAppearance()).thenReturn(pdAppearanceDictionary);
     when(annotation.getBorderEffect()).thenReturn(pdBorderEffectDictionary);
     doNothing().when(annotation).setRectangle(Mockito.<PDRectangle>any());
     when(annotation.getVertices()).thenReturn(new float[]{10.0f, 0.5f, 10.0f, 0.5f});
@@ -1881,44 +3456,109 @@ class PDPolygonAppearanceHandlerDiffblueTest {
     verify(annotation).getVertices();
     verify(pdBorderEffectDictionary).getIntensity();
     verify(pdBorderEffectDictionary).getStyle();
-    PDAppearanceStream appearanceStream = pdPolygonAppearanceHandler.getDownAppearance().getAppearanceStream();
+    PDAppearanceEntry downAppearance = pdPolygonAppearanceHandler.getDownAppearance();
+    PDAppearanceStream appearanceStream = downAppearance.getAppearanceStream();
+    PDResources resources = appearanceStream.getResources();
+    Iterable<COSName> colorSpaceNames = resources.getColorSpaceNames();
+    assertTrue(colorSpaceNames instanceof Set);
+    PDFont defaultFont = pdPolygonAppearanceHandler.getDefaultFont();
+    FontBoxFont fontBoxFont = ((PDType1Font) defaultFont).getFontBoxFont();
+    assertTrue(fontBoxFont instanceof TrueTypeFont);
+    GsubData gsubData = ((TrueTypeFont) fontBoxFont).getGsubData();
+    assertTrue(gsubData instanceof MapBackedGsubData);
+    COSDictionary cOSObject = downAppearance.getCOSObject();
+    assertTrue(cOSObject instanceof COSStream);
+    assertTrue(defaultFont instanceof PDType1Font);
+    COSDictionary cOSObject2 = resources.getCOSObject();
+    COSUpdateState updateState = cOSObject2.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject2.getKey());
+    assertNull(resources.getResourceCache());
     Matrix matrix = appearanceStream.getMatrix();
     assertEquals(-10.0f, matrix.getTranslateX());
     assertEquals(-10.0f, matrix.getTranslateY());
     float[][] values = matrix.getValues();
+    float[] floatArray = values[2];
+    assertEquals(-10.0f, floatArray[0]);
+    assertEquals(-10.0f, floatArray[1]);
+    assertEquals(0, cOSObject2.size());
     assertEquals(3, values.length);
-    PDAppearanceDictionary appearance = pdPolygonAppearanceHandler.getAppearance();
-    PDAppearanceStream appearanceStream2 = appearance.getDownAppearance().getAppearanceStream();
-    assertEquals(42, appearanceStream2.getStream().getLength());
-    PDAppearanceStream appearanceStream3 = appearance.getNormalAppearance().getAppearanceStream();
-    assertEquals(42, appearanceStream3.getStream().getLength());
-    PDAppearanceStream appearanceStream4 = appearance.getRolloverAppearance().getAppearanceStream();
-    assertEquals(42, appearanceStream4.getStream().getLength());
+    assertEquals(3, floatArray.length);
     assertEquals(42, appearanceStream.getStream().getLength());
-    PDAppearanceStream appearanceStream5 = pdPolygonAppearanceHandler.getRolloverAppearance().getAppearanceStream();
-    assertEquals(42, appearanceStream5.getStream().getLength());
-    assertEquals(42, appearanceStream2.getContentStream().getLength());
-    assertEquals(42, appearanceStream3.getContentStream().getLength());
-    assertEquals(42, appearanceStream4.getContentStream().getLength());
+    PDAppearanceEntry rolloverAppearance = pdPolygonAppearanceHandler.getRolloverAppearance();
+    PDAppearanceStream appearanceStream2 = rolloverAppearance.getAppearanceStream();
+    PDStream stream = appearanceStream2.getStream();
+    assertEquals(42, stream.getLength());
     assertEquals(42, appearanceStream.getContentStream().getLength());
-    assertEquals(42, appearanceStream5.getContentStream().getLength());
-    assertArrayEquals(new float[]{-10.0f, -10.0f, 1.0f}, values[2], 0.0f);
+    PDStream contentStream = appearanceStream2.getContentStream();
+    assertEquals(42, contentStream.getLength());
+    assertEquals(6, cOSObject.getValues().size());
+    assertEquals(6, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject2.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject2.isDirect());
+    assertFalse(cOSObject2.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(cOSObject2.getValues().isEmpty());
+    assertTrue(gsubData.getSupportedFeatures().isEmpty());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertTrue(defaultFont.getCOSObject().toIncrement().getObjects().isEmpty());
+    assertTrue(defaultFont.getFontDescriptor().getCOSObject().toIncrement().getObjects().isEmpty());
+    assertTrue(((Set<COSName>) colorSpaceNames).isEmpty());
+    assertTrue(((COSStream) cOSObject).hasData());
+    assertEquals(matrix, appearanceStream2.getMatrix());
+    assertSame(pdAppearanceDictionary, pdPolygonAppearanceHandler.getAppearance());
+    PDResources resources2 = appearanceStream2.getResources();
+    assertSame(cOSObject2, resources2.getCOSObject());
+    assertSame(colorSpaceNames, resources2.getColorSpaceNames());
+    assertSame(colorSpaceNames, resources.getExtGStateNames());
+    assertSame(colorSpaceNames, resources2.getExtGStateNames());
+    assertSame(colorSpaceNames, resources.getFontNames());
+    assertSame(colorSpaceNames, resources2.getFontNames());
+    assertSame(colorSpaceNames, resources.getPatternNames());
+    assertSame(colorSpaceNames, resources2.getPatternNames());
+    assertSame(colorSpaceNames, resources.getPropertiesNames());
+    assertSame(colorSpaceNames, resources2.getPropertiesNames());
+    assertSame(colorSpaceNames, resources.getShadingNames());
+    assertSame(colorSpaceNames, resources2.getShadingNames());
+    assertSame(colorSpaceNames, resources.getXObjectNames());
+    assertSame(colorSpaceNames, resources2.getXObjectNames());
+    assertSame(cOSObject, stream.getCOSObject());
+    assertSame(cOSObject, contentStream.getCOSObject());
+    assertSame(cOSObject, appearanceStream2.getCOSObject());
+    assertSame(cOSObject, rolloverAppearance.getCOSObject());
   }
 
   /**
-   * Test {@link PDPolygonAppearanceHandler#getLineWidth()}.
-   * <ul>
-   *   <li>Then return one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDPolygonAppearanceHandler#getLineWidth()}
    */
   @Test
-  @DisplayName("Test getLineWidth(); then return one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"float PDPolygonAppearanceHandler.getLineWidth()"})
-  void testGetLineWidth_thenReturnOne() {
+  void testGetLineWidth() {
     // Arrange, Act and Assert
     assertEquals(1.0f, (new PDPolygonAppearanceHandler(new PDAnnotationCaret())).getLineWidth());
+  }
+
+  /**
+   * Methods under test:
+   * <ul>
+   *   <li>
+   * {@link PDPolygonAppearanceHandler#PDPolygonAppearanceHandler(PDAnnotation)}
+   *   <li>{@link PDPolygonAppearanceHandler#generateDownAppearance()}
+   *   <li>{@link PDPolygonAppearanceHandler#generateRolloverAppearance()}
+   * </ul>
+   */
+  @Test
+  void testGettersAndSetters() {
+    // Arrange
+    PDAnnotationCaret annotation = new PDAnnotationCaret();
+
+    // Act
+    PDPolygonAppearanceHandler actualPdPolygonAppearanceHandler = new PDPolygonAppearanceHandler(annotation);
+    actualPdPolygonAppearanceHandler.generateDownAppearance();
+    actualPdPolygonAppearanceHandler.generateRolloverAppearance();
+
+    // Assert that nothing has changed
+    assertTrue(actualPdPolygonAppearanceHandler.getDefaultFont() instanceof PDType1Font);
+    assertSame(annotation, actualPdPolygonAppearanceHandler.getAnnotation());
   }
 }

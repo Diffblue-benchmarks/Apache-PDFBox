@@ -1,15 +1,10 @@
 package org.apache.fontbox.ttf.table.common;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import com.diffblue.cover.annotations.MethodsUnderTest;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class RangeRecordDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link RangeRecord#RangeRecord(int, int, int)}
@@ -20,10 +15,6 @@ class RangeRecordDiffblueTest {
    * </ul>
    */
   @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void RangeRecord.<init>(int, int, int)", "int RangeRecord.getEndGlyphID()",
-      "int RangeRecord.getStartCoverageIndex()", "int RangeRecord.getStartGlyphID()", "String RangeRecord.toString()"})
   void testGettersAndSetters() {
     // Arrange and Act
     RangeRecord actualRangeRecord = new RangeRecord(1, 1, 1);

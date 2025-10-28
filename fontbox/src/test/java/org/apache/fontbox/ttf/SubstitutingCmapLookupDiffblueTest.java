@@ -8,29 +8,17 @@ import static org.mockito.Mockito.anyInt;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 class SubstitutingCmapLookupDiffblueTest {
   /**
-   * Test {@link SubstitutingCmapLookup#getGlyphId(int)}.
-   * <ul>
-   *   <li>Given {@link GlyphSubstitutionTable} {@link GlyphSubstitutionTable#getSubstitution(int, String[], List)} return one.</li>
-   *   <li>Then return one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link SubstitutingCmapLookup#getGlyphId(int)}
    */
   @Test
-  @DisplayName("Test getGlyphId(int); given GlyphSubstitutionTable getSubstitution(int, String[], List) return one; then return one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"int SubstitutingCmapLookup.getGlyphId(int)"})
-  void testGetGlyphId_givenGlyphSubstitutionTableGetSubstitutionReturnOne_thenReturnOne() {
+  void testGetGlyphId() {
     // Arrange
     CmapSubtable cmap = mock(CmapSubtable.class);
     when(cmap.getGlyphId(anyInt())).thenReturn(1);
@@ -47,19 +35,10 @@ class SubstitutingCmapLookupDiffblueTest {
   }
 
   /**
-   * Test {@link SubstitutingCmapLookup#getGlyphId(int)}.
-   * <ul>
-   *   <li>When {@code 1114111}.</li>
-   *   <li>Then return one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link SubstitutingCmapLookup#getGlyphId(int)}
    */
   @Test
-  @DisplayName("Test getGlyphId(int); when '1114111'; then return one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"int SubstitutingCmapLookup.getGlyphId(int)"})
-  void testGetGlyphId_when1114111_thenReturnOne() {
+  void testGetGlyphId2() {
     // Arrange
     CmapSubtable cmap = mock(CmapSubtable.class);
     when(cmap.getGlyphId(anyInt())).thenReturn(1);
@@ -76,19 +55,10 @@ class SubstitutingCmapLookupDiffblueTest {
   }
 
   /**
-   * Test {@link SubstitutingCmapLookup#getGlyphId(int)}.
-   * <ul>
-   *   <li>When zero.</li>
-   *   <li>Then return one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link SubstitutingCmapLookup#getGlyphId(int)}
    */
   @Test
-  @DisplayName("Test getGlyphId(int); when zero; then return one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"int SubstitutingCmapLookup.getGlyphId(int)"})
-  void testGetGlyphId_whenZero_thenReturnOne() {
+  void testGetGlyphId3() {
     // Arrange
     CmapSubtable cmap = mock(CmapSubtable.class);
     when(cmap.getGlyphId(anyInt())).thenReturn(1);
@@ -105,18 +75,10 @@ class SubstitutingCmapLookupDiffblueTest {
   }
 
   /**
-   * Test {@link SubstitutingCmapLookup#getCharCodes(int)}.
-   * <ul>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link SubstitutingCmapLookup#getCharCodes(int)}
    */
   @Test
-  @DisplayName("Test getCharCodes(int); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List SubstitutingCmapLookup.getCharCodes(int)"})
-  void testGetCharCodes_thenReturnNull() {
+  void testGetCharCodes() {
     // Arrange
     CmapSubtable cmap = new CmapSubtable();
     GlyphSubstitutionTable gsub = new GlyphSubstitutionTable();
@@ -126,19 +88,10 @@ class SubstitutingCmapLookupDiffblueTest {
   }
 
   /**
-   * Test {@link SubstitutingCmapLookup#getCharCodes(int)}.
-   * <ul>
-   *   <li>When minus one.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link SubstitutingCmapLookup#getCharCodes(int)}
    */
   @Test
-  @DisplayName("Test getCharCodes(int); when minus one; then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List SubstitutingCmapLookup.getCharCodes(int)"})
-  void testGetCharCodes_whenMinusOne_thenReturnNull() {
+  void testGetCharCodes2() {
     // Arrange
     CmapSubtable cmap = new CmapSubtable();
     GlyphSubstitutionTable gsub = new GlyphSubstitutionTable();

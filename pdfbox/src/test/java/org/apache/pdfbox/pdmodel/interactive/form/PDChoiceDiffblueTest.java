@@ -5,66 +5,57 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.ArgumentMatchers.isA;
-import static org.mockito.Mockito.anyBoolean;
-import static org.mockito.Mockito.anyInt;
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import org.apache.pdfbox.cos.COSBase;
 import org.apache.pdfbox.cos.COSDictionary;
-import org.apache.pdfbox.cos.COSName;
+import org.apache.pdfbox.io.RandomAccessStreamCache;
+import org.apache.pdfbox.io.RandomAccessStreamCacheImpl;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDResources;
 import org.apache.pdfbox.pdmodel.fdf.FDFField;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 class PDChoiceDiffblueTest {
   /**
-   * Test {@link PDChoice#getOptions()}.
-   * <ul>
-   *   <li>Given {@link PDComboBox#PDComboBox(PDAcroForm)} with acroForm is {@link PDAcroForm#PDAcroForm(PDDocument)}.</li>
-   *   <li>Then return Empty.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDChoice#getOptions()}
    */
   @Test
-  @DisplayName("Test getOptions(); given PDComboBox(PDAcroForm) with acroForm is PDAcroForm(PDDocument); then return Empty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List PDChoice.getOptions()"})
-  void testGetOptions_givenPDComboBoxWithAcroFormIsPDAcroForm_thenReturnEmpty() {
+  void testGetOptions() {
     // Arrange, Act and Assert
     assertTrue((new PDComboBox(new PDAcroForm(new PDDocument()))).getOptions().isEmpty());
   }
 
   /**
-   * Test {@link PDChoice#setOptions(List)} with {@code displayValues}.
-   * <ul>
-   *   <li>Then calls {@link COSDictionary#getFlag(COSName, int)}.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PDChoice#getOptions()}
+   */
+  @Test
+  void testGetOptions2() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+
+    // Act
+    List<String> actualOptions = (new PDComboBox(new PDAcroForm(new PDDocument(streamCacheCreateFunction))))
+        .getOptions();
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertTrue(actualOptions.isEmpty());
+  }
+
+  /**
    * Method under test: {@link PDChoice#setOptions(List)}
    */
   @Test
-  @DisplayName("Test setOptions(List) with 'displayValues'; then calls getFlag(COSName, int)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDChoice.setOptions(List)"})
-  void testSetOptionsWithDisplayValues_thenCallsGetFlag() {
+  void testSetOptions() {
     // Arrange
-    COSDictionary field = mock(COSDictionary.class);
-    when(field.getFlag(Mockito.<COSName>any(), anyInt())).thenReturn(true);
-    doNothing().when(field).setItem(Mockito.<COSName>any(), Mockito.<COSBase>any());
     PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    COSDictionary field = new COSDictionary();
     PDComboBox pdComboBox = new PDComboBox(acroForm, field, new PDNonTerminalField(new PDAcroForm(new PDDocument())));
 
     ArrayList<String> displayValues = new ArrayList<>();
@@ -73,99 +64,202 @@ class PDChoiceDiffblueTest {
     // Act
     pdComboBox.setOptions(displayValues);
 
-    // Assert that nothing has changed
-    verify(field).getFlag(isA(COSName.class), eq(524288));
-    verify(field).setItem(isA(COSName.class), isA(COSBase.class));
+    // Assert
+    List<String> options = pdComboBox.getOptions();
+    assertEquals(1, options.size());
+    assertEquals("foo", options.get(0));
+    List<String> optionsDisplayValues = pdComboBox.getOptionsDisplayValues();
+    assertEquals(1, optionsDisplayValues.size());
+    assertEquals("foo", optionsDisplayValues.get(0));
+    List<String> optionsExportValues = pdComboBox.getOptionsExportValues();
+    assertEquals(1, optionsExportValues.size());
+    assertEquals("foo", optionsExportValues.get(0));
+    assertSame(field, pdComboBox.getCOSObject());
   }
 
   /**
-   * Test {@link PDChoice#setOptions(List, List)} with {@code exportValues}, {@code displayValues}.
-   * <ul>
-   *   <li>Then throw {@link IllegalArgumentException}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDChoice#setOptions(List, List)}
    */
   @Test
-  @DisplayName("Test setOptions(List, List) with 'exportValues', 'displayValues'; then throw IllegalArgumentException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDChoice.setOptions(List, List)"})
-  void testSetOptionsWithExportValuesDisplayValues_thenThrowIllegalArgumentException() {
+  void testSetOptions2() throws IOException {
     // Arrange
-    PDComboBox pdComboBox = new PDComboBox(new PDAcroForm(new PDDocument()));
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDComboBox pdComboBox = new PDComboBox(new PDAcroForm(new PDDocument(streamCacheCreateFunction)));
 
     ArrayList<String> exportValues = new ArrayList<>();
     exportValues.add("foo");
 
     ArrayList<String> displayValues = new ArrayList<>();
-    displayValues.add("42");
     displayValues.add("foo");
+    displayValues.add("");
 
     // Act and Assert
     assertThrows(IllegalArgumentException.class, () -> pdComboBox.setOptions(exportValues, displayValues));
+    verify(streamCacheCreateFunction).create();
   }
 
   /**
-   * Test {@link PDChoice#getOptionsDisplayValues()}.
-   * <ul>
-   *   <li>Then return Empty.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PDChoice#setOptions(List, List)}
+   */
+  @Test
+  void testSetOptions3() {
+    // Arrange
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    COSDictionary field = new COSDictionary();
+    PDComboBox pdComboBox = new PDComboBox(acroForm, field, new PDNonTerminalField(new PDAcroForm(new PDDocument())));
+
+    ArrayList<String> exportValues = new ArrayList<>();
+    exportValues.add("foo");
+
+    ArrayList<String> displayValues = new ArrayList<>();
+    displayValues.add("");
+
+    // Act
+    pdComboBox.setOptions(exportValues, displayValues);
+
+    // Assert
+    List<String> optionsDisplayValues = pdComboBox.getOptionsDisplayValues();
+    assertEquals(1, optionsDisplayValues.size());
+    assertEquals("", optionsDisplayValues.get(0));
+    List<String> options = pdComboBox.getOptions();
+    assertEquals(1, options.size());
+    assertEquals("foo", options.get(0));
+    List<String> optionsExportValues = pdComboBox.getOptionsExportValues();
+    assertEquals(1, optionsExportValues.size());
+    assertEquals("foo", optionsExportValues.get(0));
+    assertSame(field, pdComboBox.getCOSObject());
+  }
+
+  /**
    * Method under test: {@link PDChoice#getOptionsDisplayValues()}
    */
   @Test
-  @DisplayName("Test getOptionsDisplayValues(); then return Empty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List PDChoice.getOptionsDisplayValues()"})
-  void testGetOptionsDisplayValues_thenReturnEmpty() {
+  void testGetOptionsDisplayValues() {
     // Arrange, Act and Assert
     assertTrue((new PDComboBox(new PDAcroForm(new PDDocument()))).getOptionsDisplayValues().isEmpty());
   }
 
   /**
-   * Test {@link PDChoice#getOptionsExportValues()}.
-   * <ul>
-   *   <li>Then return Empty.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PDChoice#getOptionsDisplayValues()}
+   */
+  @Test
+  void testGetOptionsDisplayValues2() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+
+    // Act
+    List<String> actualOptionsDisplayValues = (new PDComboBox(
+        new PDAcroForm(new PDDocument(streamCacheCreateFunction)))).getOptionsDisplayValues();
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertTrue(actualOptionsDisplayValues.isEmpty());
+  }
+
+  /**
    * Method under test: {@link PDChoice#getOptionsExportValues()}
    */
   @Test
-  @DisplayName("Test getOptionsExportValues(); then return Empty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List PDChoice.getOptionsExportValues()"})
-  void testGetOptionsExportValues_thenReturnEmpty() {
+  void testGetOptionsExportValues() {
     // Arrange, Act and Assert
     assertTrue((new PDComboBox(new PDAcroForm(new PDDocument()))).getOptionsExportValues().isEmpty());
   }
 
   /**
-   * Test {@link PDChoice#getSelectedOptionsIndex()}.
-   * <ul>
-   *   <li>Then return Empty.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PDChoice#getOptionsExportValues()}
+   */
+  @Test
+  void testGetOptionsExportValues2() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+
+    // Act
+    List<String> actualOptionsExportValues = (new PDComboBox(new PDAcroForm(new PDDocument(streamCacheCreateFunction))))
+        .getOptionsExportValues();
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertTrue(actualOptionsExportValues.isEmpty());
+  }
+
+  /**
    * Method under test: {@link PDChoice#getSelectedOptionsIndex()}
    */
   @Test
-  @DisplayName("Test getSelectedOptionsIndex(); then return Empty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List PDChoice.getSelectedOptionsIndex()"})
-  void testGetSelectedOptionsIndex_thenReturnEmpty() {
+  void testGetSelectedOptionsIndex() {
     // Arrange, Act and Assert
     assertTrue((new PDComboBox(new PDAcroForm(new PDDocument()))).getSelectedOptionsIndex().isEmpty());
   }
 
   /**
-   * Test {@link PDChoice#setSelectedOptionsIndex(List)}.
-   * <p>
+   * Method under test: {@link PDChoice#getSelectedOptionsIndex()}
+   */
+  @Test
+  void testGetSelectedOptionsIndex2() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+
+    // Act
+    List<Integer> actualSelectedOptionsIndex = (new PDComboBox(
+        new PDAcroForm(new PDDocument(streamCacheCreateFunction)))).getSelectedOptionsIndex();
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertTrue(actualSelectedOptionsIndex.isEmpty());
+  }
+
+  /**
    * Method under test: {@link PDChoice#setSelectedOptionsIndex(List)}
    */
   @Test
-  @DisplayName("Test setSelectedOptionsIndex(List)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDChoice.setSelectedOptionsIndex(List)"})
-  void testSetSelectedOptionsIndex() {
+  void testSetSelectedOptionsIndex() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDComboBox pdComboBox = new PDComboBox(new PDAcroForm(new PDDocument(streamCacheCreateFunction)));
+
+    ArrayList<Integer> values = new ArrayList<>();
+    values.add(2);
+
+    // Act and Assert
+    assertThrows(IllegalArgumentException.class, () -> pdComboBox.setSelectedOptionsIndex(values));
+    verify(streamCacheCreateFunction).create();
+  }
+
+  /**
+   * Method under test: {@link PDChoice#setSelectedOptionsIndex(List)}
+   */
+  @Test
+  void testSetSelectedOptionsIndex2() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDComboBox pdComboBox = new PDComboBox(new PDAcroForm(new PDDocument(streamCacheCreateFunction)));
+
+    ArrayList<Integer> values = new ArrayList<>();
+    values.add(2097152);
+    values.add(2);
+
+    // Act and Assert
+    assertThrows(IllegalArgumentException.class, () -> pdComboBox.setSelectedOptionsIndex(values));
+    verify(streamCacheCreateFunction).create();
+  }
+
+  /**
+   * Method under test: {@link PDChoice#setSelectedOptionsIndex(List)}
+   */
+  @Test
+  void testSetSelectedOptionsIndex3() {
     // Arrange
     PDAcroForm acroForm = new PDAcroForm(new PDDocument());
     COSDictionary field = new COSDictionary();
@@ -179,63 +273,37 @@ class PDChoiceDiffblueTest {
   }
 
   /**
-   * Test {@link PDChoice#setSelectedOptionsIndex(List)}.
-   * <ul>
-   *   <li>Given {@code 2097152}.</li>
-   *   <li>When {@link ArrayList#ArrayList()} add {@code 2097152}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDChoice#setSelectedOptionsIndex(List)}
-   */
-  @Test
-  @DisplayName("Test setSelectedOptionsIndex(List); given '2097152'; when ArrayList() add '2097152'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDChoice.setSelectedOptionsIndex(List)"})
-  void testSetSelectedOptionsIndex_given2097152_whenArrayListAdd2097152() {
-    // Arrange
-    PDComboBox pdComboBox = new PDComboBox(new PDAcroForm(new PDDocument()));
-
-    ArrayList<Integer> values = new ArrayList<>();
-    values.add(2097152);
-    values.add(2);
-
-    // Act and Assert
-    assertThrows(IllegalArgumentException.class, () -> pdComboBox.setSelectedOptionsIndex(values));
-  }
-
-  /**
-   * Test {@link PDChoice#setSelectedOptionsIndex(List)}.
-   * <ul>
-   *   <li>Then throw {@link IllegalArgumentException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDChoice#setSelectedOptionsIndex(List)}
-   */
-  @Test
-  @DisplayName("Test setSelectedOptionsIndex(List); then throw IllegalArgumentException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDChoice.setSelectedOptionsIndex(List)"})
-  void testSetSelectedOptionsIndex_thenThrowIllegalArgumentException() {
-    // Arrange
-    PDComboBox pdComboBox = new PDComboBox(new PDAcroForm(new PDDocument()));
-
-    ArrayList<Integer> values = new ArrayList<>();
-    values.add(2);
-
-    // Act and Assert
-    assertThrows(IllegalArgumentException.class, () -> pdComboBox.setSelectedOptionsIndex(values));
-  }
-
-  /**
-   * Test {@link PDChoice#isSort()}.
-   * <p>
    * Method under test: {@link PDChoice#isSort()}
    */
   @Test
-  @DisplayName("Test isSort()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean PDChoice.isSort()"})
   void testIsSort() {
+    // Arrange, Act and Assert
+    assertFalse((new PDComboBox(new PDAcroForm(new PDDocument()))).isSort());
+  }
+
+  /**
+   * Method under test: {@link PDChoice#isSort()}
+   */
+  @Test
+  void testIsSort2() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+
+    // Act
+    boolean actualIsSortResult = (new PDComboBox(new PDAcroForm(new PDDocument(streamCacheCreateFunction)))).isSort();
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertFalse(actualIsSortResult);
+  }
+
+  /**
+   * Method under test: {@link PDChoice#isSort()}
+   */
+  @Test
+  void testIsSort3() {
     // Arrange
     PDAcroForm acroForm = new PDAcroForm(new PDDocument());
     COSDictionary field = new COSDictionary();
@@ -245,79 +313,153 @@ class PDChoiceDiffblueTest {
   }
 
   /**
-   * Test {@link PDChoice#isSort()}.
-   * <ul>
-   *   <li>Given {@link PDComboBox#PDComboBox(PDAcroForm)} with acroForm is {@link PDAcroForm#PDAcroForm(PDDocument)}.</li>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDChoice#isSort()}
    */
   @Test
-  @DisplayName("Test isSort(); given PDComboBox(PDAcroForm) with acroForm is PDAcroForm(PDDocument); then return 'false'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean PDChoice.isSort()"})
-  void testIsSort_givenPDComboBoxWithAcroFormIsPDAcroForm_thenReturnFalse() {
-    // Arrange, Act and Assert
-    assertFalse((new PDComboBox(new PDAcroForm(new PDDocument()))).isSort());
+  void testIsSort4() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+
+    PDComboBox pdComboBox = new PDComboBox(new PDAcroForm(new PDDocument(streamCacheCreateFunction)));
+    pdComboBox.setFieldFlags(524288);
+
+    // Act
+    boolean actualIsSortResult = pdComboBox.isSort();
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertTrue(actualIsSortResult);
   }
 
   /**
-   * Test {@link PDChoice#isSort()}.
-   * <ul>
-   *   <li>Then return {@code true}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDChoice#isSort()}
+   * Method under test: {@link PDChoice#setSort(boolean)}
    */
   @Test
-  @DisplayName("Test isSort(); then return 'true'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean PDChoice.isSort()"})
-  void testIsSort_thenReturnTrue() {
+  void testSetSort() {
     // Arrange
     PDComboBox pdComboBox = new PDComboBox(new PDAcroForm(new PDDocument()));
-    pdComboBox.setFieldFlags(524288);
 
-    // Act and Assert
+    // Act
+    pdComboBox.setSort(true);
+
+    // Assert
+    assertEquals(655360, pdComboBox.getFieldFlags());
     assertTrue(pdComboBox.isSort());
   }
 
   /**
-   * Test {@link PDChoice#setSort(boolean)}.
-   * <p>
    * Method under test: {@link PDChoice#setSort(boolean)}
    */
   @Test
-  @DisplayName("Test setSort(boolean)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDChoice.setSort(boolean)"})
-  void testSetSort() {
+  void testSetSort2() throws IOException {
     // Arrange
-    COSDictionary field = mock(COSDictionary.class);
-    doNothing().when(field).setFlag(Mockito.<COSName>any(), anyInt(), anyBoolean());
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDComboBox pdComboBox = new PDComboBox(new PDAcroForm(new PDDocument(streamCacheCreateFunction)));
+
+    // Act
+    pdComboBox.setSort(true);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertEquals(655360, pdComboBox.getFieldFlags());
+    assertTrue(pdComboBox.isSort());
+  }
+
+  /**
+   * Method under test: {@link PDChoice#setSort(boolean)}
+   */
+  @Test
+  void testSetSort3() {
+    // Arrange
     PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    COSDictionary field = new COSDictionary();
     PDComboBox pdComboBox = new PDComboBox(acroForm, field, new PDNonTerminalField(new PDAcroForm(new PDDocument())));
 
     // Act
     pdComboBox.setSort(true);
 
-    // Assert that nothing has changed
-    verify(field).setFlag(isA(COSName.class), eq(524288), eq(true));
-    assertEquals(0, pdComboBox.getFieldFlags());
+    // Assert
+    assertEquals(524288, pdComboBox.getFieldFlags());
+    assertTrue(pdComboBox.isSort());
+    assertSame(field, pdComboBox.getCOSObject());
+  }
+
+  /**
+   * Method under test: {@link PDChoice#setSort(boolean)}
+   */
+  @Test
+  void testSetSort4() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDComboBox pdComboBox = new PDComboBox(new PDAcroForm(new PDDocument(streamCacheCreateFunction)));
+
+    // Act
+    pdComboBox.setSort(false);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertEquals(131072, pdComboBox.getFieldFlags());
     assertFalse(pdComboBox.isSort());
   }
 
   /**
-   * Test {@link PDChoice#isMultiSelect()}.
-   * <p>
+   * Method under test: {@link PDChoice#setSort(boolean)}
+   */
+  @Test
+  void testSetSort5() {
+    // Arrange
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    COSDictionary field = new COSDictionary();
+    PDComboBox pdComboBox = new PDComboBox(acroForm, field, new PDNonTerminalField(new PDAcroForm(new PDDocument())));
+
+    // Act
+    pdComboBox.setSort(false);
+
+    // Assert
+    assertEquals(0, pdComboBox.getFieldFlags());
+    assertFalse(pdComboBox.isSort());
+    assertSame(field, pdComboBox.getCOSObject());
+  }
+
+  /**
    * Method under test: {@link PDChoice#isMultiSelect()}
    */
   @Test
-  @DisplayName("Test isMultiSelect()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean PDChoice.isMultiSelect()"})
   void testIsMultiSelect() {
+    // Arrange, Act and Assert
+    assertFalse((new PDComboBox(new PDAcroForm(new PDDocument()))).isMultiSelect());
+  }
+
+  /**
+   * Method under test: {@link PDChoice#isMultiSelect()}
+   */
+  @Test
+  void testIsMultiSelect2() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+
+    // Act
+    boolean actualIsMultiSelectResult = (new PDComboBox(new PDAcroForm(new PDDocument(streamCacheCreateFunction))))
+        .isMultiSelect();
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertFalse(actualIsMultiSelectResult);
+  }
+
+  /**
+   * Method under test: {@link PDChoice#isMultiSelect()}
+   */
+  @Test
+  void testIsMultiSelect3() {
     // Arrange
     PDAcroForm acroForm = new PDAcroForm(new PDDocument());
     COSDictionary field = new COSDictionary();
@@ -328,79 +470,153 @@ class PDChoiceDiffblueTest {
   }
 
   /**
-   * Test {@link PDChoice#isMultiSelect()}.
-   * <ul>
-   *   <li>Given {@link PDComboBox#PDComboBox(PDAcroForm)} with acroForm is {@link PDAcroForm#PDAcroForm(PDDocument)}.</li>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDChoice#isMultiSelect()}
    */
   @Test
-  @DisplayName("Test isMultiSelect(); given PDComboBox(PDAcroForm) with acroForm is PDAcroForm(PDDocument); then return 'false'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean PDChoice.isMultiSelect()"})
-  void testIsMultiSelect_givenPDComboBoxWithAcroFormIsPDAcroForm_thenReturnFalse() {
-    // Arrange, Act and Assert
-    assertFalse((new PDComboBox(new PDAcroForm(new PDDocument()))).isMultiSelect());
+  void testIsMultiSelect4() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+
+    PDComboBox pdComboBox = new PDComboBox(new PDAcroForm(new PDDocument(streamCacheCreateFunction)));
+    pdComboBox.setFieldFlags(2097152);
+
+    // Act
+    boolean actualIsMultiSelectResult = pdComboBox.isMultiSelect();
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertTrue(actualIsMultiSelectResult);
   }
 
   /**
-   * Test {@link PDChoice#isMultiSelect()}.
-   * <ul>
-   *   <li>Then return {@code true}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDChoice#isMultiSelect()}
+   * Method under test: {@link PDChoice#setMultiSelect(boolean)}
    */
   @Test
-  @DisplayName("Test isMultiSelect(); then return 'true'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean PDChoice.isMultiSelect()"})
-  void testIsMultiSelect_thenReturnTrue() {
+  void testSetMultiSelect() {
     // Arrange
     PDComboBox pdComboBox = new PDComboBox(new PDAcroForm(new PDDocument()));
-    pdComboBox.setFieldFlags(2097152);
 
-    // Act and Assert
+    // Act
+    pdComboBox.setMultiSelect(true);
+
+    // Assert
+    assertEquals(2228224, pdComboBox.getFieldFlags());
     assertTrue(pdComboBox.isMultiSelect());
   }
 
   /**
-   * Test {@link PDChoice#setMultiSelect(boolean)}.
-   * <p>
    * Method under test: {@link PDChoice#setMultiSelect(boolean)}
    */
   @Test
-  @DisplayName("Test setMultiSelect(boolean)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDChoice.setMultiSelect(boolean)"})
-  void testSetMultiSelect() {
+  void testSetMultiSelect2() throws IOException {
     // Arrange
-    COSDictionary field = mock(COSDictionary.class);
-    doNothing().when(field).setFlag(Mockito.<COSName>any(), anyInt(), anyBoolean());
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDComboBox pdComboBox = new PDComboBox(new PDAcroForm(new PDDocument(streamCacheCreateFunction)));
+
+    // Act
+    pdComboBox.setMultiSelect(true);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertEquals(2228224, pdComboBox.getFieldFlags());
+    assertTrue(pdComboBox.isMultiSelect());
+  }
+
+  /**
+   * Method under test: {@link PDChoice#setMultiSelect(boolean)}
+   */
+  @Test
+  void testSetMultiSelect3() {
+    // Arrange
     PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    COSDictionary field = new COSDictionary();
     PDComboBox pdComboBox = new PDComboBox(acroForm, field, new PDNonTerminalField(new PDAcroForm(new PDDocument())));
 
     // Act
     pdComboBox.setMultiSelect(true);
 
-    // Assert that nothing has changed
-    verify(field).setFlag(isA(COSName.class), eq(2097152), eq(true));
-    assertEquals(0, pdComboBox.getFieldFlags());
+    // Assert
+    assertEquals(2097152, pdComboBox.getFieldFlags());
+    assertTrue(pdComboBox.isMultiSelect());
+    assertSame(field, pdComboBox.getCOSObject());
+  }
+
+  /**
+   * Method under test: {@link PDChoice#setMultiSelect(boolean)}
+   */
+  @Test
+  void testSetMultiSelect4() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDComboBox pdComboBox = new PDComboBox(new PDAcroForm(new PDDocument(streamCacheCreateFunction)));
+
+    // Act
+    pdComboBox.setMultiSelect(false);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertEquals(131072, pdComboBox.getFieldFlags());
     assertFalse(pdComboBox.isMultiSelect());
   }
 
   /**
-   * Test {@link PDChoice#isDoNotSpellCheck()}.
-   * <p>
+   * Method under test: {@link PDChoice#setMultiSelect(boolean)}
+   */
+  @Test
+  void testSetMultiSelect5() {
+    // Arrange
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    COSDictionary field = new COSDictionary();
+    PDComboBox pdComboBox = new PDComboBox(acroForm, field, new PDNonTerminalField(new PDAcroForm(new PDDocument())));
+
+    // Act
+    pdComboBox.setMultiSelect(false);
+
+    // Assert
+    assertEquals(0, pdComboBox.getFieldFlags());
+    assertFalse(pdComboBox.isMultiSelect());
+    assertSame(field, pdComboBox.getCOSObject());
+  }
+
+  /**
    * Method under test: {@link PDChoice#isDoNotSpellCheck()}
    */
   @Test
-  @DisplayName("Test isDoNotSpellCheck()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean PDChoice.isDoNotSpellCheck()"})
   void testIsDoNotSpellCheck() {
+    // Arrange, Act and Assert
+    assertFalse((new PDComboBox(new PDAcroForm(new PDDocument()))).isDoNotSpellCheck());
+  }
+
+  /**
+   * Method under test: {@link PDChoice#isDoNotSpellCheck()}
+   */
+  @Test
+  void testIsDoNotSpellCheck2() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+
+    // Act
+    boolean actualIsDoNotSpellCheckResult = (new PDComboBox(new PDAcroForm(new PDDocument(streamCacheCreateFunction))))
+        .isDoNotSpellCheck();
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertFalse(actualIsDoNotSpellCheckResult);
+  }
+
+  /**
+   * Method under test: {@link PDChoice#isDoNotSpellCheck()}
+   */
+  @Test
+  void testIsDoNotSpellCheck3() {
     // Arrange
     PDAcroForm acroForm = new PDAcroForm(new PDDocument());
     COSDictionary field = new COSDictionary();
@@ -411,79 +627,153 @@ class PDChoiceDiffblueTest {
   }
 
   /**
-   * Test {@link PDChoice#isDoNotSpellCheck()}.
-   * <ul>
-   *   <li>Given {@link PDComboBox#PDComboBox(PDAcroForm)} with acroForm is {@link PDAcroForm#PDAcroForm(PDDocument)}.</li>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDChoice#isDoNotSpellCheck()}
    */
   @Test
-  @DisplayName("Test isDoNotSpellCheck(); given PDComboBox(PDAcroForm) with acroForm is PDAcroForm(PDDocument); then return 'false'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean PDChoice.isDoNotSpellCheck()"})
-  void testIsDoNotSpellCheck_givenPDComboBoxWithAcroFormIsPDAcroForm_thenReturnFalse() {
-    // Arrange, Act and Assert
-    assertFalse((new PDComboBox(new PDAcroForm(new PDDocument()))).isDoNotSpellCheck());
+  void testIsDoNotSpellCheck4() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+
+    PDComboBox pdComboBox = new PDComboBox(new PDAcroForm(new PDDocument(streamCacheCreateFunction)));
+    pdComboBox.setFieldFlags(4194304);
+
+    // Act
+    boolean actualIsDoNotSpellCheckResult = pdComboBox.isDoNotSpellCheck();
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertTrue(actualIsDoNotSpellCheckResult);
   }
 
   /**
-   * Test {@link PDChoice#isDoNotSpellCheck()}.
-   * <ul>
-   *   <li>Then return {@code true}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDChoice#isDoNotSpellCheck()}
+   * Method under test: {@link PDChoice#setDoNotSpellCheck(boolean)}
    */
   @Test
-  @DisplayName("Test isDoNotSpellCheck(); then return 'true'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean PDChoice.isDoNotSpellCheck()"})
-  void testIsDoNotSpellCheck_thenReturnTrue() {
+  void testSetDoNotSpellCheck() {
     // Arrange
     PDComboBox pdComboBox = new PDComboBox(new PDAcroForm(new PDDocument()));
-    pdComboBox.setFieldFlags(4194304);
 
-    // Act and Assert
+    // Act
+    pdComboBox.setDoNotSpellCheck(true);
+
+    // Assert
+    assertEquals(4325376, pdComboBox.getFieldFlags());
     assertTrue(pdComboBox.isDoNotSpellCheck());
   }
 
   /**
-   * Test {@link PDChoice#setDoNotSpellCheck(boolean)}.
-   * <p>
    * Method under test: {@link PDChoice#setDoNotSpellCheck(boolean)}
    */
   @Test
-  @DisplayName("Test setDoNotSpellCheck(boolean)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDChoice.setDoNotSpellCheck(boolean)"})
-  void testSetDoNotSpellCheck() {
+  void testSetDoNotSpellCheck2() throws IOException {
     // Arrange
-    COSDictionary field = mock(COSDictionary.class);
-    doNothing().when(field).setFlag(Mockito.<COSName>any(), anyInt(), anyBoolean());
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDComboBox pdComboBox = new PDComboBox(new PDAcroForm(new PDDocument(streamCacheCreateFunction)));
+
+    // Act
+    pdComboBox.setDoNotSpellCheck(true);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertEquals(4325376, pdComboBox.getFieldFlags());
+    assertTrue(pdComboBox.isDoNotSpellCheck());
+  }
+
+  /**
+   * Method under test: {@link PDChoice#setDoNotSpellCheck(boolean)}
+   */
+  @Test
+  void testSetDoNotSpellCheck3() {
+    // Arrange
     PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    COSDictionary field = new COSDictionary();
     PDComboBox pdComboBox = new PDComboBox(acroForm, field, new PDNonTerminalField(new PDAcroForm(new PDDocument())));
 
     // Act
     pdComboBox.setDoNotSpellCheck(true);
 
-    // Assert that nothing has changed
-    verify(field).setFlag(isA(COSName.class), eq(4194304), eq(true));
-    assertEquals(0, pdComboBox.getFieldFlags());
+    // Assert
+    assertEquals(4194304, pdComboBox.getFieldFlags());
+    assertTrue(pdComboBox.isDoNotSpellCheck());
+    assertSame(field, pdComboBox.getCOSObject());
+  }
+
+  /**
+   * Method under test: {@link PDChoice#setDoNotSpellCheck(boolean)}
+   */
+  @Test
+  void testSetDoNotSpellCheck4() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDComboBox pdComboBox = new PDComboBox(new PDAcroForm(new PDDocument(streamCacheCreateFunction)));
+
+    // Act
+    pdComboBox.setDoNotSpellCheck(false);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertEquals(131072, pdComboBox.getFieldFlags());
     assertFalse(pdComboBox.isDoNotSpellCheck());
   }
 
   /**
-   * Test {@link PDChoice#isCommitOnSelChange()}.
-   * <p>
+   * Method under test: {@link PDChoice#setDoNotSpellCheck(boolean)}
+   */
+  @Test
+  void testSetDoNotSpellCheck5() {
+    // Arrange
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    COSDictionary field = new COSDictionary();
+    PDComboBox pdComboBox = new PDComboBox(acroForm, field, new PDNonTerminalField(new PDAcroForm(new PDDocument())));
+
+    // Act
+    pdComboBox.setDoNotSpellCheck(false);
+
+    // Assert
+    assertEquals(0, pdComboBox.getFieldFlags());
+    assertFalse(pdComboBox.isDoNotSpellCheck());
+    assertSame(field, pdComboBox.getCOSObject());
+  }
+
+  /**
    * Method under test: {@link PDChoice#isCommitOnSelChange()}
    */
   @Test
-  @DisplayName("Test isCommitOnSelChange()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean PDChoice.isCommitOnSelChange()"})
   void testIsCommitOnSelChange() {
+    // Arrange, Act and Assert
+    assertFalse((new PDComboBox(new PDAcroForm(new PDDocument()))).isCommitOnSelChange());
+  }
+
+  /**
+   * Method under test: {@link PDChoice#isCommitOnSelChange()}
+   */
+  @Test
+  void testIsCommitOnSelChange2() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+
+    // Act
+    boolean actualIsCommitOnSelChangeResult = (new PDComboBox(
+        new PDAcroForm(new PDDocument(streamCacheCreateFunction)))).isCommitOnSelChange();
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertFalse(actualIsCommitOnSelChangeResult);
+  }
+
+  /**
+   * Method under test: {@link PDChoice#isCommitOnSelChange()}
+   */
+  @Test
+  void testIsCommitOnSelChange3() {
     // Arrange
     PDAcroForm acroForm = new PDAcroForm(new PDDocument());
     COSDictionary field = new COSDictionary();
@@ -494,100 +784,152 @@ class PDChoiceDiffblueTest {
   }
 
   /**
-   * Test {@link PDChoice#isCommitOnSelChange()}.
-   * <ul>
-   *   <li>Given {@link PDComboBox#PDComboBox(PDAcroForm)} with acroForm is {@link PDAcroForm#PDAcroForm(PDDocument)}.</li>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDChoice#isCommitOnSelChange()}
    */
   @Test
-  @DisplayName("Test isCommitOnSelChange(); given PDComboBox(PDAcroForm) with acroForm is PDAcroForm(PDDocument); then return 'false'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean PDChoice.isCommitOnSelChange()"})
-  void testIsCommitOnSelChange_givenPDComboBoxWithAcroFormIsPDAcroForm_thenReturnFalse() {
-    // Arrange, Act and Assert
-    assertFalse((new PDComboBox(new PDAcroForm(new PDDocument()))).isCommitOnSelChange());
+  void testIsCommitOnSelChange4() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+
+    PDComboBox pdComboBox = new PDComboBox(new PDAcroForm(new PDDocument(streamCacheCreateFunction)));
+    pdComboBox.setFieldFlags(67108864);
+
+    // Act
+    boolean actualIsCommitOnSelChangeResult = pdComboBox.isCommitOnSelChange();
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertTrue(actualIsCommitOnSelChangeResult);
   }
 
   /**
-   * Test {@link PDChoice#isCommitOnSelChange()}.
-   * <ul>
-   *   <li>Then return {@code true}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDChoice#isCommitOnSelChange()}
+   * Method under test: {@link PDChoice#setCommitOnSelChange(boolean)}
    */
   @Test
-  @DisplayName("Test isCommitOnSelChange(); then return 'true'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean PDChoice.isCommitOnSelChange()"})
-  void testIsCommitOnSelChange_thenReturnTrue() {
+  void testSetCommitOnSelChange() {
     // Arrange
     PDComboBox pdComboBox = new PDComboBox(new PDAcroForm(new PDDocument()));
-    pdComboBox.setFieldFlags(67108864);
 
-    // Act and Assert
+    // Act
+    pdComboBox.setCommitOnSelChange(true);
+
+    // Assert
+    assertEquals(67239936, pdComboBox.getFieldFlags());
     assertTrue(pdComboBox.isCommitOnSelChange());
   }
 
   /**
-   * Test {@link PDChoice#setCommitOnSelChange(boolean)}.
-   * <p>
    * Method under test: {@link PDChoice#setCommitOnSelChange(boolean)}
    */
   @Test
-  @DisplayName("Test setCommitOnSelChange(boolean)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDChoice.setCommitOnSelChange(boolean)"})
-  void testSetCommitOnSelChange() {
+  void testSetCommitOnSelChange2() throws IOException {
     // Arrange
-    COSDictionary field = mock(COSDictionary.class);
-    doNothing().when(field).setFlag(Mockito.<COSName>any(), anyInt(), anyBoolean());
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDComboBox pdComboBox = new PDComboBox(new PDAcroForm(new PDDocument(streamCacheCreateFunction)));
+
+    // Act
+    pdComboBox.setCommitOnSelChange(true);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertEquals(67239936, pdComboBox.getFieldFlags());
+    assertTrue(pdComboBox.isCommitOnSelChange());
+  }
+
+  /**
+   * Method under test: {@link PDChoice#setCommitOnSelChange(boolean)}
+   */
+  @Test
+  void testSetCommitOnSelChange3() {
+    // Arrange
     PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    COSDictionary field = new COSDictionary();
     PDComboBox pdComboBox = new PDComboBox(acroForm, field, new PDNonTerminalField(new PDAcroForm(new PDDocument())));
 
     // Act
     pdComboBox.setCommitOnSelChange(true);
 
-    // Assert that nothing has changed
-    verify(field).setFlag(isA(COSName.class), eq(67108864), eq(true));
-    assertEquals(0, pdComboBox.getFieldFlags());
+    // Assert
+    assertEquals(67108864, pdComboBox.getFieldFlags());
+    assertTrue(pdComboBox.isCommitOnSelChange());
+    assertSame(field, pdComboBox.getCOSObject());
+  }
+
+  /**
+   * Method under test: {@link PDChoice#setCommitOnSelChange(boolean)}
+   */
+  @Test
+  void testSetCommitOnSelChange4() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDComboBox pdComboBox = new PDComboBox(new PDAcroForm(new PDDocument(streamCacheCreateFunction)));
+
+    // Act
+    pdComboBox.setCommitOnSelChange(false);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertEquals(131072, pdComboBox.getFieldFlags());
     assertFalse(pdComboBox.isCommitOnSelChange());
   }
 
   /**
-   * Test {@link PDChoice#isCombo()}.
-   * <ul>
-   *   <li>Given {@link PDComboBox#PDComboBox(PDAcroForm)} with acroForm is {@link PDAcroForm#PDAcroForm(PDDocument)}.</li>
-   *   <li>Then return {@code true}.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PDChoice#setCommitOnSelChange(boolean)}
+   */
+  @Test
+  void testSetCommitOnSelChange5() {
+    // Arrange
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    COSDictionary field = new COSDictionary();
+    PDComboBox pdComboBox = new PDComboBox(acroForm, field, new PDNonTerminalField(new PDAcroForm(new PDDocument())));
+
+    // Act
+    pdComboBox.setCommitOnSelChange(false);
+
+    // Assert
+    assertEquals(0, pdComboBox.getFieldFlags());
+    assertFalse(pdComboBox.isCommitOnSelChange());
+    assertSame(field, pdComboBox.getCOSObject());
+  }
+
+  /**
    * Method under test: {@link PDChoice#isCombo()}
    */
   @Test
-  @DisplayName("Test isCombo(); given PDComboBox(PDAcroForm) with acroForm is PDAcroForm(PDDocument); then return 'true'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean PDChoice.isCombo()"})
-  void testIsCombo_givenPDComboBoxWithAcroFormIsPDAcroForm_thenReturnTrue() {
+  void testIsCombo() {
     // Arrange, Act and Assert
     assertTrue((new PDComboBox(new PDAcroForm(new PDDocument()))).isCombo());
   }
 
   /**
-   * Test {@link PDChoice#isCombo()}.
-   * <ul>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDChoice#isCombo()}
    */
   @Test
-  @DisplayName("Test isCombo(); then return 'false'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean PDChoice.isCombo()"})
-  void testIsCombo_thenReturnFalse() {
+  void testIsCombo2() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+
+    // Act
+    boolean actualIsComboResult = (new PDComboBox(new PDAcroForm(new PDDocument(streamCacheCreateFunction)))).isCombo();
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertTrue(actualIsComboResult);
+  }
+
+  /**
+   * Method under test: {@link PDChoice#isCombo()}
+   */
+  @Test
+  void testIsCombo3() {
     // Arrange
     PDAcroForm acroForm = new PDAcroForm(new PDDocument());
     COSDictionary field = new COSDictionary();
@@ -597,43 +939,76 @@ class PDChoiceDiffblueTest {
   }
 
   /**
-   * Test {@link PDChoice#setCombo(boolean)}.
-   * <p>
    * Method under test: {@link PDChoice#setCombo(boolean)}
    */
   @Test
-  @DisplayName("Test setCombo(boolean)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDChoice.setCombo(boolean)"})
-  void testSetCombo() {
+  void testSetCombo() throws IOException {
     // Arrange
-    COSDictionary field = mock(COSDictionary.class);
-    doNothing().when(field).setFlag(Mockito.<COSName>any(), anyInt(), anyBoolean());
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDComboBox pdComboBox = new PDComboBox(new PDAcroForm(new PDDocument(streamCacheCreateFunction)));
+
+    // Act
+    pdComboBox.setCombo(true);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertEquals(131072, pdComboBox.getFieldFlags());
+    assertTrue(pdComboBox.isCombo());
+  }
+
+  /**
+   * Method under test: {@link PDChoice#setCombo(boolean)}
+   */
+  @Test
+  void testSetCombo2() {
+    // Arrange
     PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    COSDictionary field = new COSDictionary();
     PDComboBox pdComboBox = new PDComboBox(acroForm, field, new PDNonTerminalField(new PDAcroForm(new PDDocument())));
 
     // Act
     pdComboBox.setCombo(true);
 
-    // Assert that nothing has changed
-    verify(field).setFlag(isA(COSName.class), eq(131072), eq(true));
+    // Assert
+    assertEquals(131072, pdComboBox.getFieldFlags());
+    assertTrue(pdComboBox.isCombo());
+    assertSame(field, pdComboBox.getCOSObject());
+  }
+
+  /**
+   * Method under test: {@link PDChoice#setCombo(boolean)}
+   */
+  @Test
+  void testSetCombo3() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDComboBox pdComboBox = new PDComboBox(new PDAcroForm(new PDDocument(streamCacheCreateFunction)));
+
+    // Act
+    pdComboBox.setCombo(false);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
     assertEquals(0, pdComboBox.getFieldFlags());
     assertFalse(pdComboBox.isCombo());
   }
 
   /**
-   * Test {@link PDChoice#setValue(String)} with {@code value}.
-   * <p>
    * Method under test: {@link PDChoice#setValue(String)}
    */
   @Test
-  @DisplayName("Test setValue(String) with 'value'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDChoice.setValue(String)"})
-  void testSetValueWithValue() throws IOException {
+  void testSetValue() throws IOException {
     // Arrange
-    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
-    acroForm.setDefaultAppearance("org.apache.logging.log4j.util.StackLocator");
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument(streamCacheCreateFunction));
+    acroForm.setDefaultAppearance("42");
     acroForm.setDefaultResources(new PDResources());
 
     PDComboBox pdComboBox = new PDComboBox(acroForm);
@@ -643,6 +1018,7 @@ class PDChoiceDiffblueTest {
     pdComboBox.setValue("42");
 
     // Assert
+    verify(streamCacheCreateFunction).create();
     List<String> value = pdComboBox.getValue();
     assertEquals(1, value.size());
     assertEquals("42", value.get(0));
@@ -653,17 +1029,78 @@ class PDChoiceDiffblueTest {
   }
 
   /**
-   * Test {@link PDChoice#setValue(String)} with {@code value}.
-   * <p>
    * Method under test: {@link PDChoice#setValue(String)}
    */
   @Test
-  @DisplayName("Test setValue(String) with 'value'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDChoice.setValue(String)"})
-  void testSetValueWithValue2() throws IOException {
+  void testSetValue2() throws IOException {
     // Arrange
-    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument(streamCacheCreateFunction));
+    acroForm.setDefaultAppearance("Annot");
+    acroForm.setDefaultResources(new PDResources());
+
+    PDComboBox pdComboBox = new PDComboBox(acroForm);
+    pdComboBox.importFDF(new FDFField());
+
+    // Act
+    pdComboBox.setValue("42");
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    List<String> value = pdComboBox.getValue();
+    assertEquals(1, value.size());
+    assertEquals("42", value.get(0));
+    assertEquals("[42]", pdComboBox.getValueAsString());
+    COSDictionary cOSObject = pdComboBox.getCOSObject();
+    assertEquals(5, cOSObject.getValues().size());
+    assertEquals(5, cOSObject.size());
+  }
+
+  /**
+   * Method under test: {@link PDChoice#setValue(String)}
+   */
+  @Test
+  void testSetValue3() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument(streamCacheCreateFunction));
+    acroForm.setDefaultAppearance("org.apache.logging.log4j.util.StackLocator");
+    acroForm.setDefaultResources(new PDResources());
+
+    PDComboBox pdComboBox = new PDComboBox(acroForm);
+    pdComboBox.importFDF(new FDFField());
+
+    // Act
+    pdComboBox.setValue("42");
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    List<String> value = pdComboBox.getValue();
+    assertEquals(1, value.size());
+    assertEquals("42", value.get(0));
+    assertEquals("[42]", pdComboBox.getValueAsString());
+    COSDictionary cOSObject = pdComboBox.getCOSObject();
+    assertEquals(5, cOSObject.getValues().size());
+    assertEquals(5, cOSObject.size());
+  }
+
+  /**
+   * Method under test: {@link PDChoice#setValue(String)}
+   */
+  @Test
+  void testSetValue4() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument(streamCacheCreateFunction));
     acroForm.setDefaultAppearance("42");
     acroForm.setDefaultResources(new PDResources());
 
@@ -673,7 +1110,8 @@ class PDChoiceDiffblueTest {
     // Act
     pdComboBox.setValue((String) null);
 
-    // Assert that nothing has changed
+    // Assert
+    verify(streamCacheCreateFunction).create();
     assertEquals("[]", pdComboBox.getValueAsString());
     COSDictionary cOSObject = pdComboBox.getCOSObject();
     assertEquals(4, cOSObject.getValues().size());
@@ -681,17 +1119,16 @@ class PDChoiceDiffblueTest {
   }
 
   /**
-   * Test {@link PDChoice#setValue(String)} with {@code value}.
-   * <p>
    * Method under test: {@link PDChoice#setValue(String)}
    */
   @Test
-  @DisplayName("Test setValue(String) with 'value'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDChoice.setValue(String)"})
-  void testSetValueWithValue3() throws IOException {
+  void testSetValue5() throws IOException {
     // Arrange
-    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument(streamCacheCreateFunction));
     acroForm.setDefaultAppearance("42");
     acroForm.setDefaultResources(new PDResources());
 
@@ -702,6 +1139,7 @@ class PDChoiceDiffblueTest {
     pdComboBox.setValue("");
 
     // Assert
+    verify(streamCacheCreateFunction).create();
     List<String> value = pdComboBox.getValue();
     assertEquals(1, value.size());
     assertEquals("", value.get(0));
@@ -712,17 +1150,16 @@ class PDChoiceDiffblueTest {
   }
 
   /**
-   * Test {@link PDChoice#setValue(String)} with {@code value}.
-   * <p>
    * Method under test: {@link PDChoice#setValue(String)}
    */
   @Test
-  @DisplayName("Test setValue(String) with 'value'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDChoice.setValue(String)"})
-  void testSetValueWithValue4() throws IOException {
+  void testSetValue6() throws IOException {
     // Arrange
-    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument(streamCacheCreateFunction));
     acroForm.setDefaultAppearance("42");
     acroForm.setDefaultResources(new PDResources());
 
@@ -734,6 +1171,7 @@ class PDChoiceDiffblueTest {
     pdComboBox.setValue("42");
 
     // Assert
+    verify(streamCacheCreateFunction).create();
     List<String> value = pdComboBox.getValue();
     assertEquals(1, value.size());
     assertEquals("42", value.get(0));
@@ -744,132 +1182,34 @@ class PDChoiceDiffblueTest {
   }
 
   /**
-   * Test {@link PDChoice#setValue(String)} with {@code value}.
-   * <ul>
-   *   <li>Given {@link PDAcroForm#PDAcroForm(PDDocument)} with doc is {@link PDDocument#PDDocument()} DefaultAppearance is {@code Annot}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDChoice#setValue(String)}
-   */
-  @Test
-  @DisplayName("Test setValue(String) with 'value'; given PDAcroForm(PDDocument) with doc is PDDocument() DefaultAppearance is 'Annot'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDChoice.setValue(String)"})
-  void testSetValueWithValue_givenPDAcroFormWithDocIsPDDocumentDefaultAppearanceIsAnnot() throws IOException {
-    // Arrange
-    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
-    acroForm.setDefaultAppearance("Annot");
-    acroForm.setDefaultResources(new PDResources());
-
-    PDComboBox pdComboBox = new PDComboBox(acroForm);
-    pdComboBox.importFDF(new FDFField());
-
-    // Act
-    pdComboBox.setValue("42");
-
-    // Assert
-    List<String> value = pdComboBox.getValue();
-    assertEquals(1, value.size());
-    assertEquals("42", value.get(0));
-    assertEquals("[42]", pdComboBox.getValueAsString());
-    COSDictionary cOSObject = pdComboBox.getCOSObject();
-    assertEquals(5, cOSObject.getValues().size());
-    assertEquals(5, cOSObject.size());
-  }
-
-  /**
-   * Test {@link PDChoice#setValue(String)} with {@code value}.
-   * <ul>
-   *   <li>Then {@link PDComboBox#PDComboBox(PDAcroForm)} with acroForm is {@link PDAcroForm#PDAcroForm(PDDocument)} Value first is {@code 42}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDChoice#setValue(String)}
-   */
-  @Test
-  @DisplayName("Test setValue(String) with 'value'; then PDComboBox(PDAcroForm) with acroForm is PDAcroForm(PDDocument) Value first is '42'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDChoice.setValue(String)"})
-  void testSetValueWithValue_thenPDComboBoxWithAcroFormIsPDAcroFormValueFirstIs42() throws IOException {
-    // Arrange
-    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
-    acroForm.setDefaultAppearance("42");
-    acroForm.setDefaultResources(new PDResources());
-
-    PDComboBox pdComboBox = new PDComboBox(acroForm);
-    pdComboBox.importFDF(new FDFField());
-
-    // Act
-    pdComboBox.setValue("42");
-
-    // Assert
-    List<String> value = pdComboBox.getValue();
-    assertEquals(1, value.size());
-    assertEquals("42", value.get(0));
-    assertEquals("[42]", pdComboBox.getValueAsString());
-    COSDictionary cOSObject = pdComboBox.getCOSObject();
-    assertEquals(5, cOSObject.getValues().size());
-    assertEquals(5, cOSObject.size());
-  }
-
-  /**
-   * Test {@link PDChoice#setValue(List)} with {@code values}.
-   * <p>
    * Method under test: {@link PDChoice#setValue(List)}
    */
   @Test
-  @DisplayName("Test setValue(List) with 'values'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDChoice.setValue(List)"})
-  void testSetValueWithValues() throws IOException {
+  void testSetValue7() throws IOException {
     // Arrange
-    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
-    COSDictionary field = new COSDictionary();
-    PDComboBox pdComboBox = new PDComboBox(acroForm, field, new PDNonTerminalField(new PDAcroForm(new PDDocument())));
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDComboBox pdComboBox = new PDComboBox(new PDAcroForm(new PDDocument(streamCacheCreateFunction)));
 
     ArrayList<String> values = new ArrayList<>();
     values.add("/DA is a required entry. Please set a default appearance first.");
 
     // Act and Assert
     assertThrows(IllegalArgumentException.class, () -> pdComboBox.setValue(values));
+    verify(streamCacheCreateFunction).create();
   }
 
   /**
-   * Test {@link PDChoice#setValue(List)} with {@code values}.
-   * <p>
    * Method under test: {@link PDChoice#setValue(List)}
    */
   @Test
-  @DisplayName("Test setValue(List) with 'values'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDChoice.setValue(List)"})
-  void testSetValueWithValues2() throws IOException {
+  void testSetValue8() throws IOException {
     // Arrange
-    PDComboBox pdComboBox = new PDComboBox(new PDAcroForm(new PDDocument()));
-    pdComboBox.setFieldFlags(2097152);
-
-    ArrayList<String> values = new ArrayList<>();
-    values.add("/DA is a required entry. Please set a default appearance first.");
-
-    // Act and Assert
-    assertThrows(IllegalArgumentException.class, () -> pdComboBox.setValue(values));
-  }
-
-  /**
-   * Test {@link PDChoice#setValue(List)} with {@code values}.
-   * <ul>
-   *   <li>Given {@code foo}.</li>
-   *   <li>When {@link ArrayList#ArrayList()} add {@code foo}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDChoice#setValue(List)}
-   */
-  @Test
-  @DisplayName("Test setValue(List) with 'values'; given 'foo'; when ArrayList() add 'foo'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDChoice.setValue(List)"})
-  void testSetValueWithValues_givenFoo_whenArrayListAddFoo() throws IOException {
-    // Arrange
-    PDComboBox pdComboBox = new PDComboBox(new PDAcroForm(new PDDocument()));
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDComboBox pdComboBox = new PDComboBox(new PDAcroForm(new PDDocument(streamCacheCreateFunction)));
 
     ArrayList<String> values = new ArrayList<>();
     values.add("foo");
@@ -877,112 +1217,175 @@ class PDChoiceDiffblueTest {
 
     // Act and Assert
     assertThrows(IllegalArgumentException.class, () -> pdComboBox.setValue(values));
+    verify(streamCacheCreateFunction).create();
   }
 
   /**
-   * Test {@link PDChoice#setValue(List)} with {@code values}.
-   * <ul>
-   *   <li>Then throw {@link IllegalArgumentException}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDChoice#setValue(List)}
    */
   @Test
-  @DisplayName("Test setValue(List) with 'values'; then throw IllegalArgumentException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDChoice.setValue(List)"})
-  void testSetValueWithValues_thenThrowIllegalArgumentException() throws IOException {
+  void testSetValue9() throws IOException {
     // Arrange
-    PDComboBox pdComboBox = new PDComboBox(new PDAcroForm(new PDDocument()));
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    COSDictionary field = new COSDictionary();
+    PDComboBox pdComboBox = new PDComboBox(acroForm, field, new PDNonTerminalField(new PDAcroForm(new PDDocument())));
 
     ArrayList<String> values = new ArrayList<>();
-    values.add("/DA is a required entry. Please set a default appearance first.");
+    values.add("42");
 
     // Act and Assert
     assertThrows(IllegalArgumentException.class, () -> pdComboBox.setValue(values));
   }
 
   /**
-   * Test {@link PDChoice#setDefaultValue(String)}.
-   * <p>
-   * Method under test: {@link PDChoice#setDefaultValue(String)}
+   * Method under test: {@link PDChoice#setValue(List)}
    */
   @Test
-  @DisplayName("Test setDefaultValue(String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDChoice.setDefaultValue(String)"})
-  void testSetDefaultValue() {
+  void testSetValue10() throws IOException {
     // Arrange
-    COSDictionary field = mock(COSDictionary.class);
-    doNothing().when(field).setString(Mockito.<COSName>any(), Mockito.<String>any());
-    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
-    PDComboBox pdComboBox = new PDComboBox(acroForm, field, new PDNonTerminalField(new PDAcroForm(new PDDocument())));
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
 
-    // Act
-    pdComboBox.setDefaultValue("42");
+    PDComboBox pdComboBox = new PDComboBox(new PDAcroForm(new PDDocument(streamCacheCreateFunction)));
+    pdComboBox.setFieldFlags(2097152);
 
-    // Assert that nothing has changed
-    verify(field).setString(isA(COSName.class), eq("42"));
-    List<String> defaultValue = pdComboBox.getDefaultValue();
-    assertTrue(defaultValue.isEmpty());
-    assertSame(defaultValue, pdComboBox.getAcroForm().getCalcOrder());
-    assertSame(defaultValue, pdComboBox.getOptions());
-    assertSame(defaultValue, pdComboBox.getOptionsDisplayValues());
-    assertSame(defaultValue, pdComboBox.getOptionsExportValues());
-    assertSame(defaultValue, pdComboBox.getSelectedOptionsIndex());
-    assertSame(defaultValue, pdComboBox.getValue());
+    ArrayList<String> values = new ArrayList<>();
+    values.add("/DA is a required entry. Please set a default appearance first.");
+
+    // Act and Assert
+    assertThrows(IllegalArgumentException.class, () -> pdComboBox.setValue(values));
+    verify(streamCacheCreateFunction).create();
   }
 
   /**
-   * Test {@link PDChoice#getValue()}.
-   * <ul>
-   *   <li>Given {@link PDComboBox#PDComboBox(PDAcroForm)} with acroForm is {@link PDAcroForm#PDAcroForm(PDDocument)}.</li>
-   *   <li>Then return Empty.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PDChoice#setValue(List)}
+   */
+  @Test
+  void testSetValue11() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument(streamCacheCreateFunction));
+    acroForm.setDefaultAppearance("42");
+    acroForm.setDefaultResources(new PDResources());
+
+    PDComboBox pdComboBox = new PDComboBox(acroForm);
+    pdComboBox.importFDF(new FDFField());
+
+    // Act
+    pdComboBox.setValue(new ArrayList<>());
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+  }
+
+  /**
+   * Method under test: {@link PDChoice#setValue(List)}
+   */
+  @Test
+  void testSetValue12() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument(streamCacheCreateFunction));
+    acroForm.setDefaultAppearance("Annot");
+    acroForm.setDefaultResources(new PDResources());
+
+    PDComboBox pdComboBox = new PDComboBox(acroForm);
+    pdComboBox.importFDF(new FDFField());
+
+    // Act
+    pdComboBox.setValue(new ArrayList<>());
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+  }
+
+  /**
    * Method under test: {@link PDChoice#getValue()}
    */
   @Test
-  @DisplayName("Test getValue(); given PDComboBox(PDAcroForm) with acroForm is PDAcroForm(PDDocument); then return Empty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List PDChoice.getValue()"})
-  void testGetValue_givenPDComboBoxWithAcroFormIsPDAcroForm_thenReturnEmpty() {
+  void testGetValue() {
     // Arrange, Act and Assert
     assertTrue((new PDComboBox(new PDAcroForm(new PDDocument()))).getValue().isEmpty());
   }
 
   /**
-   * Test {@link PDChoice#getDefaultValue()}.
-   * <ul>
-   *   <li>Given {@link PDComboBox#PDComboBox(PDAcroForm)} with acroForm is {@link PDAcroForm#PDAcroForm(PDDocument)}.</li>
-   *   <li>Then return Empty.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PDChoice#getValue()}
+   */
+  @Test
+  void testGetValue2() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+
+    // Act
+    List<String> actualValue = (new PDComboBox(new PDAcroForm(new PDDocument(streamCacheCreateFunction)))).getValue();
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertTrue(actualValue.isEmpty());
+  }
+
+  /**
    * Method under test: {@link PDChoice#getDefaultValue()}
    */
   @Test
-  @DisplayName("Test getDefaultValue(); given PDComboBox(PDAcroForm) with acroForm is PDAcroForm(PDDocument); then return Empty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List PDChoice.getDefaultValue()"})
-  void testGetDefaultValue_givenPDComboBoxWithAcroFormIsPDAcroForm_thenReturnEmpty() {
+  void testGetDefaultValue() {
     // Arrange, Act and Assert
     assertTrue((new PDComboBox(new PDAcroForm(new PDDocument()))).getDefaultValue().isEmpty());
   }
 
   /**
-   * Test {@link PDChoice#getValueAsString()}.
-   * <ul>
-   *   <li>Then return {@code []}.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PDChoice#getDefaultValue()}
+   */
+  @Test
+  void testGetDefaultValue2() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+
+    // Act
+    List<String> actualDefaultValue = (new PDComboBox(new PDAcroForm(new PDDocument(streamCacheCreateFunction))))
+        .getDefaultValue();
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertTrue(actualDefaultValue.isEmpty());
+  }
+
+  /**
    * Method under test: {@link PDChoice#getValueAsString()}
    */
   @Test
-  @DisplayName("Test getValueAsString(); then return '[]'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDChoice.getValueAsString()"})
-  void testGetValueAsString_thenReturnLeftSquareBracketRightSquareBracket() {
+  void testGetValueAsString() {
     // Arrange, Act and Assert
     assertEquals("[]", (new PDComboBox(new PDAcroForm(new PDDocument()))).getValueAsString());
+  }
+
+  /**
+   * Method under test: {@link PDChoice#getValueAsString()}
+   */
+  @Test
+  void testGetValueAsString2() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+
+    // Act
+    String actualValueAsString = (new PDComboBox(new PDAcroForm(new PDDocument(streamCacheCreateFunction))))
+        .getValueAsString();
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertEquals("[]", actualValueAsString);
   }
 }

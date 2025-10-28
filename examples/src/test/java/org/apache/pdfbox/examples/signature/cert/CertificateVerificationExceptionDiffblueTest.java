@@ -3,26 +3,15 @@ package org.apache.pdfbox.examples.signature.cert;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import com.diffblue.cover.annotations.MethodsUnderTest;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class CertificateVerificationExceptionDiffblueTest {
   /**
-   * Test {@link CertificateVerificationException#CertificateVerificationException(String)}.
-   * <ul>
-   *   <li>Then return Cause is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link CertificateVerificationException#CertificateVerificationException(String)}
+   * Method under test:
+   * {@link CertificateVerificationException#CertificateVerificationException(String)}
    */
   @Test
-  @DisplayName("Test new CertificateVerificationException(String); then return Cause is 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void CertificateVerificationException.<init>(String)",
-      "void CertificateVerificationException.<init>(String, Throwable)"})
-  void testNewCertificateVerificationException_thenReturnCauseIsNull() {
+  void testNewCertificateVerificationException() {
     // Arrange and Act
     CertificateVerificationException actualCertificateVerificationException = new CertificateVerificationException(
         "An error occurred");
@@ -34,20 +23,11 @@ class CertificateVerificationExceptionDiffblueTest {
   }
 
   /**
-   * Test {@link CertificateVerificationException#CertificateVerificationException(String, Throwable)}.
-   * <ul>
-   *   <li>When {@link Throwable#Throwable()}.</li>
-   *   <li>Then return Cause is {@link Throwable#Throwable()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link CertificateVerificationException#CertificateVerificationException(String, Throwable)}
+   * Method under test:
+   * {@link CertificateVerificationException#CertificateVerificationException(String, Throwable)}
    */
   @Test
-  @DisplayName("Test new CertificateVerificationException(String, Throwable); when Throwable(); then return Cause is Throwable()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void CertificateVerificationException.<init>(String)",
-      "void CertificateVerificationException.<init>(String, Throwable)"})
-  void testNewCertificateVerificationException_whenThrowable_thenReturnCauseIsThrowable() {
+  void testNewCertificateVerificationException2() {
     // Arrange
     Throwable cause = new Throwable();
 

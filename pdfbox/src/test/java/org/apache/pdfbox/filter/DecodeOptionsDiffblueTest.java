@@ -4,16 +4,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import java.awt.Dimension;
+import java.awt.Point;
 import java.awt.Rectangle;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
+import java.awt.geom.Rectangle2D;
 import org.junit.jupiter.api.Test;
 
 class DecodeOptionsDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link DecodeOptions#DecodeOptions()}
@@ -32,16 +30,6 @@ class DecodeOptionsDiffblueTest {
    * </ul>
    */
   @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void DecodeOptions.<init>()", "void DecodeOptions.<init>(int)",
-      "void DecodeOptions.<init>(Rectangle)", "Rectangle DecodeOptions.getSourceRegion()",
-      "int DecodeOptions.getSubsamplingOffsetX()", "int DecodeOptions.getSubsamplingOffsetY()",
-      "int DecodeOptions.getSubsamplingX()", "int DecodeOptions.getSubsamplingY()",
-      "boolean DecodeOptions.isFilterSubsampled()", "void DecodeOptions.setFilterSubsampled(boolean)",
-      "void DecodeOptions.setSourceRegion(Rectangle)", "void DecodeOptions.setSubsamplingOffsetX(int)",
-      "void DecodeOptions.setSubsamplingOffsetY(int)", "void DecodeOptions.setSubsamplingX(int)",
-      "void DecodeOptions.setSubsamplingY(int)"})
   void testGettersAndSetters() {
     // Arrange and Act
     DecodeOptions actualDecodeOptions = new DecodeOptions();
@@ -59,7 +47,7 @@ class DecodeOptionsDiffblueTest {
     int actualSubsamplingX = actualDecodeOptions.getSubsamplingX();
     int actualSubsamplingY = actualDecodeOptions.getSubsamplingY();
 
-    // Assert
+    // Assert that nothing has changed
     assertEquals(1, actualSubsamplingOffsetX);
     assertEquals(1, actualSubsamplingOffsetY);
     assertEquals(1, actualSubsamplingX);
@@ -69,11 +57,6 @@ class DecodeOptionsDiffblueTest {
   }
 
   /**
-   * Test getters and setters.
-   * <ul>
-   *   <li>When one.</li>
-   * </ul>
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link DecodeOptions#DecodeOptions(int)}
@@ -92,17 +75,7 @@ class DecodeOptionsDiffblueTest {
    * </ul>
    */
   @Test
-  @DisplayName("Test getters and setters; when one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void DecodeOptions.<init>()", "void DecodeOptions.<init>(int)",
-      "void DecodeOptions.<init>(Rectangle)", "Rectangle DecodeOptions.getSourceRegion()",
-      "int DecodeOptions.getSubsamplingOffsetX()", "int DecodeOptions.getSubsamplingOffsetY()",
-      "int DecodeOptions.getSubsamplingX()", "int DecodeOptions.getSubsamplingY()",
-      "boolean DecodeOptions.isFilterSubsampled()", "void DecodeOptions.setFilterSubsampled(boolean)",
-      "void DecodeOptions.setSourceRegion(Rectangle)", "void DecodeOptions.setSubsamplingOffsetX(int)",
-      "void DecodeOptions.setSubsamplingOffsetY(int)", "void DecodeOptions.setSubsamplingX(int)",
-      "void DecodeOptions.setSubsamplingY(int)"})
-  void testGettersAndSetters_whenOne() {
+  void testGettersAndSetters2() {
     // Arrange and Act
     DecodeOptions actualDecodeOptions = new DecodeOptions(1);
     actualDecodeOptions.setFilterSubsampled(true);
@@ -119,7 +92,7 @@ class DecodeOptionsDiffblueTest {
     int actualSubsamplingX = actualDecodeOptions.getSubsamplingX();
     int actualSubsamplingY = actualDecodeOptions.getSubsamplingY();
 
-    // Assert
+    // Assert that nothing has changed
     assertEquals(1, actualSubsamplingOffsetX);
     assertEquals(1, actualSubsamplingOffsetY);
     assertEquals(1, actualSubsamplingX);
@@ -129,11 +102,6 @@ class DecodeOptionsDiffblueTest {
   }
 
   /**
-   * Test getters and setters.
-   * <ul>
-   *   <li>When {@link Rectangle#Rectangle(int, int)} with one and one.</li>
-   * </ul>
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link DecodeOptions#DecodeOptions(Rectangle)}
@@ -152,17 +120,7 @@ class DecodeOptionsDiffblueTest {
    * </ul>
    */
   @Test
-  @DisplayName("Test getters and setters; when Rectangle(int, int) with one and one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void DecodeOptions.<init>()", "void DecodeOptions.<init>(int)",
-      "void DecodeOptions.<init>(Rectangle)", "Rectangle DecodeOptions.getSourceRegion()",
-      "int DecodeOptions.getSubsamplingOffsetX()", "int DecodeOptions.getSubsamplingOffsetY()",
-      "int DecodeOptions.getSubsamplingX()", "int DecodeOptions.getSubsamplingY()",
-      "boolean DecodeOptions.isFilterSubsampled()", "void DecodeOptions.setFilterSubsampled(boolean)",
-      "void DecodeOptions.setSourceRegion(Rectangle)", "void DecodeOptions.setSubsamplingOffsetX(int)",
-      "void DecodeOptions.setSubsamplingOffsetY(int)", "void DecodeOptions.setSubsamplingX(int)",
-      "void DecodeOptions.setSubsamplingY(int)"})
-  void testGettersAndSetters_whenRectangleWithOneAndOne() {
+  void testGettersAndSetters3() {
     // Arrange and Act
     DecodeOptions actualDecodeOptions = new DecodeOptions(new Rectangle(1, 1));
     actualDecodeOptions.setFilterSubsampled(true);
@@ -179,7 +137,7 @@ class DecodeOptionsDiffblueTest {
     int actualSubsamplingX = actualDecodeOptions.getSubsamplingX();
     int actualSubsamplingY = actualDecodeOptions.getSubsamplingY();
 
-    // Assert
+    // Assert that nothing has changed
     assertEquals(1, actualSubsamplingOffsetX);
     assertEquals(1, actualSubsamplingOffsetY);
     assertEquals(1, actualSubsamplingX);
@@ -189,23 +147,53 @@ class DecodeOptionsDiffblueTest {
   }
 
   /**
-   * Test {@link DecodeOptions#DecodeOptions(int, int, int, int)}.
-   * <p>
    * Method under test: {@link DecodeOptions#DecodeOptions(int, int, int, int)}
    */
   @Test
-  @DisplayName("Test new DecodeOptions(int, int, int, int)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void DecodeOptions.<init>(int, int, int, int)"})
   void testNewDecodeOptions() {
     // Arrange and Act
     DecodeOptions actualDecodeOptions = new DecodeOptions(2, 3, 1, 1);
 
     // Assert
+    Rectangle sourceRegion = actualDecodeOptions.getSourceRegion();
+    Rectangle2D bounds2D = sourceRegion.getBounds2D();
+    assertTrue(bounds2D instanceof Rectangle);
+    Rectangle2D frame = sourceRegion.getFrame();
+    assertTrue(frame instanceof Rectangle2D.Double);
     assertEquals(0, actualDecodeOptions.getSubsamplingOffsetX());
     assertEquals(0, actualDecodeOptions.getSubsamplingOffsetY());
     assertEquals(1, actualDecodeOptions.getSubsamplingX());
     assertEquals(1, actualDecodeOptions.getSubsamplingY());
+    Dimension size = sourceRegion.getSize();
+    assertEquals(1, size.height);
+    assertEquals(1, size.width);
+    assertEquals(1, sourceRegion.height);
+    assertEquals(1, sourceRegion.width);
+    assertEquals(1.0d, size.getHeight());
+    assertEquals(1.0d, size.getWidth());
+    assertEquals(1.0d, sourceRegion.getHeight());
+    assertEquals(1.0d, sourceRegion.getWidth());
+    Point location = sourceRegion.getLocation();
+    assertEquals(2, location.x);
+    assertEquals(2, sourceRegion.x);
+    assertEquals(2.0d, location.getX());
+    assertEquals(2.0d, sourceRegion.getX());
+    assertEquals(2.0d, sourceRegion.getMinX());
+    assertEquals(2.5d, sourceRegion.getCenterX());
+    assertEquals(3, location.y);
+    assertEquals(3, sourceRegion.y);
+    assertEquals(3.0d, location.getY());
+    assertEquals(3.0d, sourceRegion.getY());
+    assertEquals(3.0d, sourceRegion.getMaxX());
+    assertEquals(3.0d, sourceRegion.getMinY());
+    assertEquals(3.5d, sourceRegion.getCenterY());
+    assertEquals(4.0d, sourceRegion.getMaxY());
+    assertFalse(sourceRegion.isEmpty());
     assertFalse(actualDecodeOptions.isFilterSubsampled());
+    assertEquals(location, location.getLocation());
+    assertEquals(size, size.getSize());
+    assertEquals(sourceRegion, sourceRegion.getBounds());
+    assertEquals(sourceRegion, bounds2D);
+    assertEquals(sourceRegion, frame);
   }
 }

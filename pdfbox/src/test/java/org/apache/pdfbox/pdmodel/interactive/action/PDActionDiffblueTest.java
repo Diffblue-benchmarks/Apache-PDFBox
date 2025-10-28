@@ -5,27 +5,20 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.cos.COSIncrement;
+import org.apache.pdfbox.cos.COSStream;
 import org.apache.pdfbox.cos.COSUpdateState;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class PDActionDiffblueTest {
   /**
-   * Test {@link PDAction#getCOSObject()}.
-   * <p>
    * Method under test: {@link PDAction#getCOSObject()}
    */
   @Test
-  @DisplayName("Test getCOSObject()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"COSDictionary PDAction.getCOSObject()"})
   void testGetCOSObject() {
     // Arrange
     PDActionEmbeddedGoTo pdActionEmbeddedGoTo = new PDActionEmbeddedGoTo();
@@ -35,55 +28,20 @@ class PDActionDiffblueTest {
   }
 
   /**
-   * Test {@link PDAction#getType()}.
-   * <ul>
-   *   <li>Given {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo(COSDictionary)} with a is {@link COSDictionary#COSDictionary()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDAction#getType()}
    */
   @Test
-  @DisplayName("Test getType(); given PDActionEmbeddedGoTo(COSDictionary) with a is COSDictionary(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDAction.getType()"})
-  void testGetType_givenPDActionEmbeddedGoToWithAIsCOSDictionary_thenReturnNull() {
+  void testGetType() {
     // Arrange, Act and Assert
+    assertEquals(PDAction.TYPE, (new PDActionEmbeddedGoTo()).getType());
     assertNull((new PDActionEmbeddedGoTo(new COSDictionary())).getType());
   }
 
   /**
-   * Test {@link PDAction#getType()}.
-   * <ul>
-   *   <li>Given {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo()}.</li>
-   *   <li>Then return {@link PDAction#TYPE}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAction#getType()}
-   */
-  @Test
-  @DisplayName("Test getType(); given PDActionEmbeddedGoTo(); then return TYPE")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDAction.getType()"})
-  void testGetType_givenPDActionEmbeddedGoTo_thenReturnType() {
-    // Arrange, Act and Assert
-    assertEquals(PDAction.TYPE, (new PDActionEmbeddedGoTo()).getType());
-  }
-
-  /**
-   * Test {@link PDAction#setType(String)}.
-   * <ul>
-   *   <li>Given {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo()}.</li>
-   *   <li>Then {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo()} Type is {@code Type}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDAction#setType(String)}
    */
   @Test
-  @DisplayName("Test setType(String); given PDActionEmbeddedGoTo(); then PDActionEmbeddedGoTo() Type is 'Type'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAction.setType(String)"})
-  void testSetType_givenPDActionEmbeddedGoTo_thenPDActionEmbeddedGoToTypeIsType() {
+  void testSetType() {
     // Arrange
     PDActionEmbeddedGoTo pdActionEmbeddedGoTo = new PDActionEmbeddedGoTo();
 
@@ -95,78 +53,37 @@ class PDActionDiffblueTest {
   }
 
   /**
-   * Test {@link PDAction#setType(String)}.
-   * <ul>
-   *   <li>Then {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo()} Type is {@code org.apache.pdfbox.cos.COSArray}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDAction#setType(String)}
    */
   @Test
-  @DisplayName("Test setType(String); then PDActionEmbeddedGoTo() Type is 'org.apache.pdfbox.cos.COSArray'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAction.setType(String)"})
-  void testSetType_thenPDActionEmbeddedGoToTypeIsOrgApachePdfboxCosCOSArray() {
+  void testSetType2() {
     // Arrange
-    PDActionEmbeddedGoTo pdActionEmbeddedGoTo = new PDActionEmbeddedGoTo();
+    COSStream a = new COSStream();
+    PDActionEmbeddedGoTo pdActionEmbeddedGoTo = new PDActionEmbeddedGoTo(a);
 
     // Act
-    pdActionEmbeddedGoTo.setType("org.apache.pdfbox.cos.COSArray");
+    pdActionEmbeddedGoTo.setType("org.apache.pdfbox.cos.COSDictionary");
 
     // Assert
-    assertEquals("org.apache.pdfbox.cos.COSArray", pdActionEmbeddedGoTo.getType());
+    assertEquals("org.apache.pdfbox.cos.COSDictionary", pdActionEmbeddedGoTo.getType());
+    assertSame(a, pdActionEmbeddedGoTo.getCOSObject());
   }
 
   /**
-   * Test {@link PDAction#getSubType()}.
-   * <ul>
-   *   <li>Given {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo(COSDictionary)} with a is {@link COSDictionary#COSDictionary()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDAction#getSubType()}
    */
   @Test
-  @DisplayName("Test getSubType(); given PDActionEmbeddedGoTo(COSDictionary) with a is COSDictionary(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDAction.getSubType()"})
-  void testGetSubType_givenPDActionEmbeddedGoToWithAIsCOSDictionary_thenReturnNull() {
+  void testGetSubType() {
     // Arrange, Act and Assert
+    assertEquals(PDActionEmbeddedGoTo.SUB_TYPE, (new PDActionEmbeddedGoTo()).getSubType());
     assertNull((new PDActionEmbeddedGoTo(new COSDictionary())).getSubType());
   }
 
   /**
-   * Test {@link PDAction#getSubType()}.
-   * <ul>
-   *   <li>Given {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo()}.</li>
-   *   <li>Then return {@link PDActionEmbeddedGoTo#SUB_TYPE}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAction#getSubType()}
-   */
-  @Test
-  @DisplayName("Test getSubType(); given PDActionEmbeddedGoTo(); then return SUB_TYPE")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDAction.getSubType()"})
-  void testGetSubType_givenPDActionEmbeddedGoTo_thenReturnSub_type() {
-    // Arrange, Act and Assert
-    assertEquals(PDActionEmbeddedGoTo.SUB_TYPE, (new PDActionEmbeddedGoTo()).getSubType());
-  }
-
-  /**
-   * Test {@link PDAction#setSubType(String)}.
-   * <ul>
-   *   <li>Given {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo()}.</li>
-   *   <li>Then {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo()} SubType is {@code foo}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDAction#setSubType(String)}
    */
   @Test
-  @DisplayName("Test setSubType(String); given PDActionEmbeddedGoTo(); then PDActionEmbeddedGoTo() SubType is 'foo'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAction.setSubType(String)"})
-  void testSetSubType_givenPDActionEmbeddedGoTo_thenPDActionEmbeddedGoToSubTypeIsFoo() {
+  void testSetSubType() {
     // Arrange
     PDActionEmbeddedGoTo pdActionEmbeddedGoTo = new PDActionEmbeddedGoTo();
 
@@ -178,19 +95,10 @@ class PDActionDiffblueTest {
   }
 
   /**
-   * Test {@link PDAction#setSubType(String)}.
-   * <ul>
-   *   <li>When {@code 42}.</li>
-   *   <li>Then {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo()} SubType is {@code 42}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDAction#setSubType(String)}
    */
   @Test
-  @DisplayName("Test setSubType(String); when '42'; then PDActionEmbeddedGoTo() SubType is '42'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAction.setSubType(String)"})
-  void testSetSubType_when42_thenPDActionEmbeddedGoToSubTypeIs42() {
+  void testSetSubType2() {
     // Arrange
     PDActionEmbeddedGoTo pdActionEmbeddedGoTo = new PDActionEmbeddedGoTo();
 
@@ -202,18 +110,71 @@ class PDActionDiffblueTest {
   }
 
   /**
-   * Test {@link PDAction#getNext()}.
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo(COSDictionary)} with a is {@link COSDictionary#COSDictionary()}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDAction#getNext()}
    */
   @Test
-  @DisplayName("Test getNext(); given ArrayList() add PDActionEmbeddedGoTo(COSDictionary) with a is COSDictionary()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List PDAction.getNext()"})
-  void testGetNext_givenArrayListAddPDActionEmbeddedGoToWithAIsCOSDictionary() {
+  void testGetNext() {
+    // Arrange, Act and Assert
+    assertNull((new PDActionEmbeddedGoTo()).getNext());
+  }
+
+  /**
+   * Method under test: {@link PDAction#getNext()}
+   */
+  @Test
+  void testGetNext2() {
+    // Arrange
+    PDActionEmbeddedGoTo pdActionEmbeddedGoTo = new PDActionEmbeddedGoTo();
+    pdActionEmbeddedGoTo.setNext(new ArrayList<>());
+
+    // Act and Assert
+    assertTrue(pdActionEmbeddedGoTo.getNext().isEmpty());
+  }
+
+  /**
+   * Method under test: {@link PDAction#getNext()}
+   */
+  @Test
+  void testGetNext3() throws IOException {
+    // Arrange
+    ArrayList<PDAction> next = new ArrayList<>();
+    next.add(new PDActionEmbeddedGoTo());
+
+    PDActionEmbeddedGoTo pdActionEmbeddedGoTo = new PDActionEmbeddedGoTo();
+    pdActionEmbeddedGoTo.setNext(next);
+
+    // Act
+    List<PDAction> actualNext = pdActionEmbeddedGoTo.getNext();
+
+    // Assert
+    assertEquals(1, actualNext.size());
+    PDAction getResult = actualNext.get(0);
+    assertTrue(getResult instanceof PDActionEmbeddedGoTo);
+    COSDictionary cOSObject = getResult.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertNull(((PDActionEmbeddedGoTo) getResult).getFile());
+    assertNull(((PDActionEmbeddedGoTo) getResult).getTargetDirectory());
+    assertNull(((PDActionEmbeddedGoTo) getResult).getDestination());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    assertEquals(OpenMode.USER_PREFERENCE, ((PDActionEmbeddedGoTo) getResult).getOpenInNewWindow());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertEquals(PDAction.TYPE, getResult.getType());
+    assertEquals(PDActionEmbeddedGoTo.SUB_TYPE, getResult.getSubType());
+  }
+
+  /**
+   * Method under test: {@link PDAction#getNext()}
+   */
+  @Test
+  void testGetNext4() {
     // Arrange
     ArrayList<PDAction> next = new ArrayList<>();
     next.add(new PDActionEmbeddedGoTo(new COSDictionary()));
@@ -230,18 +191,155 @@ class PDActionDiffblueTest {
   }
 
   /**
-   * Test {@link PDAction#getNext()}.
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo(COSDictionary)} with a is {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDAction#getNext()}
    */
   @Test
-  @DisplayName("Test getNext(); given ArrayList() add PDActionEmbeddedGoTo(COSDictionary) with a is 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List PDAction.getNext()"})
-  void testGetNext_givenArrayListAddPDActionEmbeddedGoToWithAIsNull() {
+  void testGetNext5() throws IOException {
+    // Arrange
+    ArrayList<PDAction> next = new ArrayList<>();
+    next.add(new PDActionGoTo());
+
+    PDActionEmbeddedGoTo pdActionEmbeddedGoTo = new PDActionEmbeddedGoTo();
+    pdActionEmbeddedGoTo.setNext(next);
+
+    // Act
+    List<PDAction> actualNext = pdActionEmbeddedGoTo.getNext();
+
+    // Assert
+    assertEquals(1, actualNext.size());
+    PDAction getResult = actualNext.get(0);
+    assertTrue(getResult instanceof PDActionGoTo);
+    COSDictionary cOSObject = getResult.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertNull(((PDActionGoTo) getResult).getDestination());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertEquals(PDAction.TYPE, getResult.getType());
+    assertEquals(PDActionGoTo.SUB_TYPE, getResult.getSubType());
+  }
+
+  /**
+   * Method under test: {@link PDAction#getNext()}
+   */
+  @Test
+  void testGetNext6() {
+    // Arrange
+    ArrayList<PDAction> next = new ArrayList<>();
+    next.add(new PDActionHide());
+
+    PDActionEmbeddedGoTo pdActionEmbeddedGoTo = new PDActionEmbeddedGoTo();
+    pdActionEmbeddedGoTo.setNext(next);
+
+    // Act
+    List<PDAction> actualNext = pdActionEmbeddedGoTo.getNext();
+
+    // Assert
+    assertEquals(1, actualNext.size());
+    PDAction getResult = actualNext.get(0);
+    assertTrue(getResult instanceof PDActionHide);
+    assertNull(((PDActionHide) getResult).getT());
+    COSDictionary cOSObject = getResult.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertTrue(((PDActionHide) getResult).getH());
+    assertEquals(PDAction.TYPE, getResult.getType());
+    assertEquals(PDActionHide.SUB_TYPE, getResult.getSubType());
+  }
+
+  /**
+   * Method under test: {@link PDAction#getNext()}
+   */
+  @Test
+  void testGetNext7() throws IOException {
+    // Arrange
+    ArrayList<PDAction> next = new ArrayList<>();
+    next.add(new PDActionImportData());
+
+    PDActionEmbeddedGoTo pdActionEmbeddedGoTo = new PDActionEmbeddedGoTo();
+    pdActionEmbeddedGoTo.setNext(next);
+
+    // Act
+    List<PDAction> actualNext = pdActionEmbeddedGoTo.getNext();
+
+    // Assert
+    assertEquals(1, actualNext.size());
+    PDAction getResult = actualNext.get(0);
+    assertTrue(getResult instanceof PDActionImportData);
+    COSDictionary cOSObject = getResult.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertNull(((PDActionImportData) getResult).getFile());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertEquals(PDAction.TYPE, getResult.getType());
+    assertEquals(PDActionImportData.SUB_TYPE, getResult.getSubType());
+  }
+
+  /**
+   * Method under test: {@link PDAction#getNext()}
+   */
+  @Test
+  void testGetNext8() {
+    // Arrange
+    ArrayList<PDAction> next = new ArrayList<>();
+    next.add(new PDActionJavaScript());
+
+    PDActionEmbeddedGoTo pdActionEmbeddedGoTo = new PDActionEmbeddedGoTo();
+    pdActionEmbeddedGoTo.setNext(next);
+
+    // Act
+    List<PDAction> actualNext = pdActionEmbeddedGoTo.getNext();
+
+    // Assert
+    assertEquals(1, actualNext.size());
+    PDAction getResult = actualNext.get(0);
+    assertTrue(getResult instanceof PDActionJavaScript);
+    assertNull(((PDActionJavaScript) getResult).getAction());
+    COSDictionary cOSObject = getResult.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertEquals(PDAction.TYPE, getResult.getType());
+    assertEquals(PDActionJavaScript.SUB_TYPE, getResult.getSubType());
+  }
+
+  /**
+   * Method under test: {@link PDAction#getNext()}
+   */
+  @Test
+  void testGetNext9() {
     // Arrange
     ArrayList<PDAction> next = new ArrayList<>();
     next.add(new PDActionEmbeddedGoTo(null));
@@ -258,369 +356,10 @@ class PDActionDiffblueTest {
   }
 
   /**
-   * Test {@link PDAction#getNext()}.
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link PDActionGoTo#PDActionGoTo()}.</li>
-   *   <li>Then first return {@link PDActionGoTo}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDAction#getNext()}
    */
   @Test
-  @DisplayName("Test getNext(); given ArrayList() add PDActionGoTo(); then first return PDActionGoTo")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List PDAction.getNext()"})
-  void testGetNext_givenArrayListAddPDActionGoTo_thenFirstReturnPDActionGoTo() throws IOException {
-    // Arrange
-    ArrayList<PDAction> next = new ArrayList<>();
-    next.add(new PDActionGoTo());
-
-    PDActionEmbeddedGoTo pdActionEmbeddedGoTo = new PDActionEmbeddedGoTo();
-    pdActionEmbeddedGoTo.setNext(next);
-
-    // Act
-    List<PDAction> actualNext = pdActionEmbeddedGoTo.getNext();
-
-    // Assert
-    assertEquals(1, actualNext.size());
-    PDAction getResult = actualNext.get(0);
-    assertTrue(getResult instanceof PDActionGoTo);
-    COSDictionary cOSObject = getResult.getCOSObject();
-    assertNull(cOSObject.getKey());
-    assertNull(((PDActionGoTo) getResult).getDestination());
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    assertFalse(cOSObject.isDirect());
-    assertFalse(cOSObject.isNeedToBeUpdated());
-    assertEquals(PDAction.TYPE, getResult.getType());
-    assertEquals(PDActionGoTo.SUB_TYPE, getResult.getSubType());
-  }
-
-  /**
-   * Test {@link PDAction#getNext()}.
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link PDActionHide#PDActionHide()}.</li>
-   *   <li>Then first return {@link PDActionHide}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAction#getNext()}
-   */
-  @Test
-  @DisplayName("Test getNext(); given ArrayList() add PDActionHide(); then first return PDActionHide")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List PDAction.getNext()"})
-  void testGetNext_givenArrayListAddPDActionHide_thenFirstReturnPDActionHide() {
-    // Arrange
-    ArrayList<PDAction> next = new ArrayList<>();
-    next.add(new PDActionHide());
-
-    PDActionEmbeddedGoTo pdActionEmbeddedGoTo = new PDActionEmbeddedGoTo();
-    pdActionEmbeddedGoTo.setNext(next);
-
-    // Act
-    List<PDAction> actualNext = pdActionEmbeddedGoTo.getNext();
-
-    // Assert
-    assertEquals(1, actualNext.size());
-    PDAction getResult = actualNext.get(0);
-    assertTrue(getResult instanceof PDActionHide);
-    assertNull(((PDActionHide) getResult).getT());
-    assertTrue(((PDActionHide) getResult).getH());
-    assertEquals(PDActionHide.SUB_TYPE, getResult.getSubType());
-  }
-
-  /**
-   * Test {@link PDAction#getNext()}.
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link PDActionLaunch#PDActionLaunch()}.</li>
-   *   <li>Then first return {@link PDActionLaunch}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAction#getNext()}
-   */
-  @Test
-  @DisplayName("Test getNext(); given ArrayList() add PDActionLaunch(); then first return PDActionLaunch")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List PDAction.getNext()"})
-  void testGetNext_givenArrayListAddPDActionLaunch_thenFirstReturnPDActionLaunch() throws IOException {
-    // Arrange
-    ArrayList<PDAction> next = new ArrayList<>();
-    next.add(new PDActionLaunch());
-
-    PDActionEmbeddedGoTo pdActionEmbeddedGoTo = new PDActionEmbeddedGoTo();
-    pdActionEmbeddedGoTo.setNext(next);
-
-    // Act
-    List<PDAction> actualNext = pdActionEmbeddedGoTo.getNext();
-
-    // Assert
-    assertEquals(1, actualNext.size());
-    PDAction getResult = actualNext.get(0);
-    assertTrue(getResult instanceof PDActionLaunch);
-    assertNull(((PDActionLaunch) getResult).getD());
-    assertNull(((PDActionLaunch) getResult).getF());
-    assertNull(((PDActionLaunch) getResult).getO());
-    assertNull(((PDActionLaunch) getResult).getP());
-    assertNull(((PDActionLaunch) getResult).getFile());
-    assertNull(((PDActionLaunch) getResult).getWinLaunchParams());
-    assertEquals(OpenMode.USER_PREFERENCE, ((PDActionLaunch) getResult).getOpenInNewWindow());
-    assertEquals(PDActionLaunch.SUB_TYPE, getResult.getSubType());
-  }
-
-  /**
-   * Test {@link PDAction#getNext()}.
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link PDActionMovie#PDActionMovie()}.</li>
-   *   <li>Then first return {@link PDActionMovie}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAction#getNext()}
-   */
-  @Test
-  @DisplayName("Test getNext(); given ArrayList() add PDActionMovie(); then first return PDActionMovie")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List PDAction.getNext()"})
-  void testGetNext_givenArrayListAddPDActionMovie_thenFirstReturnPDActionMovie() {
-    // Arrange
-    ArrayList<PDAction> next = new ArrayList<>();
-    next.add(new PDActionMovie());
-
-    PDActionEmbeddedGoTo pdActionEmbeddedGoTo = new PDActionEmbeddedGoTo();
-    pdActionEmbeddedGoTo.setNext(next);
-
-    // Act
-    List<PDAction> actualNext = pdActionEmbeddedGoTo.getNext();
-
-    // Assert
-    assertEquals(1, actualNext.size());
-    PDAction getResult = actualNext.get(0);
-    assertTrue(getResult instanceof PDActionMovie);
-    COSDictionary cOSObject = getResult.getCOSObject();
-    COSUpdateState updateState = cOSObject.getUpdateState();
-    assertNull(updateState.getOriginDocumentState());
-    COSIncrement toIncrementResult = cOSObject.toIncrement();
-    assertFalse(toIncrementResult.iterator().hasNext());
-    assertFalse(updateState.isUpdated());
-    assertTrue(toIncrementResult.getObjects().isEmpty());
-    assertEquals(PDActionMovie.SUB_TYPE, getResult.getSubType());
-  }
-
-  /**
-   * Test {@link PDAction#getNext()}.
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link PDActionNamed#PDActionNamed()}.</li>
-   *   <li>Then first return {@link PDActionNamed}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAction#getNext()}
-   */
-  @Test
-  @DisplayName("Test getNext(); given ArrayList() add PDActionNamed(); then first return PDActionNamed")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List PDAction.getNext()"})
-  void testGetNext_givenArrayListAddPDActionNamed_thenFirstReturnPDActionNamed() {
-    // Arrange
-    ArrayList<PDAction> next = new ArrayList<>();
-    next.add(new PDActionNamed());
-
-    PDActionEmbeddedGoTo pdActionEmbeddedGoTo = new PDActionEmbeddedGoTo();
-    pdActionEmbeddedGoTo.setNext(next);
-
-    // Act
-    List<PDAction> actualNext = pdActionEmbeddedGoTo.getNext();
-
-    // Assert
-    assertEquals(1, actualNext.size());
-    PDAction getResult = actualNext.get(0);
-    assertTrue(getResult instanceof PDActionNamed);
-    assertNull(((PDActionNamed) getResult).getN());
-    COSDictionary cOSObject = getResult.getCOSObject();
-    assertNull(cOSObject.getKey());
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    assertFalse(cOSObject.isDirect());
-    assertFalse(cOSObject.isNeedToBeUpdated());
-    assertEquals(PDAction.TYPE, getResult.getType());
-    assertEquals(PDActionNamed.SUB_TYPE, getResult.getSubType());
-  }
-
-  /**
-   * Test {@link PDAction#getNext()}.
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link PDActionResetForm#PDActionResetForm()}.</li>
-   *   <li>Then first return {@link PDActionResetForm}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAction#getNext()}
-   */
-  @Test
-  @DisplayName("Test getNext(); given ArrayList() add PDActionResetForm(); then first return PDActionResetForm")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List PDAction.getNext()"})
-  void testGetNext_givenArrayListAddPDActionResetForm_thenFirstReturnPDActionResetForm() {
-    // Arrange
-    ArrayList<PDAction> next = new ArrayList<>();
-    next.add(new PDActionResetForm());
-
-    PDActionEmbeddedGoTo pdActionEmbeddedGoTo = new PDActionEmbeddedGoTo();
-    pdActionEmbeddedGoTo.setNext(next);
-
-    // Act
-    List<PDAction> actualNext = pdActionEmbeddedGoTo.getNext();
-
-    // Assert
-    assertEquals(1, actualNext.size());
-    PDAction getResult = actualNext.get(0);
-    assertTrue(getResult instanceof PDActionResetForm);
-    assertNull(((PDActionResetForm) getResult).getFields());
-    assertEquals(0, ((PDActionResetForm) getResult).getFlags());
-    assertEquals(PDActionResetForm.SUB_TYPE, getResult.getSubType());
-  }
-
-  /**
-   * Test {@link PDAction#getNext()}.
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link PDActionSound#PDActionSound()}.</li>
-   *   <li>Then first return {@link PDActionSound}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAction#getNext()}
-   */
-  @Test
-  @DisplayName("Test getNext(); given ArrayList() add PDActionSound(); then first return PDActionSound")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List PDAction.getNext()"})
-  void testGetNext_givenArrayListAddPDActionSound_thenFirstReturnPDActionSound() {
-    // Arrange
-    ArrayList<PDAction> next = new ArrayList<>();
-    next.add(new PDActionSound());
-
-    PDActionEmbeddedGoTo pdActionEmbeddedGoTo = new PDActionEmbeddedGoTo();
-    pdActionEmbeddedGoTo.setNext(next);
-
-    // Act
-    List<PDAction> actualNext = pdActionEmbeddedGoTo.getNext();
-
-    // Assert
-    assertEquals(1, actualNext.size());
-    PDAction getResult = actualNext.get(0);
-    assertTrue(getResult instanceof PDActionSound);
-    assertNull(((PDActionSound) getResult).getSound());
-    assertEquals(1.0f, ((PDActionSound) getResult).getVolume());
-    assertFalse(((PDActionSound) getResult).getMix());
-    assertFalse(((PDActionSound) getResult).getRepeat());
-    assertFalse(((PDActionSound) getResult).getSynchronous());
-    assertEquals(PDActionSound.SUB_TYPE, getResult.getSubType());
-  }
-
-  /**
-   * Test {@link PDAction#getNext()}.
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link PDActionThread#PDActionThread()}.</li>
-   *   <li>Then first return {@link PDActionThread}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAction#getNext()}
-   */
-  @Test
-  @DisplayName("Test getNext(); given ArrayList() add PDActionThread(); then first return PDActionThread")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List PDAction.getNext()"})
-  void testGetNext_givenArrayListAddPDActionThread_thenFirstReturnPDActionThread() throws IOException {
-    // Arrange
-    ArrayList<PDAction> next = new ArrayList<>();
-    next.add(new PDActionThread());
-
-    PDActionEmbeddedGoTo pdActionEmbeddedGoTo = new PDActionEmbeddedGoTo();
-    pdActionEmbeddedGoTo.setNext(next);
-
-    // Act
-    List<PDAction> actualNext = pdActionEmbeddedGoTo.getNext();
-
-    // Assert
-    assertEquals(1, actualNext.size());
-    PDAction getResult = actualNext.get(0);
-    assertTrue(getResult instanceof PDActionThread);
-    assertNull(((PDActionThread) getResult).getB());
-    assertNull(((PDActionThread) getResult).getD());
-    assertNull(((PDActionThread) getResult).getFile());
-    assertEquals(PDActionThread.SUB_TYPE, getResult.getSubType());
-  }
-
-  /**
-   * Test {@link PDAction#getNext()}.
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link PDActionURI#PDActionURI()}.</li>
-   *   <li>Then first return {@link PDActionURI}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAction#getNext()}
-   */
-  @Test
-  @DisplayName("Test getNext(); given ArrayList() add PDActionURI(); then first return PDActionURI")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List PDAction.getNext()"})
-  void testGetNext_givenArrayListAddPDActionURI_thenFirstReturnPDActionURI() {
-    // Arrange
-    ArrayList<PDAction> next = new ArrayList<>();
-    next.add(new PDActionURI());
-
-    PDActionEmbeddedGoTo pdActionEmbeddedGoTo = new PDActionEmbeddedGoTo();
-    pdActionEmbeddedGoTo.setNext(next);
-
-    // Act
-    List<PDAction> actualNext = pdActionEmbeddedGoTo.getNext();
-
-    // Assert
-    assertEquals(1, actualNext.size());
-    PDAction getResult = actualNext.get(0);
-    assertTrue(getResult instanceof PDActionURI);
-    assertNull(((PDActionURI) getResult).getURI());
-    COSDictionary cOSObject = getResult.getCOSObject();
-    assertNull(cOSObject.getKey());
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    assertFalse(cOSObject.isDirect());
-    assertFalse(cOSObject.isNeedToBeUpdated());
-    assertEquals(PDAction.TYPE, getResult.getType());
-    assertEquals(PDActionURI.SUB_TYPE, getResult.getSubType());
-  }
-
-  /**
-   * Test {@link PDAction#getNext()}.
-   * <ul>
-   *   <li>Given {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo()} Next is {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then return Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAction#getNext()}
-   */
-  @Test
-  @DisplayName("Test getNext(); given PDActionEmbeddedGoTo() Next is ArrayList(); then return Empty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List PDAction.getNext()"})
-  void testGetNext_givenPDActionEmbeddedGoToNextIsArrayList_thenReturnEmpty() {
-    // Arrange
-    PDActionEmbeddedGoTo pdActionEmbeddedGoTo = new PDActionEmbeddedGoTo();
-    pdActionEmbeddedGoTo.setNext(new ArrayList<>());
-
-    // Act and Assert
-    assertTrue(pdActionEmbeddedGoTo.getNext().isEmpty());
-  }
-
-  /**
-   * Test {@link PDAction#getNext()}.
-   * <ul>
-   *   <li>Given {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo(COSDictionary)} with a is {@link COSDictionary#COSDictionary()} SubType is {@code foo}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAction#getNext()}
-   */
-  @Test
-  @DisplayName("Test getNext(); given PDActionEmbeddedGoTo(COSDictionary) with a is COSDictionary() SubType is 'foo'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List PDAction.getNext()"})
-  void testGetNext_givenPDActionEmbeddedGoToWithAIsCOSDictionarySubTypeIsFoo() {
+  void testGetNext10() {
     // Arrange
     PDActionEmbeddedGoTo pdActionEmbeddedGoTo = new PDActionEmbeddedGoTo(new COSDictionary());
     pdActionEmbeddedGoTo.setSubType("foo");
@@ -640,39 +379,13 @@ class PDActionDiffblueTest {
   }
 
   /**
-   * Test {@link PDAction#getNext()}.
-   * <ul>
-   *   <li>Given {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDAction#getNext()}
    */
   @Test
-  @DisplayName("Test getNext(); given PDActionEmbeddedGoTo(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List PDAction.getNext()"})
-  void testGetNext_givenPDActionEmbeddedGoTo_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull((new PDActionEmbeddedGoTo()).getNext());
-  }
-
-  /**
-   * Test {@link PDAction#getNext()}.
-   * <ul>
-   *   <li>Then first return {@link PDActionEmbeddedGoTo}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAction#getNext()}
-   */
-  @Test
-  @DisplayName("Test getNext(); then first return PDActionEmbeddedGoTo")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List PDAction.getNext()"})
-  void testGetNext_thenFirstReturnPDActionEmbeddedGoTo() throws IOException {
+  void testGetNext11() throws IOException {
     // Arrange
     ArrayList<PDAction> next = new ArrayList<>();
-    next.add(new PDActionEmbeddedGoTo());
+    next.add(new PDActionLaunch());
 
     PDActionEmbeddedGoTo pdActionEmbeddedGoTo = new PDActionEmbeddedGoTo();
     pdActionEmbeddedGoTo.setNext(next);
@@ -683,68 +396,38 @@ class PDActionDiffblueTest {
     // Assert
     assertEquals(1, actualNext.size());
     PDAction getResult = actualNext.get(0);
-    assertTrue(getResult instanceof PDActionEmbeddedGoTo);
-    assertNull(((PDActionEmbeddedGoTo) getResult).getFile());
-    assertNull(((PDActionEmbeddedGoTo) getResult).getTargetDirectory());
-    assertNull(((PDActionEmbeddedGoTo) getResult).getDestination());
-    assertEquals(OpenMode.USER_PREFERENCE, ((PDActionEmbeddedGoTo) getResult).getOpenInNewWindow());
-    assertEquals(PDActionEmbeddedGoTo.SUB_TYPE, getResult.getSubType());
-  }
-
-  /**
-   * Test {@link PDAction#getNext()}.
-   * <ul>
-   *   <li>Then first return {@link PDActionImportData}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAction#getNext()}
-   */
-  @Test
-  @DisplayName("Test getNext(); then first return PDActionImportData")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List PDAction.getNext()"})
-  void testGetNext_thenFirstReturnPDActionImportData() throws IOException {
-    // Arrange
-    ArrayList<PDAction> next = new ArrayList<>();
-    next.add(new PDActionImportData());
-
-    PDActionEmbeddedGoTo pdActionEmbeddedGoTo = new PDActionEmbeddedGoTo();
-    pdActionEmbeddedGoTo.setNext(next);
-
-    // Act
-    List<PDAction> actualNext = pdActionEmbeddedGoTo.getNext();
-
-    // Assert
-    assertEquals(1, actualNext.size());
-    PDAction getResult = actualNext.get(0);
-    assertTrue(getResult instanceof PDActionImportData);
+    assertTrue(getResult instanceof PDActionLaunch);
+    assertNull(((PDActionLaunch) getResult).getD());
+    assertNull(((PDActionLaunch) getResult).getF());
+    assertNull(((PDActionLaunch) getResult).getO());
+    assertNull(((PDActionLaunch) getResult).getP());
     COSDictionary cOSObject = getResult.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
     assertNull(cOSObject.getKey());
-    assertNull(((PDActionImportData) getResult).getFile());
+    assertNull(((PDActionLaunch) getResult).getFile());
+    assertNull(((PDActionLaunch) getResult).getWinLaunchParams());
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
+    assertEquals(OpenMode.USER_PREFERENCE, ((PDActionLaunch) getResult).getOpenInNewWindow());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
     assertFalse(cOSObject.isDirect());
     assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
     assertEquals(PDAction.TYPE, getResult.getType());
-    assertEquals(PDActionImportData.SUB_TYPE, getResult.getSubType());
+    assertEquals(PDActionLaunch.SUB_TYPE, getResult.getSubType());
   }
 
   /**
-   * Test {@link PDAction#getNext()}.
-   * <ul>
-   *   <li>Then first return {@link PDActionJavaScript}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDAction#getNext()}
    */
   @Test
-  @DisplayName("Test getNext(); then first return PDActionJavaScript")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List PDAction.getNext()"})
-  void testGetNext_thenFirstReturnPDActionJavaScript() {
+  void testGetNext12() {
     // Arrange
     ArrayList<PDAction> next = new ArrayList<>();
-    next.add(new PDActionJavaScript());
+    next.add(new PDActionMovie());
 
     PDActionEmbeddedGoTo pdActionEmbeddedGoTo = new PDActionEmbeddedGoTo();
     pdActionEmbeddedGoTo.setNext(next);
@@ -755,31 +438,64 @@ class PDActionDiffblueTest {
     // Assert
     assertEquals(1, actualNext.size());
     PDAction getResult = actualNext.get(0);
-    assertTrue(getResult instanceof PDActionJavaScript);
-    assertNull(((PDActionJavaScript) getResult).getAction());
+    assertTrue(getResult instanceof PDActionMovie);
     COSDictionary cOSObject = getResult.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
     assertNull(cOSObject.getKey());
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
     assertFalse(cOSObject.isDirect());
     assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
     assertEquals(PDAction.TYPE, getResult.getType());
-    assertEquals(PDActionJavaScript.SUB_TYPE, getResult.getSubType());
+    assertEquals(PDActionMovie.SUB_TYPE, getResult.getSubType());
   }
 
   /**
-   * Test {@link PDAction#getNext()}.
-   * <ul>
-   *   <li>Then first return {@link PDActionRemoteGoTo}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDAction#getNext()}
    */
   @Test
-  @DisplayName("Test getNext(); then first return PDActionRemoteGoTo")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List PDAction.getNext()"})
-  void testGetNext_thenFirstReturnPDActionRemoteGoTo() throws IOException {
+  void testGetNext13() {
+    // Arrange
+    ArrayList<PDAction> next = new ArrayList<>();
+    next.add(new PDActionNamed());
+
+    PDActionEmbeddedGoTo pdActionEmbeddedGoTo = new PDActionEmbeddedGoTo();
+    pdActionEmbeddedGoTo.setNext(next);
+
+    // Act
+    List<PDAction> actualNext = pdActionEmbeddedGoTo.getNext();
+
+    // Assert
+    assertEquals(1, actualNext.size());
+    PDAction getResult = actualNext.get(0);
+    assertTrue(getResult instanceof PDActionNamed);
+    assertNull(((PDActionNamed) getResult).getN());
+    COSDictionary cOSObject = getResult.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertEquals(PDAction.TYPE, getResult.getType());
+    assertEquals(PDActionNamed.SUB_TYPE, getResult.getSubType());
+  }
+
+  /**
+   * Method under test: {@link PDAction#getNext()}
+   */
+  @Test
+  void testGetNext14() throws IOException {
     // Arrange
     ArrayList<PDAction> next = new ArrayList<>();
     next.add(new PDActionRemoteGoTo());
@@ -795,24 +511,106 @@ class PDActionDiffblueTest {
     PDAction getResult = actualNext.get(0);
     assertTrue(getResult instanceof PDActionRemoteGoTo);
     assertNull(((PDActionRemoteGoTo) getResult).getD());
+    COSDictionary cOSObject = getResult.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
     assertNull(((PDActionRemoteGoTo) getResult).getFile());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
     assertEquals(OpenMode.USER_PREFERENCE, ((PDActionRemoteGoTo) getResult).getOpenInNewWindow());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertEquals(PDAction.TYPE, getResult.getType());
     assertEquals(PDActionRemoteGoTo.SUB_TYPE, getResult.getSubType());
   }
 
   /**
-   * Test {@link PDAction#getNext()}.
-   * <ul>
-   *   <li>Then first return {@link PDActionSubmitForm}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDAction#getNext()}
    */
   @Test
-  @DisplayName("Test getNext(); then first return PDActionSubmitForm")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List PDAction.getNext()"})
-  void testGetNext_thenFirstReturnPDActionSubmitForm() throws IOException {
+  void testGetNext15() {
+    // Arrange
+    ArrayList<PDAction> next = new ArrayList<>();
+    next.add(new PDActionResetForm());
+
+    PDActionEmbeddedGoTo pdActionEmbeddedGoTo = new PDActionEmbeddedGoTo();
+    pdActionEmbeddedGoTo.setNext(next);
+
+    // Act
+    List<PDAction> actualNext = pdActionEmbeddedGoTo.getNext();
+
+    // Assert
+    assertEquals(1, actualNext.size());
+    PDAction getResult = actualNext.get(0);
+    assertTrue(getResult instanceof PDActionResetForm);
+    assertNull(((PDActionResetForm) getResult).getFields());
+    COSDictionary cOSObject = getResult.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertEquals(0, ((PDActionResetForm) getResult).getFlags());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertEquals(PDAction.TYPE, getResult.getType());
+    assertEquals(PDActionResetForm.SUB_TYPE, getResult.getSubType());
+  }
+
+  /**
+   * Method under test: {@link PDAction#getNext()}
+   */
+  @Test
+  void testGetNext16() {
+    // Arrange
+    ArrayList<PDAction> next = new ArrayList<>();
+    next.add(new PDActionSound());
+
+    PDActionEmbeddedGoTo pdActionEmbeddedGoTo = new PDActionEmbeddedGoTo();
+    pdActionEmbeddedGoTo.setNext(next);
+
+    // Act
+    List<PDAction> actualNext = pdActionEmbeddedGoTo.getNext();
+
+    // Assert
+    assertEquals(1, actualNext.size());
+    PDAction getResult = actualNext.get(0);
+    assertTrue(getResult instanceof PDActionSound);
+    COSDictionary cOSObject = getResult.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertNull(((PDActionSound) getResult).getSound());
+    assertEquals(1.0f, ((PDActionSound) getResult).getVolume());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertFalse(((PDActionSound) getResult).getMix());
+    assertFalse(((PDActionSound) getResult).getRepeat());
+    assertFalse(((PDActionSound) getResult).getSynchronous());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertEquals(PDAction.TYPE, getResult.getType());
+    assertEquals(PDActionSound.SUB_TYPE, getResult.getSubType());
+  }
+
+  /**
+   * Method under test: {@link PDAction#getNext()}
+   */
+  @Test
+  void testGetNext17() throws IOException {
     // Arrange
     ArrayList<PDAction> next = new ArrayList<>();
     next.add(new PDActionSubmitForm());
@@ -828,55 +626,121 @@ class PDActionDiffblueTest {
     PDAction getResult = actualNext.get(0);
     assertTrue(getResult instanceof PDActionSubmitForm);
     assertNull(((PDActionSubmitForm) getResult).getFields());
+    COSDictionary cOSObject = getResult.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
     assertNull(((PDActionSubmitForm) getResult).getFile());
     assertEquals(0, ((PDActionSubmitForm) getResult).getFlags());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertEquals(PDAction.TYPE, getResult.getType());
     assertEquals(PDActionSubmitForm.SUB_TYPE, getResult.getSubType());
   }
 
   /**
-   * Test {@link PDAction#setNext(List)}.
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo()} Next is {@link ArrayList#ArrayList()}.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PDAction#getNext()}
+   */
+  @Test
+  void testGetNext18() throws IOException {
+    // Arrange
+    ArrayList<PDAction> next = new ArrayList<>();
+    next.add(new PDActionThread());
+
+    PDActionEmbeddedGoTo pdActionEmbeddedGoTo = new PDActionEmbeddedGoTo();
+    pdActionEmbeddedGoTo.setNext(next);
+
+    // Act
+    List<PDAction> actualNext = pdActionEmbeddedGoTo.getNext();
+
+    // Assert
+    assertEquals(1, actualNext.size());
+    PDAction getResult = actualNext.get(0);
+    assertTrue(getResult instanceof PDActionThread);
+    assertNull(((PDActionThread) getResult).getB());
+    assertNull(((PDActionThread) getResult).getD());
+    COSDictionary cOSObject = getResult.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertNull(((PDActionThread) getResult).getFile());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertEquals(PDAction.TYPE, getResult.getType());
+    assertEquals(PDActionThread.SUB_TYPE, getResult.getSubType());
+  }
+
+  /**
+   * Method under test: {@link PDAction#getNext()}
+   */
+  @Test
+  void testGetNext19() {
+    // Arrange
+    ArrayList<PDAction> next = new ArrayList<>();
+    next.add(new PDActionURI());
+
+    PDActionEmbeddedGoTo pdActionEmbeddedGoTo = new PDActionEmbeddedGoTo();
+    pdActionEmbeddedGoTo.setNext(next);
+
+    // Act
+    List<PDAction> actualNext = pdActionEmbeddedGoTo.getNext();
+
+    // Assert
+    assertEquals(1, actualNext.size());
+    PDAction getResult = actualNext.get(0);
+    assertTrue(getResult instanceof PDActionURI);
+    assertNull(((PDActionURI) getResult).getURI());
+    COSDictionary cOSObject = getResult.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertEquals(PDAction.TYPE, getResult.getType());
+    assertEquals(PDActionURI.SUB_TYPE, getResult.getSubType());
+  }
+
+  /**
    * Method under test: {@link PDAction#setNext(List)}
    */
   @Test
-  @DisplayName("Test setNext(List); given ArrayList(); then PDActionEmbeddedGoTo() Next is ArrayList()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAction.setNext(List)"})
-  void testSetNext_givenArrayList_thenPDActionEmbeddedGoToNextIsArrayList() {
+  void testSetNext() {
     // Arrange
     PDActionEmbeddedGoTo pdActionEmbeddedGoTo = new PDActionEmbeddedGoTo();
 
-    ArrayList<PDAction> next = new ArrayList<>();
-    next.addAll(new ArrayList<>());
-    next.add(null);
-
     // Act
-    pdActionEmbeddedGoTo.setNext(next);
+    pdActionEmbeddedGoTo.setNext(new ArrayList<>());
 
     // Assert
     COSDictionary cOSObject = pdActionEmbeddedGoTo.getCOSObject();
     assertEquals(3, cOSObject.getValues().size());
     assertEquals(3, cOSObject.size());
-    assertEquals(next, pdActionEmbeddedGoTo.getNext());
+    assertTrue(pdActionEmbeddedGoTo.getNext().isEmpty());
   }
 
   /**
-   * Test {@link PDAction#setNext(List)}.
-   * <ul>
-   *   <li>Then {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo()} Next size is one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDAction#setNext(List)}
    */
   @Test
-  @DisplayName("Test setNext(List); then PDActionEmbeddedGoTo() Next size is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAction.setNext(List)"})
-  void testSetNext_thenPDActionEmbeddedGoToNextSizeIsOne() throws IOException {
+  void testSetNext2() throws IOException {
     // Arrange
     PDActionEmbeddedGoTo pdActionEmbeddedGoTo = new PDActionEmbeddedGoTo();
 
@@ -895,24 +759,19 @@ class PDActionDiffblueTest {
     assertNull(((PDActionEmbeddedGoTo) getResult).getFile());
     assertNull(((PDActionEmbeddedGoTo) getResult).getTargetDirectory());
     assertNull(((PDActionEmbeddedGoTo) getResult).getDestination());
+    COSDictionary cOSObject = pdActionEmbeddedGoTo.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
     assertEquals(OpenMode.USER_PREFERENCE, ((PDActionEmbeddedGoTo) getResult).getOpenInNewWindow());
     assertEquals(PDAction.TYPE, getResult.getType());
     assertEquals(PDActionEmbeddedGoTo.SUB_TYPE, getResult.getSubType());
   }
 
   /**
-   * Test {@link PDAction#setNext(List)}.
-   * <ul>
-   *   <li>Then {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo()} Next size is two.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDAction#setNext(List)}
    */
   @Test
-  @DisplayName("Test setNext(List); then PDActionEmbeddedGoTo() Next size is two")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAction.setNext(List)"})
-  void testSetNext_thenPDActionEmbeddedGoToNextSizeIsTwo() throws IOException {
+  void testSetNext3() throws IOException {
     // Arrange
     PDActionEmbeddedGoTo pdActionEmbeddedGoTo = new PDActionEmbeddedGoTo();
 
@@ -926,41 +785,50 @@ class PDActionDiffblueTest {
     // Assert
     List<PDAction> next2 = pdActionEmbeddedGoTo.getNext();
     assertEquals(2, next2.size());
-    PDAction getResult = next2.get(1);
+    PDAction getResult = next2.get(0);
     assertTrue(getResult instanceof PDActionEmbeddedGoTo);
+    PDAction getResult2 = next2.get(1);
+    assertTrue(getResult2 instanceof PDActionEmbeddedGoTo);
     assertNull(getResult.getNext());
+    assertNull(getResult2.getNext());
     assertNull(((PDActionEmbeddedGoTo) getResult).getFile());
+    assertNull(((PDActionEmbeddedGoTo) getResult2).getFile());
     assertNull(((PDActionEmbeddedGoTo) getResult).getTargetDirectory());
+    assertNull(((PDActionEmbeddedGoTo) getResult2).getTargetDirectory());
     assertNull(((PDActionEmbeddedGoTo) getResult).getDestination());
-    assertEquals(OpenMode.USER_PREFERENCE, ((PDActionEmbeddedGoTo) getResult).getOpenInNewWindow());
-    assertEquals(PDAction.TYPE, getResult.getType());
-    assertEquals(PDActionEmbeddedGoTo.SUB_TYPE, getResult.getSubType());
-  }
-
-  /**
-   * Test {@link PDAction#setNext(List)}.
-   * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo()} Next Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAction#setNext(List)}
-   */
-  @Test
-  @DisplayName("Test setNext(List); when ArrayList(); then PDActionEmbeddedGoTo() Next Empty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAction.setNext(List)"})
-  void testSetNext_whenArrayList_thenPDActionEmbeddedGoToNextEmpty() {
-    // Arrange
-    PDActionEmbeddedGoTo pdActionEmbeddedGoTo = new PDActionEmbeddedGoTo();
-
-    // Act
-    pdActionEmbeddedGoTo.setNext(new ArrayList<>());
-
-    // Assert
+    assertNull(((PDActionEmbeddedGoTo) getResult2).getDestination());
     COSDictionary cOSObject = pdActionEmbeddedGoTo.getCOSObject();
     assertEquals(3, cOSObject.getValues().size());
     assertEquals(3, cOSObject.size());
-    assertTrue(pdActionEmbeddedGoTo.getNext().isEmpty());
+    assertEquals(OpenMode.USER_PREFERENCE, ((PDActionEmbeddedGoTo) getResult).getOpenInNewWindow());
+    assertEquals(OpenMode.USER_PREFERENCE, ((PDActionEmbeddedGoTo) getResult2).getOpenInNewWindow());
+    assertEquals(PDAction.TYPE, getResult.getType());
+    assertEquals(PDAction.TYPE, getResult2.getType());
+    assertEquals(PDActionEmbeddedGoTo.SUB_TYPE, getResult.getSubType());
+    assertEquals(PDActionEmbeddedGoTo.SUB_TYPE, getResult2.getSubType());
+  }
+
+  /**
+   * Method under test: {@link PDAction#setNext(List)}
+   */
+  @Test
+  void testSetNext4() {
+    // Arrange
+    PDActionEmbeddedGoTo pdActionEmbeddedGoTo = new PDActionEmbeddedGoTo();
+
+    ArrayList<PDAction> next = new ArrayList<>();
+    next.addAll(new ArrayList<>());
+    next.add(null);
+
+    // Act
+    pdActionEmbeddedGoTo.setNext(next);
+
+    // Assert
+    List<PDAction> next2 = pdActionEmbeddedGoTo.getNext();
+    assertEquals(1, next2.size());
+    assertNull(next2.get(0));
+    COSDictionary cOSObject = pdActionEmbeddedGoTo.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
   }
 }

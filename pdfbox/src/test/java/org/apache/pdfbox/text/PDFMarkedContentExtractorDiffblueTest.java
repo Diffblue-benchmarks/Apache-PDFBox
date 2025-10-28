@@ -4,73 +4,28 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.ArgumentMatchers.isA;
+import static org.mockito.Mockito.atLeast;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import java.io.IOException;
 import java.util.List;
+import org.apache.pdfbox.cos.COSBoolean;
 import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.cos.COSName;
 import org.apache.pdfbox.pdmodel.documentinterchange.markedcontent.PDMarkedContent;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
+import org.apache.pdfbox.pdmodel.font.PDMMType1Font;
+import org.apache.pdfbox.util.Matrix;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 class PDFMarkedContentExtractorDiffblueTest {
   /**
-   * Test {@link PDFMarkedContentExtractor#PDFMarkedContentExtractor()}.
-   * <p>
-   * Method under test: {@link PDFMarkedContentExtractor#PDFMarkedContentExtractor()}
+   * Method under test:
+   * {@link PDFMarkedContentExtractor#beginMarkedContentSequence(COSName, COSDictionary)}
    */
   @Test
-  @DisplayName("Test new PDFMarkedContentExtractor()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFMarkedContentExtractor.<init>()"})
-  void testNewPDFMarkedContentExtractor() {
-    // Arrange and Act
-    PDFMarkedContentExtractor actualPdfMarkedContentExtractor = new PDFMarkedContentExtractor();
-
-    // Assert
-    assertNull(actualPdfMarkedContentExtractor.getCurrentPage());
-    assertNull(actualPdfMarkedContentExtractor.getResources());
-    assertNull(actualPdfMarkedContentExtractor.getGraphicsState());
-    assertNull(actualPdfMarkedContentExtractor.getInitialMatrix());
-    assertEquals(0, actualPdfMarkedContentExtractor.getGraphicsStackSize());
-    assertEquals(0, actualPdfMarkedContentExtractor.getLevel());
-    assertTrue(actualPdfMarkedContentExtractor.getMarkedContents().isEmpty());
-    assertTrue(actualPdfMarkedContentExtractor.isSuppressDuplicateOverlappingText());
-  }
-
-  /**
-   * Test {@link PDFMarkedContentExtractor#PDFMarkedContentExtractor(String)}.
-   * <p>
-   * Method under test: {@link PDFMarkedContentExtractor#PDFMarkedContentExtractor(String)}
-   */
-  @Test
-  @DisplayName("Test new PDFMarkedContentExtractor(String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFMarkedContentExtractor.<init>(String)"})
-  void testNewPDFMarkedContentExtractor2() {
-    // Arrange and Act
-    PDFMarkedContentExtractor actualPdfMarkedContentExtractor = new PDFMarkedContentExtractor("UTF-8");
-
-    // Assert
-    assertNull(actualPdfMarkedContentExtractor.getCurrentPage());
-    assertNull(actualPdfMarkedContentExtractor.getResources());
-    assertNull(actualPdfMarkedContentExtractor.getGraphicsState());
-    assertNull(actualPdfMarkedContentExtractor.getInitialMatrix());
-    assertEquals(0, actualPdfMarkedContentExtractor.getGraphicsStackSize());
-    assertEquals(0, actualPdfMarkedContentExtractor.getLevel());
-    assertTrue(actualPdfMarkedContentExtractor.getMarkedContents().isEmpty());
-    assertTrue(actualPdfMarkedContentExtractor.isSuppressDuplicateOverlappingText());
-  }
-
-  /**
-   * Test {@link PDFMarkedContentExtractor#beginMarkedContentSequence(COSName, COSDictionary)}.
-   * <p>
-   * Method under test: {@link PDFMarkedContentExtractor#beginMarkedContentSequence(COSName, COSDictionary)}
-   */
-  @Test
-  @DisplayName("Test beginMarkedContentSequence(COSName, COSDictionary)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFMarkedContentExtractor.beginMarkedContentSequence(COSName, COSDictionary)"})
   void testBeginMarkedContentSequence() {
     // Arrange
     PDFMarkedContentExtractor pdfMarkedContentExtractor = new PDFMarkedContentExtractor();
@@ -94,14 +49,10 @@ class PDFMarkedContentExtractorDiffblueTest {
   }
 
   /**
-   * Test {@link PDFMarkedContentExtractor#beginMarkedContentSequence(COSName, COSDictionary)}.
-   * <p>
-   * Method under test: {@link PDFMarkedContentExtractor#beginMarkedContentSequence(COSName, COSDictionary)}
+   * Method under test:
+   * {@link PDFMarkedContentExtractor#beginMarkedContentSequence(COSName, COSDictionary)}
    */
   @Test
-  @DisplayName("Test beginMarkedContentSequence(COSName, COSDictionary)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFMarkedContentExtractor.beginMarkedContentSequence(COSName, COSDictionary)"})
   void testBeginMarkedContentSequence2() {
     // Arrange
     PDFMarkedContentExtractor pdfMarkedContentExtractor = new PDFMarkedContentExtractor();
@@ -125,21 +76,39 @@ class PDFMarkedContentExtractorDiffblueTest {
   }
 
   /**
-   * Test getters and setters.
-   * <p>
+   * Method under test:
+   * {@link PDFMarkedContentExtractor#processTextPosition(TextPosition)}
+   */
+  @Test
+  void testProcessTextPosition() throws IOException {
+    // Arrange
+    PDFMarkedContentExtractor pdfMarkedContentExtractor = new PDFMarkedContentExtractor();
+    COSDictionary fontDictionary = mock(COSDictionary.class);
+    when(fontDictionary.getNameAsString(Mockito.<COSName>any())).thenReturn("Name As String");
+    when(fontDictionary.getDictionaryObject(Mockito.<COSName>any())).thenReturn(COSBoolean.FALSE);
+    when(fontDictionary.getCOSDictionary(Mockito.<COSName>any())).thenReturn(new COSDictionary());
+    PDMMType1Font font = new PDMMType1Font(fontDictionary);
+
+    // Act
+    pdfMarkedContentExtractor.processTextPosition(new TextPosition(1, 10.0f, 10.0f, new Matrix(), 10.0f, 10.0f, 10.0f,
+        10.0f, 10.0f, "Unicode", new int[]{1, 0, 1, 0}, font, 10.0f, 3));
+
+    // Assert
+    verify(fontDictionary).getCOSDictionary(isA(COSName.class));
+    verify(fontDictionary, atLeast(1)).getDictionaryObject(Mockito.<COSName>any());
+    verify(fontDictionary, atLeast(1)).getNameAsString(isA(COSName.class));
+  }
+
+  /**
    * Methods under test:
    * <ul>
-   *   <li>{@link PDFMarkedContentExtractor#setSuppressDuplicateOverlappingText(boolean)}
+   *   <li>
+   * {@link PDFMarkedContentExtractor#setSuppressDuplicateOverlappingText(boolean)}
    *   <li>{@link PDFMarkedContentExtractor#getMarkedContents()}
    *   <li>{@link PDFMarkedContentExtractor#isSuppressDuplicateOverlappingText()}
    * </ul>
    */
   @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List PDFMarkedContentExtractor.getMarkedContents()",
-      "boolean PDFMarkedContentExtractor.isSuppressDuplicateOverlappingText()",
-      "void PDFMarkedContentExtractor.setSuppressDuplicateOverlappingText(boolean)"})
   void testGettersAndSetters() {
     // Arrange
     PDFMarkedContentExtractor pdfMarkedContentExtractor = new PDFMarkedContentExtractor();
@@ -150,8 +119,48 @@ class PDFMarkedContentExtractorDiffblueTest {
     boolean actualIsSuppressDuplicateOverlappingTextResult = pdfMarkedContentExtractor
         .isSuppressDuplicateOverlappingText();
 
-    // Assert
+    // Assert that nothing has changed
     assertTrue(actualMarkedContents.isEmpty());
     assertTrue(actualIsSuppressDuplicateOverlappingTextResult);
+  }
+
+  /**
+   * Method under test:
+   * {@link PDFMarkedContentExtractor#PDFMarkedContentExtractor()}
+   */
+  @Test
+  void testNewPDFMarkedContentExtractor() {
+    // Arrange and Act
+    PDFMarkedContentExtractor actualPdfMarkedContentExtractor = new PDFMarkedContentExtractor();
+
+    // Assert
+    assertNull(actualPdfMarkedContentExtractor.getCurrentPage());
+    assertNull(actualPdfMarkedContentExtractor.getResources());
+    assertNull(actualPdfMarkedContentExtractor.getGraphicsState());
+    assertNull(actualPdfMarkedContentExtractor.getInitialMatrix());
+    assertEquals(0, actualPdfMarkedContentExtractor.getGraphicsStackSize());
+    assertEquals(0, actualPdfMarkedContentExtractor.getLevel());
+    assertTrue(actualPdfMarkedContentExtractor.getMarkedContents().isEmpty());
+    assertTrue(actualPdfMarkedContentExtractor.isSuppressDuplicateOverlappingText());
+  }
+
+  /**
+   * Method under test:
+   * {@link PDFMarkedContentExtractor#PDFMarkedContentExtractor(String)}
+   */
+  @Test
+  void testNewPDFMarkedContentExtractor2() {
+    // Arrange and Act
+    PDFMarkedContentExtractor actualPdfMarkedContentExtractor = new PDFMarkedContentExtractor("UTF-8");
+
+    // Assert
+    assertNull(actualPdfMarkedContentExtractor.getCurrentPage());
+    assertNull(actualPdfMarkedContentExtractor.getResources());
+    assertNull(actualPdfMarkedContentExtractor.getGraphicsState());
+    assertNull(actualPdfMarkedContentExtractor.getInitialMatrix());
+    assertEquals(0, actualPdfMarkedContentExtractor.getGraphicsStackSize());
+    assertEquals(0, actualPdfMarkedContentExtractor.getLevel());
+    assertTrue(actualPdfMarkedContentExtractor.getMarkedContents().isEmpty());
+    assertTrue(actualPdfMarkedContentExtractor.isSuppressDuplicateOverlappingText());
   }
 }

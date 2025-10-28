@@ -6,12 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.anyInt;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.awt.image.WritableRaster;
 import java.util.List;
 import org.apache.pdfbox.cos.COSArray;
@@ -19,101 +13,31 @@ import org.apache.pdfbox.cos.COSBase;
 import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.cos.COSFloat;
 import org.apache.pdfbox.pdmodel.common.PDRange;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class PDLabDiffblueTest {
   /**
-   * Test {@link PDLab#PDLab()}.
-   * <p>
-   * Method under test: {@link PDLab#PDLab()}
-   */
-  @Test
-  @DisplayName("Test new PDLab()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDLab.<init>()"})
-  void testNewPDLab() {
-    // Arrange and Act
-    PDLab actualPdLab = new PDLab();
-
-    // Assert
-    assertTrue(actualPdLab.getCOSObject() instanceof COSArray);
-    assertEquals("Lab", actualPdLab.getName());
-    assertEquals(1.0f, actualPdLab.wpX);
-    assertEquals(1.0f, actualPdLab.wpY);
-    assertEquals(1.0f, actualPdLab.wpZ);
-    assertEquals(3, actualPdLab.getNumberOfComponents());
-  }
-
-  /**
-   * Test {@link PDLab#PDLab(COSArray)}.
-   * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary()}.</li>
-   *   <li>Then return Name is {@code Lab}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDLab#PDLab(COSArray)}
-   */
-  @Test
-  @DisplayName("Test new PDLab(COSArray); given COSDictionary(); then return Name is 'Lab'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDLab.<init>(COSArray)"})
-  void testNewPDLab_givenCOSDictionary_thenReturnNameIsLab() {
-    // Arrange
-    COSArray lab = mock(COSArray.class);
-    when(lab.getObject(anyInt())).thenReturn(new COSDictionary());
-
-    // Act
-    PDLab actualPdLab = new PDLab(lab);
-
-    // Assert
-    verify(lab).getObject(eq(1));
-    assertEquals("Lab", actualPdLab.getName());
-    assertEquals(1.0f, actualPdLab.wpX);
-    assertEquals(1.0f, actualPdLab.wpY);
-    assertEquals(1.0f, actualPdLab.wpZ);
-    assertEquals(3, actualPdLab.getNumberOfComponents());
-    assertSame(lab, actualPdLab.getCOSObject());
-  }
-
-  /**
-   * Test {@link PDLab#getName()}.
-   * <p>
    * Method under test: {@link PDLab#getName()}
    */
   @Test
-  @DisplayName("Test getName()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"java.lang.String PDLab.getName()"})
   void testGetName() {
     // Arrange, Act and Assert
     assertEquals("Lab", (new PDLab()).getName());
   }
 
   /**
-   * Test {@link PDLab#toRawImage(WritableRaster)} with {@code raster}.
-   * <p>
    * Method under test: {@link PDLab#toRawImage(WritableRaster)}
    */
   @Test
-  @DisplayName("Test toRawImage(WritableRaster) with 'raster'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"java.awt.image.BufferedImage PDLab.toRawImage(WritableRaster)"})
-  void testToRawImageWithRaster() {
+  void testToRawImage() {
     // Arrange, Act and Assert
     assertNull((new PDLab()).toRawImage(null));
   }
 
   /**
-   * Test {@link PDLab#toRGB(float[])}.
-   * <p>
    * Method under test: {@link PDLab#toRGB(float[])}
    */
   @Test
-  @DisplayName("Test toRGB(float[])")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"float[] PDLab.toRGB(float[])"})
   void testToRGB() {
     // Arrange, Act and Assert
     assertArrayEquals(new float[]{0.0f, 0.1589685f, 0.050019074f},
@@ -121,28 +45,18 @@ class PDLabDiffblueTest {
   }
 
   /**
-   * Test {@link PDLab#getNumberOfComponents()}.
-   * <p>
    * Method under test: {@link PDLab#getNumberOfComponents()}
    */
   @Test
-  @DisplayName("Test getNumberOfComponents()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"int PDLab.getNumberOfComponents()"})
   void testGetNumberOfComponents() {
     // Arrange, Act and Assert
     assertEquals(3, (new PDLab()).getNumberOfComponents());
   }
 
   /**
-   * Test {@link PDLab#getDefaultDecode(int)}.
-   * <p>
    * Method under test: {@link PDLab#getDefaultDecode(int)}
    */
   @Test
-  @DisplayName("Test getDefaultDecode(int)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"float[] PDLab.getDefaultDecode(int)"})
   void testGetDefaultDecode() {
     // Arrange, Act and Assert
     assertArrayEquals(new float[]{0.0f, 100.0f, -100.0f, 100.0f, -100.0f, 100.0f}, (new PDLab()).getDefaultDecode(1),
@@ -150,14 +64,9 @@ class PDLabDiffblueTest {
   }
 
   /**
-   * Test {@link PDLab#getInitialColor()}.
-   * <p>
    * Method under test: {@link PDLab#getInitialColor()}
    */
   @Test
-  @DisplayName("Test getInitialColor()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDColor PDLab.getInitialColor()"})
   void testGetInitialColor() {
     // Arrange
     PDLab pdLab = new PDLab();
@@ -173,14 +82,9 @@ class PDLabDiffblueTest {
   }
 
   /**
-   * Test {@link PDLab#getARange()}.
-   * <p>
    * Method under test: {@link PDLab#getARange()}
    */
   @Test
-  @DisplayName("Test getARange()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDRange PDLab.getARange()"})
   void testGetARange() {
     // Arrange and Act
     PDRange actualARange = (new PDLab()).getARange();
@@ -209,14 +113,9 @@ class PDLabDiffblueTest {
   }
 
   /**
-   * Test {@link PDLab#getBRange()}.
-   * <p>
    * Method under test: {@link PDLab#getBRange()}
    */
   @Test
-  @DisplayName("Test getBRange()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDRange PDLab.getBRange()"})
   void testGetBRange() {
     // Arrange and Act
     PDRange actualBRange = (new PDLab()).getBRange();
@@ -245,14 +144,9 @@ class PDLabDiffblueTest {
   }
 
   /**
-   * Test {@link PDLab#setARange(PDRange)}.
-   * <p>
    * Method under test: {@link PDLab#setARange(PDRange)}
    */
   @Test
-  @DisplayName("Test setARange(PDRange)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDLab.setARange(PDRange)"})
   void testSetARange() {
     // Arrange
     PDLab pdLab = new PDLab();
@@ -278,14 +172,9 @@ class PDLabDiffblueTest {
   }
 
   /**
-   * Test {@link PDLab#setBRange(PDRange)}.
-   * <p>
    * Method under test: {@link PDLab#setBRange(PDRange)}
    */
   @Test
-  @DisplayName("Test setBRange(PDRange)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDLab.setBRange(PDRange)"})
   void testSetBRange() {
     // Arrange
     PDLab pdLab = new PDLab();

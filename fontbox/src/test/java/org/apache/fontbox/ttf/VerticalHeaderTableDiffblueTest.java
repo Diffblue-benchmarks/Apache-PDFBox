@@ -8,17 +8,12 @@ import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MethodsUnderTest;
-import java.io.ByteArrayInputStream;
+import java.io.DataInputStream;
 import java.io.IOException;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class VerticalHeaderTableDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link VerticalHeaderTable}
@@ -42,17 +37,6 @@ class VerticalHeaderTableDiffblueTest {
    * </ul>
    */
   @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void VerticalHeaderTable.<init>()", "int VerticalHeaderTable.getAdvanceHeightMax()",
-      "short VerticalHeaderTable.getAscender()", "short VerticalHeaderTable.getCaretOffset()",
-      "short VerticalHeaderTable.getCaretSlopeRise()", "short VerticalHeaderTable.getCaretSlopeRun()",
-      "short VerticalHeaderTable.getDescender()", "short VerticalHeaderTable.getLineGap()",
-      "short VerticalHeaderTable.getMetricDataFormat()", "short VerticalHeaderTable.getMinBottomSideBearing()",
-      "short VerticalHeaderTable.getMinTopSideBearing()", "int VerticalHeaderTable.getNumberOfVMetrics()",
-      "short VerticalHeaderTable.getReserved1()", "short VerticalHeaderTable.getReserved2()",
-      "short VerticalHeaderTable.getReserved3()", "short VerticalHeaderTable.getReserved4()",
-      "float VerticalHeaderTable.getVersion()", "short VerticalHeaderTable.getYMaxExtent()"})
   void testGettersAndSetters() {
     // Arrange and Act
     VerticalHeaderTable actualVerticalHeaderTable = new VerticalHeaderTable();
@@ -100,23 +84,16 @@ class VerticalHeaderTableDiffblueTest {
   }
 
   /**
-   * Test {@link VerticalHeaderTable#read(TrueTypeFont, TTFDataStream)}.
-   * <ul>
-   *   <li>Given ten.</li>
-   *   <li>Then {@link VerticalHeaderTable#VerticalHeaderTable()} AdvanceHeightMax is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link VerticalHeaderTable#read(TrueTypeFont, TTFDataStream)}
+   * Method under test:
+   * {@link VerticalHeaderTable#read(TrueTypeFont, TTFDataStream)}
    */
   @Test
-  @DisplayName("Test read(TrueTypeFont, TTFDataStream); given ten; then VerticalHeaderTable() AdvanceHeightMax is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void VerticalHeaderTable.read(TrueTypeFont, TTFDataStream)"})
-  void testRead_givenTen_thenVerticalHeaderTableAdvanceHeightMaxIsOne() throws IOException {
+  void testRead() throws IOException {
     // Arrange
     VerticalHeaderTable verticalHeaderTable = new VerticalHeaderTable();
-    TrueTypeFont ttf = new TrueTypeFont(
-        new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"))));
+    DataInputStream inputStream = mock(DataInputStream.class);
+    when(inputStream.readAllBytes()).thenReturn("AXAXAXAX".getBytes("UTF-8"));
+    TrueTypeFont ttf = new TrueTypeFont(new RandomAccessReadDataStream(inputStream));
     RandomAccessReadDataStream data = mock(RandomAccessReadDataStream.class);
     when(data.read32Fixed()).thenReturn(10.0f);
     when(data.readUnsignedShort()).thenReturn(1);
@@ -126,6 +103,7 @@ class VerticalHeaderTableDiffblueTest {
     verticalHeaderTable.read(ttf, data);
 
     // Assert
+    verify(inputStream).readAllBytes();
     verify(data).read32Fixed();
     verify(data, atLeast(1)).readSignedShort();
     verify(data, atLeast(1)).readUnsignedShort();

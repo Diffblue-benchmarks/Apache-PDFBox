@@ -2,101 +2,55 @@ package org.apache.pdfbox.pdmodel.interactive.form;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.ArgumentMatchers.isA;
-import static org.mockito.Mockito.anyInt;
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.when;
 import java.io.IOException;
 import org.apache.pdfbox.cos.COSBase;
 import org.apache.pdfbox.cos.COSBoolean;
 import org.apache.pdfbox.cos.COSDictionary;
-import org.apache.pdfbox.cos.COSName;
 import org.apache.pdfbox.cos.COSStream;
 import org.apache.pdfbox.cos.COSString;
+import org.apache.pdfbox.io.RandomAccessStreamCache;
+import org.apache.pdfbox.io.RandomAccessStreamCacheImpl;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDResources;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 class PDVariableTextDiffblueTest {
   /**
-   * Test {@link PDVariableText#getDefaultAppearance()}.
-   * <ul>
-   *   <li>Given {@link PDComboBox#PDComboBox(PDAcroForm)} with acroForm is {@link PDAcroForm#PDAcroForm(PDDocument)}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDVariableText#getDefaultAppearance()}
    */
   @Test
-  @DisplayName("Test getDefaultAppearance(); given PDComboBox(PDAcroForm) with acroForm is PDAcroForm(PDDocument); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDVariableText.getDefaultAppearance()"})
-  void testGetDefaultAppearance_givenPDComboBoxWithAcroFormIsPDAcroForm_thenReturnNull() {
+  void testGetDefaultAppearance() {
     // Arrange, Act and Assert
     assertNull((new PDComboBox(new PDAcroForm(new PDDocument()))).getDefaultAppearance());
   }
 
   /**
-   * Test {@link PDVariableText#getDefaultAppearance()}.
-   * <ul>
-   *   <li>Then return {@code 42}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDVariableText#getDefaultAppearance()}
    */
   @Test
-  @DisplayName("Test getDefaultAppearance(); then return '42'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDVariableText.getDefaultAppearance()"})
-  void testGetDefaultAppearance_thenReturn42() {
+  void testGetDefaultAppearance2() throws IOException {
     // Arrange
-    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
-    acroForm.setDefaultAppearance("42");
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
 
-    // Act and Assert
-    assertEquals("42", (new PDComboBox(acroForm)).getDefaultAppearance());
+    // Act
+    String actualDefaultAppearance = (new PDComboBox(new PDAcroForm(new PDDocument(streamCacheCreateFunction))))
+        .getDefaultAppearance();
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertNull(actualDefaultAppearance);
   }
 
   /**
-   * Test {@link PDVariableText#getDefaultAppearance()}.
-   * <ul>
-   *   <li>Then return empty string.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDVariableText#getDefaultAppearance()}
    */
   @Test
-  @DisplayName("Test getDefaultAppearance(); then return empty string")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDVariableText.getDefaultAppearance()"})
-  void testGetDefaultAppearance_thenReturnEmptyString() {
-    // Arrange
-    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
-    acroForm.setDefaultAppearance("");
-
-    // Act and Assert
-    assertEquals("", (new PDComboBox(acroForm)).getDefaultAppearance());
-  }
-
-  /**
-   * Test {@link PDVariableText#getDefaultAppearance()}.
-   * <ul>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDVariableText#getDefaultAppearance()}
-   */
-  @Test
-  @DisplayName("Test getDefaultAppearance(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDVariableText.getDefaultAppearance()"})
-  void testGetDefaultAppearance_thenReturnNull() {
+  void testGetDefaultAppearance3() {
     // Arrange
     PDAcroForm acroForm = new PDAcroForm(new PDDocument());
     COSDictionary field = new COSDictionary();
@@ -107,17 +61,58 @@ class PDVariableTextDiffblueTest {
   }
 
   /**
-   * Test {@link PDVariableText#getDefaultAppearanceString()}.
-   * <p>
+   * Method under test: {@link PDVariableText#getDefaultAppearance()}
+   */
+  @Test
+  void testGetDefaultAppearance4() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument(streamCacheCreateFunction));
+    acroForm.setDefaultAppearance("42");
+
+    // Act
+    String actualDefaultAppearance = (new PDComboBox(acroForm)).getDefaultAppearance();
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertEquals("42", actualDefaultAppearance);
+  }
+
+  /**
+   * Method under test: {@link PDVariableText#getDefaultAppearance()}
+   */
+  @Test
+  void testGetDefaultAppearance5() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument(streamCacheCreateFunction));
+    acroForm.setDefaultAppearance("");
+
+    // Act
+    String actualDefaultAppearance = (new PDComboBox(acroForm)).getDefaultAppearance();
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertEquals("", actualDefaultAppearance);
+  }
+
+  /**
    * Method under test: {@link PDVariableText#getDefaultAppearanceString()}
    */
   @Test
-  @DisplayName("Test getDefaultAppearanceString()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDDefaultAppearanceString PDVariableText.getDefaultAppearanceString()"})
   void testGetDefaultAppearanceString() throws IOException {
     // Arrange
-    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument(streamCacheCreateFunction));
     acroForm.setDefaultResources(new PDResources());
     acroForm.setDefaultAppearance("42");
 
@@ -125,6 +120,7 @@ class PDVariableTextDiffblueTest {
     PDDefaultAppearanceString actualDefaultAppearanceString = (new PDComboBox(acroForm)).getDefaultAppearanceString();
 
     // Assert
+    verify(streamCacheCreateFunction).create();
     assertNull(actualDefaultAppearanceString.getFontName());
     assertNull(actualDefaultAppearanceString.getFont());
     assertNull(actualDefaultAppearanceString.getFontColor());
@@ -132,17 +128,16 @@ class PDVariableTextDiffblueTest {
   }
 
   /**
-   * Test {@link PDVariableText#getDefaultAppearanceString()}.
-   * <p>
    * Method under test: {@link PDVariableText#getDefaultAppearanceString()}
    */
   @Test
-  @DisplayName("Test getDefaultAppearanceString()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDDefaultAppearanceString PDVariableText.getDefaultAppearanceString()"})
   void testGetDefaultAppearanceString2() throws IOException {
     // Arrange
-    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument(streamCacheCreateFunction));
     acroForm.setDefaultResources(new PDResources());
     acroForm.setDefaultAppearance("Da Value");
 
@@ -150,6 +145,7 @@ class PDVariableTextDiffblueTest {
     PDDefaultAppearanceString actualDefaultAppearanceString = (new PDComboBox(acroForm)).getDefaultAppearanceString();
 
     // Assert
+    verify(streamCacheCreateFunction).create();
     assertNull(actualDefaultAppearanceString.getFontName());
     assertNull(actualDefaultAppearanceString.getFont());
     assertNull(actualDefaultAppearanceString.getFontColor());
@@ -157,17 +153,16 @@ class PDVariableTextDiffblueTest {
   }
 
   /**
-   * Test {@link PDVariableText#getDefaultAppearanceString()}.
-   * <p>
    * Method under test: {@link PDVariableText#getDefaultAppearanceString()}
    */
   @Test
-  @DisplayName("Test getDefaultAppearanceString()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDDefaultAppearanceString PDVariableText.getDefaultAppearanceString()"})
   void testGetDefaultAppearanceString3() throws IOException {
     // Arrange
-    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument(streamCacheCreateFunction));
     acroForm.setDefaultResources(new PDResources());
     acroForm.setDefaultAppearance("java.util.Set");
 
@@ -175,6 +170,7 @@ class PDVariableTextDiffblueTest {
     PDDefaultAppearanceString actualDefaultAppearanceString = (new PDComboBox(acroForm)).getDefaultAppearanceString();
 
     // Assert
+    verify(streamCacheCreateFunction).create();
     assertNull(actualDefaultAppearanceString.getFontName());
     assertNull(actualDefaultAppearanceString.getFont());
     assertNull(actualDefaultAppearanceString.getFontColor());
@@ -182,17 +178,16 @@ class PDVariableTextDiffblueTest {
   }
 
   /**
-   * Test {@link PDVariableText#getDefaultAppearanceString()}.
-   * <p>
    * Method under test: {@link PDVariableText#getDefaultAppearanceString()}
    */
   @Test
-  @DisplayName("Test getDefaultAppearanceString()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDDefaultAppearanceString PDVariableText.getDefaultAppearanceString()"})
   void testGetDefaultAppearanceString4() throws IOException {
     // Arrange
-    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument(streamCacheCreateFunction));
     acroForm.setDefaultResources(new PDResources());
     acroForm.setDefaultAppearance("org.apache.pdfbox.pdmodel.interactive.annotation.PDAnnotation");
 
@@ -200,6 +195,7 @@ class PDVariableTextDiffblueTest {
     PDDefaultAppearanceString actualDefaultAppearanceString = (new PDComboBox(acroForm)).getDefaultAppearanceString();
 
     // Assert
+    verify(streamCacheCreateFunction).create();
     assertNull(actualDefaultAppearanceString.getFontName());
     assertNull(actualDefaultAppearanceString.getFont());
     assertNull(actualDefaultAppearanceString.getFontColor());
@@ -207,156 +203,65 @@ class PDVariableTextDiffblueTest {
   }
 
   /**
-   * Test {@link PDVariableText#setDefaultAppearance(String)}.
-   * <ul>
-   *   <li>Then calls {@link COSDictionary#setString(COSName, String)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDVariableText#setDefaultAppearance(String)}
-   */
-  @Test
-  @DisplayName("Test setDefaultAppearance(String); then calls setString(COSName, String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDVariableText.setDefaultAppearance(String)"})
-  void testSetDefaultAppearance_thenCallsSetString() {
-    // Arrange
-    COSDictionary field = mock(COSDictionary.class);
-    doNothing().when(field).setString(Mockito.<COSName>any(), Mockito.<String>any());
-    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
-
-    // Act
-    (new PDComboBox(acroForm, field, new PDNonTerminalField(new PDAcroForm(new PDDocument()))))
-        .setDefaultAppearance("42");
-
-    // Assert that nothing has changed
-    verify(field).setString(isA(COSName.class), eq("42"));
-  }
-
-  /**
-   * Test {@link PDVariableText#getDefaultStyleString()}.
-   * <ul>
-   *   <li>Given {@link PDComboBox#PDComboBox(PDAcroForm)} with acroForm is {@link PDAcroForm#PDAcroForm(PDDocument)}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDVariableText#getDefaultStyleString()}
    */
   @Test
-  @DisplayName("Test getDefaultStyleString(); given PDComboBox(PDAcroForm) with acroForm is PDAcroForm(PDDocument); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDVariableText.getDefaultStyleString()"})
-  void testGetDefaultStyleString_givenPDComboBoxWithAcroFormIsPDAcroForm_thenReturnNull() {
+  void testGetDefaultStyleString() {
     // Arrange, Act and Assert
     assertNull((new PDComboBox(new PDAcroForm(new PDDocument()))).getDefaultStyleString());
   }
 
   /**
-   * Test {@link PDVariableText#setDefaultStyleString(String)}.
-   * <ul>
-   *   <li>Given {@link COSDictionary} {@link COSDictionary#setItem(COSName, COSBase)} does nothing.</li>
-   *   <li>Then calls {@link COSDictionary#setItem(COSName, COSBase)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDVariableText#setDefaultStyleString(String)}
+   * Method under test: {@link PDVariableText#getDefaultStyleString()}
    */
   @Test
-  @DisplayName("Test setDefaultStyleString(String); given COSDictionary setItem(COSName, COSBase) does nothing; then calls setItem(COSName, COSBase)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDVariableText.setDefaultStyleString(String)"})
-  void testSetDefaultStyleString_givenCOSDictionarySetItemDoesNothing_thenCallsSetItem() {
+  void testGetDefaultStyleString2() throws IOException {
     // Arrange
-    COSDictionary field = mock(COSDictionary.class);
-    doNothing().when(field).setItem(Mockito.<COSName>any(), Mockito.<COSBase>any());
-    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
 
     // Act
-    (new PDComboBox(acroForm, field, new PDNonTerminalField(new PDAcroForm(new PDDocument()))))
-        .setDefaultStyleString("Default Style String");
+    String actualDefaultStyleString = (new PDComboBox(new PDAcroForm(new PDDocument(streamCacheCreateFunction))))
+        .getDefaultStyleString();
 
-    // Assert that nothing has changed
-    verify(field).setItem(isA(COSName.class), isA(COSBase.class));
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertNull(actualDefaultStyleString);
   }
 
   /**
-   * Test {@link PDVariableText#setDefaultStyleString(String)}.
-   * <ul>
-   *   <li>Then calls {@link COSDictionary#removeItem(COSName)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDVariableText#setDefaultStyleString(String)}
-   */
-  @Test
-  @DisplayName("Test setDefaultStyleString(String); then calls removeItem(COSName)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDVariableText.setDefaultStyleString(String)"})
-  void testSetDefaultStyleString_thenCallsRemoveItem() {
-    // Arrange
-    COSDictionary field = mock(COSDictionary.class);
-    doNothing().when(field).removeItem(Mockito.<COSName>any());
-    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
-
-    // Act
-    (new PDComboBox(acroForm, field, new PDNonTerminalField(new PDAcroForm(new PDDocument()))))
-        .setDefaultStyleString(null);
-
-    // Assert that nothing has changed
-    verify(field).removeItem(isA(COSName.class));
-  }
-
-  /**
-   * Test {@link PDVariableText#getQ()}.
-   * <ul>
-   *   <li>Given {@link PDAcroForm#PDAcroForm(PDDocument)} with doc is {@link PDDocument#PDDocument()} Q is five.</li>
-   *   <li>Then return five.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDVariableText#getQ()}
    */
   @Test
-  @DisplayName("Test getQ(); given PDAcroForm(PDDocument) with doc is PDDocument() Q is five; then return five")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"int PDVariableText.getQ()"})
-  void testGetQ_givenPDAcroFormWithDocIsPDDocumentQIsFive_thenReturnFive() {
-    // Arrange
-    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
-    acroForm.setQ(5);
-
-    // Act and Assert
-    assertEquals(5, (new PDComboBox(acroForm)).getQ());
-  }
-
-  /**
-   * Test {@link PDVariableText#getQ()}.
-   * <ul>
-   *   <li>Given {@link PDComboBox#PDComboBox(PDAcroForm)} with acroForm is {@link PDAcroForm#PDAcroForm(PDDocument)}.</li>
-   *   <li>Then return zero.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDVariableText#getQ()}
-   */
-  @Test
-  @DisplayName("Test getQ(); given PDComboBox(PDAcroForm) with acroForm is PDAcroForm(PDDocument); then return zero")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"int PDVariableText.getQ()"})
-  void testGetQ_givenPDComboBoxWithAcroFormIsPDAcroForm_thenReturnZero() {
+  void testGetQ() {
     // Arrange, Act and Assert
     assertEquals(0, (new PDComboBox(new PDAcroForm(new PDDocument()))).getQ());
   }
 
   /**
-   * Test {@link PDVariableText#getQ()}.
-   * <ul>
-   *   <li>Given {@link PDNonTerminalField#PDNonTerminalField(PDAcroForm)} with acroForm is {@link PDAcroForm#PDAcroForm(PDDocument)}.</li>
-   *   <li>Then return zero.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDVariableText#getQ()}
    */
   @Test
-  @DisplayName("Test getQ(); given PDNonTerminalField(PDAcroForm) with acroForm is PDAcroForm(PDDocument); then return zero")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"int PDVariableText.getQ()"})
-  void testGetQ_givenPDNonTerminalFieldWithAcroFormIsPDAcroForm_thenReturnZero() {
+  void testGetQ2() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+
+    // Act
+    int actualQ = (new PDComboBox(new PDAcroForm(new PDDocument(streamCacheCreateFunction)))).getQ();
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertEquals(0, actualQ);
+  }
+
+  /**
+   * Method under test: {@link PDVariableText#getQ()}
+   */
+  @Test
+  void testGetQ3() {
     // Arrange
     PDAcroForm acroForm = new PDAcroForm(new PDDocument());
     COSDictionary field = new COSDictionary();
@@ -366,59 +271,59 @@ class PDVariableTextDiffblueTest {
   }
 
   /**
-   * Test {@link PDVariableText#setQ(int)}.
-   * <p>
-   * Method under test: {@link PDVariableText#setQ(int)}
+   * Method under test: {@link PDVariableText#getQ()}
    */
   @Test
-  @DisplayName("Test setQ(int)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDVariableText.setQ(int)"})
-  void testSetQ() {
+  void testGetQ4() throws IOException {
     // Arrange
-    COSDictionary field = mock(COSDictionary.class);
-    doNothing().when(field).setInt(Mockito.<COSName>any(), anyInt());
-    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
-    PDComboBox pdComboBox = new PDComboBox(acroForm, field, new PDNonTerminalField(new PDAcroForm(new PDDocument())));
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument(streamCacheCreateFunction));
+    acroForm.setQ(5);
 
     // Act
-    pdComboBox.setQ(1);
+    int actualQ = (new PDComboBox(acroForm)).getQ();
 
-    // Assert that nothing has changed
-    verify(field).setInt(isA(COSName.class), eq(1));
-    assertEquals(0, pdComboBox.getQ());
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertEquals(5, actualQ);
   }
 
   /**
-   * Test {@link PDVariableText#getRichTextValue()}.
-   * <ul>
-   *   <li>Given {@link PDComboBox#PDComboBox(PDAcroForm)} with acroForm is {@link PDAcroForm#PDAcroForm(PDDocument)}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDVariableText#getRichTextValue()}
    */
   @Test
-  @DisplayName("Test getRichTextValue(); given PDComboBox(PDAcroForm) with acroForm is PDAcroForm(PDDocument)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDVariableText.getRichTextValue()"})
-  void testGetRichTextValue_givenPDComboBoxWithAcroFormIsPDAcroForm() {
+  void testGetRichTextValue() {
     // Arrange, Act and Assert
     assertEquals("", (new PDComboBox(new PDAcroForm(new PDDocument()))).getRichTextValue());
   }
 
   /**
-   * Test {@link PDVariableText#getRichTextValue()}.
-   * <ul>
-   *   <li>Given {@link PDNonTerminalField#PDNonTerminalField(PDAcroForm)} with acroForm is {@link PDAcroForm#PDAcroForm(PDDocument)}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDVariableText#getRichTextValue()}
    */
   @Test
-  @DisplayName("Test getRichTextValue(); given PDNonTerminalField(PDAcroForm) with acroForm is PDAcroForm(PDDocument)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDVariableText.getRichTextValue()"})
-  void testGetRichTextValue_givenPDNonTerminalFieldWithAcroFormIsPDAcroForm() {
+  void testGetRichTextValue2() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+
+    // Act
+    String actualRichTextValue = (new PDComboBox(new PDAcroForm(new PDDocument(streamCacheCreateFunction))))
+        .getRichTextValue();
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertEquals("", actualRichTextValue);
+  }
+
+  /**
+   * Method under test: {@link PDVariableText#getRichTextValue()}
+   */
+  @Test
+  void testGetRichTextValue3() {
     // Arrange
     PDAcroForm acroForm = new PDAcroForm(new PDDocument());
     COSDictionary field = new COSDictionary();
@@ -429,139 +334,87 @@ class PDVariableTextDiffblueTest {
   }
 
   /**
-   * Test {@link PDVariableText#setRichTextValue(String)}.
-   * <ul>
-   *   <li>Given {@link COSDictionary} {@link COSDictionary#removeItem(COSName)} does nothing.</li>
-   *   <li>Then calls {@link COSDictionary#removeItem(COSName)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDVariableText#setRichTextValue(String)}
-   */
-  @Test
-  @DisplayName("Test setRichTextValue(String); given COSDictionary removeItem(COSName) does nothing; then calls removeItem(COSName)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDVariableText.setRichTextValue(String)"})
-  void testSetRichTextValue_givenCOSDictionaryRemoveItemDoesNothing_thenCallsRemoveItem() {
-    // Arrange
-    COSDictionary field = mock(COSDictionary.class);
-    doNothing().when(field).removeItem(Mockito.<COSName>any());
-    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
-    PDComboBox pdComboBox = new PDComboBox(acroForm, field, new PDNonTerminalField(new PDAcroForm(new PDDocument())));
-
-    // Act
-    pdComboBox.setRichTextValue(null);
-
-    // Assert that nothing has changed
-    verify(field).removeItem(isA(COSName.class));
-    assertEquals("", pdComboBox.getRichTextValue());
-  }
-
-  /**
-   * Test {@link PDVariableText#setRichTextValue(String)}.
-   * <ul>
-   *   <li>Given {@link COSDictionary} {@link COSDictionary#setItem(COSName, COSBase)} does nothing.</li>
-   *   <li>Then calls {@link COSDictionary#setItem(COSName, COSBase)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDVariableText#setRichTextValue(String)}
-   */
-  @Test
-  @DisplayName("Test setRichTextValue(String); given COSDictionary setItem(COSName, COSBase) does nothing; then calls setItem(COSName, COSBase)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDVariableText.setRichTextValue(String)"})
-  void testSetRichTextValue_givenCOSDictionarySetItemDoesNothing_thenCallsSetItem() {
-    // Arrange
-    COSDictionary field = mock(COSDictionary.class);
-    doNothing().when(field).setItem(Mockito.<COSName>any(), Mockito.<COSBase>any());
-    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
-    PDComboBox pdComboBox = new PDComboBox(acroForm, field, new PDNonTerminalField(new PDAcroForm(new PDDocument())));
-
-    // Act
-    pdComboBox.setRichTextValue("42");
-
-    // Assert that nothing has changed
-    verify(field).setItem(isA(COSName.class), isA(COSBase.class));
-    assertEquals("", pdComboBox.getRichTextValue());
-  }
-
-  /**
-   * Test {@link PDVariableText#getStringOrStream(COSBase)}.
-   * <ul>
-   *   <li>When {@link COSStream#COSStream()}.</li>
-   *   <li>Then return empty string.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDVariableText#getStringOrStream(COSBase)}
    */
   @Test
-  @DisplayName("Test getStringOrStream(COSBase); when COSStream(); then return empty string")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDVariableText.getStringOrStream(COSBase)"})
-  void testGetStringOrStream_whenCOSStream_thenReturnEmptyString() {
-    // Arrange
-    PDComboBox pdComboBox = new PDComboBox(new PDAcroForm(new PDDocument()));
-
-    // Act and Assert
-    assertEquals("", pdComboBox.getStringOrStream(new COSStream()));
-  }
-
-  /**
-   * Test {@link PDVariableText#getStringOrStream(COSBase)}.
-   * <ul>
-   *   <li>When {@link COSBoolean#FALSE}.</li>
-   *   <li>Then return empty string.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDVariableText#getStringOrStream(COSBase)}
-   */
-  @Test
-  @DisplayName("Test getStringOrStream(COSBase); when FALSE; then return empty string")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDVariableText.getStringOrStream(COSBase)"})
-  void testGetStringOrStream_whenFalse_thenReturnEmptyString() {
+  void testGetStringOrStream() {
     // Arrange, Act and Assert
     assertEquals("", (new PDComboBox(new PDAcroForm(new PDDocument()))).getStringOrStream(COSBoolean.FALSE));
   }
 
   /**
-   * Test {@link PDVariableText#getStringOrStream(COSBase)}.
-   * <ul>
-   *   <li>When parseHex {@code 42}.</li>
-   *   <li>Then return {@code B}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDVariableText#getStringOrStream(COSBase)}
    */
   @Test
-  @DisplayName("Test getStringOrStream(COSBase); when parseHex '42'; then return 'B'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDVariableText.getStringOrStream(COSBase)"})
-  void testGetStringOrStream_whenParseHex42_thenReturnB() throws IOException {
+  void testGetStringOrStream2() throws IOException {
     // Arrange
-    PDComboBox pdComboBox = new PDComboBox(new PDAcroForm(new PDDocument()));
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
 
-    // Act and Assert
-    assertEquals("B", pdComboBox.getStringOrStream(COSString.parseHex("42")));
+    // Act
+    String actualStringOrStream = (new PDComboBox(new PDAcroForm(new PDDocument(streamCacheCreateFunction))))
+        .getStringOrStream(COSBoolean.FALSE);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertEquals("", actualStringOrStream);
   }
 
   /**
-   * Test {@link PDVariableText#getStringOrStream(COSBase)}.
-   * <ul>
-   *   <li>When parseHex {@code 0123456789ABCDEF}.</li>
-   *   <li>Then return {@code #Eg›«Íï}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDVariableText#getStringOrStream(COSBase)}
    */
   @Test
-  @DisplayName("Test getStringOrStream(COSBase); when parseHex '0123456789ABCDEF'; then return '#Eg›«Íï'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDVariableText.getStringOrStream(COSBase)"})
-  void testGetStringOrStream_whenParseHex0123456789abcdef_thenReturnEg() throws IOException {
+  void testGetStringOrStream3() throws IOException {
     // Arrange
-    PDComboBox pdComboBox = new PDComboBox(new PDAcroForm(new PDDocument()));
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDComboBox pdComboBox = new PDComboBox(new PDAcroForm(new PDDocument(streamCacheCreateFunction)));
 
-    // Act and Assert
-    assertEquals("\u0001#Eg›«Íï", pdComboBox.getStringOrStream(COSString.parseHex("0123456789ABCDEF")));
+    // Act
+    String actualStringOrStream = pdComboBox.getStringOrStream(COSString.parseHex("0123456789ABCDEF"));
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertEquals("\u0001#Eg›«Íï", actualStringOrStream);
+  }
+
+  /**
+   * Method under test: {@link PDVariableText#getStringOrStream(COSBase)}
+   */
+  @Test
+  void testGetStringOrStream4() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDComboBox pdComboBox = new PDComboBox(new PDAcroForm(new PDDocument(streamCacheCreateFunction)));
+
+    // Act
+    String actualStringOrStream = pdComboBox.getStringOrStream(new COSStream());
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertEquals("", actualStringOrStream);
+  }
+
+  /**
+   * Method under test: {@link PDVariableText#getStringOrStream(COSBase)}
+   */
+  @Test
+  void testGetStringOrStream5() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDComboBox pdComboBox = new PDComboBox(new PDAcroForm(new PDDocument(streamCacheCreateFunction)));
+
+    // Act
+    String actualStringOrStream = pdComboBox.getStringOrStream(COSString.parseHex("42"));
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertEquals("B", actualStringOrStream);
   }
 }

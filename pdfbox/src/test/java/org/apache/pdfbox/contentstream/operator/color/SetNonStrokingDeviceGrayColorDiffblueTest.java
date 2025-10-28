@@ -11,7 +11,6 @@ import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,40 +33,29 @@ import org.apache.pdfbox.pdmodel.graphics.color.PDICCBased;
 import org.apache.pdfbox.pdmodel.graphics.state.PDGraphicsState;
 import org.apache.pdfbox.rendering.PageDrawer;
 import org.apache.pdfbox.text.PDFMarkedContentExtractor;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 class SetNonStrokingDeviceGrayColorDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
-   *   <li>{@link SetNonStrokingDeviceGrayColor#SetNonStrokingDeviceGrayColor(PDFStreamEngine)}
+   *   <li>
+   * {@link SetNonStrokingDeviceGrayColor#SetNonStrokingDeviceGrayColor(PDFStreamEngine)}
    *   <li>{@link SetNonStrokingDeviceGrayColor#getName()}
    * </ul>
    */
   @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void SetNonStrokingDeviceGrayColor.<init>(PDFStreamEngine)",
-      "java.lang.String SetNonStrokingDeviceGrayColor.getName()"})
   void testGettersAndSetters() {
     // Arrange, Act and Assert
     assertEquals("g", (new SetNonStrokingDeviceGrayColor(new PDFMarkedContentExtractor())).getName());
   }
 
   /**
-   * Test {@link SetNonStrokingDeviceGrayColor#process(Operator, List)}.
-   * <p>
-   * Method under test: {@link SetNonStrokingDeviceGrayColor#process(Operator, List)}
+   * Method under test:
+   * {@link SetNonStrokingDeviceGrayColor#process(Operator, List)}
    */
   @Test
-  @DisplayName("Test process(Operator, List)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void SetNonStrokingDeviceGrayColor.process(Operator, List)"})
   void testProcess() throws IOException {
     // Arrange
     PageDrawer context = mock(PageDrawer.class);
@@ -91,21 +79,17 @@ class SetNonStrokingDeviceGrayColorDiffblueTest {
     assertNull(initialColor.getPatternName());
     PDColor color = setNonStrokingDeviceGrayColor.getColor();
     assertNull(color.getColorSpace());
+    assertEquals(0, color.getComponents().length);
     assertFalse(initialColor.isPattern());
     assertSame(colorSpace, initialColor.getColorSpace());
-    assertArrayEquals(new float[]{}, color.getComponents(), 0.0f);
     assertArrayEquals(new float[]{0.0f}, initialColor.getComponents(), 0.0f);
   }
 
   /**
-   * Test {@link SetNonStrokingDeviceGrayColor#process(Operator, List)}.
-   * <p>
-   * Method under test: {@link SetNonStrokingDeviceGrayColor#process(Operator, List)}
+   * Method under test:
+   * {@link SetNonStrokingDeviceGrayColor#process(Operator, List)}
    */
   @Test
-  @DisplayName("Test process(Operator, List)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void SetNonStrokingDeviceGrayColor.process(Operator, List)"})
   void testProcess2() throws IOException {
     // Arrange
     PageDrawer context = mock(PageDrawer.class);
@@ -130,21 +114,17 @@ class SetNonStrokingDeviceGrayColorDiffblueTest {
     assertNull(initialColor.getPatternName());
     PDColor color = setNonStrokingDeviceGrayColor.getColor();
     assertNull(color.getColorSpace());
+    assertEquals(0, color.getComponents().length);
     assertFalse(initialColor.isPattern());
     assertSame(colorSpace, initialColor.getColorSpace());
-    assertArrayEquals(new float[]{}, color.getComponents(), 0.0f);
     assertArrayEquals(new float[]{0.0f}, initialColor.getComponents(), 0.0f);
   }
 
   /**
-   * Test {@link SetNonStrokingDeviceGrayColor#process(Operator, List)}.
-   * <p>
-   * Method under test: {@link SetNonStrokingDeviceGrayColor#process(Operator, List)}
+   * Method under test:
+   * {@link SetNonStrokingDeviceGrayColor#process(Operator, List)}
    */
   @Test
-  @DisplayName("Test process(Operator, List)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void SetNonStrokingDeviceGrayColor.process(Operator, List)"})
   void testProcess3() throws IOException {
     // Arrange
     COSDictionary cosDictionary = mock(COSDictionary.class);

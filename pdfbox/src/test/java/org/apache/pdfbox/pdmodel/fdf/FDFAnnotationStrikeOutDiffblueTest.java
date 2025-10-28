@@ -4,23 +4,19 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.io.IOException;
 import org.apache.pdfbox.cos.COSDictionary;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
+import org.apache.pdfbox.cos.COSIncrement;
+import org.apache.pdfbox.cos.COSUpdateState;
 import org.junit.jupiter.api.Test;
 
 class FDFAnnotationStrikeOutDiffblueTest {
   /**
-   * Test {@link FDFAnnotationStrikeOut#FDFAnnotationStrikeOut(COSDictionary)}.
-   * <p>
-   * Method under test: {@link FDFAnnotationStrikeOut#FDFAnnotationStrikeOut(COSDictionary)}
+   * Method under test:
+   * {@link FDFAnnotationStrikeOut#FDFAnnotationStrikeOut(COSDictionary)}
    */
   @Test
-  @DisplayName("Test new FDFAnnotationStrikeOut(COSDictionary)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void FDFAnnotationStrikeOut.<init>(COSDictionary)"})
   void testNewFDFAnnotationStrikeOut() {
     // Arrange
     COSDictionary a = new COSDictionary();
@@ -30,14 +26,9 @@ class FDFAnnotationStrikeOutDiffblueTest {
   }
 
   /**
-   * Test {@link FDFAnnotationStrikeOut#FDFAnnotationStrikeOut()}.
-   * <p>
    * Method under test: {@link FDFAnnotationStrikeOut#FDFAnnotationStrikeOut()}
    */
   @Test
-  @DisplayName("Test new FDFAnnotationStrikeOut()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void FDFAnnotationStrikeOut.<init>()"})
   void testNewFDFAnnotationStrikeOut2() throws IOException {
     // Arrange and Act
     FDFAnnotationStrikeOut actualFdfAnnotationStrikeOut = new FDFAnnotationStrikeOut();
@@ -54,10 +45,21 @@ class FDFAnnotationStrikeOutDiffblueTest {
     assertNull(actualFdfAnnotationStrikeOut.getSubject());
     assertNull(actualFdfAnnotationStrikeOut.getTitle());
     assertNull(actualFdfAnnotationStrikeOut.getCreationDate());
+    COSDictionary cOSObject = actualFdfAnnotationStrikeOut.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
     assertNull(actualFdfAnnotationStrikeOut.getRectangle());
     assertNull(actualFdfAnnotationStrikeOut.getBorderEffect());
     assertNull(actualFdfAnnotationStrikeOut.getBorderStyle());
     assertEquals(1.0f, actualFdfAnnotationStrikeOut.getOpacity());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
     assertFalse(actualFdfAnnotationStrikeOut.isHidden());
     assertFalse(actualFdfAnnotationStrikeOut.isInvisible());
     assertFalse(actualFdfAnnotationStrikeOut.isLocked());
@@ -68,5 +70,6 @@ class FDFAnnotationStrikeOutDiffblueTest {
     assertFalse(actualFdfAnnotationStrikeOut.isPrinted());
     assertFalse(actualFdfAnnotationStrikeOut.isReadOnly());
     assertFalse(actualFdfAnnotationStrikeOut.isToggleNoView());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
   }
 }

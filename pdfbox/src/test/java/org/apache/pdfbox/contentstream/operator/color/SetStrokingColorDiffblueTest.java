@@ -5,50 +5,28 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import org.apache.pdfbox.contentstream.PDFStreamEngine;
 import org.apache.pdfbox.cos.COSArray;
+import org.apache.pdfbox.cos.COSDocument;
+import org.apache.pdfbox.io.RandomAccessStreamCache;
+import org.apache.pdfbox.io.RandomAccessStreamCacheImpl;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
+import org.apache.pdfbox.pdmodel.common.PDStream;
 import org.apache.pdfbox.pdmodel.graphics.color.PDColor;
 import org.apache.pdfbox.pdmodel.graphics.color.PDColorSpace;
 import org.apache.pdfbox.pdmodel.graphics.color.PDDeviceGray;
 import org.apache.pdfbox.pdmodel.graphics.state.PDGraphicsState;
 import org.apache.pdfbox.text.PDFMarkedContentExtractor;
 import org.apache.pdfbox.text.PDFTextStripperByArea;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class SetStrokingColorDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
-   * Methods under test:
-   * <ul>
-   *   <li>{@link SetStrokingColor#SetStrokingColor(PDFStreamEngine)}
-   *   <li>{@link SetStrokingColor#getName()}
-   * </ul>
-   */
-  @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void SetStrokingColor.<init>(PDFStreamEngine)", "java.lang.String SetStrokingColor.getName()"})
-  void testGettersAndSetters() {
-    // Arrange, Act and Assert
-    assertEquals("SC", (new SetStrokingColor(new PDFMarkedContentExtractor())).getName());
-  }
-
-  /**
-   * Test {@link SetStrokingColor#setColor(PDColor)}.
-   * <p>
    * Method under test: {@link SetStrokingColor#setColor(PDColor)}
    */
   @Test
-  @DisplayName("Test setColor(PDColor)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void SetStrokingColor.setColor(PDColor)"})
   void testSetColor() {
     // Arrange
     PDFStreamEngine context = mock(PDFStreamEngine.class);
@@ -65,19 +43,10 @@ class SetStrokingColorDiffblueTest {
   }
 
   /**
-   * Test {@link SetStrokingColor#getColorSpace()}.
-   * <ul>
-   *   <li>Given {@link PDFTextStripperByArea#PDFTextStripperByArea()} processPage {@link PDPage#PDPage()}.</li>
-   *   <li>Then return {@link PDDeviceGray#INSTANCE}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link SetStrokingColor#getColorSpace()}
    */
   @Test
-  @DisplayName("Test getColorSpace(); given PDFTextStripperByArea() processPage PDPage(); then return INSTANCE")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDColorSpace SetStrokingColor.getColorSpace()"})
-  void testGetColorSpace_givenPDFTextStripperByAreaProcessPagePDPage_thenReturnInstance() throws IOException {
+  void testGetColorSpace() throws IOException {
     // Arrange
     PDFTextStripperByArea context = new PDFTextStripperByArea();
     context.processPage(new PDPage());
@@ -87,5 +56,43 @@ class SetStrokingColorDiffblueTest {
 
     // Assert
     assertSame(((PDDeviceGray) actualColorSpace).INSTANCE, actualColorSpace);
+  }
+
+  /**
+   * Method under test: {@link SetStrokingColor#getColorSpace()}
+   */
+  @Test
+  void testGetColorSpace2() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDStream contents = new PDStream(new COSDocument(streamCacheCreateFunction));
+
+    PDPage page = new PDPage();
+    page.setContents(contents);
+
+    PDFTextStripperByArea context = new PDFTextStripperByArea();
+    context.processPage(page);
+
+    // Act
+    PDColorSpace actualColorSpace = (new SetStrokingColor(context)).getColorSpace();
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertSame(((PDDeviceGray) actualColorSpace).INSTANCE, actualColorSpace);
+  }
+
+  /**
+   * Methods under test:
+   * <ul>
+   *   <li>{@link SetStrokingColor#SetStrokingColor(PDFStreamEngine)}
+   *   <li>{@link SetStrokingColor#getName()}
+   * </ul>
+   */
+  @Test
+  void testGettersAndSetters() {
+    // Arrange, Act and Assert
+    assertEquals("SC", (new SetStrokingColor(new PDFMarkedContentExtractor())).getName());
   }
 }

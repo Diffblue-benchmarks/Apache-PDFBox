@@ -2,47 +2,59 @@ package org.apache.pdfbox.pdmodel.graphics.image;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.FontMetrics;
+import java.awt.Graphics;
 import java.awt.Paint;
+import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.color.ColorSpace;
+import java.awt.color.ICC_ColorSpace;
+import java.awt.color.ICC_Profile;
+import java.awt.color.ICC_ProfileRGB;
+import java.awt.font.FontRenderContext;
+import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
-import java.awt.geom.Rectangle2D.Double;
 import java.awt.image.BufferedImage;
 import java.awt.image.ColorModel;
 import java.awt.image.DataBuffer;
 import java.awt.image.DataBufferByte;
+import java.awt.image.DataBufferInt;
 import java.awt.image.DataBufferUShort;
 import java.awt.image.DirectColorModel;
 import java.awt.image.PixelInterleavedSampleModel;
+import java.awt.image.Raster;
 import java.awt.image.SampleModel;
 import java.awt.image.SinglePixelPackedSampleModel;
 import java.awt.image.WritableRaster;
 import java.io.IOException;
 import org.apache.pdfbox.cos.COSArray;
 import org.apache.pdfbox.cos.COSStream;
+import org.apache.pdfbox.io.RandomAccessStreamCache;
+import org.apache.pdfbox.io.RandomAccessStreamCacheImpl;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.graphics.color.PDCalGray;
 import org.apache.pdfbox.pdmodel.graphics.color.PDCalRGB;
 import org.apache.pdfbox.pdmodel.graphics.color.PDDeviceGray;
 import org.apache.pdfbox.pdmodel.graphics.color.PDDeviceRGB;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
+import org.apache.pdfbox.pdmodel.graphics.color.PDLab;
 import org.junit.jupiter.api.Test;
 
 class SampledImageReaderDiffblueTest {
   /**
-   * Test {@link SampledImageReader#getStencilImage(PDImage, Paint)}.
-   * <p>
    * Method under test: {@link SampledImageReader#getStencilImage(PDImage, Paint)}
    */
   @Test
-  @DisplayName("Test getStencilImage(PDImage, Paint)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"BufferedImage SampledImageReader.getStencilImage(PDImage, Paint)"})
   void testGetStencilImage() throws IOException, NumberFormatException {
     // Arrange
     PDDocument document = new PDDocument();
@@ -53,10 +65,265 @@ class SampledImageReaderDiffblueTest {
     BufferedImage actualStencilImage = SampledImageReader.getStencilImage(pdImage, Color.decode("42"));
 
     // Assert
+    WritableRaster alphaRaster = actualStencilImage.getAlphaRaster();
+    Rectangle bounds = alphaRaster.getBounds();
+    Rectangle2D bounds2D = bounds.getBounds2D();
+    assertTrue(bounds2D instanceof Rectangle);
     ColorModel colorModel = actualStencilImage.getColorModel();
+    ColorSpace colorSpace = colorModel.getColorSpace();
+    assertTrue(colorSpace instanceof ICC_ColorSpace);
+    assertTrue(((ICC_ColorSpace) colorSpace).getProfile() instanceof ICC_ProfileRGB);
+    Rectangle2D frame = bounds.getFrame();
+    assertTrue(frame instanceof Rectangle2D.Double);
+    DataBuffer dataBuffer = alphaRaster.getDataBuffer();
+    assertTrue(dataBuffer instanceof DataBufferInt);
+    Raster data = actualStencilImage.getData();
+    DataBuffer dataBuffer2 = data.getDataBuffer();
+    assertTrue(dataBuffer2 instanceof DataBufferInt);
     assertTrue(colorModel instanceof DirectColorModel);
     SampleModel sampleModel = actualStencilImage.getSampleModel();
     assertTrue(sampleModel instanceof SinglePixelPackedSampleModel);
+    SampleModel sampleModel2 = alphaRaster.getSampleModel();
+    assertTrue(sampleModel2 instanceof SinglePixelPackedSampleModel);
+    Graphics graphics = actualStencilImage.getGraphics();
+    FontMetrics fontMetrics = graphics.getFontMetrics();
+    Font font = fontMetrics.getFont();
+    assertEquals("Dialog", font.getFamily());
+    assertEquals("Dialog", font.getName());
+    assertEquals("Dialog.plain", font.getFontName());
+    assertEquals("Dialog.plain", font.getPSName());
+    assertNull(actualStencilImage.getPropertyNames());
+    assertNull(graphics.getClipRect());
+    assertNull(data.getParent());
+    WritableRaster raster = actualStencilImage.getRaster();
+    assertNull(raster.getParent());
+    assertNull(raster.getWritableParent());
+    assertNull(actualStencilImage.getSources());
+    assertEquals(-16777216, ((DirectColorModel) colorModel).getAlphaMask());
+    assertEquals(0, font.getMissingGlyphCode());
+    assertEquals(0, font.getStyle());
+    assertEquals(0, fontMetrics.getLeading());
+    FontRenderContext fontRenderContext = fontMetrics.getFontRenderContext();
+    assertEquals(0, fontRenderContext.getTransformType());
+    AffineTransform transform = font.getTransform();
+    assertEquals(0, transform.getType());
+    assertEquals(0, actualStencilImage.getMinTileX());
+    assertEquals(0, actualStencilImage.getMinTileY());
+    assertEquals(0, actualStencilImage.getMinX());
+    assertEquals(0, actualStencilImage.getMinY());
+    assertEquals(0, actualStencilImage.getTileGridXOffset());
+    assertEquals(0, actualStencilImage.getTileGridYOffset());
+    assertEquals(0, dataBuffer.getOffset());
+    assertEquals(0, dataBuffer2.getOffset());
+    assertEquals(0, alphaRaster.getMinX());
+    assertEquals(0, data.getMinX());
+    assertEquals(0, raster.getMinX());
+    assertEquals(0, alphaRaster.getMinY());
+    assertEquals(0, data.getMinY());
+    assertEquals(0, raster.getMinY());
+    assertEquals(0, alphaRaster.getSampleModelTranslateX());
+    assertEquals(0, data.getSampleModelTranslateX());
+    assertEquals(0, raster.getSampleModelTranslateX());
+    assertEquals(0, alphaRaster.getSampleModelTranslateY());
+    assertEquals(0, data.getSampleModelTranslateY());
+    assertEquals(0, raster.getSampleModelTranslateY());
+    int[] widths = fontMetrics.getWidths();
+    assertEquals(0, widths[10]);
+    assertEquals(0, widths[13]);
+    assertEquals(0, widths[9]);
+    Point[] writableTileIndices = actualStencilImage.getWritableTileIndices();
+    Point point = writableTileIndices[0];
+    assertEquals(0, point.x);
+    assertEquals(0, point.y);
+    assertEquals(0, bounds.x);
+    assertEquals(0, bounds.y);
+    assertEquals(0.0d, point.getX());
+    assertEquals(0.0d, point.getY());
+    assertEquals(0.0d, bounds.getX());
+    assertEquals(0.0d, bounds.getY());
+    assertEquals(0.0d, transform.getShearX());
+    assertEquals(0.0d, transform.getShearY());
+    assertEquals(0.0d, transform.getTranslateX());
+    assertEquals(0.0d, transform.getTranslateY());
+    assertEquals(0.0d, bounds.getMinX());
+    assertEquals(0.0d, bounds.getMinY());
+    assertEquals(0.0f, font.getItalicAngle());
+    assertEquals(0.5d, bounds.getCenterX());
+    assertEquals(0.5d, bounds.getCenterY());
+    assertEquals(0.5f, actualStencilImage.getAccelerationPriority());
+    assertEquals(1, actualStencilImage.getHeight());
+    assertEquals(1, actualStencilImage.getNumXTiles());
+    assertEquals(1, actualStencilImage.getNumYTiles());
+    assertEquals(1, actualStencilImage.getTileHeight());
+    assertEquals(1, actualStencilImage.getTileWidth());
+    assertEquals(1, actualStencilImage.getWidth());
+    assertEquals(1, dataBuffer.getNumBanks());
+    assertEquals(1, dataBuffer2.getNumBanks());
+    assertEquals(1, dataBuffer.getSize());
+    assertEquals(1, dataBuffer2.getSize());
+    assertEquals(1, alphaRaster.getHeight());
+    assertEquals(1, data.getHeight());
+    assertEquals(1, raster.getHeight());
+    assertEquals(1, alphaRaster.getNumBands());
+    assertEquals(1, alphaRaster.getNumDataElements());
+    assertEquals(1, data.getNumDataElements());
+    assertEquals(1, raster.getNumDataElements());
+    assertEquals(1, alphaRaster.getWidth());
+    assertEquals(1, data.getWidth());
+    assertEquals(1, raster.getWidth());
+    assertEquals(1, sampleModel.getHeight());
+    assertEquals(1, sampleModel2.getHeight());
+    assertEquals(1, sampleModel2.getNumBands());
+    assertEquals(1, sampleModel.getNumDataElements());
+    assertEquals(1, sampleModel2.getNumDataElements());
+    assertEquals(1, sampleModel.getWidth());
+    assertEquals(1, sampleModel2.getWidth());
+    assertEquals(1, ((SinglePixelPackedSampleModel) sampleModel).getScanlineStride());
+    assertEquals(1, ((SinglePixelPackedSampleModel) sampleModel2).getScanlineStride());
+    assertEquals(1, writableTileIndices.length);
+    int[][] bankData = ((DataBufferInt) dataBuffer).getBankData();
+    assertEquals(1, bankData.length);
+    int[][] bankData2 = ((DataBufferInt) dataBuffer2).getBankData();
+    assertEquals(1, bankData2.length);
+    Dimension size = bounds.getSize();
+    assertEquals(1, size.height);
+    assertEquals(1, size.width);
+    assertEquals(1, bounds.height);
+    assertEquals(1, bounds.width);
+    assertEquals(1.0d, size.getHeight());
+    assertEquals(1.0d, size.getWidth());
+    assertEquals(1.0d, bounds.getHeight());
+    assertEquals(1.0d, bounds.getWidth());
+    assertEquals(1.0d, transform.getDeterminant());
+    assertEquals(1.0d, transform.getScaleX());
+    assertEquals(1.0d, transform.getScaleY());
+    assertEquals(1.0d, bounds.getMaxX());
+    assertEquals(1.0d, bounds.getMaxY());
+    assertEquals(10, widths[247]);
+    assertEquals(12, font.getSize());
+    assertEquals(12, fontMetrics.getAscent());
+    assertEquals(12, fontMetrics.getMaxAscent());
+    assertEquals(12.0f, font.getSize2D());
+    assertEquals(15, fontMetrics.getHeight());
+    assertEquals(16711680, ((DirectColorModel) colorModel).getRedMask());
+    assertEquals(2, actualStencilImage.getType());
+    assertEquals(22, fontMetrics.getMaxAdvance());
+    assertEquals(22, font.getAvailableAttributes().length);
+    assertEquals(255, ((DirectColorModel) colorModel).getBlueMask());
+    assertEquals(256, widths.length);
+    assertEquals(3, fontMetrics.getDescent());
+    assertEquals(3, fontMetrics.getMaxDecent());
+    assertEquals(3, fontMetrics.getMaxDescent());
+    assertEquals(3, colorSpace.getNumComponents());
+    assertEquals(3, actualStencilImage.getTransparency());
+    assertEquals(3, colorModel.getNumColorComponents());
+    assertEquals(3, colorModel.getTransferType());
+    assertEquals(3, colorModel.getTransparency());
+    assertEquals(3, dataBuffer.getDataType());
+    assertEquals(3, dataBuffer2.getDataType());
+    assertEquals(3, alphaRaster.getTransferType());
+    assertEquals(3, data.getTransferType());
+    assertEquals(3, raster.getTransferType());
+    assertEquals(3, sampleModel.getDataType());
+    assertEquals(3, sampleModel2.getDataType());
+    assertEquals(3, sampleModel.getTransferType());
+    assertEquals(3, sampleModel2.getTransferType());
+    assertEquals(3, widths[236]);
+    assertEquals(3, widths[237]);
+    assertEquals(3, widths[238]);
+    assertEquals(3, widths[239]);
+    assertEquals(4, colorModel.getNumComponents());
+    assertEquals(4, data.getNumBands());
+    assertEquals(4, raster.getNumBands());
+    assertEquals(4, sampleModel.getNumBands());
+    assertEquals(5, colorSpace.getType());
+    assertEquals(6, widths[253]);
+    assertEquals(6, widths[255]);
+    assertEquals(6253, font.getNumGlyphs());
+    assertEquals(65280, ((DirectColorModel) colorModel).getGreenMask());
+    assertEquals(7, widths[0]);
+    assertEquals(7, widths[1]);
+    assertEquals(7, widths[11]);
+    assertEquals(7, widths[12]);
+    assertEquals(7, widths[14]);
+    assertEquals(7, widths[15]);
+    assertEquals(7, widths[17]);
+    assertEquals(7, widths[18]);
+    assertEquals(7, widths[19]);
+    assertEquals(7, widths[2]);
+    assertEquals(7, widths[20]);
+    assertEquals(7, widths[21]);
+    assertEquals(7, widths[22]);
+    assertEquals(7, widths[23]);
+    assertEquals(7, widths[231]);
+    assertEquals(7, widths[24]);
+    assertEquals(7, widths[3]);
+    assertEquals(7, widths[4]);
+    assertEquals(7, widths[5]);
+    assertEquals(7, widths[6]);
+    assertEquals(7, widths[7]);
+    assertEquals(7, widths[8]);
+    assertEquals(7, widths[Short.SIZE]);
+    assertEquals(8, font.getAttributes().size());
+    assertEquals(8, widths[232]);
+    assertEquals(8, widths[233]);
+    assertEquals(8, widths[234]);
+    assertEquals(8, widths[235]);
+    assertEquals(8, widths[240]);
+    assertEquals(8, widths[241]);
+    assertEquals(8, widths[242]);
+    assertEquals(8, widths[243]);
+    assertEquals(8, widths[244]);
+    assertEquals(8, widths[245]);
+    assertEquals(8, widths[246]);
+    assertEquals(8, widths[248]);
+    assertEquals(8, widths[249]);
+    assertEquals(8, widths[250]);
+    assertEquals(8, widths[251]);
+    assertEquals(8, widths[252]);
+    assertEquals(8, widths[254]);
+    assertFalse(font.hasLayoutAttributes());
+    assertFalse(font.hasUniformLineMetrics());
+    assertFalse(font.isBold());
+    assertFalse(font.isItalic());
+    assertFalse(font.isTransformed());
+    assertFalse(fontMetrics.hasUniformLineMetrics());
+    assertFalse(bounds.isEmpty());
+    assertFalse(fontRenderContext.isAntiAliased());
+    assertFalse(fontRenderContext.isTransformed());
+    assertFalse(actualStencilImage.isAlphaPremultiplied());
+    assertFalse(colorModel.isAlphaPremultiplied());
+    assertTrue(font.isPlain());
+    assertTrue(colorSpace.isCS_sRGB());
+    assertTrue(transform.isIdentity());
+    assertTrue(actualStencilImage.hasTileWriters());
+    assertTrue(colorModel.hasAlpha());
+    assertEquals(transform, fontRenderContext.getTransform());
+    assertEquals(size, size.getSize());
+    assertEquals(bounds, bounds.getBounds());
+    assertEquals(bounds, data.getBounds());
+    assertEquals(bounds, raster.getBounds());
+    assertEquals(bounds, bounds2D);
+    assertEquals(bounds, frame);
+    assertEquals(point, point.getLocation());
+    assertEquals(point, bounds.getLocation());
+    assertEquals(Integer.SIZE, colorModel.getPixelSize());
+    assertSame(raster, alphaRaster.getParent());
+    assertSame(raster, alphaRaster.getWritableParent());
+    int[] data2 = ((DataBufferInt) dataBuffer).getData();
+    assertSame(data2, bankData[0]);
+    int[] data3 = ((DataBufferInt) dataBuffer2).getData();
+    assertSame(data3, bankData2[0]);
+    assertSame(dataBuffer, raster.getDataBuffer());
+    assertSame(sampleModel, data.getSampleModel());
+    assertSame(sampleModel, raster.getSampleModel());
+    assertArrayEquals(new int[]{-16777174}, data2);
+    assertArrayEquals(new int[]{-16777174}, data3);
+    assertArrayEquals(new int[]{-16777216}, ((SinglePixelPackedSampleModel) sampleModel2).getBitMasks());
+    assertArrayEquals(new int[]{0}, dataBuffer.getOffsets());
+    assertArrayEquals(new int[]{0}, dataBuffer2.getOffsets());
+    assertArrayEquals(new int[]{24}, ((SinglePixelPackedSampleModel) sampleModel2).getBitOffsets());
+    assertArrayEquals(new int[]{8}, sampleModel2.getSampleSize());
     assertArrayEquals(new int[]{16711680, 65280, 255, -16777216}, ((DirectColorModel) colorModel).getMasks());
     assertArrayEquals(new int[]{16711680, 65280, 255, -16777216},
         ((SinglePixelPackedSampleModel) sampleModel).getBitMasks());
@@ -66,27 +333,282 @@ class SampledImageReaderDiffblueTest {
   }
 
   /**
-   * Test {@link SampledImageReader#getStencilImage(PDImage, Paint)}.
-   * <p>
    * Method under test: {@link SampledImageReader#getStencilImage(PDImage, Paint)}
    */
   @Test
-  @DisplayName("Test getStencilImage(PDImage, Paint)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"BufferedImage SampledImageReader.getStencilImage(PDImage, Paint)"})
   void testGetStencilImage2() throws IOException, NumberFormatException {
     // Arrange
-    PDImageXObject pdImage = LosslessFactory.prepareImageXObject(new PDDocument(), new byte[]{}, 1, 1, 1,
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDDocument document = new PDDocument(streamCacheCreateFunction);
+    PDImageXObject pdImage = LosslessFactory.prepareImageXObject(document, "AXAXAXAX".getBytes("UTF-8"), 1, 1, 1,
         PDDeviceGray.INSTANCE);
 
     // Act
     BufferedImage actualStencilImage = SampledImageReader.getStencilImage(pdImage, Color.decode("42"));
 
     // Assert
+    verify(streamCacheCreateFunction).create();
+    WritableRaster alphaRaster = actualStencilImage.getAlphaRaster();
+    Rectangle bounds = alphaRaster.getBounds();
+    Rectangle2D bounds2D = bounds.getBounds2D();
+    assertTrue(bounds2D instanceof Rectangle);
     ColorModel colorModel = actualStencilImage.getColorModel();
+    ColorSpace colorSpace = colorModel.getColorSpace();
+    assertTrue(colorSpace instanceof ICC_ColorSpace);
+    assertTrue(((ICC_ColorSpace) colorSpace).getProfile() instanceof ICC_ProfileRGB);
+    Rectangle2D frame = bounds.getFrame();
+    assertTrue(frame instanceof Rectangle2D.Double);
+    DataBuffer dataBuffer = alphaRaster.getDataBuffer();
+    assertTrue(dataBuffer instanceof DataBufferInt);
+    Raster data = actualStencilImage.getData();
+    DataBuffer dataBuffer2 = data.getDataBuffer();
+    assertTrue(dataBuffer2 instanceof DataBufferInt);
     assertTrue(colorModel instanceof DirectColorModel);
     SampleModel sampleModel = actualStencilImage.getSampleModel();
     assertTrue(sampleModel instanceof SinglePixelPackedSampleModel);
+    SampleModel sampleModel2 = alphaRaster.getSampleModel();
+    assertTrue(sampleModel2 instanceof SinglePixelPackedSampleModel);
+    Graphics graphics = actualStencilImage.getGraphics();
+    FontMetrics fontMetrics = graphics.getFontMetrics();
+    Font font = fontMetrics.getFont();
+    assertEquals("Dialog", font.getFamily());
+    assertEquals("Dialog", font.getName());
+    assertEquals("Dialog.plain", font.getFontName());
+    assertEquals("Dialog.plain", font.getPSName());
+    assertNull(actualStencilImage.getPropertyNames());
+    assertNull(graphics.getClipRect());
+    assertNull(data.getParent());
+    WritableRaster raster = actualStencilImage.getRaster();
+    assertNull(raster.getParent());
+    assertNull(raster.getWritableParent());
+    assertNull(actualStencilImage.getSources());
+    assertEquals(-16777216, ((DirectColorModel) colorModel).getAlphaMask());
+    assertEquals(0, font.getMissingGlyphCode());
+    assertEquals(0, font.getStyle());
+    assertEquals(0, fontMetrics.getLeading());
+    FontRenderContext fontRenderContext = fontMetrics.getFontRenderContext();
+    assertEquals(0, fontRenderContext.getTransformType());
+    AffineTransform transform = font.getTransform();
+    assertEquals(0, transform.getType());
+    assertEquals(0, actualStencilImage.getMinTileX());
+    assertEquals(0, actualStencilImage.getMinTileY());
+    assertEquals(0, actualStencilImage.getMinX());
+    assertEquals(0, actualStencilImage.getMinY());
+    assertEquals(0, actualStencilImage.getTileGridXOffset());
+    assertEquals(0, actualStencilImage.getTileGridYOffset());
+    assertEquals(0, dataBuffer.getOffset());
+    assertEquals(0, dataBuffer2.getOffset());
+    assertEquals(0, alphaRaster.getMinX());
+    assertEquals(0, data.getMinX());
+    assertEquals(0, raster.getMinX());
+    assertEquals(0, alphaRaster.getMinY());
+    assertEquals(0, data.getMinY());
+    assertEquals(0, raster.getMinY());
+    assertEquals(0, alphaRaster.getSampleModelTranslateX());
+    assertEquals(0, data.getSampleModelTranslateX());
+    assertEquals(0, raster.getSampleModelTranslateX());
+    assertEquals(0, alphaRaster.getSampleModelTranslateY());
+    assertEquals(0, data.getSampleModelTranslateY());
+    assertEquals(0, raster.getSampleModelTranslateY());
+    int[] widths = fontMetrics.getWidths();
+    assertEquals(0, widths[10]);
+    assertEquals(0, widths[13]);
+    assertEquals(0, widths[9]);
+    Point[] writableTileIndices = actualStencilImage.getWritableTileIndices();
+    Point point = writableTileIndices[0];
+    assertEquals(0, point.x);
+    assertEquals(0, point.y);
+    assertEquals(0, bounds.x);
+    assertEquals(0, bounds.y);
+    assertEquals(0.0d, point.getX());
+    assertEquals(0.0d, point.getY());
+    assertEquals(0.0d, bounds.getX());
+    assertEquals(0.0d, bounds.getY());
+    assertEquals(0.0d, transform.getShearX());
+    assertEquals(0.0d, transform.getShearY());
+    assertEquals(0.0d, transform.getTranslateX());
+    assertEquals(0.0d, transform.getTranslateY());
+    assertEquals(0.0d, bounds.getMinX());
+    assertEquals(0.0d, bounds.getMinY());
+    assertEquals(0.0f, font.getItalicAngle());
+    assertEquals(0.5d, bounds.getCenterX());
+    assertEquals(0.5d, bounds.getCenterY());
+    assertEquals(0.5f, actualStencilImage.getAccelerationPriority());
+    assertEquals(1, actualStencilImage.getHeight());
+    assertEquals(1, actualStencilImage.getNumXTiles());
+    assertEquals(1, actualStencilImage.getNumYTiles());
+    assertEquals(1, actualStencilImage.getTileHeight());
+    assertEquals(1, actualStencilImage.getTileWidth());
+    assertEquals(1, actualStencilImage.getWidth());
+    assertEquals(1, dataBuffer.getNumBanks());
+    assertEquals(1, dataBuffer2.getNumBanks());
+    assertEquals(1, dataBuffer.getSize());
+    assertEquals(1, dataBuffer2.getSize());
+    assertEquals(1, alphaRaster.getHeight());
+    assertEquals(1, data.getHeight());
+    assertEquals(1, raster.getHeight());
+    assertEquals(1, alphaRaster.getNumBands());
+    assertEquals(1, alphaRaster.getNumDataElements());
+    assertEquals(1, data.getNumDataElements());
+    assertEquals(1, raster.getNumDataElements());
+    assertEquals(1, alphaRaster.getWidth());
+    assertEquals(1, data.getWidth());
+    assertEquals(1, raster.getWidth());
+    assertEquals(1, sampleModel.getHeight());
+    assertEquals(1, sampleModel2.getHeight());
+    assertEquals(1, sampleModel2.getNumBands());
+    assertEquals(1, sampleModel.getNumDataElements());
+    assertEquals(1, sampleModel2.getNumDataElements());
+    assertEquals(1, sampleModel.getWidth());
+    assertEquals(1, sampleModel2.getWidth());
+    assertEquals(1, ((SinglePixelPackedSampleModel) sampleModel).getScanlineStride());
+    assertEquals(1, ((SinglePixelPackedSampleModel) sampleModel2).getScanlineStride());
+    assertEquals(1, writableTileIndices.length);
+    int[][] bankData = ((DataBufferInt) dataBuffer).getBankData();
+    assertEquals(1, bankData.length);
+    int[][] bankData2 = ((DataBufferInt) dataBuffer2).getBankData();
+    assertEquals(1, bankData2.length);
+    Dimension size = bounds.getSize();
+    assertEquals(1, size.height);
+    assertEquals(1, size.width);
+    assertEquals(1, bounds.height);
+    assertEquals(1, bounds.width);
+    assertEquals(1.0d, size.getHeight());
+    assertEquals(1.0d, size.getWidth());
+    assertEquals(1.0d, bounds.getHeight());
+    assertEquals(1.0d, bounds.getWidth());
+    assertEquals(1.0d, transform.getDeterminant());
+    assertEquals(1.0d, transform.getScaleX());
+    assertEquals(1.0d, transform.getScaleY());
+    assertEquals(1.0d, bounds.getMaxX());
+    assertEquals(1.0d, bounds.getMaxY());
+    assertEquals(10, widths[247]);
+    assertEquals(12, font.getSize());
+    assertEquals(12, fontMetrics.getAscent());
+    assertEquals(12, fontMetrics.getMaxAscent());
+    assertEquals(12.0f, font.getSize2D());
+    assertEquals(15, fontMetrics.getHeight());
+    assertEquals(16711680, ((DirectColorModel) colorModel).getRedMask());
+    assertEquals(2, actualStencilImage.getType());
+    assertEquals(22, fontMetrics.getMaxAdvance());
+    assertEquals(22, font.getAvailableAttributes().length);
+    assertEquals(255, ((DirectColorModel) colorModel).getBlueMask());
+    assertEquals(256, widths.length);
+    assertEquals(3, fontMetrics.getDescent());
+    assertEquals(3, fontMetrics.getMaxDecent());
+    assertEquals(3, fontMetrics.getMaxDescent());
+    assertEquals(3, colorSpace.getNumComponents());
+    assertEquals(3, actualStencilImage.getTransparency());
+    assertEquals(3, colorModel.getNumColorComponents());
+    assertEquals(3, colorModel.getTransferType());
+    assertEquals(3, colorModel.getTransparency());
+    assertEquals(3, dataBuffer.getDataType());
+    assertEquals(3, dataBuffer2.getDataType());
+    assertEquals(3, alphaRaster.getTransferType());
+    assertEquals(3, data.getTransferType());
+    assertEquals(3, raster.getTransferType());
+    assertEquals(3, sampleModel.getDataType());
+    assertEquals(3, sampleModel2.getDataType());
+    assertEquals(3, sampleModel.getTransferType());
+    assertEquals(3, sampleModel2.getTransferType());
+    assertEquals(3, widths[236]);
+    assertEquals(3, widths[237]);
+    assertEquals(3, widths[238]);
+    assertEquals(3, widths[239]);
+    assertEquals(4, colorModel.getNumComponents());
+    assertEquals(4, data.getNumBands());
+    assertEquals(4, raster.getNumBands());
+    assertEquals(4, sampleModel.getNumBands());
+    assertEquals(5, colorSpace.getType());
+    assertEquals(6, widths[253]);
+    assertEquals(6, widths[255]);
+    assertEquals(6253, font.getNumGlyphs());
+    assertEquals(65280, ((DirectColorModel) colorModel).getGreenMask());
+    assertEquals(7, widths[0]);
+    assertEquals(7, widths[1]);
+    assertEquals(7, widths[11]);
+    assertEquals(7, widths[12]);
+    assertEquals(7, widths[14]);
+    assertEquals(7, widths[15]);
+    assertEquals(7, widths[17]);
+    assertEquals(7, widths[18]);
+    assertEquals(7, widths[19]);
+    assertEquals(7, widths[2]);
+    assertEquals(7, widths[20]);
+    assertEquals(7, widths[21]);
+    assertEquals(7, widths[22]);
+    assertEquals(7, widths[23]);
+    assertEquals(7, widths[231]);
+    assertEquals(7, widths[24]);
+    assertEquals(7, widths[3]);
+    assertEquals(7, widths[4]);
+    assertEquals(7, widths[5]);
+    assertEquals(7, widths[6]);
+    assertEquals(7, widths[7]);
+    assertEquals(7, widths[8]);
+    assertEquals(7, widths[Short.SIZE]);
+    assertEquals(8, font.getAttributes().size());
+    assertEquals(8, widths[232]);
+    assertEquals(8, widths[233]);
+    assertEquals(8, widths[234]);
+    assertEquals(8, widths[235]);
+    assertEquals(8, widths[240]);
+    assertEquals(8, widths[241]);
+    assertEquals(8, widths[242]);
+    assertEquals(8, widths[243]);
+    assertEquals(8, widths[244]);
+    assertEquals(8, widths[245]);
+    assertEquals(8, widths[246]);
+    assertEquals(8, widths[248]);
+    assertEquals(8, widths[249]);
+    assertEquals(8, widths[250]);
+    assertEquals(8, widths[251]);
+    assertEquals(8, widths[252]);
+    assertEquals(8, widths[254]);
+    assertFalse(font.hasLayoutAttributes());
+    assertFalse(font.hasUniformLineMetrics());
+    assertFalse(font.isBold());
+    assertFalse(font.isItalic());
+    assertFalse(font.isTransformed());
+    assertFalse(fontMetrics.hasUniformLineMetrics());
+    assertFalse(bounds.isEmpty());
+    assertFalse(fontRenderContext.isAntiAliased());
+    assertFalse(fontRenderContext.isTransformed());
+    assertFalse(actualStencilImage.isAlphaPremultiplied());
+    assertFalse(colorModel.isAlphaPremultiplied());
+    assertTrue(font.isPlain());
+    assertTrue(colorSpace.isCS_sRGB());
+    assertTrue(transform.isIdentity());
+    assertTrue(actualStencilImage.hasTileWriters());
+    assertTrue(colorModel.hasAlpha());
+    assertEquals(transform, fontRenderContext.getTransform());
+    assertEquals(size, size.getSize());
+    assertEquals(bounds, bounds.getBounds());
+    assertEquals(bounds, data.getBounds());
+    assertEquals(bounds, raster.getBounds());
+    assertEquals(bounds, bounds2D);
+    assertEquals(bounds, frame);
+    assertEquals(point, point.getLocation());
+    assertEquals(point, bounds.getLocation());
+    assertEquals(Integer.SIZE, colorModel.getPixelSize());
+    assertSame(raster, alphaRaster.getParent());
+    assertSame(raster, alphaRaster.getWritableParent());
+    int[] data2 = ((DataBufferInt) dataBuffer).getData();
+    assertSame(data2, bankData[0]);
+    int[] data3 = ((DataBufferInt) dataBuffer2).getData();
+    assertSame(data3, bankData2[0]);
+    assertSame(dataBuffer, raster.getDataBuffer());
+    assertSame(sampleModel, data.getSampleModel());
+    assertSame(sampleModel, raster.getSampleModel());
+    assertArrayEquals(new int[]{-16777174}, data2);
+    assertArrayEquals(new int[]{-16777174}, data3);
+    assertArrayEquals(new int[]{-16777216}, ((SinglePixelPackedSampleModel) sampleModel2).getBitMasks());
+    assertArrayEquals(new int[]{0}, dataBuffer.getOffsets());
+    assertArrayEquals(new int[]{0}, dataBuffer2.getOffsets());
+    assertArrayEquals(new int[]{24}, ((SinglePixelPackedSampleModel) sampleModel2).getBitOffsets());
+    assertArrayEquals(new int[]{8}, sampleModel2.getSampleSize());
     assertArrayEquals(new int[]{16711680, 65280, 255, -16777216}, ((DirectColorModel) colorModel).getMasks());
     assertArrayEquals(new int[]{16711680, 65280, 255, -16777216},
         ((SinglePixelPackedSampleModel) sampleModel).getBitMasks());
@@ -96,34 +618,281 @@ class SampledImageReaderDiffblueTest {
   }
 
   /**
-   * Test {@link SampledImageReader#getStencilImage(PDImage, Paint)}.
-   * <p>
    * Method under test: {@link SampledImageReader#getStencilImage(PDImage, Paint)}
    */
   @Test
-  @DisplayName("Test getStencilImage(PDImage, Paint)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"BufferedImage SampledImageReader.getStencilImage(PDImage, Paint)"})
   void testGetStencilImage3() throws IOException, NumberFormatException {
     // Arrange
-    PDDocument document = new PDDocument();
-    PDImageXObject pdImage = LosslessFactory.prepareImageXObject(document, "AXAXAXAX".getBytes("UTF-8"), 1, 1, 1,
-        PDDeviceRGB.INSTANCE);
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDImageXObject pdImage = LosslessFactory.prepareImageXObject(new PDDocument(streamCacheCreateFunction),
+        new byte[]{-1, 'X', 'A', 'X', 'A', 'X', 'A', 'X'}, 1, 1, 1, PDDeviceGray.INSTANCE);
 
     // Act
     BufferedImage actualStencilImage = SampledImageReader.getStencilImage(pdImage, Color.decode("42"));
 
     // Assert
+    verify(streamCacheCreateFunction).create();
+    WritableRaster alphaRaster = actualStencilImage.getAlphaRaster();
+    Rectangle bounds = alphaRaster.getBounds();
+    Rectangle2D bounds2D = bounds.getBounds2D();
+    assertTrue(bounds2D instanceof Rectangle);
     ColorModel colorModel = actualStencilImage.getColorModel();
+    ColorSpace colorSpace = colorModel.getColorSpace();
+    assertTrue(colorSpace instanceof ICC_ColorSpace);
+    assertTrue(((ICC_ColorSpace) colorSpace).getProfile() instanceof ICC_ProfileRGB);
+    Rectangle2D frame = bounds.getFrame();
+    assertTrue(frame instanceof Rectangle2D.Double);
+    DataBuffer dataBuffer = alphaRaster.getDataBuffer();
+    assertTrue(dataBuffer instanceof DataBufferInt);
+    Raster data = actualStencilImage.getData();
+    DataBuffer dataBuffer2 = data.getDataBuffer();
+    assertTrue(dataBuffer2 instanceof DataBufferInt);
     assertTrue(colorModel instanceof DirectColorModel);
     SampleModel sampleModel = actualStencilImage.getSampleModel();
     assertTrue(sampleModel instanceof SinglePixelPackedSampleModel);
+    SampleModel sampleModel2 = alphaRaster.getSampleModel();
+    assertTrue(sampleModel2 instanceof SinglePixelPackedSampleModel);
+    Graphics graphics = actualStencilImage.getGraphics();
+    FontMetrics fontMetrics = graphics.getFontMetrics();
+    Font font = fontMetrics.getFont();
+    assertEquals("Dialog", font.getFamily());
+    assertEquals("Dialog", font.getName());
+    assertEquals("Dialog.plain", font.getFontName());
+    assertEquals("Dialog.plain", font.getPSName());
+    assertNull(actualStencilImage.getPropertyNames());
+    assertNull(graphics.getClipRect());
+    assertNull(data.getParent());
     WritableRaster raster = actualStencilImage.getRaster();
-    WritableRaster alphaRaster = actualStencilImage.getAlphaRaster();
+    assertNull(raster.getParent());
+    assertNull(raster.getWritableParent());
+    assertNull(actualStencilImage.getSources());
+    assertEquals(-16777216, ((DirectColorModel) colorModel).getAlphaMask());
+    assertEquals(0, font.getMissingGlyphCode());
+    assertEquals(0, font.getStyle());
+    assertEquals(0, fontMetrics.getLeading());
+    FontRenderContext fontRenderContext = fontMetrics.getFontRenderContext();
+    assertEquals(0, fontRenderContext.getTransformType());
+    AffineTransform transform = font.getTransform();
+    assertEquals(0, transform.getType());
+    assertEquals(0, actualStencilImage.getMinTileX());
+    assertEquals(0, actualStencilImage.getMinTileY());
+    assertEquals(0, actualStencilImage.getMinX());
+    assertEquals(0, actualStencilImage.getMinY());
+    assertEquals(0, actualStencilImage.getTileGridXOffset());
+    assertEquals(0, actualStencilImage.getTileGridYOffset());
+    assertEquals(0, dataBuffer.getOffset());
+    assertEquals(0, dataBuffer2.getOffset());
+    assertEquals(0, alphaRaster.getMinX());
+    assertEquals(0, data.getMinX());
+    assertEquals(0, raster.getMinX());
+    assertEquals(0, alphaRaster.getMinY());
+    assertEquals(0, data.getMinY());
+    assertEquals(0, raster.getMinY());
+    assertEquals(0, alphaRaster.getSampleModelTranslateX());
+    assertEquals(0, data.getSampleModelTranslateX());
+    assertEquals(0, raster.getSampleModelTranslateX());
+    assertEquals(0, alphaRaster.getSampleModelTranslateY());
+    assertEquals(0, data.getSampleModelTranslateY());
+    assertEquals(0, raster.getSampleModelTranslateY());
+    int[] widths = fontMetrics.getWidths();
+    assertEquals(0, widths[10]);
+    assertEquals(0, widths[13]);
+    assertEquals(0, widths[9]);
+    Point[] writableTileIndices = actualStencilImage.getWritableTileIndices();
+    Point point = writableTileIndices[0];
+    assertEquals(0, point.x);
+    assertEquals(0, point.y);
+    assertEquals(0, bounds.x);
+    assertEquals(0, bounds.y);
+    assertEquals(0.0d, point.getX());
+    assertEquals(0.0d, point.getY());
+    assertEquals(0.0d, bounds.getX());
+    assertEquals(0.0d, bounds.getY());
+    assertEquals(0.0d, transform.getShearX());
+    assertEquals(0.0d, transform.getShearY());
+    assertEquals(0.0d, transform.getTranslateX());
+    assertEquals(0.0d, transform.getTranslateY());
+    assertEquals(0.0d, bounds.getMinX());
+    assertEquals(0.0d, bounds.getMinY());
+    assertEquals(0.0f, font.getItalicAngle());
+    assertEquals(0.5d, bounds.getCenterX());
+    assertEquals(0.5d, bounds.getCenterY());
+    assertEquals(0.5f, actualStencilImage.getAccelerationPriority());
+    assertEquals(1, actualStencilImage.getHeight());
+    assertEquals(1, actualStencilImage.getNumXTiles());
+    assertEquals(1, actualStencilImage.getNumYTiles());
+    assertEquals(1, actualStencilImage.getTileHeight());
+    assertEquals(1, actualStencilImage.getTileWidth());
+    assertEquals(1, actualStencilImage.getWidth());
+    assertEquals(1, dataBuffer.getNumBanks());
+    assertEquals(1, dataBuffer2.getNumBanks());
+    assertEquals(1, dataBuffer.getSize());
+    assertEquals(1, dataBuffer2.getSize());
+    assertEquals(1, alphaRaster.getHeight());
+    assertEquals(1, data.getHeight());
+    assertEquals(1, raster.getHeight());
+    assertEquals(1, alphaRaster.getNumBands());
+    assertEquals(1, alphaRaster.getNumDataElements());
+    assertEquals(1, data.getNumDataElements());
+    assertEquals(1, raster.getNumDataElements());
+    assertEquals(1, alphaRaster.getWidth());
+    assertEquals(1, data.getWidth());
+    assertEquals(1, raster.getWidth());
+    assertEquals(1, sampleModel.getHeight());
+    assertEquals(1, sampleModel2.getHeight());
+    assertEquals(1, sampleModel2.getNumBands());
+    assertEquals(1, sampleModel.getNumDataElements());
+    assertEquals(1, sampleModel2.getNumDataElements());
+    assertEquals(1, sampleModel.getWidth());
+    assertEquals(1, sampleModel2.getWidth());
+    assertEquals(1, ((SinglePixelPackedSampleModel) sampleModel).getScanlineStride());
+    assertEquals(1, ((SinglePixelPackedSampleModel) sampleModel2).getScanlineStride());
+    assertEquals(1, writableTileIndices.length);
+    int[][] bankData = ((DataBufferInt) dataBuffer).getBankData();
+    assertEquals(1, bankData.length);
+    int[][] bankData2 = ((DataBufferInt) dataBuffer2).getBankData();
+    assertEquals(1, bankData2.length);
+    Dimension size = bounds.getSize();
+    assertEquals(1, size.height);
+    assertEquals(1, size.width);
+    assertEquals(1, bounds.height);
+    assertEquals(1, bounds.width);
+    assertEquals(1.0d, size.getHeight());
+    assertEquals(1.0d, size.getWidth());
+    assertEquals(1.0d, bounds.getHeight());
+    assertEquals(1.0d, bounds.getWidth());
+    assertEquals(1.0d, transform.getDeterminant());
+    assertEquals(1.0d, transform.getScaleX());
+    assertEquals(1.0d, transform.getScaleY());
+    assertEquals(1.0d, bounds.getMaxX());
+    assertEquals(1.0d, bounds.getMaxY());
+    assertEquals(10, widths[247]);
+    assertEquals(12, font.getSize());
+    assertEquals(12, fontMetrics.getAscent());
+    assertEquals(12, fontMetrics.getMaxAscent());
+    assertEquals(12.0f, font.getSize2D());
+    assertEquals(15, fontMetrics.getHeight());
+    assertEquals(16711680, ((DirectColorModel) colorModel).getRedMask());
+    assertEquals(2, actualStencilImage.getType());
+    assertEquals(22, fontMetrics.getMaxAdvance());
+    assertEquals(22, font.getAvailableAttributes().length);
+    assertEquals(255, ((DirectColorModel) colorModel).getBlueMask());
+    assertEquals(256, widths.length);
+    assertEquals(3, fontMetrics.getDescent());
+    assertEquals(3, fontMetrics.getMaxDecent());
+    assertEquals(3, fontMetrics.getMaxDescent());
+    assertEquals(3, colorSpace.getNumComponents());
+    assertEquals(3, actualStencilImage.getTransparency());
+    assertEquals(3, colorModel.getNumColorComponents());
+    assertEquals(3, colorModel.getTransferType());
+    assertEquals(3, colorModel.getTransparency());
+    assertEquals(3, dataBuffer.getDataType());
+    assertEquals(3, dataBuffer2.getDataType());
+    assertEquals(3, alphaRaster.getTransferType());
+    assertEquals(3, data.getTransferType());
+    assertEquals(3, raster.getTransferType());
+    assertEquals(3, sampleModel.getDataType());
+    assertEquals(3, sampleModel2.getDataType());
+    assertEquals(3, sampleModel.getTransferType());
+    assertEquals(3, sampleModel2.getTransferType());
+    assertEquals(3, widths[236]);
+    assertEquals(3, widths[237]);
+    assertEquals(3, widths[238]);
+    assertEquals(3, widths[239]);
+    assertEquals(4, colorModel.getNumComponents());
+    assertEquals(4, data.getNumBands());
+    assertEquals(4, raster.getNumBands());
+    assertEquals(4, sampleModel.getNumBands());
+    assertEquals(5, colorSpace.getType());
+    assertEquals(6, widths[253]);
+    assertEquals(6, widths[255]);
+    assertEquals(6253, font.getNumGlyphs());
+    assertEquals(65280, ((DirectColorModel) colorModel).getGreenMask());
+    assertEquals(7, widths[0]);
+    assertEquals(7, widths[1]);
+    assertEquals(7, widths[11]);
+    assertEquals(7, widths[12]);
+    assertEquals(7, widths[14]);
+    assertEquals(7, widths[15]);
+    assertEquals(7, widths[17]);
+    assertEquals(7, widths[18]);
+    assertEquals(7, widths[19]);
+    assertEquals(7, widths[2]);
+    assertEquals(7, widths[20]);
+    assertEquals(7, widths[21]);
+    assertEquals(7, widths[22]);
+    assertEquals(7, widths[23]);
+    assertEquals(7, widths[231]);
+    assertEquals(7, widths[24]);
+    assertEquals(7, widths[3]);
+    assertEquals(7, widths[4]);
+    assertEquals(7, widths[5]);
+    assertEquals(7, widths[6]);
+    assertEquals(7, widths[7]);
+    assertEquals(7, widths[8]);
+    assertEquals(7, widths[Short.SIZE]);
+    assertEquals(8, font.getAttributes().size());
+    assertEquals(8, widths[232]);
+    assertEquals(8, widths[233]);
+    assertEquals(8, widths[234]);
+    assertEquals(8, widths[235]);
+    assertEquals(8, widths[240]);
+    assertEquals(8, widths[241]);
+    assertEquals(8, widths[242]);
+    assertEquals(8, widths[243]);
+    assertEquals(8, widths[244]);
+    assertEquals(8, widths[245]);
+    assertEquals(8, widths[246]);
+    assertEquals(8, widths[248]);
+    assertEquals(8, widths[249]);
+    assertEquals(8, widths[250]);
+    assertEquals(8, widths[251]);
+    assertEquals(8, widths[252]);
+    assertEquals(8, widths[254]);
+    assertFalse(font.hasLayoutAttributes());
+    assertFalse(font.hasUniformLineMetrics());
+    assertFalse(font.isBold());
+    assertFalse(font.isItalic());
+    assertFalse(font.isTransformed());
+    assertFalse(fontMetrics.hasUniformLineMetrics());
+    assertFalse(bounds.isEmpty());
+    assertFalse(fontRenderContext.isAntiAliased());
+    assertFalse(fontRenderContext.isTransformed());
+    assertFalse(actualStencilImage.isAlphaPremultiplied());
+    assertFalse(colorModel.isAlphaPremultiplied());
+    assertTrue(font.isPlain());
+    assertTrue(colorSpace.isCS_sRGB());
+    assertTrue(transform.isIdentity());
+    assertTrue(actualStencilImage.hasTileWriters());
+    assertTrue(colorModel.hasAlpha());
+    assertEquals(transform, fontRenderContext.getTransform());
+    assertEquals(size, size.getSize());
+    assertEquals(bounds, bounds.getBounds());
+    assertEquals(bounds, data.getBounds());
+    assertEquals(bounds, raster.getBounds());
+    assertEquals(bounds, bounds2D);
+    assertEquals(bounds, frame);
+    assertEquals(point, point.getLocation());
+    assertEquals(point, bounds.getLocation());
+    assertEquals(Integer.SIZE, colorModel.getPixelSize());
     assertSame(raster, alphaRaster.getParent());
     assertSame(raster, alphaRaster.getWritableParent());
-    assertSame(sampleModel, actualStencilImage.getData().getSampleModel());
+    int[] data2 = ((DataBufferInt) dataBuffer).getData();
+    assertSame(data2, bankData[0]);
+    int[] data3 = ((DataBufferInt) dataBuffer2).getData();
+    assertSame(data3, bankData2[0]);
+    assertSame(dataBuffer, raster.getDataBuffer());
+    assertSame(sampleModel, data.getSampleModel());
     assertSame(sampleModel, raster.getSampleModel());
+    assertArrayEquals(new int[]{-16777216}, ((SinglePixelPackedSampleModel) sampleModel2).getBitMasks());
+    assertArrayEquals(new int[]{0}, dataBuffer.getOffsets());
+    assertArrayEquals(new int[]{0}, dataBuffer2.getOffsets());
+    assertArrayEquals(new int[]{0}, data2);
+    assertArrayEquals(new int[]{0}, data3);
+    assertArrayEquals(new int[]{24}, ((SinglePixelPackedSampleModel) sampleModel2).getBitOffsets());
+    assertArrayEquals(new int[]{8}, sampleModel2.getSampleSize());
     assertArrayEquals(new int[]{16711680, 65280, 255, -16777216}, ((DirectColorModel) colorModel).getMasks());
     assertArrayEquals(new int[]{16711680, 65280, 255, -16777216},
         ((SinglePixelPackedSampleModel) sampleModel).getBitMasks());
@@ -133,34 +902,281 @@ class SampledImageReaderDiffblueTest {
   }
 
   /**
-   * Test {@link SampledImageReader#getStencilImage(PDImage, Paint)}.
-   * <p>
    * Method under test: {@link SampledImageReader#getStencilImage(PDImage, Paint)}
    */
   @Test
-  @DisplayName("Test getStencilImage(PDImage, Paint)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"BufferedImage SampledImageReader.getStencilImage(PDImage, Paint)"})
   void testGetStencilImage4() throws IOException, NumberFormatException {
     // Arrange
-    PDDocument document = new PDDocument();
-    byte[] byteArray = "AXAXAXAX".getBytes("UTF-8");
-    PDImageXObject pdImage = LosslessFactory.prepareImageXObject(document, byteArray, 1, 1, 1, new PDCalGray());
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDImageXObject pdImage = LosslessFactory.prepareImageXObject(new PDDocument(streamCacheCreateFunction),
+        new byte[]{}, 1, 1, 1, PDDeviceGray.INSTANCE);
 
     // Act
     BufferedImage actualStencilImage = SampledImageReader.getStencilImage(pdImage, Color.decode("42"));
 
     // Assert
+    verify(streamCacheCreateFunction).create();
+    WritableRaster alphaRaster = actualStencilImage.getAlphaRaster();
+    Rectangle bounds = alphaRaster.getBounds();
+    Rectangle2D bounds2D = bounds.getBounds2D();
+    assertTrue(bounds2D instanceof Rectangle);
     ColorModel colorModel = actualStencilImage.getColorModel();
+    ColorSpace colorSpace = colorModel.getColorSpace();
+    assertTrue(colorSpace instanceof ICC_ColorSpace);
+    assertTrue(((ICC_ColorSpace) colorSpace).getProfile() instanceof ICC_ProfileRGB);
+    Rectangle2D frame = bounds.getFrame();
+    assertTrue(frame instanceof Rectangle2D.Double);
+    DataBuffer dataBuffer = alphaRaster.getDataBuffer();
+    assertTrue(dataBuffer instanceof DataBufferInt);
+    Raster data = actualStencilImage.getData();
+    DataBuffer dataBuffer2 = data.getDataBuffer();
+    assertTrue(dataBuffer2 instanceof DataBufferInt);
     assertTrue(colorModel instanceof DirectColorModel);
     SampleModel sampleModel = actualStencilImage.getSampleModel();
     assertTrue(sampleModel instanceof SinglePixelPackedSampleModel);
+    SampleModel sampleModel2 = alphaRaster.getSampleModel();
+    assertTrue(sampleModel2 instanceof SinglePixelPackedSampleModel);
+    Graphics graphics = actualStencilImage.getGraphics();
+    FontMetrics fontMetrics = graphics.getFontMetrics();
+    Font font = fontMetrics.getFont();
+    assertEquals("Dialog", font.getFamily());
+    assertEquals("Dialog", font.getName());
+    assertEquals("Dialog.plain", font.getFontName());
+    assertEquals("Dialog.plain", font.getPSName());
+    assertNull(actualStencilImage.getPropertyNames());
+    assertNull(graphics.getClipRect());
+    assertNull(data.getParent());
     WritableRaster raster = actualStencilImage.getRaster();
-    WritableRaster alphaRaster = actualStencilImage.getAlphaRaster();
+    assertNull(raster.getParent());
+    assertNull(raster.getWritableParent());
+    assertNull(actualStencilImage.getSources());
+    assertEquals(-16777216, ((DirectColorModel) colorModel).getAlphaMask());
+    assertEquals(0, font.getMissingGlyphCode());
+    assertEquals(0, font.getStyle());
+    assertEquals(0, fontMetrics.getLeading());
+    FontRenderContext fontRenderContext = fontMetrics.getFontRenderContext();
+    assertEquals(0, fontRenderContext.getTransformType());
+    AffineTransform transform = font.getTransform();
+    assertEquals(0, transform.getType());
+    assertEquals(0, actualStencilImage.getMinTileX());
+    assertEquals(0, actualStencilImage.getMinTileY());
+    assertEquals(0, actualStencilImage.getMinX());
+    assertEquals(0, actualStencilImage.getMinY());
+    assertEquals(0, actualStencilImage.getTileGridXOffset());
+    assertEquals(0, actualStencilImage.getTileGridYOffset());
+    assertEquals(0, dataBuffer.getOffset());
+    assertEquals(0, dataBuffer2.getOffset());
+    assertEquals(0, alphaRaster.getMinX());
+    assertEquals(0, data.getMinX());
+    assertEquals(0, raster.getMinX());
+    assertEquals(0, alphaRaster.getMinY());
+    assertEquals(0, data.getMinY());
+    assertEquals(0, raster.getMinY());
+    assertEquals(0, alphaRaster.getSampleModelTranslateX());
+    assertEquals(0, data.getSampleModelTranslateX());
+    assertEquals(0, raster.getSampleModelTranslateX());
+    assertEquals(0, alphaRaster.getSampleModelTranslateY());
+    assertEquals(0, data.getSampleModelTranslateY());
+    assertEquals(0, raster.getSampleModelTranslateY());
+    int[] widths = fontMetrics.getWidths();
+    assertEquals(0, widths[10]);
+    assertEquals(0, widths[13]);
+    assertEquals(0, widths[9]);
+    Point[] writableTileIndices = actualStencilImage.getWritableTileIndices();
+    Point point = writableTileIndices[0];
+    assertEquals(0, point.x);
+    assertEquals(0, point.y);
+    assertEquals(0, bounds.x);
+    assertEquals(0, bounds.y);
+    assertEquals(0.0d, point.getX());
+    assertEquals(0.0d, point.getY());
+    assertEquals(0.0d, bounds.getX());
+    assertEquals(0.0d, bounds.getY());
+    assertEquals(0.0d, transform.getShearX());
+    assertEquals(0.0d, transform.getShearY());
+    assertEquals(0.0d, transform.getTranslateX());
+    assertEquals(0.0d, transform.getTranslateY());
+    assertEquals(0.0d, bounds.getMinX());
+    assertEquals(0.0d, bounds.getMinY());
+    assertEquals(0.0f, font.getItalicAngle());
+    assertEquals(0.5d, bounds.getCenterX());
+    assertEquals(0.5d, bounds.getCenterY());
+    assertEquals(0.5f, actualStencilImage.getAccelerationPriority());
+    assertEquals(1, actualStencilImage.getHeight());
+    assertEquals(1, actualStencilImage.getNumXTiles());
+    assertEquals(1, actualStencilImage.getNumYTiles());
+    assertEquals(1, actualStencilImage.getTileHeight());
+    assertEquals(1, actualStencilImage.getTileWidth());
+    assertEquals(1, actualStencilImage.getWidth());
+    assertEquals(1, dataBuffer.getNumBanks());
+    assertEquals(1, dataBuffer2.getNumBanks());
+    assertEquals(1, dataBuffer.getSize());
+    assertEquals(1, dataBuffer2.getSize());
+    assertEquals(1, alphaRaster.getHeight());
+    assertEquals(1, data.getHeight());
+    assertEquals(1, raster.getHeight());
+    assertEquals(1, alphaRaster.getNumBands());
+    assertEquals(1, alphaRaster.getNumDataElements());
+    assertEquals(1, data.getNumDataElements());
+    assertEquals(1, raster.getNumDataElements());
+    assertEquals(1, alphaRaster.getWidth());
+    assertEquals(1, data.getWidth());
+    assertEquals(1, raster.getWidth());
+    assertEquals(1, sampleModel.getHeight());
+    assertEquals(1, sampleModel2.getHeight());
+    assertEquals(1, sampleModel2.getNumBands());
+    assertEquals(1, sampleModel.getNumDataElements());
+    assertEquals(1, sampleModel2.getNumDataElements());
+    assertEquals(1, sampleModel.getWidth());
+    assertEquals(1, sampleModel2.getWidth());
+    assertEquals(1, ((SinglePixelPackedSampleModel) sampleModel).getScanlineStride());
+    assertEquals(1, ((SinglePixelPackedSampleModel) sampleModel2).getScanlineStride());
+    assertEquals(1, writableTileIndices.length);
+    int[][] bankData = ((DataBufferInt) dataBuffer).getBankData();
+    assertEquals(1, bankData.length);
+    int[][] bankData2 = ((DataBufferInt) dataBuffer2).getBankData();
+    assertEquals(1, bankData2.length);
+    Dimension size = bounds.getSize();
+    assertEquals(1, size.height);
+    assertEquals(1, size.width);
+    assertEquals(1, bounds.height);
+    assertEquals(1, bounds.width);
+    assertEquals(1.0d, size.getHeight());
+    assertEquals(1.0d, size.getWidth());
+    assertEquals(1.0d, bounds.getHeight());
+    assertEquals(1.0d, bounds.getWidth());
+    assertEquals(1.0d, transform.getDeterminant());
+    assertEquals(1.0d, transform.getScaleX());
+    assertEquals(1.0d, transform.getScaleY());
+    assertEquals(1.0d, bounds.getMaxX());
+    assertEquals(1.0d, bounds.getMaxY());
+    assertEquals(10, widths[247]);
+    assertEquals(12, font.getSize());
+    assertEquals(12, fontMetrics.getAscent());
+    assertEquals(12, fontMetrics.getMaxAscent());
+    assertEquals(12.0f, font.getSize2D());
+    assertEquals(15, fontMetrics.getHeight());
+    assertEquals(16711680, ((DirectColorModel) colorModel).getRedMask());
+    assertEquals(2, actualStencilImage.getType());
+    assertEquals(22, fontMetrics.getMaxAdvance());
+    assertEquals(22, font.getAvailableAttributes().length);
+    assertEquals(255, ((DirectColorModel) colorModel).getBlueMask());
+    assertEquals(256, widths.length);
+    assertEquals(3, fontMetrics.getDescent());
+    assertEquals(3, fontMetrics.getMaxDecent());
+    assertEquals(3, fontMetrics.getMaxDescent());
+    assertEquals(3, colorSpace.getNumComponents());
+    assertEquals(3, actualStencilImage.getTransparency());
+    assertEquals(3, colorModel.getNumColorComponents());
+    assertEquals(3, colorModel.getTransferType());
+    assertEquals(3, colorModel.getTransparency());
+    assertEquals(3, dataBuffer.getDataType());
+    assertEquals(3, dataBuffer2.getDataType());
+    assertEquals(3, alphaRaster.getTransferType());
+    assertEquals(3, data.getTransferType());
+    assertEquals(3, raster.getTransferType());
+    assertEquals(3, sampleModel.getDataType());
+    assertEquals(3, sampleModel2.getDataType());
+    assertEquals(3, sampleModel.getTransferType());
+    assertEquals(3, sampleModel2.getTransferType());
+    assertEquals(3, widths[236]);
+    assertEquals(3, widths[237]);
+    assertEquals(3, widths[238]);
+    assertEquals(3, widths[239]);
+    assertEquals(4, colorModel.getNumComponents());
+    assertEquals(4, data.getNumBands());
+    assertEquals(4, raster.getNumBands());
+    assertEquals(4, sampleModel.getNumBands());
+    assertEquals(5, colorSpace.getType());
+    assertEquals(6, widths[253]);
+    assertEquals(6, widths[255]);
+    assertEquals(6253, font.getNumGlyphs());
+    assertEquals(65280, ((DirectColorModel) colorModel).getGreenMask());
+    assertEquals(7, widths[0]);
+    assertEquals(7, widths[1]);
+    assertEquals(7, widths[11]);
+    assertEquals(7, widths[12]);
+    assertEquals(7, widths[14]);
+    assertEquals(7, widths[15]);
+    assertEquals(7, widths[17]);
+    assertEquals(7, widths[18]);
+    assertEquals(7, widths[19]);
+    assertEquals(7, widths[2]);
+    assertEquals(7, widths[20]);
+    assertEquals(7, widths[21]);
+    assertEquals(7, widths[22]);
+    assertEquals(7, widths[23]);
+    assertEquals(7, widths[231]);
+    assertEquals(7, widths[24]);
+    assertEquals(7, widths[3]);
+    assertEquals(7, widths[4]);
+    assertEquals(7, widths[5]);
+    assertEquals(7, widths[6]);
+    assertEquals(7, widths[7]);
+    assertEquals(7, widths[8]);
+    assertEquals(7, widths[Short.SIZE]);
+    assertEquals(8, font.getAttributes().size());
+    assertEquals(8, widths[232]);
+    assertEquals(8, widths[233]);
+    assertEquals(8, widths[234]);
+    assertEquals(8, widths[235]);
+    assertEquals(8, widths[240]);
+    assertEquals(8, widths[241]);
+    assertEquals(8, widths[242]);
+    assertEquals(8, widths[243]);
+    assertEquals(8, widths[244]);
+    assertEquals(8, widths[245]);
+    assertEquals(8, widths[246]);
+    assertEquals(8, widths[248]);
+    assertEquals(8, widths[249]);
+    assertEquals(8, widths[250]);
+    assertEquals(8, widths[251]);
+    assertEquals(8, widths[252]);
+    assertEquals(8, widths[254]);
+    assertFalse(font.hasLayoutAttributes());
+    assertFalse(font.hasUniformLineMetrics());
+    assertFalse(font.isBold());
+    assertFalse(font.isItalic());
+    assertFalse(font.isTransformed());
+    assertFalse(fontMetrics.hasUniformLineMetrics());
+    assertFalse(bounds.isEmpty());
+    assertFalse(fontRenderContext.isAntiAliased());
+    assertFalse(fontRenderContext.isTransformed());
+    assertFalse(actualStencilImage.isAlphaPremultiplied());
+    assertFalse(colorModel.isAlphaPremultiplied());
+    assertTrue(font.isPlain());
+    assertTrue(colorSpace.isCS_sRGB());
+    assertTrue(transform.isIdentity());
+    assertTrue(actualStencilImage.hasTileWriters());
+    assertTrue(colorModel.hasAlpha());
+    assertEquals(transform, fontRenderContext.getTransform());
+    assertEquals(size, size.getSize());
+    assertEquals(bounds, bounds.getBounds());
+    assertEquals(bounds, data.getBounds());
+    assertEquals(bounds, raster.getBounds());
+    assertEquals(bounds, bounds2D);
+    assertEquals(bounds, frame);
+    assertEquals(point, point.getLocation());
+    assertEquals(point, bounds.getLocation());
+    assertEquals(Integer.SIZE, colorModel.getPixelSize());
     assertSame(raster, alphaRaster.getParent());
     assertSame(raster, alphaRaster.getWritableParent());
-    assertSame(sampleModel, actualStencilImage.getData().getSampleModel());
+    int[] data2 = ((DataBufferInt) dataBuffer).getData();
+    assertSame(data2, bankData[0]);
+    int[] data3 = ((DataBufferInt) dataBuffer2).getData();
+    assertSame(data3, bankData2[0]);
+    assertSame(dataBuffer, raster.getDataBuffer());
+    assertSame(sampleModel, data.getSampleModel());
     assertSame(sampleModel, raster.getSampleModel());
+    assertArrayEquals(new int[]{-16777174}, data2);
+    assertArrayEquals(new int[]{-16777174}, data3);
+    assertArrayEquals(new int[]{-16777216}, ((SinglePixelPackedSampleModel) sampleModel2).getBitMasks());
+    assertArrayEquals(new int[]{0}, dataBuffer.getOffsets());
+    assertArrayEquals(new int[]{0}, dataBuffer2.getOffsets());
+    assertArrayEquals(new int[]{24}, ((SinglePixelPackedSampleModel) sampleModel2).getBitOffsets());
+    assertArrayEquals(new int[]{8}, sampleModel2.getSampleSize());
     assertArrayEquals(new int[]{16711680, 65280, 255, -16777216}, ((DirectColorModel) colorModel).getMasks());
     assertArrayEquals(new int[]{16711680, 65280, 255, -16777216},
         ((SinglePixelPackedSampleModel) sampleModel).getBitMasks());
@@ -170,115 +1186,15 @@ class SampledImageReaderDiffblueTest {
   }
 
   /**
-   * Test {@link SampledImageReader#getStencilImage(PDImage, Paint)}.
-   * <p>
    * Method under test: {@link SampledImageReader#getStencilImage(PDImage, Paint)}
    */
   @Test
-  @DisplayName("Test getStencilImage(PDImage, Paint)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"BufferedImage SampledImageReader.getStencilImage(PDImage, Paint)"})
   void testGetStencilImage5() throws IOException, NumberFormatException {
     // Arrange
-    PDDocument document = new PDDocument();
-    byte[] byteArray = "AXAXAXAX".getBytes("UTF-8");
-    PDImageXObject pdImage = LosslessFactory.prepareImageXObject(document, byteArray, 1, 1, 1, new PDCalRGB());
-
-    // Act
-    BufferedImage actualStencilImage = SampledImageReader.getStencilImage(pdImage, Color.decode("42"));
-
-    // Assert
-    ColorModel colorModel = actualStencilImage.getColorModel();
-    assertTrue(colorModel instanceof DirectColorModel);
-    SampleModel sampleModel = actualStencilImage.getSampleModel();
-    assertTrue(sampleModel instanceof SinglePixelPackedSampleModel);
-    WritableRaster raster = actualStencilImage.getRaster();
-    WritableRaster alphaRaster = actualStencilImage.getAlphaRaster();
-    assertSame(raster, alphaRaster.getParent());
-    assertSame(raster, alphaRaster.getWritableParent());
-    assertSame(sampleModel, actualStencilImage.getData().getSampleModel());
-    assertSame(sampleModel, raster.getSampleModel());
-    assertArrayEquals(new int[]{16711680, 65280, 255, -16777216}, ((DirectColorModel) colorModel).getMasks());
-    assertArrayEquals(new int[]{16711680, 65280, 255, -16777216},
-        ((SinglePixelPackedSampleModel) sampleModel).getBitMasks());
-    assertArrayEquals(new int[]{8, 8, 8, 8}, colorModel.getComponentSize());
-    assertArrayEquals(new int[]{8, 8, 8, 8}, sampleModel.getSampleSize());
-    assertArrayEquals(new int[]{Short.SIZE, 8, 0, 24}, ((SinglePixelPackedSampleModel) sampleModel).getBitOffsets());
-  }
-
-  /**
-   * Test {@link SampledImageReader#getStencilImage(PDImage, Paint)}.
-   * <ul>
-   *   <li>Then return TileWidth is eight.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SampledImageReader#getStencilImage(PDImage, Paint)}
-   */
-  @Test
-  @DisplayName("Test getStencilImage(PDImage, Paint); then return TileWidth is eight")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"BufferedImage SampledImageReader.getStencilImage(PDImage, Paint)"})
-  void testGetStencilImage_thenReturnTileWidthIsEight() throws IOException, NumberFormatException {
-    // Arrange
-    PDDocument document = new PDDocument();
-    PDImageXObject pdImage = LosslessFactory.prepareImageXObject(document, "AXAXAXAX".getBytes("UTF-8"), 8, 1, 1,
-        PDDeviceGray.INSTANCE);
-
-    // Act
-    BufferedImage actualStencilImage = SampledImageReader.getStencilImage(pdImage, Color.decode("42"));
-
-    // Assert
-    assertTrue(actualStencilImage.getColorModel() instanceof DirectColorModel);
-    assertTrue(actualStencilImage.getSampleModel() instanceof SinglePixelPackedSampleModel);
-    assertEquals(1, actualStencilImage.getWritableTileIndices().length);
-    assertEquals(8, actualStencilImage.getTileWidth());
-    assertEquals(8, actualStencilImage.getWidth());
-  }
-
-  /**
-   * Test {@link SampledImageReader#getStencilImage(PDImage, Paint)}.
-   * <ul>
-   *   <li>Then return TileWidth is nine.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SampledImageReader#getStencilImage(PDImage, Paint)}
-   */
-  @Test
-  @DisplayName("Test getStencilImage(PDImage, Paint); then return TileWidth is nine")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"BufferedImage SampledImageReader.getStencilImage(PDImage, Paint)"})
-  void testGetStencilImage_thenReturnTileWidthIsNine() throws IOException, NumberFormatException {
-    // Arrange
-    PDDocument document = new PDDocument();
-    PDImageXObject pdImage = LosslessFactory.prepareImageXObject(document, "AXAXAXAX".getBytes("UTF-8"), 9, 1, 1,
-        PDDeviceGray.INSTANCE);
-
-    // Act
-    BufferedImage actualStencilImage = SampledImageReader.getStencilImage(pdImage, Color.decode("42"));
-
-    // Assert
-    assertTrue(actualStencilImage.getColorModel() instanceof DirectColorModel);
-    assertTrue(actualStencilImage.getSampleModel() instanceof SinglePixelPackedSampleModel);
-    assertEquals(1, actualStencilImage.getWritableTileIndices().length);
-    assertEquals(9, actualStencilImage.getTileWidth());
-    assertEquals(9, actualStencilImage.getWidth());
-  }
-
-  /**
-   * Test {@link SampledImageReader#getStencilImage(PDImage, Paint)}.
-   * <ul>
-   *   <li>Then return TileWidth is two.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SampledImageReader#getStencilImage(PDImage, Paint)}
-   */
-  @Test
-  @DisplayName("Test getStencilImage(PDImage, Paint); then return TileWidth is two")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"BufferedImage SampledImageReader.getStencilImage(PDImage, Paint)"})
-  void testGetStencilImage_thenReturnTileWidthIsTwo() throws IOException, NumberFormatException {
-    // Arrange
-    PDDocument document = new PDDocument();
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDDocument document = new PDDocument(streamCacheCreateFunction);
     PDImageXObject pdImage = LosslessFactory.prepareImageXObject(document, "AXAXAXAX".getBytes("UTF-8"), 2, 1, 1,
         PDDeviceGray.INSTANCE);
 
@@ -286,38 +1202,266 @@ class SampledImageReaderDiffblueTest {
     BufferedImage actualStencilImage = SampledImageReader.getStencilImage(pdImage, Color.decode("42"));
 
     // Assert
-    assertTrue(actualStencilImage.getColorModel() instanceof DirectColorModel);
-    assertTrue(actualStencilImage.getSampleModel() instanceof SinglePixelPackedSampleModel);
-    assertEquals(1, actualStencilImage.getWritableTileIndices().length);
-    assertEquals(2, actualStencilImage.getTileWidth());
-    assertEquals(2, actualStencilImage.getWidth());
-  }
-
-  /**
-   * Test {@link SampledImageReader#getStencilImage(PDImage, Paint)}.
-   * <ul>
-   *   <li>When {@code A}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SampledImageReader#getStencilImage(PDImage, Paint)}
-   */
-  @Test
-  @DisplayName("Test getStencilImage(PDImage, Paint); when 'A'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"BufferedImage SampledImageReader.getStencilImage(PDImage, Paint)"})
-  void testGetStencilImage_whenA() throws IOException, NumberFormatException {
-    // Arrange
-    PDImageXObject pdImage = LosslessFactory.prepareImageXObject(new PDDocument(),
-        new byte[]{-1, 'X', 'A', 'X', 'A', 'X', 'A', 'X'}, 1, 1, 1, PDDeviceGray.INSTANCE);
-
-    // Act
-    BufferedImage actualStencilImage = SampledImageReader.getStencilImage(pdImage, Color.decode("42"));
-
-    // Assert
+    verify(streamCacheCreateFunction).create();
+    WritableRaster alphaRaster = actualStencilImage.getAlphaRaster();
+    Rectangle bounds = alphaRaster.getBounds();
+    Rectangle2D bounds2D = bounds.getBounds2D();
+    assertTrue(bounds2D instanceof Rectangle);
     ColorModel colorModel = actualStencilImage.getColorModel();
+    ColorSpace colorSpace = colorModel.getColorSpace();
+    assertTrue(colorSpace instanceof ICC_ColorSpace);
+    assertTrue(((ICC_ColorSpace) colorSpace).getProfile() instanceof ICC_ProfileRGB);
+    Rectangle2D frame = bounds.getFrame();
+    assertTrue(frame instanceof Rectangle2D.Double);
+    DataBuffer dataBuffer = alphaRaster.getDataBuffer();
+    assertTrue(dataBuffer instanceof DataBufferInt);
+    Raster data = actualStencilImage.getData();
+    DataBuffer dataBuffer2 = data.getDataBuffer();
+    assertTrue(dataBuffer2 instanceof DataBufferInt);
     assertTrue(colorModel instanceof DirectColorModel);
     SampleModel sampleModel = actualStencilImage.getSampleModel();
     assertTrue(sampleModel instanceof SinglePixelPackedSampleModel);
+    SampleModel sampleModel2 = alphaRaster.getSampleModel();
+    assertTrue(sampleModel2 instanceof SinglePixelPackedSampleModel);
+    Graphics graphics = actualStencilImage.getGraphics();
+    FontMetrics fontMetrics = graphics.getFontMetrics();
+    Font font = fontMetrics.getFont();
+    assertEquals("Dialog", font.getFamily());
+    assertEquals("Dialog", font.getName());
+    assertEquals("Dialog.plain", font.getFontName());
+    assertEquals("Dialog.plain", font.getPSName());
+    assertNull(actualStencilImage.getPropertyNames());
+    assertNull(graphics.getClipRect());
+    assertNull(data.getParent());
+    WritableRaster raster = actualStencilImage.getRaster();
+    assertNull(raster.getParent());
+    assertNull(raster.getWritableParent());
+    assertNull(actualStencilImage.getSources());
+    assertEquals(-16777216, ((DirectColorModel) colorModel).getAlphaMask());
+    assertEquals(0, font.getMissingGlyphCode());
+    assertEquals(0, font.getStyle());
+    assertEquals(0, fontMetrics.getLeading());
+    FontRenderContext fontRenderContext = fontMetrics.getFontRenderContext();
+    assertEquals(0, fontRenderContext.getTransformType());
+    AffineTransform transform = font.getTransform();
+    assertEquals(0, transform.getType());
+    assertEquals(0, actualStencilImage.getMinTileX());
+    assertEquals(0, actualStencilImage.getMinTileY());
+    assertEquals(0, actualStencilImage.getMinX());
+    assertEquals(0, actualStencilImage.getMinY());
+    assertEquals(0, actualStencilImage.getTileGridXOffset());
+    assertEquals(0, actualStencilImage.getTileGridYOffset());
+    assertEquals(0, dataBuffer.getOffset());
+    assertEquals(0, dataBuffer2.getOffset());
+    assertEquals(0, alphaRaster.getMinX());
+    assertEquals(0, data.getMinX());
+    assertEquals(0, raster.getMinX());
+    assertEquals(0, alphaRaster.getMinY());
+    assertEquals(0, data.getMinY());
+    assertEquals(0, raster.getMinY());
+    assertEquals(0, alphaRaster.getSampleModelTranslateX());
+    assertEquals(0, data.getSampleModelTranslateX());
+    assertEquals(0, raster.getSampleModelTranslateX());
+    assertEquals(0, alphaRaster.getSampleModelTranslateY());
+    assertEquals(0, data.getSampleModelTranslateY());
+    assertEquals(0, raster.getSampleModelTranslateY());
+    int[] widths = fontMetrics.getWidths();
+    assertEquals(0, widths[10]);
+    assertEquals(0, widths[13]);
+    assertEquals(0, widths[9]);
+    Point[] writableTileIndices = actualStencilImage.getWritableTileIndices();
+    Point point = writableTileIndices[0];
+    assertEquals(0, point.x);
+    assertEquals(0, point.y);
+    assertEquals(0, bounds.x);
+    assertEquals(0, bounds.y);
+    assertEquals(0.0d, point.getX());
+    assertEquals(0.0d, point.getY());
+    assertEquals(0.0d, bounds.getX());
+    assertEquals(0.0d, bounds.getY());
+    assertEquals(0.0d, transform.getShearX());
+    assertEquals(0.0d, transform.getShearY());
+    assertEquals(0.0d, transform.getTranslateX());
+    assertEquals(0.0d, transform.getTranslateY());
+    assertEquals(0.0d, bounds.getMinX());
+    assertEquals(0.0d, bounds.getMinY());
+    assertEquals(0.0f, font.getItalicAngle());
+    assertEquals(0.5d, bounds.getCenterY());
+    assertEquals(0.5f, actualStencilImage.getAccelerationPriority());
+    assertEquals(1, actualStencilImage.getHeight());
+    assertEquals(1, actualStencilImage.getNumXTiles());
+    assertEquals(1, actualStencilImage.getNumYTiles());
+    assertEquals(1, actualStencilImage.getTileHeight());
+    assertEquals(1, dataBuffer.getNumBanks());
+    assertEquals(1, dataBuffer2.getNumBanks());
+    assertEquals(1, alphaRaster.getHeight());
+    assertEquals(1, data.getHeight());
+    assertEquals(1, raster.getHeight());
+    assertEquals(1, alphaRaster.getNumBands());
+    assertEquals(1, alphaRaster.getNumDataElements());
+    assertEquals(1, data.getNumDataElements());
+    assertEquals(1, raster.getNumDataElements());
+    assertEquals(1, sampleModel.getHeight());
+    assertEquals(1, sampleModel2.getHeight());
+    assertEquals(1, sampleModel2.getNumBands());
+    assertEquals(1, sampleModel.getNumDataElements());
+    assertEquals(1, sampleModel2.getNumDataElements());
+    assertEquals(1, writableTileIndices.length);
+    int[][] bankData = ((DataBufferInt) dataBuffer).getBankData();
+    assertEquals(1, bankData.length);
+    int[][] bankData2 = ((DataBufferInt) dataBuffer2).getBankData();
+    assertEquals(1, bankData2.length);
+    Dimension size = bounds.getSize();
+    assertEquals(1, size.height);
+    assertEquals(1, bounds.height);
+    assertEquals(1.0d, size.getHeight());
+    assertEquals(1.0d, bounds.getHeight());
+    assertEquals(1.0d, transform.getDeterminant());
+    assertEquals(1.0d, transform.getScaleX());
+    assertEquals(1.0d, transform.getScaleY());
+    assertEquals(1.0d, bounds.getCenterX());
+    assertEquals(1.0d, bounds.getMaxY());
+    assertEquals(10, widths[247]);
+    assertEquals(12, font.getSize());
+    assertEquals(12, fontMetrics.getAscent());
+    assertEquals(12, fontMetrics.getMaxAscent());
+    assertEquals(12.0f, font.getSize2D());
+    assertEquals(15, fontMetrics.getHeight());
+    assertEquals(16711680, ((DirectColorModel) colorModel).getRedMask());
+    assertEquals(2, actualStencilImage.getTileWidth());
+    assertEquals(2, actualStencilImage.getType());
+    assertEquals(2, actualStencilImage.getWidth());
+    assertEquals(2, dataBuffer.getSize());
+    assertEquals(2, dataBuffer2.getSize());
+    assertEquals(2, alphaRaster.getWidth());
+    assertEquals(2, data.getWidth());
+    assertEquals(2, raster.getWidth());
+    assertEquals(2, sampleModel.getWidth());
+    assertEquals(2, sampleModel2.getWidth());
+    assertEquals(2, ((SinglePixelPackedSampleModel) sampleModel).getScanlineStride());
+    assertEquals(2, ((SinglePixelPackedSampleModel) sampleModel2).getScanlineStride());
+    assertEquals(2, size.width);
+    assertEquals(2, bounds.width);
+    assertEquals(2.0d, size.getWidth());
+    assertEquals(2.0d, bounds.getWidth());
+    assertEquals(2.0d, bounds.getMaxX());
+    assertEquals(22, fontMetrics.getMaxAdvance());
+    assertEquals(22, font.getAvailableAttributes().length);
+    assertEquals(255, ((DirectColorModel) colorModel).getBlueMask());
+    assertEquals(256, widths.length);
+    assertEquals(3, fontMetrics.getDescent());
+    assertEquals(3, fontMetrics.getMaxDecent());
+    assertEquals(3, fontMetrics.getMaxDescent());
+    assertEquals(3, colorSpace.getNumComponents());
+    assertEquals(3, actualStencilImage.getTransparency());
+    assertEquals(3, colorModel.getNumColorComponents());
+    assertEquals(3, colorModel.getTransferType());
+    assertEquals(3, colorModel.getTransparency());
+    assertEquals(3, dataBuffer.getDataType());
+    assertEquals(3, dataBuffer2.getDataType());
+    assertEquals(3, alphaRaster.getTransferType());
+    assertEquals(3, data.getTransferType());
+    assertEquals(3, raster.getTransferType());
+    assertEquals(3, sampleModel.getDataType());
+    assertEquals(3, sampleModel2.getDataType());
+    assertEquals(3, sampleModel.getTransferType());
+    assertEquals(3, sampleModel2.getTransferType());
+    assertEquals(3, widths[236]);
+    assertEquals(3, widths[237]);
+    assertEquals(3, widths[238]);
+    assertEquals(3, widths[239]);
+    assertEquals(4, colorModel.getNumComponents());
+    assertEquals(4, data.getNumBands());
+    assertEquals(4, raster.getNumBands());
+    assertEquals(4, sampleModel.getNumBands());
+    assertEquals(5, colorSpace.getType());
+    assertEquals(6, widths[253]);
+    assertEquals(6, widths[255]);
+    assertEquals(6253, font.getNumGlyphs());
+    assertEquals(65280, ((DirectColorModel) colorModel).getGreenMask());
+    assertEquals(7, widths[0]);
+    assertEquals(7, widths[1]);
+    assertEquals(7, widths[11]);
+    assertEquals(7, widths[12]);
+    assertEquals(7, widths[14]);
+    assertEquals(7, widths[15]);
+    assertEquals(7, widths[17]);
+    assertEquals(7, widths[18]);
+    assertEquals(7, widths[19]);
+    assertEquals(7, widths[2]);
+    assertEquals(7, widths[20]);
+    assertEquals(7, widths[21]);
+    assertEquals(7, widths[22]);
+    assertEquals(7, widths[23]);
+    assertEquals(7, widths[231]);
+    assertEquals(7, widths[24]);
+    assertEquals(7, widths[3]);
+    assertEquals(7, widths[4]);
+    assertEquals(7, widths[5]);
+    assertEquals(7, widths[6]);
+    assertEquals(7, widths[7]);
+    assertEquals(7, widths[8]);
+    assertEquals(7, widths[Short.SIZE]);
+    assertEquals(8, font.getAttributes().size());
+    assertEquals(8, widths[232]);
+    assertEquals(8, widths[233]);
+    assertEquals(8, widths[234]);
+    assertEquals(8, widths[235]);
+    assertEquals(8, widths[240]);
+    assertEquals(8, widths[241]);
+    assertEquals(8, widths[242]);
+    assertEquals(8, widths[243]);
+    assertEquals(8, widths[244]);
+    assertEquals(8, widths[245]);
+    assertEquals(8, widths[246]);
+    assertEquals(8, widths[248]);
+    assertEquals(8, widths[249]);
+    assertEquals(8, widths[250]);
+    assertEquals(8, widths[251]);
+    assertEquals(8, widths[252]);
+    assertEquals(8, widths[254]);
+    assertFalse(font.hasLayoutAttributes());
+    assertFalse(font.hasUniformLineMetrics());
+    assertFalse(font.isBold());
+    assertFalse(font.isItalic());
+    assertFalse(font.isTransformed());
+    assertFalse(fontMetrics.hasUniformLineMetrics());
+    assertFalse(bounds.isEmpty());
+    assertFalse(fontRenderContext.isAntiAliased());
+    assertFalse(fontRenderContext.isTransformed());
+    assertFalse(actualStencilImage.isAlphaPremultiplied());
+    assertFalse(colorModel.isAlphaPremultiplied());
+    assertTrue(font.isPlain());
+    assertTrue(colorSpace.isCS_sRGB());
+    assertTrue(transform.isIdentity());
+    assertTrue(actualStencilImage.hasTileWriters());
+    assertTrue(colorModel.hasAlpha());
+    assertEquals(transform, fontRenderContext.getTransform());
+    assertEquals(size, size.getSize());
+    assertEquals(bounds, bounds.getBounds());
+    assertEquals(bounds, data.getBounds());
+    assertEquals(bounds, raster.getBounds());
+    assertEquals(bounds, bounds2D);
+    assertEquals(bounds, frame);
+    assertEquals(point, point.getLocation());
+    assertEquals(point, bounds.getLocation());
+    assertEquals(Integer.SIZE, colorModel.getPixelSize());
+    assertSame(raster, alphaRaster.getParent());
+    assertSame(raster, alphaRaster.getWritableParent());
+    int[] data2 = ((DataBufferInt) dataBuffer).getData();
+    assertSame(data2, bankData[0]);
+    int[] data3 = ((DataBufferInt) dataBuffer2).getData();
+    assertSame(data3, bankData2[0]);
+    assertSame(dataBuffer, raster.getDataBuffer());
+    assertSame(sampleModel, data.getSampleModel());
+    assertSame(sampleModel, raster.getSampleModel());
+    assertArrayEquals(new int[]{-16777216}, ((SinglePixelPackedSampleModel) sampleModel2).getBitMasks());
+    assertArrayEquals(new int[]{0}, dataBuffer.getOffsets());
+    assertArrayEquals(new int[]{0}, dataBuffer2.getOffsets());
+    assertArrayEquals(new int[]{24}, ((SinglePixelPackedSampleModel) sampleModel2).getBitOffsets());
+    assertArrayEquals(new int[]{8}, sampleModel2.getSampleSize());
+    assertArrayEquals(new int[]{-16777174, 0}, data2);
+    assertArrayEquals(new int[]{-16777174, 0}, data3);
     assertArrayEquals(new int[]{16711680, 65280, 255, -16777216}, ((DirectColorModel) colorModel).getMasks());
     assertArrayEquals(new int[]{16711680, 65280, 255, -16777216},
         ((SinglePixelPackedSampleModel) sampleModel).getBitMasks());
@@ -327,791 +1471,1723 @@ class SampledImageReaderDiffblueTest {
   }
 
   /**
-   * Test {@link SampledImageReader#getRGBImage(PDImage, COSArray)} with {@code pdImage}, {@code colorKey}.
-   * <p>
-   * Method under test: {@link SampledImageReader#getRGBImage(PDImage, COSArray)}
+   * Method under test: {@link SampledImageReader#getStencilImage(PDImage, Paint)}
    */
   @Test
-  @DisplayName("Test getRGBImage(PDImage, COSArray) with 'pdImage', 'colorKey'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"BufferedImage SampledImageReader.getRGBImage(PDImage, COSArray)"})
-  void testGetRGBImageWithPdImageColorKey() throws IOException {
+  void testGetStencilImage6() throws IOException, NumberFormatException {
     // Arrange
-    PDImageXObject pdImage = LosslessFactory.prepareImageXObject(new PDDocument(),
-        new byte[]{'A', 1, 'A', 1, 'A', 1, 'A', 1}, 1, 1, 1, PDDeviceGray.INSTANCE);
-
-    // Act
-    BufferedImage actualRGBImage = SampledImageReader.getRGBImage(pdImage, new COSArray());
-
-    // Assert
-    ColorModel colorModel = actualRGBImage.getColorModel();
-    assertTrue(colorModel instanceof DirectColorModel);
-    SampleModel sampleModel = actualRGBImage.getSampleModel();
-    assertTrue(sampleModel instanceof SinglePixelPackedSampleModel);
-    assertSame(sampleModel, actualRGBImage.getData().getSampleModel());
-    assertSame(sampleModel, actualRGBImage.getRaster().getSampleModel());
-    assertArrayEquals(new int[]{16711680, 65280, 255}, ((DirectColorModel) colorModel).getMasks());
-    assertArrayEquals(new int[]{16711680, 65280, 255}, ((SinglePixelPackedSampleModel) sampleModel).getBitMasks());
-    assertArrayEquals(new int[]{8, 8, 8}, colorModel.getComponentSize());
-    assertArrayEquals(new int[]{8, 8, 8}, sampleModel.getSampleSize());
-    assertArrayEquals(new int[]{Short.SIZE, 8, 0}, ((SinglePixelPackedSampleModel) sampleModel).getBitOffsets());
-  }
-
-  /**
-   * Test {@link SampledImageReader#getRGBImage(PDImage, COSArray)} with {@code pdImage}, {@code colorKey}.
-   * <p>
-   * Method under test: {@link SampledImageReader#getRGBImage(PDImage, COSArray)}
-   */
-  @Test
-  @DisplayName("Test getRGBImage(PDImage, COSArray) with 'pdImage', 'colorKey'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"BufferedImage SampledImageReader.getRGBImage(PDImage, COSArray)"})
-  void testGetRGBImageWithPdImageColorKey2() throws IOException {
-    // Arrange
-    PDImageXObject pdImage = LosslessFactory.prepareImageXObject(new PDDocument(),
-        new byte[]{'A', 1, 'A', 1, 'A', 1, 'A', 1}, 8, 1, 1, PDDeviceGray.INSTANCE);
-
-    // Act
-    BufferedImage actualRGBImage = SampledImageReader.getRGBImage(pdImage, new COSArray());
-
-    // Assert
-    ColorModel colorModel = actualRGBImage.getColorModel();
-    assertTrue(colorModel instanceof DirectColorModel);
-    SampleModel sampleModel = actualRGBImage.getSampleModel();
-    assertTrue(sampleModel instanceof SinglePixelPackedSampleModel);
-    assertSame(sampleModel, actualRGBImage.getData().getSampleModel());
-    assertSame(sampleModel, actualRGBImage.getRaster().getSampleModel());
-    assertArrayEquals(new int[]{16711680, 65280, 255}, ((DirectColorModel) colorModel).getMasks());
-    assertArrayEquals(new int[]{16711680, 65280, 255}, ((SinglePixelPackedSampleModel) sampleModel).getBitMasks());
-    assertArrayEquals(new int[]{8, 8, 8}, colorModel.getComponentSize());
-    assertArrayEquals(new int[]{8, 8, 8}, sampleModel.getSampleSize());
-    assertArrayEquals(new int[]{Short.SIZE, 8, 0}, ((SinglePixelPackedSampleModel) sampleModel).getBitOffsets());
-  }
-
-  /**
-   * Test {@link SampledImageReader#getRGBImage(PDImage, COSArray)} with {@code pdImage}, {@code colorKey}.
-   * <p>
-   * Method under test: {@link SampledImageReader#getRGBImage(PDImage, COSArray)}
-   */
-  @Test
-  @DisplayName("Test getRGBImage(PDImage, COSArray) with 'pdImage', 'colorKey'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"BufferedImage SampledImageReader.getRGBImage(PDImage, COSArray)"})
-  void testGetRGBImageWithPdImageColorKey3() throws IOException {
-    // Arrange
-    PDImageXObject pdImage = LosslessFactory.prepareImageXObject(new PDDocument(),
-        new byte[]{'A', 1, 'A', 1, 'A', 1, 'A', 1}, -1, 1, 1, PDDeviceGray.INSTANCE);
-
-    // Act and Assert
-    assertThrows(IOException.class, () -> SampledImageReader.getRGBImage(pdImage, new COSArray()));
-  }
-
-  /**
-   * Test {@link SampledImageReader#getRGBImage(PDImage, COSArray)} with {@code pdImage}, {@code colorKey}.
-   * <p>
-   * Method under test: {@link SampledImageReader#getRGBImage(PDImage, COSArray)}
-   */
-  @Test
-  @DisplayName("Test getRGBImage(PDImage, COSArray) with 'pdImage', 'colorKey'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"BufferedImage SampledImageReader.getRGBImage(PDImage, COSArray)"})
-  void testGetRGBImageWithPdImageColorKey4() throws IOException {
-    // Arrange
-    PDImageXObject pdImage = LosslessFactory.prepareImageXObject(new PDDocument(),
-        new byte[]{'A', 1, 'A', 1, 'A', 1, 'A', 1}, 1, -1, 1, PDDeviceGray.INSTANCE);
-
-    // Act and Assert
-    assertThrows(IOException.class, () -> SampledImageReader.getRGBImage(pdImage, new COSArray()));
-  }
-
-  /**
-   * Test {@link SampledImageReader#getRGBImage(PDImage, COSArray)} with {@code pdImage}, {@code colorKey}.
-   * <p>
-   * Method under test: {@link SampledImageReader#getRGBImage(PDImage, COSArray)}
-   */
-  @Test
-  @DisplayName("Test getRGBImage(PDImage, COSArray) with 'pdImage', 'colorKey'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"BufferedImage SampledImageReader.getRGBImage(PDImage, COSArray)"})
-  void testGetRGBImageWithPdImageColorKey5() throws IOException {
-    // Arrange
-    PDImageXObject pdImage = LosslessFactory.prepareImageXObject(new PDDocument(),
-        new byte[]{'A', 1, 'A', 1, 'A', 1, 'A', 1}, 1, 1, 12, PDDeviceGray.INSTANCE);
-
-    // Act
-    BufferedImage actualRGBImage = SampledImageReader.getRGBImage(pdImage, new COSArray());
-
-    // Assert
-    ColorModel colorModel = actualRGBImage.getColorModel();
-    assertTrue(colorModel instanceof DirectColorModel);
-    SampleModel sampleModel = actualRGBImage.getSampleModel();
-    assertTrue(sampleModel instanceof SinglePixelPackedSampleModel);
-    assertSame(sampleModel, actualRGBImage.getData().getSampleModel());
-    assertSame(sampleModel, actualRGBImage.getRaster().getSampleModel());
-    assertArrayEquals(new int[]{16711680, 65280, 255}, ((DirectColorModel) colorModel).getMasks());
-    assertArrayEquals(new int[]{16711680, 65280, 255}, ((SinglePixelPackedSampleModel) sampleModel).getBitMasks());
-    assertArrayEquals(new int[]{8, 8, 8}, colorModel.getComponentSize());
-    assertArrayEquals(new int[]{8, 8, 8}, sampleModel.getSampleSize());
-    assertArrayEquals(new int[]{Short.SIZE, 8, 0}, ((SinglePixelPackedSampleModel) sampleModel).getBitOffsets());
-  }
-
-  /**
-   * Test {@link SampledImageReader#getRGBImage(PDImage, COSArray)} with {@code pdImage}, {@code colorKey}.
-   * <p>
-   * Method under test: {@link SampledImageReader#getRGBImage(PDImage, COSArray)}
-   */
-  @Test
-  @DisplayName("Test getRGBImage(PDImage, COSArray) with 'pdImage', 'colorKey'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"BufferedImage SampledImageReader.getRGBImage(PDImage, COSArray)"})
-  void testGetRGBImageWithPdImageColorKey6() throws IOException {
-    // Arrange
-    PDImageXObject pdImage = LosslessFactory.prepareImageXObject(new PDDocument(),
-        new byte[]{'A', 1, 'A', 1, 'A', 1, 'A', 1}, 1, 1, -1, PDDeviceGray.INSTANCE);
-
-    // Act and Assert
-    assertThrows(IOException.class, () -> SampledImageReader.getRGBImage(pdImage, new COSArray()));
-  }
-
-  /**
-   * Test {@link SampledImageReader#getRGBImage(PDImage, COSArray)} with {@code pdImage}, {@code colorKey}.
-   * <p>
-   * Method under test: {@link SampledImageReader#getRGBImage(PDImage, COSArray)}
-   */
-  @Test
-  @DisplayName("Test getRGBImage(PDImage, COSArray) with 'pdImage', 'colorKey'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"BufferedImage SampledImageReader.getRGBImage(PDImage, COSArray)"})
-  void testGetRGBImageWithPdImageColorKey7() throws IOException {
-    // Arrange
-    PDImageXObject pdImage = LosslessFactory.prepareImageXObject(new PDDocument(),
-        new byte[]{'A', 1, 'A', 1, 'A', 1, 'A', 1}, 1, 1, 1, PDDeviceRGB.INSTANCE);
-
-    // Act
-    BufferedImage actualRGBImage = SampledImageReader.getRGBImage(pdImage, new COSArray());
-
-    // Assert
-    ColorModel colorModel = actualRGBImage.getColorModel();
-    assertTrue(colorModel instanceof DirectColorModel);
-    SampleModel sampleModel = actualRGBImage.getSampleModel();
-    assertTrue(sampleModel instanceof SinglePixelPackedSampleModel);
-    assertSame(sampleModel, actualRGBImage.getData().getSampleModel());
-    assertSame(sampleModel, actualRGBImage.getRaster().getSampleModel());
-    assertArrayEquals(new int[]{16711680, 65280, 255}, ((DirectColorModel) colorModel).getMasks());
-    assertArrayEquals(new int[]{16711680, 65280, 255}, ((SinglePixelPackedSampleModel) sampleModel).getBitMasks());
-    assertArrayEquals(new int[]{8, 8, 8}, colorModel.getComponentSize());
-    assertArrayEquals(new int[]{8, 8, 8}, sampleModel.getSampleSize());
-    assertArrayEquals(new int[]{Short.SIZE, 8, 0}, ((SinglePixelPackedSampleModel) sampleModel).getBitOffsets());
-  }
-
-  /**
-   * Test {@link SampledImageReader#getRGBImage(PDImage, COSArray)} with {@code pdImage}, {@code colorKey}.
-   * <p>
-   * Method under test: {@link SampledImageReader#getRGBImage(PDImage, COSArray)}
-   */
-  @Test
-  @DisplayName("Test getRGBImage(PDImage, COSArray) with 'pdImage', 'colorKey'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"BufferedImage SampledImageReader.getRGBImage(PDImage, COSArray)"})
-  void testGetRGBImageWithPdImageColorKey8() throws IOException {
-    // Arrange
-    PDDocument document = new PDDocument();
-    PDImageXObject pdImage = LosslessFactory.prepareImageXObject(document, new byte[]{'A', 1, 'A', 1, 'A', 1, 'A', 1},
-        1, 1, 1, new PDCalGray());
-
-    // Act
-    BufferedImage actualRGBImage = SampledImageReader.getRGBImage(pdImage, new COSArray());
-
-    // Assert
-    ColorModel colorModel = actualRGBImage.getColorModel();
-    assertTrue(colorModel instanceof DirectColorModel);
-    SampleModel sampleModel = actualRGBImage.getSampleModel();
-    assertTrue(sampleModel instanceof SinglePixelPackedSampleModel);
-    assertSame(sampleModel, actualRGBImage.getData().getSampleModel());
-    assertSame(sampleModel, actualRGBImage.getRaster().getSampleModel());
-    assertArrayEquals(new int[]{16711680, 65280, 255}, ((DirectColorModel) colorModel).getMasks());
-    assertArrayEquals(new int[]{16711680, 65280, 255}, ((SinglePixelPackedSampleModel) sampleModel).getBitMasks());
-    assertArrayEquals(new int[]{8, 8, 8}, colorModel.getComponentSize());
-    assertArrayEquals(new int[]{8, 8, 8}, sampleModel.getSampleSize());
-    assertArrayEquals(new int[]{Short.SIZE, 8, 0}, ((SinglePixelPackedSampleModel) sampleModel).getBitOffsets());
-  }
-
-  /**
-   * Test {@link SampledImageReader#getRGBImage(PDImage, COSArray)} with {@code pdImage}, {@code colorKey}.
-   * <p>
-   * Method under test: {@link SampledImageReader#getRGBImage(PDImage, COSArray)}
-   */
-  @Test
-  @DisplayName("Test getRGBImage(PDImage, COSArray) with 'pdImage', 'colorKey'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"BufferedImage SampledImageReader.getRGBImage(PDImage, COSArray)"})
-  void testGetRGBImageWithPdImageColorKey9() throws IOException {
-    // Arrange
-    PDDocument document = new PDDocument();
-    PDImageXObject pdImage = LosslessFactory.prepareImageXObject(document, new byte[]{'A', 1, 'A', 1, 'A', 1, 'A', 1},
-        1, 1, 1, new PDCalRGB());
-
-    // Act
-    BufferedImage actualRGBImage = SampledImageReader.getRGBImage(pdImage, new COSArray());
-
-    // Assert
-    ColorModel colorModel = actualRGBImage.getColorModel();
-    assertTrue(colorModel instanceof DirectColorModel);
-    SampleModel sampleModel = actualRGBImage.getSampleModel();
-    assertTrue(sampleModel instanceof SinglePixelPackedSampleModel);
-    assertSame(sampleModel, actualRGBImage.getData().getSampleModel());
-    assertSame(sampleModel, actualRGBImage.getRaster().getSampleModel());
-    assertArrayEquals(new int[]{16711680, 65280, 255}, ((DirectColorModel) colorModel).getMasks());
-    assertArrayEquals(new int[]{16711680, 65280, 255}, ((SinglePixelPackedSampleModel) sampleModel).getBitMasks());
-    assertArrayEquals(new int[]{8, 8, 8}, colorModel.getComponentSize());
-    assertArrayEquals(new int[]{8, 8, 8}, sampleModel.getSampleSize());
-    assertArrayEquals(new int[]{Short.SIZE, 8, 0}, ((SinglePixelPackedSampleModel) sampleModel).getBitOffsets());
-  }
-
-  /**
-   * Test {@link SampledImageReader#getRGBImage(PDImage, COSArray)} with {@code pdImage}, {@code colorKey}.
-   * <p>
-   * Method under test: {@link SampledImageReader#getRGBImage(PDImage, COSArray)}
-   */
-  @Test
-  @DisplayName("Test getRGBImage(PDImage, COSArray) with 'pdImage', 'colorKey'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"BufferedImage SampledImageReader.getRGBImage(PDImage, COSArray)"})
-  void testGetRGBImageWithPdImageColorKey10() throws IOException {
-    // Arrange
-    PDDocument document = new PDDocument();
-    PDImageXObject pdImage = LosslessFactory.prepareImageXObject(document, new byte[]{'A', 1, 'A', 1, 'A', 1, 'A', 1},
-        8, 1, 1, new PDCalGray());
-
-    // Act
-    BufferedImage actualRGBImage = SampledImageReader.getRGBImage(pdImage, new COSArray());
-
-    // Assert
-    ColorModel colorModel = actualRGBImage.getColorModel();
-    assertTrue(colorModel instanceof DirectColorModel);
-    SampleModel sampleModel = actualRGBImage.getSampleModel();
-    assertTrue(sampleModel instanceof SinglePixelPackedSampleModel);
-    assertSame(sampleModel, actualRGBImage.getData().getSampleModel());
-    assertSame(sampleModel, actualRGBImage.getRaster().getSampleModel());
-    assertArrayEquals(new int[]{16711680, 65280, 255}, ((DirectColorModel) colorModel).getMasks());
-    assertArrayEquals(new int[]{16711680, 65280, 255}, ((SinglePixelPackedSampleModel) sampleModel).getBitMasks());
-    assertArrayEquals(new int[]{8, 8, 8}, colorModel.getComponentSize());
-    assertArrayEquals(new int[]{8, 8, 8}, sampleModel.getSampleSize());
-    assertArrayEquals(new int[]{Short.SIZE, 8, 0}, ((SinglePixelPackedSampleModel) sampleModel).getBitOffsets());
-  }
-
-  /**
-   * Test {@link SampledImageReader#getRGBImage(PDImage, COSArray)} with {@code pdImage}, {@code colorKey}.
-   * <p>
-   * Method under test: {@link SampledImageReader#getRGBImage(PDImage, COSArray)}
-   */
-  @Test
-  @DisplayName("Test getRGBImage(PDImage, COSArray) with 'pdImage', 'colorKey'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"BufferedImage SampledImageReader.getRGBImage(PDImage, COSArray)"})
-  void testGetRGBImageWithPdImageColorKey11() throws IOException {
-    // Arrange
-    PDDocument document = new PDDocument();
-    PDImageXObject pdImage = LosslessFactory.prepareImageXObject(document, new byte[]{'A', 1, 'A', 1, 'A', 1, 'A', 1},
-        8, 1, 1, new PDCalRGB());
-
-    // Act
-    BufferedImage actualRGBImage = SampledImageReader.getRGBImage(pdImage, new COSArray());
-
-    // Assert
-    ColorModel colorModel = actualRGBImage.getColorModel();
-    assertTrue(colorModel instanceof DirectColorModel);
-    SampleModel sampleModel = actualRGBImage.getSampleModel();
-    assertTrue(sampleModel instanceof SinglePixelPackedSampleModel);
-    assertSame(sampleModel, actualRGBImage.getData().getSampleModel());
-    assertSame(sampleModel, actualRGBImage.getRaster().getSampleModel());
-    assertArrayEquals(new int[]{16711680, 65280, 255}, ((DirectColorModel) colorModel).getMasks());
-    assertArrayEquals(new int[]{16711680, 65280, 255}, ((SinglePixelPackedSampleModel) sampleModel).getBitMasks());
-    assertArrayEquals(new int[]{8, 8, 8}, colorModel.getComponentSize());
-    assertArrayEquals(new int[]{8, 8, 8}, sampleModel.getSampleSize());
-    assertArrayEquals(new int[]{Short.SIZE, 8, 0}, ((SinglePixelPackedSampleModel) sampleModel).getBitOffsets());
-  }
-
-  /**
-   * Test {@link SampledImageReader#getRGBImage(PDImage, COSArray)} with {@code pdImage}, {@code colorKey}.
-   * <ul>
-   *   <li>Then Data DataBuffer return {@link DataBufferByte}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SampledImageReader#getRGBImage(PDImage, COSArray)}
-   */
-  @Test
-  @DisplayName("Test getRGBImage(PDImage, COSArray) with 'pdImage', 'colorKey'; then Data DataBuffer return DataBufferByte")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"BufferedImage SampledImageReader.getRGBImage(PDImage, COSArray)"})
-  void testGetRGBImageWithPdImageColorKey_thenDataDataBufferReturnDataBufferByte() throws IOException {
-    // Arrange and Act
-    BufferedImage actualRGBImage = SampledImageReader.getRGBImage(LosslessFactory.prepareImageXObject(new PDDocument(),
-        new byte[]{'A', 1, 'A', 1, 'A', 1, 'A', 1}, 1, 1, 1, PDDeviceGray.INSTANCE), null);
-
-    // Assert
-    DataBuffer dataBuffer = actualRGBImage.getData().getDataBuffer();
-    assertTrue(dataBuffer instanceof DataBufferByte);
-    DataBuffer dataBuffer2 = actualRGBImage.getRaster().getDataBuffer();
-    assertTrue(dataBuffer2 instanceof DataBufferByte);
-    SampleModel sampleModel = actualRGBImage.getSampleModel();
-    assertTrue(sampleModel instanceof PixelInterleavedSampleModel);
-    assertArrayEquals(new byte[]{0}, ((DataBufferByte) dataBuffer).getData());
-    assertArrayEquals(new byte[]{0}, ((DataBufferByte) dataBuffer2).getData());
-    assertArrayEquals(new int[]{0}, ((PixelInterleavedSampleModel) sampleModel).getBandOffsets());
-    assertArrayEquals(new int[]{0}, ((PixelInterleavedSampleModel) sampleModel).getBankIndices());
-    assertArrayEquals(new int[]{0}, dataBuffer.getOffsets());
-    assertArrayEquals(new int[]{0}, dataBuffer2.getOffsets());
-    assertArrayEquals(new int[]{8}, actualRGBImage.getColorModel().getComponentSize());
-    assertArrayEquals(new int[]{8}, sampleModel.getSampleSize());
-  }
-
-  /**
-   * Test {@link SampledImageReader#getRGBImage(PDImage, COSArray)} with {@code pdImage}, {@code colorKey}.
-   * <ul>
-   *   <li>Then Data DataBuffer return {@link DataBufferByte}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SampledImageReader#getRGBImage(PDImage, COSArray)}
-   */
-  @Test
-  @DisplayName("Test getRGBImage(PDImage, COSArray) with 'pdImage', 'colorKey'; then Data DataBuffer return DataBufferByte")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"BufferedImage SampledImageReader.getRGBImage(PDImage, COSArray)"})
-  void testGetRGBImageWithPdImageColorKey_thenDataDataBufferReturnDataBufferByte2() throws IOException {
-    // Arrange and Act
-    BufferedImage actualRGBImage = SampledImageReader.getRGBImage(
-        LosslessFactory.prepareImageXObject(new PDDocument(), new byte[]{}, 1, 1, 1, PDDeviceGray.INSTANCE), null);
-
-    // Assert
-    DataBuffer dataBuffer = actualRGBImage.getData().getDataBuffer();
-    assertTrue(dataBuffer instanceof DataBufferByte);
-    DataBuffer dataBuffer2 = actualRGBImage.getRaster().getDataBuffer();
-    assertTrue(dataBuffer2 instanceof DataBufferByte);
-    SampleModel sampleModel = actualRGBImage.getSampleModel();
-    assertTrue(sampleModel instanceof PixelInterleavedSampleModel);
-    assertArrayEquals(new byte[]{0}, ((DataBufferByte) dataBuffer).getData());
-    assertArrayEquals(new byte[]{0}, ((DataBufferByte) dataBuffer2).getData());
-    assertArrayEquals(new int[]{0}, ((PixelInterleavedSampleModel) sampleModel).getBandOffsets());
-    assertArrayEquals(new int[]{0}, ((PixelInterleavedSampleModel) sampleModel).getBankIndices());
-    assertArrayEquals(new int[]{0}, dataBuffer.getOffsets());
-    assertArrayEquals(new int[]{0}, dataBuffer2.getOffsets());
-    assertArrayEquals(new int[]{8}, actualRGBImage.getColorModel().getComponentSize());
-    assertArrayEquals(new int[]{8}, sampleModel.getSampleSize());
-  }
-
-  /**
-   * Test {@link SampledImageReader#getRGBImage(PDImage, COSArray)} with {@code pdImage}, {@code colorKey}.
-   * <ul>
-   *   <li>Then return SampleModel ScanlineStride is eight.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SampledImageReader#getRGBImage(PDImage, COSArray)}
-   */
-  @Test
-  @DisplayName("Test getRGBImage(PDImage, COSArray) with 'pdImage', 'colorKey'; then return SampleModel ScanlineStride is eight")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"BufferedImage SampledImageReader.getRGBImage(PDImage, COSArray)"})
-  void testGetRGBImageWithPdImageColorKey_thenReturnSampleModelScanlineStrideIsEight() throws IOException {
-    // Arrange and Act
-    BufferedImage actualRGBImage = SampledImageReader.getRGBImage(LosslessFactory.prepareImageXObject(new PDDocument(),
-        new byte[]{'A', 1, 'A', 1, 'A', 1, 'A', 1}, 8, 1, 1, PDDeviceGray.INSTANCE), null);
-
-    // Assert
-    SampleModel sampleModel = actualRGBImage.getSampleModel();
-    assertTrue(sampleModel instanceof PixelInterleavedSampleModel);
-    assertEquals(8, ((PixelInterleavedSampleModel) sampleModel).getScanlineStride());
-    assertSame(sampleModel, actualRGBImage.getData().getSampleModel());
-    assertSame(sampleModel, actualRGBImage.getRaster().getSampleModel());
-    assertArrayEquals(new int[]{0}, ((PixelInterleavedSampleModel) sampleModel).getBandOffsets());
-    assertArrayEquals(new int[]{0}, ((PixelInterleavedSampleModel) sampleModel).getBankIndices());
-    assertArrayEquals(new int[]{8}, actualRGBImage.getColorModel().getComponentSize());
-    assertArrayEquals(new int[]{8}, sampleModel.getSampleSize());
-  }
-
-  /**
-   * Test {@link SampledImageReader#getRGBImage(PDImage, COSArray)} with {@code pdImage}, {@code colorKey}.
-   * <ul>
-   *   <li>When createThumbnail {@link COSStream#COSStream()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SampledImageReader#getRGBImage(PDImage, COSArray)}
-   */
-  @Test
-  @DisplayName("Test getRGBImage(PDImage, COSArray) with 'pdImage', 'colorKey'; when createThumbnail COSStream()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"BufferedImage SampledImageReader.getRGBImage(PDImage, COSArray)"})
-  void testGetRGBImageWithPdImageColorKey_whenCreateThumbnailCOSStream() throws IOException {
-    // Arrange
-    PDImageXObject pdImage = PDImageXObject.createThumbnail(new COSStream());
-
-    // Act and Assert
-    assertThrows(IOException.class, () -> SampledImageReader.getRGBImage(pdImage, new COSArray()));
-  }
-
-  /**
-   * Test {@link SampledImageReader#getRGBImage(PDImage, Rectangle, int, COSArray)} with {@code pdImage}, {@code region}, {@code subsampling}, {@code colorKey}.
-   * <p>
-   * Method under test: {@link SampledImageReader#getRGBImage(PDImage, Rectangle, int, COSArray)}
-   */
-  @Test
-  @DisplayName("Test getRGBImage(PDImage, Rectangle, int, COSArray) with 'pdImage', 'region', 'subsampling', 'colorKey'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"BufferedImage SampledImageReader.getRGBImage(PDImage, Rectangle, int, COSArray)"})
-  void testGetRGBImageWithPdImageRegionSubsamplingColorKey() throws IOException {
-    // Arrange
-    PDImageXObject pdImage = LosslessFactory.prepareImageXObject(new PDDocument(),
-        new byte[]{'A', 1, 'A', 1, 'A', 1, 'A', 1}, 1, 1, 1, PDDeviceGray.INSTANCE);
-    Rectangle region = new Rectangle(1, 1);
-
-    // Act
-    BufferedImage actualRGBImage = SampledImageReader.getRGBImage(pdImage, region, 1, new COSArray());
-
-    // Assert
-    ColorModel colorModel = actualRGBImage.getColorModel();
-    assertTrue(colorModel instanceof DirectColorModel);
-    SampleModel sampleModel = actualRGBImage.getSampleModel();
-    assertTrue(sampleModel instanceof SinglePixelPackedSampleModel);
-    assertSame(sampleModel, actualRGBImage.getData().getSampleModel());
-    assertSame(sampleModel, actualRGBImage.getRaster().getSampleModel());
-    assertArrayEquals(new int[]{16711680, 65280, 255}, ((DirectColorModel) colorModel).getMasks());
-    assertArrayEquals(new int[]{16711680, 65280, 255}, ((SinglePixelPackedSampleModel) sampleModel).getBitMasks());
-    assertArrayEquals(new int[]{8, 8, 8}, colorModel.getComponentSize());
-    assertArrayEquals(new int[]{8, 8, 8}, sampleModel.getSampleSize());
-    assertArrayEquals(new int[]{Short.SIZE, 8, 0}, ((SinglePixelPackedSampleModel) sampleModel).getBitOffsets());
-  }
-
-  /**
-   * Test {@link SampledImageReader#getRGBImage(PDImage, Rectangle, int, COSArray)} with {@code pdImage}, {@code region}, {@code subsampling}, {@code colorKey}.
-   * <p>
-   * Method under test: {@link SampledImageReader#getRGBImage(PDImage, Rectangle, int, COSArray)}
-   */
-  @Test
-  @DisplayName("Test getRGBImage(PDImage, Rectangle, int, COSArray) with 'pdImage', 'region', 'subsampling', 'colorKey'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"BufferedImage SampledImageReader.getRGBImage(PDImage, Rectangle, int, COSArray)"})
-  void testGetRGBImageWithPdImageRegionSubsamplingColorKey2() throws IOException {
-    // Arrange
-    PDImageXObject pdImage = LosslessFactory.prepareImageXObject(new PDDocument(),
-        new byte[]{'A', 1, 'A', 1, 'A', 1, 'A', 1}, 8, 1, 1, PDDeviceGray.INSTANCE);
-    Rectangle region = new Rectangle(1, 1);
-
-    // Act
-    BufferedImage actualRGBImage = SampledImageReader.getRGBImage(pdImage, region, 1, new COSArray());
-
-    // Assert
-    ColorModel colorModel = actualRGBImage.getColorModel();
-    assertTrue(colorModel instanceof DirectColorModel);
-    SampleModel sampleModel = actualRGBImage.getSampleModel();
-    assertTrue(sampleModel instanceof SinglePixelPackedSampleModel);
-    assertSame(sampleModel, actualRGBImage.getData().getSampleModel());
-    assertSame(sampleModel, actualRGBImage.getRaster().getSampleModel());
-    assertArrayEquals(new int[]{16711680, 65280, 255}, ((DirectColorModel) colorModel).getMasks());
-    assertArrayEquals(new int[]{16711680, 65280, 255}, ((SinglePixelPackedSampleModel) sampleModel).getBitMasks());
-    assertArrayEquals(new int[]{8, 8, 8}, colorModel.getComponentSize());
-    assertArrayEquals(new int[]{8, 8, 8}, sampleModel.getSampleSize());
-    assertArrayEquals(new int[]{Short.SIZE, 8, 0}, ((SinglePixelPackedSampleModel) sampleModel).getBitOffsets());
-  }
-
-  /**
-   * Test {@link SampledImageReader#getRGBImage(PDImage, Rectangle, int, COSArray)} with {@code pdImage}, {@code region}, {@code subsampling}, {@code colorKey}.
-   * <p>
-   * Method under test: {@link SampledImageReader#getRGBImage(PDImage, Rectangle, int, COSArray)}
-   */
-  @Test
-  @DisplayName("Test getRGBImage(PDImage, Rectangle, int, COSArray) with 'pdImage', 'region', 'subsampling', 'colorKey'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"BufferedImage SampledImageReader.getRGBImage(PDImage, Rectangle, int, COSArray)"})
-  void testGetRGBImageWithPdImageRegionSubsamplingColorKey3() throws IOException {
-    // Arrange
-    PDImageXObject pdImage = LosslessFactory.prepareImageXObject(new PDDocument(),
-        new byte[]{'A', 1, 'A', 1, 'A', 1, 'A', 1}, -1, 1, 1, PDDeviceGray.INSTANCE);
-    Rectangle region = new Rectangle(1, 1);
-
-    // Act and Assert
-    assertThrows(IOException.class, () -> SampledImageReader.getRGBImage(pdImage, region, 1, new COSArray()));
-  }
-
-  /**
-   * Test {@link SampledImageReader#getRGBImage(PDImage, Rectangle, int, COSArray)} with {@code pdImage}, {@code region}, {@code subsampling}, {@code colorKey}.
-   * <p>
-   * Method under test: {@link SampledImageReader#getRGBImage(PDImage, Rectangle, int, COSArray)}
-   */
-  @Test
-  @DisplayName("Test getRGBImage(PDImage, Rectangle, int, COSArray) with 'pdImage', 'region', 'subsampling', 'colorKey'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"BufferedImage SampledImageReader.getRGBImage(PDImage, Rectangle, int, COSArray)"})
-  void testGetRGBImageWithPdImageRegionSubsamplingColorKey4() throws IOException {
-    // Arrange
-    PDImageXObject pdImage = LosslessFactory.prepareImageXObject(new PDDocument(),
-        new byte[]{'A', 1, 'A', 1, 'A', 1, 'A', 1}, 1, -1, 1, PDDeviceGray.INSTANCE);
-    Rectangle region = new Rectangle(1, 1);
-
-    // Act and Assert
-    assertThrows(IOException.class, () -> SampledImageReader.getRGBImage(pdImage, region, 1, new COSArray()));
-  }
-
-  /**
-   * Test {@link SampledImageReader#getRGBImage(PDImage, Rectangle, int, COSArray)} with {@code pdImage}, {@code region}, {@code subsampling}, {@code colorKey}.
-   * <p>
-   * Method under test: {@link SampledImageReader#getRGBImage(PDImage, Rectangle, int, COSArray)}
-   */
-  @Test
-  @DisplayName("Test getRGBImage(PDImage, Rectangle, int, COSArray) with 'pdImage', 'region', 'subsampling', 'colorKey'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"BufferedImage SampledImageReader.getRGBImage(PDImage, Rectangle, int, COSArray)"})
-  void testGetRGBImageWithPdImageRegionSubsamplingColorKey5() throws IOException {
-    // Arrange
-    PDImageXObject pdImage = LosslessFactory.prepareImageXObject(new PDDocument(),
-        new byte[]{'A', 1, 'A', 1, 'A', 1, 'A', 1}, 1, 1, 12, PDDeviceGray.INSTANCE);
-    Rectangle region = new Rectangle(1, 1);
-
-    // Act
-    BufferedImage actualRGBImage = SampledImageReader.getRGBImage(pdImage, region, 1, new COSArray());
-
-    // Assert
-    ColorModel colorModel = actualRGBImage.getColorModel();
-    assertTrue(colorModel instanceof DirectColorModel);
-    SampleModel sampleModel = actualRGBImage.getSampleModel();
-    assertTrue(sampleModel instanceof SinglePixelPackedSampleModel);
-    assertSame(sampleModel, actualRGBImage.getData().getSampleModel());
-    assertSame(sampleModel, actualRGBImage.getRaster().getSampleModel());
-    assertArrayEquals(new int[]{16711680, 65280, 255}, ((DirectColorModel) colorModel).getMasks());
-    assertArrayEquals(new int[]{16711680, 65280, 255}, ((SinglePixelPackedSampleModel) sampleModel).getBitMasks());
-    assertArrayEquals(new int[]{8, 8, 8}, colorModel.getComponentSize());
-    assertArrayEquals(new int[]{8, 8, 8}, sampleModel.getSampleSize());
-    assertArrayEquals(new int[]{Short.SIZE, 8, 0}, ((SinglePixelPackedSampleModel) sampleModel).getBitOffsets());
-  }
-
-  /**
-   * Test {@link SampledImageReader#getRGBImage(PDImage, Rectangle, int, COSArray)} with {@code pdImage}, {@code region}, {@code subsampling}, {@code colorKey}.
-   * <p>
-   * Method under test: {@link SampledImageReader#getRGBImage(PDImage, Rectangle, int, COSArray)}
-   */
-  @Test
-  @DisplayName("Test getRGBImage(PDImage, Rectangle, int, COSArray) with 'pdImage', 'region', 'subsampling', 'colorKey'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"BufferedImage SampledImageReader.getRGBImage(PDImage, Rectangle, int, COSArray)"})
-  void testGetRGBImageWithPdImageRegionSubsamplingColorKey6() throws IOException {
-    // Arrange
-    PDImageXObject pdImage = LosslessFactory.prepareImageXObject(new PDDocument(),
-        new byte[]{'A', 1, 'A', 1, 'A', 1, 'A', 1}, 1, 1, -1, PDDeviceGray.INSTANCE);
-    Rectangle region = new Rectangle(1, 1);
-
-    // Act and Assert
-    assertThrows(IOException.class, () -> SampledImageReader.getRGBImage(pdImage, region, 1, new COSArray()));
-  }
-
-  /**
-   * Test {@link SampledImageReader#getRGBImage(PDImage, Rectangle, int, COSArray)} with {@code pdImage}, {@code region}, {@code subsampling}, {@code colorKey}.
-   * <p>
-   * Method under test: {@link SampledImageReader#getRGBImage(PDImage, Rectangle, int, COSArray)}
-   */
-  @Test
-  @DisplayName("Test getRGBImage(PDImage, Rectangle, int, COSArray) with 'pdImage', 'region', 'subsampling', 'colorKey'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"BufferedImage SampledImageReader.getRGBImage(PDImage, Rectangle, int, COSArray)"})
-  void testGetRGBImageWithPdImageRegionSubsamplingColorKey7() throws IOException {
-    // Arrange
-    PDImageXObject pdImage = LosslessFactory.prepareImageXObject(new PDDocument(),
-        new byte[]{'A', 1, 'A', 1, 'A', 1, 'A', 1}, 1, 1, 1, PDDeviceRGB.INSTANCE);
-    Rectangle region = new Rectangle(1, 1);
-
-    // Act
-    BufferedImage actualRGBImage = SampledImageReader.getRGBImage(pdImage, region, 1, new COSArray());
-
-    // Assert
-    ColorModel colorModel = actualRGBImage.getColorModel();
-    assertTrue(colorModel instanceof DirectColorModel);
-    SampleModel sampleModel = actualRGBImage.getSampleModel();
-    assertTrue(sampleModel instanceof SinglePixelPackedSampleModel);
-    assertSame(sampleModel, actualRGBImage.getData().getSampleModel());
-    assertSame(sampleModel, actualRGBImage.getRaster().getSampleModel());
-    assertArrayEquals(new int[]{16711680, 65280, 255}, ((DirectColorModel) colorModel).getMasks());
-    assertArrayEquals(new int[]{16711680, 65280, 255}, ((SinglePixelPackedSampleModel) sampleModel).getBitMasks());
-    assertArrayEquals(new int[]{8, 8, 8}, colorModel.getComponentSize());
-    assertArrayEquals(new int[]{8, 8, 8}, sampleModel.getSampleSize());
-    assertArrayEquals(new int[]{Short.SIZE, 8, 0}, ((SinglePixelPackedSampleModel) sampleModel).getBitOffsets());
-  }
-
-  /**
-   * Test {@link SampledImageReader#getRGBImage(PDImage, Rectangle, int, COSArray)} with {@code pdImage}, {@code region}, {@code subsampling}, {@code colorKey}.
-   * <p>
-   * Method under test: {@link SampledImageReader#getRGBImage(PDImage, Rectangle, int, COSArray)}
-   */
-  @Test
-  @DisplayName("Test getRGBImage(PDImage, Rectangle, int, COSArray) with 'pdImage', 'region', 'subsampling', 'colorKey'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"BufferedImage SampledImageReader.getRGBImage(PDImage, Rectangle, int, COSArray)"})
-  void testGetRGBImageWithPdImageRegionSubsamplingColorKey8() throws IOException {
-    // Arrange
-    PDDocument document = new PDDocument();
-    PDImageXObject pdImage = LosslessFactory.prepareImageXObject(document, new byte[]{'A', 1, 'A', 1, 'A', 1, 'A', 1},
-        1, 1, 1, new PDCalGray());
-    Rectangle region = new Rectangle(1, 1);
-
-    // Act
-    BufferedImage actualRGBImage = SampledImageReader.getRGBImage(pdImage, region, 1, new COSArray());
-
-    // Assert
-    ColorModel colorModel = actualRGBImage.getColorModel();
-    assertTrue(colorModel instanceof DirectColorModel);
-    SampleModel sampleModel = actualRGBImage.getSampleModel();
-    assertTrue(sampleModel instanceof SinglePixelPackedSampleModel);
-    assertSame(sampleModel, actualRGBImage.getData().getSampleModel());
-    assertSame(sampleModel, actualRGBImage.getRaster().getSampleModel());
-    assertArrayEquals(new int[]{16711680, 65280, 255}, ((DirectColorModel) colorModel).getMasks());
-    assertArrayEquals(new int[]{16711680, 65280, 255}, ((SinglePixelPackedSampleModel) sampleModel).getBitMasks());
-    assertArrayEquals(new int[]{8, 8, 8}, colorModel.getComponentSize());
-    assertArrayEquals(new int[]{8, 8, 8}, sampleModel.getSampleSize());
-    assertArrayEquals(new int[]{Short.SIZE, 8, 0}, ((SinglePixelPackedSampleModel) sampleModel).getBitOffsets());
-  }
-
-  /**
-   * Test {@link SampledImageReader#getRGBImage(PDImage, Rectangle, int, COSArray)} with {@code pdImage}, {@code region}, {@code subsampling}, {@code colorKey}.
-   * <p>
-   * Method under test: {@link SampledImageReader#getRGBImage(PDImage, Rectangle, int, COSArray)}
-   */
-  @Test
-  @DisplayName("Test getRGBImage(PDImage, Rectangle, int, COSArray) with 'pdImage', 'region', 'subsampling', 'colorKey'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"BufferedImage SampledImageReader.getRGBImage(PDImage, Rectangle, int, COSArray)"})
-  void testGetRGBImageWithPdImageRegionSubsamplingColorKey9() throws IOException {
-    // Arrange
-    PDDocument document = new PDDocument();
-    PDImageXObject pdImage = LosslessFactory.prepareImageXObject(document, new byte[]{'A', 1, 'A', 1, 'A', 1, 'A', 1},
-        1, 1, 1, new PDCalRGB());
-    Rectangle region = new Rectangle(1, 1);
-
-    // Act
-    BufferedImage actualRGBImage = SampledImageReader.getRGBImage(pdImage, region, 1, new COSArray());
-
-    // Assert
-    ColorModel colorModel = actualRGBImage.getColorModel();
-    assertTrue(colorModel instanceof DirectColorModel);
-    SampleModel sampleModel = actualRGBImage.getSampleModel();
-    assertTrue(sampleModel instanceof SinglePixelPackedSampleModel);
-    assertSame(sampleModel, actualRGBImage.getData().getSampleModel());
-    assertSame(sampleModel, actualRGBImage.getRaster().getSampleModel());
-    assertArrayEquals(new int[]{16711680, 65280, 255}, ((DirectColorModel) colorModel).getMasks());
-    assertArrayEquals(new int[]{16711680, 65280, 255}, ((SinglePixelPackedSampleModel) sampleModel).getBitMasks());
-    assertArrayEquals(new int[]{8, 8, 8}, colorModel.getComponentSize());
-    assertArrayEquals(new int[]{8, 8, 8}, sampleModel.getSampleSize());
-    assertArrayEquals(new int[]{Short.SIZE, 8, 0}, ((SinglePixelPackedSampleModel) sampleModel).getBitOffsets());
-  }
-
-  /**
-   * Test {@link SampledImageReader#getRGBImage(PDImage, Rectangle, int, COSArray)} with {@code pdImage}, {@code region}, {@code subsampling}, {@code colorKey}.
-   * <p>
-   * Method under test: {@link SampledImageReader#getRGBImage(PDImage, Rectangle, int, COSArray)}
-   */
-  @Test
-  @DisplayName("Test getRGBImage(PDImage, Rectangle, int, COSArray) with 'pdImage', 'region', 'subsampling', 'colorKey'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"BufferedImage SampledImageReader.getRGBImage(PDImage, Rectangle, int, COSArray)"})
-  void testGetRGBImageWithPdImageRegionSubsamplingColorKey10() throws IOException {
-    // Arrange
-    PDImageXObject pdImage = LosslessFactory.prepareImageXObject(new PDDocument(),
-        new byte[]{'A', 1, 'A', 1, 'A', 1, 'A', 1}, 1, 1, 1, PDDeviceGray.INSTANCE);
-
-    // Act
-    BufferedImage actualRGBImage = SampledImageReader.getRGBImage(pdImage, null, 1, new COSArray());
-
-    // Assert
-    ColorModel colorModel = actualRGBImage.getColorModel();
-    assertTrue(colorModel instanceof DirectColorModel);
-    SampleModel sampleModel = actualRGBImage.getSampleModel();
-    assertTrue(sampleModel instanceof SinglePixelPackedSampleModel);
-    assertSame(sampleModel, actualRGBImage.getData().getSampleModel());
-    assertSame(sampleModel, actualRGBImage.getRaster().getSampleModel());
-    assertArrayEquals(new int[]{16711680, 65280, 255}, ((DirectColorModel) colorModel).getMasks());
-    assertArrayEquals(new int[]{16711680, 65280, 255}, ((SinglePixelPackedSampleModel) sampleModel).getBitMasks());
-    assertArrayEquals(new int[]{8, 8, 8}, colorModel.getComponentSize());
-    assertArrayEquals(new int[]{8, 8, 8}, sampleModel.getSampleSize());
-    assertArrayEquals(new int[]{Short.SIZE, 8, 0}, ((SinglePixelPackedSampleModel) sampleModel).getBitOffsets());
-  }
-
-  /**
-   * Test {@link SampledImageReader#getRGBImage(PDImage, Rectangle, int, COSArray)} with {@code pdImage}, {@code region}, {@code subsampling}, {@code colorKey}.
-   * <p>
-   * Method under test: {@link SampledImageReader#getRGBImage(PDImage, Rectangle, int, COSArray)}
-   */
-  @Test
-  @DisplayName("Test getRGBImage(PDImage, Rectangle, int, COSArray) with 'pdImage', 'region', 'subsampling', 'colorKey'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"BufferedImage SampledImageReader.getRGBImage(PDImage, Rectangle, int, COSArray)"})
-  void testGetRGBImageWithPdImageRegionSubsamplingColorKey11() throws IOException {
-    // Arrange
-    PDImageXObject pdImage = LosslessFactory.prepareImageXObject(new PDDocument(),
-        new byte[]{'A', 1, 'A', 1, 'A', 1, 'A', 1}, 1, 1, 1, PDDeviceGray.INSTANCE);
-
-    // Act
-    BufferedImage actualRGBImage = SampledImageReader.getRGBImage(pdImage, new Rectangle(1, 1), 1, null);
-
-    // Assert
-    DataBuffer dataBuffer = actualRGBImage.getData().getDataBuffer();
-    assertTrue(dataBuffer instanceof DataBufferByte);
-    DataBuffer dataBuffer2 = actualRGBImage.getRaster().getDataBuffer();
-    assertTrue(dataBuffer2 instanceof DataBufferByte);
-    SampleModel sampleModel = actualRGBImage.getSampleModel();
-    assertTrue(sampleModel instanceof PixelInterleavedSampleModel);
-    assertArrayEquals(new byte[]{0}, ((DataBufferByte) dataBuffer).getData());
-    assertArrayEquals(new byte[]{0}, ((DataBufferByte) dataBuffer2).getData());
-    assertArrayEquals(new int[]{0}, ((PixelInterleavedSampleModel) sampleModel).getBandOffsets());
-    assertArrayEquals(new int[]{0}, ((PixelInterleavedSampleModel) sampleModel).getBankIndices());
-    assertArrayEquals(new int[]{0}, dataBuffer.getOffsets());
-    assertArrayEquals(new int[]{0}, dataBuffer2.getOffsets());
-    assertArrayEquals(new int[]{8}, actualRGBImage.getColorModel().getComponentSize());
-    assertArrayEquals(new int[]{8}, sampleModel.getSampleSize());
-  }
-
-  /**
-   * Test {@link SampledImageReader#getRGBImage(PDImage, Rectangle, int, COSArray)} with {@code pdImage}, {@code region}, {@code subsampling}, {@code colorKey}.
-   * <p>
-   * Method under test: {@link SampledImageReader#getRGBImage(PDImage, Rectangle, int, COSArray)}
-   */
-  @Test
-  @DisplayName("Test getRGBImage(PDImage, Rectangle, int, COSArray) with 'pdImage', 'region', 'subsampling', 'colorKey'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"BufferedImage SampledImageReader.getRGBImage(PDImage, Rectangle, int, COSArray)"})
-  void testGetRGBImageWithPdImageRegionSubsamplingColorKey12() throws IOException {
-    // Arrange
-    PDImageXObject pdImage = LosslessFactory.prepareImageXObject(new PDDocument(), new byte[]{}, 1, 1, 1,
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDDocument document = new PDDocument(streamCacheCreateFunction);
+    PDImageXObject pdImage = LosslessFactory.prepareImageXObject(document, "AXAXAXAX".getBytes("UTF-8"), 8, 1, 1,
         PDDeviceGray.INSTANCE);
 
     // Act
-    BufferedImage actualRGBImage = SampledImageReader.getRGBImage(pdImage, new Rectangle(1, 1), 1, null);
+    BufferedImage actualStencilImage = SampledImageReader.getStencilImage(pdImage, Color.decode("42"));
 
     // Assert
-    DataBuffer dataBuffer = actualRGBImage.getData().getDataBuffer();
-    assertTrue(dataBuffer instanceof DataBufferByte);
-    DataBuffer dataBuffer2 = actualRGBImage.getRaster().getDataBuffer();
-    assertTrue(dataBuffer2 instanceof DataBufferByte);
-    SampleModel sampleModel = actualRGBImage.getSampleModel();
-    assertTrue(sampleModel instanceof PixelInterleavedSampleModel);
-    assertArrayEquals(new byte[]{0}, ((DataBufferByte) dataBuffer).getData());
-    assertArrayEquals(new byte[]{0}, ((DataBufferByte) dataBuffer2).getData());
-    assertArrayEquals(new int[]{0}, ((PixelInterleavedSampleModel) sampleModel).getBandOffsets());
-    assertArrayEquals(new int[]{0}, ((PixelInterleavedSampleModel) sampleModel).getBankIndices());
+    verify(streamCacheCreateFunction).create();
+    WritableRaster alphaRaster = actualStencilImage.getAlphaRaster();
+    Rectangle bounds = alphaRaster.getBounds();
+    Rectangle2D bounds2D = bounds.getBounds2D();
+    assertTrue(bounds2D instanceof Rectangle);
+    ColorModel colorModel = actualStencilImage.getColorModel();
+    ColorSpace colorSpace = colorModel.getColorSpace();
+    assertTrue(colorSpace instanceof ICC_ColorSpace);
+    assertTrue(((ICC_ColorSpace) colorSpace).getProfile() instanceof ICC_ProfileRGB);
+    Rectangle2D frame = bounds.getFrame();
+    assertTrue(frame instanceof Rectangle2D.Double);
+    DataBuffer dataBuffer = alphaRaster.getDataBuffer();
+    assertTrue(dataBuffer instanceof DataBufferInt);
+    Raster data = actualStencilImage.getData();
+    DataBuffer dataBuffer2 = data.getDataBuffer();
+    assertTrue(dataBuffer2 instanceof DataBufferInt);
+    assertTrue(colorModel instanceof DirectColorModel);
+    SampleModel sampleModel = actualStencilImage.getSampleModel();
+    assertTrue(sampleModel instanceof SinglePixelPackedSampleModel);
+    SampleModel sampleModel2 = alphaRaster.getSampleModel();
+    assertTrue(sampleModel2 instanceof SinglePixelPackedSampleModel);
+    Graphics graphics = actualStencilImage.getGraphics();
+    FontMetrics fontMetrics = graphics.getFontMetrics();
+    Font font = fontMetrics.getFont();
+    assertEquals("Dialog", font.getFamily());
+    assertEquals("Dialog", font.getName());
+    assertEquals("Dialog.plain", font.getFontName());
+    assertEquals("Dialog.plain", font.getPSName());
+    assertNull(actualStencilImage.getPropertyNames());
+    assertNull(graphics.getClipRect());
+    assertNull(data.getParent());
+    WritableRaster raster = actualStencilImage.getRaster();
+    assertNull(raster.getParent());
+    assertNull(raster.getWritableParent());
+    assertNull(actualStencilImage.getSources());
+    assertEquals(-16777216, ((DirectColorModel) colorModel).getAlphaMask());
+    assertEquals(0, font.getMissingGlyphCode());
+    assertEquals(0, font.getStyle());
+    assertEquals(0, fontMetrics.getLeading());
+    FontRenderContext fontRenderContext = fontMetrics.getFontRenderContext();
+    assertEquals(0, fontRenderContext.getTransformType());
+    AffineTransform transform = font.getTransform();
+    assertEquals(0, transform.getType());
+    assertEquals(0, actualStencilImage.getMinTileX());
+    assertEquals(0, actualStencilImage.getMinTileY());
+    assertEquals(0, actualStencilImage.getMinX());
+    assertEquals(0, actualStencilImage.getMinY());
+    assertEquals(0, actualStencilImage.getTileGridXOffset());
+    assertEquals(0, actualStencilImage.getTileGridYOffset());
+    assertEquals(0, dataBuffer.getOffset());
+    assertEquals(0, dataBuffer2.getOffset());
+    assertEquals(0, alphaRaster.getMinX());
+    assertEquals(0, data.getMinX());
+    assertEquals(0, raster.getMinX());
+    assertEquals(0, alphaRaster.getMinY());
+    assertEquals(0, data.getMinY());
+    assertEquals(0, raster.getMinY());
+    assertEquals(0, alphaRaster.getSampleModelTranslateX());
+    assertEquals(0, data.getSampleModelTranslateX());
+    assertEquals(0, raster.getSampleModelTranslateX());
+    assertEquals(0, alphaRaster.getSampleModelTranslateY());
+    assertEquals(0, data.getSampleModelTranslateY());
+    assertEquals(0, raster.getSampleModelTranslateY());
+    int[] widths = fontMetrics.getWidths();
+    assertEquals(0, widths[10]);
+    assertEquals(0, widths[13]);
+    assertEquals(0, widths[9]);
+    Point[] writableTileIndices = actualStencilImage.getWritableTileIndices();
+    Point point = writableTileIndices[0];
+    assertEquals(0, point.x);
+    assertEquals(0, point.y);
+    assertEquals(0, bounds.x);
+    assertEquals(0, bounds.y);
+    assertEquals(0.0d, point.getX());
+    assertEquals(0.0d, point.getY());
+    assertEquals(0.0d, bounds.getX());
+    assertEquals(0.0d, bounds.getY());
+    assertEquals(0.0d, transform.getShearX());
+    assertEquals(0.0d, transform.getShearY());
+    assertEquals(0.0d, transform.getTranslateX());
+    assertEquals(0.0d, transform.getTranslateY());
+    assertEquals(0.0d, bounds.getMinX());
+    assertEquals(0.0d, bounds.getMinY());
+    assertEquals(0.0f, font.getItalicAngle());
+    assertEquals(0.5d, bounds.getCenterY());
+    assertEquals(0.5f, actualStencilImage.getAccelerationPriority());
+    assertEquals(1, actualStencilImage.getHeight());
+    assertEquals(1, actualStencilImage.getNumXTiles());
+    assertEquals(1, actualStencilImage.getNumYTiles());
+    assertEquals(1, actualStencilImage.getTileHeight());
+    assertEquals(1, dataBuffer.getNumBanks());
+    assertEquals(1, dataBuffer2.getNumBanks());
+    assertEquals(1, alphaRaster.getHeight());
+    assertEquals(1, data.getHeight());
+    assertEquals(1, raster.getHeight());
+    assertEquals(1, alphaRaster.getNumBands());
+    assertEquals(1, alphaRaster.getNumDataElements());
+    assertEquals(1, data.getNumDataElements());
+    assertEquals(1, raster.getNumDataElements());
+    assertEquals(1, sampleModel.getHeight());
+    assertEquals(1, sampleModel2.getHeight());
+    assertEquals(1, sampleModel2.getNumBands());
+    assertEquals(1, sampleModel.getNumDataElements());
+    assertEquals(1, sampleModel2.getNumDataElements());
+    assertEquals(1, writableTileIndices.length);
+    int[][] bankData = ((DataBufferInt) dataBuffer).getBankData();
+    assertEquals(1, bankData.length);
+    int[][] bankData2 = ((DataBufferInt) dataBuffer2).getBankData();
+    assertEquals(1, bankData2.length);
+    Dimension size = bounds.getSize();
+    assertEquals(1, size.height);
+    assertEquals(1, bounds.height);
+    assertEquals(1.0d, size.getHeight());
+    assertEquals(1.0d, bounds.getHeight());
+    assertEquals(1.0d, transform.getDeterminant());
+    assertEquals(1.0d, transform.getScaleX());
+    assertEquals(1.0d, transform.getScaleY());
+    assertEquals(1.0d, bounds.getMaxY());
+    assertEquals(10, widths[247]);
+    assertEquals(12, font.getSize());
+    assertEquals(12, fontMetrics.getAscent());
+    assertEquals(12, fontMetrics.getMaxAscent());
+    assertEquals(12.0f, font.getSize2D());
+    assertEquals(15, fontMetrics.getHeight());
+    assertEquals(16711680, ((DirectColorModel) colorModel).getRedMask());
+    assertEquals(2, actualStencilImage.getType());
+    assertEquals(22, fontMetrics.getMaxAdvance());
+    assertEquals(22, font.getAvailableAttributes().length);
+    assertEquals(255, ((DirectColorModel) colorModel).getBlueMask());
+    assertEquals(256, widths.length);
+    assertEquals(3, fontMetrics.getDescent());
+    assertEquals(3, fontMetrics.getMaxDecent());
+    assertEquals(3, fontMetrics.getMaxDescent());
+    assertEquals(3, colorSpace.getNumComponents());
+    assertEquals(3, actualStencilImage.getTransparency());
+    assertEquals(3, colorModel.getNumColorComponents());
+    assertEquals(3, colorModel.getTransferType());
+    assertEquals(3, colorModel.getTransparency());
+    assertEquals(3, dataBuffer.getDataType());
+    assertEquals(3, dataBuffer2.getDataType());
+    assertEquals(3, alphaRaster.getTransferType());
+    assertEquals(3, data.getTransferType());
+    assertEquals(3, raster.getTransferType());
+    assertEquals(3, sampleModel.getDataType());
+    assertEquals(3, sampleModel2.getDataType());
+    assertEquals(3, sampleModel.getTransferType());
+    assertEquals(3, sampleModel2.getTransferType());
+    assertEquals(3, widths[236]);
+    assertEquals(3, widths[237]);
+    assertEquals(3, widths[238]);
+    assertEquals(3, widths[239]);
+    assertEquals(4, colorModel.getNumComponents());
+    assertEquals(4, data.getNumBands());
+    assertEquals(4, raster.getNumBands());
+    assertEquals(4, sampleModel.getNumBands());
+    assertEquals(4.0d, bounds.getCenterX());
+    assertEquals(5, colorSpace.getType());
+    assertEquals(6, widths[253]);
+    assertEquals(6, widths[255]);
+    assertEquals(6253, font.getNumGlyphs());
+    assertEquals(65280, ((DirectColorModel) colorModel).getGreenMask());
+    assertEquals(7, widths[0]);
+    assertEquals(7, widths[1]);
+    assertEquals(7, widths[11]);
+    assertEquals(7, widths[12]);
+    assertEquals(7, widths[14]);
+    assertEquals(7, widths[15]);
+    assertEquals(7, widths[17]);
+    assertEquals(7, widths[18]);
+    assertEquals(7, widths[19]);
+    assertEquals(7, widths[2]);
+    assertEquals(7, widths[20]);
+    assertEquals(7, widths[21]);
+    assertEquals(7, widths[22]);
+    assertEquals(7, widths[23]);
+    assertEquals(7, widths[231]);
+    assertEquals(7, widths[24]);
+    assertEquals(7, widths[3]);
+    assertEquals(7, widths[4]);
+    assertEquals(7, widths[5]);
+    assertEquals(7, widths[6]);
+    assertEquals(7, widths[7]);
+    assertEquals(7, widths[8]);
+    assertEquals(7, widths[Short.SIZE]);
+    assertEquals(8, actualStencilImage.getTileWidth());
+    assertEquals(8, actualStencilImage.getWidth());
+    assertEquals(8, dataBuffer.getSize());
+    assertEquals(8, dataBuffer2.getSize());
+    assertEquals(8, alphaRaster.getWidth());
+    assertEquals(8, data.getWidth());
+    assertEquals(8, raster.getWidth());
+    assertEquals(8, sampleModel.getWidth());
+    assertEquals(8, sampleModel2.getWidth());
+    assertEquals(8, ((SinglePixelPackedSampleModel) sampleModel).getScanlineStride());
+    assertEquals(8, ((SinglePixelPackedSampleModel) sampleModel2).getScanlineStride());
+    assertEquals(8, font.getAttributes().size());
+    assertEquals(8, widths[232]);
+    assertEquals(8, widths[233]);
+    assertEquals(8, widths[234]);
+    assertEquals(8, widths[235]);
+    assertEquals(8, widths[240]);
+    assertEquals(8, widths[241]);
+    assertEquals(8, widths[242]);
+    assertEquals(8, widths[243]);
+    assertEquals(8, widths[244]);
+    assertEquals(8, widths[245]);
+    assertEquals(8, widths[246]);
+    assertEquals(8, widths[248]);
+    assertEquals(8, widths[249]);
+    assertEquals(8, widths[250]);
+    assertEquals(8, widths[251]);
+    assertEquals(8, widths[252]);
+    assertEquals(8, widths[254]);
+    assertEquals(8, size.width);
+    assertEquals(8, bounds.width);
+    assertEquals(8.0d, size.getWidth());
+    assertEquals(8.0d, bounds.getWidth());
+    assertEquals(8.0d, bounds.getMaxX());
+    assertFalse(font.hasLayoutAttributes());
+    assertFalse(font.hasUniformLineMetrics());
+    assertFalse(font.isBold());
+    assertFalse(font.isItalic());
+    assertFalse(font.isTransformed());
+    assertFalse(fontMetrics.hasUniformLineMetrics());
+    assertFalse(bounds.isEmpty());
+    assertFalse(fontRenderContext.isAntiAliased());
+    assertFalse(fontRenderContext.isTransformed());
+    assertFalse(actualStencilImage.isAlphaPremultiplied());
+    assertFalse(colorModel.isAlphaPremultiplied());
+    assertTrue(font.isPlain());
+    assertTrue(colorSpace.isCS_sRGB());
+    assertTrue(transform.isIdentity());
+    assertTrue(actualStencilImage.hasTileWriters());
+    assertTrue(colorModel.hasAlpha());
+    assertEquals(transform, fontRenderContext.getTransform());
+    assertEquals(size, size.getSize());
+    assertEquals(bounds, bounds.getBounds());
+    assertEquals(bounds, data.getBounds());
+    assertEquals(bounds, raster.getBounds());
+    assertEquals(bounds, bounds2D);
+    assertEquals(bounds, frame);
+    assertEquals(point, point.getLocation());
+    assertEquals(point, bounds.getLocation());
+    assertEquals(Integer.SIZE, colorModel.getPixelSize());
+    assertSame(raster, alphaRaster.getParent());
+    assertSame(raster, alphaRaster.getWritableParent());
+    int[] data2 = ((DataBufferInt) dataBuffer).getData();
+    assertSame(data2, bankData[0]);
+    int[] data3 = ((DataBufferInt) dataBuffer2).getData();
+    assertSame(data3, bankData2[0]);
+    assertSame(dataBuffer, raster.getDataBuffer());
+    assertSame(sampleModel, data.getSampleModel());
+    assertSame(sampleModel, raster.getSampleModel());
+    assertArrayEquals(new int[]{-16777216}, ((SinglePixelPackedSampleModel) sampleModel2).getBitMasks());
     assertArrayEquals(new int[]{0}, dataBuffer.getOffsets());
     assertArrayEquals(new int[]{0}, dataBuffer2.getOffsets());
-    assertArrayEquals(new int[]{8}, actualRGBImage.getColorModel().getComponentSize());
-    assertArrayEquals(new int[]{8}, sampleModel.getSampleSize());
+    assertArrayEquals(new int[]{24}, ((SinglePixelPackedSampleModel) sampleModel2).getBitOffsets());
+    assertArrayEquals(new int[]{8}, sampleModel2.getSampleSize());
+    assertArrayEquals(new int[]{16711680, 65280, 255, -16777216}, ((DirectColorModel) colorModel).getMasks());
+    assertArrayEquals(new int[]{16711680, 65280, 255, -16777216},
+        ((SinglePixelPackedSampleModel) sampleModel).getBitMasks());
+    assertArrayEquals(new int[]{8, 8, 8, 8}, colorModel.getComponentSize());
+    assertArrayEquals(new int[]{8, 8, 8, 8}, sampleModel.getSampleSize());
+    assertArrayEquals(new int[]{Short.SIZE, 8, 0, 24}, ((SinglePixelPackedSampleModel) sampleModel).getBitOffsets());
+    assertArrayEquals(new int[]{-16777174, 0, -16777174, -16777174, -16777174, -16777174, -16777174, 0}, data2);
+    assertArrayEquals(new int[]{-16777174, 0, -16777174, -16777174, -16777174, -16777174, -16777174, 0}, data3);
   }
 
   /**
-   * Test {@link SampledImageReader#getRGBImage(PDImage, Rectangle, int, COSArray)} with {@code pdImage}, {@code region}, {@code subsampling}, {@code colorKey}.
-   * <ul>
-   *   <li>When createThumbnail {@link COSStream#COSStream()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SampledImageReader#getRGBImage(PDImage, Rectangle, int, COSArray)}
+   * Method under test: {@link SampledImageReader#getStencilImage(PDImage, Paint)}
    */
   @Test
-  @DisplayName("Test getRGBImage(PDImage, Rectangle, int, COSArray) with 'pdImage', 'region', 'subsampling', 'colorKey'; when createThumbnail COSStream()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"BufferedImage SampledImageReader.getRGBImage(PDImage, Rectangle, int, COSArray)"})
-  void testGetRGBImageWithPdImageRegionSubsamplingColorKey_whenCreateThumbnailCOSStream() throws IOException {
+  void testGetStencilImage7() throws IOException, NumberFormatException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDDocument document = new PDDocument(streamCacheCreateFunction);
+    PDImageXObject pdImage = LosslessFactory.prepareImageXObject(document, "AXAXAXAX".getBytes("UTF-8"), 9, 1, 1,
+        PDDeviceGray.INSTANCE);
+
+    // Act
+    BufferedImage actualStencilImage = SampledImageReader.getStencilImage(pdImage, Color.decode("42"));
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    WritableRaster alphaRaster = actualStencilImage.getAlphaRaster();
+    Rectangle bounds = alphaRaster.getBounds();
+    Rectangle2D bounds2D = bounds.getBounds2D();
+    assertTrue(bounds2D instanceof Rectangle);
+    ColorModel colorModel = actualStencilImage.getColorModel();
+    ColorSpace colorSpace = colorModel.getColorSpace();
+    assertTrue(colorSpace instanceof ICC_ColorSpace);
+    assertTrue(((ICC_ColorSpace) colorSpace).getProfile() instanceof ICC_ProfileRGB);
+    Rectangle2D frame = bounds.getFrame();
+    assertTrue(frame instanceof Rectangle2D.Double);
+    DataBuffer dataBuffer = alphaRaster.getDataBuffer();
+    assertTrue(dataBuffer instanceof DataBufferInt);
+    Raster data = actualStencilImage.getData();
+    DataBuffer dataBuffer2 = data.getDataBuffer();
+    assertTrue(dataBuffer2 instanceof DataBufferInt);
+    assertTrue(colorModel instanceof DirectColorModel);
+    SampleModel sampleModel = actualStencilImage.getSampleModel();
+    assertTrue(sampleModel instanceof SinglePixelPackedSampleModel);
+    SampleModel sampleModel2 = alphaRaster.getSampleModel();
+    assertTrue(sampleModel2 instanceof SinglePixelPackedSampleModel);
+    Graphics graphics = actualStencilImage.getGraphics();
+    FontMetrics fontMetrics = graphics.getFontMetrics();
+    Font font = fontMetrics.getFont();
+    assertEquals("Dialog", font.getFamily());
+    assertEquals("Dialog", font.getName());
+    assertEquals("Dialog.plain", font.getFontName());
+    assertEquals("Dialog.plain", font.getPSName());
+    assertNull(actualStencilImage.getPropertyNames());
+    assertNull(graphics.getClipRect());
+    assertNull(data.getParent());
+    WritableRaster raster = actualStencilImage.getRaster();
+    assertNull(raster.getParent());
+    assertNull(raster.getWritableParent());
+    assertNull(actualStencilImage.getSources());
+    assertEquals(-16777216, ((DirectColorModel) colorModel).getAlphaMask());
+    assertEquals(0, font.getMissingGlyphCode());
+    assertEquals(0, font.getStyle());
+    assertEquals(0, fontMetrics.getLeading());
+    FontRenderContext fontRenderContext = fontMetrics.getFontRenderContext();
+    assertEquals(0, fontRenderContext.getTransformType());
+    AffineTransform transform = font.getTransform();
+    assertEquals(0, transform.getType());
+    assertEquals(0, actualStencilImage.getMinTileX());
+    assertEquals(0, actualStencilImage.getMinTileY());
+    assertEquals(0, actualStencilImage.getMinX());
+    assertEquals(0, actualStencilImage.getMinY());
+    assertEquals(0, actualStencilImage.getTileGridXOffset());
+    assertEquals(0, actualStencilImage.getTileGridYOffset());
+    assertEquals(0, dataBuffer.getOffset());
+    assertEquals(0, dataBuffer2.getOffset());
+    assertEquals(0, alphaRaster.getMinX());
+    assertEquals(0, data.getMinX());
+    assertEquals(0, raster.getMinX());
+    assertEquals(0, alphaRaster.getMinY());
+    assertEquals(0, data.getMinY());
+    assertEquals(0, raster.getMinY());
+    assertEquals(0, alphaRaster.getSampleModelTranslateX());
+    assertEquals(0, data.getSampleModelTranslateX());
+    assertEquals(0, raster.getSampleModelTranslateX());
+    assertEquals(0, alphaRaster.getSampleModelTranslateY());
+    assertEquals(0, data.getSampleModelTranslateY());
+    assertEquals(0, raster.getSampleModelTranslateY());
+    int[] widths = fontMetrics.getWidths();
+    assertEquals(0, widths[10]);
+    assertEquals(0, widths[13]);
+    assertEquals(0, widths[9]);
+    Point[] writableTileIndices = actualStencilImage.getWritableTileIndices();
+    Point point = writableTileIndices[0];
+    assertEquals(0, point.x);
+    assertEquals(0, point.y);
+    assertEquals(0, bounds.x);
+    assertEquals(0, bounds.y);
+    assertEquals(0.0d, point.getX());
+    assertEquals(0.0d, point.getY());
+    assertEquals(0.0d, bounds.getX());
+    assertEquals(0.0d, bounds.getY());
+    assertEquals(0.0d, transform.getShearX());
+    assertEquals(0.0d, transform.getShearY());
+    assertEquals(0.0d, transform.getTranslateX());
+    assertEquals(0.0d, transform.getTranslateY());
+    assertEquals(0.0d, bounds.getMinX());
+    assertEquals(0.0d, bounds.getMinY());
+    assertEquals(0.0f, font.getItalicAngle());
+    assertEquals(0.5d, bounds.getCenterY());
+    assertEquals(0.5f, actualStencilImage.getAccelerationPriority());
+    assertEquals(1, actualStencilImage.getHeight());
+    assertEquals(1, actualStencilImage.getNumXTiles());
+    assertEquals(1, actualStencilImage.getNumYTiles());
+    assertEquals(1, actualStencilImage.getTileHeight());
+    assertEquals(1, dataBuffer.getNumBanks());
+    assertEquals(1, dataBuffer2.getNumBanks());
+    assertEquals(1, alphaRaster.getHeight());
+    assertEquals(1, data.getHeight());
+    assertEquals(1, raster.getHeight());
+    assertEquals(1, alphaRaster.getNumBands());
+    assertEquals(1, alphaRaster.getNumDataElements());
+    assertEquals(1, data.getNumDataElements());
+    assertEquals(1, raster.getNumDataElements());
+    assertEquals(1, sampleModel.getHeight());
+    assertEquals(1, sampleModel2.getHeight());
+    assertEquals(1, sampleModel2.getNumBands());
+    assertEquals(1, sampleModel.getNumDataElements());
+    assertEquals(1, sampleModel2.getNumDataElements());
+    assertEquals(1, writableTileIndices.length);
+    int[][] bankData = ((DataBufferInt) dataBuffer).getBankData();
+    assertEquals(1, bankData.length);
+    int[][] bankData2 = ((DataBufferInt) dataBuffer2).getBankData();
+    assertEquals(1, bankData2.length);
+    Dimension size = bounds.getSize();
+    assertEquals(1, size.height);
+    assertEquals(1, bounds.height);
+    assertEquals(1.0d, size.getHeight());
+    assertEquals(1.0d, bounds.getHeight());
+    assertEquals(1.0d, transform.getDeterminant());
+    assertEquals(1.0d, transform.getScaleX());
+    assertEquals(1.0d, transform.getScaleY());
+    assertEquals(1.0d, bounds.getMaxY());
+    assertEquals(10, widths[247]);
+    assertEquals(12, font.getSize());
+    assertEquals(12, fontMetrics.getAscent());
+    assertEquals(12, fontMetrics.getMaxAscent());
+    assertEquals(12.0f, font.getSize2D());
+    assertEquals(15, fontMetrics.getHeight());
+    assertEquals(16711680, ((DirectColorModel) colorModel).getRedMask());
+    assertEquals(2, actualStencilImage.getType());
+    assertEquals(22, fontMetrics.getMaxAdvance());
+    assertEquals(22, font.getAvailableAttributes().length);
+    assertEquals(255, ((DirectColorModel) colorModel).getBlueMask());
+    assertEquals(256, widths.length);
+    assertEquals(3, fontMetrics.getDescent());
+    assertEquals(3, fontMetrics.getMaxDecent());
+    assertEquals(3, fontMetrics.getMaxDescent());
+    assertEquals(3, colorSpace.getNumComponents());
+    assertEquals(3, actualStencilImage.getTransparency());
+    assertEquals(3, colorModel.getNumColorComponents());
+    assertEquals(3, colorModel.getTransferType());
+    assertEquals(3, colorModel.getTransparency());
+    assertEquals(3, dataBuffer.getDataType());
+    assertEquals(3, dataBuffer2.getDataType());
+    assertEquals(3, alphaRaster.getTransferType());
+    assertEquals(3, data.getTransferType());
+    assertEquals(3, raster.getTransferType());
+    assertEquals(3, sampleModel.getDataType());
+    assertEquals(3, sampleModel2.getDataType());
+    assertEquals(3, sampleModel.getTransferType());
+    assertEquals(3, sampleModel2.getTransferType());
+    assertEquals(3, widths[236]);
+    assertEquals(3, widths[237]);
+    assertEquals(3, widths[238]);
+    assertEquals(3, widths[239]);
+    assertEquals(4, colorModel.getNumComponents());
+    assertEquals(4, data.getNumBands());
+    assertEquals(4, raster.getNumBands());
+    assertEquals(4, sampleModel.getNumBands());
+    assertEquals(4.5d, bounds.getCenterX());
+    assertEquals(5, colorSpace.getType());
+    assertEquals(6, widths[253]);
+    assertEquals(6, widths[255]);
+    assertEquals(6253, font.getNumGlyphs());
+    assertEquals(65280, ((DirectColorModel) colorModel).getGreenMask());
+    assertEquals(7, widths[0]);
+    assertEquals(7, widths[1]);
+    assertEquals(7, widths[11]);
+    assertEquals(7, widths[12]);
+    assertEquals(7, widths[14]);
+    assertEquals(7, widths[15]);
+    assertEquals(7, widths[17]);
+    assertEquals(7, widths[18]);
+    assertEquals(7, widths[19]);
+    assertEquals(7, widths[2]);
+    assertEquals(7, widths[20]);
+    assertEquals(7, widths[21]);
+    assertEquals(7, widths[22]);
+    assertEquals(7, widths[23]);
+    assertEquals(7, widths[231]);
+    assertEquals(7, widths[24]);
+    assertEquals(7, widths[3]);
+    assertEquals(7, widths[4]);
+    assertEquals(7, widths[5]);
+    assertEquals(7, widths[6]);
+    assertEquals(7, widths[7]);
+    assertEquals(7, widths[8]);
+    assertEquals(7, widths[Short.SIZE]);
+    assertEquals(8, font.getAttributes().size());
+    assertEquals(8, widths[232]);
+    assertEquals(8, widths[233]);
+    assertEquals(8, widths[234]);
+    assertEquals(8, widths[235]);
+    assertEquals(8, widths[240]);
+    assertEquals(8, widths[241]);
+    assertEquals(8, widths[242]);
+    assertEquals(8, widths[243]);
+    assertEquals(8, widths[244]);
+    assertEquals(8, widths[245]);
+    assertEquals(8, widths[246]);
+    assertEquals(8, widths[248]);
+    assertEquals(8, widths[249]);
+    assertEquals(8, widths[250]);
+    assertEquals(8, widths[251]);
+    assertEquals(8, widths[252]);
+    assertEquals(8, widths[254]);
+    assertEquals(9, actualStencilImage.getTileWidth());
+    assertEquals(9, actualStencilImage.getWidth());
+    assertEquals(9, dataBuffer.getSize());
+    assertEquals(9, dataBuffer2.getSize());
+    assertEquals(9, alphaRaster.getWidth());
+    assertEquals(9, data.getWidth());
+    assertEquals(9, raster.getWidth());
+    assertEquals(9, sampleModel.getWidth());
+    assertEquals(9, sampleModel2.getWidth());
+    assertEquals(9, ((SinglePixelPackedSampleModel) sampleModel).getScanlineStride());
+    assertEquals(9, ((SinglePixelPackedSampleModel) sampleModel2).getScanlineStride());
+    assertEquals(9, size.width);
+    assertEquals(9, bounds.width);
+    assertEquals(9.0d, size.getWidth());
+    assertEquals(9.0d, bounds.getWidth());
+    assertEquals(9.0d, bounds.getMaxX());
+    assertFalse(font.hasLayoutAttributes());
+    assertFalse(font.hasUniformLineMetrics());
+    assertFalse(font.isBold());
+    assertFalse(font.isItalic());
+    assertFalse(font.isTransformed());
+    assertFalse(fontMetrics.hasUniformLineMetrics());
+    assertFalse(bounds.isEmpty());
+    assertFalse(fontRenderContext.isAntiAliased());
+    assertFalse(fontRenderContext.isTransformed());
+    assertFalse(actualStencilImage.isAlphaPremultiplied());
+    assertFalse(colorModel.isAlphaPremultiplied());
+    assertTrue(font.isPlain());
+    assertTrue(colorSpace.isCS_sRGB());
+    assertTrue(transform.isIdentity());
+    assertTrue(actualStencilImage.hasTileWriters());
+    assertTrue(colorModel.hasAlpha());
+    assertEquals(transform, fontRenderContext.getTransform());
+    assertEquals(size, size.getSize());
+    assertEquals(bounds, bounds.getBounds());
+    assertEquals(bounds, data.getBounds());
+    assertEquals(bounds, raster.getBounds());
+    assertEquals(bounds, bounds2D);
+    assertEquals(bounds, frame);
+    assertEquals(point, point.getLocation());
+    assertEquals(point, bounds.getLocation());
+    assertEquals(Integer.SIZE, colorModel.getPixelSize());
+    assertSame(raster, alphaRaster.getParent());
+    assertSame(raster, alphaRaster.getWritableParent());
+    int[] data2 = ((DataBufferInt) dataBuffer).getData();
+    assertSame(data2, bankData[0]);
+    int[] data3 = ((DataBufferInt) dataBuffer2).getData();
+    assertSame(data3, bankData2[0]);
+    assertSame(dataBuffer, raster.getDataBuffer());
+    assertSame(sampleModel, data.getSampleModel());
+    assertSame(sampleModel, raster.getSampleModel());
+    assertArrayEquals(new int[]{-16777216}, ((SinglePixelPackedSampleModel) sampleModel2).getBitMasks());
+    assertArrayEquals(new int[]{0}, dataBuffer.getOffsets());
+    assertArrayEquals(new int[]{0}, dataBuffer2.getOffsets());
+    assertArrayEquals(new int[]{24}, ((SinglePixelPackedSampleModel) sampleModel2).getBitOffsets());
+    assertArrayEquals(new int[]{8}, sampleModel2.getSampleSize());
+    assertArrayEquals(new int[]{16711680, 65280, 255, -16777216}, ((DirectColorModel) colorModel).getMasks());
+    assertArrayEquals(new int[]{16711680, 65280, 255, -16777216},
+        ((SinglePixelPackedSampleModel) sampleModel).getBitMasks());
+    assertArrayEquals(new int[]{8, 8, 8, 8}, colorModel.getComponentSize());
+    assertArrayEquals(new int[]{8, 8, 8, 8}, sampleModel.getSampleSize());
+    assertArrayEquals(new int[]{Short.SIZE, 8, 0, 24}, ((SinglePixelPackedSampleModel) sampleModel).getBitOffsets());
+    assertArrayEquals(new int[]{-16777174, 0, -16777174, -16777174, -16777174, -16777174, -16777174, 0, -16777174},
+        data2);
+    assertArrayEquals(new int[]{-16777174, 0, -16777174, -16777174, -16777174, -16777174, -16777174, 0, -16777174},
+        data3);
+  }
+
+  /**
+   * Method under test: {@link SampledImageReader#getStencilImage(PDImage, Paint)}
+   */
+  @Test
+  void testGetStencilImage8() throws IOException, NumberFormatException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDDocument document = new PDDocument(streamCacheCreateFunction);
+    PDImageXObject pdImage = LosslessFactory.prepareImageXObject(document, "AXAXAXAX".getBytes("UTF-8"), 1, 1, 1,
+        PDDeviceRGB.INSTANCE);
+
+    // Act
+    BufferedImage actualStencilImage = SampledImageReader.getStencilImage(pdImage, Color.decode("42"));
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    WritableRaster alphaRaster = actualStencilImage.getAlphaRaster();
+    Rectangle bounds = alphaRaster.getBounds();
+    Rectangle2D bounds2D = bounds.getBounds2D();
+    assertTrue(bounds2D instanceof Rectangle);
+    ColorModel colorModel = actualStencilImage.getColorModel();
+    ColorSpace colorSpace = colorModel.getColorSpace();
+    assertTrue(colorSpace instanceof ICC_ColorSpace);
+    assertTrue(((ICC_ColorSpace) colorSpace).getProfile() instanceof ICC_ProfileRGB);
+    Rectangle2D frame = bounds.getFrame();
+    assertTrue(frame instanceof Rectangle2D.Double);
+    DataBuffer dataBuffer = alphaRaster.getDataBuffer();
+    assertTrue(dataBuffer instanceof DataBufferInt);
+    Raster data = actualStencilImage.getData();
+    DataBuffer dataBuffer2 = data.getDataBuffer();
+    assertTrue(dataBuffer2 instanceof DataBufferInt);
+    assertTrue(colorModel instanceof DirectColorModel);
+    SampleModel sampleModel = actualStencilImage.getSampleModel();
+    assertTrue(sampleModel instanceof SinglePixelPackedSampleModel);
+    SampleModel sampleModel2 = alphaRaster.getSampleModel();
+    assertTrue(sampleModel2 instanceof SinglePixelPackedSampleModel);
+    Graphics graphics = actualStencilImage.getGraphics();
+    FontMetrics fontMetrics = graphics.getFontMetrics();
+    Font font = fontMetrics.getFont();
+    assertEquals("Dialog", font.getFamily());
+    assertEquals("Dialog", font.getName());
+    assertEquals("Dialog.plain", font.getFontName());
+    assertEquals("Dialog.plain", font.getPSName());
+    assertNull(actualStencilImage.getPropertyNames());
+    assertNull(graphics.getClipRect());
+    assertNull(data.getParent());
+    WritableRaster raster = actualStencilImage.getRaster();
+    assertNull(raster.getParent());
+    assertNull(raster.getWritableParent());
+    assertNull(actualStencilImage.getSources());
+    assertEquals(-16777216, ((DirectColorModel) colorModel).getAlphaMask());
+    assertEquals(0, font.getMissingGlyphCode());
+    assertEquals(0, font.getStyle());
+    assertEquals(0, fontMetrics.getLeading());
+    FontRenderContext fontRenderContext = fontMetrics.getFontRenderContext();
+    assertEquals(0, fontRenderContext.getTransformType());
+    AffineTransform transform = font.getTransform();
+    assertEquals(0, transform.getType());
+    assertEquals(0, actualStencilImage.getMinTileX());
+    assertEquals(0, actualStencilImage.getMinTileY());
+    assertEquals(0, actualStencilImage.getMinX());
+    assertEquals(0, actualStencilImage.getMinY());
+    assertEquals(0, actualStencilImage.getTileGridXOffset());
+    assertEquals(0, actualStencilImage.getTileGridYOffset());
+    assertEquals(0, dataBuffer.getOffset());
+    assertEquals(0, dataBuffer2.getOffset());
+    assertEquals(0, alphaRaster.getMinX());
+    assertEquals(0, data.getMinX());
+    assertEquals(0, raster.getMinX());
+    assertEquals(0, alphaRaster.getMinY());
+    assertEquals(0, data.getMinY());
+    assertEquals(0, raster.getMinY());
+    assertEquals(0, alphaRaster.getSampleModelTranslateX());
+    assertEquals(0, data.getSampleModelTranslateX());
+    assertEquals(0, raster.getSampleModelTranslateX());
+    assertEquals(0, alphaRaster.getSampleModelTranslateY());
+    assertEquals(0, data.getSampleModelTranslateY());
+    assertEquals(0, raster.getSampleModelTranslateY());
+    int[] widths = fontMetrics.getWidths();
+    assertEquals(0, widths[10]);
+    assertEquals(0, widths[13]);
+    assertEquals(0, widths[9]);
+    Point[] writableTileIndices = actualStencilImage.getWritableTileIndices();
+    Point point = writableTileIndices[0];
+    assertEquals(0, point.x);
+    assertEquals(0, point.y);
+    assertEquals(0, bounds.x);
+    assertEquals(0, bounds.y);
+    assertEquals(0.0d, point.getX());
+    assertEquals(0.0d, point.getY());
+    assertEquals(0.0d, bounds.getX());
+    assertEquals(0.0d, bounds.getY());
+    assertEquals(0.0d, transform.getShearX());
+    assertEquals(0.0d, transform.getShearY());
+    assertEquals(0.0d, transform.getTranslateX());
+    assertEquals(0.0d, transform.getTranslateY());
+    assertEquals(0.0d, bounds.getMinX());
+    assertEquals(0.0d, bounds.getMinY());
+    assertEquals(0.0f, font.getItalicAngle());
+    assertEquals(0.5d, bounds.getCenterX());
+    assertEquals(0.5d, bounds.getCenterY());
+    assertEquals(0.5f, actualStencilImage.getAccelerationPriority());
+    assertEquals(1, actualStencilImage.getHeight());
+    assertEquals(1, actualStencilImage.getNumXTiles());
+    assertEquals(1, actualStencilImage.getNumYTiles());
+    assertEquals(1, actualStencilImage.getTileHeight());
+    assertEquals(1, actualStencilImage.getTileWidth());
+    assertEquals(1, actualStencilImage.getWidth());
+    assertEquals(1, dataBuffer.getNumBanks());
+    assertEquals(1, dataBuffer2.getNumBanks());
+    assertEquals(1, dataBuffer.getSize());
+    assertEquals(1, dataBuffer2.getSize());
+    assertEquals(1, alphaRaster.getHeight());
+    assertEquals(1, data.getHeight());
+    assertEquals(1, raster.getHeight());
+    assertEquals(1, alphaRaster.getNumBands());
+    assertEquals(1, alphaRaster.getNumDataElements());
+    assertEquals(1, data.getNumDataElements());
+    assertEquals(1, raster.getNumDataElements());
+    assertEquals(1, alphaRaster.getWidth());
+    assertEquals(1, data.getWidth());
+    assertEquals(1, raster.getWidth());
+    assertEquals(1, sampleModel.getHeight());
+    assertEquals(1, sampleModel2.getHeight());
+    assertEquals(1, sampleModel2.getNumBands());
+    assertEquals(1, sampleModel.getNumDataElements());
+    assertEquals(1, sampleModel2.getNumDataElements());
+    assertEquals(1, sampleModel.getWidth());
+    assertEquals(1, sampleModel2.getWidth());
+    assertEquals(1, ((SinglePixelPackedSampleModel) sampleModel).getScanlineStride());
+    assertEquals(1, ((SinglePixelPackedSampleModel) sampleModel2).getScanlineStride());
+    assertEquals(1, writableTileIndices.length);
+    int[][] bankData = ((DataBufferInt) dataBuffer).getBankData();
+    assertEquals(1, bankData.length);
+    int[][] bankData2 = ((DataBufferInt) dataBuffer2).getBankData();
+    assertEquals(1, bankData2.length);
+    Dimension size = bounds.getSize();
+    assertEquals(1, size.height);
+    assertEquals(1, size.width);
+    assertEquals(1, bounds.height);
+    assertEquals(1, bounds.width);
+    assertEquals(1.0d, size.getHeight());
+    assertEquals(1.0d, size.getWidth());
+    assertEquals(1.0d, bounds.getHeight());
+    assertEquals(1.0d, bounds.getWidth());
+    assertEquals(1.0d, transform.getDeterminant());
+    assertEquals(1.0d, transform.getScaleX());
+    assertEquals(1.0d, transform.getScaleY());
+    assertEquals(1.0d, bounds.getMaxX());
+    assertEquals(1.0d, bounds.getMaxY());
+    assertEquals(10, widths[247]);
+    assertEquals(12, font.getSize());
+    assertEquals(12, fontMetrics.getAscent());
+    assertEquals(12, fontMetrics.getMaxAscent());
+    assertEquals(12.0f, font.getSize2D());
+    assertEquals(15, fontMetrics.getHeight());
+    assertEquals(16711680, ((DirectColorModel) colorModel).getRedMask());
+    assertEquals(2, actualStencilImage.getType());
+    assertEquals(22, fontMetrics.getMaxAdvance());
+    assertEquals(22, font.getAvailableAttributes().length);
+    assertEquals(255, ((DirectColorModel) colorModel).getBlueMask());
+    assertEquals(256, widths.length);
+    assertEquals(3, fontMetrics.getDescent());
+    assertEquals(3, fontMetrics.getMaxDecent());
+    assertEquals(3, fontMetrics.getMaxDescent());
+    assertEquals(3, colorSpace.getNumComponents());
+    assertEquals(3, actualStencilImage.getTransparency());
+    assertEquals(3, colorModel.getNumColorComponents());
+    assertEquals(3, colorModel.getTransferType());
+    assertEquals(3, colorModel.getTransparency());
+    assertEquals(3, dataBuffer.getDataType());
+    assertEquals(3, dataBuffer2.getDataType());
+    assertEquals(3, alphaRaster.getTransferType());
+    assertEquals(3, data.getTransferType());
+    assertEquals(3, raster.getTransferType());
+    assertEquals(3, sampleModel.getDataType());
+    assertEquals(3, sampleModel2.getDataType());
+    assertEquals(3, sampleModel.getTransferType());
+    assertEquals(3, sampleModel2.getTransferType());
+    assertEquals(3, widths[236]);
+    assertEquals(3, widths[237]);
+    assertEquals(3, widths[238]);
+    assertEquals(3, widths[239]);
+    assertEquals(4, colorModel.getNumComponents());
+    assertEquals(4, data.getNumBands());
+    assertEquals(4, raster.getNumBands());
+    assertEquals(4, sampleModel.getNumBands());
+    assertEquals(5, colorSpace.getType());
+    assertEquals(6, widths[253]);
+    assertEquals(6, widths[255]);
+    assertEquals(6253, font.getNumGlyphs());
+    assertEquals(65280, ((DirectColorModel) colorModel).getGreenMask());
+    assertEquals(7, widths[0]);
+    assertEquals(7, widths[1]);
+    assertEquals(7, widths[11]);
+    assertEquals(7, widths[12]);
+    assertEquals(7, widths[14]);
+    assertEquals(7, widths[15]);
+    assertEquals(7, widths[17]);
+    assertEquals(7, widths[18]);
+    assertEquals(7, widths[19]);
+    assertEquals(7, widths[2]);
+    assertEquals(7, widths[20]);
+    assertEquals(7, widths[21]);
+    assertEquals(7, widths[22]);
+    assertEquals(7, widths[23]);
+    assertEquals(7, widths[231]);
+    assertEquals(7, widths[24]);
+    assertEquals(7, widths[3]);
+    assertEquals(7, widths[4]);
+    assertEquals(7, widths[5]);
+    assertEquals(7, widths[6]);
+    assertEquals(7, widths[7]);
+    assertEquals(7, widths[8]);
+    assertEquals(7, widths[Short.SIZE]);
+    assertEquals(8, font.getAttributes().size());
+    assertEquals(8, widths[232]);
+    assertEquals(8, widths[233]);
+    assertEquals(8, widths[234]);
+    assertEquals(8, widths[235]);
+    assertEquals(8, widths[240]);
+    assertEquals(8, widths[241]);
+    assertEquals(8, widths[242]);
+    assertEquals(8, widths[243]);
+    assertEquals(8, widths[244]);
+    assertEquals(8, widths[245]);
+    assertEquals(8, widths[246]);
+    assertEquals(8, widths[248]);
+    assertEquals(8, widths[249]);
+    assertEquals(8, widths[250]);
+    assertEquals(8, widths[251]);
+    assertEquals(8, widths[252]);
+    assertEquals(8, widths[254]);
+    assertFalse(font.hasLayoutAttributes());
+    assertFalse(font.hasUniformLineMetrics());
+    assertFalse(font.isBold());
+    assertFalse(font.isItalic());
+    assertFalse(font.isTransformed());
+    assertFalse(fontMetrics.hasUniformLineMetrics());
+    assertFalse(bounds.isEmpty());
+    assertFalse(fontRenderContext.isAntiAliased());
+    assertFalse(fontRenderContext.isTransformed());
+    assertFalse(actualStencilImage.isAlphaPremultiplied());
+    assertFalse(colorModel.isAlphaPremultiplied());
+    assertTrue(font.isPlain());
+    assertTrue(colorSpace.isCS_sRGB());
+    assertTrue(transform.isIdentity());
+    assertTrue(actualStencilImage.hasTileWriters());
+    assertTrue(colorModel.hasAlpha());
+    assertEquals(transform, fontRenderContext.getTransform());
+    assertEquals(size, size.getSize());
+    assertEquals(bounds, bounds.getBounds());
+    assertEquals(bounds, data.getBounds());
+    assertEquals(bounds, raster.getBounds());
+    assertEquals(bounds, bounds2D);
+    assertEquals(bounds, frame);
+    assertEquals(point, point.getLocation());
+    assertEquals(point, bounds.getLocation());
+    assertEquals(Integer.SIZE, colorModel.getPixelSize());
+    assertSame(raster, alphaRaster.getParent());
+    assertSame(raster, alphaRaster.getWritableParent());
+    int[] data2 = ((DataBufferInt) dataBuffer).getData();
+    assertSame(data2, bankData[0]);
+    int[] data3 = ((DataBufferInt) dataBuffer2).getData();
+    assertSame(data3, bankData2[0]);
+    assertSame(dataBuffer, raster.getDataBuffer());
+    assertSame(sampleModel, data.getSampleModel());
+    assertSame(sampleModel, raster.getSampleModel());
+    assertArrayEquals(new int[]{-16777174}, data2);
+    assertArrayEquals(new int[]{-16777174}, data3);
+    assertArrayEquals(new int[]{-16777216}, ((SinglePixelPackedSampleModel) sampleModel2).getBitMasks());
+    assertArrayEquals(new int[]{0}, dataBuffer.getOffsets());
+    assertArrayEquals(new int[]{0}, dataBuffer2.getOffsets());
+    assertArrayEquals(new int[]{24}, ((SinglePixelPackedSampleModel) sampleModel2).getBitOffsets());
+    assertArrayEquals(new int[]{8}, sampleModel2.getSampleSize());
+    assertArrayEquals(new int[]{16711680, 65280, 255, -16777216}, ((DirectColorModel) colorModel).getMasks());
+    assertArrayEquals(new int[]{16711680, 65280, 255, -16777216},
+        ((SinglePixelPackedSampleModel) sampleModel).getBitMasks());
+    assertArrayEquals(new int[]{8, 8, 8, 8}, colorModel.getComponentSize());
+    assertArrayEquals(new int[]{8, 8, 8, 8}, sampleModel.getSampleSize());
+    assertArrayEquals(new int[]{Short.SIZE, 8, 0, 24}, ((SinglePixelPackedSampleModel) sampleModel).getBitOffsets());
+  }
+
+  /**
+   * Method under test: {@link SampledImageReader#getStencilImage(PDImage, Paint)}
+   */
+  @Test
+  void testGetStencilImage9() throws IOException, NumberFormatException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDDocument document = new PDDocument(streamCacheCreateFunction);
+    byte[] byteArray = "AXAXAXAX".getBytes("UTF-8");
+    PDImageXObject pdImage = LosslessFactory.prepareImageXObject(document, byteArray, 1, 1, 1, new PDCalGray());
+
+    // Act
+    BufferedImage actualStencilImage = SampledImageReader.getStencilImage(pdImage, Color.decode("42"));
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    WritableRaster alphaRaster = actualStencilImage.getAlphaRaster();
+    Rectangle bounds = alphaRaster.getBounds();
+    Rectangle2D bounds2D = bounds.getBounds2D();
+    assertTrue(bounds2D instanceof Rectangle);
+    ColorModel colorModel = actualStencilImage.getColorModel();
+    ColorSpace colorSpace = colorModel.getColorSpace();
+    assertTrue(colorSpace instanceof ICC_ColorSpace);
+    assertTrue(((ICC_ColorSpace) colorSpace).getProfile() instanceof ICC_ProfileRGB);
+    Rectangle2D frame = bounds.getFrame();
+    assertTrue(frame instanceof Rectangle2D.Double);
+    DataBuffer dataBuffer = alphaRaster.getDataBuffer();
+    assertTrue(dataBuffer instanceof DataBufferInt);
+    Raster data = actualStencilImage.getData();
+    DataBuffer dataBuffer2 = data.getDataBuffer();
+    assertTrue(dataBuffer2 instanceof DataBufferInt);
+    assertTrue(colorModel instanceof DirectColorModel);
+    SampleModel sampleModel = actualStencilImage.getSampleModel();
+    assertTrue(sampleModel instanceof SinglePixelPackedSampleModel);
+    SampleModel sampleModel2 = alphaRaster.getSampleModel();
+    assertTrue(sampleModel2 instanceof SinglePixelPackedSampleModel);
+    Graphics graphics = actualStencilImage.getGraphics();
+    FontMetrics fontMetrics = graphics.getFontMetrics();
+    Font font = fontMetrics.getFont();
+    assertEquals("Dialog", font.getFamily());
+    assertEquals("Dialog", font.getName());
+    assertEquals("Dialog.plain", font.getFontName());
+    assertEquals("Dialog.plain", font.getPSName());
+    assertNull(actualStencilImage.getPropertyNames());
+    assertNull(graphics.getClipRect());
+    assertNull(data.getParent());
+    WritableRaster raster = actualStencilImage.getRaster();
+    assertNull(raster.getParent());
+    assertNull(raster.getWritableParent());
+    assertNull(actualStencilImage.getSources());
+    assertEquals(-16777216, ((DirectColorModel) colorModel).getAlphaMask());
+    assertEquals(0, font.getMissingGlyphCode());
+    assertEquals(0, font.getStyle());
+    assertEquals(0, fontMetrics.getLeading());
+    FontRenderContext fontRenderContext = fontMetrics.getFontRenderContext();
+    assertEquals(0, fontRenderContext.getTransformType());
+    AffineTransform transform = font.getTransform();
+    assertEquals(0, transform.getType());
+    assertEquals(0, actualStencilImage.getMinTileX());
+    assertEquals(0, actualStencilImage.getMinTileY());
+    assertEquals(0, actualStencilImage.getMinX());
+    assertEquals(0, actualStencilImage.getMinY());
+    assertEquals(0, actualStencilImage.getTileGridXOffset());
+    assertEquals(0, actualStencilImage.getTileGridYOffset());
+    assertEquals(0, dataBuffer.getOffset());
+    assertEquals(0, dataBuffer2.getOffset());
+    assertEquals(0, alphaRaster.getMinX());
+    assertEquals(0, data.getMinX());
+    assertEquals(0, raster.getMinX());
+    assertEquals(0, alphaRaster.getMinY());
+    assertEquals(0, data.getMinY());
+    assertEquals(0, raster.getMinY());
+    assertEquals(0, alphaRaster.getSampleModelTranslateX());
+    assertEquals(0, data.getSampleModelTranslateX());
+    assertEquals(0, raster.getSampleModelTranslateX());
+    assertEquals(0, alphaRaster.getSampleModelTranslateY());
+    assertEquals(0, data.getSampleModelTranslateY());
+    assertEquals(0, raster.getSampleModelTranslateY());
+    int[] widths = fontMetrics.getWidths();
+    assertEquals(0, widths[10]);
+    assertEquals(0, widths[13]);
+    assertEquals(0, widths[9]);
+    Point[] writableTileIndices = actualStencilImage.getWritableTileIndices();
+    Point point = writableTileIndices[0];
+    assertEquals(0, point.x);
+    assertEquals(0, point.y);
+    assertEquals(0, bounds.x);
+    assertEquals(0, bounds.y);
+    assertEquals(0.0d, point.getX());
+    assertEquals(0.0d, point.getY());
+    assertEquals(0.0d, bounds.getX());
+    assertEquals(0.0d, bounds.getY());
+    assertEquals(0.0d, transform.getShearX());
+    assertEquals(0.0d, transform.getShearY());
+    assertEquals(0.0d, transform.getTranslateX());
+    assertEquals(0.0d, transform.getTranslateY());
+    assertEquals(0.0d, bounds.getMinX());
+    assertEquals(0.0d, bounds.getMinY());
+    assertEquals(0.0f, font.getItalicAngle());
+    assertEquals(0.5d, bounds.getCenterX());
+    assertEquals(0.5d, bounds.getCenterY());
+    assertEquals(0.5f, actualStencilImage.getAccelerationPriority());
+    assertEquals(1, actualStencilImage.getHeight());
+    assertEquals(1, actualStencilImage.getNumXTiles());
+    assertEquals(1, actualStencilImage.getNumYTiles());
+    assertEquals(1, actualStencilImage.getTileHeight());
+    assertEquals(1, actualStencilImage.getTileWidth());
+    assertEquals(1, actualStencilImage.getWidth());
+    assertEquals(1, dataBuffer.getNumBanks());
+    assertEquals(1, dataBuffer2.getNumBanks());
+    assertEquals(1, dataBuffer.getSize());
+    assertEquals(1, dataBuffer2.getSize());
+    assertEquals(1, alphaRaster.getHeight());
+    assertEquals(1, data.getHeight());
+    assertEquals(1, raster.getHeight());
+    assertEquals(1, alphaRaster.getNumBands());
+    assertEquals(1, alphaRaster.getNumDataElements());
+    assertEquals(1, data.getNumDataElements());
+    assertEquals(1, raster.getNumDataElements());
+    assertEquals(1, alphaRaster.getWidth());
+    assertEquals(1, data.getWidth());
+    assertEquals(1, raster.getWidth());
+    assertEquals(1, sampleModel.getHeight());
+    assertEquals(1, sampleModel2.getHeight());
+    assertEquals(1, sampleModel2.getNumBands());
+    assertEquals(1, sampleModel.getNumDataElements());
+    assertEquals(1, sampleModel2.getNumDataElements());
+    assertEquals(1, sampleModel.getWidth());
+    assertEquals(1, sampleModel2.getWidth());
+    assertEquals(1, ((SinglePixelPackedSampleModel) sampleModel).getScanlineStride());
+    assertEquals(1, ((SinglePixelPackedSampleModel) sampleModel2).getScanlineStride());
+    assertEquals(1, writableTileIndices.length);
+    int[][] bankData = ((DataBufferInt) dataBuffer).getBankData();
+    assertEquals(1, bankData.length);
+    int[][] bankData2 = ((DataBufferInt) dataBuffer2).getBankData();
+    assertEquals(1, bankData2.length);
+    Dimension size = bounds.getSize();
+    assertEquals(1, size.height);
+    assertEquals(1, size.width);
+    assertEquals(1, bounds.height);
+    assertEquals(1, bounds.width);
+    assertEquals(1.0d, size.getHeight());
+    assertEquals(1.0d, size.getWidth());
+    assertEquals(1.0d, bounds.getHeight());
+    assertEquals(1.0d, bounds.getWidth());
+    assertEquals(1.0d, transform.getDeterminant());
+    assertEquals(1.0d, transform.getScaleX());
+    assertEquals(1.0d, transform.getScaleY());
+    assertEquals(1.0d, bounds.getMaxX());
+    assertEquals(1.0d, bounds.getMaxY());
+    assertEquals(10, widths[247]);
+    assertEquals(12, font.getSize());
+    assertEquals(12, fontMetrics.getAscent());
+    assertEquals(12, fontMetrics.getMaxAscent());
+    assertEquals(12.0f, font.getSize2D());
+    assertEquals(15, fontMetrics.getHeight());
+    assertEquals(16711680, ((DirectColorModel) colorModel).getRedMask());
+    assertEquals(2, actualStencilImage.getType());
+    assertEquals(22, fontMetrics.getMaxAdvance());
+    assertEquals(22, font.getAvailableAttributes().length);
+    assertEquals(255, ((DirectColorModel) colorModel).getBlueMask());
+    assertEquals(256, widths.length);
+    assertEquals(3, fontMetrics.getDescent());
+    assertEquals(3, fontMetrics.getMaxDecent());
+    assertEquals(3, fontMetrics.getMaxDescent());
+    assertEquals(3, colorSpace.getNumComponents());
+    assertEquals(3, actualStencilImage.getTransparency());
+    assertEquals(3, colorModel.getNumColorComponents());
+    assertEquals(3, colorModel.getTransferType());
+    assertEquals(3, colorModel.getTransparency());
+    assertEquals(3, dataBuffer.getDataType());
+    assertEquals(3, dataBuffer2.getDataType());
+    assertEquals(3, alphaRaster.getTransferType());
+    assertEquals(3, data.getTransferType());
+    assertEquals(3, raster.getTransferType());
+    assertEquals(3, sampleModel.getDataType());
+    assertEquals(3, sampleModel2.getDataType());
+    assertEquals(3, sampleModel.getTransferType());
+    assertEquals(3, sampleModel2.getTransferType());
+    assertEquals(3, widths[236]);
+    assertEquals(3, widths[237]);
+    assertEquals(3, widths[238]);
+    assertEquals(3, widths[239]);
+    assertEquals(4, colorModel.getNumComponents());
+    assertEquals(4, data.getNumBands());
+    assertEquals(4, raster.getNumBands());
+    assertEquals(4, sampleModel.getNumBands());
+    assertEquals(5, colorSpace.getType());
+    assertEquals(6, widths[253]);
+    assertEquals(6, widths[255]);
+    assertEquals(6253, font.getNumGlyphs());
+    assertEquals(65280, ((DirectColorModel) colorModel).getGreenMask());
+    assertEquals(7, widths[0]);
+    assertEquals(7, widths[1]);
+    assertEquals(7, widths[11]);
+    assertEquals(7, widths[12]);
+    assertEquals(7, widths[14]);
+    assertEquals(7, widths[15]);
+    assertEquals(7, widths[17]);
+    assertEquals(7, widths[18]);
+    assertEquals(7, widths[19]);
+    assertEquals(7, widths[2]);
+    assertEquals(7, widths[20]);
+    assertEquals(7, widths[21]);
+    assertEquals(7, widths[22]);
+    assertEquals(7, widths[23]);
+    assertEquals(7, widths[231]);
+    assertEquals(7, widths[24]);
+    assertEquals(7, widths[3]);
+    assertEquals(7, widths[4]);
+    assertEquals(7, widths[5]);
+    assertEquals(7, widths[6]);
+    assertEquals(7, widths[7]);
+    assertEquals(7, widths[8]);
+    assertEquals(7, widths[Short.SIZE]);
+    assertEquals(8, font.getAttributes().size());
+    assertEquals(8, widths[232]);
+    assertEquals(8, widths[233]);
+    assertEquals(8, widths[234]);
+    assertEquals(8, widths[235]);
+    assertEquals(8, widths[240]);
+    assertEquals(8, widths[241]);
+    assertEquals(8, widths[242]);
+    assertEquals(8, widths[243]);
+    assertEquals(8, widths[244]);
+    assertEquals(8, widths[245]);
+    assertEquals(8, widths[246]);
+    assertEquals(8, widths[248]);
+    assertEquals(8, widths[249]);
+    assertEquals(8, widths[250]);
+    assertEquals(8, widths[251]);
+    assertEquals(8, widths[252]);
+    assertEquals(8, widths[254]);
+    assertFalse(font.hasLayoutAttributes());
+    assertFalse(font.hasUniformLineMetrics());
+    assertFalse(font.isBold());
+    assertFalse(font.isItalic());
+    assertFalse(font.isTransformed());
+    assertFalse(fontMetrics.hasUniformLineMetrics());
+    assertFalse(bounds.isEmpty());
+    assertFalse(fontRenderContext.isAntiAliased());
+    assertFalse(fontRenderContext.isTransformed());
+    assertFalse(actualStencilImage.isAlphaPremultiplied());
+    assertFalse(colorModel.isAlphaPremultiplied());
+    assertTrue(font.isPlain());
+    assertTrue(colorSpace.isCS_sRGB());
+    assertTrue(transform.isIdentity());
+    assertTrue(actualStencilImage.hasTileWriters());
+    assertTrue(colorModel.hasAlpha());
+    assertEquals(transform, fontRenderContext.getTransform());
+    assertEquals(size, size.getSize());
+    assertEquals(bounds, bounds.getBounds());
+    assertEquals(bounds, data.getBounds());
+    assertEquals(bounds, raster.getBounds());
+    assertEquals(bounds, bounds2D);
+    assertEquals(bounds, frame);
+    assertEquals(point, point.getLocation());
+    assertEquals(point, bounds.getLocation());
+    assertEquals(Integer.SIZE, colorModel.getPixelSize());
+    assertSame(raster, alphaRaster.getParent());
+    assertSame(raster, alphaRaster.getWritableParent());
+    int[] data2 = ((DataBufferInt) dataBuffer).getData();
+    assertSame(data2, bankData[0]);
+    int[] data3 = ((DataBufferInt) dataBuffer2).getData();
+    assertSame(data3, bankData2[0]);
+    assertSame(dataBuffer, raster.getDataBuffer());
+    assertSame(sampleModel, data.getSampleModel());
+    assertSame(sampleModel, raster.getSampleModel());
+    assertArrayEquals(new int[]{-16777174}, data2);
+    assertArrayEquals(new int[]{-16777174}, data3);
+    assertArrayEquals(new int[]{-16777216}, ((SinglePixelPackedSampleModel) sampleModel2).getBitMasks());
+    assertArrayEquals(new int[]{0}, dataBuffer.getOffsets());
+    assertArrayEquals(new int[]{0}, dataBuffer2.getOffsets());
+    assertArrayEquals(new int[]{24}, ((SinglePixelPackedSampleModel) sampleModel2).getBitOffsets());
+    assertArrayEquals(new int[]{8}, sampleModel2.getSampleSize());
+    assertArrayEquals(new int[]{16711680, 65280, 255, -16777216}, ((DirectColorModel) colorModel).getMasks());
+    assertArrayEquals(new int[]{16711680, 65280, 255, -16777216},
+        ((SinglePixelPackedSampleModel) sampleModel).getBitMasks());
+    assertArrayEquals(new int[]{8, 8, 8, 8}, colorModel.getComponentSize());
+    assertArrayEquals(new int[]{8, 8, 8, 8}, sampleModel.getSampleSize());
+    assertArrayEquals(new int[]{Short.SIZE, 8, 0, 24}, ((SinglePixelPackedSampleModel) sampleModel).getBitOffsets());
+  }
+
+  /**
+   * Method under test: {@link SampledImageReader#getStencilImage(PDImage, Paint)}
+   */
+  @Test
+  void testGetStencilImage10() throws IOException, NumberFormatException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDDocument document = new PDDocument(streamCacheCreateFunction);
+    byte[] byteArray = "AXAXAXAX".getBytes("UTF-8");
+    PDImageXObject pdImage = LosslessFactory.prepareImageXObject(document, byteArray, 1, 1, 1, new PDCalRGB());
+
+    // Act
+    BufferedImage actualStencilImage = SampledImageReader.getStencilImage(pdImage, Color.decode("42"));
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    WritableRaster alphaRaster = actualStencilImage.getAlphaRaster();
+    Rectangle bounds = alphaRaster.getBounds();
+    Rectangle2D bounds2D = bounds.getBounds2D();
+    assertTrue(bounds2D instanceof Rectangle);
+    ColorModel colorModel = actualStencilImage.getColorModel();
+    ColorSpace colorSpace = colorModel.getColorSpace();
+    assertTrue(colorSpace instanceof ICC_ColorSpace);
+    assertTrue(((ICC_ColorSpace) colorSpace).getProfile() instanceof ICC_ProfileRGB);
+    Rectangle2D frame = bounds.getFrame();
+    assertTrue(frame instanceof Rectangle2D.Double);
+    DataBuffer dataBuffer = alphaRaster.getDataBuffer();
+    assertTrue(dataBuffer instanceof DataBufferInt);
+    Raster data = actualStencilImage.getData();
+    DataBuffer dataBuffer2 = data.getDataBuffer();
+    assertTrue(dataBuffer2 instanceof DataBufferInt);
+    assertTrue(colorModel instanceof DirectColorModel);
+    SampleModel sampleModel = actualStencilImage.getSampleModel();
+    assertTrue(sampleModel instanceof SinglePixelPackedSampleModel);
+    SampleModel sampleModel2 = alphaRaster.getSampleModel();
+    assertTrue(sampleModel2 instanceof SinglePixelPackedSampleModel);
+    Graphics graphics = actualStencilImage.getGraphics();
+    FontMetrics fontMetrics = graphics.getFontMetrics();
+    Font font = fontMetrics.getFont();
+    assertEquals("Dialog", font.getFamily());
+    assertEquals("Dialog", font.getName());
+    assertEquals("Dialog.plain", font.getFontName());
+    assertEquals("Dialog.plain", font.getPSName());
+    assertNull(actualStencilImage.getPropertyNames());
+    assertNull(graphics.getClipRect());
+    assertNull(data.getParent());
+    WritableRaster raster = actualStencilImage.getRaster();
+    assertNull(raster.getParent());
+    assertNull(raster.getWritableParent());
+    assertNull(actualStencilImage.getSources());
+    assertEquals(-16777216, ((DirectColorModel) colorModel).getAlphaMask());
+    assertEquals(0, font.getMissingGlyphCode());
+    assertEquals(0, font.getStyle());
+    assertEquals(0, fontMetrics.getLeading());
+    FontRenderContext fontRenderContext = fontMetrics.getFontRenderContext();
+    assertEquals(0, fontRenderContext.getTransformType());
+    AffineTransform transform = font.getTransform();
+    assertEquals(0, transform.getType());
+    assertEquals(0, actualStencilImage.getMinTileX());
+    assertEquals(0, actualStencilImage.getMinTileY());
+    assertEquals(0, actualStencilImage.getMinX());
+    assertEquals(0, actualStencilImage.getMinY());
+    assertEquals(0, actualStencilImage.getTileGridXOffset());
+    assertEquals(0, actualStencilImage.getTileGridYOffset());
+    assertEquals(0, dataBuffer.getOffset());
+    assertEquals(0, dataBuffer2.getOffset());
+    assertEquals(0, alphaRaster.getMinX());
+    assertEquals(0, data.getMinX());
+    assertEquals(0, raster.getMinX());
+    assertEquals(0, alphaRaster.getMinY());
+    assertEquals(0, data.getMinY());
+    assertEquals(0, raster.getMinY());
+    assertEquals(0, alphaRaster.getSampleModelTranslateX());
+    assertEquals(0, data.getSampleModelTranslateX());
+    assertEquals(0, raster.getSampleModelTranslateX());
+    assertEquals(0, alphaRaster.getSampleModelTranslateY());
+    assertEquals(0, data.getSampleModelTranslateY());
+    assertEquals(0, raster.getSampleModelTranslateY());
+    int[] widths = fontMetrics.getWidths();
+    assertEquals(0, widths[10]);
+    assertEquals(0, widths[13]);
+    assertEquals(0, widths[9]);
+    Point[] writableTileIndices = actualStencilImage.getWritableTileIndices();
+    Point point = writableTileIndices[0];
+    assertEquals(0, point.x);
+    assertEquals(0, point.y);
+    assertEquals(0, bounds.x);
+    assertEquals(0, bounds.y);
+    assertEquals(0.0d, point.getX());
+    assertEquals(0.0d, point.getY());
+    assertEquals(0.0d, bounds.getX());
+    assertEquals(0.0d, bounds.getY());
+    assertEquals(0.0d, transform.getShearX());
+    assertEquals(0.0d, transform.getShearY());
+    assertEquals(0.0d, transform.getTranslateX());
+    assertEquals(0.0d, transform.getTranslateY());
+    assertEquals(0.0d, bounds.getMinX());
+    assertEquals(0.0d, bounds.getMinY());
+    assertEquals(0.0f, font.getItalicAngle());
+    assertEquals(0.5d, bounds.getCenterX());
+    assertEquals(0.5d, bounds.getCenterY());
+    assertEquals(0.5f, actualStencilImage.getAccelerationPriority());
+    assertEquals(1, actualStencilImage.getHeight());
+    assertEquals(1, actualStencilImage.getNumXTiles());
+    assertEquals(1, actualStencilImage.getNumYTiles());
+    assertEquals(1, actualStencilImage.getTileHeight());
+    assertEquals(1, actualStencilImage.getTileWidth());
+    assertEquals(1, actualStencilImage.getWidth());
+    assertEquals(1, dataBuffer.getNumBanks());
+    assertEquals(1, dataBuffer2.getNumBanks());
+    assertEquals(1, dataBuffer.getSize());
+    assertEquals(1, dataBuffer2.getSize());
+    assertEquals(1, alphaRaster.getHeight());
+    assertEquals(1, data.getHeight());
+    assertEquals(1, raster.getHeight());
+    assertEquals(1, alphaRaster.getNumBands());
+    assertEquals(1, alphaRaster.getNumDataElements());
+    assertEquals(1, data.getNumDataElements());
+    assertEquals(1, raster.getNumDataElements());
+    assertEquals(1, alphaRaster.getWidth());
+    assertEquals(1, data.getWidth());
+    assertEquals(1, raster.getWidth());
+    assertEquals(1, sampleModel.getHeight());
+    assertEquals(1, sampleModel2.getHeight());
+    assertEquals(1, sampleModel2.getNumBands());
+    assertEquals(1, sampleModel.getNumDataElements());
+    assertEquals(1, sampleModel2.getNumDataElements());
+    assertEquals(1, sampleModel.getWidth());
+    assertEquals(1, sampleModel2.getWidth());
+    assertEquals(1, ((SinglePixelPackedSampleModel) sampleModel).getScanlineStride());
+    assertEquals(1, ((SinglePixelPackedSampleModel) sampleModel2).getScanlineStride());
+    assertEquals(1, writableTileIndices.length);
+    int[][] bankData = ((DataBufferInt) dataBuffer).getBankData();
+    assertEquals(1, bankData.length);
+    int[][] bankData2 = ((DataBufferInt) dataBuffer2).getBankData();
+    assertEquals(1, bankData2.length);
+    Dimension size = bounds.getSize();
+    assertEquals(1, size.height);
+    assertEquals(1, size.width);
+    assertEquals(1, bounds.height);
+    assertEquals(1, bounds.width);
+    assertEquals(1.0d, size.getHeight());
+    assertEquals(1.0d, size.getWidth());
+    assertEquals(1.0d, bounds.getHeight());
+    assertEquals(1.0d, bounds.getWidth());
+    assertEquals(1.0d, transform.getDeterminant());
+    assertEquals(1.0d, transform.getScaleX());
+    assertEquals(1.0d, transform.getScaleY());
+    assertEquals(1.0d, bounds.getMaxX());
+    assertEquals(1.0d, bounds.getMaxY());
+    assertEquals(10, widths[247]);
+    assertEquals(12, font.getSize());
+    assertEquals(12, fontMetrics.getAscent());
+    assertEquals(12, fontMetrics.getMaxAscent());
+    assertEquals(12.0f, font.getSize2D());
+    assertEquals(15, fontMetrics.getHeight());
+    assertEquals(16711680, ((DirectColorModel) colorModel).getRedMask());
+    assertEquals(2, actualStencilImage.getType());
+    assertEquals(22, fontMetrics.getMaxAdvance());
+    assertEquals(22, font.getAvailableAttributes().length);
+    assertEquals(255, ((DirectColorModel) colorModel).getBlueMask());
+    assertEquals(256, widths.length);
+    assertEquals(3, fontMetrics.getDescent());
+    assertEquals(3, fontMetrics.getMaxDecent());
+    assertEquals(3, fontMetrics.getMaxDescent());
+    assertEquals(3, colorSpace.getNumComponents());
+    assertEquals(3, actualStencilImage.getTransparency());
+    assertEquals(3, colorModel.getNumColorComponents());
+    assertEquals(3, colorModel.getTransferType());
+    assertEquals(3, colorModel.getTransparency());
+    assertEquals(3, dataBuffer.getDataType());
+    assertEquals(3, dataBuffer2.getDataType());
+    assertEquals(3, alphaRaster.getTransferType());
+    assertEquals(3, data.getTransferType());
+    assertEquals(3, raster.getTransferType());
+    assertEquals(3, sampleModel.getDataType());
+    assertEquals(3, sampleModel2.getDataType());
+    assertEquals(3, sampleModel.getTransferType());
+    assertEquals(3, sampleModel2.getTransferType());
+    assertEquals(3, widths[236]);
+    assertEquals(3, widths[237]);
+    assertEquals(3, widths[238]);
+    assertEquals(3, widths[239]);
+    assertEquals(4, colorModel.getNumComponents());
+    assertEquals(4, data.getNumBands());
+    assertEquals(4, raster.getNumBands());
+    assertEquals(4, sampleModel.getNumBands());
+    assertEquals(5, colorSpace.getType());
+    assertEquals(6, widths[253]);
+    assertEquals(6, widths[255]);
+    assertEquals(6253, font.getNumGlyphs());
+    assertEquals(65280, ((DirectColorModel) colorModel).getGreenMask());
+    assertEquals(7, widths[0]);
+    assertEquals(7, widths[1]);
+    assertEquals(7, widths[11]);
+    assertEquals(7, widths[12]);
+    assertEquals(7, widths[14]);
+    assertEquals(7, widths[15]);
+    assertEquals(7, widths[17]);
+    assertEquals(7, widths[18]);
+    assertEquals(7, widths[19]);
+    assertEquals(7, widths[2]);
+    assertEquals(7, widths[20]);
+    assertEquals(7, widths[21]);
+    assertEquals(7, widths[22]);
+    assertEquals(7, widths[23]);
+    assertEquals(7, widths[231]);
+    assertEquals(7, widths[24]);
+    assertEquals(7, widths[3]);
+    assertEquals(7, widths[4]);
+    assertEquals(7, widths[5]);
+    assertEquals(7, widths[6]);
+    assertEquals(7, widths[7]);
+    assertEquals(7, widths[8]);
+    assertEquals(7, widths[Short.SIZE]);
+    assertEquals(8, font.getAttributes().size());
+    assertEquals(8, widths[232]);
+    assertEquals(8, widths[233]);
+    assertEquals(8, widths[234]);
+    assertEquals(8, widths[235]);
+    assertEquals(8, widths[240]);
+    assertEquals(8, widths[241]);
+    assertEquals(8, widths[242]);
+    assertEquals(8, widths[243]);
+    assertEquals(8, widths[244]);
+    assertEquals(8, widths[245]);
+    assertEquals(8, widths[246]);
+    assertEquals(8, widths[248]);
+    assertEquals(8, widths[249]);
+    assertEquals(8, widths[250]);
+    assertEquals(8, widths[251]);
+    assertEquals(8, widths[252]);
+    assertEquals(8, widths[254]);
+    assertFalse(font.hasLayoutAttributes());
+    assertFalse(font.hasUniformLineMetrics());
+    assertFalse(font.isBold());
+    assertFalse(font.isItalic());
+    assertFalse(font.isTransformed());
+    assertFalse(fontMetrics.hasUniformLineMetrics());
+    assertFalse(bounds.isEmpty());
+    assertFalse(fontRenderContext.isAntiAliased());
+    assertFalse(fontRenderContext.isTransformed());
+    assertFalse(actualStencilImage.isAlphaPremultiplied());
+    assertFalse(colorModel.isAlphaPremultiplied());
+    assertTrue(font.isPlain());
+    assertTrue(colorSpace.isCS_sRGB());
+    assertTrue(transform.isIdentity());
+    assertTrue(actualStencilImage.hasTileWriters());
+    assertTrue(colorModel.hasAlpha());
+    assertEquals(transform, fontRenderContext.getTransform());
+    assertEquals(size, size.getSize());
+    assertEquals(bounds, bounds.getBounds());
+    assertEquals(bounds, data.getBounds());
+    assertEquals(bounds, raster.getBounds());
+    assertEquals(bounds, bounds2D);
+    assertEquals(bounds, frame);
+    assertEquals(point, point.getLocation());
+    assertEquals(point, bounds.getLocation());
+    assertEquals(Integer.SIZE, colorModel.getPixelSize());
+    assertSame(raster, alphaRaster.getParent());
+    assertSame(raster, alphaRaster.getWritableParent());
+    int[] data2 = ((DataBufferInt) dataBuffer).getData();
+    assertSame(data2, bankData[0]);
+    int[] data3 = ((DataBufferInt) dataBuffer2).getData();
+    assertSame(data3, bankData2[0]);
+    assertSame(dataBuffer, raster.getDataBuffer());
+    assertSame(sampleModel, data.getSampleModel());
+    assertSame(sampleModel, raster.getSampleModel());
+    assertArrayEquals(new int[]{-16777174}, data2);
+    assertArrayEquals(new int[]{-16777174}, data3);
+    assertArrayEquals(new int[]{-16777216}, ((SinglePixelPackedSampleModel) sampleModel2).getBitMasks());
+    assertArrayEquals(new int[]{0}, dataBuffer.getOffsets());
+    assertArrayEquals(new int[]{0}, dataBuffer2.getOffsets());
+    assertArrayEquals(new int[]{24}, ((SinglePixelPackedSampleModel) sampleModel2).getBitOffsets());
+    assertArrayEquals(new int[]{8}, sampleModel2.getSampleSize());
+    assertArrayEquals(new int[]{16711680, 65280, 255, -16777216}, ((DirectColorModel) colorModel).getMasks());
+    assertArrayEquals(new int[]{16711680, 65280, 255, -16777216},
+        ((SinglePixelPackedSampleModel) sampleModel).getBitMasks());
+    assertArrayEquals(new int[]{8, 8, 8, 8}, colorModel.getComponentSize());
+    assertArrayEquals(new int[]{8, 8, 8, 8}, sampleModel.getSampleSize());
+    assertArrayEquals(new int[]{Short.SIZE, 8, 0, 24}, ((SinglePixelPackedSampleModel) sampleModel).getBitOffsets());
+  }
+
+  /**
+   * Method under test: {@link SampledImageReader#getStencilImage(PDImage, Paint)}
+   */
+  @Test
+  void testGetStencilImage11() throws IOException, NumberFormatException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDDocument document = new PDDocument(streamCacheCreateFunction);
+    byte[] byteArray = "AXAXAXAX".getBytes("UTF-8");
+    PDImageXObject pdImage = LosslessFactory.prepareImageXObject(document, byteArray, 1, 1, 1, new PDLab());
+
+    // Act
+    BufferedImage actualStencilImage = SampledImageReader.getStencilImage(pdImage, Color.decode("42"));
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    WritableRaster alphaRaster = actualStencilImage.getAlphaRaster();
+    Rectangle bounds = alphaRaster.getBounds();
+    Rectangle2D bounds2D = bounds.getBounds2D();
+    assertTrue(bounds2D instanceof Rectangle);
+    ColorModel colorModel = actualStencilImage.getColorModel();
+    ColorSpace colorSpace = colorModel.getColorSpace();
+    assertTrue(colorSpace instanceof ICC_ColorSpace);
+    assertTrue(((ICC_ColorSpace) colorSpace).getProfile() instanceof ICC_ProfileRGB);
+    Rectangle2D frame = bounds.getFrame();
+    assertTrue(frame instanceof Rectangle2D.Double);
+    DataBuffer dataBuffer = alphaRaster.getDataBuffer();
+    assertTrue(dataBuffer instanceof DataBufferInt);
+    Raster data = actualStencilImage.getData();
+    DataBuffer dataBuffer2 = data.getDataBuffer();
+    assertTrue(dataBuffer2 instanceof DataBufferInt);
+    assertTrue(colorModel instanceof DirectColorModel);
+    SampleModel sampleModel = actualStencilImage.getSampleModel();
+    assertTrue(sampleModel instanceof SinglePixelPackedSampleModel);
+    SampleModel sampleModel2 = alphaRaster.getSampleModel();
+    assertTrue(sampleModel2 instanceof SinglePixelPackedSampleModel);
+    Graphics graphics = actualStencilImage.getGraphics();
+    FontMetrics fontMetrics = graphics.getFontMetrics();
+    Font font = fontMetrics.getFont();
+    assertEquals("Dialog", font.getFamily());
+    assertEquals("Dialog", font.getName());
+    assertEquals("Dialog.plain", font.getFontName());
+    assertEquals("Dialog.plain", font.getPSName());
+    assertNull(actualStencilImage.getPropertyNames());
+    assertNull(graphics.getClipRect());
+    assertNull(data.getParent());
+    WritableRaster raster = actualStencilImage.getRaster();
+    assertNull(raster.getParent());
+    assertNull(raster.getWritableParent());
+    assertNull(actualStencilImage.getSources());
+    assertEquals(-16777216, ((DirectColorModel) colorModel).getAlphaMask());
+    assertEquals(0, font.getMissingGlyphCode());
+    assertEquals(0, font.getStyle());
+    assertEquals(0, fontMetrics.getLeading());
+    FontRenderContext fontRenderContext = fontMetrics.getFontRenderContext();
+    assertEquals(0, fontRenderContext.getTransformType());
+    AffineTransform transform = font.getTransform();
+    assertEquals(0, transform.getType());
+    assertEquals(0, actualStencilImage.getMinTileX());
+    assertEquals(0, actualStencilImage.getMinTileY());
+    assertEquals(0, actualStencilImage.getMinX());
+    assertEquals(0, actualStencilImage.getMinY());
+    assertEquals(0, actualStencilImage.getTileGridXOffset());
+    assertEquals(0, actualStencilImage.getTileGridYOffset());
+    assertEquals(0, dataBuffer.getOffset());
+    assertEquals(0, dataBuffer2.getOffset());
+    assertEquals(0, alphaRaster.getMinX());
+    assertEquals(0, data.getMinX());
+    assertEquals(0, raster.getMinX());
+    assertEquals(0, alphaRaster.getMinY());
+    assertEquals(0, data.getMinY());
+    assertEquals(0, raster.getMinY());
+    assertEquals(0, alphaRaster.getSampleModelTranslateX());
+    assertEquals(0, data.getSampleModelTranslateX());
+    assertEquals(0, raster.getSampleModelTranslateX());
+    assertEquals(0, alphaRaster.getSampleModelTranslateY());
+    assertEquals(0, data.getSampleModelTranslateY());
+    assertEquals(0, raster.getSampleModelTranslateY());
+    int[] widths = fontMetrics.getWidths();
+    assertEquals(0, widths[10]);
+    assertEquals(0, widths[13]);
+    assertEquals(0, widths[9]);
+    Point[] writableTileIndices = actualStencilImage.getWritableTileIndices();
+    Point point = writableTileIndices[0];
+    assertEquals(0, point.x);
+    assertEquals(0, point.y);
+    assertEquals(0, bounds.x);
+    assertEquals(0, bounds.y);
+    assertEquals(0.0d, point.getX());
+    assertEquals(0.0d, point.getY());
+    assertEquals(0.0d, bounds.getX());
+    assertEquals(0.0d, bounds.getY());
+    assertEquals(0.0d, transform.getShearX());
+    assertEquals(0.0d, transform.getShearY());
+    assertEquals(0.0d, transform.getTranslateX());
+    assertEquals(0.0d, transform.getTranslateY());
+    assertEquals(0.0d, bounds.getMinX());
+    assertEquals(0.0d, bounds.getMinY());
+    assertEquals(0.0f, font.getItalicAngle());
+    assertEquals(0.5d, bounds.getCenterX());
+    assertEquals(0.5d, bounds.getCenterY());
+    assertEquals(0.5f, actualStencilImage.getAccelerationPriority());
+    assertEquals(1, actualStencilImage.getHeight());
+    assertEquals(1, actualStencilImage.getNumXTiles());
+    assertEquals(1, actualStencilImage.getNumYTiles());
+    assertEquals(1, actualStencilImage.getTileHeight());
+    assertEquals(1, actualStencilImage.getTileWidth());
+    assertEquals(1, actualStencilImage.getWidth());
+    assertEquals(1, dataBuffer.getNumBanks());
+    assertEquals(1, dataBuffer2.getNumBanks());
+    assertEquals(1, dataBuffer.getSize());
+    assertEquals(1, dataBuffer2.getSize());
+    assertEquals(1, alphaRaster.getHeight());
+    assertEquals(1, data.getHeight());
+    assertEquals(1, raster.getHeight());
+    assertEquals(1, alphaRaster.getNumBands());
+    assertEquals(1, alphaRaster.getNumDataElements());
+    assertEquals(1, data.getNumDataElements());
+    assertEquals(1, raster.getNumDataElements());
+    assertEquals(1, alphaRaster.getWidth());
+    assertEquals(1, data.getWidth());
+    assertEquals(1, raster.getWidth());
+    assertEquals(1, sampleModel.getHeight());
+    assertEquals(1, sampleModel2.getHeight());
+    assertEquals(1, sampleModel2.getNumBands());
+    assertEquals(1, sampleModel.getNumDataElements());
+    assertEquals(1, sampleModel2.getNumDataElements());
+    assertEquals(1, sampleModel.getWidth());
+    assertEquals(1, sampleModel2.getWidth());
+    assertEquals(1, ((SinglePixelPackedSampleModel) sampleModel).getScanlineStride());
+    assertEquals(1, ((SinglePixelPackedSampleModel) sampleModel2).getScanlineStride());
+    assertEquals(1, writableTileIndices.length);
+    int[][] bankData = ((DataBufferInt) dataBuffer).getBankData();
+    assertEquals(1, bankData.length);
+    int[][] bankData2 = ((DataBufferInt) dataBuffer2).getBankData();
+    assertEquals(1, bankData2.length);
+    Dimension size = bounds.getSize();
+    assertEquals(1, size.height);
+    assertEquals(1, size.width);
+    assertEquals(1, bounds.height);
+    assertEquals(1, bounds.width);
+    assertEquals(1.0d, size.getHeight());
+    assertEquals(1.0d, size.getWidth());
+    assertEquals(1.0d, bounds.getHeight());
+    assertEquals(1.0d, bounds.getWidth());
+    assertEquals(1.0d, transform.getDeterminant());
+    assertEquals(1.0d, transform.getScaleX());
+    assertEquals(1.0d, transform.getScaleY());
+    assertEquals(1.0d, bounds.getMaxX());
+    assertEquals(1.0d, bounds.getMaxY());
+    assertEquals(10, widths[247]);
+    assertEquals(12, font.getSize());
+    assertEquals(12, fontMetrics.getAscent());
+    assertEquals(12, fontMetrics.getMaxAscent());
+    assertEquals(12.0f, font.getSize2D());
+    assertEquals(15, fontMetrics.getHeight());
+    assertEquals(16711680, ((DirectColorModel) colorModel).getRedMask());
+    assertEquals(2, actualStencilImage.getType());
+    assertEquals(22, fontMetrics.getMaxAdvance());
+    assertEquals(22, font.getAvailableAttributes().length);
+    assertEquals(255, ((DirectColorModel) colorModel).getBlueMask());
+    assertEquals(256, widths.length);
+    assertEquals(3, fontMetrics.getDescent());
+    assertEquals(3, fontMetrics.getMaxDecent());
+    assertEquals(3, fontMetrics.getMaxDescent());
+    assertEquals(3, colorSpace.getNumComponents());
+    assertEquals(3, actualStencilImage.getTransparency());
+    assertEquals(3, colorModel.getNumColorComponents());
+    assertEquals(3, colorModel.getTransferType());
+    assertEquals(3, colorModel.getTransparency());
+    assertEquals(3, dataBuffer.getDataType());
+    assertEquals(3, dataBuffer2.getDataType());
+    assertEquals(3, alphaRaster.getTransferType());
+    assertEquals(3, data.getTransferType());
+    assertEquals(3, raster.getTransferType());
+    assertEquals(3, sampleModel.getDataType());
+    assertEquals(3, sampleModel2.getDataType());
+    assertEquals(3, sampleModel.getTransferType());
+    assertEquals(3, sampleModel2.getTransferType());
+    assertEquals(3, widths[236]);
+    assertEquals(3, widths[237]);
+    assertEquals(3, widths[238]);
+    assertEquals(3, widths[239]);
+    assertEquals(4, colorModel.getNumComponents());
+    assertEquals(4, data.getNumBands());
+    assertEquals(4, raster.getNumBands());
+    assertEquals(4, sampleModel.getNumBands());
+    assertEquals(5, colorSpace.getType());
+    assertEquals(6, widths[253]);
+    assertEquals(6, widths[255]);
+    assertEquals(6253, font.getNumGlyphs());
+    assertEquals(65280, ((DirectColorModel) colorModel).getGreenMask());
+    assertEquals(7, widths[0]);
+    assertEquals(7, widths[1]);
+    assertEquals(7, widths[11]);
+    assertEquals(7, widths[12]);
+    assertEquals(7, widths[14]);
+    assertEquals(7, widths[15]);
+    assertEquals(7, widths[17]);
+    assertEquals(7, widths[18]);
+    assertEquals(7, widths[19]);
+    assertEquals(7, widths[2]);
+    assertEquals(7, widths[20]);
+    assertEquals(7, widths[21]);
+    assertEquals(7, widths[22]);
+    assertEquals(7, widths[23]);
+    assertEquals(7, widths[231]);
+    assertEquals(7, widths[24]);
+    assertEquals(7, widths[3]);
+    assertEquals(7, widths[4]);
+    assertEquals(7, widths[5]);
+    assertEquals(7, widths[6]);
+    assertEquals(7, widths[7]);
+    assertEquals(7, widths[8]);
+    assertEquals(7, widths[Short.SIZE]);
+    assertEquals(8, font.getAttributes().size());
+    assertEquals(8, widths[232]);
+    assertEquals(8, widths[233]);
+    assertEquals(8, widths[234]);
+    assertEquals(8, widths[235]);
+    assertEquals(8, widths[240]);
+    assertEquals(8, widths[241]);
+    assertEquals(8, widths[242]);
+    assertEquals(8, widths[243]);
+    assertEquals(8, widths[244]);
+    assertEquals(8, widths[245]);
+    assertEquals(8, widths[246]);
+    assertEquals(8, widths[248]);
+    assertEquals(8, widths[249]);
+    assertEquals(8, widths[250]);
+    assertEquals(8, widths[251]);
+    assertEquals(8, widths[252]);
+    assertEquals(8, widths[254]);
+    assertFalse(font.hasLayoutAttributes());
+    assertFalse(font.hasUniformLineMetrics());
+    assertFalse(font.isBold());
+    assertFalse(font.isItalic());
+    assertFalse(font.isTransformed());
+    assertFalse(fontMetrics.hasUniformLineMetrics());
+    assertFalse(bounds.isEmpty());
+    assertFalse(fontRenderContext.isAntiAliased());
+    assertFalse(fontRenderContext.isTransformed());
+    assertFalse(actualStencilImage.isAlphaPremultiplied());
+    assertFalse(colorModel.isAlphaPremultiplied());
+    assertTrue(font.isPlain());
+    assertTrue(colorSpace.isCS_sRGB());
+    assertTrue(transform.isIdentity());
+    assertTrue(actualStencilImage.hasTileWriters());
+    assertTrue(colorModel.hasAlpha());
+    assertEquals(transform, fontRenderContext.getTransform());
+    assertEquals(size, size.getSize());
+    assertEquals(bounds, bounds.getBounds());
+    assertEquals(bounds, data.getBounds());
+    assertEquals(bounds, raster.getBounds());
+    assertEquals(bounds, bounds2D);
+    assertEquals(bounds, frame);
+    assertEquals(point, point.getLocation());
+    assertEquals(point, bounds.getLocation());
+    assertEquals(Integer.SIZE, colorModel.getPixelSize());
+    assertSame(raster, alphaRaster.getParent());
+    assertSame(raster, alphaRaster.getWritableParent());
+    int[] data2 = ((DataBufferInt) dataBuffer).getData();
+    assertSame(data2, bankData[0]);
+    int[] data3 = ((DataBufferInt) dataBuffer2).getData();
+    assertSame(data3, bankData2[0]);
+    assertSame(dataBuffer, raster.getDataBuffer());
+    assertSame(sampleModel, data.getSampleModel());
+    assertSame(sampleModel, raster.getSampleModel());
+    assertArrayEquals(new int[]{-16777174}, data2);
+    assertArrayEquals(new int[]{-16777174}, data3);
+    assertArrayEquals(new int[]{-16777216}, ((SinglePixelPackedSampleModel) sampleModel2).getBitMasks());
+    assertArrayEquals(new int[]{0}, dataBuffer.getOffsets());
+    assertArrayEquals(new int[]{0}, dataBuffer2.getOffsets());
+    assertArrayEquals(new int[]{24}, ((SinglePixelPackedSampleModel) sampleModel2).getBitOffsets());
+    assertArrayEquals(new int[]{8}, sampleModel2.getSampleSize());
+    assertArrayEquals(new int[]{16711680, 65280, 255, -16777216}, ((DirectColorModel) colorModel).getMasks());
+    assertArrayEquals(new int[]{16711680, 65280, 255, -16777216},
+        ((SinglePixelPackedSampleModel) sampleModel).getBitMasks());
+    assertArrayEquals(new int[]{8, 8, 8, 8}, colorModel.getComponentSize());
+    assertArrayEquals(new int[]{8, 8, 8, 8}, sampleModel.getSampleSize());
+    assertArrayEquals(new int[]{Short.SIZE, 8, 0, 24}, ((SinglePixelPackedSampleModel) sampleModel).getBitOffsets());
+  }
+
+  /**
+   * Method under test:
+   * {@link SampledImageReader#getRGBImage(PDImage, Rectangle, int, COSArray)}
+   */
+  @Test
+  void testGetRGBImage() throws IOException {
     // Arrange
     PDImageXObject pdImage = PDImageXObject.createThumbnail(new COSStream());
     Rectangle region = new Rectangle(1, 1);
@@ -1121,37 +3197,645 @@ class SampledImageReaderDiffblueTest {
   }
 
   /**
-   * Test {@link SampledImageReader#getRGBImage(PDImage, Rectangle, int, COSArray)} with {@code pdImage}, {@code region}, {@code subsampling}, {@code colorKey}.
-   * <ul>
-   *   <li>When zero.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SampledImageReader#getRGBImage(PDImage, Rectangle, int, COSArray)}
+   * Method under test:
+   * {@link SampledImageReader#getRGBImage(PDImage, Rectangle, int, COSArray)}
    */
   @Test
-  @DisplayName("Test getRGBImage(PDImage, Rectangle, int, COSArray) with 'pdImage', 'region', 'subsampling', 'colorKey'; when zero")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"BufferedImage SampledImageReader.getRGBImage(PDImage, Rectangle, int, COSArray)"})
-  void testGetRGBImageWithPdImageRegionSubsamplingColorKey_whenZero() throws IOException {
+  void testGetRGBImage2() throws IOException {
     // Arrange
     PDImageXObject pdImage = LosslessFactory.prepareImageXObject(new PDDocument(),
         new byte[]{'A', 1, 'A', 1, 'A', 1, 'A', 1}, 1, 1, 1, PDDeviceGray.INSTANCE);
     Rectangle region = new Rectangle(1, 1);
 
-    // Act and Assert
-    assertThrows(IOException.class, () -> SampledImageReader.getRGBImage(pdImage, region, 0, new COSArray()));
+    // Act
+    BufferedImage actualRGBImage = SampledImageReader.getRGBImage(pdImage, region, 1, new COSArray());
+
+    // Assert
+    ColorModel colorModel = actualRGBImage.getColorModel();
+    ColorSpace colorSpace = colorModel.getColorSpace();
+    assertTrue(colorSpace instanceof ICC_ColorSpace);
+    ICC_Profile profile = ((ICC_ColorSpace) colorSpace).getProfile();
+    assertTrue(profile instanceof ICC_ProfileRGB);
+    Raster data = actualRGBImage.getData();
+    DataBuffer dataBuffer = data.getDataBuffer();
+    assertTrue(dataBuffer instanceof DataBufferInt);
+    WritableRaster raster = actualRGBImage.getRaster();
+    DataBuffer dataBuffer2 = raster.getDataBuffer();
+    assertTrue(dataBuffer2 instanceof DataBufferInt);
+    assertTrue(colorModel instanceof DirectColorModel);
+    SampleModel sampleModel = actualRGBImage.getSampleModel();
+    assertTrue(sampleModel instanceof SinglePixelPackedSampleModel);
+    Graphics graphics = actualRGBImage.getGraphics();
+    FontMetrics fontMetrics = graphics.getFontMetrics();
+    Font font = fontMetrics.getFont();
+    assertEquals("Dialog", font.getFamily());
+    assertEquals("Dialog", font.getName());
+    assertEquals("Dialog.plain", font.getFontName());
+    assertEquals("Dialog.plain", font.getPSName());
+    assertNull(actualRGBImage.getPropertyNames());
+    assertNull(graphics.getClipRect());
+    assertNull(data.getParent());
+    assertNull(raster.getParent());
+    assertNull(actualRGBImage.getAlphaRaster());
+    assertNull(raster.getWritableParent());
+    assertNull(actualRGBImage.getSources());
+    byte[] data2 = profile.getData();
+    assertEquals((byte) -102, data2[6867]);
+    assertEquals((byte) -103, data2[6866]);
+    assertEquals((byte) -36, data2[3]);
+    assertEquals((byte) -41, data2[6855]);
+    assertEquals((byte) -51, data2[6863]);
+    assertEquals((byte) -93, data2[6854]);
+    assertEquals(0, font.getMissingGlyphCode());
+    assertEquals(0, font.getStyle());
+    assertEquals(0, fontMetrics.getLeading());
+    assertEquals(0, profile.getPCSType());
+    FontRenderContext fontRenderContext = fontMetrics.getFontRenderContext();
+    assertEquals(0, fontRenderContext.getTransformType());
+    AffineTransform transform = font.getTransform();
+    assertEquals(0, transform.getType());
+    assertEquals(0, actualRGBImage.getMinTileX());
+    assertEquals(0, actualRGBImage.getMinTileY());
+    assertEquals(0, actualRGBImage.getMinX());
+    assertEquals(0, actualRGBImage.getMinY());
+    assertEquals(0, actualRGBImage.getTileGridXOffset());
+    assertEquals(0, actualRGBImage.getTileGridYOffset());
+    assertEquals(0, dataBuffer.getOffset());
+    assertEquals(0, dataBuffer2.getOffset());
+    assertEquals(0, ((DirectColorModel) colorModel).getAlphaMask());
+    assertEquals(0, data.getMinX());
+    assertEquals(0, raster.getMinX());
+    assertEquals(0, data.getMinY());
+    assertEquals(0, raster.getMinY());
+    assertEquals(0, data.getSampleModelTranslateX());
+    assertEquals(0, raster.getSampleModelTranslateX());
+    assertEquals(0, data.getSampleModelTranslateY());
+    assertEquals(0, raster.getSampleModelTranslateY());
+    int[] widths = fontMetrics.getWidths();
+    assertEquals(0, widths[10]);
+    assertEquals(0, widths[13]);
+    assertEquals(0, widths[9]);
+    Point[] writableTileIndices = actualRGBImage.getWritableTileIndices();
+    Point point = writableTileIndices[0];
+    assertEquals(0, point.x);
+    assertEquals(0, point.y);
+    assertEquals(0.0d, point.getX());
+    assertEquals(0.0d, point.getY());
+    assertEquals(0.0d, transform.getShearX());
+    assertEquals(0.0d, transform.getShearY());
+    assertEquals(0.0d, transform.getTranslateX());
+    assertEquals(0.0d, transform.getTranslateY());
+    assertEquals(0.0f, font.getItalicAngle());
+    assertEquals(0.5f, actualRGBImage.getAccelerationPriority());
+    assertEquals((byte) 0, data2[0]);
+    assertEquals((byte) 0, data2[1]);
+    assertEquals((byte) 0, data2[10]);
+    assertEquals((byte) 0, data2[11]);
+    assertEquals((byte) 0, data2[6851]);
+    assertEquals((byte) 0, data2[6852]);
+    assertEquals((byte) 0, data2[6853]);
+    assertEquals((byte) 0, data2[6856]);
+    assertEquals((byte) 0, data2[6857]);
+    assertEquals((byte) 0, data2[6860]);
+    assertEquals((byte) 0, data2[6861]);
+    assertEquals((byte) 0, data2[6864]);
+    assertEquals((byte) 0, data2[6865]);
+    assertEquals((byte) 0, data2[6868]);
+    assertEquals((byte) 0, data2[6869]);
+    assertEquals((byte) 0, data2[6872]);
+    assertEquals((byte) 0, data2[6873]);
+    assertEquals(1, profile.getProfileClass());
+    assertEquals(1, actualRGBImage.getHeight());
+    assertEquals(1, actualRGBImage.getNumXTiles());
+    assertEquals(1, actualRGBImage.getNumYTiles());
+    assertEquals(1, actualRGBImage.getTileHeight());
+    assertEquals(1, actualRGBImage.getTileWidth());
+    assertEquals(1, actualRGBImage.getTransparency());
+    assertEquals(1, actualRGBImage.getType());
+    assertEquals(1, actualRGBImage.getWidth());
+    assertEquals(1, colorModel.getTransparency());
+    assertEquals(1, dataBuffer.getNumBanks());
+    assertEquals(1, dataBuffer2.getNumBanks());
+    assertEquals(1, dataBuffer.getSize());
+    assertEquals(1, dataBuffer2.getSize());
+    assertEquals(1, data.getHeight());
+    assertEquals(1, raster.getHeight());
+    assertEquals(1, data.getNumDataElements());
+    assertEquals(1, raster.getNumDataElements());
+    assertEquals(1, data.getWidth());
+    assertEquals(1, raster.getWidth());
+    assertEquals(1, sampleModel.getHeight());
+    assertEquals(1, sampleModel.getNumDataElements());
+    assertEquals(1, sampleModel.getWidth());
+    assertEquals(1, ((SinglePixelPackedSampleModel) sampleModel).getScanlineStride());
+    assertEquals(1, writableTileIndices.length);
+    int[][] bankData = ((DataBufferInt) dataBuffer).getBankData();
+    assertEquals(1, bankData.length);
+    int[][] bankData2 = ((DataBufferInt) dataBuffer2).getBankData();
+    assertEquals(1, bankData2.length);
+    assertEquals(1.0d, transform.getDeterminant());
+    assertEquals(1.0d, transform.getScaleX());
+    assertEquals(1.0d, transform.getScaleY());
+    assertEquals(10, widths[247]);
+    assertEquals(12, font.getSize());
+    assertEquals(12, fontMetrics.getAscent());
+    assertEquals(12, fontMetrics.getMaxAscent());
+    assertEquals(12.0f, font.getSize2D());
+    assertEquals(15, fontMetrics.getHeight());
+    assertEquals((byte) 15, data2[6874]);
+    assertEquals(16711680, ((DirectColorModel) colorModel).getRedMask());
+    assertEquals(2, profile.getMajorVersion());
+    assertEquals(22, fontMetrics.getMaxAdvance());
+    assertEquals(22, font.getAvailableAttributes().length);
+    assertEquals(24, colorModel.getPixelSize());
+    assertEquals(255, ((DirectColorModel) colorModel).getBlueMask());
+    assertEquals(256, widths.length);
+    assertEquals((byte) 26, data2[2]);
+    assertEquals((byte) 2, data2[8]);
+    assertEquals(3, fontMetrics.getDescent());
+    assertEquals(3, fontMetrics.getMaxDecent());
+    assertEquals(3, fontMetrics.getMaxDescent());
+    assertEquals(3, colorSpace.getNumComponents());
+    assertEquals(3, profile.getNumComponents());
+    assertEquals(3, colorModel.getNumColorComponents());
+    assertEquals(3, colorModel.getNumComponents());
+    assertEquals(3, colorModel.getTransferType());
+    assertEquals(3, dataBuffer.getDataType());
+    assertEquals(3, dataBuffer2.getDataType());
+    assertEquals(3, data.getNumBands());
+    assertEquals(3, raster.getNumBands());
+    assertEquals(3, data.getTransferType());
+    assertEquals(3, raster.getTransferType());
+    assertEquals(3, sampleModel.getDataType());
+    assertEquals(3, sampleModel.getNumBands());
+    assertEquals(3, sampleModel.getTransferType());
+    assertEquals(3, widths[236]);
+    assertEquals(3, widths[237]);
+    assertEquals(3, widths[238]);
+    assertEquals(3, widths[239]);
+    float[][] matrix = ((ICC_ProfileRGB) profile).getMatrix();
+    assertEquals(3, matrix.length);
+    assertEquals(48, profile.getMinorVersion());
+    assertEquals(5, colorSpace.getType());
+    assertEquals(5, profile.getColorSpaceType());
+    assertEquals(6, widths[253]);
+    assertEquals(6, widths[255]);
+    assertEquals(6253, font.getNumGlyphs());
+    assertEquals(65280, ((DirectColorModel) colorModel).getGreenMask());
+    assertEquals(6876, data2.length);
+    assertEquals(7, widths[0]);
+    assertEquals(7, widths[1]);
+    assertEquals(7, widths[11]);
+    assertEquals(7, widths[12]);
+    assertEquals(7, widths[14]);
+    assertEquals(7, widths[15]);
+    assertEquals(7, widths[17]);
+    assertEquals(7, widths[18]);
+    assertEquals(7, widths[19]);
+    assertEquals(7, widths[2]);
+    assertEquals(7, widths[20]);
+    assertEquals(7, widths[21]);
+    assertEquals(7, widths[22]);
+    assertEquals(7, widths[23]);
+    assertEquals(7, widths[231]);
+    assertEquals(7, widths[24]);
+    assertEquals(7, widths[3]);
+    assertEquals(7, widths[4]);
+    assertEquals(7, widths[5]);
+    assertEquals(7, widths[6]);
+    assertEquals(7, widths[7]);
+    assertEquals(7, widths[8]);
+    assertEquals(7, widths[Short.SIZE]);
+    assertEquals((byte) 7, data2[24]);
+    assertEquals(8, font.getAttributes().size());
+    assertEquals(8, widths[232]);
+    assertEquals(8, widths[233]);
+    assertEquals(8, widths[234]);
+    assertEquals(8, widths[235]);
+    assertEquals(8, widths[240]);
+    assertEquals(8, widths[241]);
+    assertEquals(8, widths[242]);
+    assertEquals(8, widths[243]);
+    assertEquals(8, widths[244]);
+    assertEquals(8, widths[245]);
+    assertEquals(8, widths[246]);
+    assertEquals(8, widths[248]);
+    assertEquals(8, widths[249]);
+    assertEquals(8, widths[250]);
+    assertEquals(8, widths[251]);
+    assertEquals(8, widths[252]);
+    assertEquals(8, widths[254]);
+    assertFalse(font.hasLayoutAttributes());
+    assertFalse(font.hasUniformLineMetrics());
+    assertFalse(font.isBold());
+    assertFalse(font.isItalic());
+    assertFalse(font.isTransformed());
+    assertFalse(fontMetrics.hasUniformLineMetrics());
+    assertFalse(fontRenderContext.isAntiAliased());
+    assertFalse(fontRenderContext.isTransformed());
+    assertFalse(actualRGBImage.isAlphaPremultiplied());
+    assertFalse(colorModel.hasAlpha());
+    assertFalse(colorModel.isAlphaPremultiplied());
+    assertTrue(font.isPlain());
+    assertTrue(colorSpace.isCS_sRGB());
+    assertTrue(transform.isIdentity());
+    assertTrue(actualRGBImage.hasTileWriters());
+    assertEquals(region, data.getBounds());
+    assertEquals(region, raster.getBounds());
+    assertEquals(transform, fontRenderContext.getTransform());
+    assertEquals(point, point.getLocation());
+    assertEquals(' ', data2[19]);
+    assertEquals(' ', data2[23]);
+    assertEquals('&', data2[6870]);
+    assertEquals('0', data2[9]);
+    assertEquals('B', data2[18]);
+    assertEquals('G', data2[17]);
+    assertEquals('L', data2[6862]);
+    assertEquals('R', data2[Short.SIZE]);
+    assertEquals('T', data2[6858]);
+    assertEquals('X', data2[20]);
+    assertEquals('Y', data2[21]);
+    assertEquals('Z', data2[22]);
+    assertEquals('\\', data2[6875]);
+    assertEquals('c', data2[5]);
+    assertEquals('f', data2[6871]);
+    assertEquals('l', data2[4]);
+    assertEquals('m', data2[12]);
+    assertEquals('m', data2[6]);
+    assertEquals('n', data2[13]);
+    assertEquals('r', data2[15]);
+    assertEquals('s', data2[7]);
+    assertEquals('t', data2[14]);
+    assertEquals('{', data2[6859]);
+    int[] data3 = ((DataBufferInt) dataBuffer).getData();
+    assertSame(data3, bankData[0]);
+    int[] data4 = ((DataBufferInt) dataBuffer2).getData();
+    assertSame(data4, bankData2[0]);
+    assertSame(sampleModel, data.getSampleModel());
+    assertSame(sampleModel, raster.getSampleModel());
+    assertArrayEquals(new float[]{0.013916016f, 0.09713745f, 0.71383667f}, matrix[2], 0.0f);
+    assertArrayEquals(new float[]{0.22238159f, 0.717041f, 0.06059265f}, matrix[1], 0.0f);
+    assertArrayEquals(new float[]{0.43585205f, 0.3853302f, 0.14302063f}, matrix[0], 0.0f);
+    assertArrayEquals(new float[]{0.95014954f, 1.0f, 1.0882568f}, ((ICC_ProfileRGB) profile).getMediaWhitePoint(),
+        0.0f);
+    assertArrayEquals(new int[]{0}, dataBuffer.getOffsets());
+    assertArrayEquals(new int[]{0}, dataBuffer2.getOffsets());
+    assertArrayEquals(new int[]{0}, data3);
+    assertArrayEquals(new int[]{0}, data4);
+    assertArrayEquals(new int[]{16711680, 65280, 255}, ((DirectColorModel) colorModel).getMasks());
+    assertArrayEquals(new int[]{16711680, 65280, 255}, ((SinglePixelPackedSampleModel) sampleModel).getBitMasks());
+    assertArrayEquals(new int[]{8, 8, 8}, colorModel.getComponentSize());
+    assertArrayEquals(new int[]{8, 8, 8}, sampleModel.getSampleSize());
+    assertArrayEquals(new int[]{Short.SIZE, 8, 0}, ((SinglePixelPackedSampleModel) sampleModel).getBitOffsets());
   }
 
   /**
-   * Test {@link SampledImageReader#getRawRaster(PDImage)}.
-   * <p>
+   * Method under test: {@link SampledImageReader#getRGBImage(PDImage, COSArray)}
+   */
+  @Test
+  void testGetRGBImage3() throws IOException {
+    // Arrange
+    PDImageXObject pdImage = PDImageXObject.createThumbnail(new COSStream());
+
+    // Act and Assert
+    assertThrows(IOException.class, () -> SampledImageReader.getRGBImage(pdImage, new COSArray()));
+  }
+
+  /**
+   * Method under test: {@link SampledImageReader#getRGBImage(PDImage, COSArray)}
+   */
+  @Test
+  void testGetRGBImage4() throws IOException {
+    // Arrange
+    PDImageXObject pdImage = LosslessFactory.prepareImageXObject(new PDDocument(),
+        new byte[]{'A', 1, 'A', 1, 'A', 1, 'A', 1}, 1, 1, 1, PDDeviceGray.INSTANCE);
+
+    // Act
+    BufferedImage actualRGBImage = SampledImageReader.getRGBImage(pdImage, new COSArray());
+
+    // Assert
+    Raster data = actualRGBImage.getData();
+    Rectangle bounds = data.getBounds();
+    Rectangle2D bounds2D = bounds.getBounds2D();
+    assertTrue(bounds2D instanceof Rectangle);
+    ColorModel colorModel = actualRGBImage.getColorModel();
+    ColorSpace colorSpace = colorModel.getColorSpace();
+    assertTrue(colorSpace instanceof ICC_ColorSpace);
+    ICC_Profile profile = ((ICC_ColorSpace) colorSpace).getProfile();
+    assertTrue(profile instanceof ICC_ProfileRGB);
+    Rectangle2D frame = bounds.getFrame();
+    assertTrue(frame instanceof Rectangle2D.Double);
+    DataBuffer dataBuffer = data.getDataBuffer();
+    assertTrue(dataBuffer instanceof DataBufferInt);
+    WritableRaster raster = actualRGBImage.getRaster();
+    DataBuffer dataBuffer2 = raster.getDataBuffer();
+    assertTrue(dataBuffer2 instanceof DataBufferInt);
+    assertTrue(colorModel instanceof DirectColorModel);
+    SampleModel sampleModel = actualRGBImage.getSampleModel();
+    assertTrue(sampleModel instanceof SinglePixelPackedSampleModel);
+    Graphics graphics = actualRGBImage.getGraphics();
+    FontMetrics fontMetrics = graphics.getFontMetrics();
+    Font font = fontMetrics.getFont();
+    assertEquals("Dialog", font.getFamily());
+    assertEquals("Dialog", font.getName());
+    assertEquals("Dialog.plain", font.getFontName());
+    assertEquals("Dialog.plain", font.getPSName());
+    assertNull(actualRGBImage.getPropertyNames());
+    assertNull(graphics.getClipRect());
+    assertNull(data.getParent());
+    assertNull(raster.getParent());
+    assertNull(actualRGBImage.getAlphaRaster());
+    assertNull(raster.getWritableParent());
+    assertNull(actualRGBImage.getSources());
+    byte[] data2 = profile.getData();
+    assertEquals((byte) -102, data2[6867]);
+    assertEquals((byte) -103, data2[6866]);
+    assertEquals((byte) -36, data2[3]);
+    assertEquals((byte) -41, data2[6855]);
+    assertEquals((byte) -51, data2[6863]);
+    assertEquals((byte) -93, data2[6854]);
+    assertEquals(0, font.getMissingGlyphCode());
+    assertEquals(0, font.getStyle());
+    assertEquals(0, fontMetrics.getLeading());
+    assertEquals(0, profile.getPCSType());
+    FontRenderContext fontRenderContext = fontMetrics.getFontRenderContext();
+    assertEquals(0, fontRenderContext.getTransformType());
+    AffineTransform transform = font.getTransform();
+    assertEquals(0, transform.getType());
+    assertEquals(0, actualRGBImage.getMinTileX());
+    assertEquals(0, actualRGBImage.getMinTileY());
+    assertEquals(0, actualRGBImage.getMinX());
+    assertEquals(0, actualRGBImage.getMinY());
+    assertEquals(0, actualRGBImage.getTileGridXOffset());
+    assertEquals(0, actualRGBImage.getTileGridYOffset());
+    assertEquals(0, dataBuffer.getOffset());
+    assertEquals(0, dataBuffer2.getOffset());
+    assertEquals(0, ((DirectColorModel) colorModel).getAlphaMask());
+    assertEquals(0, data.getMinX());
+    assertEquals(0, raster.getMinX());
+    assertEquals(0, data.getMinY());
+    assertEquals(0, raster.getMinY());
+    assertEquals(0, data.getSampleModelTranslateX());
+    assertEquals(0, raster.getSampleModelTranslateX());
+    assertEquals(0, data.getSampleModelTranslateY());
+    assertEquals(0, raster.getSampleModelTranslateY());
+    int[] widths = fontMetrics.getWidths();
+    assertEquals(0, widths[10]);
+    assertEquals(0, widths[13]);
+    assertEquals(0, widths[9]);
+    Point[] writableTileIndices = actualRGBImage.getWritableTileIndices();
+    Point point = writableTileIndices[0];
+    assertEquals(0, point.x);
+    assertEquals(0, point.y);
+    assertEquals(0, bounds.x);
+    assertEquals(0, bounds.y);
+    assertEquals(0.0d, point.getX());
+    assertEquals(0.0d, point.getY());
+    assertEquals(0.0d, bounds.getX());
+    assertEquals(0.0d, bounds.getY());
+    assertEquals(0.0d, transform.getShearX());
+    assertEquals(0.0d, transform.getShearY());
+    assertEquals(0.0d, transform.getTranslateX());
+    assertEquals(0.0d, transform.getTranslateY());
+    assertEquals(0.0d, bounds.getMinX());
+    assertEquals(0.0d, bounds.getMinY());
+    assertEquals(0.0f, font.getItalicAngle());
+    assertEquals(0.5d, bounds.getCenterX());
+    assertEquals(0.5d, bounds.getCenterY());
+    assertEquals(0.5f, actualRGBImage.getAccelerationPriority());
+    assertEquals((byte) 0, data2[0]);
+    assertEquals((byte) 0, data2[1]);
+    assertEquals((byte) 0, data2[10]);
+    assertEquals((byte) 0, data2[11]);
+    assertEquals((byte) 0, data2[6851]);
+    assertEquals((byte) 0, data2[6852]);
+    assertEquals((byte) 0, data2[6853]);
+    assertEquals((byte) 0, data2[6856]);
+    assertEquals((byte) 0, data2[6857]);
+    assertEquals((byte) 0, data2[6860]);
+    assertEquals((byte) 0, data2[6861]);
+    assertEquals((byte) 0, data2[6864]);
+    assertEquals((byte) 0, data2[6865]);
+    assertEquals((byte) 0, data2[6868]);
+    assertEquals((byte) 0, data2[6869]);
+    assertEquals((byte) 0, data2[6872]);
+    assertEquals((byte) 0, data2[6873]);
+    assertEquals(1, profile.getProfileClass());
+    assertEquals(1, actualRGBImage.getHeight());
+    assertEquals(1, actualRGBImage.getNumXTiles());
+    assertEquals(1, actualRGBImage.getNumYTiles());
+    assertEquals(1, actualRGBImage.getTileHeight());
+    assertEquals(1, actualRGBImage.getTileWidth());
+    assertEquals(1, actualRGBImage.getTransparency());
+    assertEquals(1, actualRGBImage.getType());
+    assertEquals(1, actualRGBImage.getWidth());
+    assertEquals(1, colorModel.getTransparency());
+    assertEquals(1, dataBuffer.getNumBanks());
+    assertEquals(1, dataBuffer2.getNumBanks());
+    assertEquals(1, dataBuffer.getSize());
+    assertEquals(1, dataBuffer2.getSize());
+    assertEquals(1, data.getHeight());
+    assertEquals(1, raster.getHeight());
+    assertEquals(1, data.getNumDataElements());
+    assertEquals(1, raster.getNumDataElements());
+    assertEquals(1, data.getWidth());
+    assertEquals(1, raster.getWidth());
+    assertEquals(1, sampleModel.getHeight());
+    assertEquals(1, sampleModel.getNumDataElements());
+    assertEquals(1, sampleModel.getWidth());
+    assertEquals(1, ((SinglePixelPackedSampleModel) sampleModel).getScanlineStride());
+    assertEquals(1, writableTileIndices.length);
+    int[][] bankData = ((DataBufferInt) dataBuffer).getBankData();
+    assertEquals(1, bankData.length);
+    int[][] bankData2 = ((DataBufferInt) dataBuffer2).getBankData();
+    assertEquals(1, bankData2.length);
+    Dimension size = bounds.getSize();
+    assertEquals(1, size.height);
+    assertEquals(1, size.width);
+    assertEquals(1, bounds.height);
+    assertEquals(1, bounds.width);
+    assertEquals(1.0d, size.getHeight());
+    assertEquals(1.0d, size.getWidth());
+    assertEquals(1.0d, bounds.getHeight());
+    assertEquals(1.0d, bounds.getWidth());
+    assertEquals(1.0d, transform.getDeterminant());
+    assertEquals(1.0d, transform.getScaleX());
+    assertEquals(1.0d, transform.getScaleY());
+    assertEquals(1.0d, bounds.getMaxX());
+    assertEquals(1.0d, bounds.getMaxY());
+    assertEquals(10, widths[247]);
+    assertEquals(12, font.getSize());
+    assertEquals(12, fontMetrics.getAscent());
+    assertEquals(12, fontMetrics.getMaxAscent());
+    assertEquals(12.0f, font.getSize2D());
+    assertEquals(15, fontMetrics.getHeight());
+    assertEquals((byte) 15, data2[6874]);
+    assertEquals(16711680, ((DirectColorModel) colorModel).getRedMask());
+    assertEquals(2, profile.getMajorVersion());
+    assertEquals(22, fontMetrics.getMaxAdvance());
+    assertEquals(22, font.getAvailableAttributes().length);
+    assertEquals(24, colorModel.getPixelSize());
+    assertEquals(255, ((DirectColorModel) colorModel).getBlueMask());
+    assertEquals(256, widths.length);
+    assertEquals((byte) 26, data2[2]);
+    assertEquals((byte) 2, data2[8]);
+    assertEquals(3, fontMetrics.getDescent());
+    assertEquals(3, fontMetrics.getMaxDecent());
+    assertEquals(3, fontMetrics.getMaxDescent());
+    assertEquals(3, colorSpace.getNumComponents());
+    assertEquals(3, profile.getNumComponents());
+    assertEquals(3, colorModel.getNumColorComponents());
+    assertEquals(3, colorModel.getNumComponents());
+    assertEquals(3, colorModel.getTransferType());
+    assertEquals(3, dataBuffer.getDataType());
+    assertEquals(3, dataBuffer2.getDataType());
+    assertEquals(3, data.getNumBands());
+    assertEquals(3, raster.getNumBands());
+    assertEquals(3, data.getTransferType());
+    assertEquals(3, raster.getTransferType());
+    assertEquals(3, sampleModel.getDataType());
+    assertEquals(3, sampleModel.getNumBands());
+    assertEquals(3, sampleModel.getTransferType());
+    assertEquals(3, widths[236]);
+    assertEquals(3, widths[237]);
+    assertEquals(3, widths[238]);
+    assertEquals(3, widths[239]);
+    float[][] matrix = ((ICC_ProfileRGB) profile).getMatrix();
+    assertEquals(3, matrix.length);
+    assertEquals(48, profile.getMinorVersion());
+    assertEquals(5, colorSpace.getType());
+    assertEquals(5, profile.getColorSpaceType());
+    assertEquals(6, widths[253]);
+    assertEquals(6, widths[255]);
+    assertEquals(6253, font.getNumGlyphs());
+    assertEquals(65280, ((DirectColorModel) colorModel).getGreenMask());
+    assertEquals(6876, data2.length);
+    assertEquals(7, widths[0]);
+    assertEquals(7, widths[1]);
+    assertEquals(7, widths[11]);
+    assertEquals(7, widths[12]);
+    assertEquals(7, widths[14]);
+    assertEquals(7, widths[15]);
+    assertEquals(7, widths[17]);
+    assertEquals(7, widths[18]);
+    assertEquals(7, widths[19]);
+    assertEquals(7, widths[2]);
+    assertEquals(7, widths[20]);
+    assertEquals(7, widths[21]);
+    assertEquals(7, widths[22]);
+    assertEquals(7, widths[23]);
+    assertEquals(7, widths[231]);
+    assertEquals(7, widths[24]);
+    assertEquals(7, widths[3]);
+    assertEquals(7, widths[4]);
+    assertEquals(7, widths[5]);
+    assertEquals(7, widths[6]);
+    assertEquals(7, widths[7]);
+    assertEquals(7, widths[8]);
+    assertEquals(7, widths[Short.SIZE]);
+    assertEquals((byte) 7, data2[24]);
+    assertEquals(8, font.getAttributes().size());
+    assertEquals(8, widths[232]);
+    assertEquals(8, widths[233]);
+    assertEquals(8, widths[234]);
+    assertEquals(8, widths[235]);
+    assertEquals(8, widths[240]);
+    assertEquals(8, widths[241]);
+    assertEquals(8, widths[242]);
+    assertEquals(8, widths[243]);
+    assertEquals(8, widths[244]);
+    assertEquals(8, widths[245]);
+    assertEquals(8, widths[246]);
+    assertEquals(8, widths[248]);
+    assertEquals(8, widths[249]);
+    assertEquals(8, widths[250]);
+    assertEquals(8, widths[251]);
+    assertEquals(8, widths[252]);
+    assertEquals(8, widths[254]);
+    assertFalse(font.hasLayoutAttributes());
+    assertFalse(font.hasUniformLineMetrics());
+    assertFalse(font.isBold());
+    assertFalse(font.isItalic());
+    assertFalse(font.isTransformed());
+    assertFalse(fontMetrics.hasUniformLineMetrics());
+    assertFalse(bounds.isEmpty());
+    assertFalse(fontRenderContext.isAntiAliased());
+    assertFalse(fontRenderContext.isTransformed());
+    assertFalse(actualRGBImage.isAlphaPremultiplied());
+    assertFalse(colorModel.hasAlpha());
+    assertFalse(colorModel.isAlphaPremultiplied());
+    assertTrue(font.isPlain());
+    assertTrue(colorSpace.isCS_sRGB());
+    assertTrue(transform.isIdentity());
+    assertTrue(actualRGBImage.hasTileWriters());
+    assertEquals(transform, fontRenderContext.getTransform());
+    assertEquals(size, size.getSize());
+    assertEquals(bounds, bounds.getBounds());
+    assertEquals(bounds, raster.getBounds());
+    assertEquals(bounds, bounds2D);
+    assertEquals(bounds, frame);
+    assertEquals(point, point.getLocation());
+    assertEquals(point, bounds.getLocation());
+    assertEquals(' ', data2[19]);
+    assertEquals(' ', data2[23]);
+    assertEquals('&', data2[6870]);
+    assertEquals('0', data2[9]);
+    assertEquals('B', data2[18]);
+    assertEquals('G', data2[17]);
+    assertEquals('L', data2[6862]);
+    assertEquals('R', data2[Short.SIZE]);
+    assertEquals('T', data2[6858]);
+    assertEquals('X', data2[20]);
+    assertEquals('Y', data2[21]);
+    assertEquals('Z', data2[22]);
+    assertEquals('\\', data2[6875]);
+    assertEquals('c', data2[5]);
+    assertEquals('f', data2[6871]);
+    assertEquals('l', data2[4]);
+    assertEquals('m', data2[12]);
+    assertEquals('m', data2[6]);
+    assertEquals('n', data2[13]);
+    assertEquals('r', data2[15]);
+    assertEquals('s', data2[7]);
+    assertEquals('t', data2[14]);
+    assertEquals('{', data2[6859]);
+    int[] data3 = ((DataBufferInt) dataBuffer).getData();
+    assertSame(data3, bankData[0]);
+    int[] data4 = ((DataBufferInt) dataBuffer2).getData();
+    assertSame(data4, bankData2[0]);
+    assertSame(sampleModel, data.getSampleModel());
+    assertSame(sampleModel, raster.getSampleModel());
+    assertArrayEquals(new float[]{0.013916016f, 0.09713745f, 0.71383667f}, matrix[2], 0.0f);
+    assertArrayEquals(new float[]{0.22238159f, 0.717041f, 0.06059265f}, matrix[1], 0.0f);
+    assertArrayEquals(new float[]{0.43585205f, 0.3853302f, 0.14302063f}, matrix[0], 0.0f);
+    assertArrayEquals(new float[]{0.95014954f, 1.0f, 1.0882568f}, ((ICC_ProfileRGB) profile).getMediaWhitePoint(),
+        0.0f);
+    assertArrayEquals(new int[]{0}, dataBuffer.getOffsets());
+    assertArrayEquals(new int[]{0}, dataBuffer2.getOffsets());
+    assertArrayEquals(new int[]{0}, data3);
+    assertArrayEquals(new int[]{0}, data4);
+    assertArrayEquals(new int[]{16711680, 65280, 255}, ((DirectColorModel) colorModel).getMasks());
+    assertArrayEquals(new int[]{16711680, 65280, 255}, ((SinglePixelPackedSampleModel) sampleModel).getBitMasks());
+    assertArrayEquals(new int[]{8, 8, 8}, colorModel.getComponentSize());
+    assertArrayEquals(new int[]{8, 8, 8}, sampleModel.getSampleSize());
+    assertArrayEquals(new int[]{Short.SIZE, 8, 0}, ((SinglePixelPackedSampleModel) sampleModel).getBitOffsets());
+  }
+
+  /**
    * Method under test: {@link SampledImageReader#getRawRaster(PDImage)}
    */
   @Test
-  @DisplayName("Test getRawRaster(PDImage)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"WritableRaster SampledImageReader.getRawRaster(PDImage)"})
   void testGetRawRaster() throws IOException {
+    // Arrange, Act and Assert
+    assertThrows(IOException.class,
+        () -> SampledImageReader.getRawRaster(PDImageXObject.createThumbnail(new COSStream())));
+  }
+
+  /**
+   * Method under test: {@link SampledImageReader#getRawRaster(PDImage)}
+   */
+  @Test
+  void testGetRawRaster2() throws IOException {
     // Arrange and Act
     WritableRaster actualRawRaster = SampledImageReader.getRawRaster(LosslessFactory.prepareImageXObject(
         new PDDocument(), new byte[]{'A', 1, 'A', 1, 'A', 1, 'A', 1}, 1, 1, 1, PDDeviceGray.INSTANCE));
@@ -1161,15 +3845,69 @@ class SampledImageReaderDiffblueTest {
     Rectangle2D bounds2D = bounds.getBounds2D();
     assertTrue(bounds2D instanceof Rectangle);
     Rectangle2D frame = bounds.getFrame();
-    assertTrue(frame instanceof Double);
+    assertTrue(frame instanceof Rectangle2D.Double);
     DataBuffer dataBuffer = actualRawRaster.getDataBuffer();
     assertTrue(dataBuffer instanceof DataBufferByte);
     SampleModel sampleModel = actualRawRaster.getSampleModel();
     assertTrue(sampleModel instanceof PixelInterleavedSampleModel);
+    assertNull(actualRawRaster.getParent());
+    assertNull(actualRawRaster.getWritableParent());
+    assertEquals(0, dataBuffer.getDataType());
+    assertEquals(0, dataBuffer.getOffset());
+    assertEquals(0, actualRawRaster.getMinX());
+    assertEquals(0, actualRawRaster.getMinY());
+    assertEquals(0, actualRawRaster.getSampleModelTranslateX());
+    assertEquals(0, actualRawRaster.getSampleModelTranslateY());
+    assertEquals(0, actualRawRaster.getTransferType());
+    assertEquals(0, sampleModel.getDataType());
+    assertEquals(0, sampleModel.getTransferType());
+    Point location = bounds.getLocation();
+    assertEquals(0, location.x);
+    assertEquals(0, location.y);
+    assertEquals(0, bounds.x);
+    assertEquals(0, bounds.y);
+    assertEquals(0.0d, location.getX());
+    assertEquals(0.0d, location.getY());
+    assertEquals(0.0d, bounds.getX());
+    assertEquals(0.0d, bounds.getY());
+    assertEquals(0.0d, bounds.getMinX());
+    assertEquals(0.0d, bounds.getMinY());
+    assertEquals(0.5d, bounds.getCenterX());
+    assertEquals(0.5d, bounds.getCenterY());
+    assertEquals(1, ((PixelInterleavedSampleModel) sampleModel).getPixelStride());
+    assertEquals(1, ((PixelInterleavedSampleModel) sampleModel).getScanlineStride());
+    assertEquals(1, dataBuffer.getNumBanks());
+    assertEquals(1, dataBuffer.getSize());
+    assertEquals(1, actualRawRaster.getHeight());
+    assertEquals(1, actualRawRaster.getNumBands());
+    assertEquals(1, actualRawRaster.getNumDataElements());
+    assertEquals(1, actualRawRaster.getWidth());
+    assertEquals(1, sampleModel.getHeight());
+    assertEquals(1, sampleModel.getNumBands());
+    assertEquals(1, sampleModel.getNumDataElements());
+    assertEquals(1, sampleModel.getWidth());
+    byte[][] bankData = ((DataBufferByte) dataBuffer).getBankData();
+    assertEquals(1, bankData.length);
+    Dimension size = bounds.getSize();
+    assertEquals(1, size.height);
+    assertEquals(1, size.width);
+    assertEquals(1, bounds.height);
+    assertEquals(1, bounds.width);
+    assertEquals(1.0d, size.getHeight());
+    assertEquals(1.0d, size.getWidth());
+    assertEquals(1.0d, bounds.getHeight());
+    assertEquals(1.0d, bounds.getWidth());
+    assertEquals(1.0d, bounds.getMaxX());
+    assertEquals(1.0d, bounds.getMaxY());
+    assertFalse(bounds.isEmpty());
+    assertEquals(location, location.getLocation());
+    assertEquals(size, size.getSize());
     assertEquals(bounds, bounds.getBounds());
     assertEquals(bounds, bounds2D);
     assertEquals(bounds, frame);
-    assertArrayEquals(new byte[]{0}, ((DataBufferByte) dataBuffer).getData());
+    byte[] data = ((DataBufferByte) dataBuffer).getData();
+    assertSame(data, bankData[0]);
+    assertArrayEquals(new byte[]{0}, data);
     assertArrayEquals(new int[]{0}, ((PixelInterleavedSampleModel) sampleModel).getBandOffsets());
     assertArrayEquals(new int[]{0}, ((PixelInterleavedSampleModel) sampleModel).getBankIndices());
     assertArrayEquals(new int[]{0}, dataBuffer.getOffsets());
@@ -1177,81 +3915,413 @@ class SampledImageReaderDiffblueTest {
   }
 
   /**
-   * Test {@link SampledImageReader#getRawRaster(PDImage)}.
-   * <p>
    * Method under test: {@link SampledImageReader#getRawRaster(PDImage)}
    */
   @Test
-  @DisplayName("Test getRawRaster(PDImage)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"WritableRaster SampledImageReader.getRawRaster(PDImage)"})
-  void testGetRawRaster2() throws IOException {
-    // Arrange, Act and Assert
-    assertThrows(IOException.class,
-        () -> SampledImageReader.getRawRaster(LosslessFactory.prepareImageXObject(new PDDocument(),
-            new byte[]{'A', 1, 'A', 1, 'A', 1, 'A', 1}, -1, 1, 1, PDDeviceGray.INSTANCE)));
-  }
-
-  /**
-   * Test {@link SampledImageReader#getRawRaster(PDImage)}.
-   * <p>
-   * Method under test: {@link SampledImageReader#getRawRaster(PDImage)}
-   */
-  @Test
-  @DisplayName("Test getRawRaster(PDImage)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"WritableRaster SampledImageReader.getRawRaster(PDImage)"})
   void testGetRawRaster3() throws IOException {
-    // Arrange, Act and Assert
-    assertThrows(IOException.class,
-        () -> SampledImageReader.getRawRaster(LosslessFactory.prepareImageXObject(new PDDocument(),
-            new byte[]{'A', 1, 'A', 1, 'A', 1, 'A', 1}, 1, -1, 1, PDDeviceGray.INSTANCE)));
-  }
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
 
-  /**
-   * Test {@link SampledImageReader#getRawRaster(PDImage)}.
-   * <p>
-   * Method under test: {@link SampledImageReader#getRawRaster(PDImage)}
-   */
-  @Test
-  @DisplayName("Test getRawRaster(PDImage)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"WritableRaster SampledImageReader.getRawRaster(PDImage)"})
-  void testGetRawRaster4() throws IOException {
-    // Arrange, Act and Assert
-    assertThrows(IOException.class,
-        () -> SampledImageReader.getRawRaster(LosslessFactory.prepareImageXObject(new PDDocument(),
-            new byte[]{'A', 1, 'A', 1, 'A', 1, 'A', 1}, 1, 1, -1, PDDeviceGray.INSTANCE)));
-  }
-
-  /**
-   * Test {@link SampledImageReader#getRawRaster(PDImage)}.
-   * <p>
-   * Method under test: {@link SampledImageReader#getRawRaster(PDImage)}
-   */
-  @Test
-  @DisplayName("Test getRawRaster(PDImage)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"WritableRaster SampledImageReader.getRawRaster(PDImage)"})
-  void testGetRawRaster5() throws IOException {
-    // Arrange and Act
-    WritableRaster actualRawRaster = SampledImageReader.getRawRaster(LosslessFactory.prepareImageXObject(
-        new PDDocument(), new byte[]{'A', 1, 'A', 1, 'A', 1, 'A', 1}, 1, 1, 1, PDDeviceRGB.INSTANCE));
+    // Act
+    WritableRaster actualRawRaster = SampledImageReader
+        .getRawRaster(LosslessFactory.prepareImageXObject(new PDDocument(streamCacheCreateFunction),
+            new byte[]{'A', 1, 'A', 1, 'A', 1, 'A', 1}, 1, 1, 1, PDDeviceGray.INSTANCE));
 
     // Assert
+    verify(streamCacheCreateFunction).create();
     Rectangle bounds = actualRawRaster.getBounds();
     Rectangle2D bounds2D = bounds.getBounds2D();
     assertTrue(bounds2D instanceof Rectangle);
     Rectangle2D frame = bounds.getFrame();
-    assertTrue(frame instanceof Double);
+    assertTrue(frame instanceof Rectangle2D.Double);
     DataBuffer dataBuffer = actualRawRaster.getDataBuffer();
     assertTrue(dataBuffer instanceof DataBufferByte);
     SampleModel sampleModel = actualRawRaster.getSampleModel();
     assertTrue(sampleModel instanceof PixelInterleavedSampleModel);
+    assertNull(actualRawRaster.getParent());
+    assertNull(actualRawRaster.getWritableParent());
+    assertEquals(0, dataBuffer.getDataType());
+    assertEquals(0, dataBuffer.getOffset());
+    assertEquals(0, actualRawRaster.getMinX());
+    assertEquals(0, actualRawRaster.getMinY());
+    assertEquals(0, actualRawRaster.getSampleModelTranslateX());
+    assertEquals(0, actualRawRaster.getSampleModelTranslateY());
+    assertEquals(0, actualRawRaster.getTransferType());
+    assertEquals(0, sampleModel.getDataType());
+    assertEquals(0, sampleModel.getTransferType());
+    Point location = bounds.getLocation();
+    assertEquals(0, location.x);
+    assertEquals(0, location.y);
+    assertEquals(0, bounds.x);
+    assertEquals(0, bounds.y);
+    assertEquals(0.0d, location.getX());
+    assertEquals(0.0d, location.getY());
+    assertEquals(0.0d, bounds.getX());
+    assertEquals(0.0d, bounds.getY());
+    assertEquals(0.0d, bounds.getMinX());
+    assertEquals(0.0d, bounds.getMinY());
+    assertEquals(0.5d, bounds.getCenterX());
+    assertEquals(0.5d, bounds.getCenterY());
+    assertEquals(1, ((PixelInterleavedSampleModel) sampleModel).getPixelStride());
+    assertEquals(1, ((PixelInterleavedSampleModel) sampleModel).getScanlineStride());
+    assertEquals(1, dataBuffer.getNumBanks());
+    assertEquals(1, dataBuffer.getSize());
+    assertEquals(1, actualRawRaster.getHeight());
+    assertEquals(1, actualRawRaster.getNumBands());
+    assertEquals(1, actualRawRaster.getNumDataElements());
+    assertEquals(1, actualRawRaster.getWidth());
+    assertEquals(1, sampleModel.getHeight());
+    assertEquals(1, sampleModel.getNumBands());
+    assertEquals(1, sampleModel.getNumDataElements());
+    assertEquals(1, sampleModel.getWidth());
+    byte[][] bankData = ((DataBufferByte) dataBuffer).getBankData();
+    assertEquals(1, bankData.length);
+    Dimension size = bounds.getSize();
+    assertEquals(1, size.height);
+    assertEquals(1, size.width);
+    assertEquals(1, bounds.height);
+    assertEquals(1, bounds.width);
+    assertEquals(1.0d, size.getHeight());
+    assertEquals(1.0d, size.getWidth());
+    assertEquals(1.0d, bounds.getHeight());
+    assertEquals(1.0d, bounds.getWidth());
+    assertEquals(1.0d, bounds.getMaxX());
+    assertEquals(1.0d, bounds.getMaxY());
+    assertFalse(bounds.isEmpty());
+    assertEquals(location, location.getLocation());
+    assertEquals(size, size.getSize());
     assertEquals(bounds, bounds.getBounds());
     assertEquals(bounds, bounds2D);
     assertEquals(bounds, frame);
-    assertArrayEquals(new byte[]{0, -1, 0}, ((DataBufferByte) dataBuffer).getData());
+    byte[] data = ((DataBufferByte) dataBuffer).getData();
+    assertSame(data, bankData[0]);
+    assertArrayEquals(new byte[]{0}, data);
+    assertArrayEquals(new int[]{0}, ((PixelInterleavedSampleModel) sampleModel).getBandOffsets());
+    assertArrayEquals(new int[]{0}, ((PixelInterleavedSampleModel) sampleModel).getBankIndices());
+    assertArrayEquals(new int[]{0}, dataBuffer.getOffsets());
+    assertArrayEquals(new int[]{8}, sampleModel.getSampleSize());
+  }
+
+  /**
+   * Method under test: {@link SampledImageReader#getRawRaster(PDImage)}
+   */
+  @Test
+  void testGetRawRaster4() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+
+    // Act
+    WritableRaster actualRawRaster = SampledImageReader
+        .getRawRaster(LosslessFactory.prepareImageXObject(new PDDocument(streamCacheCreateFunction),
+            new byte[]{'A', 1, 'A', 1, 'A', 1, 'A', 1}, 8, 1, 1, PDDeviceGray.INSTANCE));
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    Rectangle bounds = actualRawRaster.getBounds();
+    Rectangle2D bounds2D = bounds.getBounds2D();
+    assertTrue(bounds2D instanceof Rectangle);
+    Rectangle2D frame = bounds.getFrame();
+    assertTrue(frame instanceof Rectangle2D.Double);
+    DataBuffer dataBuffer = actualRawRaster.getDataBuffer();
+    assertTrue(dataBuffer instanceof DataBufferByte);
+    SampleModel sampleModel = actualRawRaster.getSampleModel();
+    assertTrue(sampleModel instanceof PixelInterleavedSampleModel);
+    assertNull(actualRawRaster.getParent());
+    assertNull(actualRawRaster.getWritableParent());
+    assertEquals(0, dataBuffer.getDataType());
+    assertEquals(0, dataBuffer.getOffset());
+    assertEquals(0, actualRawRaster.getMinX());
+    assertEquals(0, actualRawRaster.getMinY());
+    assertEquals(0, actualRawRaster.getSampleModelTranslateX());
+    assertEquals(0, actualRawRaster.getSampleModelTranslateY());
+    assertEquals(0, actualRawRaster.getTransferType());
+    assertEquals(0, sampleModel.getDataType());
+    assertEquals(0, sampleModel.getTransferType());
+    Point location = bounds.getLocation();
+    assertEquals(0, location.x);
+    assertEquals(0, location.y);
+    assertEquals(0, bounds.x);
+    assertEquals(0, bounds.y);
+    assertEquals(0.0d, location.getX());
+    assertEquals(0.0d, location.getY());
+    assertEquals(0.0d, bounds.getX());
+    assertEquals(0.0d, bounds.getY());
+    assertEquals(0.0d, bounds.getMinX());
+    assertEquals(0.0d, bounds.getMinY());
+    assertEquals(0.5d, bounds.getCenterY());
+    assertEquals(1, ((PixelInterleavedSampleModel) sampleModel).getPixelStride());
+    assertEquals(1, dataBuffer.getNumBanks());
+    assertEquals(1, actualRawRaster.getHeight());
+    assertEquals(1, actualRawRaster.getNumBands());
+    assertEquals(1, actualRawRaster.getNumDataElements());
+    assertEquals(1, sampleModel.getHeight());
+    assertEquals(1, sampleModel.getNumBands());
+    assertEquals(1, sampleModel.getNumDataElements());
+    byte[][] bankData = ((DataBufferByte) dataBuffer).getBankData();
+    assertEquals(1, bankData.length);
+    Dimension size = bounds.getSize();
+    assertEquals(1, size.height);
+    assertEquals(1, bounds.height);
+    assertEquals(1.0d, size.getHeight());
+    assertEquals(1.0d, bounds.getHeight());
+    assertEquals(1.0d, bounds.getMaxY());
+    assertEquals(4.0d, bounds.getCenterX());
+    assertEquals(8, ((PixelInterleavedSampleModel) sampleModel).getScanlineStride());
+    assertEquals(8, dataBuffer.getSize());
+    assertEquals(8, actualRawRaster.getWidth());
+    assertEquals(8, sampleModel.getWidth());
+    assertEquals(8, size.width);
+    assertEquals(8, bounds.width);
+    assertEquals(8.0d, size.getWidth());
+    assertEquals(8.0d, bounds.getWidth());
+    assertEquals(8.0d, bounds.getMaxX());
+    assertFalse(bounds.isEmpty());
+    assertEquals(location, location.getLocation());
+    assertEquals(size, size.getSize());
+    assertEquals(bounds, bounds.getBounds());
+    assertEquals(bounds, bounds2D);
+    assertEquals(bounds, frame);
+    byte[] data = ((DataBufferByte) dataBuffer).getData();
+    assertSame(data, bankData[0]);
+    assertArrayEquals(new byte[]{0, -1, 0, 0, 0, 0, 0, -1}, data);
+    assertArrayEquals(new int[]{0}, ((PixelInterleavedSampleModel) sampleModel).getBandOffsets());
+    assertArrayEquals(new int[]{0}, ((PixelInterleavedSampleModel) sampleModel).getBankIndices());
+    assertArrayEquals(new int[]{0}, dataBuffer.getOffsets());
+    assertArrayEquals(new int[]{8}, sampleModel.getSampleSize());
+  }
+
+  /**
+   * Method under test: {@link SampledImageReader#getRawRaster(PDImage)}
+   */
+  @Test
+  void testGetRawRaster5() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+
+    // Act and Assert
+    assertThrows(IOException.class,
+        () -> SampledImageReader
+            .getRawRaster(LosslessFactory.prepareImageXObject(new PDDocument(streamCacheCreateFunction),
+                new byte[]{'A', 1, 'A', 1, 'A', 1, 'A', 1}, -1, 1, 1, PDDeviceGray.INSTANCE)));
+    verify(streamCacheCreateFunction).create();
+  }
+
+  /**
+   * Method under test: {@link SampledImageReader#getRawRaster(PDImage)}
+   */
+  @Test
+  void testGetRawRaster6() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+
+    // Act and Assert
+    assertThrows(IOException.class,
+        () -> SampledImageReader
+            .getRawRaster(LosslessFactory.prepareImageXObject(new PDDocument(streamCacheCreateFunction),
+                new byte[]{'A', 1, 'A', 1, 'A', 1, 'A', 1}, 1, -1, 1, PDDeviceGray.INSTANCE)));
+    verify(streamCacheCreateFunction).create();
+  }
+
+  /**
+   * Method under test: {@link SampledImageReader#getRawRaster(PDImage)}
+   */
+  @Test
+  void testGetRawRaster7() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+
+    // Act
+    WritableRaster actualRawRaster = SampledImageReader
+        .getRawRaster(LosslessFactory.prepareImageXObject(new PDDocument(streamCacheCreateFunction),
+            new byte[]{'A', 1, 'A', 1, 'A', 1, 'A', 1}, 1, 1, 12, PDDeviceGray.INSTANCE));
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    Rectangle bounds = actualRawRaster.getBounds();
+    Rectangle2D bounds2D = bounds.getBounds2D();
+    assertTrue(bounds2D instanceof Rectangle);
+    Rectangle2D frame = bounds.getFrame();
+    assertTrue(frame instanceof Rectangle2D.Double);
+    DataBuffer dataBuffer = actualRawRaster.getDataBuffer();
+    assertTrue(dataBuffer instanceof DataBufferUShort);
+    SampleModel sampleModel = actualRawRaster.getSampleModel();
+    assertTrue(sampleModel instanceof PixelInterleavedSampleModel);
+    assertNull(actualRawRaster.getParent());
+    assertNull(actualRawRaster.getWritableParent());
+    assertEquals(0, dataBuffer.getOffset());
+    assertEquals(0, actualRawRaster.getMinX());
+    assertEquals(0, actualRawRaster.getMinY());
+    assertEquals(0, actualRawRaster.getSampleModelTranslateX());
+    assertEquals(0, actualRawRaster.getSampleModelTranslateY());
+    Point location = bounds.getLocation();
+    assertEquals(0, location.x);
+    assertEquals(0, location.y);
+    assertEquals(0, bounds.x);
+    assertEquals(0, bounds.y);
+    assertEquals(0.0d, location.getX());
+    assertEquals(0.0d, location.getY());
+    assertEquals(0.0d, bounds.getX());
+    assertEquals(0.0d, bounds.getY());
+    assertEquals(0.0d, bounds.getMinX());
+    assertEquals(0.0d, bounds.getMinY());
+    assertEquals(0.5d, bounds.getCenterX());
+    assertEquals(0.5d, bounds.getCenterY());
+    assertEquals(1, ((PixelInterleavedSampleModel) sampleModel).getPixelStride());
+    assertEquals(1, ((PixelInterleavedSampleModel) sampleModel).getScanlineStride());
+    assertEquals(1, dataBuffer.getDataType());
+    assertEquals(1, dataBuffer.getNumBanks());
+    assertEquals(1, dataBuffer.getSize());
+    assertEquals(1, actualRawRaster.getHeight());
+    assertEquals(1, actualRawRaster.getNumBands());
+    assertEquals(1, actualRawRaster.getNumDataElements());
+    assertEquals(1, actualRawRaster.getTransferType());
+    assertEquals(1, actualRawRaster.getWidth());
+    assertEquals(1, sampleModel.getDataType());
+    assertEquals(1, sampleModel.getHeight());
+    assertEquals(1, sampleModel.getNumBands());
+    assertEquals(1, sampleModel.getNumDataElements());
+    assertEquals(1, sampleModel.getTransferType());
+    assertEquals(1, sampleModel.getWidth());
+    short[][] bankData = ((DataBufferUShort) dataBuffer).getBankData();
+    assertEquals(1, bankData.length);
+    Dimension size = bounds.getSize();
+    assertEquals(1, size.height);
+    assertEquals(1, size.width);
+    assertEquals(1, bounds.height);
+    assertEquals(1, bounds.width);
+    assertEquals(1.0d, size.getHeight());
+    assertEquals(1.0d, size.getWidth());
+    assertEquals(1.0d, bounds.getHeight());
+    assertEquals(1.0d, bounds.getWidth());
+    assertEquals(1.0d, bounds.getMaxX());
+    assertEquals(1.0d, bounds.getMaxY());
+    assertFalse(bounds.isEmpty());
+    assertEquals(location, location.getLocation());
+    assertEquals(size, size.getSize());
+    assertEquals(bounds, bounds.getBounds());
+    assertEquals(bounds, bounds2D);
+    assertEquals(bounds, frame);
+    short[] data = ((DataBufferUShort) dataBuffer).getData();
+    assertSame(data, bankData[0]);
+    assertArrayEquals(new int[]{0}, ((PixelInterleavedSampleModel) sampleModel).getBandOffsets());
+    assertArrayEquals(new int[]{0}, ((PixelInterleavedSampleModel) sampleModel).getBankIndices());
+    assertArrayEquals(new int[]{0}, dataBuffer.getOffsets());
+    assertArrayEquals(new int[]{Short.SIZE}, sampleModel.getSampleSize());
+    assertArrayEquals(new short[]{16644}, data);
+  }
+
+  /**
+   * Method under test: {@link SampledImageReader#getRawRaster(PDImage)}
+   */
+  @Test
+  void testGetRawRaster8() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+
+    // Act and Assert
+    assertThrows(IOException.class,
+        () -> SampledImageReader
+            .getRawRaster(LosslessFactory.prepareImageXObject(new PDDocument(streamCacheCreateFunction),
+                new byte[]{'A', 1, 'A', 1, 'A', 1, 'A', 1}, 1, 1, -1, PDDeviceGray.INSTANCE)));
+    verify(streamCacheCreateFunction).create();
+  }
+
+  /**
+   * Method under test: {@link SampledImageReader#getRawRaster(PDImage)}
+   */
+  @Test
+  void testGetRawRaster9() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+
+    // Act
+    WritableRaster actualRawRaster = SampledImageReader
+        .getRawRaster(LosslessFactory.prepareImageXObject(new PDDocument(streamCacheCreateFunction),
+            new byte[]{'A', 1, 'A', 1, 'A', 1, 'A', 1}, 1, 1, 1, PDDeviceRGB.INSTANCE));
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    Rectangle bounds = actualRawRaster.getBounds();
+    Rectangle2D bounds2D = bounds.getBounds2D();
+    assertTrue(bounds2D instanceof Rectangle);
+    Rectangle2D frame = bounds.getFrame();
+    assertTrue(frame instanceof Rectangle2D.Double);
+    DataBuffer dataBuffer = actualRawRaster.getDataBuffer();
+    assertTrue(dataBuffer instanceof DataBufferByte);
+    SampleModel sampleModel = actualRawRaster.getSampleModel();
+    assertTrue(sampleModel instanceof PixelInterleavedSampleModel);
+    assertNull(actualRawRaster.getParent());
+    assertNull(actualRawRaster.getWritableParent());
+    assertEquals(0, dataBuffer.getDataType());
+    assertEquals(0, dataBuffer.getOffset());
+    assertEquals(0, actualRawRaster.getMinX());
+    assertEquals(0, actualRawRaster.getMinY());
+    assertEquals(0, actualRawRaster.getSampleModelTranslateX());
+    assertEquals(0, actualRawRaster.getSampleModelTranslateY());
+    assertEquals(0, actualRawRaster.getTransferType());
+    assertEquals(0, sampleModel.getDataType());
+    assertEquals(0, sampleModel.getTransferType());
+    Point location = bounds.getLocation();
+    assertEquals(0, location.x);
+    assertEquals(0, location.y);
+    assertEquals(0, bounds.x);
+    assertEquals(0, bounds.y);
+    assertEquals(0.0d, location.getX());
+    assertEquals(0.0d, location.getY());
+    assertEquals(0.0d, bounds.getX());
+    assertEquals(0.0d, bounds.getY());
+    assertEquals(0.0d, bounds.getMinX());
+    assertEquals(0.0d, bounds.getMinY());
+    assertEquals(0.5d, bounds.getCenterX());
+    assertEquals(0.5d, bounds.getCenterY());
+    assertEquals(1, dataBuffer.getNumBanks());
+    assertEquals(1, actualRawRaster.getHeight());
+    assertEquals(1, actualRawRaster.getWidth());
+    assertEquals(1, sampleModel.getHeight());
+    assertEquals(1, sampleModel.getWidth());
+    byte[][] bankData = ((DataBufferByte) dataBuffer).getBankData();
+    assertEquals(1, bankData.length);
+    Dimension size = bounds.getSize();
+    assertEquals(1, size.height);
+    assertEquals(1, size.width);
+    assertEquals(1, bounds.height);
+    assertEquals(1, bounds.width);
+    assertEquals(1.0d, size.getHeight());
+    assertEquals(1.0d, size.getWidth());
+    assertEquals(1.0d, bounds.getHeight());
+    assertEquals(1.0d, bounds.getWidth());
+    assertEquals(1.0d, bounds.getMaxX());
+    assertEquals(1.0d, bounds.getMaxY());
+    assertEquals(3, ((PixelInterleavedSampleModel) sampleModel).getPixelStride());
+    assertEquals(3, ((PixelInterleavedSampleModel) sampleModel).getScanlineStride());
+    assertEquals(3, dataBuffer.getSize());
+    assertEquals(3, actualRawRaster.getNumBands());
+    assertEquals(3, actualRawRaster.getNumDataElements());
+    assertEquals(3, sampleModel.getNumBands());
+    assertEquals(3, sampleModel.getNumDataElements());
+    assertFalse(bounds.isEmpty());
+    assertEquals(location, location.getLocation());
+    assertEquals(size, size.getSize());
+    assertEquals(bounds, bounds.getBounds());
+    assertEquals(bounds, bounds2D);
+    assertEquals(bounds, frame);
+    byte[] data = ((DataBufferByte) dataBuffer).getData();
+    assertSame(data, bankData[0]);
+    assertArrayEquals(new byte[]{0, -1, 0}, data);
     assertArrayEquals(new int[]{0}, dataBuffer.getOffsets());
     assertArrayEquals(new int[]{0, 0, 0}, ((PixelInterleavedSampleModel) sampleModel).getBankIndices());
     assertArrayEquals(new int[]{0, 1, 2}, ((PixelInterleavedSampleModel) sampleModel).getBandOffsets());
@@ -1259,36 +4329,89 @@ class SampledImageReaderDiffblueTest {
   }
 
   /**
-   * Test {@link SampledImageReader#getRawRaster(PDImage)}.
-   * <p>
    * Method under test: {@link SampledImageReader#getRawRaster(PDImage)}
    */
   @Test
-  @DisplayName("Test getRawRaster(PDImage)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"WritableRaster SampledImageReader.getRawRaster(PDImage)"})
-  void testGetRawRaster6() throws IOException {
+  void testGetRawRaster10() throws IOException {
     // Arrange
-    PDDocument document = new PDDocument();
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDDocument document = new PDDocument(streamCacheCreateFunction);
 
     // Act
     WritableRaster actualRawRaster = SampledImageReader.getRawRaster(LosslessFactory.prepareImageXObject(document,
         new byte[]{'A', 1, 'A', 1, 'A', 1, 'A', 1}, 1, 1, 1, new PDCalGray()));
 
     // Assert
+    verify(streamCacheCreateFunction).create();
     Rectangle bounds = actualRawRaster.getBounds();
     Rectangle2D bounds2D = bounds.getBounds2D();
     assertTrue(bounds2D instanceof Rectangle);
     Rectangle2D frame = bounds.getFrame();
-    assertTrue(frame instanceof Double);
+    assertTrue(frame instanceof Rectangle2D.Double);
     DataBuffer dataBuffer = actualRawRaster.getDataBuffer();
     assertTrue(dataBuffer instanceof DataBufferByte);
     SampleModel sampleModel = actualRawRaster.getSampleModel();
     assertTrue(sampleModel instanceof PixelInterleavedSampleModel);
+    assertNull(actualRawRaster.getParent());
+    assertNull(actualRawRaster.getWritableParent());
+    assertEquals(0, dataBuffer.getDataType());
+    assertEquals(0, dataBuffer.getOffset());
+    assertEquals(0, actualRawRaster.getMinX());
+    assertEquals(0, actualRawRaster.getMinY());
+    assertEquals(0, actualRawRaster.getSampleModelTranslateX());
+    assertEquals(0, actualRawRaster.getSampleModelTranslateY());
+    assertEquals(0, actualRawRaster.getTransferType());
+    assertEquals(0, sampleModel.getDataType());
+    assertEquals(0, sampleModel.getTransferType());
+    Point location = bounds.getLocation();
+    assertEquals(0, location.x);
+    assertEquals(0, location.y);
+    assertEquals(0, bounds.x);
+    assertEquals(0, bounds.y);
+    assertEquals(0.0d, location.getX());
+    assertEquals(0.0d, location.getY());
+    assertEquals(0.0d, bounds.getX());
+    assertEquals(0.0d, bounds.getY());
+    assertEquals(0.0d, bounds.getMinX());
+    assertEquals(0.0d, bounds.getMinY());
+    assertEquals(0.5d, bounds.getCenterX());
+    assertEquals(0.5d, bounds.getCenterY());
+    assertEquals(1, ((PixelInterleavedSampleModel) sampleModel).getPixelStride());
+    assertEquals(1, ((PixelInterleavedSampleModel) sampleModel).getScanlineStride());
+    assertEquals(1, dataBuffer.getNumBanks());
+    assertEquals(1, dataBuffer.getSize());
+    assertEquals(1, actualRawRaster.getHeight());
+    assertEquals(1, actualRawRaster.getNumBands());
+    assertEquals(1, actualRawRaster.getNumDataElements());
+    assertEquals(1, actualRawRaster.getWidth());
+    assertEquals(1, sampleModel.getHeight());
+    assertEquals(1, sampleModel.getNumBands());
+    assertEquals(1, sampleModel.getNumDataElements());
+    assertEquals(1, sampleModel.getWidth());
+    byte[][] bankData = ((DataBufferByte) dataBuffer).getBankData();
+    assertEquals(1, bankData.length);
+    Dimension size = bounds.getSize();
+    assertEquals(1, size.height);
+    assertEquals(1, size.width);
+    assertEquals(1, bounds.height);
+    assertEquals(1, bounds.width);
+    assertEquals(1.0d, size.getHeight());
+    assertEquals(1.0d, size.getWidth());
+    assertEquals(1.0d, bounds.getHeight());
+    assertEquals(1.0d, bounds.getWidth());
+    assertEquals(1.0d, bounds.getMaxX());
+    assertEquals(1.0d, bounds.getMaxY());
+    assertFalse(bounds.isEmpty());
+    assertEquals(location, location.getLocation());
+    assertEquals(size, size.getSize());
     assertEquals(bounds, bounds.getBounds());
     assertEquals(bounds, bounds2D);
     assertEquals(bounds, frame);
-    assertArrayEquals(new byte[]{0}, ((DataBufferByte) dataBuffer).getData());
+    byte[] data = ((DataBufferByte) dataBuffer).getData();
+    assertSame(data, bankData[0]);
+    assertArrayEquals(new byte[]{0}, data);
     assertArrayEquals(new int[]{0}, ((PixelInterleavedSampleModel) sampleModel).getBandOffsets());
     assertArrayEquals(new int[]{0}, ((PixelInterleavedSampleModel) sampleModel).getBankIndices());
     assertArrayEquals(new int[]{0}, dataBuffer.getOffsets());
@@ -1296,36 +4419,89 @@ class SampledImageReaderDiffblueTest {
   }
 
   /**
-   * Test {@link SampledImageReader#getRawRaster(PDImage)}.
-   * <p>
    * Method under test: {@link SampledImageReader#getRawRaster(PDImage)}
    */
   @Test
-  @DisplayName("Test getRawRaster(PDImage)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"WritableRaster SampledImageReader.getRawRaster(PDImage)"})
-  void testGetRawRaster7() throws IOException {
+  void testGetRawRaster11() throws IOException {
     // Arrange
-    PDDocument document = new PDDocument();
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDDocument document = new PDDocument(streamCacheCreateFunction);
 
     // Act
     WritableRaster actualRawRaster = SampledImageReader.getRawRaster(LosslessFactory.prepareImageXObject(document,
         new byte[]{'A', 1, 'A', 1, 'A', 1, 'A', 1}, 1, 1, 1, new PDCalRGB()));
 
     // Assert
+    verify(streamCacheCreateFunction).create();
     Rectangle bounds = actualRawRaster.getBounds();
     Rectangle2D bounds2D = bounds.getBounds2D();
     assertTrue(bounds2D instanceof Rectangle);
     Rectangle2D frame = bounds.getFrame();
-    assertTrue(frame instanceof Double);
+    assertTrue(frame instanceof Rectangle2D.Double);
     DataBuffer dataBuffer = actualRawRaster.getDataBuffer();
     assertTrue(dataBuffer instanceof DataBufferByte);
     SampleModel sampleModel = actualRawRaster.getSampleModel();
     assertTrue(sampleModel instanceof PixelInterleavedSampleModel);
+    assertNull(actualRawRaster.getParent());
+    assertNull(actualRawRaster.getWritableParent());
+    assertEquals(0, dataBuffer.getDataType());
+    assertEquals(0, dataBuffer.getOffset());
+    assertEquals(0, actualRawRaster.getMinX());
+    assertEquals(0, actualRawRaster.getMinY());
+    assertEquals(0, actualRawRaster.getSampleModelTranslateX());
+    assertEquals(0, actualRawRaster.getSampleModelTranslateY());
+    assertEquals(0, actualRawRaster.getTransferType());
+    assertEquals(0, sampleModel.getDataType());
+    assertEquals(0, sampleModel.getTransferType());
+    Point location = bounds.getLocation();
+    assertEquals(0, location.x);
+    assertEquals(0, location.y);
+    assertEquals(0, bounds.x);
+    assertEquals(0, bounds.y);
+    assertEquals(0.0d, location.getX());
+    assertEquals(0.0d, location.getY());
+    assertEquals(0.0d, bounds.getX());
+    assertEquals(0.0d, bounds.getY());
+    assertEquals(0.0d, bounds.getMinX());
+    assertEquals(0.0d, bounds.getMinY());
+    assertEquals(0.5d, bounds.getCenterX());
+    assertEquals(0.5d, bounds.getCenterY());
+    assertEquals(1, dataBuffer.getNumBanks());
+    assertEquals(1, actualRawRaster.getHeight());
+    assertEquals(1, actualRawRaster.getWidth());
+    assertEquals(1, sampleModel.getHeight());
+    assertEquals(1, sampleModel.getWidth());
+    byte[][] bankData = ((DataBufferByte) dataBuffer).getBankData();
+    assertEquals(1, bankData.length);
+    Dimension size = bounds.getSize();
+    assertEquals(1, size.height);
+    assertEquals(1, size.width);
+    assertEquals(1, bounds.height);
+    assertEquals(1, bounds.width);
+    assertEquals(1.0d, size.getHeight());
+    assertEquals(1.0d, size.getWidth());
+    assertEquals(1.0d, bounds.getHeight());
+    assertEquals(1.0d, bounds.getWidth());
+    assertEquals(1.0d, bounds.getMaxX());
+    assertEquals(1.0d, bounds.getMaxY());
+    assertEquals(3, ((PixelInterleavedSampleModel) sampleModel).getPixelStride());
+    assertEquals(3, ((PixelInterleavedSampleModel) sampleModel).getScanlineStride());
+    assertEquals(3, dataBuffer.getSize());
+    assertEquals(3, actualRawRaster.getNumBands());
+    assertEquals(3, actualRawRaster.getNumDataElements());
+    assertEquals(3, sampleModel.getNumBands());
+    assertEquals(3, sampleModel.getNumDataElements());
+    assertFalse(bounds.isEmpty());
+    assertEquals(location, location.getLocation());
+    assertEquals(size, size.getSize());
     assertEquals(bounds, bounds.getBounds());
     assertEquals(bounds, bounds2D);
     assertEquals(bounds, frame);
-    assertArrayEquals(new byte[]{0, -1, 0}, ((DataBufferByte) dataBuffer).getData());
+    byte[] data = ((DataBufferByte) dataBuffer).getData();
+    assertSame(data, bankData[0]);
+    assertArrayEquals(new byte[]{0, -1, 0}, data);
     assertArrayEquals(new int[]{0}, dataBuffer.getOffsets());
     assertArrayEquals(new int[]{0, 0, 0}, ((PixelInterleavedSampleModel) sampleModel).getBankIndices());
     assertArrayEquals(new int[]{0, 1, 2}, ((PixelInterleavedSampleModel) sampleModel).getBandOffsets());
@@ -1333,108 +4509,92 @@ class SampledImageReaderDiffblueTest {
   }
 
   /**
-   * Test {@link SampledImageReader#getRawRaster(PDImage)}.
-   * <ul>
-   *   <li>Then DataBuffer return {@link DataBufferUShort}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link SampledImageReader#getRawRaster(PDImage)}
    */
   @Test
-  @DisplayName("Test getRawRaster(PDImage); then DataBuffer return DataBufferUShort")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"WritableRaster SampledImageReader.getRawRaster(PDImage)"})
-  void testGetRawRaster_thenDataBufferReturnDataBufferUShort() throws IOException {
-    // Arrange and Act
-    WritableRaster actualRawRaster = SampledImageReader.getRawRaster(LosslessFactory.prepareImageXObject(
-        new PDDocument(), new byte[]{'A', 1, 'A', 1, 'A', 1, 'A', 1}, 1, 1, 12, PDDeviceGray.INSTANCE));
+  void testGetRawRaster12() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDDocument document = new PDDocument(streamCacheCreateFunction);
+
+    // Act
+    WritableRaster actualRawRaster = SampledImageReader.getRawRaster(LosslessFactory.prepareImageXObject(document,
+        new byte[]{'A', 1, 'A', 1, 'A', 1, 'A', 1}, 1, 1, 1, new PDLab()));
 
     // Assert
+    verify(streamCacheCreateFunction).create();
     Rectangle bounds = actualRawRaster.getBounds();
     Rectangle2D bounds2D = bounds.getBounds2D();
     assertTrue(bounds2D instanceof Rectangle);
     Rectangle2D frame = bounds.getFrame();
-    assertTrue(frame instanceof Double);
-    DataBuffer dataBuffer = actualRawRaster.getDataBuffer();
-    assertTrue(dataBuffer instanceof DataBufferUShort);
-    SampleModel sampleModel = actualRawRaster.getSampleModel();
-    assertTrue(sampleModel instanceof PixelInterleavedSampleModel);
-    assertEquals(1, dataBuffer.getDataType());
-    assertEquals(1, actualRawRaster.getTransferType());
-    assertEquals(1, sampleModel.getDataType());
-    assertEquals(1, sampleModel.getTransferType());
-    assertEquals(1, ((DataBufferUShort) dataBuffer).getBankData().length);
-    assertEquals(bounds, bounds.getBounds());
-    assertEquals(bounds, bounds2D);
-    assertEquals(bounds, frame);
-    assertArrayEquals(new int[]{0}, ((PixelInterleavedSampleModel) sampleModel).getBandOffsets());
-    assertArrayEquals(new int[]{0}, ((PixelInterleavedSampleModel) sampleModel).getBankIndices());
-    assertArrayEquals(new int[]{0}, dataBuffer.getOffsets());
-    assertArrayEquals(new int[]{Short.SIZE}, sampleModel.getSampleSize());
-    assertArrayEquals(new short[]{16644}, ((DataBufferUShort) dataBuffer).getData());
-  }
-
-  /**
-   * Test {@link SampledImageReader#getRawRaster(PDImage)}.
-   * <ul>
-   *   <li>Then return Bounds CenterX is four.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SampledImageReader#getRawRaster(PDImage)}
-   */
-  @Test
-  @DisplayName("Test getRawRaster(PDImage); then return Bounds CenterX is four")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"WritableRaster SampledImageReader.getRawRaster(PDImage)"})
-  void testGetRawRaster_thenReturnBoundsCenterXIsFour() throws IOException {
-    // Arrange and Act
-    WritableRaster actualRawRaster = SampledImageReader.getRawRaster(LosslessFactory.prepareImageXObject(
-        new PDDocument(), new byte[]{'A', 1, 'A', 1, 'A', 1, 'A', 1}, 8, 1, 1, PDDeviceGray.INSTANCE));
-
-    // Assert
-    Rectangle bounds = actualRawRaster.getBounds();
-    Rectangle2D bounds2D = bounds.getBounds2D();
-    assertTrue(bounds2D instanceof Rectangle);
-    Rectangle2D frame = bounds.getFrame();
-    assertTrue(frame instanceof Double);
+    assertTrue(frame instanceof Rectangle2D.Double);
     DataBuffer dataBuffer = actualRawRaster.getDataBuffer();
     assertTrue(dataBuffer instanceof DataBufferByte);
     SampleModel sampleModel = actualRawRaster.getSampleModel();
     assertTrue(sampleModel instanceof PixelInterleavedSampleModel);
-    assertEquals(4.0d, bounds.getCenterX());
-    assertEquals(8, ((PixelInterleavedSampleModel) sampleModel).getScanlineStride());
-    assertEquals(8, dataBuffer.getSize());
-    assertEquals(8, actualRawRaster.getWidth());
-    assertEquals(8, sampleModel.getWidth());
-    assertEquals(8, bounds.width);
-    assertEquals(8.0d, bounds.getWidth());
-    assertEquals(8.0d, bounds.getMaxX());
+    assertNull(actualRawRaster.getParent());
+    assertNull(actualRawRaster.getWritableParent());
+    assertEquals(0, dataBuffer.getDataType());
+    assertEquals(0, dataBuffer.getOffset());
+    assertEquals(0, actualRawRaster.getMinX());
+    assertEquals(0, actualRawRaster.getMinY());
+    assertEquals(0, actualRawRaster.getSampleModelTranslateX());
+    assertEquals(0, actualRawRaster.getSampleModelTranslateY());
+    assertEquals(0, actualRawRaster.getTransferType());
+    assertEquals(0, sampleModel.getDataType());
+    assertEquals(0, sampleModel.getTransferType());
+    Point location = bounds.getLocation();
+    assertEquals(0, location.x);
+    assertEquals(0, location.y);
+    assertEquals(0, bounds.x);
+    assertEquals(0, bounds.y);
+    assertEquals(0.0d, location.getX());
+    assertEquals(0.0d, location.getY());
+    assertEquals(0.0d, bounds.getX());
+    assertEquals(0.0d, bounds.getY());
+    assertEquals(0.0d, bounds.getMinX());
+    assertEquals(0.0d, bounds.getMinY());
+    assertEquals(0.5d, bounds.getCenterX());
+    assertEquals(0.5d, bounds.getCenterY());
+    assertEquals(1, dataBuffer.getNumBanks());
+    assertEquals(1, actualRawRaster.getHeight());
+    assertEquals(1, actualRawRaster.getWidth());
+    assertEquals(1, sampleModel.getHeight());
+    assertEquals(1, sampleModel.getWidth());
+    byte[][] bankData = ((DataBufferByte) dataBuffer).getBankData();
+    assertEquals(1, bankData.length);
+    Dimension size = bounds.getSize();
+    assertEquals(1, size.height);
+    assertEquals(1, size.width);
+    assertEquals(1, bounds.height);
+    assertEquals(1, bounds.width);
+    assertEquals(1.0d, size.getHeight());
+    assertEquals(1.0d, size.getWidth());
+    assertEquals(1.0d, bounds.getHeight());
+    assertEquals(1.0d, bounds.getWidth());
+    assertEquals(1.0d, bounds.getMaxX());
+    assertEquals(1.0d, bounds.getMaxY());
+    assertEquals(3, ((PixelInterleavedSampleModel) sampleModel).getPixelStride());
+    assertEquals(3, ((PixelInterleavedSampleModel) sampleModel).getScanlineStride());
+    assertEquals(3, dataBuffer.getSize());
+    assertEquals(3, actualRawRaster.getNumBands());
+    assertEquals(3, actualRawRaster.getNumDataElements());
+    assertEquals(3, sampleModel.getNumBands());
+    assertEquals(3, sampleModel.getNumDataElements());
+    assertFalse(bounds.isEmpty());
+    assertEquals(location, location.getLocation());
+    assertEquals(size, size.getSize());
     assertEquals(bounds, bounds.getBounds());
     assertEquals(bounds, bounds2D);
     assertEquals(bounds, frame);
-    assertArrayEquals(new byte[]{0, -1, 0, 0, 0, 0, 0, -1}, ((DataBufferByte) dataBuffer).getData());
-    assertArrayEquals(new int[]{0}, ((PixelInterleavedSampleModel) sampleModel).getBandOffsets());
-    assertArrayEquals(new int[]{0}, ((PixelInterleavedSampleModel) sampleModel).getBankIndices());
+    byte[] data = ((DataBufferByte) dataBuffer).getData();
+    assertSame(data, bankData[0]);
+    assertArrayEquals(new byte[]{0, -1, 0}, data);
     assertArrayEquals(new int[]{0}, dataBuffer.getOffsets());
-    assertArrayEquals(new int[]{8}, sampleModel.getSampleSize());
-  }
-
-  /**
-   * Test {@link SampledImageReader#getRawRaster(PDImage)}.
-   * <ul>
-   *   <li>When createThumbnail {@link COSStream#COSStream()}.</li>
-   *   <li>Then throw {@link IOException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SampledImageReader#getRawRaster(PDImage)}
-   */
-  @Test
-  @DisplayName("Test getRawRaster(PDImage); when createThumbnail COSStream(); then throw IOException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"WritableRaster SampledImageReader.getRawRaster(PDImage)"})
-  void testGetRawRaster_whenCreateThumbnailCOSStream_thenThrowIOException() throws IOException {
-    // Arrange, Act and Assert
-    assertThrows(IOException.class,
-        () -> SampledImageReader.getRawRaster(PDImageXObject.createThumbnail(new COSStream())));
+    assertArrayEquals(new int[]{0, 0, 0}, ((PixelInterleavedSampleModel) sampleModel).getBankIndices());
+    assertArrayEquals(new int[]{0, 1, 2}, ((PixelInterleavedSampleModel) sampleModel).getBandOffsets());
+    assertArrayEquals(new int[]{8, 8, 8}, sampleModel.getSampleSize());
   }
 }

@@ -5,143 +5,62 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import java.io.IOException;
 import java.util.List;
+import org.apache.pdfbox.cos.COSArray;
 import org.apache.pdfbox.cos.COSBase;
 import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.cos.COSDocument;
 import org.apache.pdfbox.cos.COSFloat;
 import org.apache.pdfbox.cos.COSIncrement;
+import org.apache.pdfbox.cos.COSStream;
 import org.apache.pdfbox.cos.COSUpdateState;
+import org.apache.pdfbox.io.RandomAccessStreamCache;
+import org.apache.pdfbox.io.RandomAccessStreamCacheImpl;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.common.PDStream;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class PDFontDescriptorDiffblueTest {
   /**
-   * Test {@link PDFontDescriptor#PDFontDescriptor(COSDictionary)}.
-   * <p>
-   * Method under test: {@link PDFontDescriptor#PDFontDescriptor(COSDictionary)}
-   */
-  @Test
-  @DisplayName("Test new PDFontDescriptor(COSDictionary)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFontDescriptor.<init>(COSDictionary)"})
-  void testNewPDFontDescriptor() {
-    // Arrange
-    COSDictionary desc = new COSDictionary();
-
-    // Act and Assert
-    assertSame(desc, (new PDFontDescriptor(desc)).getCOSObject());
-  }
-
-  /**
-   * Test {@link PDFontDescriptor#PDFontDescriptor()}.
-   * <p>
-   * Method under test: {@link PDFontDescriptor#PDFontDescriptor()}
-   */
-  @Test
-  @DisplayName("Test new PDFontDescriptor()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFontDescriptor.<init>()"})
-  void testNewPDFontDescriptor2() {
-    // Arrange and Act
-    PDFontDescriptor actualPdFontDescriptor = new PDFontDescriptor();
-
-    // Assert
-    assertNull(actualPdFontDescriptor.getCharSet());
-    assertNull(actualPdFontDescriptor.getFontFamily());
-    assertNull(actualPdFontDescriptor.getFontName());
-    assertNull(actualPdFontDescriptor.getFontStretch());
-    assertNull(actualPdFontDescriptor.getFontBoundingBox());
-    assertNull(actualPdFontDescriptor.getCIDSet());
-    assertNull(actualPdFontDescriptor.getFontFile());
-    assertNull(actualPdFontDescriptor.getFontFile2());
-    assertNull(actualPdFontDescriptor.getFontFile3());
-    assertNull(actualPdFontDescriptor.getPanose());
-    assertEquals(0, actualPdFontDescriptor.getFlags());
-    assertEquals(0.0f, actualPdFontDescriptor.getAscent());
-    assertEquals(0.0f, actualPdFontDescriptor.getAverageWidth());
-    assertEquals(0.0f, actualPdFontDescriptor.getCapHeight());
-    assertEquals(0.0f, actualPdFontDescriptor.getDescent());
-    assertEquals(0.0f, actualPdFontDescriptor.getFontWeight());
-    assertEquals(0.0f, actualPdFontDescriptor.getItalicAngle());
-    assertEquals(0.0f, actualPdFontDescriptor.getLeading());
-    assertEquals(0.0f, actualPdFontDescriptor.getMaxWidth());
-    assertEquals(0.0f, actualPdFontDescriptor.getMissingWidth());
-    assertEquals(0.0f, actualPdFontDescriptor.getStemH());
-    assertEquals(0.0f, actualPdFontDescriptor.getStemV());
-    assertEquals(0.0f, actualPdFontDescriptor.getXHeight());
-    assertFalse(actualPdFontDescriptor.isAllCap());
-    assertFalse(actualPdFontDescriptor.isFixedPitch());
-    assertFalse(actualPdFontDescriptor.isForceBold());
-    assertFalse(actualPdFontDescriptor.isItalic());
-    assertFalse(actualPdFontDescriptor.isNonSymbolic());
-    assertFalse(actualPdFontDescriptor.isScript());
-    assertFalse(actualPdFontDescriptor.isSerif());
-    assertFalse(actualPdFontDescriptor.isSmallCap());
-    assertFalse(actualPdFontDescriptor.isSymbolic());
-  }
-
-  /**
-   * Test {@link PDFontDescriptor#isFixedPitch()}.
-   * <p>
    * Method under test: {@link PDFontDescriptor#isFixedPitch()}
    */
   @Test
-  @DisplayName("Test isFixedPitch()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean PDFontDescriptor.isFixedPitch()"})
   void testIsFixedPitch() {
     // Arrange, Act and Assert
     assertFalse((new PDFontDescriptor()).isFixedPitch());
   }
 
   /**
-   * Test {@link PDFontDescriptor#setFixedPitch(boolean)}.
-   * <ul>
-   *   <li>When {@code false}.</li>
-   *   <li>Then {@link PDFontDescriptor#PDFontDescriptor()} Flags is zero.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDFontDescriptor#setFixedPitch(boolean)}
+   * Method under test: {@link PDFontDescriptor#isFixedPitch()}
    */
   @Test
-  @DisplayName("Test setFixedPitch(boolean); when 'false'; then PDFontDescriptor() Flags is zero")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFontDescriptor.setFixedPitch(boolean)"})
-  void testSetFixedPitch_whenFalse_thenPDFontDescriptorFlagsIsZero() {
+  void testIsFixedPitch2() throws IOException {
     // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDStream type1Stream = new PDStream(new COSDocument(streamCacheCreateFunction));
+
     PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
+    pdFontDescriptor.setFontFile(type1Stream);
 
     // Act
-    pdFontDescriptor.setFixedPitch(false);
+    boolean actualIsFixedPitchResult = pdFontDescriptor.isFixedPitch();
 
     // Assert
-    assertEquals(0, pdFontDescriptor.getFlags());
-    COSDictionary cOSObject = pdFontDescriptor.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    assertFalse(pdFontDescriptor.isFixedPitch());
+    verify(streamCacheCreateFunction).create();
+    assertFalse(actualIsFixedPitchResult);
   }
 
   /**
-   * Test {@link PDFontDescriptor#setFixedPitch(boolean)}.
-   * <ul>
-   *   <li>When {@code true}.</li>
-   *   <li>Then {@link PDFontDescriptor#PDFontDescriptor()} Flags is one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDFontDescriptor#setFixedPitch(boolean)}
    */
   @Test
-  @DisplayName("Test setFixedPitch(boolean); when 'true'; then PDFontDescriptor() Flags is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFontDescriptor.setFixedPitch(boolean)"})
-  void testSetFixedPitch_whenTrue_thenPDFontDescriptorFlagsIsOne() {
+  void testSetFixedPitch() {
     // Arrange
     PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
 
@@ -157,61 +76,86 @@ class PDFontDescriptorDiffblueTest {
   }
 
   /**
-   * Test {@link PDFontDescriptor#isSerif()}.
-   * <p>
-   * Method under test: {@link PDFontDescriptor#isSerif()}
+   * Method under test: {@link PDFontDescriptor#setFixedPitch(boolean)}
    */
   @Test
-  @DisplayName("Test isSerif()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean PDFontDescriptor.isSerif()"})
-  void testIsSerif() {
-    // Arrange, Act and Assert
-    assertFalse((new PDFontDescriptor()).isSerif());
-  }
-
-  /**
-   * Test {@link PDFontDescriptor#setSerif(boolean)}.
-   * <ul>
-   *   <li>When {@code false}.</li>
-   *   <li>Then {@link PDFontDescriptor#PDFontDescriptor()} Flags is zero.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDFontDescriptor#setSerif(boolean)}
-   */
-  @Test
-  @DisplayName("Test setSerif(boolean); when 'false'; then PDFontDescriptor() Flags is zero")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFontDescriptor.setSerif(boolean)"})
-  void testSetSerif_whenFalse_thenPDFontDescriptorFlagsIsZero() {
+  void testSetFixedPitch2() {
     // Arrange
     PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
 
     // Act
-    pdFontDescriptor.setSerif(false);
+    pdFontDescriptor.setFixedPitch(false);
 
     // Assert
     assertEquals(0, pdFontDescriptor.getFlags());
     COSDictionary cOSObject = pdFontDescriptor.getCOSObject();
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
-    assertFalse(pdFontDescriptor.isSerif());
+    assertFalse(pdFontDescriptor.isFixedPitch());
   }
 
   /**
-   * Test {@link PDFontDescriptor#setSerif(boolean)}.
-   * <ul>
-   *   <li>When {@code true}.</li>
-   *   <li>Then {@link PDFontDescriptor#PDFontDescriptor()} Flags is two.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PDFontDescriptor#setFixedPitch(boolean)}
+   */
+  @Test
+  void testSetFixedPitch3() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDStream type1Stream = new PDStream(new COSDocument(streamCacheCreateFunction));
+
+    PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
+    pdFontDescriptor.setFontFile(type1Stream);
+
+    // Act
+    pdFontDescriptor.setFixedPitch(true);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertEquals(1, pdFontDescriptor.getFlags());
+    COSDictionary cOSObject = pdFontDescriptor.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
+    assertTrue(pdFontDescriptor.isFixedPitch());
+  }
+
+  /**
+   * Method under test: {@link PDFontDescriptor#isSerif()}
+   */
+  @Test
+  void testIsSerif() {
+    // Arrange, Act and Assert
+    assertFalse((new PDFontDescriptor()).isSerif());
+  }
+
+  /**
+   * Method under test: {@link PDFontDescriptor#isSerif()}
+   */
+  @Test
+  void testIsSerif2() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDStream type1Stream = new PDStream(new COSDocument(streamCacheCreateFunction));
+
+    PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
+    pdFontDescriptor.setFontFile(type1Stream);
+
+    // Act
+    boolean actualIsSerifResult = pdFontDescriptor.isSerif();
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertFalse(actualIsSerifResult);
+  }
+
+  /**
    * Method under test: {@link PDFontDescriptor#setSerif(boolean)}
    */
   @Test
-  @DisplayName("Test setSerif(boolean); when 'true'; then PDFontDescriptor() Flags is two")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFontDescriptor.setSerif(boolean)"})
-  void testSetSerif_whenTrue_thenPDFontDescriptorFlagsIsTwo() {
+  void testSetSerif() {
     // Arrange
     PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
 
@@ -227,61 +171,86 @@ class PDFontDescriptorDiffblueTest {
   }
 
   /**
-   * Test {@link PDFontDescriptor#isSymbolic()}.
-   * <p>
-   * Method under test: {@link PDFontDescriptor#isSymbolic()}
+   * Method under test: {@link PDFontDescriptor#setSerif(boolean)}
    */
   @Test
-  @DisplayName("Test isSymbolic()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean PDFontDescriptor.isSymbolic()"})
-  void testIsSymbolic() {
-    // Arrange, Act and Assert
-    assertFalse((new PDFontDescriptor()).isSymbolic());
-  }
-
-  /**
-   * Test {@link PDFontDescriptor#setSymbolic(boolean)}.
-   * <ul>
-   *   <li>When {@code false}.</li>
-   *   <li>Then {@link PDFontDescriptor#PDFontDescriptor()} Flags is zero.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDFontDescriptor#setSymbolic(boolean)}
-   */
-  @Test
-  @DisplayName("Test setSymbolic(boolean); when 'false'; then PDFontDescriptor() Flags is zero")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFontDescriptor.setSymbolic(boolean)"})
-  void testSetSymbolic_whenFalse_thenPDFontDescriptorFlagsIsZero() {
+  void testSetSerif2() {
     // Arrange
     PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
 
     // Act
-    pdFontDescriptor.setSymbolic(false);
+    pdFontDescriptor.setSerif(false);
 
     // Assert
     assertEquals(0, pdFontDescriptor.getFlags());
     COSDictionary cOSObject = pdFontDescriptor.getCOSObject();
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
-    assertFalse(pdFontDescriptor.isSymbolic());
+    assertFalse(pdFontDescriptor.isSerif());
   }
 
   /**
-   * Test {@link PDFontDescriptor#setSymbolic(boolean)}.
-   * <ul>
-   *   <li>When {@code true}.</li>
-   *   <li>Then {@link PDFontDescriptor#PDFontDescriptor()} Flags is four.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PDFontDescriptor#setSerif(boolean)}
+   */
+  @Test
+  void testSetSerif3() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDStream type1Stream = new PDStream(new COSDocument(streamCacheCreateFunction));
+
+    PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
+    pdFontDescriptor.setFontFile(type1Stream);
+
+    // Act
+    pdFontDescriptor.setSerif(true);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertEquals(2, pdFontDescriptor.getFlags());
+    COSDictionary cOSObject = pdFontDescriptor.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
+    assertTrue(pdFontDescriptor.isSerif());
+  }
+
+  /**
+   * Method under test: {@link PDFontDescriptor#isSymbolic()}
+   */
+  @Test
+  void testIsSymbolic() {
+    // Arrange, Act and Assert
+    assertFalse((new PDFontDescriptor()).isSymbolic());
+  }
+
+  /**
+   * Method under test: {@link PDFontDescriptor#isSymbolic()}
+   */
+  @Test
+  void testIsSymbolic2() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDStream type1Stream = new PDStream(new COSDocument(streamCacheCreateFunction));
+
+    PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
+    pdFontDescriptor.setFontFile(type1Stream);
+
+    // Act
+    boolean actualIsSymbolicResult = pdFontDescriptor.isSymbolic();
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertFalse(actualIsSymbolicResult);
+  }
+
+  /**
    * Method under test: {@link PDFontDescriptor#setSymbolic(boolean)}
    */
   @Test
-  @DisplayName("Test setSymbolic(boolean); when 'true'; then PDFontDescriptor() Flags is four")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFontDescriptor.setSymbolic(boolean)"})
-  void testSetSymbolic_whenTrue_thenPDFontDescriptorFlagsIsFour() {
+  void testSetSymbolic() {
     // Arrange
     PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
 
@@ -297,61 +266,86 @@ class PDFontDescriptorDiffblueTest {
   }
 
   /**
-   * Test {@link PDFontDescriptor#isScript()}.
-   * <p>
-   * Method under test: {@link PDFontDescriptor#isScript()}
+   * Method under test: {@link PDFontDescriptor#setSymbolic(boolean)}
    */
   @Test
-  @DisplayName("Test isScript()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean PDFontDescriptor.isScript()"})
-  void testIsScript() {
-    // Arrange, Act and Assert
-    assertFalse((new PDFontDescriptor()).isScript());
-  }
-
-  /**
-   * Test {@link PDFontDescriptor#setScript(boolean)}.
-   * <ul>
-   *   <li>When {@code false}.</li>
-   *   <li>Then {@link PDFontDescriptor#PDFontDescriptor()} Flags is zero.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDFontDescriptor#setScript(boolean)}
-   */
-  @Test
-  @DisplayName("Test setScript(boolean); when 'false'; then PDFontDescriptor() Flags is zero")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFontDescriptor.setScript(boolean)"})
-  void testSetScript_whenFalse_thenPDFontDescriptorFlagsIsZero() {
+  void testSetSymbolic2() {
     // Arrange
     PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
 
     // Act
-    pdFontDescriptor.setScript(false);
+    pdFontDescriptor.setSymbolic(false);
 
     // Assert
     assertEquals(0, pdFontDescriptor.getFlags());
     COSDictionary cOSObject = pdFontDescriptor.getCOSObject();
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
-    assertFalse(pdFontDescriptor.isScript());
+    assertFalse(pdFontDescriptor.isSymbolic());
   }
 
   /**
-   * Test {@link PDFontDescriptor#setScript(boolean)}.
-   * <ul>
-   *   <li>When {@code true}.</li>
-   *   <li>Then {@link PDFontDescriptor#PDFontDescriptor()} Flags is eight.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PDFontDescriptor#setSymbolic(boolean)}
+   */
+  @Test
+  void testSetSymbolic3() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDStream type1Stream = new PDStream(new COSDocument(streamCacheCreateFunction));
+
+    PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
+    pdFontDescriptor.setFontFile(type1Stream);
+
+    // Act
+    pdFontDescriptor.setSymbolic(true);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    COSDictionary cOSObject = pdFontDescriptor.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
+    assertEquals(4, pdFontDescriptor.getFlags());
+    assertTrue(pdFontDescriptor.isSymbolic());
+  }
+
+  /**
+   * Method under test: {@link PDFontDescriptor#isScript()}
+   */
+  @Test
+  void testIsScript() {
+    // Arrange, Act and Assert
+    assertFalse((new PDFontDescriptor()).isScript());
+  }
+
+  /**
+   * Method under test: {@link PDFontDescriptor#isScript()}
+   */
+  @Test
+  void testIsScript2() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDStream type1Stream = new PDStream(new COSDocument(streamCacheCreateFunction));
+
+    PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
+    pdFontDescriptor.setFontFile(type1Stream);
+
+    // Act
+    boolean actualIsScriptResult = pdFontDescriptor.isScript();
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertFalse(actualIsScriptResult);
+  }
+
+  /**
    * Method under test: {@link PDFontDescriptor#setScript(boolean)}
    */
   @Test
-  @DisplayName("Test setScript(boolean); when 'true'; then PDFontDescriptor() Flags is eight")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFontDescriptor.setScript(boolean)"})
-  void testSetScript_whenTrue_thenPDFontDescriptorFlagsIsEight() {
+  void testSetScript() {
     // Arrange
     PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
 
@@ -367,61 +361,86 @@ class PDFontDescriptorDiffblueTest {
   }
 
   /**
-   * Test {@link PDFontDescriptor#isNonSymbolic()}.
-   * <p>
-   * Method under test: {@link PDFontDescriptor#isNonSymbolic()}
+   * Method under test: {@link PDFontDescriptor#setScript(boolean)}
    */
   @Test
-  @DisplayName("Test isNonSymbolic()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean PDFontDescriptor.isNonSymbolic()"})
-  void testIsNonSymbolic() {
-    // Arrange, Act and Assert
-    assertFalse((new PDFontDescriptor()).isNonSymbolic());
-  }
-
-  /**
-   * Test {@link PDFontDescriptor#setNonSymbolic(boolean)}.
-   * <ul>
-   *   <li>When {@code false}.</li>
-   *   <li>Then {@link PDFontDescriptor#PDFontDescriptor()} Flags is zero.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDFontDescriptor#setNonSymbolic(boolean)}
-   */
-  @Test
-  @DisplayName("Test setNonSymbolic(boolean); when 'false'; then PDFontDescriptor() Flags is zero")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFontDescriptor.setNonSymbolic(boolean)"})
-  void testSetNonSymbolic_whenFalse_thenPDFontDescriptorFlagsIsZero() {
+  void testSetScript2() {
     // Arrange
     PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
 
     // Act
-    pdFontDescriptor.setNonSymbolic(false);
+    pdFontDescriptor.setScript(false);
 
     // Assert
     assertEquals(0, pdFontDescriptor.getFlags());
     COSDictionary cOSObject = pdFontDescriptor.getCOSObject();
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
-    assertFalse(pdFontDescriptor.isNonSymbolic());
+    assertFalse(pdFontDescriptor.isScript());
   }
 
   /**
-   * Test {@link PDFontDescriptor#setNonSymbolic(boolean)}.
-   * <ul>
-   *   <li>When {@code true}.</li>
-   *   <li>Then {@link PDFontDescriptor#PDFontDescriptor()} NonSymbolic.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PDFontDescriptor#setScript(boolean)}
+   */
+  @Test
+  void testSetScript3() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDStream type1Stream = new PDStream(new COSDocument(streamCacheCreateFunction));
+
+    PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
+    pdFontDescriptor.setFontFile(type1Stream);
+
+    // Act
+    pdFontDescriptor.setScript(true);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    COSDictionary cOSObject = pdFontDescriptor.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
+    assertEquals(8, pdFontDescriptor.getFlags());
+    assertTrue(pdFontDescriptor.isScript());
+  }
+
+  /**
+   * Method under test: {@link PDFontDescriptor#isNonSymbolic()}
+   */
+  @Test
+  void testIsNonSymbolic() {
+    // Arrange, Act and Assert
+    assertFalse((new PDFontDescriptor()).isNonSymbolic());
+  }
+
+  /**
+   * Method under test: {@link PDFontDescriptor#isNonSymbolic()}
+   */
+  @Test
+  void testIsNonSymbolic2() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDStream type1Stream = new PDStream(new COSDocument(streamCacheCreateFunction));
+
+    PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
+    pdFontDescriptor.setFontFile(type1Stream);
+
+    // Act
+    boolean actualIsNonSymbolicResult = pdFontDescriptor.isNonSymbolic();
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertFalse(actualIsNonSymbolicResult);
+  }
+
+  /**
    * Method under test: {@link PDFontDescriptor#setNonSymbolic(boolean)}
    */
   @Test
-  @DisplayName("Test setNonSymbolic(boolean); when 'true'; then PDFontDescriptor() NonSymbolic")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFontDescriptor.setNonSymbolic(boolean)"})
-  void testSetNonSymbolic_whenTrue_thenPDFontDescriptorNonSymbolic() {
+  void testSetNonSymbolic() {
     // Arrange
     PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
 
@@ -437,61 +456,86 @@ class PDFontDescriptorDiffblueTest {
   }
 
   /**
-   * Test {@link PDFontDescriptor#isItalic()}.
-   * <p>
-   * Method under test: {@link PDFontDescriptor#isItalic()}
+   * Method under test: {@link PDFontDescriptor#setNonSymbolic(boolean)}
    */
   @Test
-  @DisplayName("Test isItalic()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean PDFontDescriptor.isItalic()"})
-  void testIsItalic() {
-    // Arrange, Act and Assert
-    assertFalse((new PDFontDescriptor()).isItalic());
-  }
-
-  /**
-   * Test {@link PDFontDescriptor#setItalic(boolean)}.
-   * <ul>
-   *   <li>When {@code false}.</li>
-   *   <li>Then {@link PDFontDescriptor#PDFontDescriptor()} Flags is zero.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDFontDescriptor#setItalic(boolean)}
-   */
-  @Test
-  @DisplayName("Test setItalic(boolean); when 'false'; then PDFontDescriptor() Flags is zero")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFontDescriptor.setItalic(boolean)"})
-  void testSetItalic_whenFalse_thenPDFontDescriptorFlagsIsZero() {
+  void testSetNonSymbolic2() {
     // Arrange
     PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
 
     // Act
-    pdFontDescriptor.setItalic(false);
+    pdFontDescriptor.setNonSymbolic(false);
 
     // Assert
     assertEquals(0, pdFontDescriptor.getFlags());
     COSDictionary cOSObject = pdFontDescriptor.getCOSObject();
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
-    assertFalse(pdFontDescriptor.isItalic());
+    assertFalse(pdFontDescriptor.isNonSymbolic());
   }
 
   /**
-   * Test {@link PDFontDescriptor#setItalic(boolean)}.
-   * <ul>
-   *   <li>When {@code true}.</li>
-   *   <li>Then {@link PDFontDescriptor#PDFontDescriptor()} Italic.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PDFontDescriptor#setNonSymbolic(boolean)}
+   */
+  @Test
+  void testSetNonSymbolic3() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDStream type1Stream = new PDStream(new COSDocument(streamCacheCreateFunction));
+
+    PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
+    pdFontDescriptor.setFontFile(type1Stream);
+
+    // Act
+    pdFontDescriptor.setNonSymbolic(true);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    COSDictionary cOSObject = pdFontDescriptor.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
+    assertTrue(pdFontDescriptor.isNonSymbolic());
+    assertEquals(Integer.SIZE, pdFontDescriptor.getFlags());
+  }
+
+  /**
+   * Method under test: {@link PDFontDescriptor#isItalic()}
+   */
+  @Test
+  void testIsItalic() {
+    // Arrange, Act and Assert
+    assertFalse((new PDFontDescriptor()).isItalic());
+  }
+
+  /**
+   * Method under test: {@link PDFontDescriptor#isItalic()}
+   */
+  @Test
+  void testIsItalic2() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDStream type1Stream = new PDStream(new COSDocument(streamCacheCreateFunction));
+
+    PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
+    pdFontDescriptor.setFontFile(type1Stream);
+
+    // Act
+    boolean actualIsItalicResult = pdFontDescriptor.isItalic();
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertFalse(actualIsItalicResult);
+  }
+
+  /**
    * Method under test: {@link PDFontDescriptor#setItalic(boolean)}
    */
   @Test
-  @DisplayName("Test setItalic(boolean); when 'true'; then PDFontDescriptor() Italic")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFontDescriptor.setItalic(boolean)"})
-  void testSetItalic_whenTrue_thenPDFontDescriptorItalic() {
+  void testSetItalic() {
     // Arrange
     PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
 
@@ -507,61 +551,86 @@ class PDFontDescriptorDiffblueTest {
   }
 
   /**
-   * Test {@link PDFontDescriptor#isAllCap()}.
-   * <p>
-   * Method under test: {@link PDFontDescriptor#isAllCap()}
+   * Method under test: {@link PDFontDescriptor#setItalic(boolean)}
    */
   @Test
-  @DisplayName("Test isAllCap()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean PDFontDescriptor.isAllCap()"})
-  void testIsAllCap() {
-    // Arrange, Act and Assert
-    assertFalse((new PDFontDescriptor()).isAllCap());
-  }
-
-  /**
-   * Test {@link PDFontDescriptor#setAllCap(boolean)}.
-   * <ul>
-   *   <li>When {@code false}.</li>
-   *   <li>Then {@link PDFontDescriptor#PDFontDescriptor()} Flags is zero.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDFontDescriptor#setAllCap(boolean)}
-   */
-  @Test
-  @DisplayName("Test setAllCap(boolean); when 'false'; then PDFontDescriptor() Flags is zero")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFontDescriptor.setAllCap(boolean)"})
-  void testSetAllCap_whenFalse_thenPDFontDescriptorFlagsIsZero() {
+  void testSetItalic2() {
     // Arrange
     PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
 
     // Act
-    pdFontDescriptor.setAllCap(false);
+    pdFontDescriptor.setItalic(false);
 
     // Assert
     assertEquals(0, pdFontDescriptor.getFlags());
     COSDictionary cOSObject = pdFontDescriptor.getCOSObject();
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
-    assertFalse(pdFontDescriptor.isAllCap());
+    assertFalse(pdFontDescriptor.isItalic());
   }
 
   /**
-   * Test {@link PDFontDescriptor#setAllCap(boolean)}.
-   * <ul>
-   *   <li>When {@code true}.</li>
-   *   <li>Then {@link PDFontDescriptor#PDFontDescriptor()} Flags is {@code 65536}.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PDFontDescriptor#setItalic(boolean)}
+   */
+  @Test
+  void testSetItalic3() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDStream type1Stream = new PDStream(new COSDocument(streamCacheCreateFunction));
+
+    PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
+    pdFontDescriptor.setFontFile(type1Stream);
+
+    // Act
+    pdFontDescriptor.setItalic(true);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    COSDictionary cOSObject = pdFontDescriptor.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
+    assertTrue(pdFontDescriptor.isItalic());
+    assertEquals(Double.SIZE, pdFontDescriptor.getFlags());
+  }
+
+  /**
+   * Method under test: {@link PDFontDescriptor#isAllCap()}
+   */
+  @Test
+  void testIsAllCap() {
+    // Arrange, Act and Assert
+    assertFalse((new PDFontDescriptor()).isAllCap());
+  }
+
+  /**
+   * Method under test: {@link PDFontDescriptor#isAllCap()}
+   */
+  @Test
+  void testIsAllCap2() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDStream type1Stream = new PDStream(new COSDocument(streamCacheCreateFunction));
+
+    PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
+    pdFontDescriptor.setFontFile(type1Stream);
+
+    // Act
+    boolean actualIsAllCapResult = pdFontDescriptor.isAllCap();
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertFalse(actualIsAllCapResult);
+  }
+
+  /**
    * Method under test: {@link PDFontDescriptor#setAllCap(boolean)}
    */
   @Test
-  @DisplayName("Test setAllCap(boolean); when 'true'; then PDFontDescriptor() Flags is '65536'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFontDescriptor.setAllCap(boolean)"})
-  void testSetAllCap_whenTrue_thenPDFontDescriptorFlagsIs65536() {
+  void testSetAllCap() {
     // Arrange
     PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
 
@@ -577,61 +646,86 @@ class PDFontDescriptorDiffblueTest {
   }
 
   /**
-   * Test {@link PDFontDescriptor#isSmallCap()}.
-   * <p>
-   * Method under test: {@link PDFontDescriptor#isSmallCap()}
+   * Method under test: {@link PDFontDescriptor#setAllCap(boolean)}
    */
   @Test
-  @DisplayName("Test isSmallCap()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean PDFontDescriptor.isSmallCap()"})
-  void testIsSmallCap() {
-    // Arrange, Act and Assert
-    assertFalse((new PDFontDescriptor()).isSmallCap());
-  }
-
-  /**
-   * Test {@link PDFontDescriptor#setSmallCap(boolean)}.
-   * <ul>
-   *   <li>When {@code false}.</li>
-   *   <li>Then {@link PDFontDescriptor#PDFontDescriptor()} Flags is zero.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDFontDescriptor#setSmallCap(boolean)}
-   */
-  @Test
-  @DisplayName("Test setSmallCap(boolean); when 'false'; then PDFontDescriptor() Flags is zero")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFontDescriptor.setSmallCap(boolean)"})
-  void testSetSmallCap_whenFalse_thenPDFontDescriptorFlagsIsZero() {
+  void testSetAllCap2() {
     // Arrange
     PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
 
     // Act
-    pdFontDescriptor.setSmallCap(false);
+    pdFontDescriptor.setAllCap(false);
 
     // Assert
     assertEquals(0, pdFontDescriptor.getFlags());
     COSDictionary cOSObject = pdFontDescriptor.getCOSObject();
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
-    assertFalse(pdFontDescriptor.isSmallCap());
+    assertFalse(pdFontDescriptor.isAllCap());
   }
 
   /**
-   * Test {@link PDFontDescriptor#setSmallCap(boolean)}.
-   * <ul>
-   *   <li>When {@code true}.</li>
-   *   <li>Then {@link PDFontDescriptor#PDFontDescriptor()} Flags is {@code 131072}.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PDFontDescriptor#setAllCap(boolean)}
+   */
+  @Test
+  void testSetAllCap3() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDStream type1Stream = new PDStream(new COSDocument(streamCacheCreateFunction));
+
+    PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
+    pdFontDescriptor.setFontFile(type1Stream);
+
+    // Act
+    pdFontDescriptor.setAllCap(true);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    COSDictionary cOSObject = pdFontDescriptor.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
+    assertEquals(65536, pdFontDescriptor.getFlags());
+    assertTrue(pdFontDescriptor.isAllCap());
+  }
+
+  /**
+   * Method under test: {@link PDFontDescriptor#isSmallCap()}
+   */
+  @Test
+  void testIsSmallCap() {
+    // Arrange, Act and Assert
+    assertFalse((new PDFontDescriptor()).isSmallCap());
+  }
+
+  /**
+   * Method under test: {@link PDFontDescriptor#isSmallCap()}
+   */
+  @Test
+  void testIsSmallCap2() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDStream type1Stream = new PDStream(new COSDocument(streamCacheCreateFunction));
+
+    PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
+    pdFontDescriptor.setFontFile(type1Stream);
+
+    // Act
+    boolean actualIsSmallCapResult = pdFontDescriptor.isSmallCap();
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertFalse(actualIsSmallCapResult);
+  }
+
+  /**
    * Method under test: {@link PDFontDescriptor#setSmallCap(boolean)}
    */
   @Test
-  @DisplayName("Test setSmallCap(boolean); when 'true'; then PDFontDescriptor() Flags is '131072'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFontDescriptor.setSmallCap(boolean)"})
-  void testSetSmallCap_whenTrue_thenPDFontDescriptorFlagsIs131072() {
+  void testSetSmallCap() {
     // Arrange
     PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
 
@@ -647,61 +741,86 @@ class PDFontDescriptorDiffblueTest {
   }
 
   /**
-   * Test {@link PDFontDescriptor#isForceBold()}.
-   * <p>
-   * Method under test: {@link PDFontDescriptor#isForceBold()}
+   * Method under test: {@link PDFontDescriptor#setSmallCap(boolean)}
    */
   @Test
-  @DisplayName("Test isForceBold()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean PDFontDescriptor.isForceBold()"})
-  void testIsForceBold() {
-    // Arrange, Act and Assert
-    assertFalse((new PDFontDescriptor()).isForceBold());
-  }
-
-  /**
-   * Test {@link PDFontDescriptor#setForceBold(boolean)}.
-   * <ul>
-   *   <li>When {@code false}.</li>
-   *   <li>Then {@link PDFontDescriptor#PDFontDescriptor()} Flags is zero.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDFontDescriptor#setForceBold(boolean)}
-   */
-  @Test
-  @DisplayName("Test setForceBold(boolean); when 'false'; then PDFontDescriptor() Flags is zero")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFontDescriptor.setForceBold(boolean)"})
-  void testSetForceBold_whenFalse_thenPDFontDescriptorFlagsIsZero() {
+  void testSetSmallCap2() {
     // Arrange
     PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
 
     // Act
-    pdFontDescriptor.setForceBold(false);
+    pdFontDescriptor.setSmallCap(false);
 
     // Assert
     assertEquals(0, pdFontDescriptor.getFlags());
     COSDictionary cOSObject = pdFontDescriptor.getCOSObject();
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
-    assertFalse(pdFontDescriptor.isForceBold());
+    assertFalse(pdFontDescriptor.isSmallCap());
   }
 
   /**
-   * Test {@link PDFontDescriptor#setForceBold(boolean)}.
-   * <ul>
-   *   <li>When {@code true}.</li>
-   *   <li>Then {@link PDFontDescriptor#PDFontDescriptor()} Flags is {@code 262144}.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PDFontDescriptor#setSmallCap(boolean)}
+   */
+  @Test
+  void testSetSmallCap3() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDStream type1Stream = new PDStream(new COSDocument(streamCacheCreateFunction));
+
+    PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
+    pdFontDescriptor.setFontFile(type1Stream);
+
+    // Act
+    pdFontDescriptor.setSmallCap(true);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertEquals(131072, pdFontDescriptor.getFlags());
+    COSDictionary cOSObject = pdFontDescriptor.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
+    assertTrue(pdFontDescriptor.isSmallCap());
+  }
+
+  /**
+   * Method under test: {@link PDFontDescriptor#isForceBold()}
+   */
+  @Test
+  void testIsForceBold() {
+    // Arrange, Act and Assert
+    assertFalse((new PDFontDescriptor()).isForceBold());
+  }
+
+  /**
+   * Method under test: {@link PDFontDescriptor#isForceBold()}
+   */
+  @Test
+  void testIsForceBold2() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDStream type1Stream = new PDStream(new COSDocument(streamCacheCreateFunction));
+
+    PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
+    pdFontDescriptor.setFontFile(type1Stream);
+
+    // Act
+    boolean actualIsForceBoldResult = pdFontDescriptor.isForceBold();
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertFalse(actualIsForceBoldResult);
+  }
+
+  /**
    * Method under test: {@link PDFontDescriptor#setForceBold(boolean)}
    */
   @Test
-  @DisplayName("Test setForceBold(boolean); when 'true'; then PDFontDescriptor() Flags is '262144'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFontDescriptor.setForceBold(boolean)"})
-  void testSetForceBold_whenTrue_thenPDFontDescriptorFlagsIs262144() {
+  void testSetForceBold() {
     // Arrange
     PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
 
@@ -717,14 +836,54 @@ class PDFontDescriptorDiffblueTest {
   }
 
   /**
-   * Test {@link PDFontDescriptor#getCOSObject()}.
-   * <p>
+   * Method under test: {@link PDFontDescriptor#setForceBold(boolean)}
+   */
+  @Test
+  void testSetForceBold2() {
+    // Arrange
+    PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
+
+    // Act
+    pdFontDescriptor.setForceBold(false);
+
+    // Assert
+    assertEquals(0, pdFontDescriptor.getFlags());
+    COSDictionary cOSObject = pdFontDescriptor.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    assertFalse(pdFontDescriptor.isForceBold());
+  }
+
+  /**
+   * Method under test: {@link PDFontDescriptor#setForceBold(boolean)}
+   */
+  @Test
+  void testSetForceBold3() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDStream type1Stream = new PDStream(new COSDocument(streamCacheCreateFunction));
+
+    PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
+    pdFontDescriptor.setFontFile(type1Stream);
+
+    // Act
+    pdFontDescriptor.setForceBold(true);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertEquals(262144, pdFontDescriptor.getFlags());
+    COSDictionary cOSObject = pdFontDescriptor.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
+    assertTrue(pdFontDescriptor.isForceBold());
+  }
+
+  /**
    * Method under test: {@link PDFontDescriptor#getCOSObject()}
    */
   @Test
-  @DisplayName("Test getCOSObject()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"COSDictionary PDFontDescriptor.getCOSObject()"})
   void testGetCOSObject() {
     // Arrange and Act
     COSDictionary actualCOSObject = (new PDFontDescriptor()).getCOSObject();
@@ -744,19 +903,51 @@ class PDFontDescriptorDiffblueTest {
   }
 
   /**
-   * Test {@link PDFontDescriptor#getFontName()}.
-   * <ul>
-   *   <li>Given {@link PDFontDescriptor#PDFontDescriptor()} FontName is {@code Font Name}.</li>
-   *   <li>Then return {@code Font Name}.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PDFontDescriptor#getCOSObject()}
+   */
+  @Test
+  void testGetCOSObject2() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDStream type1Stream = new PDStream(new COSDocument(streamCacheCreateFunction));
+
+    PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
+    pdFontDescriptor.setFontFile(type1Stream);
+
+    // Act
+    COSDictionary actualCOSObject = pdFontDescriptor.getCOSObject();
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    COSUpdateState updateState = actualCOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(actualCOSObject.getKey());
+    assertEquals(2, actualCOSObject.getValues().size());
+    assertEquals(2, actualCOSObject.size());
+    COSIncrement toIncrementResult = actualCOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(actualCOSObject.isDirect());
+    assertFalse(actualCOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+  }
+
+  /**
    * Method under test: {@link PDFontDescriptor#getFontName()}
    */
   @Test
-  @DisplayName("Test getFontName(); given PDFontDescriptor() FontName is 'Font Name'; then return 'Font Name'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDFontDescriptor.getFontName()"})
-  void testGetFontName_givenPDFontDescriptorFontNameIsFontName_thenReturnFontName() {
+  void testGetFontName() {
+    // Arrange, Act and Assert
+    assertNull((new PDFontDescriptor()).getFontName());
+  }
+
+  /**
+   * Method under test: {@link PDFontDescriptor#getFontName()}
+   */
+  @Test
+  void testGetFontName2() {
     // Arrange
     PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
     pdFontDescriptor.setFontName("Font Name");
@@ -766,37 +957,68 @@ class PDFontDescriptorDiffblueTest {
   }
 
   /**
-   * Test {@link PDFontDescriptor#getFontName()}.
-   * <ul>
-   *   <li>Given {@link PDFontDescriptor#PDFontDescriptor()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDFontDescriptor#getFontName()}
    */
   @Test
-  @DisplayName("Test getFontName(); given PDFontDescriptor(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDFontDescriptor.getFontName()"})
-  void testGetFontName_givenPDFontDescriptor_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull((new PDFontDescriptor()).getFontName());
+  void testGetFontName3() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDStream type1Stream = new PDStream(new COSDocument(streamCacheCreateFunction));
+
+    PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
+    pdFontDescriptor.setFontFile(type1Stream);
+
+    // Act
+    String actualFontName = pdFontDescriptor.getFontName();
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertNull(actualFontName);
   }
 
   /**
-   * Test {@link PDFontDescriptor#setFontName(String)}.
-   * <ul>
-   *   <li>When {@code 42}.</li>
-   *   <li>Then {@link PDFontDescriptor#PDFontDescriptor()} FontName is {@code 42}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDFontDescriptor#setFontName(String)}
    */
   @Test
-  @DisplayName("Test setFontName(String); when '42'; then PDFontDescriptor() FontName is '42'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFontDescriptor.setFontName(String)"})
-  void testSetFontName_when42_thenPDFontDescriptorFontNameIs42() {
+  void testSetFontName() {
+    // Arrange
+    PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
+
+    // Act
+    pdFontDescriptor.setFontName("Font Name");
+
+    // Assert
+    assertEquals("Font Name", pdFontDescriptor.getFontName());
+    COSDictionary cOSObject = pdFontDescriptor.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+  }
+
+  /**
+   * Method under test: {@link PDFontDescriptor#setFontName(String)}
+   */
+  @Test
+  void testSetFontName2() {
+    // Arrange
+    PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
+
+    // Act
+    pdFontDescriptor.setFontName(null);
+
+    // Assert
+    assertNull(pdFontDescriptor.getFontName());
+    COSDictionary cOSObject = pdFontDescriptor.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+  }
+
+  /**
+   * Method under test: {@link PDFontDescriptor#setFontName(String)}
+   */
+  @Test
+  void testSetFontName3() {
     // Arrange
     PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
 
@@ -811,89 +1033,57 @@ class PDFontDescriptorDiffblueTest {
   }
 
   /**
-   * Test {@link PDFontDescriptor#setFontName(String)}.
-   * <ul>
-   *   <li>When {@code Font Name}.</li>
-   *   <li>Then {@link PDFontDescriptor#PDFontDescriptor()} FontName is {@code Font Name}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDFontDescriptor#setFontName(String)}
    */
   @Test
-  @DisplayName("Test setFontName(String); when 'Font Name'; then PDFontDescriptor() FontName is 'Font Name'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFontDescriptor.setFontName(String)"})
-  void testSetFontName_whenFontName_thenPDFontDescriptorFontNameIsFontName() {
+  void testSetFontName4() throws IOException {
     // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDStream type1Stream = new PDStream(new COSDocument(streamCacheCreateFunction));
+
     PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
+    pdFontDescriptor.setFontFile(type1Stream);
 
     // Act
     pdFontDescriptor.setFontName("Font Name");
 
     // Assert
+    verify(streamCacheCreateFunction).create();
     assertEquals("Font Name", pdFontDescriptor.getFontName());
     COSDictionary cOSObject = pdFontDescriptor.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
   }
 
   /**
-   * Test {@link PDFontDescriptor#setFontName(String)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then {@link PDFontDescriptor#PDFontDescriptor()} COSObject Values size is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDFontDescriptor#setFontName(String)}
-   */
-  @Test
-  @DisplayName("Test setFontName(String); when 'null'; then PDFontDescriptor() COSObject Values size is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFontDescriptor.setFontName(String)"})
-  void testSetFontName_whenNull_thenPDFontDescriptorCOSObjectValuesSizeIsOne() {
-    // Arrange
-    PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
-
-    // Act
-    pdFontDescriptor.setFontName(null);
-
-    // Assert that nothing has changed
-    COSDictionary cOSObject = pdFontDescriptor.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-  }
-
-  /**
-   * Test {@link PDFontDescriptor#getFontFamily()}.
-   * <ul>
-   *   <li>Given {@link PDFontDescriptor#PDFontDescriptor()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDFontDescriptor#getFontFamily()}
    */
   @Test
-  @DisplayName("Test getFontFamily(); given PDFontDescriptor(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDFontDescriptor.getFontFamily()"})
-  void testGetFontFamily_givenPDFontDescriptor_thenReturnNull() {
+  void testGetFontFamily() {
     // Arrange, Act and Assert
     assertNull((new PDFontDescriptor()).getFontFamily());
   }
 
   /**
-   * Test {@link PDFontDescriptor#getFontFamily()}.
-   * <ul>
-   *   <li>Then return empty string.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDFontDescriptor#getFontFamily()}
    */
   @Test
-  @DisplayName("Test getFontFamily(); then return empty string")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDFontDescriptor.getFontFamily()"})
-  void testGetFontFamily_thenReturnEmptyString() {
+  void testGetFontFamily2() {
+    // Arrange
+    PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
+    pdFontDescriptor.setFontFamily("Font Family");
+
+    // Act and Assert
+    assertEquals("Font Family", pdFontDescriptor.getFontFamily());
+  }
+
+  /**
+   * Method under test: {@link PDFontDescriptor#getFontFamily()}
+   */
+  @Test
+  void testGetFontFamily3() {
     // Arrange
     PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
     pdFontDescriptor.setFontFamily("");
@@ -903,40 +1093,32 @@ class PDFontDescriptorDiffblueTest {
   }
 
   /**
-   * Test {@link PDFontDescriptor#getFontFamily()}.
-   * <ul>
-   *   <li>Then return {@code Font Family}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDFontDescriptor#getFontFamily()}
    */
   @Test
-  @DisplayName("Test getFontFamily(); then return 'Font Family'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDFontDescriptor.getFontFamily()"})
-  void testGetFontFamily_thenReturnFontFamily() {
+  void testGetFontFamily4() throws IOException {
     // Arrange
-    PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
-    pdFontDescriptor.setFontFamily("Font Family");
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDStream type1Stream = new PDStream(new COSDocument(streamCacheCreateFunction));
 
-    // Act and Assert
-    assertEquals("Font Family", pdFontDescriptor.getFontFamily());
+    PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
+    pdFontDescriptor.setFontFile(type1Stream);
+
+    // Act
+    String actualFontFamily = pdFontDescriptor.getFontFamily();
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertNull(actualFontFamily);
   }
 
   /**
-   * Test {@link PDFontDescriptor#setFontFamily(String)}.
-   * <ul>
-   *   <li>When {@code Font Family}.</li>
-   *   <li>Then {@link PDFontDescriptor#PDFontDescriptor()} FontFamily is {@code Font Family}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDFontDescriptor#setFontFamily(String)}
    */
   @Test
-  @DisplayName("Test setFontFamily(String); when 'Font Family'; then PDFontDescriptor() FontFamily is 'Font Family'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFontDescriptor.setFontFamily(String)"})
-  void testSetFontFamily_whenFontFamily_thenPDFontDescriptorFontFamilyIsFontFamily() {
+  void testSetFontFamily() {
     // Arrange
     PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
 
@@ -951,45 +1133,62 @@ class PDFontDescriptorDiffblueTest {
   }
 
   /**
-   * Test {@link PDFontDescriptor#setFontFamily(String)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then {@link PDFontDescriptor#PDFontDescriptor()} COSObject Values size is one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDFontDescriptor#setFontFamily(String)}
    */
   @Test
-  @DisplayName("Test setFontFamily(String); when 'null'; then PDFontDescriptor() COSObject Values size is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFontDescriptor.setFontFamily(String)"})
-  void testSetFontFamily_whenNull_thenPDFontDescriptorCOSObjectValuesSizeIsOne() {
+  void testSetFontFamily2() {
     // Arrange
     PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
 
     // Act
     pdFontDescriptor.setFontFamily(null);
 
-    // Assert that nothing has changed
+    // Assert
+    assertNull(pdFontDescriptor.getFontFamily());
     COSDictionary cOSObject = pdFontDescriptor.getCOSObject();
     assertEquals(1, cOSObject.getValues().size());
     assertEquals(1, cOSObject.size());
   }
 
   /**
-   * Test {@link PDFontDescriptor#getFontWeight()}.
-   * <ul>
-   *   <li>Given {@link PDFontDescriptor#PDFontDescriptor()} FontWeight is ten.</li>
-   *   <li>Then return ten.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PDFontDescriptor#setFontFamily(String)}
+   */
+  @Test
+  void testSetFontFamily3() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDStream type1Stream = new PDStream(new COSDocument(streamCacheCreateFunction));
+
+    PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
+    pdFontDescriptor.setFontFile(type1Stream);
+
+    // Act
+    pdFontDescriptor.setFontFamily("Font Family");
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertEquals("Font Family", pdFontDescriptor.getFontFamily());
+    COSDictionary cOSObject = pdFontDescriptor.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
+  }
+
+  /**
    * Method under test: {@link PDFontDescriptor#getFontWeight()}
    */
   @Test
-  @DisplayName("Test getFontWeight(); given PDFontDescriptor() FontWeight is ten; then return ten")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"float PDFontDescriptor.getFontWeight()"})
-  void testGetFontWeight_givenPDFontDescriptorFontWeightIsTen_thenReturnTen() {
+  void testGetFontWeight() {
+    // Arrange, Act and Assert
+    assertEquals(0.0f, (new PDFontDescriptor()).getFontWeight());
+  }
+
+  /**
+   * Method under test: {@link PDFontDescriptor#getFontWeight()}
+   */
+  @Test
+  void testGetFontWeight2() {
     // Arrange
     PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
     pdFontDescriptor.setFontWeight(10.0f);
@@ -999,32 +1198,31 @@ class PDFontDescriptorDiffblueTest {
   }
 
   /**
-   * Test {@link PDFontDescriptor#getFontWeight()}.
-   * <ul>
-   *   <li>Given {@link PDFontDescriptor#PDFontDescriptor()}.</li>
-   *   <li>Then return zero.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDFontDescriptor#getFontWeight()}
    */
   @Test
-  @DisplayName("Test getFontWeight(); given PDFontDescriptor(); then return zero")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"float PDFontDescriptor.getFontWeight()"})
-  void testGetFontWeight_givenPDFontDescriptor_thenReturnZero() {
-    // Arrange, Act and Assert
-    assertEquals(0.0f, (new PDFontDescriptor()).getFontWeight());
+  void testGetFontWeight3() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDStream type1Stream = new PDStream(new COSDocument(streamCacheCreateFunction));
+
+    PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
+    pdFontDescriptor.setFontFile(type1Stream);
+
+    // Act
+    float actualFontWeight = pdFontDescriptor.getFontWeight();
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertEquals(0.0f, actualFontWeight);
   }
 
   /**
-   * Test {@link PDFontDescriptor#setFontWeight(float)}.
-   * <p>
    * Method under test: {@link PDFontDescriptor#setFontWeight(float)}
    */
   @Test
-  @DisplayName("Test setFontWeight(float)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFontDescriptor.setFontWeight(float)"})
   void testSetFontWeight() {
     // Arrange
     PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
@@ -1040,36 +1238,44 @@ class PDFontDescriptorDiffblueTest {
   }
 
   /**
-   * Test {@link PDFontDescriptor#getFontStretch()}.
-   * <ul>
-   *   <li>Given {@link PDFontDescriptor#PDFontDescriptor()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PDFontDescriptor#setFontWeight(float)}
+   */
+  @Test
+  void testSetFontWeight2() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDStream type1Stream = new PDStream(new COSDocument(streamCacheCreateFunction));
+
+    PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
+    pdFontDescriptor.setFontFile(type1Stream);
+
+    // Act
+    pdFontDescriptor.setFontWeight(10.0f);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertEquals(10.0f, pdFontDescriptor.getFontWeight());
+    COSDictionary cOSObject = pdFontDescriptor.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
+  }
+
+  /**
    * Method under test: {@link PDFontDescriptor#getFontStretch()}
    */
   @Test
-  @DisplayName("Test getFontStretch(); given PDFontDescriptor(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDFontDescriptor.getFontStretch()"})
-  void testGetFontStretch_givenPDFontDescriptor_thenReturnNull() {
+  void testGetFontStretch() {
     // Arrange, Act and Assert
     assertNull((new PDFontDescriptor()).getFontStretch());
   }
 
   /**
-   * Test {@link PDFontDescriptor#getFontStretch()}.
-   * <ul>
-   *   <li>Then return {@code Font Stretch}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDFontDescriptor#getFontStretch()}
    */
   @Test
-  @DisplayName("Test getFontStretch(); then return 'Font Stretch'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDFontDescriptor.getFontStretch()"})
-  void testGetFontStretch_thenReturnFontStretch() {
+  void testGetFontStretch2() {
     // Arrange
     PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
     pdFontDescriptor.setFontStretch("Font Stretch");
@@ -1079,18 +1285,68 @@ class PDFontDescriptorDiffblueTest {
   }
 
   /**
-   * Test {@link PDFontDescriptor#setFontStretch(String)}.
-   * <ul>
-   *   <li>Then {@link PDFontDescriptor#PDFontDescriptor()} FontStretch is {@code Font StretchFont Stretch}.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PDFontDescriptor#getFontStretch()}
+   */
+  @Test
+  void testGetFontStretch3() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDStream type1Stream = new PDStream(new COSDocument(streamCacheCreateFunction));
+
+    PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
+    pdFontDescriptor.setFontFile(type1Stream);
+
+    // Act
+    String actualFontStretch = pdFontDescriptor.getFontStretch();
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertNull(actualFontStretch);
+  }
+
+  /**
    * Method under test: {@link PDFontDescriptor#setFontStretch(String)}
    */
   @Test
-  @DisplayName("Test setFontStretch(String); then PDFontDescriptor() FontStretch is 'Font StretchFont Stretch'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFontDescriptor.setFontStretch(String)"})
-  void testSetFontStretch_thenPDFontDescriptorFontStretchIsFontStretchFontStretch() {
+  void testSetFontStretch() {
+    // Arrange
+    PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
+
+    // Act
+    pdFontDescriptor.setFontStretch("Font Stretch");
+
+    // Assert
+    assertEquals("Font Stretch", pdFontDescriptor.getFontStretch());
+    COSDictionary cOSObject = pdFontDescriptor.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+  }
+
+  /**
+   * Method under test: {@link PDFontDescriptor#setFontStretch(String)}
+   */
+  @Test
+  void testSetFontStretch2() {
+    // Arrange
+    PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
+
+    // Act
+    pdFontDescriptor.setFontStretch(null);
+
+    // Assert
+    assertNull(pdFontDescriptor.getFontStretch());
+    COSDictionary cOSObject = pdFontDescriptor.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+  }
+
+  /**
+   * Method under test: {@link PDFontDescriptor#setFontStretch(String)}
+   */
+  @Test
+  void testSetFontStretch3() {
     // Arrange
     PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
 
@@ -1105,144 +1361,66 @@ class PDFontDescriptorDiffblueTest {
   }
 
   /**
-   * Test {@link PDFontDescriptor#setFontStretch(String)}.
-   * <ul>
-   *   <li>When {@code Font Stretch}.</li>
-   *   <li>Then {@link PDFontDescriptor#PDFontDescriptor()} FontStretch is {@code Font Stretch}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDFontDescriptor#setFontStretch(String)}
    */
   @Test
-  @DisplayName("Test setFontStretch(String); when 'Font Stretch'; then PDFontDescriptor() FontStretch is 'Font Stretch'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFontDescriptor.setFontStretch(String)"})
-  void testSetFontStretch_whenFontStretch_thenPDFontDescriptorFontStretchIsFontStretch() {
+  void testSetFontStretch4() throws IOException {
     // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDStream type1Stream = new PDStream(new COSDocument(streamCacheCreateFunction));
+
     PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
+    pdFontDescriptor.setFontFile(type1Stream);
 
     // Act
     pdFontDescriptor.setFontStretch("Font Stretch");
 
     // Assert
+    verify(streamCacheCreateFunction).create();
     assertEquals("Font Stretch", pdFontDescriptor.getFontStretch());
     COSDictionary cOSObject = pdFontDescriptor.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
   }
 
   /**
-   * Test {@link PDFontDescriptor#setFontStretch(String)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then {@link PDFontDescriptor#PDFontDescriptor()} COSObject Values size is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDFontDescriptor#setFontStretch(String)}
-   */
-  @Test
-  @DisplayName("Test setFontStretch(String); when 'null'; then PDFontDescriptor() COSObject Values size is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFontDescriptor.setFontStretch(String)"})
-  void testSetFontStretch_whenNull_thenPDFontDescriptorCOSObjectValuesSizeIsOne() {
-    // Arrange
-    PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
-
-    // Act
-    pdFontDescriptor.setFontStretch(null);
-
-    // Assert that nothing has changed
-    COSDictionary cOSObject = pdFontDescriptor.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-  }
-
-  /**
-   * Test {@link PDFontDescriptor#getFlags()}.
-   * <p>
    * Method under test: {@link PDFontDescriptor#getFlags()}
    */
   @Test
-  @DisplayName("Test getFlags()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"int PDFontDescriptor.getFlags()"})
   void testGetFlags() {
     // Arrange, Act and Assert
     assertEquals(0, (new PDFontDescriptor()).getFlags());
   }
 
   /**
-   * Test {@link PDFontDescriptor#setFlags(int)}.
-   * <ul>
-   *   <li>When {@code 65536}.</li>
-   *   <li>Then {@link PDFontDescriptor#PDFontDescriptor()} Flags is {@code 65536}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDFontDescriptor#setFlags(int)}
+   * Method under test: {@link PDFontDescriptor#getFlags()}
    */
   @Test
-  @DisplayName("Test setFlags(int); when '65536'; then PDFontDescriptor() Flags is '65536'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFontDescriptor.setFlags(int)"})
-  void testSetFlags_when65536_thenPDFontDescriptorFlagsIs65536() {
+  void testGetFlags2() throws IOException {
     // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDStream type1Stream = new PDStream(new COSDocument(streamCacheCreateFunction));
+
     PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
+    pdFontDescriptor.setFontFile(type1Stream);
 
     // Act
-    pdFontDescriptor.setFlags(65536);
+    int actualFlags = pdFontDescriptor.getFlags();
 
     // Assert
-    COSDictionary cOSObject = pdFontDescriptor.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    assertEquals(65536, pdFontDescriptor.getFlags());
-    assertFalse(pdFontDescriptor.isFixedPitch());
-    assertTrue(pdFontDescriptor.isAllCap());
+    verify(streamCacheCreateFunction).create();
+    assertEquals(0, actualFlags);
   }
 
   /**
-   * Test {@link PDFontDescriptor#setFlags(int)}.
-   * <ul>
-   *   <li>When {@link Integer#MIN_VALUE}.</li>
-   *   <li>Then {@link PDFontDescriptor#PDFontDescriptor()} Flags is {@link Integer#MIN_VALUE}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDFontDescriptor#setFlags(int)}
    */
   @Test
-  @DisplayName("Test setFlags(int); when MIN_VALUE; then PDFontDescriptor() Flags is MIN_VALUE")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFontDescriptor.setFlags(int)"})
-  void testSetFlags_whenMin_value_thenPDFontDescriptorFlagsIsMin_value() {
-    // Arrange
-    PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
-
-    // Act
-    pdFontDescriptor.setFlags(Integer.MIN_VALUE);
-
-    // Assert
-    COSDictionary cOSObject = pdFontDescriptor.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    assertFalse(pdFontDescriptor.isAllCap());
-    assertFalse(pdFontDescriptor.isFixedPitch());
-    assertEquals(Integer.MIN_VALUE, pdFontDescriptor.getFlags());
-  }
-
-  /**
-   * Test {@link PDFontDescriptor#setFlags(int)}.
-   * <ul>
-   *   <li>When one.</li>
-   *   <li>Then {@link PDFontDescriptor#PDFontDescriptor()} Flags is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDFontDescriptor#setFlags(int)}
-   */
-  @Test
-  @DisplayName("Test setFlags(int); when one; then PDFontDescriptor() Flags is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFontDescriptor.setFlags(int)"})
-  void testSetFlags_whenOne_thenPDFontDescriptorFlagsIsOne() {
+  void testSetFlags() {
     // Arrange
     PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
 
@@ -1259,36 +1437,86 @@ class PDFontDescriptorDiffblueTest {
   }
 
   /**
-   * Test {@link PDFontDescriptor#getFontBoundingBox()}.
-   * <ul>
-   *   <li>Given {@link PDFontDescriptor#PDFontDescriptor()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PDFontDescriptor#setFlags(int)}
+   */
+  @Test
+  void testSetFlags2() {
+    // Arrange
+    PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
+
+    // Act
+    pdFontDescriptor.setFlags(Integer.MIN_VALUE);
+
+    // Assert
+    COSDictionary cOSObject = pdFontDescriptor.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    assertFalse(pdFontDescriptor.isAllCap());
+    assertFalse(pdFontDescriptor.isFixedPitch());
+    assertEquals(Integer.MIN_VALUE, pdFontDescriptor.getFlags());
+  }
+
+  /**
+   * Method under test: {@link PDFontDescriptor#setFlags(int)}
+   */
+  @Test
+  void testSetFlags3() {
+    // Arrange
+    PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
+
+    // Act
+    pdFontDescriptor.setFlags(65536);
+
+    // Assert
+    COSDictionary cOSObject = pdFontDescriptor.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    assertEquals(65536, pdFontDescriptor.getFlags());
+    assertFalse(pdFontDescriptor.isFixedPitch());
+    assertTrue(pdFontDescriptor.isAllCap());
+  }
+
+  /**
+   * Method under test: {@link PDFontDescriptor#setFlags(int)}
+   */
+  @Test
+  void testSetFlags4() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDStream type1Stream = new PDStream(new COSDocument(streamCacheCreateFunction));
+
+    PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
+    pdFontDescriptor.setFontFile(type1Stream);
+
+    // Act
+    pdFontDescriptor.setFlags(1);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertEquals(1, pdFontDescriptor.getFlags());
+    COSDictionary cOSObject = pdFontDescriptor.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
+    assertFalse(pdFontDescriptor.isAllCap());
+    assertTrue(pdFontDescriptor.isFixedPitch());
+  }
+
+  /**
    * Method under test: {@link PDFontDescriptor#getFontBoundingBox()}
    */
   @Test
-  @DisplayName("Test getFontBoundingBox(); given PDFontDescriptor(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDRectangle PDFontDescriptor.getFontBoundingBox()"})
-  void testGetFontBoundingBox_givenPDFontDescriptor_thenReturnNull() {
+  void testGetFontBoundingBox() {
     // Arrange, Act and Assert
     assertNull((new PDFontDescriptor()).getFontBoundingBox());
   }
 
   /**
-   * Test {@link PDFontDescriptor#getFontBoundingBox()}.
-   * <ul>
-   *   <li>Then return COSArray toList third Key is {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDFontDescriptor#getFontBoundingBox()}
    */
   @Test
-  @DisplayName("Test getFontBoundingBox(); then return COSArray toList third Key is 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDRectangle PDFontDescriptor.getFontBoundingBox()"})
-  void testGetFontBoundingBox_thenReturnCOSArrayToListThirdKeyIsNull() {
+  void testGetFontBoundingBox2() {
     // Arrange
     PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
     pdFontDescriptor.setFontBoundingBox(PDRectangle.A0);
@@ -1297,14 +1525,20 @@ class PDFontDescriptorDiffblueTest {
     PDRectangle actualFontBoundingBox = pdFontDescriptor.getFontBoundingBox();
 
     // Assert
-    List<? extends COSBase> toListResult = actualFontBoundingBox.getCOSArray().toList();
+    COSArray cOSArray = actualFontBoundingBox.getCOSArray();
+    List<? extends COSBase> toListResult = cOSArray.toList();
     assertEquals(4, toListResult.size());
-    COSBase getResult = toListResult.get(2);
+    COSBase getResult = toListResult.get(0);
     assertTrue(getResult instanceof COSFloat);
-    COSBase getResult2 = toListResult.get(3);
+    COSBase getResult2 = toListResult.get(1);
     assertTrue(getResult2 instanceof COSFloat);
+    COSBase getResult3 = toListResult.get(2);
+    assertTrue(getResult3 instanceof COSFloat);
+    COSBase getResult4 = toListResult.get(3);
+    assertTrue(getResult4 instanceof COSFloat);
     assertNull(getResult.getKey());
-    assertNull(getResult2.getKey());
+    assertNull(getResult3.getKey());
+    assertNull(getResult4.getKey());
     assertEquals(0.0f, actualFontBoundingBox.getLowerLeftX());
     assertEquals(0.0f, actualFontBoundingBox.getLowerLeftY());
     assertEquals(2383.937f, actualFontBoundingBox.getUpperRightX());
@@ -1312,22 +1546,17 @@ class PDFontDescriptorDiffblueTest {
     assertEquals(3370.3938f, actualFontBoundingBox.getHeight());
     assertEquals(3370.3938f, actualFontBoundingBox.getUpperRightY());
     assertFalse(getResult.isDirect());
-    assertFalse(getResult2.isDirect());
+    assertFalse(getResult3.isDirect());
+    assertFalse(getResult4.isDirect());
+    assertEquals(getResult, getResult2);
+    assertSame(cOSArray, actualFontBoundingBox.getCOSObject());
   }
 
   /**
-   * Test {@link PDFontDescriptor#getFontBoundingBox()}.
-   * <ul>
-   *   <li>Then return Height is zero.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDFontDescriptor#getFontBoundingBox()}
    */
   @Test
-  @DisplayName("Test getFontBoundingBox(); then return Height is zero")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDRectangle PDFontDescriptor.getFontBoundingBox()"})
-  void testGetFontBoundingBox_thenReturnHeightIsZero() {
+  void testGetFontBoundingBox3() {
     // Arrange
     PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
     pdFontDescriptor.setFontBoundingBox(new PDRectangle(2.14748365E9f, 2.14748365E9f, 2.14748365E9f, 2.14748365E9f));
@@ -1336,89 +1565,117 @@ class PDFontDescriptorDiffblueTest {
     PDRectangle actualFontBoundingBox = pdFontDescriptor.getFontBoundingBox();
 
     // Assert
-    List<? extends COSBase> toListResult = actualFontBoundingBox.getCOSArray().toList();
+    COSArray cOSArray = actualFontBoundingBox.getCOSArray();
+    List<? extends COSBase> toListResult = cOSArray.toList();
     assertEquals(4, toListResult.size());
-    COSBase getResult = toListResult.get(2);
+    COSBase getResult = toListResult.get(0);
     assertTrue(getResult instanceof COSFloat);
-    COSBase getResult2 = toListResult.get(3);
+    COSBase getResult2 = toListResult.get(1);
     assertTrue(getResult2 instanceof COSFloat);
+    COSBase getResult3 = toListResult.get(2);
+    assertTrue(getResult3 instanceof COSFloat);
+    COSBase getResult4 = toListResult.get(3);
+    assertTrue(getResult4 instanceof COSFloat);
+    assertNull(getResult.getKey());
     assertEquals(0.0f, actualFontBoundingBox.getHeight());
     assertEquals(0.0f, actualFontBoundingBox.getWidth());
     assertEquals(2.14748365E9f, actualFontBoundingBox.getLowerLeftX());
     assertEquals(2.14748365E9f, actualFontBoundingBox.getLowerLeftY());
     assertEquals(2.14748365E9f, actualFontBoundingBox.getUpperRightX());
     assertEquals(2.14748365E9f, actualFontBoundingBox.getUpperRightY());
-    COSBase getResult3 = toListResult.get(0);
-    assertEquals(getResult3, getResult);
-    assertEquals(getResult3, getResult2);
+    assertFalse(getResult.isDirect());
+    assertEquals(getResult, getResult2);
+    assertEquals(getResult, getResult3);
+    assertEquals(getResult, getResult4);
+    assertSame(cOSArray, actualFontBoundingBox.getCOSObject());
   }
 
   /**
-   * Test {@link PDFontDescriptor#setFontBoundingBox(PDRectangle)}.
-   * <ul>
-   *   <li>Then {@link PDFontDescriptor#PDFontDescriptor()} COSObject toIncrement Objects Empty.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PDFontDescriptor#getFontBoundingBox()}
+   */
+  @Test
+  void testGetFontBoundingBox4() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDStream type1Stream = new PDStream(new COSDocument(streamCacheCreateFunction));
+
+    PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
+    pdFontDescriptor.setFontFile(type1Stream);
+
+    // Act
+    PDRectangle actualFontBoundingBox = pdFontDescriptor.getFontBoundingBox();
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertNull(actualFontBoundingBox);
+  }
+
+  /**
    * Method under test: {@link PDFontDescriptor#setFontBoundingBox(PDRectangle)}
    */
   @Test
-  @DisplayName("Test setFontBoundingBox(PDRectangle); then PDFontDescriptor() COSObject toIncrement Objects Empty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFontDescriptor.setFontBoundingBox(PDRectangle)"})
-  void testSetFontBoundingBox_thenPDFontDescriptorCOSObjectToIncrementObjectsEmpty() {
+  void testSetFontBoundingBox() {
+    // Arrange
+    PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
+
+    // Act
+    pdFontDescriptor.setFontBoundingBox(PDRectangle.A1);
+
+    // Assert
+    PDRectangle fontBoundingBox = pdFontDescriptor.getFontBoundingBox();
+    assertEquals(0.0f, fontBoundingBox.getLowerLeftX());
+    assertEquals(0.0f, fontBoundingBox.getLowerLeftY());
+    assertEquals(1683.7795f, fontBoundingBox.getUpperRightX());
+    assertEquals(1683.7795f, fontBoundingBox.getWidth());
+    COSDictionary cOSObject = pdFontDescriptor.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    assertEquals(2383.937f, fontBoundingBox.getHeight());
+    assertEquals(2383.937f, fontBoundingBox.getUpperRightY());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    COSArray expectedCOSObject = fontBoundingBox.getCOSArray();
+    assertSame(expectedCOSObject, fontBoundingBox.getCOSObject());
+  }
+
+  /**
+   * Method under test: {@link PDFontDescriptor#setFontBoundingBox(PDRectangle)}
+   */
+  @Test
+  void testSetFontBoundingBox2() {
     // Arrange
     PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
 
     // Act
     pdFontDescriptor.setFontBoundingBox(null);
 
-    // Assert that nothing has changed
-    COSIncrement toIncrementResult = pdFontDescriptor.getCOSObject().toIncrement();
+    // Assert
+    assertNull(pdFontDescriptor.getFontBoundingBox());
+    COSDictionary cOSObject = pdFontDescriptor.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
     assertFalse(toIncrementResult.iterator().hasNext());
     assertTrue(toIncrementResult.getObjects().isEmpty());
   }
 
   /**
-   * Test {@link PDFontDescriptor#setFontBoundingBox(PDRectangle)}.
-   * <ul>
-   *   <li>Then {@link PDFontDescriptor#PDFontDescriptor()} FontBoundingBox Height is zero.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDFontDescriptor#setFontBoundingBox(PDRectangle)}
-   */
-  @Test
-  @DisplayName("Test setFontBoundingBox(PDRectangle); then PDFontDescriptor() FontBoundingBox Height is zero")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFontDescriptor.setFontBoundingBox(PDRectangle)"})
-  void testSetFontBoundingBox_thenPDFontDescriptorFontBoundingBoxHeightIsZero() {
-    // Arrange
-    PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
-
-    // Act
-    pdFontDescriptor.setFontBoundingBox(new PDRectangle());
-
-    // Assert
-    PDRectangle fontBoundingBox = pdFontDescriptor.getFontBoundingBox();
-    assertEquals(0.0f, fontBoundingBox.getHeight());
-    assertEquals(0.0f, fontBoundingBox.getUpperRightX());
-    assertEquals(0.0f, fontBoundingBox.getUpperRightY());
-    assertEquals(0.0f, fontBoundingBox.getWidth());
-  }
-
-  /**
-   * Test {@link PDFontDescriptor#getItalicAngle()}.
-   * <ul>
-   *   <li>Given {@link PDFontDescriptor#PDFontDescriptor()} ItalicAngle is ten.</li>
-   *   <li>Then return ten.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDFontDescriptor#getItalicAngle()}
    */
   @Test
-  @DisplayName("Test getItalicAngle(); given PDFontDescriptor() ItalicAngle is ten; then return ten")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"float PDFontDescriptor.getItalicAngle()"})
-  void testGetItalicAngle_givenPDFontDescriptorItalicAngleIsTen_thenReturnTen() {
+  void testGetItalicAngle() {
+    // Arrange, Act and Assert
+    assertEquals(0.0f, (new PDFontDescriptor()).getItalicAngle());
+  }
+
+  /**
+   * Method under test: {@link PDFontDescriptor#getItalicAngle()}
+   */
+  @Test
+  void testGetItalicAngle2() {
     // Arrange
     PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
     pdFontDescriptor.setItalicAngle(10.0f);
@@ -1428,32 +1685,31 @@ class PDFontDescriptorDiffblueTest {
   }
 
   /**
-   * Test {@link PDFontDescriptor#getItalicAngle()}.
-   * <ul>
-   *   <li>Given {@link PDFontDescriptor#PDFontDescriptor()}.</li>
-   *   <li>Then return zero.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDFontDescriptor#getItalicAngle()}
    */
   @Test
-  @DisplayName("Test getItalicAngle(); given PDFontDescriptor(); then return zero")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"float PDFontDescriptor.getItalicAngle()"})
-  void testGetItalicAngle_givenPDFontDescriptor_thenReturnZero() {
-    // Arrange, Act and Assert
-    assertEquals(0.0f, (new PDFontDescriptor()).getItalicAngle());
+  void testGetItalicAngle3() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDStream type1Stream = new PDStream(new COSDocument(streamCacheCreateFunction));
+
+    PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
+    pdFontDescriptor.setFontFile(type1Stream);
+
+    // Act
+    float actualItalicAngle = pdFontDescriptor.getItalicAngle();
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertEquals(0.0f, actualItalicAngle);
   }
 
   /**
-   * Test {@link PDFontDescriptor#setItalicAngle(float)}.
-   * <p>
    * Method under test: {@link PDFontDescriptor#setItalicAngle(float)}
    */
   @Test
-  @DisplayName("Test setItalicAngle(float)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFontDescriptor.setItalicAngle(float)"})
   void testSetItalicAngle() {
     // Arrange
     PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
@@ -1469,19 +1725,44 @@ class PDFontDescriptorDiffblueTest {
   }
 
   /**
-   * Test {@link PDFontDescriptor#getAscent()}.
-   * <ul>
-   *   <li>Given {@link PDFontDescriptor#PDFontDescriptor()} Ascent is ten.</li>
-   *   <li>Then return ten.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PDFontDescriptor#setItalicAngle(float)}
+   */
+  @Test
+  void testSetItalicAngle2() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDStream type1Stream = new PDStream(new COSDocument(streamCacheCreateFunction));
+
+    PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
+    pdFontDescriptor.setFontFile(type1Stream);
+
+    // Act
+    pdFontDescriptor.setItalicAngle(10.0f);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertEquals(10.0f, pdFontDescriptor.getItalicAngle());
+    COSDictionary cOSObject = pdFontDescriptor.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
+  }
+
+  /**
    * Method under test: {@link PDFontDescriptor#getAscent()}
    */
   @Test
-  @DisplayName("Test getAscent(); given PDFontDescriptor() Ascent is ten; then return ten")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"float PDFontDescriptor.getAscent()"})
-  void testGetAscent_givenPDFontDescriptorAscentIsTen_thenReturnTen() {
+  void testGetAscent() {
+    // Arrange, Act and Assert
+    assertEquals(0.0f, (new PDFontDescriptor()).getAscent());
+  }
+
+  /**
+   * Method under test: {@link PDFontDescriptor#getAscent()}
+   */
+  @Test
+  void testGetAscent2() {
     // Arrange
     PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
     pdFontDescriptor.setAscent(10.0f);
@@ -1491,32 +1772,31 @@ class PDFontDescriptorDiffblueTest {
   }
 
   /**
-   * Test {@link PDFontDescriptor#getAscent()}.
-   * <ul>
-   *   <li>Given {@link PDFontDescriptor#PDFontDescriptor()}.</li>
-   *   <li>Then return zero.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDFontDescriptor#getAscent()}
    */
   @Test
-  @DisplayName("Test getAscent(); given PDFontDescriptor(); then return zero")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"float PDFontDescriptor.getAscent()"})
-  void testGetAscent_givenPDFontDescriptor_thenReturnZero() {
-    // Arrange, Act and Assert
-    assertEquals(0.0f, (new PDFontDescriptor()).getAscent());
+  void testGetAscent3() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDStream type1Stream = new PDStream(new COSDocument(streamCacheCreateFunction));
+
+    PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
+    pdFontDescriptor.setFontFile(type1Stream);
+
+    // Act
+    float actualAscent = pdFontDescriptor.getAscent();
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertEquals(0.0f, actualAscent);
   }
 
   /**
-   * Test {@link PDFontDescriptor#setAscent(float)}.
-   * <p>
    * Method under test: {@link PDFontDescriptor#setAscent(float)}
    */
   @Test
-  @DisplayName("Test setAscent(float)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFontDescriptor.setAscent(float)"})
   void testSetAscent() {
     // Arrange
     PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
@@ -1532,19 +1812,44 @@ class PDFontDescriptorDiffblueTest {
   }
 
   /**
-   * Test {@link PDFontDescriptor#getDescent()}.
-   * <ul>
-   *   <li>Given {@link PDFontDescriptor#PDFontDescriptor()} Descent is ten.</li>
-   *   <li>Then return ten.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PDFontDescriptor#setAscent(float)}
+   */
+  @Test
+  void testSetAscent2() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDStream type1Stream = new PDStream(new COSDocument(streamCacheCreateFunction));
+
+    PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
+    pdFontDescriptor.setFontFile(type1Stream);
+
+    // Act
+    pdFontDescriptor.setAscent(10.0f);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertEquals(10.0f, pdFontDescriptor.getAscent());
+    COSDictionary cOSObject = pdFontDescriptor.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
+  }
+
+  /**
    * Method under test: {@link PDFontDescriptor#getDescent()}
    */
   @Test
-  @DisplayName("Test getDescent(); given PDFontDescriptor() Descent is ten; then return ten")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"float PDFontDescriptor.getDescent()"})
-  void testGetDescent_givenPDFontDescriptorDescentIsTen_thenReturnTen() {
+  void testGetDescent() {
+    // Arrange, Act and Assert
+    assertEquals(0.0f, (new PDFontDescriptor()).getDescent());
+  }
+
+  /**
+   * Method under test: {@link PDFontDescriptor#getDescent()}
+   */
+  @Test
+  void testGetDescent2() {
     // Arrange
     PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
     pdFontDescriptor.setDescent(10.0f);
@@ -1554,32 +1859,31 @@ class PDFontDescriptorDiffblueTest {
   }
 
   /**
-   * Test {@link PDFontDescriptor#getDescent()}.
-   * <ul>
-   *   <li>Given {@link PDFontDescriptor#PDFontDescriptor()}.</li>
-   *   <li>Then return zero.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDFontDescriptor#getDescent()}
    */
   @Test
-  @DisplayName("Test getDescent(); given PDFontDescriptor(); then return zero")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"float PDFontDescriptor.getDescent()"})
-  void testGetDescent_givenPDFontDescriptor_thenReturnZero() {
-    // Arrange, Act and Assert
-    assertEquals(0.0f, (new PDFontDescriptor()).getDescent());
+  void testGetDescent3() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDStream type1Stream = new PDStream(new COSDocument(streamCacheCreateFunction));
+
+    PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
+    pdFontDescriptor.setFontFile(type1Stream);
+
+    // Act
+    float actualDescent = pdFontDescriptor.getDescent();
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertEquals(0.0f, actualDescent);
   }
 
   /**
-   * Test {@link PDFontDescriptor#setDescent(float)}.
-   * <p>
    * Method under test: {@link PDFontDescriptor#setDescent(float)}
    */
   @Test
-  @DisplayName("Test setDescent(float)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFontDescriptor.setDescent(float)"})
   void testSetDescent() {
     // Arrange
     PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
@@ -1595,19 +1899,44 @@ class PDFontDescriptorDiffblueTest {
   }
 
   /**
-   * Test {@link PDFontDescriptor#getLeading()}.
-   * <ul>
-   *   <li>Given {@link PDFontDescriptor#PDFontDescriptor()} Leading is ten.</li>
-   *   <li>Then return ten.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PDFontDescriptor#setDescent(float)}
+   */
+  @Test
+  void testSetDescent2() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDStream type1Stream = new PDStream(new COSDocument(streamCacheCreateFunction));
+
+    PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
+    pdFontDescriptor.setFontFile(type1Stream);
+
+    // Act
+    pdFontDescriptor.setDescent(10.0f);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertEquals(10.0f, pdFontDescriptor.getDescent());
+    COSDictionary cOSObject = pdFontDescriptor.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
+  }
+
+  /**
    * Method under test: {@link PDFontDescriptor#getLeading()}
    */
   @Test
-  @DisplayName("Test getLeading(); given PDFontDescriptor() Leading is ten; then return ten")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"float PDFontDescriptor.getLeading()"})
-  void testGetLeading_givenPDFontDescriptorLeadingIsTen_thenReturnTen() {
+  void testGetLeading() {
+    // Arrange, Act and Assert
+    assertEquals(0.0f, (new PDFontDescriptor()).getLeading());
+  }
+
+  /**
+   * Method under test: {@link PDFontDescriptor#getLeading()}
+   */
+  @Test
+  void testGetLeading2() {
     // Arrange
     PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
     pdFontDescriptor.setLeading(10.0f);
@@ -1617,32 +1946,31 @@ class PDFontDescriptorDiffblueTest {
   }
 
   /**
-   * Test {@link PDFontDescriptor#getLeading()}.
-   * <ul>
-   *   <li>Given {@link PDFontDescriptor#PDFontDescriptor()}.</li>
-   *   <li>Then return zero.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDFontDescriptor#getLeading()}
    */
   @Test
-  @DisplayName("Test getLeading(); given PDFontDescriptor(); then return zero")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"float PDFontDescriptor.getLeading()"})
-  void testGetLeading_givenPDFontDescriptor_thenReturnZero() {
-    // Arrange, Act and Assert
-    assertEquals(0.0f, (new PDFontDescriptor()).getLeading());
+  void testGetLeading3() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDStream type1Stream = new PDStream(new COSDocument(streamCacheCreateFunction));
+
+    PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
+    pdFontDescriptor.setFontFile(type1Stream);
+
+    // Act
+    float actualLeading = pdFontDescriptor.getLeading();
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertEquals(0.0f, actualLeading);
   }
 
   /**
-   * Test {@link PDFontDescriptor#setLeading(float)}.
-   * <p>
    * Method under test: {@link PDFontDescriptor#setLeading(float)}
    */
   @Test
-  @DisplayName("Test setLeading(float)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFontDescriptor.setLeading(float)"})
   void testSetLeading() {
     // Arrange
     PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
@@ -1658,28 +1986,65 @@ class PDFontDescriptorDiffblueTest {
   }
 
   /**
-   * Test {@link PDFontDescriptor#getCapHeight()}.
-   * <p>
+   * Method under test: {@link PDFontDescriptor#setLeading(float)}
+   */
+  @Test
+  void testSetLeading2() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDStream type1Stream = new PDStream(new COSDocument(streamCacheCreateFunction));
+
+    PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
+    pdFontDescriptor.setFontFile(type1Stream);
+
+    // Act
+    pdFontDescriptor.setLeading(10.0f);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertEquals(10.0f, pdFontDescriptor.getLeading());
+    COSDictionary cOSObject = pdFontDescriptor.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
+  }
+
+  /**
    * Method under test: {@link PDFontDescriptor#getCapHeight()}
    */
   @Test
-  @DisplayName("Test getCapHeight()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"float PDFontDescriptor.getCapHeight()"})
   void testGetCapHeight() {
     // Arrange, Act and Assert
     assertEquals(0.0f, (new PDFontDescriptor()).getCapHeight());
   }
 
   /**
-   * Test {@link PDFontDescriptor#setCapHeight(float)}.
-   * <p>
+   * Method under test: {@link PDFontDescriptor#getCapHeight()}
+   */
+  @Test
+  void testGetCapHeight2() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDStream type1Stream = new PDStream(new COSDocument(streamCacheCreateFunction));
+
+    PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
+    pdFontDescriptor.setFontFile(type1Stream);
+
+    // Act
+    float actualCapHeight = pdFontDescriptor.getCapHeight();
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertEquals(0.0f, actualCapHeight);
+  }
+
+  /**
    * Method under test: {@link PDFontDescriptor#setCapHeight(float)}
    */
   @Test
-  @DisplayName("Test setCapHeight(float)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFontDescriptor.setCapHeight(float)"})
   void testSetCapHeight() {
     // Arrange
     PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
@@ -1695,28 +2060,65 @@ class PDFontDescriptorDiffblueTest {
   }
 
   /**
-   * Test {@link PDFontDescriptor#getXHeight()}.
-   * <p>
+   * Method under test: {@link PDFontDescriptor#setCapHeight(float)}
+   */
+  @Test
+  void testSetCapHeight2() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDStream type1Stream = new PDStream(new COSDocument(streamCacheCreateFunction));
+
+    PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
+    pdFontDescriptor.setFontFile(type1Stream);
+
+    // Act
+    pdFontDescriptor.setCapHeight(10.0f);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertEquals(10.0f, pdFontDescriptor.getCapHeight());
+    COSDictionary cOSObject = pdFontDescriptor.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
+  }
+
+  /**
    * Method under test: {@link PDFontDescriptor#getXHeight()}
    */
   @Test
-  @DisplayName("Test getXHeight()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"float PDFontDescriptor.getXHeight()"})
   void testGetXHeight() {
     // Arrange, Act and Assert
     assertEquals(0.0f, (new PDFontDescriptor()).getXHeight());
   }
 
   /**
-   * Test {@link PDFontDescriptor#setXHeight(float)}.
-   * <p>
+   * Method under test: {@link PDFontDescriptor#getXHeight()}
+   */
+  @Test
+  void testGetXHeight2() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDStream type1Stream = new PDStream(new COSDocument(streamCacheCreateFunction));
+
+    PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
+    pdFontDescriptor.setFontFile(type1Stream);
+
+    // Act
+    float actualXHeight = pdFontDescriptor.getXHeight();
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertEquals(0.0f, actualXHeight);
+  }
+
+  /**
    * Method under test: {@link PDFontDescriptor#setXHeight(float)}
    */
   @Test
-  @DisplayName("Test setXHeight(float)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFontDescriptor.setXHeight(float)"})
   void testSetXHeight() {
     // Arrange
     PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
@@ -1732,19 +2134,44 @@ class PDFontDescriptorDiffblueTest {
   }
 
   /**
-   * Test {@link PDFontDescriptor#getStemV()}.
-   * <ul>
-   *   <li>Given {@link PDFontDescriptor#PDFontDescriptor()} StemV is ten.</li>
-   *   <li>Then return ten.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PDFontDescriptor#setXHeight(float)}
+   */
+  @Test
+  void testSetXHeight2() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDStream type1Stream = new PDStream(new COSDocument(streamCacheCreateFunction));
+
+    PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
+    pdFontDescriptor.setFontFile(type1Stream);
+
+    // Act
+    pdFontDescriptor.setXHeight(10.0f);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertEquals(10.0f, pdFontDescriptor.getXHeight());
+    COSDictionary cOSObject = pdFontDescriptor.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
+  }
+
+  /**
    * Method under test: {@link PDFontDescriptor#getStemV()}
    */
   @Test
-  @DisplayName("Test getStemV(); given PDFontDescriptor() StemV is ten; then return ten")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"float PDFontDescriptor.getStemV()"})
-  void testGetStemV_givenPDFontDescriptorStemVIsTen_thenReturnTen() {
+  void testGetStemV() {
+    // Arrange, Act and Assert
+    assertEquals(0.0f, (new PDFontDescriptor()).getStemV());
+  }
+
+  /**
+   * Method under test: {@link PDFontDescriptor#getStemV()}
+   */
+  @Test
+  void testGetStemV2() {
     // Arrange
     PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
     pdFontDescriptor.setStemV(10.0f);
@@ -1754,32 +2181,31 @@ class PDFontDescriptorDiffblueTest {
   }
 
   /**
-   * Test {@link PDFontDescriptor#getStemV()}.
-   * <ul>
-   *   <li>Given {@link PDFontDescriptor#PDFontDescriptor()}.</li>
-   *   <li>Then return zero.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDFontDescriptor#getStemV()}
    */
   @Test
-  @DisplayName("Test getStemV(); given PDFontDescriptor(); then return zero")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"float PDFontDescriptor.getStemV()"})
-  void testGetStemV_givenPDFontDescriptor_thenReturnZero() {
-    // Arrange, Act and Assert
-    assertEquals(0.0f, (new PDFontDescriptor()).getStemV());
+  void testGetStemV3() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDStream type1Stream = new PDStream(new COSDocument(streamCacheCreateFunction));
+
+    PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
+    pdFontDescriptor.setFontFile(type1Stream);
+
+    // Act
+    float actualStemV = pdFontDescriptor.getStemV();
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertEquals(0.0f, actualStemV);
   }
 
   /**
-   * Test {@link PDFontDescriptor#setStemV(float)}.
-   * <p>
    * Method under test: {@link PDFontDescriptor#setStemV(float)}
    */
   @Test
-  @DisplayName("Test setStemV(float)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFontDescriptor.setStemV(float)"})
   void testSetStemV() {
     // Arrange
     PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
@@ -1795,19 +2221,44 @@ class PDFontDescriptorDiffblueTest {
   }
 
   /**
-   * Test {@link PDFontDescriptor#getStemH()}.
-   * <ul>
-   *   <li>Given {@link PDFontDescriptor#PDFontDescriptor()} StemH is ten.</li>
-   *   <li>Then return ten.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PDFontDescriptor#setStemV(float)}
+   */
+  @Test
+  void testSetStemV2() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDStream type1Stream = new PDStream(new COSDocument(streamCacheCreateFunction));
+
+    PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
+    pdFontDescriptor.setFontFile(type1Stream);
+
+    // Act
+    pdFontDescriptor.setStemV(10.0f);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertEquals(10.0f, pdFontDescriptor.getStemV());
+    COSDictionary cOSObject = pdFontDescriptor.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
+  }
+
+  /**
    * Method under test: {@link PDFontDescriptor#getStemH()}
    */
   @Test
-  @DisplayName("Test getStemH(); given PDFontDescriptor() StemH is ten; then return ten")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"float PDFontDescriptor.getStemH()"})
-  void testGetStemH_givenPDFontDescriptorStemHIsTen_thenReturnTen() {
+  void testGetStemH() {
+    // Arrange, Act and Assert
+    assertEquals(0.0f, (new PDFontDescriptor()).getStemH());
+  }
+
+  /**
+   * Method under test: {@link PDFontDescriptor#getStemH()}
+   */
+  @Test
+  void testGetStemH2() {
     // Arrange
     PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
     pdFontDescriptor.setStemH(10.0f);
@@ -1817,32 +2268,31 @@ class PDFontDescriptorDiffblueTest {
   }
 
   /**
-   * Test {@link PDFontDescriptor#getStemH()}.
-   * <ul>
-   *   <li>Given {@link PDFontDescriptor#PDFontDescriptor()}.</li>
-   *   <li>Then return zero.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDFontDescriptor#getStemH()}
    */
   @Test
-  @DisplayName("Test getStemH(); given PDFontDescriptor(); then return zero")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"float PDFontDescriptor.getStemH()"})
-  void testGetStemH_givenPDFontDescriptor_thenReturnZero() {
-    // Arrange, Act and Assert
-    assertEquals(0.0f, (new PDFontDescriptor()).getStemH());
+  void testGetStemH3() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDStream type1Stream = new PDStream(new COSDocument(streamCacheCreateFunction));
+
+    PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
+    pdFontDescriptor.setFontFile(type1Stream);
+
+    // Act
+    float actualStemH = pdFontDescriptor.getStemH();
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertEquals(0.0f, actualStemH);
   }
 
   /**
-   * Test {@link PDFontDescriptor#setStemH(float)}.
-   * <p>
    * Method under test: {@link PDFontDescriptor#setStemH(float)}
    */
   @Test
-  @DisplayName("Test setStemH(float)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFontDescriptor.setStemH(float)"})
   void testSetStemH() {
     // Arrange
     PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
@@ -1858,19 +2308,44 @@ class PDFontDescriptorDiffblueTest {
   }
 
   /**
-   * Test {@link PDFontDescriptor#getAverageWidth()}.
-   * <ul>
-   *   <li>Given {@link PDFontDescriptor#PDFontDescriptor()} AverageWidth is ten.</li>
-   *   <li>Then return ten.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PDFontDescriptor#setStemH(float)}
+   */
+  @Test
+  void testSetStemH2() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDStream type1Stream = new PDStream(new COSDocument(streamCacheCreateFunction));
+
+    PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
+    pdFontDescriptor.setFontFile(type1Stream);
+
+    // Act
+    pdFontDescriptor.setStemH(10.0f);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertEquals(10.0f, pdFontDescriptor.getStemH());
+    COSDictionary cOSObject = pdFontDescriptor.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
+  }
+
+  /**
    * Method under test: {@link PDFontDescriptor#getAverageWidth()}
    */
   @Test
-  @DisplayName("Test getAverageWidth(); given PDFontDescriptor() AverageWidth is ten; then return ten")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"float PDFontDescriptor.getAverageWidth()"})
-  void testGetAverageWidth_givenPDFontDescriptorAverageWidthIsTen_thenReturnTen() {
+  void testGetAverageWidth() {
+    // Arrange, Act and Assert
+    assertEquals(0.0f, (new PDFontDescriptor()).getAverageWidth());
+  }
+
+  /**
+   * Method under test: {@link PDFontDescriptor#getAverageWidth()}
+   */
+  @Test
+  void testGetAverageWidth2() {
     // Arrange
     PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
     pdFontDescriptor.setAverageWidth(10.0f);
@@ -1880,32 +2355,31 @@ class PDFontDescriptorDiffblueTest {
   }
 
   /**
-   * Test {@link PDFontDescriptor#getAverageWidth()}.
-   * <ul>
-   *   <li>Given {@link PDFontDescriptor#PDFontDescriptor()}.</li>
-   *   <li>Then return zero.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDFontDescriptor#getAverageWidth()}
    */
   @Test
-  @DisplayName("Test getAverageWidth(); given PDFontDescriptor(); then return zero")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"float PDFontDescriptor.getAverageWidth()"})
-  void testGetAverageWidth_givenPDFontDescriptor_thenReturnZero() {
-    // Arrange, Act and Assert
-    assertEquals(0.0f, (new PDFontDescriptor()).getAverageWidth());
+  void testGetAverageWidth3() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDStream type1Stream = new PDStream(new COSDocument(streamCacheCreateFunction));
+
+    PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
+    pdFontDescriptor.setFontFile(type1Stream);
+
+    // Act
+    float actualAverageWidth = pdFontDescriptor.getAverageWidth();
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertEquals(0.0f, actualAverageWidth);
   }
 
   /**
-   * Test {@link PDFontDescriptor#setAverageWidth(float)}.
-   * <p>
    * Method under test: {@link PDFontDescriptor#setAverageWidth(float)}
    */
   @Test
-  @DisplayName("Test setAverageWidth(float)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFontDescriptor.setAverageWidth(float)"})
   void testSetAverageWidth() {
     // Arrange
     PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
@@ -1921,19 +2395,44 @@ class PDFontDescriptorDiffblueTest {
   }
 
   /**
-   * Test {@link PDFontDescriptor#getMaxWidth()}.
-   * <ul>
-   *   <li>Given {@link PDFontDescriptor#PDFontDescriptor()} MaxWidth is ten.</li>
-   *   <li>Then return ten.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PDFontDescriptor#setAverageWidth(float)}
+   */
+  @Test
+  void testSetAverageWidth2() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDStream type1Stream = new PDStream(new COSDocument(streamCacheCreateFunction));
+
+    PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
+    pdFontDescriptor.setFontFile(type1Stream);
+
+    // Act
+    pdFontDescriptor.setAverageWidth(10.0f);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertEquals(10.0f, pdFontDescriptor.getAverageWidth());
+    COSDictionary cOSObject = pdFontDescriptor.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
+  }
+
+  /**
    * Method under test: {@link PDFontDescriptor#getMaxWidth()}
    */
   @Test
-  @DisplayName("Test getMaxWidth(); given PDFontDescriptor() MaxWidth is ten; then return ten")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"float PDFontDescriptor.getMaxWidth()"})
-  void testGetMaxWidth_givenPDFontDescriptorMaxWidthIsTen_thenReturnTen() {
+  void testGetMaxWidth() {
+    // Arrange, Act and Assert
+    assertEquals(0.0f, (new PDFontDescriptor()).getMaxWidth());
+  }
+
+  /**
+   * Method under test: {@link PDFontDescriptor#getMaxWidth()}
+   */
+  @Test
+  void testGetMaxWidth2() {
     // Arrange
     PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
     pdFontDescriptor.setMaxWidth(10.0f);
@@ -1943,32 +2442,31 @@ class PDFontDescriptorDiffblueTest {
   }
 
   /**
-   * Test {@link PDFontDescriptor#getMaxWidth()}.
-   * <ul>
-   *   <li>Given {@link PDFontDescriptor#PDFontDescriptor()}.</li>
-   *   <li>Then return zero.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDFontDescriptor#getMaxWidth()}
    */
   @Test
-  @DisplayName("Test getMaxWidth(); given PDFontDescriptor(); then return zero")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"float PDFontDescriptor.getMaxWidth()"})
-  void testGetMaxWidth_givenPDFontDescriptor_thenReturnZero() {
-    // Arrange, Act and Assert
-    assertEquals(0.0f, (new PDFontDescriptor()).getMaxWidth());
+  void testGetMaxWidth3() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDStream type1Stream = new PDStream(new COSDocument(streamCacheCreateFunction));
+
+    PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
+    pdFontDescriptor.setFontFile(type1Stream);
+
+    // Act
+    float actualMaxWidth = pdFontDescriptor.getMaxWidth();
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertEquals(0.0f, actualMaxWidth);
   }
 
   /**
-   * Test {@link PDFontDescriptor#setMaxWidth(float)}.
-   * <p>
    * Method under test: {@link PDFontDescriptor#setMaxWidth(float)}
    */
   @Test
-  @DisplayName("Test setMaxWidth(float)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFontDescriptor.setMaxWidth(float)"})
   void testSetMaxWidth() {
     // Arrange
     PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
@@ -1984,19 +2482,44 @@ class PDFontDescriptorDiffblueTest {
   }
 
   /**
-   * Test {@link PDFontDescriptor#hasWidths()}.
-   * <ul>
-   *   <li>Given {@link PDFontDescriptor#PDFontDescriptor()} MissingWidth is ten.</li>
-   *   <li>Then return {@code true}.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PDFontDescriptor#setMaxWidth(float)}
+   */
+  @Test
+  void testSetMaxWidth2() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDStream type1Stream = new PDStream(new COSDocument(streamCacheCreateFunction));
+
+    PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
+    pdFontDescriptor.setFontFile(type1Stream);
+
+    // Act
+    pdFontDescriptor.setMaxWidth(10.0f);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertEquals(10.0f, pdFontDescriptor.getMaxWidth());
+    COSDictionary cOSObject = pdFontDescriptor.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
+  }
+
+  /**
    * Method under test: {@link PDFontDescriptor#hasWidths()}
    */
   @Test
-  @DisplayName("Test hasWidths(); given PDFontDescriptor() MissingWidth is ten; then return 'true'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean PDFontDescriptor.hasWidths()"})
-  void testHasWidths_givenPDFontDescriptorMissingWidthIsTen_thenReturnTrue() {
+  void testHasWidths() {
+    // Arrange, Act and Assert
+    assertFalse((new PDFontDescriptor()).hasWidths());
+  }
+
+  /**
+   * Method under test: {@link PDFontDescriptor#hasWidths()}
+   */
+  @Test
+  void testHasWidths2() {
     // Arrange
     PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
     pdFontDescriptor.setMissingWidth(10.0f);
@@ -2006,37 +2529,41 @@ class PDFontDescriptorDiffblueTest {
   }
 
   /**
-   * Test {@link PDFontDescriptor#hasWidths()}.
-   * <ul>
-   *   <li>Given {@link PDFontDescriptor#PDFontDescriptor()}.</li>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDFontDescriptor#hasWidths()}
    */
   @Test
-  @DisplayName("Test hasWidths(); given PDFontDescriptor(); then return 'false'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean PDFontDescriptor.hasWidths()"})
-  void testHasWidths_givenPDFontDescriptor_thenReturnFalse() {
-    // Arrange, Act and Assert
-    assertFalse((new PDFontDescriptor()).hasWidths());
+  void testHasWidths3() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDStream type1Stream = new PDStream(new COSDocument(streamCacheCreateFunction));
+
+    PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
+    pdFontDescriptor.setFontFile(type1Stream);
+
+    // Act
+    boolean actualHasWidthsResult = pdFontDescriptor.hasWidths();
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertFalse(actualHasWidthsResult);
   }
 
   /**
-   * Test {@link PDFontDescriptor#hasMissingWidth()}.
-   * <ul>
-   *   <li>Given {@link PDFontDescriptor#PDFontDescriptor()} MissingWidth is ten.</li>
-   *   <li>Then return {@code true}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDFontDescriptor#hasMissingWidth()}
    */
   @Test
-  @DisplayName("Test hasMissingWidth(); given PDFontDescriptor() MissingWidth is ten; then return 'true'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean PDFontDescriptor.hasMissingWidth()"})
-  void testHasMissingWidth_givenPDFontDescriptorMissingWidthIsTen_thenReturnTrue() {
+  void testHasMissingWidth() {
+    // Arrange, Act and Assert
+    assertFalse((new PDFontDescriptor()).hasMissingWidth());
+  }
+
+  /**
+   * Method under test: {@link PDFontDescriptor#hasMissingWidth()}
+   */
+  @Test
+  void testHasMissingWidth2() {
     // Arrange
     PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
     pdFontDescriptor.setMissingWidth(10.0f);
@@ -2046,37 +2573,41 @@ class PDFontDescriptorDiffblueTest {
   }
 
   /**
-   * Test {@link PDFontDescriptor#hasMissingWidth()}.
-   * <ul>
-   *   <li>Given {@link PDFontDescriptor#PDFontDescriptor()}.</li>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDFontDescriptor#hasMissingWidth()}
    */
   @Test
-  @DisplayName("Test hasMissingWidth(); given PDFontDescriptor(); then return 'false'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean PDFontDescriptor.hasMissingWidth()"})
-  void testHasMissingWidth_givenPDFontDescriptor_thenReturnFalse() {
-    // Arrange, Act and Assert
-    assertFalse((new PDFontDescriptor()).hasMissingWidth());
+  void testHasMissingWidth3() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDStream type1Stream = new PDStream(new COSDocument(streamCacheCreateFunction));
+
+    PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
+    pdFontDescriptor.setFontFile(type1Stream);
+
+    // Act
+    boolean actualHasMissingWidthResult = pdFontDescriptor.hasMissingWidth();
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertFalse(actualHasMissingWidthResult);
   }
 
   /**
-   * Test {@link PDFontDescriptor#getMissingWidth()}.
-   * <ul>
-   *   <li>Given {@link PDFontDescriptor#PDFontDescriptor()} MissingWidth is ten.</li>
-   *   <li>Then return ten.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDFontDescriptor#getMissingWidth()}
    */
   @Test
-  @DisplayName("Test getMissingWidth(); given PDFontDescriptor() MissingWidth is ten; then return ten")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"float PDFontDescriptor.getMissingWidth()"})
-  void testGetMissingWidth_givenPDFontDescriptorMissingWidthIsTen_thenReturnTen() {
+  void testGetMissingWidth() {
+    // Arrange, Act and Assert
+    assertEquals(0.0f, (new PDFontDescriptor()).getMissingWidth());
+  }
+
+  /**
+   * Method under test: {@link PDFontDescriptor#getMissingWidth()}
+   */
+  @Test
+  void testGetMissingWidth2() {
     // Arrange
     PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
     pdFontDescriptor.setMissingWidth(10.0f);
@@ -2086,32 +2617,31 @@ class PDFontDescriptorDiffblueTest {
   }
 
   /**
-   * Test {@link PDFontDescriptor#getMissingWidth()}.
-   * <ul>
-   *   <li>Given {@link PDFontDescriptor#PDFontDescriptor()}.</li>
-   *   <li>Then return zero.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDFontDescriptor#getMissingWidth()}
    */
   @Test
-  @DisplayName("Test getMissingWidth(); given PDFontDescriptor(); then return zero")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"float PDFontDescriptor.getMissingWidth()"})
-  void testGetMissingWidth_givenPDFontDescriptor_thenReturnZero() {
-    // Arrange, Act and Assert
-    assertEquals(0.0f, (new PDFontDescriptor()).getMissingWidth());
+  void testGetMissingWidth3() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDStream type1Stream = new PDStream(new COSDocument(streamCacheCreateFunction));
+
+    PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
+    pdFontDescriptor.setFontFile(type1Stream);
+
+    // Act
+    float actualMissingWidth = pdFontDescriptor.getMissingWidth();
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertEquals(0.0f, actualMissingWidth);
   }
 
   /**
-   * Test {@link PDFontDescriptor#setMissingWidth(float)}.
-   * <p>
    * Method under test: {@link PDFontDescriptor#setMissingWidth(float)}
    */
   @Test
-  @DisplayName("Test setMissingWidth(float)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFontDescriptor.setMissingWidth(float)"})
   void testSetMissingWidth() {
     // Arrange
     PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
@@ -2127,19 +2657,44 @@ class PDFontDescriptorDiffblueTest {
   }
 
   /**
-   * Test {@link PDFontDescriptor#getCharSet()}.
-   * <ul>
-   *   <li>Given {@link PDFontDescriptor#PDFontDescriptor()} CharacterSet is {@code Char Set}.</li>
-   *   <li>Then return {@code Char Set}.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PDFontDescriptor#setMissingWidth(float)}
+   */
+  @Test
+  void testSetMissingWidth2() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDStream type1Stream = new PDStream(new COSDocument(streamCacheCreateFunction));
+
+    PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
+    pdFontDescriptor.setFontFile(type1Stream);
+
+    // Act
+    pdFontDescriptor.setMissingWidth(10.0f);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertEquals(10.0f, pdFontDescriptor.getMissingWidth());
+    COSDictionary cOSObject = pdFontDescriptor.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
+  }
+
+  /**
    * Method under test: {@link PDFontDescriptor#getCharSet()}
    */
   @Test
-  @DisplayName("Test getCharSet(); given PDFontDescriptor() CharacterSet is 'Char Set'; then return 'Char Set'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDFontDescriptor.getCharSet()"})
-  void testGetCharSet_givenPDFontDescriptorCharacterSetIsCharSet_thenReturnCharSet() {
+  void testGetCharSet() {
+    // Arrange, Act and Assert
+    assertNull((new PDFontDescriptor()).getCharSet());
+  }
+
+  /**
+   * Method under test: {@link PDFontDescriptor#getCharSet()}
+   */
+  @Test
+  void testGetCharSet2() {
     // Arrange
     PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
     pdFontDescriptor.setCharacterSet("Char Set");
@@ -2149,36 +2704,10 @@ class PDFontDescriptorDiffblueTest {
   }
 
   /**
-   * Test {@link PDFontDescriptor#getCharSet()}.
-   * <ul>
-   *   <li>Given {@link PDFontDescriptor#PDFontDescriptor()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDFontDescriptor#getCharSet()}
    */
   @Test
-  @DisplayName("Test getCharSet(); given PDFontDescriptor(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDFontDescriptor.getCharSet()"})
-  void testGetCharSet_givenPDFontDescriptor_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull((new PDFontDescriptor()).getCharSet());
-  }
-
-  /**
-   * Test {@link PDFontDescriptor#getCharSet()}.
-   * <ul>
-   *   <li>Then return empty string.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDFontDescriptor#getCharSet()}
-   */
-  @Test
-  @DisplayName("Test getCharSet(); then return empty string")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDFontDescriptor.getCharSet()"})
-  void testGetCharSet_thenReturnEmptyString() {
+  void testGetCharSet3() {
     // Arrange
     PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
     pdFontDescriptor.setCharacterSet("");
@@ -2188,19 +2717,32 @@ class PDFontDescriptorDiffblueTest {
   }
 
   /**
-   * Test {@link PDFontDescriptor#setCharacterSet(String)}.
-   * <ul>
-   *   <li>When {@code Char Set}.</li>
-   *   <li>Then {@link PDFontDescriptor#PDFontDescriptor()} CharSet is {@code Char Set}.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PDFontDescriptor#getCharSet()}
+   */
+  @Test
+  void testGetCharSet4() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDStream type1Stream = new PDStream(new COSDocument(streamCacheCreateFunction));
+
+    PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
+    pdFontDescriptor.setFontFile(type1Stream);
+
+    // Act
+    String actualCharSet = pdFontDescriptor.getCharSet();
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertNull(actualCharSet);
+  }
+
+  /**
    * Method under test: {@link PDFontDescriptor#setCharacterSet(String)}
    */
   @Test
-  @DisplayName("Test setCharacterSet(String); when 'Char Set'; then PDFontDescriptor() CharSet is 'Char Set'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFontDescriptor.setCharacterSet(String)"})
-  void testSetCharacterSet_whenCharSet_thenPDFontDescriptorCharSetIsCharSet() {
+  void testSetCharacterSet() {
     // Arrange
     PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
 
@@ -2215,62 +2757,62 @@ class PDFontDescriptorDiffblueTest {
   }
 
   /**
-   * Test {@link PDFontDescriptor#setCharacterSet(String)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then {@link PDFontDescriptor#PDFontDescriptor()} COSObject Values size is one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDFontDescriptor#setCharacterSet(String)}
    */
   @Test
-  @DisplayName("Test setCharacterSet(String); when 'null'; then PDFontDescriptor() COSObject Values size is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFontDescriptor.setCharacterSet(String)"})
-  void testSetCharacterSet_whenNull_thenPDFontDescriptorCOSObjectValuesSizeIsOne() {
+  void testSetCharacterSet2() {
     // Arrange
     PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
 
     // Act
     pdFontDescriptor.setCharacterSet(null);
 
-    // Assert that nothing has changed
+    // Assert
+    assertNull(pdFontDescriptor.getCharSet());
     COSDictionary cOSObject = pdFontDescriptor.getCOSObject();
     assertEquals(1, cOSObject.getValues().size());
     assertEquals(1, cOSObject.size());
   }
 
   /**
-   * Test {@link PDFontDescriptor#getFontFile()}.
-   * <ul>
-   *   <li>Given {@link PDFontDescriptor#PDFontDescriptor()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PDFontDescriptor#setCharacterSet(String)}
+   */
+  @Test
+  void testSetCharacterSet3() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDStream type1Stream = new PDStream(new COSDocument(streamCacheCreateFunction));
+
+    PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
+    pdFontDescriptor.setFontFile(type1Stream);
+
+    // Act
+    pdFontDescriptor.setCharacterSet("Char Set");
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertEquals("Char Set", pdFontDescriptor.getCharSet());
+    COSDictionary cOSObject = pdFontDescriptor.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
+  }
+
+  /**
    * Method under test: {@link PDFontDescriptor#getFontFile()}
    */
   @Test
-  @DisplayName("Test getFontFile(); given PDFontDescriptor(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDStream PDFontDescriptor.getFontFile()"})
-  void testGetFontFile_givenPDFontDescriptor_thenReturnNull() {
+  void testGetFontFile() {
     // Arrange, Act and Assert
     assertNull((new PDFontDescriptor()).getFontFile());
   }
 
   /**
-   * Test {@link PDFontDescriptor#getFontFile()}.
-   * <ul>
-   *   <li>Then return DecodeParms is {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDFontDescriptor#getFontFile()}
    */
   @Test
-  @DisplayName("Test getFontFile(); then return DecodeParms is 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDStream PDFontDescriptor.getFontFile()"})
-  void testGetFontFile_thenReturnDecodeParmsIsNull() throws IOException {
+  void testGetFontFile2() throws IOException {
     // Arrange
     PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
     pdFontDescriptor.setFontFile(new PDStream(new COSDocument()));
@@ -2281,28 +2823,80 @@ class PDFontDescriptorDiffblueTest {
     // Assert
     assertNull(actualFontFile.getDecodeParms());
     assertNull(actualFontFile.getFileDecodeParams());
+    COSStream cOSObject = actualFontFile.getCOSObject();
+    assertNull(cOSObject.getFilters());
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
     assertNull(actualFontFile.getMetadata());
     assertNull(actualFontFile.getFile());
     assertEquals(-1, actualFontFile.getDecodedStreamLength());
     assertEquals(0, actualFontFile.getLength());
+    assertEquals(0L, cOSObject.getLength());
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.hasData());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
     List<String> fileFilters = actualFontFile.getFileFilters();
     assertTrue(fileFilters.isEmpty());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
     assertSame(fileFilters, actualFontFile.getFilters());
   }
 
   /**
-   * Test {@link PDFontDescriptor#setFontFile(PDStream)}.
-   * <ul>
-   *   <li>Then {@link PDFontDescriptor#PDFontDescriptor()} FontFile DecodeParms is {@code null}.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PDFontDescriptor#getFontFile()}
+   */
+  @Test
+  void testGetFontFile3() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDStream type1Stream = new PDStream(new COSDocument(streamCacheCreateFunction));
+
+    PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
+    pdFontDescriptor.setFontFile(type1Stream);
+
+    // Act
+    PDStream actualFontFile = pdFontDescriptor.getFontFile();
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertNull(actualFontFile.getDecodeParms());
+    assertNull(actualFontFile.getFileDecodeParams());
+    COSStream cOSObject = actualFontFile.getCOSObject();
+    assertNull(cOSObject.getFilters());
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertNull(actualFontFile.getMetadata());
+    assertNull(actualFontFile.getFile());
+    assertEquals(-1, actualFontFile.getDecodedStreamLength());
+    assertEquals(0, actualFontFile.getLength());
+    assertEquals(0L, cOSObject.getLength());
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.hasData());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    List<String> fileFilters = actualFontFile.getFileFilters();
+    assertTrue(fileFilters.isEmpty());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertSame(fileFilters, actualFontFile.getFilters());
+  }
+
+  /**
    * Method under test: {@link PDFontDescriptor#setFontFile(PDStream)}
    */
   @Test
-  @DisplayName("Test setFontFile(PDStream); then PDFontDescriptor() FontFile DecodeParms is 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFontDescriptor.setFontFile(PDStream)"})
-  void testSetFontFile_thenPDFontDescriptorFontFileDecodeParmsIsNull() throws IOException {
+  void testSetFontFile() throws IOException {
     // Arrange
     PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
 
@@ -2323,62 +2917,65 @@ class PDFontDescriptorDiffblueTest {
   }
 
   /**
-   * Test {@link PDFontDescriptor#setFontFile(PDStream)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then {@link PDFontDescriptor#PDFontDescriptor()} COSObject Values size is one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDFontDescriptor#setFontFile(PDStream)}
    */
   @Test
-  @DisplayName("Test setFontFile(PDStream); when 'null'; then PDFontDescriptor() COSObject Values size is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFontDescriptor.setFontFile(PDStream)"})
-  void testSetFontFile_whenNull_thenPDFontDescriptorCOSObjectValuesSizeIsOne() {
+  void testSetFontFile2() throws IOException {
+    // Arrange
+    PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+
+    // Act
+    pdFontDescriptor.setFontFile(new PDStream(new COSDocument(streamCacheCreateFunction)));
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    PDStream fontFile = pdFontDescriptor.getFontFile();
+    assertNull(fontFile.getDecodeParms());
+    assertNull(fontFile.getFileDecodeParams());
+    assertNull(fontFile.getMetadata());
+    assertNull(fontFile.getFile());
+    assertEquals(-1, fontFile.getDecodedStreamLength());
+    assertEquals(0, fontFile.getLength());
+    COSDictionary cOSObject = pdFontDescriptor.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+  }
+
+  /**
+   * Method under test: {@link PDFontDescriptor#setFontFile(PDStream)}
+   */
+  @Test
+  void testSetFontFile3() {
     // Arrange
     PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
 
     // Act
     pdFontDescriptor.setFontFile(null);
 
-    // Assert that nothing has changed
+    // Assert
+    assertNull(pdFontDescriptor.getFontFile());
     COSDictionary cOSObject = pdFontDescriptor.getCOSObject();
     assertEquals(1, cOSObject.getValues().size());
     assertEquals(1, cOSObject.size());
   }
 
   /**
-   * Test {@link PDFontDescriptor#getFontFile2()}.
-   * <ul>
-   *   <li>Given {@link PDFontDescriptor#PDFontDescriptor()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDFontDescriptor#getFontFile2()}
    */
   @Test
-  @DisplayName("Test getFontFile2(); given PDFontDescriptor(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDStream PDFontDescriptor.getFontFile2()"})
-  void testGetFontFile2_givenPDFontDescriptor_thenReturnNull() {
+  void testGetFontFile22() {
     // Arrange, Act and Assert
     assertNull((new PDFontDescriptor()).getFontFile2());
   }
 
   /**
-   * Test {@link PDFontDescriptor#getFontFile2()}.
-   * <ul>
-   *   <li>Then return DecodeParms is {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDFontDescriptor#getFontFile2()}
    */
   @Test
-  @DisplayName("Test getFontFile2(); then return DecodeParms is 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDStream PDFontDescriptor.getFontFile2()"})
-  void testGetFontFile2_thenReturnDecodeParmsIsNull() throws IOException {
+  void testGetFontFile23() throws IOException {
     // Arrange
     PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
     pdFontDescriptor.setFontFile2(new PDStream(new COSDocument()));
@@ -2389,28 +2986,80 @@ class PDFontDescriptorDiffblueTest {
     // Assert
     assertNull(actualFontFile2.getDecodeParms());
     assertNull(actualFontFile2.getFileDecodeParams());
+    COSStream cOSObject = actualFontFile2.getCOSObject();
+    assertNull(cOSObject.getFilters());
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
     assertNull(actualFontFile2.getMetadata());
     assertNull(actualFontFile2.getFile());
     assertEquals(-1, actualFontFile2.getDecodedStreamLength());
     assertEquals(0, actualFontFile2.getLength());
+    assertEquals(0L, cOSObject.getLength());
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.hasData());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
     List<String> fileFilters = actualFontFile2.getFileFilters();
     assertTrue(fileFilters.isEmpty());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
     assertSame(fileFilters, actualFontFile2.getFilters());
   }
 
   /**
-   * Test {@link PDFontDescriptor#setFontFile2(PDStream)}.
-   * <ul>
-   *   <li>Then {@link PDFontDescriptor#PDFontDescriptor()} FontFile2 DecodeParms is {@code null}.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PDFontDescriptor#getFontFile2()}
+   */
+  @Test
+  void testGetFontFile24() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDStream ttfStream = new PDStream(new COSDocument(streamCacheCreateFunction));
+
+    PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
+    pdFontDescriptor.setFontFile2(ttfStream);
+
+    // Act
+    PDStream actualFontFile2 = pdFontDescriptor.getFontFile2();
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertNull(actualFontFile2.getDecodeParms());
+    assertNull(actualFontFile2.getFileDecodeParams());
+    COSStream cOSObject = actualFontFile2.getCOSObject();
+    assertNull(cOSObject.getFilters());
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertNull(actualFontFile2.getMetadata());
+    assertNull(actualFontFile2.getFile());
+    assertEquals(-1, actualFontFile2.getDecodedStreamLength());
+    assertEquals(0, actualFontFile2.getLength());
+    assertEquals(0L, cOSObject.getLength());
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.hasData());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    List<String> fileFilters = actualFontFile2.getFileFilters();
+    assertTrue(fileFilters.isEmpty());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertSame(fileFilters, actualFontFile2.getFilters());
+  }
+
+  /**
    * Method under test: {@link PDFontDescriptor#setFontFile2(PDStream)}
    */
   @Test
-  @DisplayName("Test setFontFile2(PDStream); then PDFontDescriptor() FontFile2 DecodeParms is 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFontDescriptor.setFontFile2(PDStream)"})
-  void testSetFontFile2_thenPDFontDescriptorFontFile2DecodeParmsIsNull() throws IOException {
+  void testSetFontFile22() throws IOException {
     // Arrange
     PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
 
@@ -2431,62 +3080,65 @@ class PDFontDescriptorDiffblueTest {
   }
 
   /**
-   * Test {@link PDFontDescriptor#setFontFile2(PDStream)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then {@link PDFontDescriptor#PDFontDescriptor()} COSObject Values size is one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDFontDescriptor#setFontFile2(PDStream)}
    */
   @Test
-  @DisplayName("Test setFontFile2(PDStream); when 'null'; then PDFontDescriptor() COSObject Values size is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFontDescriptor.setFontFile2(PDStream)"})
-  void testSetFontFile2_whenNull_thenPDFontDescriptorCOSObjectValuesSizeIsOne() {
+  void testSetFontFile23() throws IOException {
+    // Arrange
+    PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+
+    // Act
+    pdFontDescriptor.setFontFile2(new PDStream(new COSDocument(streamCacheCreateFunction)));
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    PDStream fontFile2 = pdFontDescriptor.getFontFile2();
+    assertNull(fontFile2.getDecodeParms());
+    assertNull(fontFile2.getFileDecodeParams());
+    assertNull(fontFile2.getMetadata());
+    assertNull(fontFile2.getFile());
+    assertEquals(-1, fontFile2.getDecodedStreamLength());
+    assertEquals(0, fontFile2.getLength());
+    COSDictionary cOSObject = pdFontDescriptor.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+  }
+
+  /**
+   * Method under test: {@link PDFontDescriptor#setFontFile2(PDStream)}
+   */
+  @Test
+  void testSetFontFile24() {
     // Arrange
     PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
 
     // Act
     pdFontDescriptor.setFontFile2(null);
 
-    // Assert that nothing has changed
+    // Assert
+    assertNull(pdFontDescriptor.getFontFile2());
     COSDictionary cOSObject = pdFontDescriptor.getCOSObject();
     assertEquals(1, cOSObject.getValues().size());
     assertEquals(1, cOSObject.size());
   }
 
   /**
-   * Test {@link PDFontDescriptor#getFontFile3()}.
-   * <ul>
-   *   <li>Given {@link PDFontDescriptor#PDFontDescriptor()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDFontDescriptor#getFontFile3()}
    */
   @Test
-  @DisplayName("Test getFontFile3(); given PDFontDescriptor(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDStream PDFontDescriptor.getFontFile3()"})
-  void testGetFontFile3_givenPDFontDescriptor_thenReturnNull() {
+  void testGetFontFile32() {
     // Arrange, Act and Assert
     assertNull((new PDFontDescriptor()).getFontFile3());
   }
 
   /**
-   * Test {@link PDFontDescriptor#getFontFile3()}.
-   * <ul>
-   *   <li>Then return DecodeParms is {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDFontDescriptor#getFontFile3()}
    */
   @Test
-  @DisplayName("Test getFontFile3(); then return DecodeParms is 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDStream PDFontDescriptor.getFontFile3()"})
-  void testGetFontFile3_thenReturnDecodeParmsIsNull() throws IOException {
+  void testGetFontFile33() throws IOException {
     // Arrange
     PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
     pdFontDescriptor.setFontFile3(new PDStream(new COSDocument()));
@@ -2497,28 +3149,80 @@ class PDFontDescriptorDiffblueTest {
     // Assert
     assertNull(actualFontFile3.getDecodeParms());
     assertNull(actualFontFile3.getFileDecodeParams());
+    COSStream cOSObject = actualFontFile3.getCOSObject();
+    assertNull(cOSObject.getFilters());
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
     assertNull(actualFontFile3.getMetadata());
     assertNull(actualFontFile3.getFile());
     assertEquals(-1, actualFontFile3.getDecodedStreamLength());
     assertEquals(0, actualFontFile3.getLength());
+    assertEquals(0L, cOSObject.getLength());
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.hasData());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
     List<String> fileFilters = actualFontFile3.getFileFilters();
     assertTrue(fileFilters.isEmpty());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
     assertSame(fileFilters, actualFontFile3.getFilters());
   }
 
   /**
-   * Test {@link PDFontDescriptor#setFontFile3(PDStream)}.
-   * <ul>
-   *   <li>Then {@link PDFontDescriptor#PDFontDescriptor()} FontFile3 DecodeParms is {@code null}.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PDFontDescriptor#getFontFile3()}
+   */
+  @Test
+  void testGetFontFile34() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDStream stream = new PDStream(new COSDocument(streamCacheCreateFunction));
+
+    PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
+    pdFontDescriptor.setFontFile3(stream);
+
+    // Act
+    PDStream actualFontFile3 = pdFontDescriptor.getFontFile3();
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertNull(actualFontFile3.getDecodeParms());
+    assertNull(actualFontFile3.getFileDecodeParams());
+    COSStream cOSObject = actualFontFile3.getCOSObject();
+    assertNull(cOSObject.getFilters());
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertNull(actualFontFile3.getMetadata());
+    assertNull(actualFontFile3.getFile());
+    assertEquals(-1, actualFontFile3.getDecodedStreamLength());
+    assertEquals(0, actualFontFile3.getLength());
+    assertEquals(0L, cOSObject.getLength());
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.hasData());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    List<String> fileFilters = actualFontFile3.getFileFilters();
+    assertTrue(fileFilters.isEmpty());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertSame(fileFilters, actualFontFile3.getFilters());
+  }
+
+  /**
    * Method under test: {@link PDFontDescriptor#setFontFile3(PDStream)}
    */
   @Test
-  @DisplayName("Test setFontFile3(PDStream); then PDFontDescriptor() FontFile3 DecodeParms is 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFontDescriptor.setFontFile3(PDStream)"})
-  void testSetFontFile3_thenPDFontDescriptorFontFile3DecodeParmsIsNull() throws IOException {
+  void testSetFontFile32() throws IOException {
     // Arrange
     PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
 
@@ -2539,62 +3243,65 @@ class PDFontDescriptorDiffblueTest {
   }
 
   /**
-   * Test {@link PDFontDescriptor#setFontFile3(PDStream)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then {@link PDFontDescriptor#PDFontDescriptor()} COSObject Values size is one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDFontDescriptor#setFontFile3(PDStream)}
    */
   @Test
-  @DisplayName("Test setFontFile3(PDStream); when 'null'; then PDFontDescriptor() COSObject Values size is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFontDescriptor.setFontFile3(PDStream)"})
-  void testSetFontFile3_whenNull_thenPDFontDescriptorCOSObjectValuesSizeIsOne() {
+  void testSetFontFile33() throws IOException {
+    // Arrange
+    PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+
+    // Act
+    pdFontDescriptor.setFontFile3(new PDStream(new COSDocument(streamCacheCreateFunction)));
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    PDStream fontFile3 = pdFontDescriptor.getFontFile3();
+    assertNull(fontFile3.getDecodeParms());
+    assertNull(fontFile3.getFileDecodeParams());
+    assertNull(fontFile3.getMetadata());
+    assertNull(fontFile3.getFile());
+    assertEquals(-1, fontFile3.getDecodedStreamLength());
+    assertEquals(0, fontFile3.getLength());
+    COSDictionary cOSObject = pdFontDescriptor.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+  }
+
+  /**
+   * Method under test: {@link PDFontDescriptor#setFontFile3(PDStream)}
+   */
+  @Test
+  void testSetFontFile34() {
     // Arrange
     PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
 
     // Act
     pdFontDescriptor.setFontFile3(null);
 
-    // Assert that nothing has changed
+    // Assert
+    assertNull(pdFontDescriptor.getFontFile3());
     COSDictionary cOSObject = pdFontDescriptor.getCOSObject();
     assertEquals(1, cOSObject.getValues().size());
     assertEquals(1, cOSObject.size());
   }
 
   /**
-   * Test {@link PDFontDescriptor#getCIDSet()}.
-   * <ul>
-   *   <li>Given {@link PDFontDescriptor#PDFontDescriptor()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDFontDescriptor#getCIDSet()}
    */
   @Test
-  @DisplayName("Test getCIDSet(); given PDFontDescriptor(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDStream PDFontDescriptor.getCIDSet()"})
-  void testGetCIDSet_givenPDFontDescriptor_thenReturnNull() {
+  void testGetCIDSet() {
     // Arrange, Act and Assert
     assertNull((new PDFontDescriptor()).getCIDSet());
   }
 
   /**
-   * Test {@link PDFontDescriptor#getCIDSet()}.
-   * <ul>
-   *   <li>Then return DecodeParms is {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDFontDescriptor#getCIDSet()}
    */
   @Test
-  @DisplayName("Test getCIDSet(); then return DecodeParms is 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDStream PDFontDescriptor.getCIDSet()"})
-  void testGetCIDSet_thenReturnDecodeParmsIsNull() throws IOException {
+  void testGetCIDSet2() throws IOException {
     // Arrange
     PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
     pdFontDescriptor.setCIDSet(new PDStream(new COSDocument()));
@@ -2605,28 +3312,80 @@ class PDFontDescriptorDiffblueTest {
     // Assert
     assertNull(actualCIDSet.getDecodeParms());
     assertNull(actualCIDSet.getFileDecodeParams());
+    COSStream cOSObject = actualCIDSet.getCOSObject();
+    assertNull(cOSObject.getFilters());
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
     assertNull(actualCIDSet.getMetadata());
     assertNull(actualCIDSet.getFile());
     assertEquals(-1, actualCIDSet.getDecodedStreamLength());
     assertEquals(0, actualCIDSet.getLength());
+    assertEquals(0L, cOSObject.getLength());
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.hasData());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
     List<String> fileFilters = actualCIDSet.getFileFilters();
     assertTrue(fileFilters.isEmpty());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
     assertSame(fileFilters, actualCIDSet.getFilters());
   }
 
   /**
-   * Test {@link PDFontDescriptor#setCIDSet(PDStream)}.
-   * <ul>
-   *   <li>Then {@link PDFontDescriptor#PDFontDescriptor()} CIDSet DecodeParms is {@code null}.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PDFontDescriptor#getCIDSet()}
+   */
+  @Test
+  void testGetCIDSet3() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDStream stream = new PDStream(new COSDocument(streamCacheCreateFunction));
+
+    PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
+    pdFontDescriptor.setCIDSet(stream);
+
+    // Act
+    PDStream actualCIDSet = pdFontDescriptor.getCIDSet();
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertNull(actualCIDSet.getDecodeParms());
+    assertNull(actualCIDSet.getFileDecodeParams());
+    COSStream cOSObject = actualCIDSet.getCOSObject();
+    assertNull(cOSObject.getFilters());
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertNull(actualCIDSet.getMetadata());
+    assertNull(actualCIDSet.getFile());
+    assertEquals(-1, actualCIDSet.getDecodedStreamLength());
+    assertEquals(0, actualCIDSet.getLength());
+    assertEquals(0L, cOSObject.getLength());
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.hasData());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    List<String> fileFilters = actualCIDSet.getFileFilters();
+    assertTrue(fileFilters.isEmpty());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertSame(fileFilters, actualCIDSet.getFilters());
+  }
+
+  /**
    * Method under test: {@link PDFontDescriptor#setCIDSet(PDStream)}
    */
   @Test
-  @DisplayName("Test setCIDSet(PDStream); then PDFontDescriptor() CIDSet DecodeParms is 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFontDescriptor.setCIDSet(PDStream)"})
-  void testSetCIDSet_thenPDFontDescriptorCIDSetDecodeParmsIsNull() throws IOException {
+  void testSetCIDSet() throws IOException {
     // Arrange
     PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
 
@@ -2647,42 +3406,146 @@ class PDFontDescriptorDiffblueTest {
   }
 
   /**
-   * Test {@link PDFontDescriptor#setCIDSet(PDStream)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then {@link PDFontDescriptor#PDFontDescriptor()} COSObject Values size is one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDFontDescriptor#setCIDSet(PDStream)}
    */
   @Test
-  @DisplayName("Test setCIDSet(PDStream); when 'null'; then PDFontDescriptor() COSObject Values size is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFontDescriptor.setCIDSet(PDStream)"})
-  void testSetCIDSet_whenNull_thenPDFontDescriptorCOSObjectValuesSizeIsOne() {
+  void testSetCIDSet2() throws IOException {
+    // Arrange
+    PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+
+    // Act
+    pdFontDescriptor.setCIDSet(new PDStream(new COSDocument(streamCacheCreateFunction)));
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    PDStream cIDSet = pdFontDescriptor.getCIDSet();
+    assertNull(cIDSet.getDecodeParms());
+    assertNull(cIDSet.getFileDecodeParams());
+    assertNull(cIDSet.getMetadata());
+    assertNull(cIDSet.getFile());
+    assertEquals(-1, cIDSet.getDecodedStreamLength());
+    assertEquals(0, cIDSet.getLength());
+    COSDictionary cOSObject = pdFontDescriptor.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+  }
+
+  /**
+   * Method under test: {@link PDFontDescriptor#setCIDSet(PDStream)}
+   */
+  @Test
+  void testSetCIDSet3() {
     // Arrange
     PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
 
     // Act
     pdFontDescriptor.setCIDSet(null);
 
-    // Assert that nothing has changed
+    // Assert
+    assertNull(pdFontDescriptor.getCIDSet());
     COSDictionary cOSObject = pdFontDescriptor.getCOSObject();
     assertEquals(1, cOSObject.getValues().size());
     assertEquals(1, cOSObject.size());
   }
 
   /**
-   * Test {@link PDFontDescriptor#getPanose()}.
-   * <p>
    * Method under test: {@link PDFontDescriptor#getPanose()}
    */
   @Test
-  @DisplayName("Test getPanose()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"org.apache.pdfbox.pdmodel.font.PDPanose PDFontDescriptor.getPanose()"})
   void testGetPanose() {
     // Arrange, Act and Assert
     assertNull((new PDFontDescriptor()).getPanose());
+  }
+
+  /**
+   * Method under test: {@link PDFontDescriptor#getPanose()}
+   */
+  @Test
+  void testGetPanose2() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDStream type1Stream = new PDStream(new COSDocument(streamCacheCreateFunction));
+
+    PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
+    pdFontDescriptor.setFontFile(type1Stream);
+
+    // Act
+    PDPanose actualPanose = pdFontDescriptor.getPanose();
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertNull(actualPanose);
+  }
+
+  /**
+   * Method under test: {@link PDFontDescriptor#PDFontDescriptor(COSDictionary)}
+   */
+  @Test
+  void testNewPDFontDescriptor() {
+    // Arrange
+    COSDictionary desc = new COSDictionary();
+
+    // Act and Assert
+    assertSame(desc, (new PDFontDescriptor(desc)).getCOSObject());
+  }
+
+  /**
+   * Method under test: {@link PDFontDescriptor#PDFontDescriptor()}
+   */
+  @Test
+  void testNewPDFontDescriptor2() {
+    // Arrange and Act
+    PDFontDescriptor actualPdFontDescriptor = new PDFontDescriptor();
+
+    // Assert
+    assertNull(actualPdFontDescriptor.getCharSet());
+    assertNull(actualPdFontDescriptor.getFontFamily());
+    assertNull(actualPdFontDescriptor.getFontName());
+    assertNull(actualPdFontDescriptor.getFontStretch());
+    COSDictionary cOSObject = actualPdFontDescriptor.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertNull(actualPdFontDescriptor.getFontBoundingBox());
+    assertNull(actualPdFontDescriptor.getCIDSet());
+    assertNull(actualPdFontDescriptor.getFontFile());
+    assertNull(actualPdFontDescriptor.getFontFile2());
+    assertNull(actualPdFontDescriptor.getFontFile3());
+    assertNull(actualPdFontDescriptor.getPanose());
+    assertEquals(0, actualPdFontDescriptor.getFlags());
+    assertEquals(0.0f, actualPdFontDescriptor.getAscent());
+    assertEquals(0.0f, actualPdFontDescriptor.getAverageWidth());
+    assertEquals(0.0f, actualPdFontDescriptor.getCapHeight());
+    assertEquals(0.0f, actualPdFontDescriptor.getDescent());
+    assertEquals(0.0f, actualPdFontDescriptor.getFontWeight());
+    assertEquals(0.0f, actualPdFontDescriptor.getItalicAngle());
+    assertEquals(0.0f, actualPdFontDescriptor.getLeading());
+    assertEquals(0.0f, actualPdFontDescriptor.getMaxWidth());
+    assertEquals(0.0f, actualPdFontDescriptor.getMissingWidth());
+    assertEquals(0.0f, actualPdFontDescriptor.getStemH());
+    assertEquals(0.0f, actualPdFontDescriptor.getStemV());
+    assertEquals(0.0f, actualPdFontDescriptor.getXHeight());
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertFalse(actualPdFontDescriptor.isAllCap());
+    assertFalse(actualPdFontDescriptor.isFixedPitch());
+    assertFalse(actualPdFontDescriptor.isForceBold());
+    assertFalse(actualPdFontDescriptor.isItalic());
+    assertFalse(actualPdFontDescriptor.isNonSymbolic());
+    assertFalse(actualPdFontDescriptor.isScript());
+    assertFalse(actualPdFontDescriptor.isSerif());
+    assertFalse(actualPdFontDescriptor.isSmallCap());
+    assertFalse(actualPdFontDescriptor.isSymbolic());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
   }
 }

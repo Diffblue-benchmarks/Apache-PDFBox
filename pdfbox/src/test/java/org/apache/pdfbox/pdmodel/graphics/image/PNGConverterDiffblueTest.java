@@ -4,30 +4,26 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import org.apache.pdfbox.cos.COSName;
+import org.apache.pdfbox.io.RandomAccessStreamCache;
+import org.apache.pdfbox.io.RandomAccessStreamCacheImpl;
 import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.pdmodel.graphics.image.PNGConverter.Chunk;
-import org.apache.pdfbox.pdmodel.graphics.image.PNGConverter.PNGConverterState;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class PNGConverterDiffblueTest {
   /**
-   * Test Chunk new {@link Chunk} (default constructor).
-   * <p>
-   * Method under test: default or parameterless constructor of {@link Chunk}
+   * Method under test: default or parameterless constructor of
+   * {@link PNGConverter.Chunk}
    */
   @Test
-  @DisplayName("Test Chunk new Chunk (default constructor)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void Chunk.<init>()"})
   void testChunkNewChunk() {
     // Arrange and Act
-    Chunk actualChunk = new Chunk();
+    PNGConverter.Chunk actualChunk = new PNGConverter.Chunk();
 
     // Assert
     assertNull(actualChunk.bytes);
@@ -38,40 +34,10 @@ class PNGConverterDiffblueTest {
   }
 
   /**
-   * Test {@link PNGConverter#convertPNGImage(PDDocument, byte[])}.
-   * <ul>
-   *   <li>When {@code A}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PNGConverter#convertPNGImage(PDDocument, byte[])}
    */
   @Test
-  @DisplayName("Test convertPNGImage(PDDocument, byte[]); when 'A'; then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject PNGConverter.convertPNGImage(PDDocument, byte[])"})
-  void testConvertPNGImage_whenA_thenReturnNull() throws IOException {
-    // Arrange, Act and Assert
-    assertNull(PNGConverter.convertPNGImage(new PDDocument(), new byte[]{'A', 20, 'A', 20, 'A', 20, 'A', 20, 'A', 20,
-        'A', 20, 'A', 20, 'A', 20, 'A', 20, 'A', 20, 'A', 20, 'A', 20}));
-  }
-
-  /**
-   * Test {@link PNGConverter#convertPNGImage(PDDocument, byte[])}.
-   * <ul>
-   *   <li>When {@code AXAXAXAX} Bytes is {@code UTF-8}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PNGConverter#convertPNGImage(PDDocument, byte[])}
-   */
-  @Test
-  @DisplayName("Test convertPNGImage(PDDocument, byte[]); when 'AXAXAXAX' Bytes is 'UTF-8'; then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject PNGConverter.convertPNGImage(PDDocument, byte[])"})
-  void testConvertPNGImage_whenAxaxaxaxBytesIsUtf8_thenReturnNull() throws IOException {
+  void testConvertPNGImage() throws IOException {
     // Arrange
     PDDocument doc = new PDDocument();
 
@@ -80,37 +46,49 @@ class PNGConverterDiffblueTest {
   }
 
   /**
-   * Test {@link PNGConverter#mapPNGRenderIntent(int)}.
-   * <ul>
-   *   <li>When minus one.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PNGConverter#mapPNGRenderIntent(int)}
+   * Method under test: {@link PNGConverter#convertPNGImage(PDDocument, byte[])}
    */
   @Test
-  @DisplayName("Test mapPNGRenderIntent(int); when minus one; then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"COSName PNGConverter.mapPNGRenderIntent(int)"})
-  void testMapPNGRenderIntent_whenMinusOne_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull(PNGConverter.mapPNGRenderIntent(-1));
+  void testConvertPNGImage2() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDDocument doc = new PDDocument(streamCacheCreateFunction);
+
+    // Act
+    PDImageXObject actualConvertPNGImageResult = PNGConverter.convertPNGImage(doc, "AXAXAXAX".getBytes("UTF-8"));
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertNull(actualConvertPNGImageResult);
   }
 
   /**
-   * Test {@link PNGConverter#mapPNGRenderIntent(int)}.
-   * <ul>
-   *   <li>When three.</li>
-   *   <li>Then return Name is {@code AbsoluteColorimetric}.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PNGConverter#convertPNGImage(PDDocument, byte[])}
+   */
+  @Test
+  void testConvertPNGImage3() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+
+    // Act
+    PDImageXObject actualConvertPNGImageResult = PNGConverter.convertPNGImage(new PDDocument(streamCacheCreateFunction),
+        new byte[]{'A', 20, 'A', 20, 'A', 20, 'A', 20, 'A', 20, 'A', 20, 'A', 20, 'A', 20, 'A', 20, 'A', 20, 'A', 20,
+            'A', 20});
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertNull(actualConvertPNGImageResult);
+  }
+
+  /**
    * Method under test: {@link PNGConverter#mapPNGRenderIntent(int)}
    */
   @Test
-  @DisplayName("Test mapPNGRenderIntent(int); when three; then return Name is 'AbsoluteColorimetric'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"COSName PNGConverter.mapPNGRenderIntent(int)"})
-  void testMapPNGRenderIntent_whenThree_thenReturnNameIsAbsoluteColorimetric() {
+  void testMapPNGRenderIntent() {
     // Arrange and Act
     COSName actualMapPNGRenderIntentResult = PNGConverter.mapPNGRenderIntent(3);
 
@@ -122,43 +100,10 @@ class PNGConverterDiffblueTest {
   }
 
   /**
-   * Test {@link PNGConverter#mapPNGRenderIntent(int)}.
-   * <ul>
-   *   <li>When two.</li>
-   *   <li>Then return Name is {@code Saturation}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PNGConverter#mapPNGRenderIntent(int)}
    */
   @Test
-  @DisplayName("Test mapPNGRenderIntent(int); when two; then return Name is 'Saturation'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"COSName PNGConverter.mapPNGRenderIntent(int)"})
-  void testMapPNGRenderIntent_whenTwo_thenReturnNameIsSaturation() {
-    // Arrange and Act
-    COSName actualMapPNGRenderIntentResult = PNGConverter.mapPNGRenderIntent(2);
-
-    // Assert
-    assertEquals("Saturation", actualMapPNGRenderIntentResult.getName());
-    assertNull(actualMapPNGRenderIntentResult.getKey());
-    assertFalse(actualMapPNGRenderIntentResult.isDirect());
-    assertFalse(actualMapPNGRenderIntentResult.isEmpty());
-  }
-
-  /**
-   * Test {@link PNGConverter#mapPNGRenderIntent(int)}.
-   * <ul>
-   *   <li>When zero.</li>
-   *   <li>Then return Name is {@code Perceptual}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PNGConverter#mapPNGRenderIntent(int)}
-   */
-  @Test
-  @DisplayName("Test mapPNGRenderIntent(int); when zero; then return Name is 'Perceptual'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"COSName PNGConverter.mapPNGRenderIntent(int)"})
-  void testMapPNGRenderIntent_whenZero_thenReturnNameIsPerceptual() {
+  void testMapPNGRenderIntent2() {
     // Arrange and Act
     COSName actualMapPNGRenderIntentResult = PNGConverter.mapPNGRenderIntent(0);
 
@@ -170,86 +115,65 @@ class PNGConverterDiffblueTest {
   }
 
   /**
-   * Test {@link PNGConverter#checkConverterState(PNGConverterState)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PNGConverter#checkConverterState(PNGConverterState)}
+   * Method under test: {@link PNGConverter#mapPNGRenderIntent(int)}
    */
   @Test
-  @DisplayName("Test checkConverterState(PNGConverterState); when 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean PNGConverter.checkConverterState(PNGConverterState)"})
-  void testCheckConverterState_whenNull() {
+  void testMapPNGRenderIntent3() {
+    // Arrange and Act
+    COSName actualMapPNGRenderIntentResult = PNGConverter.mapPNGRenderIntent(2);
+
+    // Assert
+    assertEquals("Saturation", actualMapPNGRenderIntentResult.getName());
+    assertNull(actualMapPNGRenderIntentResult.getKey());
+    assertFalse(actualMapPNGRenderIntentResult.isDirect());
+    assertFalse(actualMapPNGRenderIntentResult.isEmpty());
+  }
+
+  /**
+   * Method under test: {@link PNGConverter#mapPNGRenderIntent(int)}
+   */
+  @Test
+  void testMapPNGRenderIntent4() {
     // Arrange, Act and Assert
+    assertNull(PNGConverter.mapPNGRenderIntent(-1));
+  }
+
+  /**
+   * Method under test:
+   * {@link PNGConverter#checkConverterState(PNGConverter.PNGConverterState)}
+   */
+  @Test
+  void testCheckConverterState() {
+    // Arrange, Act and Assert
+    assertFalse(PNGConverter.checkConverterState(new PNGConverter.PNGConverterState()));
     assertFalse(PNGConverter.checkConverterState(null));
   }
 
   /**
-   * Test {@link PNGConverter#checkConverterState(PNGConverterState)}.
-   * <ul>
-   *   <li>When {@link PNGConverterState} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PNGConverter#checkConverterState(PNGConverterState)}
+   * Method under test: {@link PNGConverter#checkChunkSane(PNGConverter.Chunk)}
    */
   @Test
-  @DisplayName("Test checkConverterState(PNGConverterState); when PNGConverterState (default constructor)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean PNGConverter.checkConverterState(PNGConverterState)"})
-  void testCheckConverterState_whenPNGConverterState() {
-    // Arrange, Act and Assert
-    assertFalse(PNGConverter.checkConverterState(new PNGConverterState()));
-  }
-
-  /**
-   * Test {@link PNGConverter#checkChunkSane(Chunk)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then return {@code true}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PNGConverter#checkChunkSane(Chunk)}
-   */
-  @Test
-  @DisplayName("Test checkChunkSane(Chunk); when 'null'; then return 'true'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean PNGConverter.checkChunkSane(Chunk)"})
-  void testCheckChunkSane_whenNull_thenReturnTrue() {
+  void testCheckChunkSane() {
     // Arrange, Act and Assert
     assertTrue(PNGConverter.checkChunkSane(null));
   }
 
   /**
-   * Test {@link PNGConverter#crc(byte[], int, int)}.
-   * <ul>
-   *   <li>When {@code AXAXAXAX} Bytes is {@code UTF-8}.</li>
-   *   <li>Then return {@code -39806785}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PNGConverter#crc(byte[], int, int)}
    */
   @Test
-  @DisplayName("Test crc(byte[], int, int); when 'AXAXAXAX' Bytes is 'UTF-8'; then return '-39806785'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"int PNGConverter.crc(byte[], int, int)"})
-  void testCrc_whenAxaxaxaxBytesIsUtf8_thenReturn39806785() throws UnsupportedEncodingException {
+  void testCrc() throws UnsupportedEncodingException {
     // Arrange, Act and Assert
     assertEquals(-39806785, PNGConverter.crc("AXAXAXAX".getBytes("UTF-8"), 2, 3));
   }
 
   /**
-   * Test PNGConverterState new {@link PNGConverterState} (default constructor).
-   * <p>
-   * Method under test: default or parameterless constructor of {@link PNGConverterState}
+   * Method under test: default or parameterless constructor of
+   * {@link PNGConverter.PNGConverterState}
    */
   @Test
-  @DisplayName("Test PNGConverterState new PNGConverterState (default constructor)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PNGConverterState.<init>()"})
   void testPNGConverterStateNewPNGConverterState() {
     // Arrange, Act and Assert
-    assertTrue((new PNGConverterState()).IDATs.isEmpty());
+    assertTrue((new PNGConverter.PNGConverterState()).IDATs.isEmpty());
   }
 }

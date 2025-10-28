@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import java.util.List;
 import org.apache.pdfbox.cos.COSDictionary;
@@ -14,25 +13,14 @@ import org.apache.pdfbox.pdmodel.font.PDMMType1Font;
 import org.apache.pdfbox.pdmodel.graphics.PDXObject;
 import org.apache.pdfbox.text.TextPosition;
 import org.apache.pdfbox.util.Matrix;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class PDMarkedContentDiffblueTest {
   /**
-   * Test {@link PDMarkedContent#create(COSName, COSDictionary)}.
-   * <ul>
-   *   <li>When {@link COSName#A}.</li>
-   *   <li>Then return Tag is {@code A}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDMarkedContent#create(COSName, COSDictionary)}
    */
   @Test
-  @DisplayName("Test create(COSName, COSDictionary); when A; then return Tag is 'A'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDMarkedContent PDMarkedContent.create(COSName, COSDictionary)"})
-  void testCreate_whenA_thenReturnTagIsA() {
+  void testCreate() {
     // Arrange
     COSDictionary properties = new COSDictionary();
 
@@ -51,19 +39,10 @@ class PDMarkedContentDiffblueTest {
   }
 
   /**
-   * Test {@link PDMarkedContent#create(COSName, COSDictionary)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then return Tag is {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDMarkedContent#create(COSName, COSDictionary)}
    */
   @Test
-  @DisplayName("Test create(COSName, COSDictionary); when 'null'; then return Tag is 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDMarkedContent PDMarkedContent.create(COSName, COSDictionary)"})
-  void testCreate_whenNull_thenReturnTagIsNull() {
+  void testCreate2() {
     // Arrange
     COSDictionary properties = new COSDictionary();
 
@@ -82,240 +61,112 @@ class PDMarkedContentDiffblueTest {
   }
 
   /**
-   * Test {@link PDMarkedContent#PDMarkedContent(COSName, COSDictionary)}.
-   * <ul>
-   *   <li>When {@link COSName#A}.</li>
-   *   <li>Then return Tag is {@code A}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDMarkedContent#PDMarkedContent(COSName, COSDictionary)}
-   */
-  @Test
-  @DisplayName("Test new PDMarkedContent(COSName, COSDictionary); when A; then return Tag is 'A'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDMarkedContent.<init>(COSName, COSDictionary)"})
-  void testNewPDMarkedContent_whenA_thenReturnTagIsA() {
-    // Arrange
-    COSDictionary properties = new COSDictionary();
-
-    // Act
-    PDMarkedContent actualPdMarkedContent = new PDMarkedContent(COSName.A, properties);
-
-    // Assert
-    assertEquals("A", actualPdMarkedContent.getTag());
-    assertNull(actualPdMarkedContent.getActualText());
-    assertNull(actualPdMarkedContent.getAlternateDescription());
-    assertNull(actualPdMarkedContent.getExpandedForm());
-    assertNull(actualPdMarkedContent.getLanguage());
-    assertEquals(-1, actualPdMarkedContent.getMCID());
-    assertTrue(actualPdMarkedContent.getContents().isEmpty());
-    assertSame(properties, actualPdMarkedContent.getProperties());
-  }
-
-  /**
-   * Test {@link PDMarkedContent#PDMarkedContent(COSName, COSDictionary)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then return Tag is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDMarkedContent#PDMarkedContent(COSName, COSDictionary)}
-   */
-  @Test
-  @DisplayName("Test new PDMarkedContent(COSName, COSDictionary); when 'null'; then return Tag is 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDMarkedContent.<init>(COSName, COSDictionary)"})
-  void testNewPDMarkedContent_whenNull_thenReturnTagIsNull() {
-    // Arrange
-    COSDictionary properties = new COSDictionary();
-
-    // Act
-    PDMarkedContent actualPdMarkedContent = new PDMarkedContent(null, properties);
-
-    // Assert
-    assertNull(actualPdMarkedContent.getActualText());
-    assertNull(actualPdMarkedContent.getAlternateDescription());
-    assertNull(actualPdMarkedContent.getExpandedForm());
-    assertNull(actualPdMarkedContent.getLanguage());
-    assertNull(actualPdMarkedContent.getTag());
-    assertEquals(-1, actualPdMarkedContent.getMCID());
-    assertTrue(actualPdMarkedContent.getContents().isEmpty());
-    assertSame(properties, actualPdMarkedContent.getProperties());
-  }
-
-  /**
-   * Test {@link PDMarkedContent#getMCID()}.
-   * <ul>
-   *   <li>Given create {@link COSName#A} and {@link COSDictionary#COSDictionary()}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDMarkedContent#getMCID()}
    */
   @Test
-  @DisplayName("Test getMCID(); given create A and COSDictionary()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"int PDMarkedContent.getMCID()"})
-  void testGetMCID_givenCreateAAndCOSDictionary() {
+  void testGetMCID() {
     // Arrange, Act and Assert
     assertEquals(-1, PDMarkedContent.create(COSName.A, new COSDictionary()).getMCID());
-  }
-
-  /**
-   * Test {@link PDMarkedContent#getMCID()}.
-   * <ul>
-   *   <li>Given create {@link COSName#A} and {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDMarkedContent#getMCID()}
-   */
-  @Test
-  @DisplayName("Test getMCID(); given create A and 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"int PDMarkedContent.getMCID()"})
-  void testGetMCID_givenCreateAAndNull() {
-    // Arrange, Act and Assert
     assertEquals(-1, PDMarkedContent.create(COSName.A, null).getMCID());
   }
 
   /**
-   * Test {@link PDMarkedContent#getLanguage()}.
-   * <ul>
-   *   <li>Given create {@link COSName#A} and {@link COSDictionary#COSDictionary()}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDMarkedContent#getLanguage()}
    */
   @Test
-  @DisplayName("Test getLanguage(); given create A and COSDictionary()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDMarkedContent.getLanguage()"})
-  void testGetLanguage_givenCreateAAndCOSDictionary() {
+  void testGetLanguage() {
     // Arrange, Act and Assert
     assertNull(PDMarkedContent.create(COSName.A, new COSDictionary()).getLanguage());
-  }
-
-  /**
-   * Test {@link PDMarkedContent#getLanguage()}.
-   * <ul>
-   *   <li>Given create {@link COSName#A} and {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDMarkedContent#getLanguage()}
-   */
-  @Test
-  @DisplayName("Test getLanguage(); given create A and 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDMarkedContent.getLanguage()"})
-  void testGetLanguage_givenCreateAAndNull() {
-    // Arrange, Act and Assert
     assertNull(PDMarkedContent.create(COSName.A, null).getLanguage());
   }
 
   /**
-   * Test {@link PDMarkedContent#getActualText()}.
-   * <ul>
-   *   <li>Given create {@link COSName#A} and {@link COSDictionary#COSDictionary()}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDMarkedContent#getActualText()}
    */
   @Test
-  @DisplayName("Test getActualText(); given create A and COSDictionary()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDMarkedContent.getActualText()"})
-  void testGetActualText_givenCreateAAndCOSDictionary() {
+  void testGetActualText() {
     // Arrange, Act and Assert
     assertNull(PDMarkedContent.create(COSName.A, new COSDictionary()).getActualText());
-  }
-
-  /**
-   * Test {@link PDMarkedContent#getActualText()}.
-   * <ul>
-   *   <li>Given create {@link COSName#A} and {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDMarkedContent#getActualText()}
-   */
-  @Test
-  @DisplayName("Test getActualText(); given create A and 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDMarkedContent.getActualText()"})
-  void testGetActualText_givenCreateAAndNull() {
-    // Arrange, Act and Assert
     assertNull(PDMarkedContent.create(COSName.A, null).getActualText());
   }
 
   /**
-   * Test {@link PDMarkedContent#getAlternateDescription()}.
-   * <ul>
-   *   <li>Given create {@link COSName#A} and {@link COSDictionary#COSDictionary()}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDMarkedContent#getAlternateDescription()}
    */
   @Test
-  @DisplayName("Test getAlternateDescription(); given create A and COSDictionary()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDMarkedContent.getAlternateDescription()"})
-  void testGetAlternateDescription_givenCreateAAndCOSDictionary() {
+  void testGetAlternateDescription() {
     // Arrange, Act and Assert
     assertNull(PDMarkedContent.create(COSName.A, new COSDictionary()).getAlternateDescription());
-  }
-
-  /**
-   * Test {@link PDMarkedContent#getAlternateDescription()}.
-   * <ul>
-   *   <li>Given create {@link COSName#A} and {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDMarkedContent#getAlternateDescription()}
-   */
-  @Test
-  @DisplayName("Test getAlternateDescription(); given create A and 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDMarkedContent.getAlternateDescription()"})
-  void testGetAlternateDescription_givenCreateAAndNull() {
-    // Arrange, Act and Assert
     assertNull(PDMarkedContent.create(COSName.A, null).getAlternateDescription());
   }
 
   /**
-   * Test {@link PDMarkedContent#getExpandedForm()}.
-   * <ul>
-   *   <li>Given create {@link COSName#A} and {@link COSDictionary#COSDictionary()}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDMarkedContent#getExpandedForm()}
    */
   @Test
-  @DisplayName("Test getExpandedForm(); given create A and COSDictionary()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDMarkedContent.getExpandedForm()"})
-  void testGetExpandedForm_givenCreateAAndCOSDictionary() {
+  void testGetExpandedForm() {
     // Arrange, Act and Assert
     assertNull(PDMarkedContent.create(COSName.A, new COSDictionary()).getExpandedForm());
-  }
-
-  /**
-   * Test {@link PDMarkedContent#getExpandedForm()}.
-   * <ul>
-   *   <li>Given create {@link COSName#A} and {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDMarkedContent#getExpandedForm()}
-   */
-  @Test
-  @DisplayName("Test getExpandedForm(); given create A and 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDMarkedContent.getExpandedForm()"})
-  void testGetExpandedForm_givenCreateAAndNull() {
-    // Arrange, Act and Assert
     assertNull(PDMarkedContent.create(COSName.A, null).getExpandedForm());
   }
 
   /**
-   * Test getters and setters.
-   * <p>
+   * Method under test: {@link PDMarkedContent#addText(TextPosition)}
+   */
+  @Test
+  void testAddText() throws IOException {
+    // Arrange
+    PDMarkedContent createResult = PDMarkedContent.create(COSName.A, new COSDictionary());
+    Matrix textMatrix = new Matrix();
+    TextPosition text = new TextPosition(1, 10.0f, 10.0f, textMatrix, 10.0f, 10.0f, 10.0f, 10.0f, 10.0f, "Unicode",
+        new int[]{1, 0, 1, 0}, new PDMMType1Font(new COSDictionary()), 10.0f, 3);
+
+    // Act
+    createResult.addText(text);
+
+    // Assert
+    List<Object> contents = createResult.getContents();
+    assertEquals(1, contents.size());
+    assertSame(text, contents.get(0));
+  }
+
+  /**
+   * Method under test: {@link PDMarkedContent#addMarkedContent(PDMarkedContent)}
+   */
+  @Test
+  void testAddMarkedContent() {
+    // Arrange
+    PDMarkedContent createResult = PDMarkedContent.create(COSName.A, mock(COSDictionary.class));
+    PDMarkedContent markedContent = PDMarkedContent.create(COSName.A, new COSDictionary());
+
+    // Act
+    createResult.addMarkedContent(markedContent);
+
+    // Assert
+    List<Object> contents = createResult.getContents();
+    assertEquals(1, contents.size());
+    assertSame(markedContent, contents.get(0));
+  }
+
+  /**
+   * Method under test: {@link PDMarkedContent#addXObject(PDXObject)}
+   */
+  @Test
+  void testAddXObject() {
+    // Arrange
+    PDMarkedContent createResult = PDMarkedContent.create(COSName.A, new COSDictionary());
+    PDXObject xobject = mock(PDXObject.class);
+
+    // Act
+    createResult.addXObject(xobject);
+
+    // Assert
+    List<Object> contents = createResult.getContents();
+    assertEquals(1, contents.size());
+    assertSame(xobject, contents.get(0));
+  }
+
+  /**
    * Methods under test:
    * <ul>
    *   <li>{@link PDMarkedContent#toString()}
@@ -325,10 +176,6 @@ class PDMarkedContentDiffblueTest {
    * </ul>
    */
   @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List PDMarkedContent.getContents()", "COSDictionary PDMarkedContent.getProperties()",
-      "String PDMarkedContent.getTag()", "String PDMarkedContent.toString()"})
   void testGettersAndSetters() {
     // Arrange
     COSDictionary properties = new COSDictionary();
@@ -347,50 +194,48 @@ class PDMarkedContentDiffblueTest {
   }
 
   /**
-   * Test {@link PDMarkedContent#addText(TextPosition)}.
-   * <p>
-   * Method under test: {@link PDMarkedContent#addText(TextPosition)}
+   * Method under test:
+   * {@link PDMarkedContent#PDMarkedContent(COSName, COSDictionary)}
    */
   @Test
-  @DisplayName("Test addText(TextPosition)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDMarkedContent.addText(TextPosition)"})
-  void testAddText() throws IOException {
+  void testNewPDMarkedContent() {
     // Arrange
-    PDMarkedContent createResult = PDMarkedContent.create(COSName.A, new COSDictionary());
-    Matrix textMatrix = new Matrix();
-    TextPosition text = new TextPosition(1, 10.0f, 10.0f, textMatrix, 10.0f, 10.0f, 10.0f, 10.0f, 10.0f, "Unicode",
-        new int[]{1, 0, 1, 0}, new PDMMType1Font(new COSDictionary()), 10.0f, 3);
+    COSDictionary properties = new COSDictionary();
 
     // Act
-    createResult.addText(text);
+    PDMarkedContent actualPdMarkedContent = new PDMarkedContent(COSName.A, properties);
 
     // Assert
-    List<Object> contents = createResult.getContents();
-    assertEquals(1, contents.size());
-    assertSame(text, contents.get(0));
+    assertEquals("A", actualPdMarkedContent.getTag());
+    assertNull(actualPdMarkedContent.getActualText());
+    assertNull(actualPdMarkedContent.getAlternateDescription());
+    assertNull(actualPdMarkedContent.getExpandedForm());
+    assertNull(actualPdMarkedContent.getLanguage());
+    assertEquals(-1, actualPdMarkedContent.getMCID());
+    assertTrue(actualPdMarkedContent.getContents().isEmpty());
+    assertSame(properties, actualPdMarkedContent.getProperties());
   }
 
   /**
-   * Test {@link PDMarkedContent#addXObject(PDXObject)}.
-   * <p>
-   * Method under test: {@link PDMarkedContent#addXObject(PDXObject)}
+   * Method under test:
+   * {@link PDMarkedContent#PDMarkedContent(COSName, COSDictionary)}
    */
   @Test
-  @DisplayName("Test addXObject(PDXObject)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDMarkedContent.addXObject(PDXObject)"})
-  void testAddXObject() {
+  void testNewPDMarkedContent2() {
     // Arrange
-    PDMarkedContent createResult = PDMarkedContent.create(COSName.A, new COSDictionary());
-    PDXObject xobject = mock(PDXObject.class);
+    COSDictionary properties = new COSDictionary();
 
     // Act
-    createResult.addXObject(xobject);
+    PDMarkedContent actualPdMarkedContent = new PDMarkedContent(null, properties);
 
     // Assert
-    List<Object> contents = createResult.getContents();
-    assertEquals(1, contents.size());
-    assertSame(xobject, contents.get(0));
+    assertNull(actualPdMarkedContent.getActualText());
+    assertNull(actualPdMarkedContent.getAlternateDescription());
+    assertNull(actualPdMarkedContent.getExpandedForm());
+    assertNull(actualPdMarkedContent.getLanguage());
+    assertNull(actualPdMarkedContent.getTag());
+    assertEquals(-1, actualPdMarkedContent.getMCID());
+    assertTrue(actualPdMarkedContent.getContents().isEmpty());
+    assertSame(properties, actualPdMarkedContent.getProperties());
   }
 }

@@ -1,38 +1,55 @@
 package org.apache.pdfbox.debugger.streampane.tooltip;
 
 import static org.junit.jupiter.api.Assertions.assertNull;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import java.io.IOException;
+import org.apache.pdfbox.io.RandomAccessStreamCache;
+import org.apache.pdfbox.io.RandomAccessStreamCacheImpl;
+import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDResources;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
+import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 import org.junit.jupiter.api.Test;
 
 class FontToolTipDiffblueTest {
   /**
-   * Test {@link FontToolTip#FontToolTip(PDResources, String)}.
-   * <p>
+   * Method under test: {@link FontToolTip#getToolTipText()}
+   */
+  @Test
+  void testGetToolTipText() {
+    // Arrange, Act and Assert
+    assertNull((new FontToolTip(new PDResources(), "Row Text")).getToolTipText());
+  }
+
+  /**
    * Method under test: {@link FontToolTip#FontToolTip(PDResources, String)}
    */
   @Test
-  @DisplayName("Test new FontToolTip(PDResources, String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void FontToolTip.<init>(PDResources, String)"})
   void testNewFontToolTip() {
     // Arrange, Act and Assert
     assertNull((new FontToolTip(new PDResources(), "Row Text")).getToolTipText());
   }
 
   /**
-   * Test {@link FontToolTip#getToolTipText()}.
-   * <p>
-   * Method under test: {@link FontToolTip#getToolTipText()}
+   * Method under test: {@link FontToolTip#FontToolTip(PDResources, String)}
    */
   @Test
-  @DisplayName("Test getToolTipText()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String FontToolTip.getToolTipText()"})
-  void testGetToolTipText() {
-    // Arrange, Act and Assert
-    assertNull((new FontToolTip(new PDResources(), "Row Text")).getToolTipText());
+  void testNewFontToolTip2() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDImageXObject image = new PDImageXObject(new PDDocument(streamCacheCreateFunction));
+
+    PDResources resources = new PDResources();
+    resources.add(image);
+
+    // Act
+    String actualToolTipText = (new FontToolTip(resources, "Row Text")).getToolTipText();
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertNull(actualToolTipText);
   }
 }

@@ -3,45 +3,24 @@ package org.apache.xmpbox.type;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import java.util.List;
 import org.apache.xmpbox.XMPMetadata;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class ArrayPropertyDiffblueTest {
   /**
-   * Test {@link ArrayProperty#ArrayProperty(XMPMetadata, String, String, String, Cardinality)}.
-   * <p>
-   * Method under test: {@link ArrayProperty#ArrayProperty(XMPMetadata, String, String, String, Cardinality)}
+   * Method under test: {@link ArrayProperty#getElementsAsString()}
    */
   @Test
-  @DisplayName("Test new ArrayProperty(XMPMetadata, String, String, String, Cardinality)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ArrayProperty.<init>(XMPMetadata, String, String, String, Cardinality)"})
-  void testNewArrayProperty() {
-    // Arrange
-    XMPMetadata metadata = XMPMetadata.createXMPMetadata();
-
-    // Act
-    ArrayProperty actualArrayProperty = new ArrayProperty(metadata, "Namespace", "Prefix", "Property Name",
-        Cardinality.Simple);
-
-    // Assert
-    assertEquals("Namespace", actualArrayProperty.getNamespace());
-    assertEquals("Prefix", actualArrayProperty.getPrefix());
-    assertEquals("Property Name", actualArrayProperty.getPropertyName());
-    assertEquals(Cardinality.Simple, actualArrayProperty.getArrayType());
-    assertTrue(actualArrayProperty.getAllProperties().isEmpty());
-    assertTrue(actualArrayProperty.getAllAttributes().isEmpty());
-    assertTrue(actualArrayProperty.getElementsAsString().isEmpty());
-    assertTrue(actualArrayProperty.getAllNamespacesWithPrefix().isEmpty());
-    assertSame(metadata, actualArrayProperty.getMetadata());
+  void testGetElementsAsString() {
+    // Arrange, Act and Assert
+    assertTrue(
+        (new ArrayProperty(XMPMetadata.createXMPMetadata(), "Namespace", "Prefix", "Property Name", Cardinality.Simple))
+            .getElementsAsString()
+            .isEmpty());
   }
 
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link ArrayProperty#getArrayType()}
@@ -50,10 +29,6 @@ class ArrayPropertyDiffblueTest {
    * </ul>
    */
   @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Cardinality ArrayProperty.getArrayType()", "String ArrayProperty.getNamespace()",
-      "String ArrayProperty.getPrefix()"})
   void testGettersAndSetters() {
     // Arrange
     ArrayProperty arrayProperty = new ArrayProperty(XMPMetadata.createXMPMetadata(), "Namespace", "Prefix",
@@ -70,19 +45,29 @@ class ArrayPropertyDiffblueTest {
   }
 
   /**
-   * Test {@link ArrayProperty#getElementsAsString()}.
-   * <p>
-   * Method under test: {@link ArrayProperty#getElementsAsString()}
+   * Method under test:
+   * {@link ArrayProperty#ArrayProperty(XMPMetadata, String, String, String, Cardinality)}
    */
   @Test
-  @DisplayName("Test getElementsAsString()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"java.util.List ArrayProperty.getElementsAsString()"})
-  void testGetElementsAsString() {
-    // Arrange, Act and Assert
-    assertTrue(
-        (new ArrayProperty(XMPMetadata.createXMPMetadata(), "Namespace", "Prefix", "Property Name", Cardinality.Simple))
-            .getElementsAsString()
-            .isEmpty());
+  void testNewArrayProperty() {
+    // Arrange
+    XMPMetadata metadata = XMPMetadata.createXMPMetadata();
+
+    // Act
+    ArrayProperty actualArrayProperty = new ArrayProperty(metadata, "Namespace", "Prefix", "Property Name",
+        Cardinality.Simple);
+
+    // Assert
+    assertEquals("Namespace", actualArrayProperty.getNamespace());
+    assertEquals("Prefix", actualArrayProperty.getPrefix());
+    assertEquals("Property Name", actualArrayProperty.getPropertyName());
+    assertEquals(Cardinality.Simple, actualArrayProperty.getArrayType());
+    List<AbstractField> allProperties = actualArrayProperty.getAllProperties();
+    assertTrue(allProperties.isEmpty());
+    assertTrue(actualArrayProperty.getAllAttributes().isEmpty());
+    assertTrue(actualArrayProperty.getElementsAsString().isEmpty());
+    assertTrue(actualArrayProperty.getAllNamespacesWithPrefix().isEmpty());
+    assertSame(allProperties, actualArrayProperty.getContainer().getAllProperties());
+    assertSame(metadata, actualArrayProperty.getMetadata());
   }
 }

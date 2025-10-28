@@ -2,17 +2,12 @@ package org.apache.pdfbox.pdmodel.font;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.apache.fontbox.FontBoxFont;
 import org.apache.fontbox.cff.CFFCIDFont;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class FontMappingDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link FontMapping#FontMapping(FontBoxFont, boolean)}
@@ -21,10 +16,6 @@ class FontMappingDiffblueTest {
    * </ul>
    */
   @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void FontMapping.<init>(FontBoxFont, boolean)", "FontBoxFont FontMapping.getFont()",
-      "boolean FontMapping.isFallback()"})
   void testGettersAndSetters() {
     // Arrange
     CFFCIDFont cffcidFont = new CFFCIDFont();

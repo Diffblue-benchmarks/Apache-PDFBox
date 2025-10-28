@@ -4,57 +4,27 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.awt.Paint;
 import java.awt.geom.AffineTransform;
 import java.io.IOException;
 import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.util.Matrix;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class PDShadingType7DiffblueTest {
   /**
-   * Test {@link PDShadingType7#PDShadingType7(COSDictionary)}.
-   * <p>
-   * Method under test: {@link PDShadingType7#PDShadingType7(COSDictionary)}
-   */
-  @Test
-  @DisplayName("Test new PDShadingType7(COSDictionary)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDShadingType7.<init>(COSDictionary)"})
-  void testNewPDShadingType7() {
-    // Arrange
-    COSDictionary shadingDictionary = new COSDictionary();
-
-    // Act and Assert
-    assertSame(shadingDictionary, (new PDShadingType7(shadingDictionary)).getCOSObject());
-  }
-
-  /**
-   * Test {@link PDShadingType7#getShadingType()}.
-   * <p>
    * Method under test: {@link PDShadingType7#getShadingType()}
    */
   @Test
-  @DisplayName("Test getShadingType()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"int PDShadingType7.getShadingType()"})
   void testGetShadingType() {
     // Arrange, Act and Assert
     assertEquals(7, (new PDShadingType7(new COSDictionary())).getShadingType());
   }
 
   /**
-   * Test {@link PDShadingType7#toPaint(Matrix)}.
-   * <p>
    * Method under test: {@link PDShadingType7#toPaint(Matrix)}
    */
   @Test
-  @DisplayName("Test toPaint(Matrix)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Paint PDShadingType7.toPaint(Matrix)"})
   void testToPaint() {
     // Arrange
     PDShadingType7 pdShadingType7 = new PDShadingType7(new COSDictionary());
@@ -71,20 +41,27 @@ class PDShadingType7DiffblueTest {
   }
 
   /**
-   * Test {@link PDShadingType7#getBounds(AffineTransform, Matrix)} with {@code xform}, {@code matrix}.
-   * <p>
    * Method under test: {@link PDShadingType7#getBounds(AffineTransform, Matrix)}
    */
   @Test
-  @DisplayName("Test getBounds(AffineTransform, Matrix) with 'xform', 'matrix'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"java.awt.geom.Rectangle2D PDShadingType7.getBounds(AffineTransform, Matrix)"})
-  void testGetBoundsWithXformMatrix() throws IOException {
+  void testGetBounds() throws IOException {
     // Arrange
     PDShadingType7 pdShadingType7 = new PDShadingType7(new COSDictionary());
     AffineTransform xform = new AffineTransform();
 
     // Act and Assert
     assertNull(pdShadingType7.getBounds(xform, new Matrix()));
+  }
+
+  /**
+   * Method under test: {@link PDShadingType7#PDShadingType7(COSDictionary)}
+   */
+  @Test
+  void testNewPDShadingType7() {
+    // Arrange
+    COSDictionary shadingDictionary = new COSDictionary();
+
+    // Act and Assert
+    assertSame(shadingDictionary, (new PDShadingType7(shadingDictionary)).getCOSObject());
   }
 }

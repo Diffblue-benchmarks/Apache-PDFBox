@@ -4,23 +4,19 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.io.IOException;
 import org.apache.pdfbox.cos.COSDictionary;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
+import org.apache.pdfbox.cos.COSIncrement;
+import org.apache.pdfbox.cos.COSUpdateState;
 import org.junit.jupiter.api.Test;
 
 class FDFAnnotationUnderlineDiffblueTest {
   /**
-   * Test {@link FDFAnnotationUnderline#FDFAnnotationUnderline(COSDictionary)}.
-   * <p>
-   * Method under test: {@link FDFAnnotationUnderline#FDFAnnotationUnderline(COSDictionary)}
+   * Method under test:
+   * {@link FDFAnnotationUnderline#FDFAnnotationUnderline(COSDictionary)}
    */
   @Test
-  @DisplayName("Test new FDFAnnotationUnderline(COSDictionary)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void FDFAnnotationUnderline.<init>(COSDictionary)"})
   void testNewFDFAnnotationUnderline() {
     // Arrange
     COSDictionary a = new COSDictionary();
@@ -30,14 +26,9 @@ class FDFAnnotationUnderlineDiffblueTest {
   }
 
   /**
-   * Test {@link FDFAnnotationUnderline#FDFAnnotationUnderline()}.
-   * <p>
    * Method under test: {@link FDFAnnotationUnderline#FDFAnnotationUnderline()}
    */
   @Test
-  @DisplayName("Test new FDFAnnotationUnderline()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void FDFAnnotationUnderline.<init>()"})
   void testNewFDFAnnotationUnderline2() throws IOException {
     // Arrange and Act
     FDFAnnotationUnderline actualFdfAnnotationUnderline = new FDFAnnotationUnderline();
@@ -54,10 +45,21 @@ class FDFAnnotationUnderlineDiffblueTest {
     assertNull(actualFdfAnnotationUnderline.getSubject());
     assertNull(actualFdfAnnotationUnderline.getTitle());
     assertNull(actualFdfAnnotationUnderline.getCreationDate());
+    COSDictionary cOSObject = actualFdfAnnotationUnderline.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
     assertNull(actualFdfAnnotationUnderline.getRectangle());
     assertNull(actualFdfAnnotationUnderline.getBorderEffect());
     assertNull(actualFdfAnnotationUnderline.getBorderStyle());
     assertEquals(1.0f, actualFdfAnnotationUnderline.getOpacity());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
     assertFalse(actualFdfAnnotationUnderline.isHidden());
     assertFalse(actualFdfAnnotationUnderline.isInvisible());
     assertFalse(actualFdfAnnotationUnderline.isLocked());
@@ -68,5 +70,6 @@ class FDFAnnotationUnderlineDiffblueTest {
     assertFalse(actualFdfAnnotationUnderline.isPrinted());
     assertFalse(actualFdfAnnotationUnderline.isReadOnly());
     assertFalse(actualFdfAnnotationUnderline.isToggleNoView());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
   }
 }

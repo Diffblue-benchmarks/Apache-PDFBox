@@ -5,77 +5,20 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import java.io.IOException;
 import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.cos.COSIncrement;
 import org.apache.pdfbox.cos.COSObjectKey;
 import org.apache.pdfbox.cos.COSStream;
 import org.apache.pdfbox.cos.COSUpdateState;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
+import org.apache.pdfbox.pdmodel.common.PDStream;
 import org.junit.jupiter.api.Test;
 
 class PDAppearanceDictionaryDiffblueTest {
   /**
-   * Test {@link PDAppearanceDictionary#PDAppearanceDictionary(COSDictionary)}.
-   * <p>
-   * Method under test: {@link PDAppearanceDictionary#PDAppearanceDictionary(COSDictionary)}
-   */
-  @Test
-  @DisplayName("Test new PDAppearanceDictionary(COSDictionary)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAppearanceDictionary.<init>(COSDictionary)"})
-  void testNewPDAppearanceDictionary() {
-    // Arrange
-    COSDictionary dictionary = new COSDictionary();
-
-    // Act and Assert
-    assertSame(dictionary, (new PDAppearanceDictionary(dictionary)).getCOSObject());
-  }
-
-  /**
-   * Test {@link PDAppearanceDictionary#PDAppearanceDictionary()}.
-   * <p>
-   * Method under test: {@link PDAppearanceDictionary#PDAppearanceDictionary()}
-   */
-  @Test
-  @DisplayName("Test new PDAppearanceDictionary()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAppearanceDictionary.<init>()"})
-  void testNewPDAppearanceDictionary2() {
-    // Arrange and Act
-    PDAppearanceDictionary actualPdAppearanceDictionary = new PDAppearanceDictionary();
-
-    // Assert
-    COSDictionary cOSObject = actualPdAppearanceDictionary.getCOSObject();
-    assertNull(cOSObject.getKey());
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-    assertFalse(cOSObject.isDirect());
-    assertFalse(cOSObject.isNeedToBeUpdated());
-    PDAppearanceEntry downAppearance = actualPdAppearanceDictionary.getDownAppearance();
-    assertFalse(downAppearance.isStream());
-    PDAppearanceEntry normalAppearance = actualPdAppearanceDictionary.getNormalAppearance();
-    assertFalse(normalAppearance.isStream());
-    PDAppearanceEntry rolloverAppearance = actualPdAppearanceDictionary.getRolloverAppearance();
-    assertFalse(rolloverAppearance.isStream());
-    assertTrue(downAppearance.getSubDictionary().isEmpty());
-    assertTrue(normalAppearance.getSubDictionary().isEmpty());
-    assertTrue(rolloverAppearance.getSubDictionary().isEmpty());
-    assertTrue(downAppearance.isSubDictionary());
-    assertTrue(normalAppearance.isSubDictionary());
-    assertTrue(rolloverAppearance.isSubDictionary());
-  }
-
-  /**
-   * Test {@link PDAppearanceDictionary#getCOSObject()}.
-   * <p>
    * Method under test: {@link PDAppearanceDictionary#getCOSObject()}
    */
   @Test
-  @DisplayName("Test getCOSObject()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"COSDictionary PDAppearanceDictionary.getCOSObject()"})
   void testGetCOSObject() {
     // Arrange and Act
     COSDictionary actualCOSObject = (new PDAppearanceDictionary()).getCOSObject();
@@ -95,18 +38,10 @@ class PDAppearanceDictionaryDiffblueTest {
   }
 
   /**
-   * Test {@link PDAppearanceDictionary#getNormalAppearance()}.
-   * <ul>
-   *   <li>Then return COSObject UpdateState OriginDocumentState is {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDAppearanceDictionary#getNormalAppearance()}
    */
   @Test
-  @DisplayName("Test getNormalAppearance(); then return COSObject UpdateState OriginDocumentState is 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAppearanceEntry PDAppearanceDictionary.getNormalAppearance()"})
-  void testGetNormalAppearance_thenReturnCOSObjectUpdateStateOriginDocumentStateIsNull() {
+  void testGetNormalAppearance() {
     // Arrange and Act
     PDAppearanceEntry actualNormalAppearance = (new PDAppearanceDictionary()).getNormalAppearance();
 
@@ -129,179 +64,20 @@ class PDAppearanceDictionaryDiffblueTest {
   }
 
   /**
-   * Test {@link PDAppearanceDictionary#getNormalAppearance()}.
-   * <ul>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDAppearanceDictionary#getNormalAppearance()}
    */
   @Test
-  @DisplayName("Test getNormalAppearance(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAppearanceEntry PDAppearanceDictionary.getNormalAppearance()"})
-  void testGetNormalAppearance_thenReturnNull() {
+  void testGetNormalAppearance2() {
     // Arrange, Act and Assert
     assertNull((new PDAppearanceDictionary(new COSDictionary())).getNormalAppearance());
   }
 
   /**
-   * Test {@link PDAppearanceDictionary#setNormalAppearance(PDAppearanceStream)} with {@code ap}.
-   * <ul>
-   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAppearanceDictionary#setNormalAppearance(PDAppearanceStream)}
+   * Method under test:
+   * {@link PDAppearanceDictionary#setNormalAppearance(PDAppearanceEntry)}
    */
   @Test
-  @DisplayName("Test setNormalAppearance(PDAppearanceStream) with 'ap'; given COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAppearanceDictionary.setNormalAppearance(PDAppearanceStream)"})
-  void testSetNormalAppearanceWithAp_givenCOSObjectKeyWithNumIsOneAndGenIsOne() {
-    // Arrange
-    PDAppearanceDictionary pdAppearanceDictionary = new PDAppearanceDictionary();
-
-    COSStream stream = new COSStream();
-    stream.setKey(new COSObjectKey(1L, 1));
-
-    // Act
-    pdAppearanceDictionary.setNormalAppearance(new PDAppearanceStream(stream));
-
-    // Assert
-    COSDictionary cOSObject = pdAppearanceDictionary.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-    PDAppearanceEntry downAppearance = pdAppearanceDictionary.getDownAppearance();
-    assertFalse(downAppearance.isSubDictionary());
-    PDAppearanceEntry normalAppearance = pdAppearanceDictionary.getNormalAppearance();
-    assertFalse(normalAppearance.isSubDictionary());
-    PDAppearanceEntry rolloverAppearance = pdAppearanceDictionary.getRolloverAppearance();
-    assertFalse(rolloverAppearance.isSubDictionary());
-    assertTrue(downAppearance.isStream());
-    assertTrue(normalAppearance.isStream());
-    assertTrue(rolloverAppearance.isStream());
-    assertSame(stream, downAppearance.getCOSObject());
-    assertSame(stream, normalAppearance.getCOSObject());
-    assertSame(stream, rolloverAppearance.getCOSObject());
-  }
-
-  /**
-   * Test {@link PDAppearanceDictionary#setNormalAppearance(PDAppearanceStream)} with {@code ap}.
-   * <ul>
-   *   <li>Given {@code true}.</li>
-   *   <li>When {@link COSStream#COSStream()} Direct is {@code true}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAppearanceDictionary#setNormalAppearance(PDAppearanceStream)}
-   */
-  @Test
-  @DisplayName("Test setNormalAppearance(PDAppearanceStream) with 'ap'; given 'true'; when COSStream() Direct is 'true'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAppearanceDictionary.setNormalAppearance(PDAppearanceStream)"})
-  void testSetNormalAppearanceWithAp_givenTrue_whenCOSStreamDirectIsTrue() {
-    // Arrange
-    PDAppearanceDictionary pdAppearanceDictionary = new PDAppearanceDictionary();
-
-    COSStream stream = new COSStream();
-    stream.setDirect(true);
-
-    // Act
-    pdAppearanceDictionary.setNormalAppearance(new PDAppearanceStream(stream));
-
-    // Assert
-    COSDictionary cOSObject = pdAppearanceDictionary.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-    PDAppearanceEntry downAppearance = pdAppearanceDictionary.getDownAppearance();
-    assertFalse(downAppearance.isSubDictionary());
-    PDAppearanceEntry normalAppearance = pdAppearanceDictionary.getNormalAppearance();
-    assertFalse(normalAppearance.isSubDictionary());
-    PDAppearanceEntry rolloverAppearance = pdAppearanceDictionary.getRolloverAppearance();
-    assertFalse(rolloverAppearance.isSubDictionary());
-    assertTrue(downAppearance.isStream());
-    assertTrue(normalAppearance.isStream());
-    assertTrue(rolloverAppearance.isStream());
-    assertSame(stream, downAppearance.getCOSObject());
-    assertSame(stream, normalAppearance.getCOSObject());
-    assertSame(stream, rolloverAppearance.getCOSObject());
-  }
-
-  /**
-   * Test {@link PDAppearanceDictionary#setNormalAppearance(PDAppearanceStream)} with {@code ap}.
-   * <ul>
-   *   <li>Then {@link PDAppearanceDictionary#PDAppearanceDictionary()} COSObject Values size is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAppearanceDictionary#setNormalAppearance(PDAppearanceStream)}
-   */
-  @Test
-  @DisplayName("Test setNormalAppearance(PDAppearanceStream) with 'ap'; then PDAppearanceDictionary() COSObject Values size is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAppearanceDictionary.setNormalAppearance(PDAppearanceStream)"})
-  void testSetNormalAppearanceWithAp_thenPDAppearanceDictionaryCOSObjectValuesSizeIsOne() {
-    // Arrange
-    PDAppearanceDictionary pdAppearanceDictionary = new PDAppearanceDictionary();
-    COSStream stream = new COSStream();
-
-    // Act
-    pdAppearanceDictionary.setNormalAppearance(new PDAppearanceStream(stream));
-
-    // Assert
-    COSDictionary cOSObject = pdAppearanceDictionary.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-    PDAppearanceEntry downAppearance = pdAppearanceDictionary.getDownAppearance();
-    assertFalse(downAppearance.isSubDictionary());
-    PDAppearanceEntry normalAppearance = pdAppearanceDictionary.getNormalAppearance();
-    assertFalse(normalAppearance.isSubDictionary());
-    PDAppearanceEntry rolloverAppearance = pdAppearanceDictionary.getRolloverAppearance();
-    assertFalse(rolloverAppearance.isSubDictionary());
-    assertTrue(downAppearance.isStream());
-    assertTrue(normalAppearance.isStream());
-    assertTrue(rolloverAppearance.isStream());
-    assertSame(stream, downAppearance.getCOSObject());
-    assertSame(stream, normalAppearance.getCOSObject());
-    assertSame(stream, rolloverAppearance.getCOSObject());
-  }
-
-  /**
-   * Test {@link PDAppearanceDictionary#setNormalAppearance(PDAppearanceStream)} with {@code ap}.
-   * <ul>
-   *   <li>Then {@link PDAppearanceDictionary#PDAppearanceDictionary()} DownAppearance is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAppearanceDictionary#setNormalAppearance(PDAppearanceStream)}
-   */
-  @Test
-  @DisplayName("Test setNormalAppearance(PDAppearanceStream) with 'ap'; then PDAppearanceDictionary() DownAppearance is 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAppearanceDictionary.setNormalAppearance(PDAppearanceStream)"})
-  void testSetNormalAppearanceWithAp_thenPDAppearanceDictionaryDownAppearanceIsNull() {
-    // Arrange
-    PDAppearanceDictionary pdAppearanceDictionary = new PDAppearanceDictionary();
-
-    // Act
-    pdAppearanceDictionary.setNormalAppearance((PDAppearanceStream) null);
-
-    // Assert
-    assertNull(pdAppearanceDictionary.getDownAppearance());
-    assertNull(pdAppearanceDictionary.getNormalAppearance());
-    assertNull(pdAppearanceDictionary.getRolloverAppearance());
-    COSDictionary cOSObject = pdAppearanceDictionary.getCOSObject();
-    assertEquals(0, cOSObject.size());
-    assertTrue(cOSObject.getValues().isEmpty());
-  }
-
-  /**
-   * Test {@link PDAppearanceDictionary#setNormalAppearance(PDAppearanceEntry)} with {@code entry}.
-   * <p>
-   * Method under test: {@link PDAppearanceDictionary#setNormalAppearance(PDAppearanceEntry)}
-   */
-  @Test
-  @DisplayName("Test setNormalAppearance(PDAppearanceEntry) with 'entry'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAppearanceDictionary.setNormalAppearance(PDAppearanceEntry)"})
-  void testSetNormalAppearanceWithEntry() {
+  void testSetNormalAppearance() {
     // Arrange
     PDAppearanceDictionary pdAppearanceDictionary = new PDAppearanceDictionary();
     COSDictionary entry = new COSDictionary();
@@ -313,115 +89,23 @@ class PDAppearanceDictionaryDiffblueTest {
     COSDictionary cOSObject = pdAppearanceDictionary.getCOSObject();
     assertEquals(1, cOSObject.getValues().size());
     assertEquals(1, cOSObject.size());
-    assertSame(entry, pdAppearanceDictionary.getDownAppearance().getCOSObject());
-    assertSame(entry, pdAppearanceDictionary.getNormalAppearance().getCOSObject());
-    assertSame(entry, pdAppearanceDictionary.getRolloverAppearance().getCOSObject());
+    PDAppearanceEntry downAppearance = pdAppearanceDictionary.getDownAppearance();
+    assertTrue(downAppearance.getSubDictionary().isEmpty());
+    PDAppearanceEntry normalAppearance = pdAppearanceDictionary.getNormalAppearance();
+    assertTrue(normalAppearance.getSubDictionary().isEmpty());
+    PDAppearanceEntry rolloverAppearance = pdAppearanceDictionary.getRolloverAppearance();
+    assertTrue(rolloverAppearance.getSubDictionary().isEmpty());
+    assertSame(entry, downAppearance.getCOSObject());
+    assertSame(entry, normalAppearance.getCOSObject());
+    assertSame(entry, rolloverAppearance.getCOSObject());
   }
 
   /**
-   * Test {@link PDAppearanceDictionary#setNormalAppearance(PDAppearanceEntry)} with {@code entry}.
-   * <ul>
-   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAppearanceDictionary#setNormalAppearance(PDAppearanceEntry)}
+   * Method under test:
+   * {@link PDAppearanceDictionary#setNormalAppearance(PDAppearanceEntry)}
    */
   @Test
-  @DisplayName("Test setNormalAppearance(PDAppearanceEntry) with 'entry'; given COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAppearanceDictionary.setNormalAppearance(PDAppearanceEntry)"})
-  void testSetNormalAppearanceWithEntry_givenCOSObjectKeyWithNumIsOneAndGenIsOne() {
-    // Arrange
-    PDAppearanceDictionary pdAppearanceDictionary = new PDAppearanceDictionary();
-
-    COSDictionary entry = new COSDictionary();
-    entry.setKey(new COSObjectKey(1L, 1));
-
-    // Act
-    pdAppearanceDictionary.setNormalAppearance(new PDAppearanceEntry(entry));
-
-    // Assert
-    COSDictionary cOSObject = pdAppearanceDictionary.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-    assertSame(entry, pdAppearanceDictionary.getDownAppearance().getCOSObject());
-    assertSame(entry, pdAppearanceDictionary.getNormalAppearance().getCOSObject());
-    assertSame(entry, pdAppearanceDictionary.getRolloverAppearance().getCOSObject());
-  }
-
-  /**
-   * Test {@link PDAppearanceDictionary#setNormalAppearance(PDAppearanceEntry)} with {@code entry}.
-   * <ul>
-   *   <li>Given {@code true}.</li>
-   *   <li>When {@link COSDictionary#COSDictionary()} Direct is {@code true}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAppearanceDictionary#setNormalAppearance(PDAppearanceEntry)}
-   */
-  @Test
-  @DisplayName("Test setNormalAppearance(PDAppearanceEntry) with 'entry'; given 'true'; when COSDictionary() Direct is 'true'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAppearanceDictionary.setNormalAppearance(PDAppearanceEntry)"})
-  void testSetNormalAppearanceWithEntry_givenTrue_whenCOSDictionaryDirectIsTrue() {
-    // Arrange
-    PDAppearanceDictionary pdAppearanceDictionary = new PDAppearanceDictionary();
-
-    COSDictionary entry = new COSDictionary();
-    entry.setDirect(true);
-
-    // Act
-    pdAppearanceDictionary.setNormalAppearance(new PDAppearanceEntry(entry));
-
-    // Assert
-    COSDictionary cOSObject = pdAppearanceDictionary.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-    assertSame(entry, pdAppearanceDictionary.getDownAppearance().getCOSObject());
-    assertSame(entry, pdAppearanceDictionary.getNormalAppearance().getCOSObject());
-    assertSame(entry, pdAppearanceDictionary.getRolloverAppearance().getCOSObject());
-  }
-
-  /**
-   * Test {@link PDAppearanceDictionary#setNormalAppearance(PDAppearanceEntry)} with {@code entry}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAppearanceDictionary#setNormalAppearance(PDAppearanceEntry)}
-   */
-  @Test
-  @DisplayName("Test setNormalAppearance(PDAppearanceEntry) with 'entry'; when 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAppearanceDictionary.setNormalAppearance(PDAppearanceEntry)"})
-  void testSetNormalAppearanceWithEntry_whenNull() {
-    // Arrange
-    PDAppearanceDictionary pdAppearanceDictionary = new PDAppearanceDictionary();
-
-    // Act
-    pdAppearanceDictionary.setNormalAppearance((PDAppearanceEntry) null);
-
-    // Assert
-    assertNull(pdAppearanceDictionary.getDownAppearance());
-    assertNull(pdAppearanceDictionary.getNormalAppearance());
-    assertNull(pdAppearanceDictionary.getRolloverAppearance());
-    COSDictionary cOSObject = pdAppearanceDictionary.getCOSObject();
-    assertEquals(0, cOSObject.size());
-    assertTrue(cOSObject.getValues().isEmpty());
-  }
-
-  /**
-   * Test {@link PDAppearanceDictionary#setNormalAppearance(PDAppearanceEntry)} with {@code entry}.
-   * <ul>
-   *   <li>When {@link PDAppearanceEntry#PDAppearanceEntry(COSDictionary)} with entry is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAppearanceDictionary#setNormalAppearance(PDAppearanceEntry)}
-   */
-  @Test
-  @DisplayName("Test setNormalAppearance(PDAppearanceEntry) with 'entry'; when PDAppearanceEntry(COSDictionary) with entry is 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAppearanceDictionary.setNormalAppearance(PDAppearanceEntry)"})
-  void testSetNormalAppearanceWithEntry_whenPDAppearanceEntryWithEntryIsNull() {
+  void testSetNormalAppearance2() {
     // Arrange
     PDAppearanceDictionary pdAppearanceDictionary = new PDAppearanceDictionary();
 
@@ -438,14 +122,424 @@ class PDAppearanceDictionaryDiffblueTest {
   }
 
   /**
-   * Test {@link PDAppearanceDictionary#getRolloverAppearance()}.
-   * <p>
+   * Method under test:
+   * {@link PDAppearanceDictionary#setNormalAppearance(PDAppearanceEntry)}
+   */
+  @Test
+  void testSetNormalAppearance3() {
+    // Arrange
+    PDAppearanceDictionary pdAppearanceDictionary = new PDAppearanceDictionary();
+
+    // Act
+    pdAppearanceDictionary.setNormalAppearance((PDAppearanceEntry) null);
+
+    // Assert
+    assertNull(pdAppearanceDictionary.getDownAppearance());
+    assertNull(pdAppearanceDictionary.getNormalAppearance());
+    assertNull(pdAppearanceDictionary.getRolloverAppearance());
+    COSDictionary cOSObject = pdAppearanceDictionary.getCOSObject();
+    assertEquals(0, cOSObject.size());
+    assertTrue(cOSObject.getValues().isEmpty());
+  }
+
+  /**
+   * Method under test:
+   * {@link PDAppearanceDictionary#setNormalAppearance(PDAppearanceEntry)}
+   */
+  @Test
+  void testSetNormalAppearance4() {
+    // Arrange
+    PDAppearanceDictionary pdAppearanceDictionary = new PDAppearanceDictionary();
+
+    COSDictionary entry = new COSDictionary();
+    entry.setDirect(true);
+
+    // Act
+    pdAppearanceDictionary.setNormalAppearance(new PDAppearanceEntry(entry));
+
+    // Assert
+    COSDictionary cOSObject = pdAppearanceDictionary.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+    PDAppearanceEntry downAppearance = pdAppearanceDictionary.getDownAppearance();
+    assertTrue(downAppearance.getSubDictionary().isEmpty());
+    PDAppearanceEntry normalAppearance = pdAppearanceDictionary.getNormalAppearance();
+    assertTrue(normalAppearance.getSubDictionary().isEmpty());
+    PDAppearanceEntry rolloverAppearance = pdAppearanceDictionary.getRolloverAppearance();
+    assertTrue(rolloverAppearance.getSubDictionary().isEmpty());
+    assertSame(entry, downAppearance.getCOSObject());
+    assertSame(entry, normalAppearance.getCOSObject());
+    assertSame(entry, rolloverAppearance.getCOSObject());
+  }
+
+  /**
+   * Method under test:
+   * {@link PDAppearanceDictionary#setNormalAppearance(PDAppearanceEntry)}
+   */
+  @Test
+  void testSetNormalAppearance5() {
+    // Arrange
+    PDAppearanceDictionary pdAppearanceDictionary = new PDAppearanceDictionary();
+
+    COSDictionary entry = new COSDictionary();
+    entry.setKey(new COSObjectKey(1L, 1));
+
+    // Act
+    pdAppearanceDictionary.setNormalAppearance(new PDAppearanceEntry(entry));
+
+    // Assert
+    COSDictionary cOSObject = pdAppearanceDictionary.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+    PDAppearanceEntry downAppearance = pdAppearanceDictionary.getDownAppearance();
+    assertTrue(downAppearance.getSubDictionary().isEmpty());
+    PDAppearanceEntry normalAppearance = pdAppearanceDictionary.getNormalAppearance();
+    assertTrue(normalAppearance.getSubDictionary().isEmpty());
+    PDAppearanceEntry rolloverAppearance = pdAppearanceDictionary.getRolloverAppearance();
+    assertTrue(rolloverAppearance.getSubDictionary().isEmpty());
+    assertSame(entry, downAppearance.getCOSObject());
+    assertSame(entry, normalAppearance.getCOSObject());
+    assertSame(entry, rolloverAppearance.getCOSObject());
+  }
+
+  /**
+   * Method under test:
+   * {@link PDAppearanceDictionary#setNormalAppearance(PDAppearanceStream)}
+   */
+  @Test
+  void testSetNormalAppearance6() throws IOException {
+    // Arrange
+    PDAppearanceDictionary pdAppearanceDictionary = new PDAppearanceDictionary();
+    COSStream stream = new COSStream();
+
+    // Act
+    pdAppearanceDictionary.setNormalAppearance(new PDAppearanceStream(stream));
+
+    // Assert
+    PDAppearanceEntry downAppearance = pdAppearanceDictionary.getDownAppearance();
+    PDAppearanceStream appearanceStream = downAppearance.getAppearanceStream();
+    PDStream stream2 = appearanceStream.getStream();
+    assertNull(stream2.getDecodeParms());
+    PDAppearanceEntry normalAppearance = pdAppearanceDictionary.getNormalAppearance();
+    PDAppearanceStream appearanceStream2 = normalAppearance.getAppearanceStream();
+    PDStream stream3 = appearanceStream2.getStream();
+    assertNull(stream3.getDecodeParms());
+    PDAppearanceEntry rolloverAppearance = pdAppearanceDictionary.getRolloverAppearance();
+    PDAppearanceStream appearanceStream3 = rolloverAppearance.getAppearanceStream();
+    PDStream stream4 = appearanceStream3.getStream();
+    assertNull(stream4.getDecodeParms());
+    PDStream contentStream = appearanceStream.getContentStream();
+    assertNull(contentStream.getDecodeParms());
+    PDStream contentStream2 = appearanceStream2.getContentStream();
+    assertNull(contentStream2.getDecodeParms());
+    PDStream contentStream3 = appearanceStream3.getContentStream();
+    assertNull(contentStream3.getDecodeParms());
+    assertNull(stream2.getFileDecodeParams());
+    assertNull(stream3.getFileDecodeParams());
+    assertNull(stream4.getFileDecodeParams());
+    assertNull(contentStream.getFileDecodeParams());
+    assertNull(contentStream2.getFileDecodeParams());
+    assertNull(contentStream3.getFileDecodeParams());
+    assertNull(appearanceStream.getResources());
+    assertNull(appearanceStream2.getResources());
+    assertNull(appearanceStream3.getResources());
+    assertNull(stream2.getMetadata());
+    assertNull(stream3.getMetadata());
+    assertNull(stream4.getMetadata());
+    assertNull(contentStream.getMetadata());
+    assertNull(contentStream2.getMetadata());
+    assertNull(contentStream3.getMetadata());
+    assertNull(appearanceStream.getBBox());
+    assertNull(appearanceStream2.getBBox());
+    assertNull(appearanceStream3.getBBox());
+    assertNull(stream2.getFile());
+    assertNull(stream3.getFile());
+    assertNull(stream4.getFile());
+    assertNull(contentStream.getFile());
+    assertNull(contentStream2.getFile());
+    assertNull(contentStream3.getFile());
+    assertNull(appearanceStream.getOptionalContent());
+    assertNull(appearanceStream2.getOptionalContent());
+    assertNull(appearanceStream3.getOptionalContent());
+    assertNull(appearanceStream.getGroup());
+    assertNull(appearanceStream2.getGroup());
+    assertNull(appearanceStream3.getGroup());
+    assertEquals(-1, stream2.getDecodedStreamLength());
+    assertEquals(-1, stream3.getDecodedStreamLength());
+    assertEquals(-1, stream4.getDecodedStreamLength());
+    assertEquals(-1, contentStream.getDecodedStreamLength());
+    assertEquals(-1, contentStream2.getDecodedStreamLength());
+    assertEquals(-1, contentStream3.getDecodedStreamLength());
+    assertEquals(-1, appearanceStream.getStructParents());
+    assertEquals(-1, appearanceStream2.getStructParents());
+    assertEquals(-1, appearanceStream3.getStructParents());
+    assertEquals(0, stream2.getLength());
+    assertEquals(0, stream3.getLength());
+    assertEquals(0, stream4.getLength());
+    assertEquals(0, contentStream.getLength());
+    assertEquals(0, contentStream2.getLength());
+    assertEquals(0, contentStream3.getLength());
+    COSDictionary cOSObject = pdAppearanceDictionary.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+    assertEquals(1, appearanceStream.getFormType());
+    assertEquals(1, appearanceStream2.getFormType());
+    assertEquals(1, appearanceStream3.getFormType());
+    assertFalse(downAppearance.isSubDictionary());
+    assertFalse(normalAppearance.isSubDictionary());
+    assertFalse(rolloverAppearance.isSubDictionary());
+    assertTrue(downAppearance.isStream());
+    assertTrue(normalAppearance.isStream());
+    assertTrue(rolloverAppearance.isStream());
+    assertSame(stream, stream2.getCOSObject());
+    assertSame(stream, stream3.getCOSObject());
+    assertSame(stream, stream4.getCOSObject());
+    assertSame(stream, contentStream.getCOSObject());
+    assertSame(stream, contentStream2.getCOSObject());
+    assertSame(stream, contentStream3.getCOSObject());
+    assertSame(stream, appearanceStream.getCOSObject());
+    assertSame(stream, appearanceStream2.getCOSObject());
+    assertSame(stream, appearanceStream3.getCOSObject());
+    assertSame(stream, downAppearance.getCOSObject());
+    assertSame(stream, normalAppearance.getCOSObject());
+    assertSame(stream, rolloverAppearance.getCOSObject());
+  }
+
+  /**
+   * Method under test:
+   * {@link PDAppearanceDictionary#setNormalAppearance(PDAppearanceStream)}
+   */
+  @Test
+  void testSetNormalAppearance7() {
+    // Arrange
+    PDAppearanceDictionary pdAppearanceDictionary = new PDAppearanceDictionary();
+
+    // Act
+    pdAppearanceDictionary.setNormalAppearance((PDAppearanceStream) null);
+
+    // Assert
+    assertNull(pdAppearanceDictionary.getDownAppearance());
+    assertNull(pdAppearanceDictionary.getNormalAppearance());
+    assertNull(pdAppearanceDictionary.getRolloverAppearance());
+    COSDictionary cOSObject = pdAppearanceDictionary.getCOSObject();
+    assertEquals(0, cOSObject.size());
+    assertTrue(cOSObject.getValues().isEmpty());
+  }
+
+  /**
+   * Method under test:
+   * {@link PDAppearanceDictionary#setNormalAppearance(PDAppearanceStream)}
+   */
+  @Test
+  void testSetNormalAppearance8() throws IOException {
+    // Arrange
+    PDAppearanceDictionary pdAppearanceDictionary = new PDAppearanceDictionary();
+
+    COSStream stream = new COSStream();
+    stream.setDirect(true);
+
+    // Act
+    pdAppearanceDictionary.setNormalAppearance(new PDAppearanceStream(stream));
+
+    // Assert
+    PDAppearanceEntry downAppearance = pdAppearanceDictionary.getDownAppearance();
+    PDAppearanceStream appearanceStream = downAppearance.getAppearanceStream();
+    PDStream stream2 = appearanceStream.getStream();
+    assertNull(stream2.getDecodeParms());
+    PDAppearanceEntry normalAppearance = pdAppearanceDictionary.getNormalAppearance();
+    PDAppearanceStream appearanceStream2 = normalAppearance.getAppearanceStream();
+    PDStream stream3 = appearanceStream2.getStream();
+    assertNull(stream3.getDecodeParms());
+    PDAppearanceEntry rolloverAppearance = pdAppearanceDictionary.getRolloverAppearance();
+    PDAppearanceStream appearanceStream3 = rolloverAppearance.getAppearanceStream();
+    PDStream stream4 = appearanceStream3.getStream();
+    assertNull(stream4.getDecodeParms());
+    PDStream contentStream = appearanceStream.getContentStream();
+    assertNull(contentStream.getDecodeParms());
+    PDStream contentStream2 = appearanceStream2.getContentStream();
+    assertNull(contentStream2.getDecodeParms());
+    PDStream contentStream3 = appearanceStream3.getContentStream();
+    assertNull(contentStream3.getDecodeParms());
+    assertNull(stream2.getFileDecodeParams());
+    assertNull(stream3.getFileDecodeParams());
+    assertNull(stream4.getFileDecodeParams());
+    assertNull(contentStream.getFileDecodeParams());
+    assertNull(contentStream2.getFileDecodeParams());
+    assertNull(contentStream3.getFileDecodeParams());
+    assertNull(appearanceStream.getResources());
+    assertNull(appearanceStream2.getResources());
+    assertNull(appearanceStream3.getResources());
+    assertNull(stream2.getMetadata());
+    assertNull(stream3.getMetadata());
+    assertNull(stream4.getMetadata());
+    assertNull(contentStream.getMetadata());
+    assertNull(contentStream2.getMetadata());
+    assertNull(contentStream3.getMetadata());
+    assertNull(appearanceStream.getBBox());
+    assertNull(appearanceStream2.getBBox());
+    assertNull(appearanceStream3.getBBox());
+    assertNull(stream2.getFile());
+    assertNull(stream3.getFile());
+    assertNull(stream4.getFile());
+    assertNull(contentStream.getFile());
+    assertNull(contentStream2.getFile());
+    assertNull(contentStream3.getFile());
+    assertNull(appearanceStream.getOptionalContent());
+    assertNull(appearanceStream2.getOptionalContent());
+    assertNull(appearanceStream3.getOptionalContent());
+    assertNull(appearanceStream.getGroup());
+    assertNull(appearanceStream2.getGroup());
+    assertNull(appearanceStream3.getGroup());
+    assertEquals(-1, stream2.getDecodedStreamLength());
+    assertEquals(-1, stream3.getDecodedStreamLength());
+    assertEquals(-1, stream4.getDecodedStreamLength());
+    assertEquals(-1, contentStream.getDecodedStreamLength());
+    assertEquals(-1, contentStream2.getDecodedStreamLength());
+    assertEquals(-1, contentStream3.getDecodedStreamLength());
+    assertEquals(-1, appearanceStream.getStructParents());
+    assertEquals(-1, appearanceStream2.getStructParents());
+    assertEquals(-1, appearanceStream3.getStructParents());
+    assertEquals(0, stream2.getLength());
+    assertEquals(0, stream3.getLength());
+    assertEquals(0, stream4.getLength());
+    assertEquals(0, contentStream.getLength());
+    assertEquals(0, contentStream2.getLength());
+    assertEquals(0, contentStream3.getLength());
+    COSDictionary cOSObject = pdAppearanceDictionary.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+    assertEquals(1, appearanceStream.getFormType());
+    assertEquals(1, appearanceStream2.getFormType());
+    assertEquals(1, appearanceStream3.getFormType());
+    assertFalse(downAppearance.isSubDictionary());
+    assertFalse(normalAppearance.isSubDictionary());
+    assertFalse(rolloverAppearance.isSubDictionary());
+    assertTrue(downAppearance.isStream());
+    assertTrue(normalAppearance.isStream());
+    assertTrue(rolloverAppearance.isStream());
+    assertSame(stream, stream2.getCOSObject());
+    assertSame(stream, stream3.getCOSObject());
+    assertSame(stream, stream4.getCOSObject());
+    assertSame(stream, contentStream.getCOSObject());
+    assertSame(stream, contentStream2.getCOSObject());
+    assertSame(stream, contentStream3.getCOSObject());
+    assertSame(stream, appearanceStream.getCOSObject());
+    assertSame(stream, appearanceStream2.getCOSObject());
+    assertSame(stream, appearanceStream3.getCOSObject());
+    assertSame(stream, downAppearance.getCOSObject());
+    assertSame(stream, normalAppearance.getCOSObject());
+    assertSame(stream, rolloverAppearance.getCOSObject());
+  }
+
+  /**
+   * Method under test:
+   * {@link PDAppearanceDictionary#setNormalAppearance(PDAppearanceStream)}
+   */
+  @Test
+  void testSetNormalAppearance9() throws IOException {
+    // Arrange
+    PDAppearanceDictionary pdAppearanceDictionary = new PDAppearanceDictionary();
+
+    COSStream stream = new COSStream();
+    stream.setKey(new COSObjectKey(1L, 1));
+
+    // Act
+    pdAppearanceDictionary.setNormalAppearance(new PDAppearanceStream(stream));
+
+    // Assert
+    PDAppearanceEntry downAppearance = pdAppearanceDictionary.getDownAppearance();
+    PDAppearanceStream appearanceStream = downAppearance.getAppearanceStream();
+    PDStream stream2 = appearanceStream.getStream();
+    assertNull(stream2.getDecodeParms());
+    PDAppearanceEntry normalAppearance = pdAppearanceDictionary.getNormalAppearance();
+    PDAppearanceStream appearanceStream2 = normalAppearance.getAppearanceStream();
+    PDStream stream3 = appearanceStream2.getStream();
+    assertNull(stream3.getDecodeParms());
+    PDAppearanceEntry rolloverAppearance = pdAppearanceDictionary.getRolloverAppearance();
+    PDAppearanceStream appearanceStream3 = rolloverAppearance.getAppearanceStream();
+    PDStream stream4 = appearanceStream3.getStream();
+    assertNull(stream4.getDecodeParms());
+    PDStream contentStream = appearanceStream.getContentStream();
+    assertNull(contentStream.getDecodeParms());
+    PDStream contentStream2 = appearanceStream2.getContentStream();
+    assertNull(contentStream2.getDecodeParms());
+    PDStream contentStream3 = appearanceStream3.getContentStream();
+    assertNull(contentStream3.getDecodeParms());
+    assertNull(stream2.getFileDecodeParams());
+    assertNull(stream3.getFileDecodeParams());
+    assertNull(stream4.getFileDecodeParams());
+    assertNull(contentStream.getFileDecodeParams());
+    assertNull(contentStream2.getFileDecodeParams());
+    assertNull(contentStream3.getFileDecodeParams());
+    assertNull(appearanceStream.getResources());
+    assertNull(appearanceStream2.getResources());
+    assertNull(appearanceStream3.getResources());
+    assertNull(stream2.getMetadata());
+    assertNull(stream3.getMetadata());
+    assertNull(stream4.getMetadata());
+    assertNull(contentStream.getMetadata());
+    assertNull(contentStream2.getMetadata());
+    assertNull(contentStream3.getMetadata());
+    assertNull(appearanceStream.getBBox());
+    assertNull(appearanceStream2.getBBox());
+    assertNull(appearanceStream3.getBBox());
+    assertNull(stream2.getFile());
+    assertNull(stream3.getFile());
+    assertNull(stream4.getFile());
+    assertNull(contentStream.getFile());
+    assertNull(contentStream2.getFile());
+    assertNull(contentStream3.getFile());
+    assertNull(appearanceStream.getOptionalContent());
+    assertNull(appearanceStream2.getOptionalContent());
+    assertNull(appearanceStream3.getOptionalContent());
+    assertNull(appearanceStream.getGroup());
+    assertNull(appearanceStream2.getGroup());
+    assertNull(appearanceStream3.getGroup());
+    assertEquals(-1, stream2.getDecodedStreamLength());
+    assertEquals(-1, stream3.getDecodedStreamLength());
+    assertEquals(-1, stream4.getDecodedStreamLength());
+    assertEquals(-1, contentStream.getDecodedStreamLength());
+    assertEquals(-1, contentStream2.getDecodedStreamLength());
+    assertEquals(-1, contentStream3.getDecodedStreamLength());
+    assertEquals(-1, appearanceStream.getStructParents());
+    assertEquals(-1, appearanceStream2.getStructParents());
+    assertEquals(-1, appearanceStream3.getStructParents());
+    assertEquals(0, stream2.getLength());
+    assertEquals(0, stream3.getLength());
+    assertEquals(0, stream4.getLength());
+    assertEquals(0, contentStream.getLength());
+    assertEquals(0, contentStream2.getLength());
+    assertEquals(0, contentStream3.getLength());
+    COSDictionary cOSObject = pdAppearanceDictionary.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+    assertEquals(1, appearanceStream.getFormType());
+    assertEquals(1, appearanceStream2.getFormType());
+    assertEquals(1, appearanceStream3.getFormType());
+    assertFalse(downAppearance.isSubDictionary());
+    assertFalse(normalAppearance.isSubDictionary());
+    assertFalse(rolloverAppearance.isSubDictionary());
+    assertTrue(downAppearance.isStream());
+    assertTrue(normalAppearance.isStream());
+    assertTrue(rolloverAppearance.isStream());
+    assertSame(stream, stream2.getCOSObject());
+    assertSame(stream, stream3.getCOSObject());
+    assertSame(stream, stream4.getCOSObject());
+    assertSame(stream, contentStream.getCOSObject());
+    assertSame(stream, contentStream2.getCOSObject());
+    assertSame(stream, contentStream3.getCOSObject());
+    assertSame(stream, appearanceStream.getCOSObject());
+    assertSame(stream, appearanceStream2.getCOSObject());
+    assertSame(stream, appearanceStream3.getCOSObject());
+    assertSame(stream, downAppearance.getCOSObject());
+    assertSame(stream, normalAppearance.getCOSObject());
+    assertSame(stream, rolloverAppearance.getCOSObject());
+  }
+
+  /**
    * Method under test: {@link PDAppearanceDictionary#getRolloverAppearance()}
    */
   @Test
-  @DisplayName("Test getRolloverAppearance()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAppearanceEntry PDAppearanceDictionary.getRolloverAppearance()"})
   void testGetRolloverAppearance() {
     // Arrange and Act
     PDAppearanceEntry actualRolloverAppearance = (new PDAppearanceDictionary()).getRolloverAppearance();
@@ -469,42 +563,19 @@ class PDAppearanceDictionaryDiffblueTest {
   }
 
   /**
-   * Test {@link PDAppearanceDictionary#getRolloverAppearance()}.
-   * <p>
    * Method under test: {@link PDAppearanceDictionary#getRolloverAppearance()}
    */
   @Test
-  @DisplayName("Test getRolloverAppearance()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAppearanceEntry PDAppearanceDictionary.getRolloverAppearance()"})
   void testGetRolloverAppearance2() {
-    // Arrange
-    COSDictionary entry = new COSDictionary();
-    COSObjectKey key = new COSObjectKey(1L, 1);
-
-    entry.setKey(key);
-    PDAppearanceEntry entry2 = new PDAppearanceEntry(entry);
-
-    PDAppearanceDictionary pdAppearanceDictionary = new PDAppearanceDictionary();
-    pdAppearanceDictionary.setRolloverAppearance(entry2);
-
-    // Act and Assert
-    assertSame(key, pdAppearanceDictionary.getRolloverAppearance().getCOSObject().getKey());
+    // Arrange, Act and Assert
+    assertNull((new PDAppearanceDictionary(new COSDictionary())).getRolloverAppearance());
   }
 
   /**
-   * Test {@link PDAppearanceDictionary#getRolloverAppearance()}.
-   * <ul>
-   *   <li>Then return COSObject is {@link COSDictionary#COSDictionary()}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDAppearanceDictionary#getRolloverAppearance()}
    */
   @Test
-  @DisplayName("Test getRolloverAppearance(); then return COSObject is COSDictionary()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAppearanceEntry PDAppearanceDictionary.getRolloverAppearance()"})
-  void testGetRolloverAppearance_thenReturnCOSObjectIsCOSDictionary() {
+  void testGetRolloverAppearance3() {
     // Arrange
     PDAppearanceDictionary pdAppearanceDictionary = new PDAppearanceDictionary();
     COSDictionary entry = new COSDictionary();
@@ -521,230 +592,94 @@ class PDAppearanceDictionaryDiffblueTest {
   }
 
   /**
-   * Test {@link PDAppearanceDictionary#getRolloverAppearance()}.
-   * <ul>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDAppearanceDictionary#getRolloverAppearance()}
    */
   @Test
-  @DisplayName("Test getRolloverAppearance(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAppearanceEntry PDAppearanceDictionary.getRolloverAppearance()"})
-  void testGetRolloverAppearance_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull((new PDAppearanceDictionary(new COSDictionary())).getRolloverAppearance());
+  void testGetRolloverAppearance4() {
+    // Arrange
+    COSDictionary entry = new COSDictionary();
+    entry.setKey(new COSObjectKey(1L, 1));
+    PDAppearanceEntry entry2 = new PDAppearanceEntry(entry);
+
+    PDAppearanceDictionary pdAppearanceDictionary = new PDAppearanceDictionary();
+    pdAppearanceDictionary.setRolloverAppearance(entry2);
+
+    // Act
+    PDAppearanceEntry actualRolloverAppearance = pdAppearanceDictionary.getRolloverAppearance();
+
+    // Assert
+    assertFalse(actualRolloverAppearance.isStream());
+    assertTrue(actualRolloverAppearance.getSubDictionary().isEmpty());
+    assertTrue(actualRolloverAppearance.isSubDictionary());
+    assertSame(entry, actualRolloverAppearance.getCOSObject());
   }
 
   /**
-   * Test {@link PDAppearanceDictionary#setRolloverAppearance(PDAppearanceStream)} with {@code ap}.
-   * <p>
-   * Method under test: {@link PDAppearanceDictionary#setRolloverAppearance(PDAppearanceStream)}
+   * Method under test:
+   * {@link PDAppearanceDictionary#setRolloverAppearance(PDAppearanceEntry)}
    */
   @Test
-  @DisplayName("Test setRolloverAppearance(PDAppearanceStream) with 'ap'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAppearanceDictionary.setRolloverAppearance(PDAppearanceStream)"})
-  void testSetRolloverAppearanceWithAp() {
+  void testSetRolloverAppearance() {
     // Arrange
     PDAppearanceDictionary pdAppearanceDictionary = new PDAppearanceDictionary();
-    COSStream stream = new COSStream();
+    COSDictionary entry = new COSDictionary();
 
     // Act
-    pdAppearanceDictionary.setRolloverAppearance(new PDAppearanceStream(stream));
+    pdAppearanceDictionary.setRolloverAppearance(new PDAppearanceEntry(entry));
 
     // Assert
-    PDAppearanceEntry rolloverAppearance = pdAppearanceDictionary.getRolloverAppearance();
-    PDAppearanceStream appearanceStream = rolloverAppearance.getAppearanceStream();
-    assertNull(appearanceStream.getResources());
-    assertNull(appearanceStream.getBBox());
-    assertNull(appearanceStream.getOptionalContent());
-    assertNull(appearanceStream.getGroup());
-    assertEquals(-1, appearanceStream.getStructParents());
-    assertEquals(1, appearanceStream.getFormType());
     COSDictionary cOSObject = pdAppearanceDictionary.getCOSObject();
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
-    assertFalse(rolloverAppearance.isSubDictionary());
-    assertTrue(rolloverAppearance.isStream());
-    assertSame(stream, appearanceStream.getCOSObject());
-    assertSame(stream, rolloverAppearance.getCOSObject());
+    PDAppearanceEntry rolloverAppearance = pdAppearanceDictionary.getRolloverAppearance();
+    assertTrue(rolloverAppearance.getSubDictionary().isEmpty());
+    assertSame(entry, rolloverAppearance.getCOSObject());
   }
 
   /**
-   * Test {@link PDAppearanceDictionary#setRolloverAppearance(PDAppearanceStream)} with {@code ap}.
-   * <p>
-   * Method under test: {@link PDAppearanceDictionary#setRolloverAppearance(PDAppearanceStream)}
+   * Method under test:
+   * {@link PDAppearanceDictionary#setRolloverAppearance(PDAppearanceEntry)}
    */
   @Test
-  @DisplayName("Test setRolloverAppearance(PDAppearanceStream) with 'ap'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAppearanceDictionary.setRolloverAppearance(PDAppearanceStream)"})
-  void testSetRolloverAppearanceWithAp2() {
+  void testSetRolloverAppearance2() {
     // Arrange
     PDAppearanceDictionary pdAppearanceDictionary = new PDAppearanceDictionary();
 
     // Act
-    pdAppearanceDictionary.setRolloverAppearance((PDAppearanceStream) null);
+    pdAppearanceDictionary.setRolloverAppearance(new PDAppearanceEntry(null));
 
-    // Assert that nothing has changed
+    // Assert
     COSDictionary cOSObject = pdAppearanceDictionary.getCOSObject();
     assertEquals(1, cOSObject.getValues().size());
     assertEquals(1, cOSObject.size());
-    PDAppearanceEntry rolloverAppearance = pdAppearanceDictionary.getRolloverAppearance();
-    assertFalse(rolloverAppearance.isStream());
-    assertTrue(rolloverAppearance.isSubDictionary());
+    assertTrue(pdAppearanceDictionary.getRolloverAppearance().getSubDictionary().isEmpty());
   }
 
   /**
-   * Test {@link PDAppearanceDictionary#setRolloverAppearance(PDAppearanceStream)} with {@code ap}.
-   * <ul>
-   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAppearanceDictionary#setRolloverAppearance(PDAppearanceStream)}
+   * Method under test:
+   * {@link PDAppearanceDictionary#setRolloverAppearance(PDAppearanceEntry)}
    */
   @Test
-  @DisplayName("Test setRolloverAppearance(PDAppearanceStream) with 'ap'; given COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAppearanceDictionary.setRolloverAppearance(PDAppearanceStream)"})
-  void testSetRolloverAppearanceWithAp_givenCOSObjectKeyWithNumIsOneAndGenIsOne() {
+  void testSetRolloverAppearance3() {
     // Arrange
     PDAppearanceDictionary pdAppearanceDictionary = new PDAppearanceDictionary();
 
-    COSStream stream = new COSStream();
-    stream.setKey(new COSObjectKey(1L, 1));
-
     // Act
-    pdAppearanceDictionary.setRolloverAppearance(new PDAppearanceStream(stream));
-
-    // Assert
-    PDAppearanceEntry rolloverAppearance = pdAppearanceDictionary.getRolloverAppearance();
-    PDAppearanceStream appearanceStream = rolloverAppearance.getAppearanceStream();
-    assertNull(appearanceStream.getResources());
-    assertNull(appearanceStream.getBBox());
-    assertNull(appearanceStream.getOptionalContent());
-    assertNull(appearanceStream.getGroup());
-    assertEquals(-1, appearanceStream.getStructParents());
-    assertEquals(1, appearanceStream.getFormType());
-    COSDictionary cOSObject = pdAppearanceDictionary.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    assertFalse(rolloverAppearance.isSubDictionary());
-    assertTrue(rolloverAppearance.isStream());
-    assertSame(stream, appearanceStream.getCOSObject());
-    assertSame(stream, rolloverAppearance.getCOSObject());
-  }
-
-  /**
-   * Test {@link PDAppearanceDictionary#setRolloverAppearance(PDAppearanceStream)} with {@code ap}.
-   * <ul>
-   *   <li>Given {@code true}.</li>
-   *   <li>When {@link COSStream#COSStream()} Direct is {@code true}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAppearanceDictionary#setRolloverAppearance(PDAppearanceStream)}
-   */
-  @Test
-  @DisplayName("Test setRolloverAppearance(PDAppearanceStream) with 'ap'; given 'true'; when COSStream() Direct is 'true'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAppearanceDictionary.setRolloverAppearance(PDAppearanceStream)"})
-  void testSetRolloverAppearanceWithAp_givenTrue_whenCOSStreamDirectIsTrue() {
-    // Arrange
-    PDAppearanceDictionary pdAppearanceDictionary = new PDAppearanceDictionary();
-
-    COSStream stream = new COSStream();
-    stream.setDirect(true);
-
-    // Act
-    pdAppearanceDictionary.setRolloverAppearance(new PDAppearanceStream(stream));
-
-    // Assert
-    PDAppearanceEntry rolloverAppearance = pdAppearanceDictionary.getRolloverAppearance();
-    PDAppearanceStream appearanceStream = rolloverAppearance.getAppearanceStream();
-    assertNull(appearanceStream.getResources());
-    assertNull(appearanceStream.getBBox());
-    assertNull(appearanceStream.getOptionalContent());
-    assertNull(appearanceStream.getGroup());
-    assertEquals(-1, appearanceStream.getStructParents());
-    assertEquals(1, appearanceStream.getFormType());
-    COSDictionary cOSObject = pdAppearanceDictionary.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    assertFalse(rolloverAppearance.isSubDictionary());
-    assertTrue(rolloverAppearance.isStream());
-    assertSame(stream, appearanceStream.getCOSObject());
-    assertSame(stream, rolloverAppearance.getCOSObject());
-  }
-
-  /**
-   * Test {@link PDAppearanceDictionary#setRolloverAppearance(PDAppearanceEntry)} with {@code entry}.
-   * <p>
-   * Method under test: {@link PDAppearanceDictionary#setRolloverAppearance(PDAppearanceEntry)}
-   */
-  @Test
-  @DisplayName("Test setRolloverAppearance(PDAppearanceEntry) with 'entry'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAppearanceDictionary.setRolloverAppearance(PDAppearanceEntry)"})
-  void testSetRolloverAppearanceWithEntry() {
-    // Arrange
-    PDAppearanceDictionary pdAppearanceDictionary = new PDAppearanceDictionary();
-    COSDictionary entry = new COSDictionary();
-
-    // Act
-    pdAppearanceDictionary.setRolloverAppearance(new PDAppearanceEntry(entry));
+    pdAppearanceDictionary.setRolloverAppearance((PDAppearanceEntry) null);
 
     // Assert
     COSDictionary cOSObject = pdAppearanceDictionary.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    assertSame(entry, pdAppearanceDictionary.getRolloverAppearance().getCOSObject());
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+    assertTrue(pdAppearanceDictionary.getRolloverAppearance().getSubDictionary().isEmpty());
   }
 
   /**
-   * Test {@link PDAppearanceDictionary#setRolloverAppearance(PDAppearanceEntry)} with {@code entry}.
-   * <ul>
-   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAppearanceDictionary#setRolloverAppearance(PDAppearanceEntry)}
+   * Method under test:
+   * {@link PDAppearanceDictionary#setRolloverAppearance(PDAppearanceEntry)}
    */
   @Test
-  @DisplayName("Test setRolloverAppearance(PDAppearanceEntry) with 'entry'; given COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAppearanceDictionary.setRolloverAppearance(PDAppearanceEntry)"})
-  void testSetRolloverAppearanceWithEntry_givenCOSObjectKeyWithNumIsOneAndGenIsOne() {
-    // Arrange
-    PDAppearanceDictionary pdAppearanceDictionary = new PDAppearanceDictionary();
-
-    COSDictionary entry = new COSDictionary();
-    entry.setKey(new COSObjectKey(1L, 1));
-
-    // Act
-    pdAppearanceDictionary.setRolloverAppearance(new PDAppearanceEntry(entry));
-
-    // Assert
-    COSDictionary cOSObject = pdAppearanceDictionary.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    assertSame(entry, pdAppearanceDictionary.getRolloverAppearance().getCOSObject());
-  }
-
-  /**
-   * Test {@link PDAppearanceDictionary#setRolloverAppearance(PDAppearanceEntry)} with {@code entry}.
-   * <ul>
-   *   <li>Given {@code true}.</li>
-   *   <li>When {@link COSDictionary#COSDictionary()} Direct is {@code true}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAppearanceDictionary#setRolloverAppearance(PDAppearanceEntry)}
-   */
-  @Test
-  @DisplayName("Test setRolloverAppearance(PDAppearanceEntry) with 'entry'; given 'true'; when COSDictionary() Direct is 'true'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAppearanceDictionary.setRolloverAppearance(PDAppearanceEntry)"})
-  void testSetRolloverAppearanceWithEntry_givenTrue_whenCOSDictionaryDirectIsTrue() {
+  void testSetRolloverAppearance4() {
     // Arrange
     PDAppearanceDictionary pdAppearanceDictionary = new PDAppearanceDictionary();
 
@@ -758,124 +693,206 @@ class PDAppearanceDictionaryDiffblueTest {
     COSDictionary cOSObject = pdAppearanceDictionary.getCOSObject();
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
-    assertSame(entry, pdAppearanceDictionary.getRolloverAppearance().getCOSObject());
+    PDAppearanceEntry rolloverAppearance = pdAppearanceDictionary.getRolloverAppearance();
+    assertTrue(rolloverAppearance.getSubDictionary().isEmpty());
+    assertSame(entry, rolloverAppearance.getCOSObject());
   }
 
   /**
-   * Test {@link PDAppearanceDictionary#setRolloverAppearance(PDAppearanceEntry)} with {@code entry}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAppearanceDictionary#setRolloverAppearance(PDAppearanceEntry)}
+   * Method under test:
+   * {@link PDAppearanceDictionary#setRolloverAppearance(PDAppearanceEntry)}
    */
   @Test
-  @DisplayName("Test setRolloverAppearance(PDAppearanceEntry) with 'entry'; when 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAppearanceDictionary.setRolloverAppearance(PDAppearanceEntry)"})
-  void testSetRolloverAppearanceWithEntry_whenNull() {
+  void testSetRolloverAppearance5() {
     // Arrange
     PDAppearanceDictionary pdAppearanceDictionary = new PDAppearanceDictionary();
 
-    // Act
-    pdAppearanceDictionary.setRolloverAppearance((PDAppearanceEntry) null);
-
-    // Assert that nothing has changed
-    COSDictionary cOSObject = pdAppearanceDictionary.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-  }
-
-  /**
-   * Test {@link PDAppearanceDictionary#setRolloverAppearance(PDAppearanceEntry)} with {@code entry}.
-   * <ul>
-   *   <li>When {@link PDAppearanceEntry#PDAppearanceEntry(COSDictionary)} with entry is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAppearanceDictionary#setRolloverAppearance(PDAppearanceEntry)}
-   */
-  @Test
-  @DisplayName("Test setRolloverAppearance(PDAppearanceEntry) with 'entry'; when PDAppearanceEntry(COSDictionary) with entry is 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAppearanceDictionary.setRolloverAppearance(PDAppearanceEntry)"})
-  void testSetRolloverAppearanceWithEntry_whenPDAppearanceEntryWithEntryIsNull() {
-    // Arrange
-    PDAppearanceDictionary pdAppearanceDictionary = new PDAppearanceDictionary();
-
-    // Act
-    pdAppearanceDictionary.setRolloverAppearance(new PDAppearanceEntry(null));
-
-    // Assert that nothing has changed
-    COSDictionary cOSObject = pdAppearanceDictionary.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-  }
-
-  /**
-   * Test {@link PDAppearanceDictionary#getDownAppearance()}.
-   * <p>
-   * Method under test: {@link PDAppearanceDictionary#getDownAppearance()}
-   */
-  @Test
-  @DisplayName("Test getDownAppearance()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAppearanceEntry PDAppearanceDictionary.getDownAppearance()"})
-  void testGetDownAppearance() {
-    // Arrange
     COSDictionary entry = new COSDictionary();
-    COSObjectKey key = new COSObjectKey(1L, 1);
-
-    entry.setKey(key);
-    PDAppearanceEntry entry2 = new PDAppearanceEntry(entry);
-
-    PDAppearanceDictionary pdAppearanceDictionary = new PDAppearanceDictionary();
-    pdAppearanceDictionary.setDownAppearance(entry2);
-
-    // Act and Assert
-    assertSame(key, pdAppearanceDictionary.getDownAppearance().getCOSObject().getKey());
-  }
-
-  /**
-   * Test {@link PDAppearanceDictionary#getDownAppearance()}.
-   * <ul>
-   *   <li>Then return COSObject is {@link COSDictionary#COSDictionary()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAppearanceDictionary#getDownAppearance()}
-   */
-  @Test
-  @DisplayName("Test getDownAppearance(); then return COSObject is COSDictionary()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAppearanceEntry PDAppearanceDictionary.getDownAppearance()"})
-  void testGetDownAppearance_thenReturnCOSObjectIsCOSDictionary() {
-    // Arrange
-    PDAppearanceDictionary pdAppearanceDictionary = new PDAppearanceDictionary();
-    COSDictionary entry = new COSDictionary();
-    pdAppearanceDictionary.setDownAppearance(new PDAppearanceEntry(entry));
+    entry.setKey(new COSObjectKey(1L, 1));
 
     // Act
-    PDAppearanceEntry actualDownAppearance = pdAppearanceDictionary.getDownAppearance();
+    pdAppearanceDictionary.setRolloverAppearance(new PDAppearanceEntry(entry));
 
     // Assert
-    assertFalse(actualDownAppearance.isStream());
-    assertTrue(actualDownAppearance.getSubDictionary().isEmpty());
-    assertTrue(actualDownAppearance.isSubDictionary());
-    assertSame(entry, actualDownAppearance.getCOSObject());
+    COSDictionary cOSObject = pdAppearanceDictionary.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    PDAppearanceEntry rolloverAppearance = pdAppearanceDictionary.getRolloverAppearance();
+    assertTrue(rolloverAppearance.getSubDictionary().isEmpty());
+    assertSame(entry, rolloverAppearance.getCOSObject());
   }
 
   /**
-   * Test {@link PDAppearanceDictionary#getDownAppearance()}.
-   * <ul>
-   *   <li>Then return COSObject UpdateState OriginDocumentState is {@code null}.</li>
-   * </ul>
-   * <p>
+   * Method under test:
+   * {@link PDAppearanceDictionary#setRolloverAppearance(PDAppearanceStream)}
+   */
+  @Test
+  void testSetRolloverAppearance6() throws IOException {
+    // Arrange
+    PDAppearanceDictionary pdAppearanceDictionary = new PDAppearanceDictionary();
+    COSStream stream = new COSStream();
+
+    // Act
+    pdAppearanceDictionary.setRolloverAppearance(new PDAppearanceStream(stream));
+
+    // Assert
+    PDAppearanceEntry rolloverAppearance = pdAppearanceDictionary.getRolloverAppearance();
+    PDAppearanceStream appearanceStream = rolloverAppearance.getAppearanceStream();
+    PDStream stream2 = appearanceStream.getStream();
+    assertNull(stream2.getDecodeParms());
+    PDStream contentStream = appearanceStream.getContentStream();
+    assertNull(contentStream.getDecodeParms());
+    assertNull(stream2.getFileDecodeParams());
+    assertNull(contentStream.getFileDecodeParams());
+    assertNull(appearanceStream.getResources());
+    assertNull(stream2.getMetadata());
+    assertNull(contentStream.getMetadata());
+    assertNull(appearanceStream.getBBox());
+    assertNull(stream2.getFile());
+    assertNull(contentStream.getFile());
+    assertNull(appearanceStream.getOptionalContent());
+    assertNull(appearanceStream.getGroup());
+    assertEquals(-1, stream2.getDecodedStreamLength());
+    assertEquals(-1, contentStream.getDecodedStreamLength());
+    assertEquals(-1, appearanceStream.getStructParents());
+    assertEquals(0, stream2.getLength());
+    assertEquals(0, contentStream.getLength());
+    assertEquals(1, appearanceStream.getFormType());
+    COSDictionary cOSObject = pdAppearanceDictionary.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    assertFalse(rolloverAppearance.isSubDictionary());
+    assertTrue(rolloverAppearance.isStream());
+    assertSame(stream, stream2.getCOSObject());
+    assertSame(stream, contentStream.getCOSObject());
+    assertSame(stream, appearanceStream.getCOSObject());
+    assertSame(stream, rolloverAppearance.getCOSObject());
+  }
+
+  /**
+   * Method under test:
+   * {@link PDAppearanceDictionary#setRolloverAppearance(PDAppearanceStream)}
+   */
+  @Test
+  void testSetRolloverAppearance7() {
+    // Arrange
+    PDAppearanceDictionary pdAppearanceDictionary = new PDAppearanceDictionary();
+
+    // Act
+    pdAppearanceDictionary.setRolloverAppearance((PDAppearanceStream) null);
+
+    // Assert
+    COSDictionary cOSObject = pdAppearanceDictionary.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+    PDAppearanceEntry rolloverAppearance = pdAppearanceDictionary.getRolloverAppearance();
+    assertFalse(rolloverAppearance.isStream());
+    assertTrue(rolloverAppearance.isSubDictionary());
+  }
+
+  /**
+   * Method under test:
+   * {@link PDAppearanceDictionary#setRolloverAppearance(PDAppearanceStream)}
+   */
+  @Test
+  void testSetRolloverAppearance8() throws IOException {
+    // Arrange
+    PDAppearanceDictionary pdAppearanceDictionary = new PDAppearanceDictionary();
+
+    COSStream stream = new COSStream();
+    stream.setDirect(true);
+
+    // Act
+    pdAppearanceDictionary.setRolloverAppearance(new PDAppearanceStream(stream));
+
+    // Assert
+    PDAppearanceEntry rolloverAppearance = pdAppearanceDictionary.getRolloverAppearance();
+    PDAppearanceStream appearanceStream = rolloverAppearance.getAppearanceStream();
+    PDStream stream2 = appearanceStream.getStream();
+    assertNull(stream2.getDecodeParms());
+    PDStream contentStream = appearanceStream.getContentStream();
+    assertNull(contentStream.getDecodeParms());
+    assertNull(stream2.getFileDecodeParams());
+    assertNull(contentStream.getFileDecodeParams());
+    assertNull(appearanceStream.getResources());
+    assertNull(stream2.getMetadata());
+    assertNull(contentStream.getMetadata());
+    assertNull(appearanceStream.getBBox());
+    assertNull(stream2.getFile());
+    assertNull(contentStream.getFile());
+    assertNull(appearanceStream.getOptionalContent());
+    assertNull(appearanceStream.getGroup());
+    assertEquals(-1, stream2.getDecodedStreamLength());
+    assertEquals(-1, contentStream.getDecodedStreamLength());
+    assertEquals(-1, appearanceStream.getStructParents());
+    assertEquals(0, stream2.getLength());
+    assertEquals(0, contentStream.getLength());
+    assertEquals(1, appearanceStream.getFormType());
+    COSDictionary cOSObject = pdAppearanceDictionary.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    assertFalse(rolloverAppearance.isSubDictionary());
+    assertTrue(rolloverAppearance.isStream());
+    assertSame(stream, stream2.getCOSObject());
+    assertSame(stream, contentStream.getCOSObject());
+    assertSame(stream, appearanceStream.getCOSObject());
+    assertSame(stream, rolloverAppearance.getCOSObject());
+  }
+
+  /**
+   * Method under test:
+   * {@link PDAppearanceDictionary#setRolloverAppearance(PDAppearanceStream)}
+   */
+  @Test
+  void testSetRolloverAppearance9() throws IOException {
+    // Arrange
+    PDAppearanceDictionary pdAppearanceDictionary = new PDAppearanceDictionary();
+
+    COSStream stream = new COSStream();
+    stream.setKey(new COSObjectKey(1L, 1));
+
+    // Act
+    pdAppearanceDictionary.setRolloverAppearance(new PDAppearanceStream(stream));
+
+    // Assert
+    PDAppearanceEntry rolloverAppearance = pdAppearanceDictionary.getRolloverAppearance();
+    PDAppearanceStream appearanceStream = rolloverAppearance.getAppearanceStream();
+    PDStream stream2 = appearanceStream.getStream();
+    assertNull(stream2.getDecodeParms());
+    PDStream contentStream = appearanceStream.getContentStream();
+    assertNull(contentStream.getDecodeParms());
+    assertNull(stream2.getFileDecodeParams());
+    assertNull(contentStream.getFileDecodeParams());
+    assertNull(appearanceStream.getResources());
+    assertNull(stream2.getMetadata());
+    assertNull(contentStream.getMetadata());
+    assertNull(appearanceStream.getBBox());
+    assertNull(stream2.getFile());
+    assertNull(contentStream.getFile());
+    assertNull(appearanceStream.getOptionalContent());
+    assertNull(appearanceStream.getGroup());
+    assertEquals(-1, stream2.getDecodedStreamLength());
+    assertEquals(-1, contentStream.getDecodedStreamLength());
+    assertEquals(-1, appearanceStream.getStructParents());
+    assertEquals(0, stream2.getLength());
+    assertEquals(0, contentStream.getLength());
+    assertEquals(1, appearanceStream.getFormType());
+    COSDictionary cOSObject = pdAppearanceDictionary.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    assertFalse(rolloverAppearance.isSubDictionary());
+    assertTrue(rolloverAppearance.isStream());
+    assertSame(stream, stream2.getCOSObject());
+    assertSame(stream, contentStream.getCOSObject());
+    assertSame(stream, appearanceStream.getCOSObject());
+    assertSame(stream, rolloverAppearance.getCOSObject());
+  }
+
+  /**
    * Method under test: {@link PDAppearanceDictionary#getDownAppearance()}
    */
   @Test
-  @DisplayName("Test getDownAppearance(); then return COSObject UpdateState OriginDocumentState is 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAppearanceEntry PDAppearanceDictionary.getDownAppearance()"})
-  void testGetDownAppearance_thenReturnCOSObjectUpdateStateOriginDocumentStateIsNull() {
+  void testGetDownAppearance() {
     // Arrange and Act
     PDAppearanceEntry actualDownAppearance = (new PDAppearanceDictionary()).getDownAppearance();
 
@@ -898,238 +915,140 @@ class PDAppearanceDictionaryDiffblueTest {
   }
 
   /**
-   * Test {@link PDAppearanceDictionary#getDownAppearance()}.
-   * <ul>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDAppearanceDictionary#getDownAppearance()}
    */
   @Test
-  @DisplayName("Test getDownAppearance(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAppearanceEntry PDAppearanceDictionary.getDownAppearance()"})
-  void testGetDownAppearance_thenReturnNull() {
+  void testGetDownAppearance2() {
     // Arrange, Act and Assert
     assertNull((new PDAppearanceDictionary(new COSDictionary())).getDownAppearance());
   }
 
   /**
-   * Test {@link PDAppearanceDictionary#setDownAppearance(PDAppearanceStream)} with {@code ap}.
-   * <ul>
-   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAppearanceDictionary#setDownAppearance(PDAppearanceStream)}
+   * Method under test: {@link PDAppearanceDictionary#getDownAppearance()}
    */
   @Test
-  @DisplayName("Test setDownAppearance(PDAppearanceStream) with 'ap'; given COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAppearanceDictionary.setDownAppearance(PDAppearanceStream)"})
-  void testSetDownAppearanceWithAp_givenCOSObjectKeyWithNumIsOneAndGenIsOne() {
+  void testGetDownAppearance3() {
     // Arrange
     PDAppearanceDictionary pdAppearanceDictionary = new PDAppearanceDictionary();
-
-    COSStream stream = new COSStream();
-    stream.setKey(new COSObjectKey(1L, 1));
+    COSDictionary entry = new COSDictionary();
+    pdAppearanceDictionary.setDownAppearance(new PDAppearanceEntry(entry));
 
     // Act
-    pdAppearanceDictionary.setDownAppearance(new PDAppearanceStream(stream));
+    PDAppearanceEntry actualDownAppearance = pdAppearanceDictionary.getDownAppearance();
 
     // Assert
-    COSDictionary cOSObject = pdAppearanceDictionary.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    PDAppearanceEntry downAppearance = pdAppearanceDictionary.getDownAppearance();
-    assertFalse(downAppearance.isSubDictionary());
-    assertTrue(downAppearance.isStream());
-    assertSame(stream, downAppearance.getCOSObject());
+    assertFalse(actualDownAppearance.isStream());
+    assertTrue(actualDownAppearance.getSubDictionary().isEmpty());
+    assertTrue(actualDownAppearance.isSubDictionary());
+    assertSame(entry, actualDownAppearance.getCOSObject());
   }
 
   /**
-   * Test {@link PDAppearanceDictionary#setDownAppearance(PDAppearanceStream)} with {@code ap}.
-   * <ul>
-   *   <li>Given {@code true}.</li>
-   *   <li>When {@link COSStream#COSStream()} Direct is {@code true}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAppearanceDictionary#setDownAppearance(PDAppearanceStream)}
+   * Method under test: {@link PDAppearanceDictionary#getDownAppearance()}
    */
   @Test
-  @DisplayName("Test setDownAppearance(PDAppearanceStream) with 'ap'; given 'true'; when COSStream() Direct is 'true'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAppearanceDictionary.setDownAppearance(PDAppearanceStream)"})
-  void testSetDownAppearanceWithAp_givenTrue_whenCOSStreamDirectIsTrue() {
+  void testGetDownAppearance4() {
     // Arrange
-    PDAppearanceDictionary pdAppearanceDictionary = new PDAppearanceDictionary();
+    COSDictionary entry = new COSDictionary();
+    entry.setKey(new COSObjectKey(1L, 1));
+    PDAppearanceEntry entry2 = new PDAppearanceEntry(entry);
 
-    COSStream stream = new COSStream();
-    stream.setDirect(true);
+    PDAppearanceDictionary pdAppearanceDictionary = new PDAppearanceDictionary();
+    pdAppearanceDictionary.setDownAppearance(entry2);
 
     // Act
-    pdAppearanceDictionary.setDownAppearance(new PDAppearanceStream(stream));
+    PDAppearanceEntry actualDownAppearance = pdAppearanceDictionary.getDownAppearance();
 
     // Assert
-    COSDictionary cOSObject = pdAppearanceDictionary.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    PDAppearanceEntry downAppearance = pdAppearanceDictionary.getDownAppearance();
-    assertFalse(downAppearance.isSubDictionary());
-    assertTrue(downAppearance.isStream());
-    assertSame(stream, downAppearance.getCOSObject());
+    assertFalse(actualDownAppearance.isStream());
+    assertTrue(actualDownAppearance.getSubDictionary().isEmpty());
+    assertTrue(actualDownAppearance.isSubDictionary());
+    assertSame(entry, actualDownAppearance.getCOSObject());
   }
 
   /**
-   * Test {@link PDAppearanceDictionary#setDownAppearance(PDAppearanceStream)} with {@code ap}.
-   * <ul>
-   *   <li>Then {@link PDAppearanceDictionary#PDAppearanceDictionary()} COSObject Values size is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAppearanceDictionary#setDownAppearance(PDAppearanceStream)}
+   * Method under test:
+   * {@link PDAppearanceDictionary#setDownAppearance(PDAppearanceEntry)}
    */
   @Test
-  @DisplayName("Test setDownAppearance(PDAppearanceStream) with 'ap'; then PDAppearanceDictionary() COSObject Values size is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAppearanceDictionary.setDownAppearance(PDAppearanceStream)"})
-  void testSetDownAppearanceWithAp_thenPDAppearanceDictionaryCOSObjectValuesSizeIsOne() {
+  void testSetDownAppearance() {
+    // Arrange
+    PDAppearanceDictionary pdAppearanceDictionary = new PDAppearanceDictionary();
+    COSDictionary entry = new COSDictionary();
+
+    // Act
+    pdAppearanceDictionary.setDownAppearance(new PDAppearanceEntry(entry));
+
+    // Assert
+    COSDictionary cOSObject = pdAppearanceDictionary.getNormalAppearance().getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertEquals(0, cOSObject.size());
+    COSDictionary cOSObject2 = pdAppearanceDictionary.getCOSObject();
+    assertEquals(2, cOSObject2.getValues().size());
+    assertEquals(2, cOSObject2.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(cOSObject.getValues().isEmpty());
+    PDAppearanceEntry downAppearance = pdAppearanceDictionary.getDownAppearance();
+    assertTrue(downAppearance.getSubDictionary().isEmpty());
+    PDAppearanceEntry rolloverAppearance = pdAppearanceDictionary.getRolloverAppearance();
+    assertTrue(rolloverAppearance.getSubDictionary().isEmpty());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertSame(entry, downAppearance.getCOSObject());
+    assertSame(cOSObject, rolloverAppearance.getCOSObject());
+  }
+
+  /**
+   * Method under test:
+   * {@link PDAppearanceDictionary#setDownAppearance(PDAppearanceEntry)}
+   */
+  @Test
+  void testSetDownAppearance2() {
     // Arrange
     PDAppearanceDictionary pdAppearanceDictionary = new PDAppearanceDictionary();
 
     // Act
-    pdAppearanceDictionary.setDownAppearance((PDAppearanceStream) null);
+    pdAppearanceDictionary.setDownAppearance(new PDAppearanceEntry(null));
 
-    // Assert that nothing has changed
+    // Assert
     COSDictionary cOSObject = pdAppearanceDictionary.getCOSObject();
     assertEquals(1, cOSObject.getValues().size());
     assertEquals(1, cOSObject.size());
-    PDAppearanceEntry downAppearance = pdAppearanceDictionary.getDownAppearance();
-    assertFalse(downAppearance.isStream());
-    assertTrue(downAppearance.isSubDictionary());
+    assertTrue(pdAppearanceDictionary.getDownAppearance().getSubDictionary().isEmpty());
+    assertTrue(pdAppearanceDictionary.getRolloverAppearance().getSubDictionary().isEmpty());
   }
 
   /**
-   * Test {@link PDAppearanceDictionary#setDownAppearance(PDAppearanceStream)} with {@code ap}.
-   * <ul>
-   *   <li>Then {@link PDAppearanceDictionary#PDAppearanceDictionary()} COSObject Values size is two.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAppearanceDictionary#setDownAppearance(PDAppearanceStream)}
+   * Method under test:
+   * {@link PDAppearanceDictionary#setDownAppearance(PDAppearanceEntry)}
    */
   @Test
-  @DisplayName("Test setDownAppearance(PDAppearanceStream) with 'ap'; then PDAppearanceDictionary() COSObject Values size is two")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAppearanceDictionary.setDownAppearance(PDAppearanceStream)"})
-  void testSetDownAppearanceWithAp_thenPDAppearanceDictionaryCOSObjectValuesSizeIsTwo() {
+  void testSetDownAppearance3() {
     // Arrange
     PDAppearanceDictionary pdAppearanceDictionary = new PDAppearanceDictionary();
-    COSStream stream = new COSStream();
 
     // Act
-    pdAppearanceDictionary.setDownAppearance(new PDAppearanceStream(stream));
+    pdAppearanceDictionary.setDownAppearance((PDAppearanceEntry) null);
 
     // Assert
     COSDictionary cOSObject = pdAppearanceDictionary.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    PDAppearanceEntry downAppearance = pdAppearanceDictionary.getDownAppearance();
-    assertFalse(downAppearance.isSubDictionary());
-    assertTrue(downAppearance.isStream());
-    assertSame(stream, downAppearance.getCOSObject());
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+    assertTrue(pdAppearanceDictionary.getDownAppearance().getSubDictionary().isEmpty());
+    assertTrue(pdAppearanceDictionary.getRolloverAppearance().getSubDictionary().isEmpty());
   }
 
   /**
-   * Test {@link PDAppearanceDictionary#setDownAppearance(PDAppearanceEntry)} with {@code entry}.
-   * <p>
-   * Method under test: {@link PDAppearanceDictionary#setDownAppearance(PDAppearanceEntry)}
+   * Method under test:
+   * {@link PDAppearanceDictionary#setDownAppearance(PDAppearanceEntry)}
    */
   @Test
-  @DisplayName("Test setDownAppearance(PDAppearanceEntry) with 'entry'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAppearanceDictionary.setDownAppearance(PDAppearanceEntry)"})
-  void testSetDownAppearanceWithEntry() {
-    // Arrange
-    PDAppearanceDictionary pdAppearanceDictionary = new PDAppearanceDictionary();
-    COSDictionary entry = new COSDictionary();
-
-    // Act
-    pdAppearanceDictionary.setDownAppearance(new PDAppearanceEntry(entry));
-
-    // Assert
-    COSDictionary cOSObject = pdAppearanceDictionary.getNormalAppearance().getCOSObject();
-    COSUpdateState updateState = cOSObject.getUpdateState();
-    assertNull(updateState.getOriginDocumentState());
-    assertNull(cOSObject.getKey());
-    assertEquals(0, cOSObject.size());
-    COSDictionary cOSObject2 = pdAppearanceDictionary.getCOSObject();
-    assertEquals(2, cOSObject2.getValues().size());
-    assertEquals(2, cOSObject2.size());
-    COSIncrement toIncrementResult = cOSObject.toIncrement();
-    assertFalse(toIncrementResult.iterator().hasNext());
-    assertFalse(cOSObject.isDirect());
-    assertFalse(cOSObject.isNeedToBeUpdated());
-    assertFalse(updateState.isUpdated());
-    assertTrue(cOSObject.getValues().isEmpty());
-    assertTrue(toIncrementResult.getObjects().isEmpty());
-    assertSame(entry, pdAppearanceDictionary.getDownAppearance().getCOSObject());
-    assertSame(cOSObject, pdAppearanceDictionary.getRolloverAppearance().getCOSObject());
-  }
-
-  /**
-   * Test {@link PDAppearanceDictionary#setDownAppearance(PDAppearanceEntry)} with {@code entry}.
-   * <ul>
-   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAppearanceDictionary#setDownAppearance(PDAppearanceEntry)}
-   */
-  @Test
-  @DisplayName("Test setDownAppearance(PDAppearanceEntry) with 'entry'; given COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAppearanceDictionary.setDownAppearance(PDAppearanceEntry)"})
-  void testSetDownAppearanceWithEntry_givenCOSObjectKeyWithNumIsOneAndGenIsOne() {
-    // Arrange
-    PDAppearanceDictionary pdAppearanceDictionary = new PDAppearanceDictionary();
-
-    COSDictionary entry = new COSDictionary();
-    entry.setKey(new COSObjectKey(1L, 1));
-
-    // Act
-    pdAppearanceDictionary.setDownAppearance(new PDAppearanceEntry(entry));
-
-    // Assert
-    COSDictionary cOSObject = pdAppearanceDictionary.getNormalAppearance().getCOSObject();
-    COSUpdateState updateState = cOSObject.getUpdateState();
-    assertNull(updateState.getOriginDocumentState());
-    assertNull(cOSObject.getKey());
-    assertEquals(0, cOSObject.size());
-    COSDictionary cOSObject2 = pdAppearanceDictionary.getCOSObject();
-    assertEquals(2, cOSObject2.getValues().size());
-    assertEquals(2, cOSObject2.size());
-    COSIncrement toIncrementResult = cOSObject.toIncrement();
-    assertFalse(toIncrementResult.iterator().hasNext());
-    assertFalse(cOSObject.isDirect());
-    assertFalse(cOSObject.isNeedToBeUpdated());
-    assertFalse(updateState.isUpdated());
-    assertTrue(cOSObject.getValues().isEmpty());
-    assertTrue(toIncrementResult.getObjects().isEmpty());
-    assertSame(entry, pdAppearanceDictionary.getDownAppearance().getCOSObject());
-    assertSame(cOSObject, pdAppearanceDictionary.getRolloverAppearance().getCOSObject());
-  }
-
-  /**
-   * Test {@link PDAppearanceDictionary#setDownAppearance(PDAppearanceEntry)} with {@code entry}.
-   * <ul>
-   *   <li>Given {@code true}.</li>
-   *   <li>When {@link COSDictionary#COSDictionary()} Direct is {@code true}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAppearanceDictionary#setDownAppearance(PDAppearanceEntry)}
-   */
-  @Test
-  @DisplayName("Test setDownAppearance(PDAppearanceEntry) with 'entry'; given 'true'; when COSDictionary() Direct is 'true'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAppearanceDictionary.setDownAppearance(PDAppearanceEntry)"})
-  void testSetDownAppearanceWithEntry_givenTrue_whenCOSDictionaryDirectIsTrue() {
+  void testSetDownAppearance4() {
     // Arrange
     PDAppearanceDictionary pdAppearanceDictionary = new PDAppearanceDictionary();
 
@@ -1154,58 +1073,325 @@ class PDAppearanceDictionaryDiffblueTest {
     assertFalse(cOSObject.isNeedToBeUpdated());
     assertFalse(updateState.isUpdated());
     assertTrue(cOSObject.getValues().isEmpty());
+    PDAppearanceEntry downAppearance = pdAppearanceDictionary.getDownAppearance();
+    assertTrue(downAppearance.getSubDictionary().isEmpty());
+    PDAppearanceEntry rolloverAppearance = pdAppearanceDictionary.getRolloverAppearance();
+    assertTrue(rolloverAppearance.getSubDictionary().isEmpty());
     assertTrue(toIncrementResult.getObjects().isEmpty());
-    assertSame(entry, pdAppearanceDictionary.getDownAppearance().getCOSObject());
-    assertSame(cOSObject, pdAppearanceDictionary.getRolloverAppearance().getCOSObject());
+    assertSame(entry, downAppearance.getCOSObject());
+    assertSame(cOSObject, rolloverAppearance.getCOSObject());
   }
 
   /**
-   * Test {@link PDAppearanceDictionary#setDownAppearance(PDAppearanceEntry)} with {@code entry}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAppearanceDictionary#setDownAppearance(PDAppearanceEntry)}
+   * Method under test:
+   * {@link PDAppearanceDictionary#setDownAppearance(PDAppearanceEntry)}
    */
   @Test
-  @DisplayName("Test setDownAppearance(PDAppearanceEntry) with 'entry'; when 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAppearanceDictionary.setDownAppearance(PDAppearanceEntry)"})
-  void testSetDownAppearanceWithEntry_whenNull() {
+  void testSetDownAppearance5() {
+    // Arrange
+    PDAppearanceDictionary pdAppearanceDictionary = new PDAppearanceDictionary();
+
+    COSDictionary entry = new COSDictionary();
+    entry.setKey(new COSObjectKey(1L, 1));
+
+    // Act
+    pdAppearanceDictionary.setDownAppearance(new PDAppearanceEntry(entry));
+
+    // Assert
+    COSDictionary cOSObject = pdAppearanceDictionary.getNormalAppearance().getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertEquals(0, cOSObject.size());
+    COSDictionary cOSObject2 = pdAppearanceDictionary.getCOSObject();
+    assertEquals(2, cOSObject2.getValues().size());
+    assertEquals(2, cOSObject2.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(cOSObject.getValues().isEmpty());
+    PDAppearanceEntry downAppearance = pdAppearanceDictionary.getDownAppearance();
+    assertTrue(downAppearance.getSubDictionary().isEmpty());
+    PDAppearanceEntry rolloverAppearance = pdAppearanceDictionary.getRolloverAppearance();
+    assertTrue(rolloverAppearance.getSubDictionary().isEmpty());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertSame(entry, downAppearance.getCOSObject());
+    assertSame(cOSObject, rolloverAppearance.getCOSObject());
+  }
+
+  /**
+   * Method under test:
+   * {@link PDAppearanceDictionary#setDownAppearance(PDAppearanceStream)}
+   */
+  @Test
+  void testSetDownAppearance6() throws IOException {
+    // Arrange
+    PDAppearanceDictionary pdAppearanceDictionary = new PDAppearanceDictionary();
+    COSStream stream = new COSStream();
+
+    // Act
+    pdAppearanceDictionary.setDownAppearance(new PDAppearanceStream(stream));
+
+    // Assert
+    PDAppearanceEntry downAppearance = pdAppearanceDictionary.getDownAppearance();
+    PDAppearanceStream appearanceStream = downAppearance.getAppearanceStream();
+    PDStream stream2 = appearanceStream.getStream();
+    assertNull(stream2.getDecodeParms());
+    PDStream contentStream = appearanceStream.getContentStream();
+    assertNull(contentStream.getDecodeParms());
+    assertNull(stream2.getFileDecodeParams());
+    assertNull(contentStream.getFileDecodeParams());
+    COSDictionary cOSObject = pdAppearanceDictionary.getNormalAppearance().getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertNull(appearanceStream.getResources());
+    assertNull(stream2.getMetadata());
+    assertNull(contentStream.getMetadata());
+    assertNull(appearanceStream.getBBox());
+    assertNull(stream2.getFile());
+    assertNull(contentStream.getFile());
+    assertNull(appearanceStream.getOptionalContent());
+    assertNull(appearanceStream.getGroup());
+    assertEquals(-1, stream2.getDecodedStreamLength());
+    assertEquals(-1, contentStream.getDecodedStreamLength());
+    assertEquals(-1, appearanceStream.getStructParents());
+    assertEquals(0, cOSObject.size());
+    assertEquals(0, stream2.getLength());
+    assertEquals(0, contentStream.getLength());
+    assertEquals(1, appearanceStream.getFormType());
+    COSDictionary cOSObject2 = pdAppearanceDictionary.getCOSObject();
+    assertEquals(2, cOSObject2.getValues().size());
+    assertEquals(2, cOSObject2.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertFalse(downAppearance.isSubDictionary());
+    assertTrue(cOSObject.getValues().isEmpty());
+    PDAppearanceEntry rolloverAppearance = pdAppearanceDictionary.getRolloverAppearance();
+    assertTrue(rolloverAppearance.getSubDictionary().isEmpty());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertTrue(downAppearance.isStream());
+    assertSame(stream, stream2.getCOSObject());
+    assertSame(stream, contentStream.getCOSObject());
+    assertSame(stream, appearanceStream.getCOSObject());
+    assertSame(stream, downAppearance.getCOSObject());
+    assertSame(cOSObject, rolloverAppearance.getCOSObject());
+  }
+
+  /**
+   * Method under test:
+   * {@link PDAppearanceDictionary#setDownAppearance(PDAppearanceStream)}
+   */
+  @Test
+  void testSetDownAppearance7() {
     // Arrange
     PDAppearanceDictionary pdAppearanceDictionary = new PDAppearanceDictionary();
 
     // Act
-    pdAppearanceDictionary.setDownAppearance((PDAppearanceEntry) null);
+    pdAppearanceDictionary.setDownAppearance((PDAppearanceStream) null);
 
-    // Assert that nothing has changed
+    // Assert
     COSDictionary cOSObject = pdAppearanceDictionary.getCOSObject();
     assertEquals(1, cOSObject.getValues().size());
     assertEquals(1, cOSObject.size());
+    PDAppearanceEntry downAppearance = pdAppearanceDictionary.getDownAppearance();
+    assertFalse(downAppearance.isStream());
+    assertTrue(pdAppearanceDictionary.getRolloverAppearance().getSubDictionary().isEmpty());
+    assertTrue(downAppearance.isSubDictionary());
   }
 
   /**
-   * Test {@link PDAppearanceDictionary#setDownAppearance(PDAppearanceEntry)} with {@code entry}.
-   * <ul>
-   *   <li>When {@link PDAppearanceEntry#PDAppearanceEntry(COSDictionary)} with entry is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAppearanceDictionary#setDownAppearance(PDAppearanceEntry)}
+   * Method under test:
+   * {@link PDAppearanceDictionary#setDownAppearance(PDAppearanceStream)}
    */
   @Test
-  @DisplayName("Test setDownAppearance(PDAppearanceEntry) with 'entry'; when PDAppearanceEntry(COSDictionary) with entry is 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAppearanceDictionary.setDownAppearance(PDAppearanceEntry)"})
-  void testSetDownAppearanceWithEntry_whenPDAppearanceEntryWithEntryIsNull() {
+  void testSetDownAppearance8() throws IOException {
     // Arrange
     PDAppearanceDictionary pdAppearanceDictionary = new PDAppearanceDictionary();
 
-    // Act
-    pdAppearanceDictionary.setDownAppearance(new PDAppearanceEntry(null));
+    COSStream stream = new COSStream();
+    stream.setDirect(true);
 
-    // Assert that nothing has changed
-    COSDictionary cOSObject = pdAppearanceDictionary.getCOSObject();
+    // Act
+    pdAppearanceDictionary.setDownAppearance(new PDAppearanceStream(stream));
+
+    // Assert
+    PDAppearanceEntry downAppearance = pdAppearanceDictionary.getDownAppearance();
+    PDAppearanceStream appearanceStream = downAppearance.getAppearanceStream();
+    PDStream stream2 = appearanceStream.getStream();
+    assertNull(stream2.getDecodeParms());
+    PDStream contentStream = appearanceStream.getContentStream();
+    assertNull(contentStream.getDecodeParms());
+    assertNull(stream2.getFileDecodeParams());
+    assertNull(contentStream.getFileDecodeParams());
+    COSDictionary cOSObject = pdAppearanceDictionary.getNormalAppearance().getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertNull(appearanceStream.getResources());
+    assertNull(stream2.getMetadata());
+    assertNull(contentStream.getMetadata());
+    assertNull(appearanceStream.getBBox());
+    assertNull(stream2.getFile());
+    assertNull(contentStream.getFile());
+    assertNull(appearanceStream.getOptionalContent());
+    assertNull(appearanceStream.getGroup());
+    assertEquals(-1, stream2.getDecodedStreamLength());
+    assertEquals(-1, contentStream.getDecodedStreamLength());
+    assertEquals(-1, appearanceStream.getStructParents());
+    assertEquals(0, cOSObject.size());
+    assertEquals(0, stream2.getLength());
+    assertEquals(0, contentStream.getLength());
+    assertEquals(1, appearanceStream.getFormType());
+    COSDictionary cOSObject2 = pdAppearanceDictionary.getCOSObject();
+    assertEquals(2, cOSObject2.getValues().size());
+    assertEquals(2, cOSObject2.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertFalse(downAppearance.isSubDictionary());
+    assertTrue(cOSObject.getValues().isEmpty());
+    PDAppearanceEntry rolloverAppearance = pdAppearanceDictionary.getRolloverAppearance();
+    assertTrue(rolloverAppearance.getSubDictionary().isEmpty());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertTrue(downAppearance.isStream());
+    assertSame(stream, stream2.getCOSObject());
+    assertSame(stream, contentStream.getCOSObject());
+    assertSame(stream, appearanceStream.getCOSObject());
+    assertSame(stream, downAppearance.getCOSObject());
+    assertSame(cOSObject, rolloverAppearance.getCOSObject());
+  }
+
+  /**
+   * Method under test:
+   * {@link PDAppearanceDictionary#setDownAppearance(PDAppearanceStream)}
+   */
+  @Test
+  void testSetDownAppearance9() throws IOException {
+    // Arrange
+    PDAppearanceDictionary pdAppearanceDictionary = new PDAppearanceDictionary();
+
+    COSStream stream = new COSStream();
+    stream.setKey(new COSObjectKey(1L, 1));
+
+    // Act
+    pdAppearanceDictionary.setDownAppearance(new PDAppearanceStream(stream));
+
+    // Assert
+    PDAppearanceEntry downAppearance = pdAppearanceDictionary.getDownAppearance();
+    PDAppearanceStream appearanceStream = downAppearance.getAppearanceStream();
+    PDStream stream2 = appearanceStream.getStream();
+    assertNull(stream2.getDecodeParms());
+    PDStream contentStream = appearanceStream.getContentStream();
+    assertNull(contentStream.getDecodeParms());
+    assertNull(stream2.getFileDecodeParams());
+    assertNull(contentStream.getFileDecodeParams());
+    COSDictionary cOSObject = pdAppearanceDictionary.getNormalAppearance().getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertNull(appearanceStream.getResources());
+    assertNull(stream2.getMetadata());
+    assertNull(contentStream.getMetadata());
+    assertNull(appearanceStream.getBBox());
+    assertNull(stream2.getFile());
+    assertNull(contentStream.getFile());
+    assertNull(appearanceStream.getOptionalContent());
+    assertNull(appearanceStream.getGroup());
+    assertEquals(-1, stream2.getDecodedStreamLength());
+    assertEquals(-1, contentStream.getDecodedStreamLength());
+    assertEquals(-1, appearanceStream.getStructParents());
+    assertEquals(0, cOSObject.size());
+    assertEquals(0, stream2.getLength());
+    assertEquals(0, contentStream.getLength());
+    assertEquals(1, appearanceStream.getFormType());
+    COSDictionary cOSObject2 = pdAppearanceDictionary.getCOSObject();
+    assertEquals(2, cOSObject2.getValues().size());
+    assertEquals(2, cOSObject2.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertFalse(downAppearance.isSubDictionary());
+    assertTrue(cOSObject.getValues().isEmpty());
+    PDAppearanceEntry rolloverAppearance = pdAppearanceDictionary.getRolloverAppearance();
+    assertTrue(rolloverAppearance.getSubDictionary().isEmpty());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertTrue(downAppearance.isStream());
+    assertSame(stream, stream2.getCOSObject());
+    assertSame(stream, contentStream.getCOSObject());
+    assertSame(stream, appearanceStream.getCOSObject());
+    assertSame(stream, downAppearance.getCOSObject());
+    assertSame(cOSObject, rolloverAppearance.getCOSObject());
+  }
+
+  /**
+   * Method under test:
+   * {@link PDAppearanceDictionary#PDAppearanceDictionary(COSDictionary)}
+   */
+  @Test
+  void testNewPDAppearanceDictionary() {
+    // Arrange
+    COSDictionary dictionary = new COSDictionary();
+
+    // Act and Assert
+    assertSame(dictionary, (new PDAppearanceDictionary(dictionary)).getCOSObject());
+  }
+
+  /**
+   * Method under test: {@link PDAppearanceDictionary#PDAppearanceDictionary()}
+   */
+  @Test
+  void testNewPDAppearanceDictionary2() {
+    // Arrange and Act
+    PDAppearanceDictionary actualPdAppearanceDictionary = new PDAppearanceDictionary();
+
+    // Assert
+    COSDictionary cOSObject = actualPdAppearanceDictionary.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    PDAppearanceEntry downAppearance = actualPdAppearanceDictionary.getDownAppearance();
+    COSDictionary cOSObject2 = downAppearance.getCOSObject();
+    COSUpdateState updateState2 = cOSObject2.getUpdateState();
+    assertNull(updateState2.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertNull(cOSObject2.getKey());
+    assertEquals(0, cOSObject2.size());
     assertEquals(1, cOSObject.getValues().size());
     assertEquals(1, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    COSIncrement toIncrementResult2 = cOSObject2.toIncrement();
+    assertFalse(toIncrementResult2.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject2.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(cOSObject2.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertFalse(updateState2.isUpdated());
+    assertFalse(downAppearance.isStream());
+    PDAppearanceEntry normalAppearance = actualPdAppearanceDictionary.getNormalAppearance();
+    assertFalse(normalAppearance.isStream());
+    PDAppearanceEntry rolloverAppearance = actualPdAppearanceDictionary.getRolloverAppearance();
+    assertFalse(rolloverAppearance.isStream());
+    assertTrue(cOSObject2.getValues().isEmpty());
+    assertTrue(downAppearance.getSubDictionary().isEmpty());
+    assertTrue(normalAppearance.getSubDictionary().isEmpty());
+    assertTrue(rolloverAppearance.getSubDictionary().isEmpty());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertTrue(toIncrementResult2.getObjects().isEmpty());
+    assertTrue(downAppearance.isSubDictionary());
+    assertTrue(normalAppearance.isSubDictionary());
+    assertTrue(rolloverAppearance.isSubDictionary());
+    assertSame(cOSObject2, normalAppearance.getCOSObject());
+    assertSame(cOSObject2, rolloverAppearance.getCOSObject());
   }
 }

@@ -2,15 +2,10 @@ package org.apache.fontbox.ttf.table.gsub;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import com.diffblue.cover.annotations.MethodsUnderTest;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class LigatureSetTableDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link LigatureSetTable#LigatureSetTable(int, LigatureTable[])}
@@ -20,10 +15,6 @@ class LigatureSetTableDiffblueTest {
    * </ul>
    */
   @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void LigatureSetTable.<init>(int, LigatureTable[])", "int LigatureSetTable.getLigatureCount()",
-      "LigatureTable[] LigatureSetTable.getLigatureTables()", "String LigatureSetTable.toString()"})
   void testGettersAndSetters() {
     // Arrange
     LigatureTable[] ligatureTables = new LigatureTable[]{new LigatureTable(1, 3, new int[]{1, 2, 1, 2})};

@@ -3,28 +3,26 @@
     "reportVersion" : "2.6"
   },
   "run" : {
-    "version" : "2025.02.02-08b2a5a-licensed",
-    "creationTimestamp" : "2025-10-21T16:22:54.192235Z",
+    "version" : "2024.10.01-2ee2e3d-licensed",
+    "creationTimestamp" : "2025-10-27T14:24:43.941029Z",
     "command" : "dcover create --exclude-modules org.apache.pdfbox:pdfbox-parent,org.apache.pdfbox:pdfbox-app,org.apache.pdfbox:debugger-app --coverage-reports --upload http://localhost:8080 --project-name Apache-PDFBox --name with-diffblue-tests",
-    "totalTime" : 1132.447,
-    "environmentDetectionTime" : 1.203,
-    "indexingTime" : 0.315,
-    "entryPointsTime" : 1.198,
-    "generationTime" : 46599.502,
-    "timeToFirstTest" : 52342.382,
-    "timeToLastTest" : 52358.045,
-    "indexQueryTime" : 9.154,
-    "verificationTime" : 5403.178,
-    "validationTime" : 44.924
+    "totalTime" : 47972.059,
+    "environmentDetectionTime" : 1.497,
+    "indexingTime" : 0.339,
+    "entryPointsTime" : 1.49,
+    "generationTime" : 44651.222,
+    "timeToFirstTest" : 89.772,
+    "timeToLastTest" : 743.392,
+    "indexQueryTime" : 10.67,
+    "verificationTime" : 1212.445,
+    "validationTime" : 106.583
   },
   "codes" : {
-    "F009" : "Internal error",
     "R000" : "Success",
     "R002" : "Missing observers",
     "R004" : "No meaningful assertions found",
     "R011" : "Sandboxing policy violation",
     "R013" : "No inputs found that don't throw a trivial exception",
-    "R034" : "Diffblue Cover can't complete test",
     "R081" : "Exception in arrange section",
     "R083" : "Can't find a suitable constructor",
     "T000" : "Method eligible for test creation",
@@ -43,9 +41,9 @@
   "summary" : {
     "classesCount" : 99,
     "methodsCount" : 519,
-    "cumulativeDiffblueTestCount" : 84,
+    "cumulativeDiffblueTestCount" : 99,
     "cumulativeManualTestCount" : 34,
-    "completeTestCount" : 84,
+    "completeTestCount" : 138,
     "incompleteTestCount" : 0,
     "skeletonTestCount" : 0,
     "totalPhysicalLineCount" : 10399,
@@ -61,13 +59,11 @@
       "T012" : 31
     },
     "perMethodOutcome" : {
-      "F009" : 16,
-      "R000" : 56,
+      "R000" : 79,
       "R002" : 17,
-      "R004" : 14,
+      "R004" : 6,
       "R011" : 2,
-      "R013" : 64,
-      "R034" : 1,
+      "R013" : 59,
       "R081" : 15,
       "R083" : 2,
       "T003" : 203,
@@ -76,23 +72,23 @@
       "T008" : 17,
       "T010" : 1,
       "T012" : 31,
-      "W002" : 4
+      "W002" : 11
     },
     "perTestOutcome" : {
-      "R000" : 84
+      "R000" : 138
     },
     "perTestValidation" : {
-      "V000" : 84,
-      "V003" : 4
+      "V000" : 138,
+      "V003" : 166
     },
     "warnings" : {
-      "W002" : 5
+      "W002" : 22
     }
   },
   "classes" : {
     "org.apache.pdfbox.examples.ant.PDFToTextTask" : {
       "methodsCount" : 5,
-      "completeTestCount" : 7,
+      "completeTestCount" : 5,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 3,
@@ -104,7 +100,7 @@
         "T012" : 2
       },
       "perTestOutcome" : {
-        "R000" : 7
+        "R000" : 5
       }
     },
     "org.apache.pdfbox.examples.interactive.form.AddBorderToField" : {
@@ -122,7 +118,7 @@
     },
     "org.apache.pdfbox.examples.interactive.form.CreateCheckBox" : {
       "methodsCount" : 4,
-      "completeTestCount" : 0,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 1,
@@ -131,10 +127,13 @@
         "T008" : 1
       },
       "perMethodOutcome" : {
-        "F009" : 1,
+        "R000" : 1,
         "T003" : 1,
         "T006" : 1,
         "T008" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 1
       }
     },
     "org.apache.pdfbox.examples.interactive.form.CreateMultiWidgetsForm" : {
@@ -165,7 +164,7 @@
     },
     "org.apache.pdfbox.examples.interactive.form.CreateRadioButtons" : {
       "methodsCount" : 5,
-      "completeTestCount" : 0,
+      "completeTestCount" : 3,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 2,
@@ -174,10 +173,13 @@
         "T008" : 1
       },
       "perMethodOutcome" : {
-        "F009" : 2,
+        "R000" : 2,
         "T003" : 1,
         "T006" : 1,
         "T008" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 3
       }
     },
     "org.apache.pdfbox.examples.interactive.form.CreateSimpleForm" : {
@@ -258,10 +260,13 @@
         "T006" : 1
       },
       "perMethodOutcome" : {
-        "F009" : 1,
         "R002" : 1,
         "T003" : 2,
-        "T006" : 1
+        "T006" : 1,
+        "W002" : 1
+      },
+      "warnings" : {
+        "W002" : 1
       }
     },
     "org.apache.pdfbox.examples.interactive.form.SetField" : {
@@ -275,10 +280,13 @@
         "T006" : 1
       },
       "perMethodOutcome" : {
-        "F009" : 1,
         "R002" : 1,
         "T003" : 3,
-        "T006" : 1
+        "T006" : 1,
+        "W002" : 1
+      },
+      "warnings" : {
+        "W002" : 1
       }
     },
     "org.apache.pdfbox.examples.interactive.form.UpdateFieldOnDocumentOpen" : {
@@ -712,7 +720,7 @@
     },
     "org.apache.pdfbox.examples.pdmodel.PrintBookmarks" : {
       "methodsCount" : 4,
-      "completeTestCount" : 0,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 1,
@@ -721,15 +729,18 @@
         "T006" : 1
       },
       "perMethodOutcome" : {
+        "R000" : 1,
         "R002" : 1,
-        "R004" : 1,
         "T003" : 1,
         "T006" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 2
       }
     },
     "org.apache.pdfbox.examples.pdmodel.PrintDocumentMetaData" : {
       "methodsCount" : 5,
-      "completeTestCount" : 0,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 1,
@@ -738,10 +749,13 @@
         "T006" : 1
       },
       "perMethodOutcome" : {
+        "R000" : 1,
         "R002" : 1,
-        "R013" : 1,
         "T003" : 2,
         "T006" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 2
       }
     },
     "org.apache.pdfbox.examples.pdmodel.PrintURLs" : {
@@ -875,7 +889,7 @@
     },
     "org.apache.pdfbox.examples.printing.OpaquePDFRenderer" : {
       "methodsCount" : 3,
-      "completeTestCount" : 0,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 1,
@@ -883,9 +897,12 @@
         "T006" : 1
       },
       "perMethodOutcome" : {
-        "F009" : 1,
+        "R000" : 1,
         "R013" : 1,
         "T006" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 1
       }
     },
     "org.apache.pdfbox.examples.printing.OpaquePDFRenderer$OpaqueDrawObject" : {
@@ -940,7 +957,7 @@
     },
     "org.apache.pdfbox.examples.rendering.CustomGraphicsStreamEngine" : {
       "methodsCount" : 19,
-      "completeTestCount" : 0,
+      "completeTestCount" : 20,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 17,
@@ -948,10 +965,13 @@
         "T006" : 1
       },
       "perMethodOutcome" : {
-        "F009" : 3,
-        "R004" : 11,
-        "R013" : 4,
+        "R000" : 11,
+        "R004" : 4,
+        "R013" : 3,
         "T006" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 20
       }
     },
     "org.apache.pdfbox.examples.rendering.CustomPageDrawer" : {
@@ -991,7 +1011,7 @@
     },
     "org.apache.pdfbox.examples.signature.CMSProcessableInputStream" : {
       "methodsCount" : 5,
-      "completeTestCount" : 4,
+      "completeTestCount" : 6,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 2,
@@ -1002,7 +1022,7 @@
         "R000" : 5
       },
       "perTestOutcome" : {
-        "R000" : 4
+        "R000" : 6
       }
     },
     "org.apache.pdfbox.examples.signature.CreateEmbeddedTimeStamp" : {
@@ -1068,7 +1088,7 @@
     },
     "org.apache.pdfbox.examples.signature.CreateSignedTimeStamp" : {
       "methodsCount" : 8,
-      "completeTestCount" : 3,
+      "completeTestCount" : 11,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 4,
@@ -1078,15 +1098,14 @@
         "T012" : 1
       },
       "perMethodOutcome" : {
-        "F009" : 1,
-        "R000" : 3,
+        "R000" : 4,
         "R002" : 1,
         "T003" : 1,
         "T006" : 1,
         "T012" : 1
       },
       "perTestOutcome" : {
-        "R000" : 3
+        "R000" : 11
       }
     },
     "org.apache.pdfbox.examples.signature.CreateVisibleSignature" : {
@@ -1142,7 +1161,7 @@
     },
     "org.apache.pdfbox.examples.signature.SigUtils" : {
       "methodsCount" : 16,
-      "completeTestCount" : 9,
+      "completeTestCount" : 19,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 13,
@@ -1150,14 +1169,13 @@
         "T012" : 2
       },
       "perMethodOutcome" : {
-        "F009" : 3,
-        "R000" : 4,
+        "R000" : 7,
         "R013" : 6,
         "T003" : 1,
         "T012" : 2
       },
       "perTestOutcome" : {
-        "R000" : 9
+        "R000" : 19
       }
     },
     "org.apache.pdfbox.examples.signature.TSAClient" : {
@@ -1256,7 +1274,7 @@
     },
     "org.apache.pdfbox.examples.signature.cert.OcspHelper" : {
       "methodsCount" : 16,
-      "completeTestCount" : 1,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 3,
@@ -1265,15 +1283,14 @@
         "T012" : 1
       },
       "perMethodOutcome" : {
-        "R000" : 1,
+        "R000" : 2,
         "R013" : 1,
-        "R034" : 1,
         "R081" : 2,
         "T003" : 10,
         "T012" : 1
       },
       "perTestOutcome" : {
-        "R000" : 1
+        "R000" : 2
       }
     },
     "org.apache.pdfbox.examples.signature.cert.OcspHelper$SHA1DigestCalculator" : {
@@ -1328,7 +1345,7 @@
     },
     "org.apache.pdfbox.examples.signature.validation.CertInformationCollector" : {
       "methodsCount" : 14,
-      "completeTestCount" : 4,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 4,
@@ -1337,13 +1354,13 @@
         "T012" : 2
       },
       "perMethodOutcome" : {
-        "R000" : 3,
-        "R013" : 2,
+        "R000" : 2,
+        "R013" : 3,
         "T003" : 7,
         "T012" : 2
       },
       "perTestOutcome" : {
-        "R000" : 4
+        "R000" : 2
       }
     },
     "org.apache.pdfbox.examples.signature.validation.CertInformationCollector$CertSignatureInformation" : {
@@ -1412,18 +1429,18 @@
     },
     "org.apache.pdfbox.examples.util.ConnectedInputStream" : {
       "methodsCount" : 10,
-      "completeTestCount" : 10,
+      "completeTestCount" : 18,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 9,
         "T005" : 1
       },
       "perMethodOutcome" : {
-        "R000" : 7,
-        "R013" : 3
+        "R000" : 9,
+        "R013" : 1
       },
       "perTestOutcome" : {
-        "R000" : 10
+        "R000" : 18
       }
     },
     "org.apache.pdfbox.examples.util.DrawPrintTextLocations" : {
@@ -1437,10 +1454,13 @@
         "T006" : 1
       },
       "perMethodOutcome" : {
-        "F009" : 1,
-        "R013" : 2,
+        "R013" : 1,
         "T003" : 3,
-        "T006" : 1
+        "T006" : 1,
+        "W002" : 2
+      },
+      "warnings" : {
+        "W002" : 2
       }
     },
     "org.apache.pdfbox.examples.util.ExtractTextByArea" : {
@@ -1481,15 +1501,14 @@
         "T012" : 1
       },
       "perMethodOutcome" : {
-        "F009" : 2,
         "R013" : 1,
         "T003" : 1,
         "T006" : 1,
         "T012" : 1,
-        "W002" : 1
+        "W002" : 3
       },
       "warnings" : {
-        "W002" : 1
+        "W002" : 13
       }
     },
     "org.apache.pdfbox.examples.util.PDFMergerExample" : {
@@ -1561,13 +1580,12 @@
         "T006" : 1
       },
       "perMethodOutcome" : {
-        "R013" : 1,
         "T003" : 1,
         "T006" : 1,
-        "W002" : 1
+        "W002" : 2
       },
       "warnings" : {
-        "W002" : 1
+        "W002" : 2
       }
     },
     "org.apache.pdfbox.examples.util.RemoveAllText" : {
@@ -1622,12 +1640,12 @@
       ]
     },
     "org.apache.pdfbox.examples.ant.PDFToTextTask.execute:()V" : {
-      "completeTestCount" : 6,
+      "completeTestCount" : 4,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 6
+        "R000" : 4
       },
       "lineNumbers" : [
         54,
@@ -1773,10 +1791,13 @@
       ]
     },
     "org.apache.pdfbox.examples.interactive.form.CreateCheckBox.getLineWidth:(Lorg/apache/pdfbox/pdmodel/interactive/annotation/PDAnnotationWidget;)F" : {
-      "completeTestCount" : 0,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "F009",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
       "lineNumbers" : [
         209,
         210,
@@ -1990,10 +2011,13 @@
       ]
     },
     "org.apache.pdfbox.examples.interactive.form.CreateRadioButtons.drawCircle:(Lorg/apache/pdfbox/pdmodel/PDAppearanceContentStream;FFF)V" : {
-      "completeTestCount" : 0,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "F009",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
       "lineNumbers" : [
         171,
         172,
@@ -2006,10 +2030,13 @@
       ]
     },
     "org.apache.pdfbox.examples.interactive.form.CreateRadioButtons.getLineWidth:(Lorg/apache/pdfbox/pdmodel/interactive/annotation/PDAnnotationWidget;)F" : {
-      "completeTestCount" : 0,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "F009",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
       "lineNumbers" : [
         160,
         161,
@@ -2365,7 +2392,10 @@
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "F009",
+      "perMethodOutcome" : "W002",
+      "warnings" : {
+        "W002" : 1
+      },
       "lineNumbers" : [
         48,
         49,
@@ -2449,7 +2479,10 @@
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "F009",
+      "perMethodOutcome" : "W002",
+      "warnings" : {
+        "W002" : 1
+      },
       "lineNumbers" : [
         52,
         53,
@@ -5154,10 +5187,13 @@
       ]
     },
     "org.apache.pdfbox.examples.pdmodel.PrintBookmarks.printBookmark:(Lorg/apache/pdfbox/pdmodel/PDDocument;Lorg/apache/pdfbox/pdmodel/interactive/documentnavigation/outline/PDOutlineNode;Ljava/lang/String;)V" : {
-      "completeTestCount" : 0,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R004",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
       "lineNumbers" : [
         89,
         90,
@@ -5242,10 +5278,13 @@
       ]
     },
     "org.apache.pdfbox.examples.pdmodel.PrintDocumentMetaData.printMetadata:(Lorg/apache/pdfbox/pdmodel/PDDocument;)V" : {
-      "completeTestCount" : 0,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R013",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
       "lineNumbers" : [
         79,
         80,
@@ -6053,10 +6092,13 @@
       ]
     },
     "org.apache.pdfbox.examples.printing.OpaquePDFRenderer.<init>:(Lorg/apache/pdfbox/pdmodel/PDDocument;)V" : {
-      "completeTestCount" : 0,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T005",
-      "perMethodOutcome" : "F009",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
       "lineNumbers" : [
         92,
         93
@@ -6203,10 +6245,13 @@
       ]
     },
     "org.apache.pdfbox.examples.rendering.CustomGraphicsStreamEngine.<init>:(Lorg/apache/pdfbox/pdmodel/PDPage;)V" : {
-      "completeTestCount" : 0,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T005",
-      "perMethodOutcome" : "F009",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
       "lineNumbers" : [
         54,
         55
@@ -6226,20 +6271,26 @@
       ]
     },
     "org.apache.pdfbox.examples.rendering.CustomGraphicsStreamEngine.clip:(I)V" : {
-      "completeTestCount" : 0,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R004",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
       "lineNumbers" : [
         102,
         103
       ]
     },
     "org.apache.pdfbox.examples.rendering.CustomGraphicsStreamEngine.closePath:()V" : {
-      "completeTestCount" : 0,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R004",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
       "lineNumbers" : [
         133,
         134
@@ -6256,50 +6307,65 @@
       ]
     },
     "org.apache.pdfbox.examples.rendering.CustomGraphicsStreamEngine.drawImage:(Lorg/apache/pdfbox/pdmodel/graphics/image/PDImage;)V" : {
-      "completeTestCount" : 0,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R004",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
       "lineNumbers" : [
         96,
         97
       ]
     },
     "org.apache.pdfbox.examples.rendering.CustomGraphicsStreamEngine.endPath:()V" : {
-      "completeTestCount" : 0,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R004",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
       "lineNumbers" : [
         139,
         140
       ]
     },
     "org.apache.pdfbox.examples.rendering.CustomGraphicsStreamEngine.fillAndStrokePath:(I)V" : {
-      "completeTestCount" : 0,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R004",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
       "lineNumbers" : [
         157,
         158
       ]
     },
     "org.apache.pdfbox.examples.rendering.CustomGraphicsStreamEngine.fillPath:(I)V" : {
-      "completeTestCount" : 0,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R004",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
       "lineNumbers" : [
         151,
         152
       ]
     },
     "org.apache.pdfbox.examples.rendering.CustomGraphicsStreamEngine.getCurrentPoint:()Ljava/awt/geom/Point2D;" : {
-      "completeTestCount" : 0,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "F009",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
       "lineNumbers" : [
         127
       ]
@@ -6341,10 +6407,13 @@
       ]
     },
     "org.apache.pdfbox.examples.rendering.CustomGraphicsStreamEngine.run:()V" : {
-      "completeTestCount" : 0,
+      "completeTestCount" : 9,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "F009",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 9
+      },
       "lineNumbers" : [
         77,
         79,
@@ -6387,10 +6456,13 @@
       ]
     },
     "org.apache.pdfbox.examples.rendering.CustomGraphicsStreamEngine.showTextStrings:(Lorg/apache/pdfbox/cos/COSArray;)V" : {
-      "completeTestCount" : 0,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R013",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
       "lineNumbers" : [
         183,
         184,
@@ -6399,10 +6471,13 @@
       ]
     },
     "org.apache.pdfbox.examples.rendering.CustomGraphicsStreamEngine.strokePath:()V" : {
-      "completeTestCount" : 0,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R004",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
       "lineNumbers" : [
         145,
         146
@@ -6535,12 +6610,12 @@
       ]
     },
     "org.apache.pdfbox.examples.signature.CMSProcessableInputStream.<init>:(Ljava/io/InputStream;)V" : {
-      "completeTestCount" : 2,
+      "completeTestCount" : 3,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 2
+        "R000" : 3
       },
       "lineNumbers" : [
         42,
@@ -6587,12 +6662,12 @@
       ]
     },
     "org.apache.pdfbox.examples.signature.CMSProcessableInputStream.write:(Ljava/io/OutputStream;)V" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 1
+        "R000" : 2
       },
       "lineNumbers" : [
         61,
@@ -7109,10 +7184,13 @@
       ]
     },
     "org.apache.pdfbox.examples.signature.CreateSignedTimeStamp.signDetached:(Lorg/apache/pdfbox/pdmodel/PDDocument;Ljava/io/OutputStream;)V" : {
-      "completeTestCount" : 0,
+      "completeTestCount" : 8,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "F009",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 8
+      },
       "lineNumbers" : [
         104,
         105,
@@ -8184,10 +8262,13 @@
       ]
     },
     "org.apache.pdfbox.examples.signature.SigUtils.getLastRelevantSignature:(Lorg/apache/pdfbox/pdmodel/PDDocument;)Lorg/apache/pdfbox/pdmodel/interactive/digitalsignature/PDSignature;" : {
-      "completeTestCount" : 0,
+      "completeTestCount" : 4,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "F009",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 4
+      },
       "lineNumbers" : [
         274,
         275,
@@ -8202,10 +8283,13 @@
       ]
     },
     "org.apache.pdfbox.examples.signature.SigUtils.getMDPPermission:(Lorg/apache/pdfbox/pdmodel/PDDocument;)I" : {
-      "completeTestCount" : 0,
+      "completeTestCount" : 3,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "F009",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 3
+      },
       "lineNumbers" : [
         94,
         95,
@@ -8277,10 +8361,13 @@
       ]
     },
     "org.apache.pdfbox.examples.signature.SigUtils.setMDPPermission:(Lorg/apache/pdfbox/pdmodel/PDDocument;Lorg/apache/pdfbox/pdmodel/interactive/digitalsignature/PDSignature;I)V" : {
-      "completeTestCount" : 0,
+      "completeTestCount" : 3,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "F009",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 3
+      },
       "lineNumbers" : [
         146,
         150,
@@ -9164,10 +9251,13 @@
       ]
     },
     "org.apache.pdfbox.examples.signature.cert.OcspHelper.<init>:(Ljava/security/cert/X509Certificate;Ljava/util/Date;Ljava/security/cert/X509Certificate;Ljava/util/Set;Ljava/lang/String;)V" : {
-      "completeTestCount" : 0,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R034",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
       "lineNumbers" : [
         106,
         89,
@@ -10101,13 +10191,10 @@
       ]
     },
     "org.apache.pdfbox.examples.signature.validation.CertInformationCollector.addAllCertsFromHolders:([Lorg/bouncycastle/cert/X509CertificateHolder;)V" : {
-      "completeTestCount" : 2,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 2
-      },
+      "perMethodOutcome" : "R013",
       "lineNumbers" : [
         364,
         365
@@ -10519,12 +10606,12 @@
       ]
     },
     "org.apache.pdfbox.examples.util.ConnectedInputStream.available:()I" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 1
+        "R000" : 2
       },
       "lineNumbers" : [
         66
@@ -10542,80 +10629,86 @@
       ]
     },
     "org.apache.pdfbox.examples.util.ConnectedInputStream.mark:(I)V" : {
-      "completeTestCount" : 0,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R013",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
       "lineNumbers" : [
         72,
         73
       ]
     },
     "org.apache.pdfbox.examples.util.ConnectedInputStream.markSupported:()Z" : {
-      "completeTestCount" : 2,
+      "completeTestCount" : 3,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 2
+        "R000" : 3
       },
       "lineNumbers" : [
         84
       ]
     },
     "org.apache.pdfbox.examples.util.ConnectedInputStream.read:()I" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 1
+        "R000" : 2
       },
       "lineNumbers" : [
         42
       ]
     },
     "org.apache.pdfbox.examples.util.ConnectedInputStream.read:([B)I" : {
-      "completeTestCount" : 2,
+      "completeTestCount" : 3,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 2
+        "R000" : 3
       },
       "lineNumbers" : [
         48
       ]
     },
     "org.apache.pdfbox.examples.util.ConnectedInputStream.read:([BII)I" : {
-      "completeTestCount" : 2,
+      "completeTestCount" : 3,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 2
+        "R000" : 3
       },
       "lineNumbers" : [
         54
       ]
     },
     "org.apache.pdfbox.examples.util.ConnectedInputStream.reset:()V" : {
-      "completeTestCount" : 0,
-      "incompleteTestCount" : 0,
-      "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R013",
-      "lineNumbers" : [
-        78,
-        79
-      ]
-    },
-    "org.apache.pdfbox.examples.util.ConnectedInputStream.skip:(J)J" : {
       "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
         "R000" : 1
+      },
+      "lineNumbers" : [
+        78,
+        79
+      ]
+    },
+    "org.apache.pdfbox.examples.util.ConnectedInputStream.skip:(J)J" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
       },
       "lineNumbers" : [
         60
@@ -10625,7 +10718,10 @@
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T005",
-      "perMethodOutcome" : "F009",
+      "perMethodOutcome" : "W002",
+      "warnings" : {
+        "W002" : 1
+      },
       "lineNumbers" : [
         77,
         78,
@@ -10777,7 +10873,10 @@
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R013",
+      "perMethodOutcome" : "W002",
+      "warnings" : {
+        "W002" : 1
+      },
       "lineNumbers" : [
         273,
         275,
@@ -10964,7 +11063,10 @@
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "F009",
+      "perMethodOutcome" : "W002",
+      "warnings" : {
+        "W002" : 6
+      },
       "lineNumbers" : [
         77,
         78
@@ -10974,7 +11076,10 @@
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "F009",
+      "perMethodOutcome" : "W002",
+      "warnings" : {
+        "W002" : 6
+      },
       "lineNumbers" : [
         91,
         92,
@@ -11335,7 +11440,10 @@
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R013",
+      "perMethodOutcome" : "W002",
+      "warnings" : {
+        "W002" : 1
+      },
       "lineNumbers" : [
         81,
         83,
@@ -11528,7 +11636,15 @@
   },
   "validationMetrics" : {
     "failingTests" : [
-      "org.apache.pdfbox.examples.pdfa.MergePDFATest.testMergePDFA"
+      "org.apache.pdfbox.examples.rendering.CustomGraphicsStreamEngineDiffblueTest.testRun",
+      "org.apache.pdfbox.examples.rendering.CustomGraphicsStreamEngineDiffblueTest.testRun2",
+      "org.apache.pdfbox.examples.rendering.CustomGraphicsStreamEngineDiffblueTest.testRun3",
+      "org.apache.pdfbox.examples.rendering.CustomGraphicsStreamEngineDiffblueTest.testRun4",
+      "org.apache.pdfbox.examples.rendering.CustomGraphicsStreamEngineDiffblueTest.testRun5",
+      "org.apache.pdfbox.examples.rendering.CustomGraphicsStreamEngineDiffblueTest.testRun6",
+      "org.apache.pdfbox.examples.rendering.CustomGraphicsStreamEngineDiffblueTest.testRun7",
+      "org.apache.pdfbox.examples.rendering.CustomGraphicsStreamEngineDiffblueTest.testRun8",
+      "org.apache.pdfbox.examples.rendering.CustomGraphicsStreamEngineDiffblueTest.testRun9"
     ]
   }
 }

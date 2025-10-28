@@ -1,29 +1,27 @@
 package org.apache.fontbox.ttf;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.anyLong;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import org.apache.pdfbox.io.RandomAccessRead;
 import org.apache.pdfbox.io.RandomAccessReadBuffer;
 import org.apache.pdfbox.io.RandomAccessReadView;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class RandomAccessReadUnbufferedDataStreamDiffblueTest {
   /**
-   * Test {@link RandomAccessReadUnbufferedDataStream#getCurrentPosition()}.
-   * <p>
-   * Method under test: {@link RandomAccessReadUnbufferedDataStream#getCurrentPosition()}
+   * Method under test:
+   * {@link RandomAccessReadUnbufferedDataStream#getCurrentPosition()}
    */
   @Test
-  @DisplayName("Test getCurrentPosition()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"long RandomAccessReadUnbufferedDataStream.getCurrentPosition()"})
   void testGetCurrentPosition() throws IOException {
     // Arrange, Act and Assert
     assertEquals(0L, (new RandomAccessReadUnbufferedDataStream(
@@ -31,14 +29,9 @@ class RandomAccessReadUnbufferedDataStreamDiffblueTest {
   }
 
   /**
-   * Test {@link RandomAccessReadUnbufferedDataStream#read()}.
-   * <p>
    * Method under test: {@link RandomAccessReadUnbufferedDataStream#read()}
    */
   @Test
-  @DisplayName("Test read()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"int RandomAccessReadUnbufferedDataStream.read()"})
   void testRead() throws IOException {
     // Arrange, Act and Assert
     assertEquals(65, (new RandomAccessReadUnbufferedDataStream(
@@ -46,41 +39,11 @@ class RandomAccessReadUnbufferedDataStreamDiffblueTest {
   }
 
   /**
-   * Test {@link RandomAccessReadUnbufferedDataStream#read(byte[], int, int)} with {@code b}, {@code off}, {@code len}.
-   * <ul>
-   *   <li>Then return minus one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link RandomAccessReadUnbufferedDataStream#read(byte[], int, int)}
+   * Method under test:
+   * {@link RandomAccessReadUnbufferedDataStream#read(byte[], int, int)}
    */
   @Test
-  @DisplayName("Test read(byte[], int, int) with 'b', 'off', 'len'; then return minus one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"int RandomAccessReadUnbufferedDataStream.read(byte[], int, int)"})
-  void testReadWithBOffLen_thenReturnMinusOne() throws IOException {
-    // Arrange
-    RandomAccessReadUnbufferedDataStream randomAccessReadUnbufferedDataStream = new RandomAccessReadUnbufferedDataStream(
-        new RandomAccessReadBuffer(new ByteArrayInputStream(new byte[]{})));
-    byte[] b = "AXAXAXAX".getBytes("UTF-8");
-
-    // Act and Assert
-    assertEquals(-1, randomAccessReadUnbufferedDataStream.read(b, 1, 3));
-    assertArrayEquals("AXAXAXAX".getBytes("UTF-8"), b);
-  }
-
-  /**
-   * Test {@link RandomAccessReadUnbufferedDataStream#read(byte[], int, int)} with {@code b}, {@code off}, {@code len}.
-   * <ul>
-   *   <li>Then return three.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link RandomAccessReadUnbufferedDataStream#read(byte[], int, int)}
-   */
-  @Test
-  @DisplayName("Test read(byte[], int, int) with 'b', 'off', 'len'; then return three")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"int RandomAccessReadUnbufferedDataStream.read(byte[], int, int)"})
-  void testReadWithBOffLen_thenReturnThree() throws IOException {
+  void testRead2() throws IOException {
     // Arrange
     RandomAccessReadUnbufferedDataStream randomAccessReadUnbufferedDataStream = new RandomAccessReadUnbufferedDataStream(
         new RandomAccessReadBuffer(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"))));
@@ -88,18 +51,35 @@ class RandomAccessReadUnbufferedDataStreamDiffblueTest {
 
     // Act and Assert
     assertEquals(3, randomAccessReadUnbufferedDataStream.read(b, 1, 3));
-    assertArrayEquals("AAXAAXAX".getBytes("UTF-8"), b);
+    assertEquals(8, b.length);
+    assertEquals('A', b[1]);
+    assertEquals('A', b[3]);
+    assertEquals('X', b[2]);
   }
 
   /**
-   * Test {@link RandomAccessReadUnbufferedDataStream#readLong()}.
-   * <p>
+   * Method under test:
+   * {@link RandomAccessReadUnbufferedDataStream#read(byte[], int, int)}
+   */
+  @Test
+  void testRead3() throws IOException {
+    // Arrange
+    RandomAccessReadUnbufferedDataStream randomAccessReadUnbufferedDataStream = new RandomAccessReadUnbufferedDataStream(
+        new RandomAccessReadBuffer(new ByteArrayInputStream(new byte[]{})));
+    byte[] b = "AXAXAXAX".getBytes("UTF-8");
+
+    // Act and Assert
+    assertEquals(-1, randomAccessReadUnbufferedDataStream.read(b, 1, 3));
+    assertEquals(8, b.length);
+    assertEquals('A', b[2]);
+    assertEquals('X', b[1]);
+    assertEquals('X', b[3]);
+  }
+
+  /**
    * Method under test: {@link RandomAccessReadUnbufferedDataStream#readLong()}
    */
   @Test
-  @DisplayName("Test readLong()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"long RandomAccessReadUnbufferedDataStream.readLong()"})
   void testReadLong() throws IOException {
     // Arrange, Act and Assert
     assertEquals(4708585257725083992L, (new RandomAccessReadUnbufferedDataStream(
@@ -107,14 +87,48 @@ class RandomAccessReadUnbufferedDataStreamDiffblueTest {
   }
 
   /**
-   * Test {@link RandomAccessReadUnbufferedDataStream#getOriginalDataSize()}.
-   * <p>
-   * Method under test: {@link RandomAccessReadUnbufferedDataStream#getOriginalDataSize()}
+   * Method under test: {@link RandomAccessReadUnbufferedDataStream#seek(long)}
    */
   @Test
-  @DisplayName("Test getOriginalDataSize()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"long RandomAccessReadUnbufferedDataStream.getOriginalDataSize()"})
+  void testSeek() throws IOException {
+    // Arrange
+    RandomAccessRead randomAccessRead = mock(RandomAccessRead.class);
+    when(randomAccessRead.length()).thenReturn(3L);
+    doNothing().when(randomAccessRead).seek(anyLong());
+
+    // Act
+    (new RandomAccessReadUnbufferedDataStream(randomAccessRead)).seek(1L);
+
+    // Assert
+    verify(randomAccessRead).length();
+    verify(randomAccessRead).seek(eq(1L));
+  }
+
+  /**
+   * Method under test:
+   * {@link RandomAccessReadUnbufferedDataStream#getOriginalData()}
+   */
+  @Test
+  void testGetOriginalData() throws IOException {
+    // Arrange
+    RandomAccessReadBuffer randomAccessRead = mock(RandomAccessReadBuffer.class);
+    when(randomAccessRead.length()).thenReturn(3L);
+    when(randomAccessRead.createView(anyLong(), anyLong())).thenReturn(new RandomAccessReadView(
+        new RandomAccessReadBuffer(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"))), 1L, 3L));
+
+    // Act
+    (new RandomAccessReadUnbufferedDataStream(randomAccessRead)).getOriginalData();
+
+    // Assert
+    verify(randomAccessRead).createView(eq(0L), eq(3L));
+    verify(randomAccessRead).length();
+  }
+
+  /**
+   * Method under test:
+   * {@link RandomAccessReadUnbufferedDataStream#getOriginalDataSize()}
+   */
+  @Test
   void testGetOriginalDataSize() throws IOException {
     // Arrange, Act and Assert
     assertEquals(8L, (new RandomAccessReadUnbufferedDataStream(
@@ -122,14 +136,10 @@ class RandomAccessReadUnbufferedDataStreamDiffblueTest {
   }
 
   /**
-   * Test {@link RandomAccessReadUnbufferedDataStream#createSubView(long)}.
-   * <p>
-   * Method under test: {@link RandomAccessReadUnbufferedDataStream#createSubView(long)}
+   * Method under test:
+   * {@link RandomAccessReadUnbufferedDataStream#createSubView(long)}
    */
   @Test
-  @DisplayName("Test createSubView(long)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"RandomAccessRead RandomAccessReadUnbufferedDataStream.createSubView(long)"})
   void testCreateSubView() throws IOException {
     // Arrange and Act
     RandomAccessRead actualCreateSubViewResult = (new RandomAccessReadUnbufferedDataStream(

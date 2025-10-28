@@ -4,19 +4,34 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDMMType1Font;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class PDTextStateDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
+   * Method under test: {@link PDTextState#clone()}
+   */
+  @Test
+  void testClone() {
+    // Arrange and Act
+    PDTextState actualCloneResult = (new PDTextState()).clone();
+
+    // Assert
+    assertNull(actualCloneResult.getFont());
+    assertEquals(0.0f, actualCloneResult.getCharacterSpacing());
+    assertEquals(0.0f, actualCloneResult.getFontSize());
+    assertEquals(0.0f, actualCloneResult.getLeading());
+    assertEquals(0.0f, actualCloneResult.getRise());
+    assertEquals(0.0f, actualCloneResult.getWordSpacing());
+    assertEquals(100.0f, actualCloneResult.getHorizontalScaling());
+    assertEquals(RenderingMode.FILL, actualCloneResult.getRenderingMode());
+    assertTrue(actualCloneResult.getKnockoutFlag());
+  }
+
+  /**
    * Methods under test:
    * <ul>
    *   <li>{@link PDTextState#setCharacterSpacing(float)}
@@ -40,17 +55,6 @@ class PDTextStateDiffblueTest {
    * </ul>
    */
   @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"float PDTextState.getCharacterSpacing()", "PDFont PDTextState.getFont()",
-      "float PDTextState.getFontSize()", "float PDTextState.getHorizontalScaling()",
-      "boolean PDTextState.getKnockoutFlag()", "float PDTextState.getLeading()",
-      "RenderingMode PDTextState.getRenderingMode()", "float PDTextState.getRise()",
-      "float PDTextState.getWordSpacing()", "void PDTextState.setCharacterSpacing(float)",
-      "void PDTextState.setFont(PDFont)", "void PDTextState.setFontSize(float)",
-      "void PDTextState.setHorizontalScaling(float)", "void PDTextState.setKnockoutFlag(boolean)",
-      "void PDTextState.setLeading(float)", "void PDTextState.setRenderingMode(RenderingMode)",
-      "void PDTextState.setRise(float)", "void PDTextState.setWordSpacing(float)"})
   void testGettersAndSetters() throws IOException {
     // Arrange
     PDTextState pdTextState = new PDTextState();
@@ -75,7 +79,7 @@ class PDTextStateDiffblueTest {
     RenderingMode actualRenderingMode = pdTextState.getRenderingMode();
     float actualRise = pdTextState.getRise();
 
-    // Assert
+    // Assert that nothing has changed
     assertEquals(10.0f, actualCharacterSpacing);
     assertEquals(10.0f, actualFontSize);
     assertEquals(10.0f, actualHorizontalScaling);
@@ -88,39 +92,10 @@ class PDTextStateDiffblueTest {
   }
 
   /**
-   * Test {@link PDTextState#clone()}.
-   * <p>
-   * Method under test: {@link PDTextState#clone()}
+   * Method under test: default or parameterless constructor of
+   * {@link PDTextState}
    */
   @Test
-  @DisplayName("Test clone()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDTextState PDTextState.clone()"})
-  void testClone() {
-    // Arrange and Act
-    PDTextState actualCloneResult = (new PDTextState()).clone();
-
-    // Assert
-    assertNull(actualCloneResult.getFont());
-    assertEquals(0.0f, actualCloneResult.getCharacterSpacing());
-    assertEquals(0.0f, actualCloneResult.getFontSize());
-    assertEquals(0.0f, actualCloneResult.getLeading());
-    assertEquals(0.0f, actualCloneResult.getRise());
-    assertEquals(0.0f, actualCloneResult.getWordSpacing());
-    assertEquals(100.0f, actualCloneResult.getHorizontalScaling());
-    assertEquals(RenderingMode.FILL, actualCloneResult.getRenderingMode());
-    assertTrue(actualCloneResult.getKnockoutFlag());
-  }
-
-  /**
-   * Test new {@link PDTextState} (default constructor).
-   * <p>
-   * Method under test: default or parameterless constructor of {@link PDTextState}
-   */
-  @Test
-  @DisplayName("Test new PDTextState (default constructor)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDTextState.<init>()"})
   void testNewPDTextState() {
     // Arrange and Act
     PDTextState actualPdTextState = new PDTextState();

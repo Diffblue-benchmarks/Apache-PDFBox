@@ -5,26 +5,81 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.cos.COSIncrement;
 import org.apache.pdfbox.cos.COSUpdateState;
 import org.apache.pdfbox.pdmodel.PDResources;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class PDTransparencyGroupAttributesDiffblueTest {
   /**
-   * Test {@link PDTransparencyGroupAttributes#PDTransparencyGroupAttributes(COSDictionary)}.
-   * <p>
-   * Method under test: {@link PDTransparencyGroupAttributes#PDTransparencyGroupAttributes(COSDictionary)}
+   * Method under test: {@link PDTransparencyGroupAttributes#getCOSObject()}
    */
   @Test
-  @DisplayName("Test new PDTransparencyGroupAttributes(COSDictionary)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDTransparencyGroupAttributes.<init>(COSDictionary)"})
+  void testGetCOSObject() {
+    // Arrange and Act
+    COSDictionary actualCOSObject = (new PDTransparencyGroupAttributes()).getCOSObject();
+
+    // Assert
+    COSUpdateState updateState = actualCOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(actualCOSObject.getKey());
+    assertEquals(1, actualCOSObject.getValues().size());
+    assertEquals(1, actualCOSObject.size());
+    COSIncrement toIncrementResult = actualCOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(actualCOSObject.isDirect());
+    assertFalse(actualCOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+  }
+
+  /**
+   * Method under test: {@link PDTransparencyGroupAttributes#getColorSpace()}
+   */
+  @Test
+  void testGetColorSpace() throws IOException {
+    // Arrange, Act and Assert
+    assertNull((new PDTransparencyGroupAttributes()).getColorSpace());
+  }
+
+  /**
+   * Method under test:
+   * {@link PDTransparencyGroupAttributes#getColorSpace(PDResources)}
+   */
+  @Test
+  void testGetColorSpace2() throws IOException {
+    // Arrange
+    PDTransparencyGroupAttributes pdTransparencyGroupAttributes = new PDTransparencyGroupAttributes();
+
+    // Act and Assert
+    assertNull(pdTransparencyGroupAttributes.getColorSpace(new PDResources()));
+  }
+
+  /**
+   * Method under test: {@link PDTransparencyGroupAttributes#isIsolated()}
+   */
+  @Test
+  void testIsIsolated() {
+    // Arrange, Act and Assert
+    assertFalse((new PDTransparencyGroupAttributes()).isIsolated());
+  }
+
+  /**
+   * Method under test: {@link PDTransparencyGroupAttributes#isKnockout()}
+   */
+  @Test
+  void testIsKnockout() {
+    // Arrange, Act and Assert
+    assertFalse((new PDTransparencyGroupAttributes()).isKnockout());
+  }
+
+  /**
+   * Method under test:
+   * {@link PDTransparencyGroupAttributes#PDTransparencyGroupAttributes(COSDictionary)}
+   */
+  @Test
   void testNewPDTransparencyGroupAttributes() {
     // Arrange
     COSDictionary dic = new COSDictionary();
@@ -34,14 +89,10 @@ class PDTransparencyGroupAttributesDiffblueTest {
   }
 
   /**
-   * Test {@link PDTransparencyGroupAttributes#PDTransparencyGroupAttributes()}.
-   * <p>
-   * Method under test: {@link PDTransparencyGroupAttributes#PDTransparencyGroupAttributes()}
+   * Method under test:
+   * {@link PDTransparencyGroupAttributes#PDTransparencyGroupAttributes()}
    */
   @Test
-  @DisplayName("Test new PDTransparencyGroupAttributes()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDTransparencyGroupAttributes.<init>()"})
   void testNewPDTransparencyGroupAttributes2() throws IOException {
     // Arrange and Act
     PDTransparencyGroupAttributes actualPdTransparencyGroupAttributes = new PDTransparencyGroupAttributes();
@@ -62,105 +113,5 @@ class PDTransparencyGroupAttributesDiffblueTest {
     assertFalse(actualPdTransparencyGroupAttributes.isIsolated());
     assertFalse(actualPdTransparencyGroupAttributes.isKnockout());
     assertTrue(toIncrementResult.getObjects().isEmpty());
-  }
-
-  /**
-   * Test {@link PDTransparencyGroupAttributes#getCOSObject()}.
-   * <p>
-   * Method under test: {@link PDTransparencyGroupAttributes#getCOSObject()}
-   */
-  @Test
-  @DisplayName("Test getCOSObject()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"COSDictionary PDTransparencyGroupAttributes.getCOSObject()"})
-  void testGetCOSObject() {
-    // Arrange and Act
-    COSDictionary actualCOSObject = (new PDTransparencyGroupAttributes()).getCOSObject();
-
-    // Assert
-    COSUpdateState updateState = actualCOSObject.getUpdateState();
-    assertNull(updateState.getOriginDocumentState());
-    assertNull(actualCOSObject.getKey());
-    assertEquals(1, actualCOSObject.getValues().size());
-    assertEquals(1, actualCOSObject.size());
-    COSIncrement toIncrementResult = actualCOSObject.toIncrement();
-    assertFalse(toIncrementResult.iterator().hasNext());
-    assertFalse(actualCOSObject.isDirect());
-    assertFalse(actualCOSObject.isNeedToBeUpdated());
-    assertFalse(updateState.isUpdated());
-    assertTrue(toIncrementResult.getObjects().isEmpty());
-  }
-
-  /**
-   * Test {@link PDTransparencyGroupAttributes#getColorSpace(PDResources)} with {@code PDResources}.
-   * <p>
-   * Method under test: {@link PDTransparencyGroupAttributes#getColorSpace(PDResources)}
-   */
-  @Test
-  @DisplayName("Test getColorSpace(PDResources) with 'PDResources'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "org.apache.pdfbox.pdmodel.graphics.color.PDColorSpace PDTransparencyGroupAttributes.getColorSpace(PDResources)"})
-  void testGetColorSpaceWithPDResources() throws IOException {
-    // Arrange
-    PDTransparencyGroupAttributes pdTransparencyGroupAttributes = new PDTransparencyGroupAttributes();
-
-    // Act and Assert
-    assertNull(pdTransparencyGroupAttributes.getColorSpace(new PDResources()));
-  }
-
-  /**
-   * Test {@link PDTransparencyGroupAttributes#getColorSpace()}.
-   * <ul>
-   *   <li>Given {@link PDTransparencyGroupAttributes#PDTransparencyGroupAttributes()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDTransparencyGroupAttributes#getColorSpace()}
-   */
-  @Test
-  @DisplayName("Test getColorSpace(); given PDTransparencyGroupAttributes(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "org.apache.pdfbox.pdmodel.graphics.color.PDColorSpace PDTransparencyGroupAttributes.getColorSpace()"})
-  void testGetColorSpace_givenPDTransparencyGroupAttributes_thenReturnNull() throws IOException {
-    // Arrange, Act and Assert
-    assertNull((new PDTransparencyGroupAttributes()).getColorSpace());
-  }
-
-  /**
-   * Test {@link PDTransparencyGroupAttributes#isIsolated()}.
-   * <ul>
-   *   <li>Given {@link PDTransparencyGroupAttributes#PDTransparencyGroupAttributes()}.</li>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDTransparencyGroupAttributes#isIsolated()}
-   */
-  @Test
-  @DisplayName("Test isIsolated(); given PDTransparencyGroupAttributes(); then return 'false'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean PDTransparencyGroupAttributes.isIsolated()"})
-  void testIsIsolated_givenPDTransparencyGroupAttributes_thenReturnFalse() {
-    // Arrange, Act and Assert
-    assertFalse((new PDTransparencyGroupAttributes()).isIsolated());
-  }
-
-  /**
-   * Test {@link PDTransparencyGroupAttributes#isKnockout()}.
-   * <ul>
-   *   <li>Given {@link PDTransparencyGroupAttributes#PDTransparencyGroupAttributes()}.</li>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDTransparencyGroupAttributes#isKnockout()}
-   */
-  @Test
-  @DisplayName("Test isKnockout(); given PDTransparencyGroupAttributes(); then return 'false'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean PDTransparencyGroupAttributes.isKnockout()"})
-  void testIsKnockout_givenPDTransparencyGroupAttributes_thenReturnFalse() {
-    // Arrange, Act and Assert
-    assertFalse((new PDTransparencyGroupAttributes()).isKnockout());
   }
 }

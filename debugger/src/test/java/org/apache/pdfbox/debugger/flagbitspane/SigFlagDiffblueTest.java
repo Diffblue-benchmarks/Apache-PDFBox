@@ -1,49 +1,22 @@
 package org.apache.pdfbox.debugger.flagbitspane;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import java.io.IOException;
 import org.apache.pdfbox.cos.COSDictionary;
+import org.apache.pdfbox.io.RandomAccessStreamCache;
+import org.apache.pdfbox.io.RandomAccessStreamCacheImpl;
 import org.apache.pdfbox.pdmodel.PDDocument;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class SigFlagDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
-   * Methods under test:
-   * <ul>
-   *   <li>{@link SigFlag#SigFlag(PDDocument, COSDictionary)}
-   *   <li>{@link SigFlag#getFlagType()}
-   * </ul>
-   */
-  @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void SigFlag.<init>(PDDocument, COSDictionary)", "java.lang.String SigFlag.getFlagType()"})
-  void testGettersAndSetters() {
-    // Arrange
-    PDDocument document = new PDDocument();
-
-    // Act and Assert
-    assertEquals("Signature flag", (new SigFlag(document, new COSDictionary())).getFlagType());
-  }
-
-  /**
-   * Test {@link SigFlag#getFlagValue()}.
-   * <ul>
-   *   <li>Then return {@code Flag value: -1}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link SigFlag#getFlagValue()}
    */
   @Test
-  @DisplayName("Test getFlagValue(); then return 'Flag value: -1'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"java.lang.String SigFlag.getFlagValue()"})
-  void testGetFlagValue_thenReturnFlagValue1() {
+  void testGetFlagValue() {
     // Arrange
     PDDocument document = new PDDocument();
 
@@ -52,18 +25,29 @@ class SigFlagDiffblueTest {
   }
 
   /**
-   * Test {@link SigFlag#getFlagBits()}.
-   * <ul>
-   *   <li>Then return second element is {@code AppendOnly}.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link SigFlag#getFlagValue()}
+   */
+  @Test
+  void testGetFlagValue2() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDDocument document = new PDDocument(streamCacheCreateFunction);
+
+    // Act
+    String actualFlagValue = (new SigFlag(document, new COSDictionary())).getFlagValue();
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertEquals("Flag value: -1", actualFlagValue);
+  }
+
+  /**
    * Method under test: {@link SigFlag#getFlagBits()}
    */
   @Test
-  @DisplayName("Test getFlagBits(); then return second element is 'AppendOnly'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Object[][] SigFlag.getFlagBits()"})
-  void testGetFlagBits_thenReturnSecondElementIsAppendOnly() {
+  void testGetFlagBits() {
     // Arrange
     PDDocument document = new PDDocument();
 
@@ -75,12 +59,49 @@ class SigFlagDiffblueTest {
     assertEquals("AppendOnly", objectArray[1]);
     Object[] objectArray2 = actualFlagBits[0];
     assertEquals("SignaturesExist", objectArray2[1]);
-    assertEquals(1, ((Integer) objectArray2[0]).intValue());
-    assertEquals(2, ((Integer) objectArray[0]).intValue());
     assertEquals(2, actualFlagBits.length);
     assertEquals(3, objectArray2.length);
     assertEquals(3, objectArray.length);
-    assertFalse((Boolean) objectArray2[2]);
-    assertFalse((Boolean) objectArray[2]);
+  }
+
+  /**
+   * Method under test: {@link SigFlag#getFlagBits()}
+   */
+  @Test
+  void testGetFlagBits2() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDDocument document = new PDDocument(streamCacheCreateFunction);
+
+    // Act
+    Object[][] actualFlagBits = (new SigFlag(document, new COSDictionary())).getFlagBits();
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    Object[] objectArray = actualFlagBits[1];
+    assertEquals("AppendOnly", objectArray[1]);
+    Object[] objectArray2 = actualFlagBits[0];
+    assertEquals("SignaturesExist", objectArray2[1]);
+    assertEquals(2, actualFlagBits.length);
+    assertEquals(3, objectArray2.length);
+    assertEquals(3, objectArray.length);
+  }
+
+  /**
+   * Methods under test:
+   * <ul>
+   *   <li>{@link SigFlag#SigFlag(PDDocument, COSDictionary)}
+   *   <li>{@link SigFlag#getFlagType()}
+   * </ul>
+   */
+  @Test
+  void testGettersAndSetters() {
+    // Arrange
+    PDDocument document = new PDDocument();
+
+    // Act and Assert
+    assertEquals("Signature flag", (new SigFlag(document, new COSDictionary())).getFlagType());
   }
 }

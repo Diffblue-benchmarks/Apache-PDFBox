@@ -12,7 +12,6 @@ import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import org.apache.pdfbox.cos.COSArray;
 import org.apache.pdfbox.cos.COSBoolean;
@@ -24,22 +23,323 @@ import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.font.encoding.Encoding;
 import org.apache.pdfbox.pdmodel.font.encoding.GlyphList;
 import org.apache.pdfbox.pdmodel.font.encoding.StandardEncoding;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 class PDSimpleFontDiffblueTest {
   /**
-   * Test {@link PDSimpleFont#readEncoding()}.
-   * <p>
    * Method under test: {@link PDSimpleFont#readEncoding()}
    */
   @Test
-  @DisplayName("Test readEncoding()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDSimpleFont.readEncoding()"})
   void testReadEncoding() throws IOException {
+    // Arrange
+    COSDictionary fontDictionary = mock(COSDictionary.class);
+    when(fontDictionary.getNameAsString(Mockito.<COSName>any())).thenReturn("Name As String");
+    when(fontDictionary.getDictionaryObject(Mockito.<COSName>any())).thenReturn(COSBoolean.FALSE);
+    when(fontDictionary.getCOSDictionary(Mockito.<COSName>any())).thenReturn(new COSDictionary());
+
+    // Act
+    (new PDMMType1Font(fontDictionary)).readEncoding();
+
+    // Assert
+    verify(fontDictionary).getCOSDictionary(isA(COSName.class));
+    verify(fontDictionary, atLeast(1)).getDictionaryObject(Mockito.<COSName>any());
+    verify(fontDictionary, atLeast(1)).getNameAsString(isA(COSName.class));
+  }
+
+  /**
+   * Method under test: {@link PDSimpleFont#readEncoding()}
+   */
+  @Test
+  void testReadEncoding2() throws IOException {
+    // Arrange
+    COSDictionary fontDictionary = mock(COSDictionary.class);
+    when(fontDictionary.getNameAsString(Mockito.<COSName>any())).thenReturn("Name As String");
+    when(fontDictionary.getDictionaryObject(Mockito.<COSName>any())).thenReturn(COSName.A);
+    when(fontDictionary.getCOSDictionary(Mockito.<COSName>any())).thenReturn(new COSDictionary());
+
+    // Act
+    (new PDMMType1Font(fontDictionary)).readEncoding();
+
+    // Assert
+    verify(fontDictionary).getCOSDictionary(isA(COSName.class));
+    verify(fontDictionary, atLeast(1)).getDictionaryObject(Mockito.<COSName>any());
+    verify(fontDictionary, atLeast(1)).getNameAsString(isA(COSName.class));
+  }
+
+  /**
+   * Method under test: {@link PDSimpleFont#readEncoding()}
+   */
+  @Test
+  void testReadEncoding3() throws IOException {
+    // Arrange
+    COSDictionary fontDictionary = mock(COSDictionary.class);
+    when(fontDictionary.getNameAsString(Mockito.<COSName>any())).thenReturn("Name As String");
+    when(fontDictionary.getDictionaryObject(Mockito.<COSName>any())).thenReturn(new COSDictionary());
+    when(fontDictionary.getCOSDictionary(Mockito.<COSName>any())).thenReturn(new COSDictionary());
+
+    // Act
+    (new PDMMType1Font(fontDictionary)).readEncoding();
+
+    // Assert
+    verify(fontDictionary).getCOSDictionary(isA(COSName.class));
+    verify(fontDictionary, atLeast(1)).getDictionaryObject(Mockito.<COSName>any());
+    verify(fontDictionary, atLeast(1)).getNameAsString(isA(COSName.class));
+  }
+
+  /**
+   * Method under test: {@link PDSimpleFont#readEncoding()}
+   */
+  @Test
+  void testReadEncoding4() throws IOException {
+    // Arrange
+    COSDictionary cosDictionary = mock(COSDictionary.class);
+    when(cosDictionary.containsKey(Mockito.<COSName>any())).thenReturn(true);
+    when(cosDictionary.getCOSArray(Mockito.<COSName>any())).thenReturn(new COSArray());
+    when(cosDictionary.getCOSName(Mockito.<COSName>any())).thenReturn(COSName.A);
+    COSDictionary fontDictionary = mock(COSDictionary.class);
+    when(fontDictionary.getNameAsString(Mockito.<COSName>any())).thenReturn("Name As String");
+    when(fontDictionary.getDictionaryObject(Mockito.<COSName>any())).thenReturn(cosDictionary);
+    when(fontDictionary.getCOSDictionary(Mockito.<COSName>any())).thenReturn(new COSDictionary());
+
+    // Act
+    (new PDMMType1Font(fontDictionary)).readEncoding();
+
+    // Assert
+    verify(cosDictionary, atLeast(1)).containsKey(isA(COSName.class));
+    verify(cosDictionary, atLeast(1)).getCOSArray(isA(COSName.class));
+    verify(fontDictionary).getCOSDictionary(isA(COSName.class));
+    verify(cosDictionary, atLeast(1)).getCOSName(isA(COSName.class));
+    verify(fontDictionary, atLeast(1)).getDictionaryObject(Mockito.<COSName>any());
+    verify(fontDictionary, atLeast(1)).getNameAsString(isA(COSName.class));
+  }
+
+  /**
+   * Method under test: {@link PDSimpleFont#readEncoding()}
+   */
+  @Test
+  void testReadEncoding5() throws IOException {
+    // Arrange
+    COSArray cosArray = new COSArray();
+    cosArray.add(COSBoolean.FALSE);
+    COSDictionary cosDictionary = mock(COSDictionary.class);
+    when(cosDictionary.containsKey(Mockito.<COSName>any())).thenReturn(true);
+    when(cosDictionary.getCOSArray(Mockito.<COSName>any())).thenReturn(cosArray);
+    when(cosDictionary.getCOSName(Mockito.<COSName>any())).thenReturn(COSName.A);
+    COSDictionary fontDictionary = mock(COSDictionary.class);
+    when(fontDictionary.getNameAsString(Mockito.<COSName>any())).thenReturn("Name As String");
+    when(fontDictionary.getDictionaryObject(Mockito.<COSName>any())).thenReturn(cosDictionary);
+    when(fontDictionary.getCOSDictionary(Mockito.<COSName>any())).thenReturn(new COSDictionary());
+
+    // Act
+    (new PDMMType1Font(fontDictionary)).readEncoding();
+
+    // Assert
+    verify(cosDictionary, atLeast(1)).containsKey(isA(COSName.class));
+    verify(cosDictionary, atLeast(1)).getCOSArray(isA(COSName.class));
+    verify(fontDictionary).getCOSDictionary(isA(COSName.class));
+    verify(cosDictionary, atLeast(1)).getCOSName(isA(COSName.class));
+    verify(fontDictionary, atLeast(1)).getDictionaryObject(Mockito.<COSName>any());
+    verify(fontDictionary, atLeast(1)).getNameAsString(isA(COSName.class));
+  }
+
+  /**
+   * Method under test: {@link PDSimpleFont#readEncoding()}
+   */
+  @Test
+  void testReadEncoding6() throws IOException {
+    // Arrange
+    COSArray cosArray = mock(COSArray.class);
+    when(cosArray.getObject(anyInt())).thenReturn(COSBoolean.FALSE);
+    when(cosArray.size()).thenReturn(3);
+    COSDictionary cosDictionary = mock(COSDictionary.class);
+    when(cosDictionary.containsKey(Mockito.<COSName>any())).thenReturn(true);
+    when(cosDictionary.getCOSArray(Mockito.<COSName>any())).thenReturn(cosArray);
+    when(cosDictionary.getCOSName(Mockito.<COSName>any())).thenReturn(COSName.A);
+    COSDictionary fontDictionary = mock(COSDictionary.class);
+    when(fontDictionary.getNameAsString(Mockito.<COSName>any())).thenReturn("Name As String");
+    when(fontDictionary.getDictionaryObject(Mockito.<COSName>any())).thenReturn(cosDictionary);
+    when(fontDictionary.getCOSDictionary(Mockito.<COSName>any())).thenReturn(new COSDictionary());
+
+    // Act
+    (new PDMMType1Font(fontDictionary)).readEncoding();
+
+    // Assert
+    verify(cosArray, atLeast(1)).getObject(anyInt());
+    verify(cosArray, atLeast(1)).size();
+    verify(cosDictionary, atLeast(1)).containsKey(isA(COSName.class));
+    verify(cosDictionary, atLeast(1)).getCOSArray(isA(COSName.class));
+    verify(fontDictionary).getCOSDictionary(isA(COSName.class));
+    verify(cosDictionary, atLeast(1)).getCOSName(isA(COSName.class));
+    verify(fontDictionary, atLeast(1)).getDictionaryObject(Mockito.<COSName>any());
+    verify(fontDictionary, atLeast(1)).getNameAsString(isA(COSName.class));
+  }
+
+  /**
+   * Method under test: {@link PDSimpleFont#readEncoding()}
+   */
+  @Test
+  void testReadEncoding7() throws IOException {
+    // Arrange
+    COSArray cosArray = mock(COSArray.class);
+    when(cosArray.getObject(anyInt())).thenReturn(COSFloat.ONE);
+    when(cosArray.size()).thenReturn(3);
+    COSDictionary cosDictionary = mock(COSDictionary.class);
+    when(cosDictionary.containsKey(Mockito.<COSName>any())).thenReturn(true);
+    when(cosDictionary.getCOSArray(Mockito.<COSName>any())).thenReturn(cosArray);
+    when(cosDictionary.getCOSName(Mockito.<COSName>any())).thenReturn(COSName.A);
+    COSDictionary fontDictionary = mock(COSDictionary.class);
+    when(fontDictionary.getNameAsString(Mockito.<COSName>any())).thenReturn("Name As String");
+    when(fontDictionary.getDictionaryObject(Mockito.<COSName>any())).thenReturn(cosDictionary);
+    when(fontDictionary.getCOSDictionary(Mockito.<COSName>any())).thenReturn(new COSDictionary());
+
+    // Act
+    (new PDMMType1Font(fontDictionary)).readEncoding();
+
+    // Assert
+    verify(cosArray, atLeast(1)).getObject(anyInt());
+    verify(cosArray, atLeast(1)).size();
+    verify(cosDictionary, atLeast(1)).containsKey(isA(COSName.class));
+    verify(cosDictionary, atLeast(1)).getCOSArray(isA(COSName.class));
+    verify(fontDictionary).getCOSDictionary(isA(COSName.class));
+    verify(cosDictionary, atLeast(1)).getCOSName(isA(COSName.class));
+    verify(fontDictionary, atLeast(1)).getDictionaryObject(Mockito.<COSName>any());
+    verify(fontDictionary, atLeast(1)).getNameAsString(isA(COSName.class));
+  }
+
+  /**
+   * Method under test: {@link PDSimpleFont#readEncoding()}
+   */
+  @Test
+  void testReadEncoding8() throws IOException {
+    // Arrange
+    COSArray cosArray = mock(COSArray.class);
+    when(cosArray.getObject(anyInt())).thenReturn(COSInteger.ONE);
+    when(cosArray.size()).thenReturn(3);
+    COSDictionary cosDictionary = mock(COSDictionary.class);
+    when(cosDictionary.containsKey(Mockito.<COSName>any())).thenReturn(true);
+    when(cosDictionary.getCOSArray(Mockito.<COSName>any())).thenReturn(cosArray);
+    when(cosDictionary.getCOSName(Mockito.<COSName>any())).thenReturn(COSName.A);
+    COSDictionary fontDictionary = mock(COSDictionary.class);
+    when(fontDictionary.getNameAsString(Mockito.<COSName>any())).thenReturn("Name As String");
+    when(fontDictionary.getDictionaryObject(Mockito.<COSName>any())).thenReturn(cosDictionary);
+    when(fontDictionary.getCOSDictionary(Mockito.<COSName>any())).thenReturn(new COSDictionary());
+
+    // Act
+    (new PDMMType1Font(fontDictionary)).readEncoding();
+
+    // Assert
+    verify(cosArray, atLeast(1)).getObject(anyInt());
+    verify(cosArray, atLeast(1)).size();
+    verify(cosDictionary, atLeast(1)).containsKey(isA(COSName.class));
+    verify(cosDictionary, atLeast(1)).getCOSArray(isA(COSName.class));
+    verify(fontDictionary).getCOSDictionary(isA(COSName.class));
+    verify(cosDictionary, atLeast(1)).getCOSName(isA(COSName.class));
+    verify(fontDictionary, atLeast(1)).getDictionaryObject(Mockito.<COSName>any());
+    verify(fontDictionary, atLeast(1)).getNameAsString(isA(COSName.class));
+  }
+
+  /**
+   * Method under test: {@link PDSimpleFont#readEncoding()}
+   */
+  @Test
+  void testReadEncoding9() throws IOException {
+    // Arrange
+    COSArray cosArray = mock(COSArray.class);
+    when(cosArray.getObject(anyInt())).thenReturn(COSName.A);
+    when(cosArray.size()).thenReturn(3);
+    COSDictionary cosDictionary = mock(COSDictionary.class);
+    when(cosDictionary.containsKey(Mockito.<COSName>any())).thenReturn(true);
+    when(cosDictionary.getCOSArray(Mockito.<COSName>any())).thenReturn(cosArray);
+    when(cosDictionary.getCOSName(Mockito.<COSName>any())).thenReturn(COSName.A);
+    COSDictionary fontDictionary = mock(COSDictionary.class);
+    when(fontDictionary.getNameAsString(Mockito.<COSName>any())).thenReturn("Name As String");
+    when(fontDictionary.getDictionaryObject(Mockito.<COSName>any())).thenReturn(cosDictionary);
+    when(fontDictionary.getCOSDictionary(Mockito.<COSName>any())).thenReturn(new COSDictionary());
+
+    // Act
+    (new PDMMType1Font(fontDictionary)).readEncoding();
+
+    // Assert
+    verify(cosArray, atLeast(1)).getObject(anyInt());
+    verify(cosArray, atLeast(1)).size();
+    verify(cosDictionary, atLeast(1)).containsKey(isA(COSName.class));
+    verify(cosDictionary, atLeast(1)).getCOSArray(isA(COSName.class));
+    verify(fontDictionary).getCOSDictionary(isA(COSName.class));
+    verify(cosDictionary, atLeast(1)).getCOSName(isA(COSName.class));
+    verify(fontDictionary, atLeast(1)).getDictionaryObject(Mockito.<COSName>any());
+    verify(fontDictionary, atLeast(1)).getNameAsString(isA(COSName.class));
+  }
+
+  /**
+   * Method under test: {@link PDSimpleFont#readEncoding()}
+   */
+  @Test
+  void testReadEncoding10() throws IOException {
+    // Arrange
+    COSArray cosArray = mock(COSArray.class);
+    when(cosArray.getObject(anyInt())).thenReturn(COSBoolean.FALSE);
+    when(cosArray.size()).thenReturn(3);
+    COSDictionary cosDictionary = mock(COSDictionary.class);
+    when(cosDictionary.containsKey(Mockito.<COSName>any())).thenReturn(true);
+    when(cosDictionary.getCOSArray(Mockito.<COSName>any())).thenReturn(cosArray);
+    when(cosDictionary.getCOSName(Mockito.<COSName>any())).thenReturn(null);
+    COSDictionary fontDictionary = mock(COSDictionary.class);
+    when(fontDictionary.getNameAsString(Mockito.<COSName>any())).thenReturn("Name As String");
+    when(fontDictionary.getDictionaryObject(Mockito.<COSName>any())).thenReturn(cosDictionary);
+    when(fontDictionary.getCOSDictionary(Mockito.<COSName>any())).thenReturn(new COSDictionary());
+
+    // Act
+    (new PDMMType1Font(fontDictionary)).readEncoding();
+
+    // Assert
+    verify(cosArray, atLeast(1)).getObject(anyInt());
+    verify(cosArray, atLeast(1)).size();
+    verify(cosDictionary, atLeast(1)).containsKey(isA(COSName.class));
+    verify(cosDictionary, atLeast(1)).getCOSArray(isA(COSName.class));
+    verify(fontDictionary).getCOSDictionary(isA(COSName.class));
+    verify(cosDictionary, atLeast(1)).getCOSName(isA(COSName.class));
+    verify(fontDictionary, atLeast(1)).getDictionaryObject(Mockito.<COSName>any());
+    verify(fontDictionary, atLeast(1)).getNameAsString(isA(COSName.class));
+  }
+
+  /**
+   * Method under test: {@link PDSimpleFont#readEncoding()}
+   */
+  @Test
+  void testReadEncoding11() throws IOException {
+    // Arrange
+    COSArray cosArray = mock(COSArray.class);
+    when(cosArray.getObject(anyInt())).thenReturn(COSBoolean.FALSE);
+    when(cosArray.size()).thenReturn(3);
+    COSDictionary cosDictionary = mock(COSDictionary.class);
+    when(cosDictionary.containsKey(Mockito.<COSName>any())).thenReturn(true);
+    when(cosDictionary.getCOSArray(Mockito.<COSName>any())).thenReturn(cosArray);
+    when(cosDictionary.getCOSName(Mockito.<COSName>any())).thenReturn(COSName.A);
+    COSDictionary fontDictionary = mock(COSDictionary.class);
+    when(fontDictionary.getNameAsString(Mockito.<COSName>any())).thenReturn("Name As String");
+    when(fontDictionary.getDictionaryObject(Mockito.<COSName>any())).thenReturn(cosDictionary);
+    when(fontDictionary.getCOSDictionary(Mockito.<COSName>any())).thenReturn(null);
+
+    // Act
+    (new PDMMType1Font(fontDictionary)).readEncoding();
+
+    // Assert
+    verify(cosArray, atLeast(1)).getObject(anyInt());
+    verify(cosArray, atLeast(1)).size();
+    verify(cosDictionary, atLeast(1)).containsKey(isA(COSName.class));
+    verify(cosDictionary, atLeast(1)).getCOSArray(isA(COSName.class));
+    verify(fontDictionary).getCOSDictionary(isA(COSName.class));
+    verify(cosDictionary, atLeast(1)).getCOSName(isA(COSName.class));
+    verify(fontDictionary, atLeast(1)).getDictionaryObject(Mockito.<COSName>any());
+    verify(fontDictionary, atLeast(1)).getNameAsString(isA(COSName.class));
+  }
+
+  /**
+   * Method under test: {@link PDSimpleFont#readEncoding()}
+   */
+  @Test
+  void testReadEncoding12() throws IOException {
     // Arrange
     COSArray cosArray = mock(COSArray.class);
     when(cosArray.getObject(anyInt())).thenReturn(COSBoolean.FALSE);
@@ -71,221 +371,10 @@ class PDSimpleFontDiffblueTest {
   }
 
   /**
-   * Test {@link PDSimpleFont#readEncoding()}.
-   * <ul>
-   *   <li>Given {@link COSArray#COSArray()} add {@link COSBoolean#FALSE}.</li>
-   *   <li>Then calls {@link COSDictionary#containsKey(COSName)}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDSimpleFont#readEncoding()}
    */
   @Test
-  @DisplayName("Test readEncoding(); given COSArray() add FALSE; then calls containsKey(COSName)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDSimpleFont.readEncoding()"})
-  void testReadEncoding_givenCOSArrayAddFalse_thenCallsContainsKey() throws IOException {
-    // Arrange
-    COSArray cosArray = new COSArray();
-    cosArray.add(COSBoolean.FALSE);
-    COSDictionary cosDictionary = mock(COSDictionary.class);
-    when(cosDictionary.containsKey(Mockito.<COSName>any())).thenReturn(true);
-    when(cosDictionary.getCOSArray(Mockito.<COSName>any())).thenReturn(cosArray);
-    when(cosDictionary.getCOSName(Mockito.<COSName>any())).thenReturn(COSName.A);
-    COSDictionary fontDictionary = mock(COSDictionary.class);
-    when(fontDictionary.getNameAsString(Mockito.<COSName>any())).thenReturn("Name As String");
-    when(fontDictionary.getDictionaryObject(Mockito.<COSName>any())).thenReturn(cosDictionary);
-    when(fontDictionary.getCOSDictionary(Mockito.<COSName>any())).thenReturn(new COSDictionary());
-
-    // Act
-    (new PDMMType1Font(fontDictionary)).readEncoding();
-
-    // Assert
-    verify(cosDictionary, atLeast(1)).containsKey(isA(COSName.class));
-    verify(cosDictionary, atLeast(1)).getCOSArray(isA(COSName.class));
-    verify(fontDictionary).getCOSDictionary(isA(COSName.class));
-    verify(cosDictionary, atLeast(1)).getCOSName(isA(COSName.class));
-    verify(fontDictionary, atLeast(1)).getDictionaryObject(Mockito.<COSName>any());
-    verify(fontDictionary, atLeast(1)).getNameAsString(isA(COSName.class));
-  }
-
-  /**
-   * Test {@link PDSimpleFont#readEncoding()}.
-   * <ul>
-   *   <li>Given {@link COSArray} {@link COSArray#getObject(int)} return {@link COSName#A}.</li>
-   *   <li>Then calls {@link COSArray#getObject(int)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDSimpleFont#readEncoding()}
-   */
-  @Test
-  @DisplayName("Test readEncoding(); given COSArray getObject(int) return A; then calls getObject(int)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDSimpleFont.readEncoding()"})
-  void testReadEncoding_givenCOSArrayGetObjectReturnA_thenCallsGetObject() throws IOException {
-    // Arrange
-    COSArray cosArray = mock(COSArray.class);
-    when(cosArray.getObject(anyInt())).thenReturn(COSName.A);
-    when(cosArray.size()).thenReturn(3);
-    COSDictionary cosDictionary = mock(COSDictionary.class);
-    when(cosDictionary.containsKey(Mockito.<COSName>any())).thenReturn(true);
-    when(cosDictionary.getCOSArray(Mockito.<COSName>any())).thenReturn(cosArray);
-    when(cosDictionary.getCOSName(Mockito.<COSName>any())).thenReturn(COSName.A);
-    COSDictionary fontDictionary = mock(COSDictionary.class);
-    when(fontDictionary.getNameAsString(Mockito.<COSName>any())).thenReturn("Name As String");
-    when(fontDictionary.getDictionaryObject(Mockito.<COSName>any())).thenReturn(cosDictionary);
-    when(fontDictionary.getCOSDictionary(Mockito.<COSName>any())).thenReturn(new COSDictionary());
-
-    // Act
-    (new PDMMType1Font(fontDictionary)).readEncoding();
-
-    // Assert
-    verify(cosArray, atLeast(1)).getObject(anyInt());
-    verify(cosArray, atLeast(1)).size();
-    verify(cosDictionary, atLeast(1)).containsKey(isA(COSName.class));
-    verify(cosDictionary, atLeast(1)).getCOSArray(isA(COSName.class));
-    verify(fontDictionary).getCOSDictionary(isA(COSName.class));
-    verify(cosDictionary, atLeast(1)).getCOSName(isA(COSName.class));
-    verify(fontDictionary, atLeast(1)).getDictionaryObject(Mockito.<COSName>any());
-    verify(fontDictionary, atLeast(1)).getNameAsString(isA(COSName.class));
-  }
-
-  /**
-   * Test {@link PDSimpleFont#readEncoding()}.
-   * <ul>
-   *   <li>Given {@link COSArray} {@link COSArray#getObject(int)} return {@link COSBoolean#FALSE}.</li>
-   *   <li>Then calls {@link COSArray#getObject(int)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDSimpleFont#readEncoding()}
-   */
-  @Test
-  @DisplayName("Test readEncoding(); given COSArray getObject(int) return FALSE; then calls getObject(int)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDSimpleFont.readEncoding()"})
-  void testReadEncoding_givenCOSArrayGetObjectReturnFalse_thenCallsGetObject() throws IOException {
-    // Arrange
-    COSArray cosArray = mock(COSArray.class);
-    when(cosArray.getObject(anyInt())).thenReturn(COSBoolean.FALSE);
-    when(cosArray.size()).thenReturn(3);
-    COSDictionary cosDictionary = mock(COSDictionary.class);
-    when(cosDictionary.containsKey(Mockito.<COSName>any())).thenReturn(true);
-    when(cosDictionary.getCOSArray(Mockito.<COSName>any())).thenReturn(cosArray);
-    when(cosDictionary.getCOSName(Mockito.<COSName>any())).thenReturn(COSName.A);
-    COSDictionary fontDictionary = mock(COSDictionary.class);
-    when(fontDictionary.getNameAsString(Mockito.<COSName>any())).thenReturn("Name As String");
-    when(fontDictionary.getDictionaryObject(Mockito.<COSName>any())).thenReturn(cosDictionary);
-    when(fontDictionary.getCOSDictionary(Mockito.<COSName>any())).thenReturn(new COSDictionary());
-
-    // Act
-    (new PDMMType1Font(fontDictionary)).readEncoding();
-
-    // Assert
-    verify(cosArray, atLeast(1)).getObject(anyInt());
-    verify(cosArray, atLeast(1)).size();
-    verify(cosDictionary, atLeast(1)).containsKey(isA(COSName.class));
-    verify(cosDictionary, atLeast(1)).getCOSArray(isA(COSName.class));
-    verify(fontDictionary).getCOSDictionary(isA(COSName.class));
-    verify(cosDictionary, atLeast(1)).getCOSName(isA(COSName.class));
-    verify(fontDictionary, atLeast(1)).getDictionaryObject(Mockito.<COSName>any());
-    verify(fontDictionary, atLeast(1)).getNameAsString(isA(COSName.class));
-  }
-
-  /**
-   * Test {@link PDSimpleFont#readEncoding()}.
-   * <ul>
-   *   <li>Given {@link COSArray} {@link COSArray#getObject(int)} return {@link COSFloat#ONE}.</li>
-   *   <li>Then calls {@link COSArray#getObject(int)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDSimpleFont#readEncoding()}
-   */
-  @Test
-  @DisplayName("Test readEncoding(); given COSArray getObject(int) return ONE; then calls getObject(int)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDSimpleFont.readEncoding()"})
-  void testReadEncoding_givenCOSArrayGetObjectReturnOne_thenCallsGetObject() throws IOException {
-    // Arrange
-    COSArray cosArray = mock(COSArray.class);
-    when(cosArray.getObject(anyInt())).thenReturn(COSFloat.ONE);
-    when(cosArray.size()).thenReturn(3);
-    COSDictionary cosDictionary = mock(COSDictionary.class);
-    when(cosDictionary.containsKey(Mockito.<COSName>any())).thenReturn(true);
-    when(cosDictionary.getCOSArray(Mockito.<COSName>any())).thenReturn(cosArray);
-    when(cosDictionary.getCOSName(Mockito.<COSName>any())).thenReturn(COSName.A);
-    COSDictionary fontDictionary = mock(COSDictionary.class);
-    when(fontDictionary.getNameAsString(Mockito.<COSName>any())).thenReturn("Name As String");
-    when(fontDictionary.getDictionaryObject(Mockito.<COSName>any())).thenReturn(cosDictionary);
-    when(fontDictionary.getCOSDictionary(Mockito.<COSName>any())).thenReturn(new COSDictionary());
-
-    // Act
-    (new PDMMType1Font(fontDictionary)).readEncoding();
-
-    // Assert
-    verify(cosArray, atLeast(1)).getObject(anyInt());
-    verify(cosArray, atLeast(1)).size();
-    verify(cosDictionary, atLeast(1)).containsKey(isA(COSName.class));
-    verify(cosDictionary, atLeast(1)).getCOSArray(isA(COSName.class));
-    verify(fontDictionary).getCOSDictionary(isA(COSName.class));
-    verify(cosDictionary, atLeast(1)).getCOSName(isA(COSName.class));
-    verify(fontDictionary, atLeast(1)).getDictionaryObject(Mockito.<COSName>any());
-    verify(fontDictionary, atLeast(1)).getNameAsString(isA(COSName.class));
-  }
-
-  /**
-   * Test {@link PDSimpleFont#readEncoding()}.
-   * <ul>
-   *   <li>Given {@link COSArray} {@link COSArray#getObject(int)} return {@link COSInteger#ONE}.</li>
-   *   <li>Then calls {@link COSArray#getObject(int)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDSimpleFont#readEncoding()}
-   */
-  @Test
-  @DisplayName("Test readEncoding(); given COSArray getObject(int) return ONE; then calls getObject(int)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDSimpleFont.readEncoding()"})
-  void testReadEncoding_givenCOSArrayGetObjectReturnOne_thenCallsGetObject2() throws IOException {
-    // Arrange
-    COSArray cosArray = mock(COSArray.class);
-    when(cosArray.getObject(anyInt())).thenReturn(COSInteger.ONE);
-    when(cosArray.size()).thenReturn(3);
-    COSDictionary cosDictionary = mock(COSDictionary.class);
-    when(cosDictionary.containsKey(Mockito.<COSName>any())).thenReturn(true);
-    when(cosDictionary.getCOSArray(Mockito.<COSName>any())).thenReturn(cosArray);
-    when(cosDictionary.getCOSName(Mockito.<COSName>any())).thenReturn(COSName.A);
-    COSDictionary fontDictionary = mock(COSDictionary.class);
-    when(fontDictionary.getNameAsString(Mockito.<COSName>any())).thenReturn("Name As String");
-    when(fontDictionary.getDictionaryObject(Mockito.<COSName>any())).thenReturn(cosDictionary);
-    when(fontDictionary.getCOSDictionary(Mockito.<COSName>any())).thenReturn(new COSDictionary());
-
-    // Act
-    (new PDMMType1Font(fontDictionary)).readEncoding();
-
-    // Assert
-    verify(cosArray, atLeast(1)).getObject(anyInt());
-    verify(cosArray, atLeast(1)).size();
-    verify(cosDictionary, atLeast(1)).containsKey(isA(COSName.class));
-    verify(cosDictionary, atLeast(1)).getCOSArray(isA(COSName.class));
-    verify(fontDictionary).getCOSDictionary(isA(COSName.class));
-    verify(cosDictionary, atLeast(1)).getCOSName(isA(COSName.class));
-    verify(fontDictionary, atLeast(1)).getDictionaryObject(Mockito.<COSName>any());
-    verify(fontDictionary, atLeast(1)).getNameAsString(isA(COSName.class));
-  }
-
-  /**
-   * Test {@link PDSimpleFont#readEncoding()}.
-   * <ul>
-   *   <li>Given {@link COSArray} {@link COSArray#size()} return two hundred fifty.</li>
-   *   <li>Then calls {@link COSArray#getObject(int)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDSimpleFont#readEncoding()}
-   */
-  @Test
-  @DisplayName("Test readEncoding(); given COSArray size() return two hundred fifty; then calls getObject(int)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDSimpleFont.readEncoding()"})
-  void testReadEncoding_givenCOSArraySizeReturnTwoHundredFifty_thenCallsGetObject() throws IOException {
+  void testReadEncoding13() throws IOException {
     // Arrange
     COSArray cosArray = mock(COSArray.class);
     when(cosArray.getObject(anyInt())).thenReturn(COSName.A);
@@ -314,215 +403,9 @@ class PDSimpleFontDiffblueTest {
   }
 
   /**
-   * Test {@link PDSimpleFont#readEncoding()}.
-   * <ul>
-   *   <li>Given {@link COSDictionary} {@link COSDictionary#getCOSArray(COSName)} return {@link COSArray#COSArray()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDSimpleFont#readEncoding()}
-   */
-  @Test
-  @DisplayName("Test readEncoding(); given COSDictionary getCOSArray(COSName) return COSArray()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDSimpleFont.readEncoding()"})
-  void testReadEncoding_givenCOSDictionaryGetCOSArrayReturnCOSArray() throws IOException {
-    // Arrange
-    COSDictionary cosDictionary = mock(COSDictionary.class);
-    when(cosDictionary.containsKey(Mockito.<COSName>any())).thenReturn(true);
-    when(cosDictionary.getCOSArray(Mockito.<COSName>any())).thenReturn(new COSArray());
-    when(cosDictionary.getCOSName(Mockito.<COSName>any())).thenReturn(COSName.A);
-    COSDictionary fontDictionary = mock(COSDictionary.class);
-    when(fontDictionary.getNameAsString(Mockito.<COSName>any())).thenReturn("Name As String");
-    when(fontDictionary.getDictionaryObject(Mockito.<COSName>any())).thenReturn(cosDictionary);
-    when(fontDictionary.getCOSDictionary(Mockito.<COSName>any())).thenReturn(new COSDictionary());
-
-    // Act
-    (new PDMMType1Font(fontDictionary)).readEncoding();
-
-    // Assert
-    verify(cosDictionary, atLeast(1)).containsKey(isA(COSName.class));
-    verify(cosDictionary, atLeast(1)).getCOSArray(isA(COSName.class));
-    verify(fontDictionary).getCOSDictionary(isA(COSName.class));
-    verify(cosDictionary, atLeast(1)).getCOSName(isA(COSName.class));
-    verify(fontDictionary, atLeast(1)).getDictionaryObject(Mockito.<COSName>any());
-    verify(fontDictionary, atLeast(1)).getNameAsString(isA(COSName.class));
-  }
-
-  /**
-   * Test {@link PDSimpleFont#readEncoding()}.
-   * <ul>
-   *   <li>Given {@link COSDictionary} {@link COSDictionary#getCOSDictionary(COSName)} return {@code null}.</li>
-   *   <li>Then calls {@link COSArray#getObject(int)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDSimpleFont#readEncoding()}
-   */
-  @Test
-  @DisplayName("Test readEncoding(); given COSDictionary getCOSDictionary(COSName) return 'null'; then calls getObject(int)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDSimpleFont.readEncoding()"})
-  void testReadEncoding_givenCOSDictionaryGetCOSDictionaryReturnNull_thenCallsGetObject() throws IOException {
-    // Arrange
-    COSArray cosArray = mock(COSArray.class);
-    when(cosArray.getObject(anyInt())).thenReturn(COSBoolean.FALSE);
-    when(cosArray.size()).thenReturn(3);
-    COSDictionary cosDictionary = mock(COSDictionary.class);
-    when(cosDictionary.containsKey(Mockito.<COSName>any())).thenReturn(true);
-    when(cosDictionary.getCOSArray(Mockito.<COSName>any())).thenReturn(cosArray);
-    when(cosDictionary.getCOSName(Mockito.<COSName>any())).thenReturn(COSName.A);
-    COSDictionary fontDictionary = mock(COSDictionary.class);
-    when(fontDictionary.getNameAsString(Mockito.<COSName>any())).thenReturn("Name As String");
-    when(fontDictionary.getDictionaryObject(Mockito.<COSName>any())).thenReturn(cosDictionary);
-    when(fontDictionary.getCOSDictionary(Mockito.<COSName>any())).thenReturn(null);
-
-    // Act
-    (new PDMMType1Font(fontDictionary)).readEncoding();
-
-    // Assert
-    verify(cosArray, atLeast(1)).getObject(anyInt());
-    verify(cosArray, atLeast(1)).size();
-    verify(cosDictionary, atLeast(1)).containsKey(isA(COSName.class));
-    verify(cosDictionary, atLeast(1)).getCOSArray(isA(COSName.class));
-    verify(fontDictionary).getCOSDictionary(isA(COSName.class));
-    verify(cosDictionary, atLeast(1)).getCOSName(isA(COSName.class));
-    verify(fontDictionary, atLeast(1)).getDictionaryObject(Mockito.<COSName>any());
-    verify(fontDictionary, atLeast(1)).getNameAsString(isA(COSName.class));
-  }
-
-  /**
-   * Test {@link PDSimpleFont#readEncoding()}.
-   * <ul>
-   *   <li>Given {@link COSDictionary} {@link COSDictionary#getCOSName(COSName)} return {@code null}.</li>
-   *   <li>Then calls {@link COSArray#getObject(int)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDSimpleFont#readEncoding()}
-   */
-  @Test
-  @DisplayName("Test readEncoding(); given COSDictionary getCOSName(COSName) return 'null'; then calls getObject(int)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDSimpleFont.readEncoding()"})
-  void testReadEncoding_givenCOSDictionaryGetCOSNameReturnNull_thenCallsGetObject() throws IOException {
-    // Arrange
-    COSArray cosArray = mock(COSArray.class);
-    when(cosArray.getObject(anyInt())).thenReturn(COSBoolean.FALSE);
-    when(cosArray.size()).thenReturn(3);
-    COSDictionary cosDictionary = mock(COSDictionary.class);
-    when(cosDictionary.containsKey(Mockito.<COSName>any())).thenReturn(true);
-    when(cosDictionary.getCOSArray(Mockito.<COSName>any())).thenReturn(cosArray);
-    when(cosDictionary.getCOSName(Mockito.<COSName>any())).thenReturn(null);
-    COSDictionary fontDictionary = mock(COSDictionary.class);
-    when(fontDictionary.getNameAsString(Mockito.<COSName>any())).thenReturn("Name As String");
-    when(fontDictionary.getDictionaryObject(Mockito.<COSName>any())).thenReturn(cosDictionary);
-    when(fontDictionary.getCOSDictionary(Mockito.<COSName>any())).thenReturn(new COSDictionary());
-
-    // Act
-    (new PDMMType1Font(fontDictionary)).readEncoding();
-
-    // Assert
-    verify(cosArray, atLeast(1)).getObject(anyInt());
-    verify(cosArray, atLeast(1)).size();
-    verify(cosDictionary, atLeast(1)).containsKey(isA(COSName.class));
-    verify(cosDictionary, atLeast(1)).getCOSArray(isA(COSName.class));
-    verify(fontDictionary).getCOSDictionary(isA(COSName.class));
-    verify(cosDictionary, atLeast(1)).getCOSName(isA(COSName.class));
-    verify(fontDictionary, atLeast(1)).getDictionaryObject(Mockito.<COSName>any());
-    verify(fontDictionary, atLeast(1)).getNameAsString(isA(COSName.class));
-  }
-
-  /**
-   * Test {@link PDSimpleFont#readEncoding()}.
-   * <ul>
-   *   <li>Given {@link COSDictionary} {@link COSDictionary#getDictionaryObject(COSName)} return {@link COSName#A}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDSimpleFont#readEncoding()}
-   */
-  @Test
-  @DisplayName("Test readEncoding(); given COSDictionary getDictionaryObject(COSName) return A")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDSimpleFont.readEncoding()"})
-  void testReadEncoding_givenCOSDictionaryGetDictionaryObjectReturnA() throws IOException {
-    // Arrange
-    COSDictionary fontDictionary = mock(COSDictionary.class);
-    when(fontDictionary.getNameAsString(Mockito.<COSName>any())).thenReturn("Name As String");
-    when(fontDictionary.getDictionaryObject(Mockito.<COSName>any())).thenReturn(COSName.A);
-    when(fontDictionary.getCOSDictionary(Mockito.<COSName>any())).thenReturn(new COSDictionary());
-
-    // Act
-    (new PDMMType1Font(fontDictionary)).readEncoding();
-
-    // Assert
-    verify(fontDictionary).getCOSDictionary(isA(COSName.class));
-    verify(fontDictionary, atLeast(1)).getDictionaryObject(Mockito.<COSName>any());
-    verify(fontDictionary, atLeast(1)).getNameAsString(isA(COSName.class));
-  }
-
-  /**
-   * Test {@link PDSimpleFont#readEncoding()}.
-   * <ul>
-   *   <li>Given {@link COSDictionary} {@link COSDictionary#getDictionaryObject(COSName)} return {@link COSDictionary#COSDictionary()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDSimpleFont#readEncoding()}
-   */
-  @Test
-  @DisplayName("Test readEncoding(); given COSDictionary getDictionaryObject(COSName) return COSDictionary()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDSimpleFont.readEncoding()"})
-  void testReadEncoding_givenCOSDictionaryGetDictionaryObjectReturnCOSDictionary() throws IOException {
-    // Arrange
-    COSDictionary fontDictionary = mock(COSDictionary.class);
-    when(fontDictionary.getNameAsString(Mockito.<COSName>any())).thenReturn("Name As String");
-    when(fontDictionary.getDictionaryObject(Mockito.<COSName>any())).thenReturn(new COSDictionary());
-    when(fontDictionary.getCOSDictionary(Mockito.<COSName>any())).thenReturn(new COSDictionary());
-
-    // Act
-    (new PDMMType1Font(fontDictionary)).readEncoding();
-
-    // Assert
-    verify(fontDictionary).getCOSDictionary(isA(COSName.class));
-    verify(fontDictionary, atLeast(1)).getDictionaryObject(Mockito.<COSName>any());
-    verify(fontDictionary, atLeast(1)).getNameAsString(isA(COSName.class));
-  }
-
-  /**
-   * Test {@link PDSimpleFont#readEncoding()}.
-   * <ul>
-   *   <li>Given {@link COSDictionary} {@link COSDictionary#getDictionaryObject(COSName)} return {@link COSBoolean#FALSE}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDSimpleFont#readEncoding()}
-   */
-  @Test
-  @DisplayName("Test readEncoding(); given COSDictionary getDictionaryObject(COSName) return FALSE")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDSimpleFont.readEncoding()"})
-  void testReadEncoding_givenCOSDictionaryGetDictionaryObjectReturnFalse() throws IOException {
-    // Arrange
-    COSDictionary fontDictionary = mock(COSDictionary.class);
-    when(fontDictionary.getNameAsString(Mockito.<COSName>any())).thenReturn("Name As String");
-    when(fontDictionary.getDictionaryObject(Mockito.<COSName>any())).thenReturn(COSBoolean.FALSE);
-    when(fontDictionary.getCOSDictionary(Mockito.<COSName>any())).thenReturn(new COSDictionary());
-
-    // Act
-    (new PDMMType1Font(fontDictionary)).readEncoding();
-
-    // Assert
-    verify(fontDictionary).getCOSDictionary(isA(COSName.class));
-    verify(fontDictionary, atLeast(1)).getDictionaryObject(Mockito.<COSName>any());
-    verify(fontDictionary, atLeast(1)).getNameAsString(isA(COSName.class));
-  }
-
-  /**
-   * Test {@link PDSimpleFont#getEncoding()}.
-   * <p>
    * Method under test: {@link PDSimpleFont#getEncoding()}
    */
   @Test
-  @DisplayName("Test getEncoding()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Encoding PDSimpleFont.getEncoding()"})
   void testGetEncoding() throws IOException {
     // Arrange and Act
     Encoding actualEncoding = (new PDMMType1Font(new COSDictionary())).getEncoding();
@@ -532,14 +415,9 @@ class PDSimpleFontDiffblueTest {
   }
 
   /**
-   * Test {@link PDSimpleFont#getGlyphList()}.
-   * <p>
    * Method under test: {@link PDSimpleFont#getGlyphList()}
    */
   @Test
-  @DisplayName("Test getGlyphList()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"GlyphList PDSimpleFont.getGlyphList()"})
   void testGetGlyphList() throws IOException {
     // Arrange
     PDMMType1Font pdmmType1Font = new PDMMType1Font(new COSDictionary());
@@ -549,15 +427,19 @@ class PDSimpleFontDiffblueTest {
   }
 
   /**
-   * Test {@link PDSimpleFont#isSymbolic()}.
-   * <p>
    * Method under test: {@link PDSimpleFont#isSymbolic()}
    */
   @Test
-  @DisplayName("Test isSymbolic()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean PDSimpleFont.isSymbolic()"})
   void testIsSymbolic() throws IOException {
+    // Arrange, Act and Assert
+    assertFalse((new PDMMType1Font(new COSDictionary())).isSymbolic());
+  }
+
+  /**
+   * Method under test: {@link PDSimpleFont#isSymbolic()}
+   */
+  @Test
+  void testIsSymbolic2() throws IOException {
     // Arrange
     PDMMType1Font pdmmType1Font = new PDMMType1Font(new COSDictionary());
     pdmmType1Font.setFontDescriptor(new PDFontDescriptor());
@@ -567,32 +449,19 @@ class PDSimpleFontDiffblueTest {
   }
 
   /**
-   * Test {@link PDSimpleFont#isSymbolic()}.
-   * <ul>
-   *   <li>Given {@link PDMMType1Font#PDMMType1Font(COSDictionary)} with fontDictionary is {@link COSDictionary#COSDictionary()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDSimpleFont#isSymbolic()}
-   */
-  @Test
-  @DisplayName("Test isSymbolic(); given PDMMType1Font(COSDictionary) with fontDictionary is COSDictionary()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean PDSimpleFont.isSymbolic()"})
-  void testIsSymbolic_givenPDMMType1FontWithFontDictionaryIsCOSDictionary() throws IOException {
-    // Arrange, Act and Assert
-    assertFalse((new PDMMType1Font(new COSDictionary())).isSymbolic());
-  }
-
-  /**
-   * Test {@link PDSimpleFont#isFontSymbolic()}.
-   * <p>
    * Method under test: {@link PDSimpleFont#isFontSymbolic()}
    */
   @Test
-  @DisplayName("Test isFontSymbolic()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"java.lang.Boolean PDSimpleFont.isFontSymbolic()"})
   void testIsFontSymbolic() throws IOException {
+    // Arrange, Act and Assert
+    assertFalse((new PDMMType1Font(new COSDictionary())).isFontSymbolic());
+  }
+
+  /**
+   * Method under test: {@link PDSimpleFont#isFontSymbolic()}
+   */
+  @Test
+  void testIsFontSymbolic2() throws IOException {
     // Arrange
     PDMMType1Font pdmmType1Font = new PDMMType1Font(new COSDictionary());
     pdmmType1Font.setFontDescriptor(new PDFontDescriptor());
@@ -602,35 +471,19 @@ class PDSimpleFontDiffblueTest {
   }
 
   /**
-   * Test {@link PDSimpleFont#isFontSymbolic()}.
-   * <ul>
-   *   <li>Given {@link PDMMType1Font#PDMMType1Font(COSDictionary)} with fontDictionary is {@link COSDictionary#COSDictionary()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDSimpleFont#isFontSymbolic()}
-   */
-  @Test
-  @DisplayName("Test isFontSymbolic(); given PDMMType1Font(COSDictionary) with fontDictionary is COSDictionary()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"java.lang.Boolean PDSimpleFont.isFontSymbolic()"})
-  void testIsFontSymbolic_givenPDMMType1FontWithFontDictionaryIsCOSDictionary() throws IOException {
-    // Arrange, Act and Assert
-    assertFalse((new PDMMType1Font(new COSDictionary())).isFontSymbolic());
-  }
-
-  /**
-   * Test {@link PDSimpleFont#getSymbolicFlag()}.
-   * <ul>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDSimpleFont#getSymbolicFlag()}
    */
   @Test
-  @DisplayName("Test getSymbolicFlag(); then return 'false'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"java.lang.Boolean PDSimpleFont.getSymbolicFlag()"})
-  void testGetSymbolicFlag_thenReturnFalse() throws IOException {
+  void testGetSymbolicFlag() throws IOException {
+    // Arrange, Act and Assert
+    assertNull((new PDMMType1Font(new COSDictionary())).getSymbolicFlag());
+  }
+
+  /**
+   * Method under test: {@link PDSimpleFont#getSymbolicFlag()}
+   */
+  @Test
+  void testGetSymbolicFlag2() throws IOException {
     // Arrange
     PDMMType1Font pdmmType1Font = new PDMMType1Font(new COSDictionary());
     pdmmType1Font.setFontDescriptor(new PDFontDescriptor());
@@ -640,57 +493,20 @@ class PDSimpleFontDiffblueTest {
   }
 
   /**
-   * Test {@link PDSimpleFont#getSymbolicFlag()}.
-   * <ul>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDSimpleFont#getSymbolicFlag()}
+   * Method under test: {@link PDSimpleFont#toUnicode(int)}
    */
   @Test
-  @DisplayName("Test getSymbolicFlag(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"java.lang.Boolean PDSimpleFont.getSymbolicFlag()"})
-  void testGetSymbolicFlag_thenReturnNull() throws IOException {
+  void testToUnicode() throws IOException {
     // Arrange, Act and Assert
-    assertNull((new PDMMType1Font(new COSDictionary())).getSymbolicFlag());
+    assertNull((new PDMMType1Font(new COSDictionary())).toUnicode(1));
+    assertEquals(".", (new PDMMType1Font(new COSDictionary())).toUnicode(46));
   }
 
   /**
-   * Test {@link PDSimpleFont#toUnicode(int, GlyphList)} with {@code code}, {@code customGlyphList}.
-   * <ul>
-   *   <li>When forty-six.</li>
-   *   <li>Then return {@code .}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDSimpleFont#toUnicode(int, GlyphList)}
    */
   @Test
-  @DisplayName("Test toUnicode(int, GlyphList) with 'code', 'customGlyphList'; when forty-six; then return '.'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"java.lang.String PDSimpleFont.toUnicode(int, GlyphList)"})
-  void testToUnicodeWithCodeCustomGlyphList_whenFortySix_thenReturnDot() throws IOException {
-    // Arrange
-    PDMMType1Font pdmmType1Font = new PDMMType1Font(new COSDictionary());
-
-    // Act and Assert
-    assertEquals(".", pdmmType1Font.toUnicode(46, GlyphList.getAdobeGlyphList()));
-  }
-
-  /**
-   * Test {@link PDSimpleFont#toUnicode(int, GlyphList)} with {@code code}, {@code customGlyphList}.
-   * <ul>
-   *   <li>When one.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDSimpleFont#toUnicode(int, GlyphList)}
-   */
-  @Test
-  @DisplayName("Test toUnicode(int, GlyphList) with 'code', 'customGlyphList'; when one; then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"java.lang.String PDSimpleFont.toUnicode(int, GlyphList)"})
-  void testToUnicodeWithCodeCustomGlyphList_whenOne_thenReturnNull() throws IOException {
+  void testToUnicode2() throws IOException {
     // Arrange
     PDMMType1Font pdmmType1Font = new PDMMType1Font(new COSDictionary());
 
@@ -699,93 +515,71 @@ class PDSimpleFontDiffblueTest {
   }
 
   /**
-   * Test {@link PDSimpleFont#toUnicode(int)} with {@code code}.
-   * <ul>
-   *   <li>When forty-six.</li>
-   *   <li>Then return {@code .}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDSimpleFont#toUnicode(int)}
+   * Method under test: {@link PDSimpleFont#toUnicode(int, GlyphList)}
    */
   @Test
-  @DisplayName("Test toUnicode(int) with 'code'; when forty-six; then return '.'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"java.lang.String PDSimpleFont.toUnicode(int)"})
-  void testToUnicodeWithCode_whenFortySix_thenReturnDot() throws IOException {
-    // Arrange, Act and Assert
-    assertEquals(".", (new PDMMType1Font(new COSDictionary())).toUnicode(46));
+  void testToUnicode3() throws IOException {
+    // Arrange
+    PDMMType1Font pdmmType1Font = new PDMMType1Font(new COSDictionary());
+
+    // Act and Assert
+    assertEquals(".", pdmmType1Font.toUnicode(46, GlyphList.getAdobeGlyphList()));
   }
 
   /**
-   * Test {@link PDSimpleFont#toUnicode(int)} with {@code code}.
-   * <ul>
-   *   <li>When one.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDSimpleFont#toUnicode(int)}
-   */
-  @Test
-  @DisplayName("Test toUnicode(int) with 'code'; when one; then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"java.lang.String PDSimpleFont.toUnicode(int)"})
-  void testToUnicodeWithCode_whenOne_thenReturnNull() throws IOException {
-    // Arrange, Act and Assert
-    assertNull((new PDMMType1Font(new COSDictionary())).toUnicode(1));
-  }
-
-  /**
-   * Test {@link PDSimpleFont#isVertical()}.
-   * <p>
    * Method under test: {@link PDSimpleFont#isVertical()}
    */
   @Test
-  @DisplayName("Test isVertical()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean PDSimpleFont.isVertical()"})
   void testIsVertical() throws IOException {
     // Arrange, Act and Assert
     assertFalse((new PDMMType1Font(new COSDictionary())).isVertical());
   }
 
   /**
-   * Test {@link PDSimpleFont#getStandard14Width(int)}.
-   * <p>
    * Method under test: {@link PDSimpleFont#getStandard14Width(int)}
    */
   @Test
-  @DisplayName("Test getStandard14Width(int)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"float PDSimpleFont.getStandard14Width(int)"})
   void testGetStandard14Width() throws IOException {
     // Arrange, Act and Assert
     assertThrows(IllegalStateException.class, () -> (new PDMMType1Font(new COSDictionary())).getStandard14Width(1));
   }
 
   /**
-   * Test {@link PDSimpleFont#isStandard14()}.
-   * <p>
    * Method under test: {@link PDSimpleFont#isStandard14()}
    */
   @Test
-  @DisplayName("Test isStandard14()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean PDSimpleFont.isStandard14()"})
   void testIsStandard14() throws IOException {
     // Arrange, Act and Assert
     assertFalse((new PDMMType1Font(new COSDictionary())).isStandard14());
   }
 
   /**
-   * Test {@link PDSimpleFont#isNonZeroBoundingBox(PDRectangle)}.
-   * <p>
    * Method under test: {@link PDSimpleFont#isNonZeroBoundingBox(PDRectangle)}
    */
   @Test
-  @DisplayName("Test isNonZeroBoundingBox(PDRectangle)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean PDSimpleFont.isNonZeroBoundingBox(PDRectangle)"})
   void testIsNonZeroBoundingBox() throws IOException {
+    // Arrange, Act and Assert
+    assertTrue((new PDMMType1Font(new COSDictionary())).isNonZeroBoundingBox(PDRectangle.A0));
+    assertFalse((new PDMMType1Font(new COSDictionary())).isNonZeroBoundingBox(null));
+  }
+
+  /**
+   * Method under test: {@link PDSimpleFont#isNonZeroBoundingBox(PDRectangle)}
+   */
+  @Test
+  void testIsNonZeroBoundingBox2() throws IOException {
+    // Arrange
+    PDMMType1Font pdmmType1Font = new PDMMType1Font(new COSDictionary());
+
+    // Act and Assert
+    assertFalse(pdmmType1Font.isNonZeroBoundingBox(new PDRectangle()));
+  }
+
+  /**
+   * Method under test: {@link PDSimpleFont#isNonZeroBoundingBox(PDRectangle)}
+   */
+  @Test
+  void testIsNonZeroBoundingBox3() throws IOException {
     // Arrange
     PDMMType1Font pdmmType1Font = new PDMMType1Font(new COSDictionary());
 
@@ -794,15 +588,10 @@ class PDSimpleFontDiffblueTest {
   }
 
   /**
-   * Test {@link PDSimpleFont#isNonZeroBoundingBox(PDRectangle)}.
-   * <p>
    * Method under test: {@link PDSimpleFont#isNonZeroBoundingBox(PDRectangle)}
    */
   @Test
-  @DisplayName("Test isNonZeroBoundingBox(PDRectangle)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean PDSimpleFont.isNonZeroBoundingBox(PDRectangle)"})
-  void testIsNonZeroBoundingBox2() throws IOException {
+  void testIsNonZeroBoundingBox4() throws IOException {
     // Arrange
     PDMMType1Font pdmmType1Font = new PDMMType1Font(new COSDictionary());
 
@@ -811,20 +600,10 @@ class PDSimpleFontDiffblueTest {
   }
 
   /**
-   * Test {@link PDSimpleFont#isNonZeroBoundingBox(PDRectangle)}.
-   * <ul>
-   *   <li>Given ten.</li>
-   *   <li>When {@link PDRectangle#PDRectangle()} UpperRightY is ten.</li>
-   *   <li>Then return {@code true}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDSimpleFont#isNonZeroBoundingBox(PDRectangle)}
    */
   @Test
-  @DisplayName("Test isNonZeroBoundingBox(PDRectangle); given ten; when PDRectangle() UpperRightY is ten; then return 'true'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean PDSimpleFont.isNonZeroBoundingBox(PDRectangle)"})
-  void testIsNonZeroBoundingBox_givenTen_whenPDRectangleUpperRightYIsTen_thenReturnTrue() throws IOException {
+  void testIsNonZeroBoundingBox5() throws IOException {
     // Arrange
     PDMMType1Font pdmmType1Font = new PDMMType1Font(new COSDictionary());
 
@@ -836,113 +615,36 @@ class PDSimpleFontDiffblueTest {
   }
 
   /**
-   * Test {@link PDSimpleFont#isNonZeroBoundingBox(PDRectangle)}.
-   * <ul>
-   *   <li>When {@link PDRectangle#A0}.</li>
-   *   <li>Then return {@code true}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDSimpleFont#isNonZeroBoundingBox(PDRectangle)}
-   */
-  @Test
-  @DisplayName("Test isNonZeroBoundingBox(PDRectangle); when A0; then return 'true'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean PDSimpleFont.isNonZeroBoundingBox(PDRectangle)"})
-  void testIsNonZeroBoundingBox_whenA0_thenReturnTrue() throws IOException {
-    // Arrange, Act and Assert
-    assertTrue((new PDMMType1Font(new COSDictionary())).isNonZeroBoundingBox(PDRectangle.A0));
-  }
-
-  /**
-   * Test {@link PDSimpleFont#isNonZeroBoundingBox(PDRectangle)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDSimpleFont#isNonZeroBoundingBox(PDRectangle)}
-   */
-  @Test
-  @DisplayName("Test isNonZeroBoundingBox(PDRectangle); when 'null'; then return 'false'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean PDSimpleFont.isNonZeroBoundingBox(PDRectangle)"})
-  void testIsNonZeroBoundingBox_whenNull_thenReturnFalse() throws IOException {
-    // Arrange, Act and Assert
-    assertFalse((new PDMMType1Font(new COSDictionary())).isNonZeroBoundingBox(null));
-  }
-
-  /**
-   * Test {@link PDSimpleFont#isNonZeroBoundingBox(PDRectangle)}.
-   * <ul>
-   *   <li>When {@link PDRectangle#PDRectangle()}.</li>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDSimpleFont#isNonZeroBoundingBox(PDRectangle)}
-   */
-  @Test
-  @DisplayName("Test isNonZeroBoundingBox(PDRectangle); when PDRectangle(); then return 'false'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean PDSimpleFont.isNonZeroBoundingBox(PDRectangle)"})
-  void testIsNonZeroBoundingBox_whenPDRectangle_thenReturnFalse() throws IOException {
-    // Arrange
-    PDMMType1Font pdmmType1Font = new PDMMType1Font(new COSDictionary());
-
-    // Act and Assert
-    assertFalse(pdmmType1Font.isNonZeroBoundingBox(new PDRectangle()));
-  }
-
-  /**
-   * Test {@link PDSimpleFont#addToSubset(int)}.
-   * <p>
    * Method under test: {@link PDSimpleFont#addToSubset(int)}
    */
   @Test
-  @DisplayName("Test addToSubset(int)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDSimpleFont.addToSubset(int)"})
   void testAddToSubset() throws IOException {
     // Arrange, Act and Assert
     assertThrows(UnsupportedOperationException.class, () -> (new PDMMType1Font(new COSDictionary())).addToSubset(2));
   }
 
   /**
-   * Test {@link PDSimpleFont#subset()}.
-   * <p>
    * Method under test: {@link PDSimpleFont#subset()}
    */
   @Test
-  @DisplayName("Test subset()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDSimpleFont.subset()"})
   void testSubset() throws IOException {
     // Arrange, Act and Assert
     assertThrows(UnsupportedOperationException.class, () -> (new PDMMType1Font(new COSDictionary())).subset());
   }
 
   /**
-   * Test {@link PDSimpleFont#willBeSubset()}.
-   * <p>
    * Method under test: {@link PDSimpleFont#willBeSubset()}
    */
   @Test
-  @DisplayName("Test willBeSubset()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean PDSimpleFont.willBeSubset()"})
   void testWillBeSubset() throws IOException {
     // Arrange, Act and Assert
     assertFalse((new PDMMType1Font(new COSDictionary())).willBeSubset());
   }
 
   /**
-   * Test {@link PDSimpleFont#hasExplicitWidth(int)}.
-   * <p>
    * Method under test: {@link PDSimpleFont#hasExplicitWidth(int)}
    */
   @Test
-  @DisplayName("Test hasExplicitWidth(int)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean PDSimpleFont.hasExplicitWidth(int)"})
   void testHasExplicitWidth() throws IOException {
     // Arrange, Act and Assert
     assertFalse((new PDMMType1Font(new COSDictionary())).hasExplicitWidth(1));

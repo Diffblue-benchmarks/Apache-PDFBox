@@ -1,23 +1,15 @@
 package org.apache.pdfbox.pdmodel;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.apache.pdfbox.cos.COSDictionary;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class PDDocumentNameDestinationDictionaryDiffblueTest {
   /**
-   * Test {@link PDDocumentNameDestinationDictionary#PDDocumentNameDestinationDictionary(COSDictionary)}.
-   * <p>
-   * Method under test: {@link PDDocumentNameDestinationDictionary#PDDocumentNameDestinationDictionary(COSDictionary)}
+   * Method under test: {@link PDDocumentNameDestinationDictionary#getCOSObject()}
    */
   @Test
-  @DisplayName("Test new PDDocumentNameDestinationDictionary(COSDictionary)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDDocumentNameDestinationDictionary.<init>(COSDictionary)"})
-  void testNewPDDocumentNameDestinationDictionary() {
+  void testGetCOSObject() {
     // Arrange
     COSDictionary dict = new COSDictionary();
 
@@ -26,15 +18,11 @@ class PDDocumentNameDestinationDictionaryDiffblueTest {
   }
 
   /**
-   * Test {@link PDDocumentNameDestinationDictionary#getCOSObject()}.
-   * <p>
-   * Method under test: {@link PDDocumentNameDestinationDictionary#getCOSObject()}
+   * Method under test:
+   * {@link PDDocumentNameDestinationDictionary#PDDocumentNameDestinationDictionary(COSDictionary)}
    */
   @Test
-  @DisplayName("Test getCOSObject()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"COSDictionary PDDocumentNameDestinationDictionary.getCOSObject()"})
-  void testGetCOSObject() {
+  void testNewPDDocumentNameDestinationDictionary() {
     // Arrange
     COSDictionary dict = new COSDictionary();
 

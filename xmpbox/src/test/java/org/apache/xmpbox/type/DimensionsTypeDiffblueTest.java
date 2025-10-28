@@ -4,22 +4,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import java.util.List;
 import org.apache.xmpbox.XMPMetadata;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class DimensionsTypeDiffblueTest {
   /**
-   * Test {@link DimensionsType#DimensionsType(XMPMetadata)}.
-   * <p>
    * Method under test: {@link DimensionsType#DimensionsType(XMPMetadata)}
    */
   @Test
-  @DisplayName("Test new DimensionsType(XMPMetadata)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void DimensionsType.<init>(XMPMetadata)"})
   void testNewDimensionsType() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -32,9 +25,11 @@ class DimensionsTypeDiffblueTest {
     assertEquals("stDim", actualDimensionsType.getPreferedPrefix());
     assertEquals("stDim", actualDimensionsType.getPrefix());
     assertNull(actualDimensionsType.getPropertyName());
-    assertTrue(actualDimensionsType.getAllProperties().isEmpty());
+    List<AbstractField> allProperties = actualDimensionsType.getAllProperties();
+    assertTrue(allProperties.isEmpty());
     assertTrue(actualDimensionsType.getAllAttributes().isEmpty());
     assertTrue(actualDimensionsType.getAllNamespacesWithPrefix().isEmpty());
+    assertSame(allProperties, actualDimensionsType.getContainer().getAllProperties());
     assertSame(metadata, actualDimensionsType.getMetadata());
   }
 }

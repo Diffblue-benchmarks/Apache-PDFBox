@@ -4,82 +4,28 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Map;
 import org.apache.xmpbox.XMPMetadata;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class ResourceEventTypeDiffblueTest {
   /**
-   * Test {@link ResourceEventType#ResourceEventType(XMPMetadata)}.
-   * <p>
-   * Method under test: {@link ResourceEventType#ResourceEventType(XMPMetadata)}
-   */
-  @Test
-  @DisplayName("Test new ResourceEventType(XMPMetadata)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ResourceEventType.<init>(XMPMetadata)"})
-  void testNewResourceEventType() {
-    // Arrange
-    XMPMetadata metadata = XMPMetadata.createXMPMetadata();
-
-    // Act
-    ResourceEventType actualResourceEventType = new ResourceEventType(metadata);
-
-    // Assert
-    assertEquals("http://ns.adobe.com/xap/1.0/sType/ResourceEvent#", actualResourceEventType.getNamespace());
-    assertEquals("stEvt", actualResourceEventType.getPreferedPrefix());
-    assertEquals("stEvt", actualResourceEventType.getPrefix());
-    assertNull(actualResourceEventType.getPropertyName());
-    assertNull(actualResourceEventType.getAction());
-    assertNull(actualResourceEventType.getChanged());
-    assertNull(actualResourceEventType.getInstanceID());
-    assertNull(actualResourceEventType.getParameters());
-    assertNull(actualResourceEventType.getSoftwareAgent());
-    assertNull(actualResourceEventType.getWhen());
-    Map<String, String> allNamespacesWithPrefix = actualResourceEventType.getAllNamespacesWithPrefix();
-    assertEquals(1, allNamespacesWithPrefix.size());
-    assertTrue(actualResourceEventType.getAllProperties().isEmpty());
-    assertTrue(actualResourceEventType.getAllAttributes().isEmpty());
-    assertTrue(allNamespacesWithPrefix.containsKey("http://ns.adobe.com/xap/1.0/sType/ResourceEvent#"));
-    assertSame(metadata, actualResourceEventType.getMetadata());
-  }
-
-  /**
-   * Test {@link ResourceEventType#getInstanceID()}.
-   * <ul>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ResourceEventType#getInstanceID()}
    */
   @Test
-  @DisplayName("Test getInstanceID(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String ResourceEventType.getInstanceID()"})
-  void testGetInstanceID_thenReturnNull() {
+  void testGetInstanceID() {
     // Arrange, Act and Assert
     assertNull((new ResourceEventType(XMPMetadata.createXMPMetadata())).getInstanceID());
   }
 
   /**
-   * Test {@link ResourceEventType#getInstanceID()}.
-   * <ul>
-   *   <li>Then return {@code Value}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ResourceEventType#getInstanceID()}
    */
   @Test
-  @DisplayName("Test getInstanceID(); then return 'Value'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String ResourceEventType.getInstanceID()"})
-  void testGetInstanceID_thenReturnValue() {
+  void testGetInstanceID2() {
     // Arrange
     ResourceEventType resourceEventType = new ResourceEventType(XMPMetadata.createXMPMetadata());
     resourceEventType.addSimpleProperty(ResourceEventType.INSTANCE_ID, "Value");
@@ -89,14 +35,9 @@ class ResourceEventTypeDiffblueTest {
   }
 
   /**
-   * Test {@link ResourceEventType#setInstanceID(String)}.
-   * <p>
    * Method under test: {@link ResourceEventType#setInstanceID(String)}
    */
   @Test
-  @DisplayName("Test setInstanceID(String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ResourceEventType.setInstanceID(String)"})
   void testSetInstanceID() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -122,35 +63,19 @@ class ResourceEventTypeDiffblueTest {
   }
 
   /**
-   * Test {@link ResourceEventType#getSoftwareAgent()}.
-   * <ul>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ResourceEventType#getSoftwareAgent()}
    */
   @Test
-  @DisplayName("Test getSoftwareAgent(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String ResourceEventType.getSoftwareAgent()"})
-  void testGetSoftwareAgent_thenReturnNull() {
+  void testGetSoftwareAgent() {
     // Arrange, Act and Assert
     assertNull((new ResourceEventType(XMPMetadata.createXMPMetadata())).getSoftwareAgent());
   }
 
   /**
-   * Test {@link ResourceEventType#getSoftwareAgent()}.
-   * <ul>
-   *   <li>Then return {@code Value}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ResourceEventType#getSoftwareAgent()}
    */
   @Test
-  @DisplayName("Test getSoftwareAgent(); then return 'Value'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String ResourceEventType.getSoftwareAgent()"})
-  void testGetSoftwareAgent_thenReturnValue() {
+  void testGetSoftwareAgent2() {
     // Arrange
     ResourceEventType resourceEventType = new ResourceEventType(XMPMetadata.createXMPMetadata());
     resourceEventType.addSimpleProperty(ResourceEventType.SOFTWARE_AGENT, "Value");
@@ -160,14 +85,9 @@ class ResourceEventTypeDiffblueTest {
   }
 
   /**
-   * Test {@link ResourceEventType#setSoftwareAgent(String)}.
-   * <p>
    * Method under test: {@link ResourceEventType#setSoftwareAgent(String)}
    */
   @Test
-  @DisplayName("Test setSoftwareAgent(String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ResourceEventType.setSoftwareAgent(String)"})
   void testSetSoftwareAgent() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -193,15 +113,19 @@ class ResourceEventTypeDiffblueTest {
   }
 
   /**
-   * Test {@link ResourceEventType#getWhen()}.
-   * <p>
    * Method under test: {@link ResourceEventType#getWhen()}
    */
   @Test
-  @DisplayName("Test getWhen()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Calendar ResourceEventType.getWhen()"})
   void testGetWhen() {
+    // Arrange, Act and Assert
+    assertNull((new ResourceEventType(XMPMetadata.createXMPMetadata())).getWhen());
+  }
+
+  /**
+   * Method under test: {@link ResourceEventType#getWhen()}
+   */
+  @Test
+  void testGetWhen2() {
     // Arrange
     ResourceEventType resourceEventType = new ResourceEventType(XMPMetadata.createXMPMetadata());
     resourceEventType.addSimpleProperty(ResourceEventType.WHEN, "");
@@ -211,32 +135,9 @@ class ResourceEventTypeDiffblueTest {
   }
 
   /**
-   * Test {@link ResourceEventType#getWhen()}.
-   * <ul>
-   *   <li>Given {@link ResourceEventType#ResourceEventType(XMPMetadata)} with metadata is createXMPMetadata.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ResourceEventType#getWhen()}
-   */
-  @Test
-  @DisplayName("Test getWhen(); given ResourceEventType(XMPMetadata) with metadata is createXMPMetadata; then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Calendar ResourceEventType.getWhen()"})
-  void testGetWhen_givenResourceEventTypeWithMetadataIsCreateXMPMetadata_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull((new ResourceEventType(XMPMetadata.createXMPMetadata())).getWhen());
-  }
-
-  /**
-   * Test {@link ResourceEventType#setWhen(Calendar)}.
-   * <p>
    * Method under test: {@link ResourceEventType#setWhen(Calendar)}
    */
   @Test
-  @DisplayName("Test setWhen(Calendar)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ResourceEventType.setWhen(Calendar)"})
   void testSetWhen() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -262,35 +163,19 @@ class ResourceEventTypeDiffblueTest {
   }
 
   /**
-   * Test {@link ResourceEventType#getAction()}.
-   * <ul>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ResourceEventType#getAction()}
    */
   @Test
-  @DisplayName("Test getAction(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String ResourceEventType.getAction()"})
-  void testGetAction_thenReturnNull() {
+  void testGetAction() {
     // Arrange, Act and Assert
     assertNull((new ResourceEventType(XMPMetadata.createXMPMetadata())).getAction());
   }
 
   /**
-   * Test {@link ResourceEventType#getAction()}.
-   * <ul>
-   *   <li>Then return {@code Value}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ResourceEventType#getAction()}
    */
   @Test
-  @DisplayName("Test getAction(); then return 'Value'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String ResourceEventType.getAction()"})
-  void testGetAction_thenReturnValue() {
+  void testGetAction2() {
     // Arrange
     ResourceEventType resourceEventType = new ResourceEventType(XMPMetadata.createXMPMetadata());
     resourceEventType.addSimpleProperty(ResourceEventType.ACTION, "Value");
@@ -300,14 +185,9 @@ class ResourceEventTypeDiffblueTest {
   }
 
   /**
-   * Test {@link ResourceEventType#setAction(String)}.
-   * <p>
    * Method under test: {@link ResourceEventType#setAction(String)}
    */
   @Test
-  @DisplayName("Test setAction(String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ResourceEventType.setAction(String)"})
   void testSetAction() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -333,35 +213,19 @@ class ResourceEventTypeDiffblueTest {
   }
 
   /**
-   * Test {@link ResourceEventType#getChanged()}.
-   * <ul>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ResourceEventType#getChanged()}
    */
   @Test
-  @DisplayName("Test getChanged(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String ResourceEventType.getChanged()"})
-  void testGetChanged_thenReturnNull() {
+  void testGetChanged() {
     // Arrange, Act and Assert
     assertNull((new ResourceEventType(XMPMetadata.createXMPMetadata())).getChanged());
   }
 
   /**
-   * Test {@link ResourceEventType#getChanged()}.
-   * <ul>
-   *   <li>Then return {@code Value}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ResourceEventType#getChanged()}
    */
   @Test
-  @DisplayName("Test getChanged(); then return 'Value'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String ResourceEventType.getChanged()"})
-  void testGetChanged_thenReturnValue() {
+  void testGetChanged2() {
     // Arrange
     ResourceEventType resourceEventType = new ResourceEventType(XMPMetadata.createXMPMetadata());
     resourceEventType.addSimpleProperty(ResourceEventType.CHANGED, "Value");
@@ -371,14 +235,9 @@ class ResourceEventTypeDiffblueTest {
   }
 
   /**
-   * Test {@link ResourceEventType#setChanged(String)}.
-   * <p>
    * Method under test: {@link ResourceEventType#setChanged(String)}
    */
   @Test
-  @DisplayName("Test setChanged(String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ResourceEventType.setChanged(String)"})
   void testSetChanged() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -404,35 +263,19 @@ class ResourceEventTypeDiffblueTest {
   }
 
   /**
-   * Test {@link ResourceEventType#getParameters()}.
-   * <ul>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ResourceEventType#getParameters()}
    */
   @Test
-  @DisplayName("Test getParameters(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String ResourceEventType.getParameters()"})
-  void testGetParameters_thenReturnNull() {
+  void testGetParameters() {
     // Arrange, Act and Assert
     assertNull((new ResourceEventType(XMPMetadata.createXMPMetadata())).getParameters());
   }
 
   /**
-   * Test {@link ResourceEventType#getParameters()}.
-   * <ul>
-   *   <li>Then return {@code Value}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ResourceEventType#getParameters()}
    */
   @Test
-  @DisplayName("Test getParameters(); then return 'Value'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String ResourceEventType.getParameters()"})
-  void testGetParameters_thenReturnValue() {
+  void testGetParameters2() {
     // Arrange
     ResourceEventType resourceEventType = new ResourceEventType(XMPMetadata.createXMPMetadata());
     resourceEventType.addSimpleProperty(ResourceEventType.PARAMETERS, "Value");
@@ -442,14 +285,9 @@ class ResourceEventTypeDiffblueTest {
   }
 
   /**
-   * Test {@link ResourceEventType#setParameters(String)}.
-   * <p>
    * Method under test: {@link ResourceEventType#setParameters(String)}
    */
   @Test
-  @DisplayName("Test setParameters(String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ResourceEventType.setParameters(String)"})
   void testSetParameters() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -472,5 +310,37 @@ class ResourceEventTypeDiffblueTest {
     assertTrue(getResult.getAllAttributes().isEmpty());
     assertEquals(ResourceEventType.PARAMETERS, getResult.getPropertyName());
     assertSame(metadata, getResult.getMetadata());
+  }
+
+  /**
+   * Method under test: {@link ResourceEventType#ResourceEventType(XMPMetadata)}
+   */
+  @Test
+  void testNewResourceEventType() {
+    // Arrange
+    XMPMetadata metadata = XMPMetadata.createXMPMetadata();
+
+    // Act
+    ResourceEventType actualResourceEventType = new ResourceEventType(metadata);
+
+    // Assert
+    assertEquals("http://ns.adobe.com/xap/1.0/sType/ResourceEvent#", actualResourceEventType.getNamespace());
+    Map<String, String> allNamespacesWithPrefix = actualResourceEventType.getAllNamespacesWithPrefix();
+    assertEquals(1, allNamespacesWithPrefix.size());
+    assertEquals("stEvt", allNamespacesWithPrefix.get("http://ns.adobe.com/xap/1.0/sType/ResourceEvent#"));
+    assertEquals("stEvt", actualResourceEventType.getPreferedPrefix());
+    assertEquals("stEvt", actualResourceEventType.getPrefix());
+    assertNull(actualResourceEventType.getPropertyName());
+    assertNull(actualResourceEventType.getAction());
+    assertNull(actualResourceEventType.getChanged());
+    assertNull(actualResourceEventType.getInstanceID());
+    assertNull(actualResourceEventType.getParameters());
+    assertNull(actualResourceEventType.getSoftwareAgent());
+    assertNull(actualResourceEventType.getWhen());
+    List<AbstractField> allProperties = actualResourceEventType.getAllProperties();
+    assertTrue(allProperties.isEmpty());
+    assertTrue(actualResourceEventType.getAllAttributes().isEmpty());
+    assertSame(allProperties, actualResourceEventType.getContainer().getAllProperties());
+    assertSame(metadata, actualResourceEventType.getMetadata());
   }
 }

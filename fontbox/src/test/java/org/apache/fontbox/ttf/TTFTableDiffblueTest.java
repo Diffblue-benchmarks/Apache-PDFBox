@@ -2,17 +2,12 @@ package org.apache.fontbox.ttf;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class TTFTableDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link TTFTable}
@@ -30,13 +25,6 @@ class TTFTableDiffblueTest {
    * </ul>
    */
   @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void TTFTable.<init>()", "long TTFTable.getCheckSum()", "boolean TTFTable.getInitialized()",
-      "long TTFTable.getLength()", "long TTFTable.getOffset()", "String TTFTable.getTag()",
-      "void TTFTable.read(TrueTypeFont, TTFDataStream)",
-      "void TTFTable.readHeaders(TrueTypeFont, TTFDataStream, FontHeaders)", "void TTFTable.setCheckSum(long)",
-      "void TTFTable.setLength(long)", "void TTFTable.setOffset(long)", "void TTFTable.setTag(String)"})
   void testGettersAndSetters() throws IOException {
     // Arrange and Act
     TTFTable actualTtfTable = new TTFTable();
@@ -64,7 +52,7 @@ class TTFTableDiffblueTest {
     long actualLength = actualTtfTable.getLength();
     long actualOffset = actualTtfTable.getOffset();
 
-    // Assert
+    // Assert that nothing has changed
     assertEquals("42", actualTtfTable.getTag());
     assertEquals(3L, actualLength);
     assertEquals(42L, actualCheckSum);

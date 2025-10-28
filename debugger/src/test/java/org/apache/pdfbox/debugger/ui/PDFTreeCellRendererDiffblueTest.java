@@ -5,285 +5,215 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.ComponentOrientation;
 import java.awt.color.ColorSpace;
 import java.awt.color.ICC_ColorSpace;
+import java.beans.VetoableChangeListener;
 import java.io.IOException;
 import javax.accessibility.AccessibleContext;
 import javax.swing.Icon;
 import javax.swing.JTree;
+import org.apache.pdfbox.cos.COSArray;
 import org.apache.pdfbox.cos.COSBoolean;
 import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.cos.COSFloat;
 import org.apache.pdfbox.cos.COSInteger;
 import org.apache.pdfbox.cos.COSString;
 import org.apache.pdfbox.pdmodel.PDDocument;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class PDFTreeCellRendererDiffblueTest {
   /**
-   * Test {@link PDFTreeCellRenderer#getTreeCellRendererComponent(JTree, Object, boolean, boolean, boolean, int, boolean)}.
-   * <ul>
-   *   <li>Then return Text is {@code <0123456789ABCDEF>}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDFTreeCellRenderer#getTreeCellRendererComponent(JTree, Object, boolean, boolean, boolean, int, boolean)}
+   * Method under test:
+   * {@link PDFTreeCellRenderer#getTreeCellRendererComponent(JTree, Object, boolean, boolean, boolean, int, boolean)}
    */
   @Test
-  @DisplayName("Test getTreeCellRendererComponent(JTree, Object, boolean, boolean, boolean, int, boolean); then return Text is '<0123456789ABCDEF>'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "Component PDFTreeCellRenderer.getTreeCellRendererComponent(JTree, Object, boolean, boolean, boolean, int, boolean)"})
-  void testGetTreeCellRendererComponent_thenReturnTextIs0123456789abcdef() throws IOException {
+  void testGetTreeCellRendererComponent() {
+    // Arrange
+    PDFTreeCellRenderer pdfTreeCellRenderer = new PDFTreeCellRenderer();
+
+    // Act and Assert
+    assertSame(pdfTreeCellRenderer,
+        pdfTreeCellRenderer.getTreeCellRendererComponent(new JTree(), "Node Value", true, true, true, 1, true));
+  }
+
+  /**
+   * Method under test:
+   * {@link PDFTreeCellRenderer#getTreeCellRendererComponent(JTree, Object, boolean, boolean, boolean, int, boolean)}
+   */
+  @Test
+  void testGetTreeCellRendererComponent2() {
+    // Arrange
+    PDFTreeCellRenderer pdfTreeCellRenderer = new PDFTreeCellRenderer();
+    pdfTreeCellRenderer.addVetoableChangeListener(mock(VetoableChangeListener.class));
+
+    // Act and Assert
+    assertSame(pdfTreeCellRenderer,
+        pdfTreeCellRenderer.getTreeCellRendererComponent(new JTree(), "Node Value", true, true, true, 1, true));
+  }
+
+  /**
+   * Method under test:
+   * {@link PDFTreeCellRenderer#getTreeCellRendererComponent(JTree, Object, boolean, boolean, boolean, int, boolean)}
+   */
+  @Test
+  void testGetTreeCellRendererComponent3() {
     // Arrange
     PDFTreeCellRenderer pdfTreeCellRenderer = new PDFTreeCellRenderer();
     JTree tree = new JTree();
 
-    // Act
-    Component actualTreeCellRendererComponent = pdfTreeCellRenderer.getTreeCellRendererComponent(tree,
-        COSString.parseHex("0123456789ABCDEF"), true, true, true, 1, true);
+    ArrayEntry arrayEntry = new ArrayEntry();
+    arrayEntry.setIndex(1);
+    arrayEntry.setItem(new COSArray());
+    arrayEntry.setValue(new COSArray());
 
-    // Assert
-    assertTrue(actualTreeCellRendererComponent instanceof PDFTreeCellRenderer);
-    assertEquals("<0123456789ABCDEF>", ((PDFTreeCellRenderer) actualTreeCellRendererComponent).getText());
+    // Act and Assert
+    assertSame(pdfTreeCellRenderer,
+        pdfTreeCellRenderer.getTreeCellRendererComponent(tree, arrayEntry, true, true, true, 1, true));
   }
 
   /**
-   * Test {@link PDFTreeCellRenderer#getTreeCellRendererComponent(JTree, Object, boolean, boolean, boolean, int, boolean)}.
-   * <ul>
-   *   <li>Then return Text is {@code foo.txt}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDFTreeCellRenderer#getTreeCellRendererComponent(JTree, Object, boolean, boolean, boolean, int, boolean)}
+   * Method under test:
+   * {@link PDFTreeCellRenderer#getTreeCellRendererComponent(JTree, Object, boolean, boolean, boolean, int, boolean)}
    */
   @Test
-  @DisplayName("Test getTreeCellRendererComponent(JTree, Object, boolean, boolean, boolean, int, boolean); then return Text is 'foo.txt'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "Component PDFTreeCellRenderer.getTreeCellRendererComponent(JTree, Object, boolean, boolean, boolean, int, boolean)"})
-  void testGetTreeCellRendererComponent_thenReturnTextIsFooTxt() {
+  void testGetTreeCellRendererComponent4() {
     // Arrange
     PDFTreeCellRenderer pdfTreeCellRenderer = new PDFTreeCellRenderer();
     JTree tree = new JTree();
 
-    // Act
-    Component actualTreeCellRendererComponent = pdfTreeCellRenderer.getTreeCellRendererComponent(tree,
-        new DocumentEntry(new PDDocument(), "foo.txt"), true, true, true, 1, true);
-
-    // Assert
-    assertTrue(actualTreeCellRendererComponent instanceof PDFTreeCellRenderer);
-    assertEquals("foo.txt", ((PDFTreeCellRenderer) actualTreeCellRendererComponent).getText());
+    // Act and Assert
+    assertSame(pdfTreeCellRenderer,
+        pdfTreeCellRenderer.getTreeCellRendererComponent(tree, new ArrayEntry(), true, true, true, 1, true));
   }
 
   /**
-   * Test {@link PDFTreeCellRenderer#getTreeCellRendererComponent(JTree, Object, boolean, boolean, boolean, int, boolean)}.
-   * <ul>
-   *   <li>Then return Text is {@link XrefEntries#PATH}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDFTreeCellRenderer#getTreeCellRendererComponent(JTree, Object, boolean, boolean, boolean, int, boolean)}
+   * Method under test:
+   * {@link PDFTreeCellRenderer#getTreeCellRendererComponent(JTree, Object, boolean, boolean, boolean, int, boolean)}
    */
   @Test
-  @DisplayName("Test getTreeCellRendererComponent(JTree, Object, boolean, boolean, boolean, int, boolean); then return Text is PATH")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "Component PDFTreeCellRenderer.getTreeCellRendererComponent(JTree, Object, boolean, boolean, boolean, int, boolean)"})
-  void testGetTreeCellRendererComponent_thenReturnTextIsPath() {
+  void testGetTreeCellRendererComponent5() {
     // Arrange
     PDFTreeCellRenderer pdfTreeCellRenderer = new PDFTreeCellRenderer();
     JTree tree = new JTree();
 
-    // Act
-    Component actualTreeCellRendererComponent = pdfTreeCellRenderer.getTreeCellRendererComponent(tree,
-        new XrefEntries(new PDDocument()), true, true, true, 1, true);
-
-    // Assert
-    assertTrue(actualTreeCellRendererComponent instanceof PDFTreeCellRenderer);
-    assertEquals(XrefEntries.PATH, ((PDFTreeCellRenderer) actualTreeCellRendererComponent).getText());
+    // Act and Assert
+    assertSame(pdfTreeCellRenderer,
+        pdfTreeCellRenderer.getTreeCellRendererComponent(tree, COSBoolean.getBoolean(true), true, true, true, 1, true));
   }
 
   /**
-   * Test {@link PDFTreeCellRenderer#getTreeCellRendererComponent(JTree, Object, boolean, boolean, boolean, int, boolean)}.
-   * <ul>
-   *   <li>When Boolean is {@code true}.</li>
-   *   <li>Then return Text is {@link Boolean#TRUE} toString.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDFTreeCellRenderer#getTreeCellRendererComponent(JTree, Object, boolean, boolean, boolean, int, boolean)}
+   * Method under test:
+   * {@link PDFTreeCellRenderer#getTreeCellRendererComponent(JTree, Object, boolean, boolean, boolean, int, boolean)}
    */
   @Test
-  @DisplayName("Test getTreeCellRendererComponent(JTree, Object, boolean, boolean, boolean, int, boolean); when Boolean is 'true'; then return Text is TRUE toString")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "Component PDFTreeCellRenderer.getTreeCellRendererComponent(JTree, Object, boolean, boolean, boolean, int, boolean)"})
-  void testGetTreeCellRendererComponent_whenBooleanIsTrue_thenReturnTextIsTrueToString() {
+  void testGetTreeCellRendererComponent6() {
     // Arrange
     PDFTreeCellRenderer pdfTreeCellRenderer = new PDFTreeCellRenderer();
     JTree tree = new JTree();
 
-    // Act
-    Component actualTreeCellRendererComponent = pdfTreeCellRenderer.getTreeCellRendererComponent(tree,
-        COSBoolean.getBoolean(true), true, true, true, 1, true);
-
-    // Assert
-    assertTrue(actualTreeCellRendererComponent instanceof PDFTreeCellRenderer);
-    String expectedText = Boolean.TRUE.toString();
-    assertEquals(expectedText, ((PDFTreeCellRenderer) actualTreeCellRendererComponent).getText());
+    // Act and Assert
+    assertSame(pdfTreeCellRenderer,
+        pdfTreeCellRenderer.getTreeCellRendererComponent(tree, new COSFloat(10.0f), true, true, true, 1, true));
   }
 
   /**
-   * Test {@link PDFTreeCellRenderer#getTreeCellRendererComponent(JTree, Object, boolean, boolean, boolean, int, boolean)}.
-   * <ul>
-   *   <li>When {@link COSDictionary#COSDictionary()}.</li>
-   *   <li>Then return Text is {@code (0)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDFTreeCellRenderer#getTreeCellRendererComponent(JTree, Object, boolean, boolean, boolean, int, boolean)}
+   * Method under test:
+   * {@link PDFTreeCellRenderer#getTreeCellRendererComponent(JTree, Object, boolean, boolean, boolean, int, boolean)}
    */
   @Test
-  @DisplayName("Test getTreeCellRendererComponent(JTree, Object, boolean, boolean, boolean, int, boolean); when COSDictionary(); then return Text is '(0)'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "Component PDFTreeCellRenderer.getTreeCellRendererComponent(JTree, Object, boolean, boolean, boolean, int, boolean)"})
-  void testGetTreeCellRendererComponent_whenCOSDictionary_thenReturnTextIs0() {
+  void testGetTreeCellRendererComponent7() {
     // Arrange
     PDFTreeCellRenderer pdfTreeCellRenderer = new PDFTreeCellRenderer();
     JTree tree = new JTree();
 
-    // Act
-    Component actualTreeCellRendererComponent = pdfTreeCellRenderer.getTreeCellRendererComponent(tree,
-        new COSDictionary(), true, true, true, 1, true);
-
-    // Assert
-    assertTrue(actualTreeCellRendererComponent instanceof PDFTreeCellRenderer);
-    assertEquals("(0)", ((PDFTreeCellRenderer) actualTreeCellRendererComponent).getText());
+    // Act and Assert
+    assertSame(pdfTreeCellRenderer,
+        pdfTreeCellRenderer.getTreeCellRendererComponent(tree, COSInteger.get(42L), true, true, true, 1, true));
   }
 
   /**
-   * Test {@link PDFTreeCellRenderer#getTreeCellRendererComponent(JTree, Object, boolean, boolean, boolean, int, boolean)}.
-   * <ul>
-   *   <li>When {@link COSFloat#COSFloat(float)} with aFloat is ten.</li>
-   *   <li>Then return Text is {@code 10.0}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDFTreeCellRenderer#getTreeCellRendererComponent(JTree, Object, boolean, boolean, boolean, int, boolean)}
+   * Method under test:
+   * {@link PDFTreeCellRenderer#getTreeCellRendererComponent(JTree, Object, boolean, boolean, boolean, int, boolean)}
    */
   @Test
-  @DisplayName("Test getTreeCellRendererComponent(JTree, Object, boolean, boolean, boolean, int, boolean); when COSFloat(float) with aFloat is ten; then return Text is '10.0'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "Component PDFTreeCellRenderer.getTreeCellRendererComponent(JTree, Object, boolean, boolean, boolean, int, boolean)"})
-  void testGetTreeCellRendererComponent_whenCOSFloatWithAFloatIsTen_thenReturnTextIs100() {
+  void testGetTreeCellRendererComponent8() throws IOException {
     // Arrange
     PDFTreeCellRenderer pdfTreeCellRenderer = new PDFTreeCellRenderer();
     JTree tree = new JTree();
 
-    // Act
-    Component actualTreeCellRendererComponent = pdfTreeCellRenderer.getTreeCellRendererComponent(tree,
-        new COSFloat(10.0f), true, true, true, 1, true);
-
-    // Assert
-    assertTrue(actualTreeCellRendererComponent instanceof PDFTreeCellRenderer);
-    assertEquals("10.0", ((PDFTreeCellRenderer) actualTreeCellRendererComponent).getText());
+    // Act and Assert
+    assertSame(pdfTreeCellRenderer, pdfTreeCellRenderer.getTreeCellRendererComponent(tree,
+        COSString.parseHex("0123456789ABCDEF"), true, true, true, 1, true));
   }
 
   /**
-   * Test {@link PDFTreeCellRenderer#getTreeCellRendererComponent(JTree, Object, boolean, boolean, boolean, int, boolean)}.
-   * <ul>
-   *   <li>When {@link COSString#COSString(String)} with {@code Text}.</li>
-   *   <li>Then return {@code Text}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDFTreeCellRenderer#getTreeCellRendererComponent(JTree, Object, boolean, boolean, boolean, int, boolean)}
+   * Method under test:
+   * {@link PDFTreeCellRenderer#getTreeCellRendererComponent(JTree, Object, boolean, boolean, boolean, int, boolean)}
    */
   @Test
-  @DisplayName("Test getTreeCellRendererComponent(JTree, Object, boolean, boolean, boolean, int, boolean); when COSString(String) with 'Text'; then return 'Text'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "Component PDFTreeCellRenderer.getTreeCellRendererComponent(JTree, Object, boolean, boolean, boolean, int, boolean)"})
-  void testGetTreeCellRendererComponent_whenCOSStringWithText_thenReturnText() {
+  void testGetTreeCellRendererComponent9() {
     // Arrange
     PDFTreeCellRenderer pdfTreeCellRenderer = new PDFTreeCellRenderer();
     JTree tree = new JTree();
 
-    // Act
-    Component actualTreeCellRendererComponent = pdfTreeCellRenderer.getTreeCellRendererComponent(tree,
-        new COSString("Text"), true, true, true, 1, true);
-
-    // Assert
-    assertTrue(actualTreeCellRendererComponent instanceof PDFTreeCellRenderer);
-    assertEquals("Text", ((PDFTreeCellRenderer) actualTreeCellRendererComponent).getText());
+    // Act and Assert
+    assertSame(pdfTreeCellRenderer,
+        pdfTreeCellRenderer.getTreeCellRendererComponent(tree, new COSDictionary(), true, true, true, 1, true));
   }
 
   /**
-   * Test {@link PDFTreeCellRenderer#getTreeCellRendererComponent(JTree, Object, boolean, boolean, boolean, int, boolean)}.
-   * <ul>
-   *   <li>When forty-two.</li>
-   *   <li>Then return Text is {@code 42}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDFTreeCellRenderer#getTreeCellRendererComponent(JTree, Object, boolean, boolean, boolean, int, boolean)}
+   * Method under test:
+   * {@link PDFTreeCellRenderer#getTreeCellRendererComponent(JTree, Object, boolean, boolean, boolean, int, boolean)}
    */
   @Test
-  @DisplayName("Test getTreeCellRendererComponent(JTree, Object, boolean, boolean, boolean, int, boolean); when forty-two; then return Text is '42'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "Component PDFTreeCellRenderer.getTreeCellRendererComponent(JTree, Object, boolean, boolean, boolean, int, boolean)"})
-  void testGetTreeCellRendererComponent_whenFortyTwo_thenReturnTextIs42() {
+  void testGetTreeCellRendererComponent10() {
     // Arrange
     PDFTreeCellRenderer pdfTreeCellRenderer = new PDFTreeCellRenderer();
     JTree tree = new JTree();
 
-    // Act
-    Component actualTreeCellRendererComponent = pdfTreeCellRenderer.getTreeCellRendererComponent(tree,
-        COSInteger.get(42L), true, true, true, 1, true);
-
-    // Assert
-    assertTrue(actualTreeCellRendererComponent instanceof PDFTreeCellRenderer);
-    assertEquals("42", ((PDFTreeCellRenderer) actualTreeCellRendererComponent).getText());
+    // Act and Assert
+    assertSame(pdfTreeCellRenderer, pdfTreeCellRenderer.getTreeCellRendererComponent(tree,
+        new DocumentEntry(new PDDocument(), "foo.txt"), true, true, true, 1, true));
   }
 
   /**
-   * Test {@link PDFTreeCellRenderer#getTreeCellRendererComponent(JTree, Object, boolean, boolean, boolean, int, boolean)}.
-   * <ul>
-   *   <li>When {@code Node Value}.</li>
-   *   <li>Then return Text is {@code Node Value}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDFTreeCellRenderer#getTreeCellRendererComponent(JTree, Object, boolean, boolean, boolean, int, boolean)}
+   * Method under test:
+   * {@link PDFTreeCellRenderer#getTreeCellRendererComponent(JTree, Object, boolean, boolean, boolean, int, boolean)}
    */
   @Test
-  @DisplayName("Test getTreeCellRendererComponent(JTree, Object, boolean, boolean, boolean, int, boolean); when 'Node Value'; then return Text is 'Node Value'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "Component PDFTreeCellRenderer.getTreeCellRendererComponent(JTree, Object, boolean, boolean, boolean, int, boolean)"})
-  void testGetTreeCellRendererComponent_whenNodeValue_thenReturnTextIsNodeValue() {
+  void testGetTreeCellRendererComponent11() {
     // Arrange
     PDFTreeCellRenderer pdfTreeCellRenderer = new PDFTreeCellRenderer();
+    JTree tree = new JTree();
 
-    // Act
-    Component actualTreeCellRendererComponent = pdfTreeCellRenderer.getTreeCellRendererComponent(new JTree(),
-        "Node Value", true, true, true, 1, true);
-
-    // Assert
-    assertTrue(actualTreeCellRendererComponent instanceof PDFTreeCellRenderer);
-    assertEquals("Node Value", ((PDFTreeCellRenderer) actualTreeCellRendererComponent).getText());
+    // Act and Assert
+    assertSame(pdfTreeCellRenderer, pdfTreeCellRenderer.getTreeCellRendererComponent(tree,
+        new XrefEntries(new PDDocument()), true, true, true, 1, true));
   }
 
   /**
-   * Test new {@link PDFTreeCellRenderer} (default constructor).
-   * <p>
-   * Method under test: default or parameterless constructor of {@link PDFTreeCellRenderer}
+   * Method under test:
+   * {@link PDFTreeCellRenderer#getTreeCellRendererComponent(JTree, Object, boolean, boolean, boolean, int, boolean)}
    */
   @Test
-  @DisplayName("Test new PDFTreeCellRenderer (default constructor)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFTreeCellRenderer.<init>()"})
+  void testGetTreeCellRendererComponent12() {
+    // Arrange
+    PDFTreeCellRenderer pdfTreeCellRenderer = new PDFTreeCellRenderer();
+    JTree tree = new JTree();
+
+    // Act and Assert
+    assertSame(pdfTreeCellRenderer,
+        pdfTreeCellRenderer.getTreeCellRendererComponent(tree, new COSString("Text"), true, true, true, 1, true));
+  }
+
+  /**
+   * Method under test: default or parameterless constructor of
+   * {@link PDFTreeCellRenderer}
+   */
+  @Test
   void testNewPDFTreeCellRenderer() {
     // Arrange and Act
     PDFTreeCellRenderer actualPdfTreeCellRenderer = new PDFTreeCellRenderer();

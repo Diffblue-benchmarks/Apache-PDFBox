@@ -3,84 +3,107 @@ package org.apache.pdfbox.pdfparser.xref;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import java.io.IOException;
 import org.apache.pdfbox.cos.COSBase;
 import org.apache.pdfbox.cos.COSBoolean;
+import org.apache.pdfbox.cos.COSDocument;
 import org.apache.pdfbox.cos.COSObject;
 import org.apache.pdfbox.cos.COSObjectKey;
 import org.apache.pdfbox.cos.COSStream;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
+import org.apache.pdfbox.io.RandomAccessStreamCache;
+import org.apache.pdfbox.io.RandomAccessStreamCacheImpl;
 import org.junit.jupiter.api.Test;
 
 class NormalXReferenceDiffblueTest {
   /**
-   * Test {@link NormalXReference#NormalXReference(long, COSObjectKey, COSBase)}.
-   * <p>
-   * Method under test: {@link NormalXReference#NormalXReference(long, COSObjectKey, COSBase)}
+   * Method under test: {@link NormalXReference#getSecondColumnValue()}
    */
   @Test
-  @DisplayName("Test new NormalXReference(long, COSObjectKey, COSBase)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void NormalXReference.<init>(long, COSObjectKey, COSBase)"})
-  void testNewNormalXReference() {
-    // Arrange
-    COSObjectKey key = new COSObjectKey(1L, 1);
-
-    COSObject object = new COSObject(COSBoolean.FALSE, new COSObjectKey(1L, 1));
-
-    // Act and Assert
-    assertSame(object, (new NormalXReference(1L, key, object)).getObject());
+  void testGetSecondColumnValue() {
+    // Arrange, Act and Assert
+    assertEquals(1L, (new NormalXReference(1L, new COSObjectKey(1L, 1), COSBoolean.FALSE)).getSecondColumnValue());
   }
 
   /**
-   * Test {@link NormalXReference#NormalXReference(long, COSObjectKey, COSBase)}.
-   * <ul>
-   *   <li>When {@link COSStream#COSStream()}.</li>
-   *   <li>Then return Object is {@link COSStream#COSStream()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link NormalXReference#NormalXReference(long, COSObjectKey, COSBase)}
+   * Method under test: {@link NormalXReference#getSecondColumnValue()}
    */
   @Test
-  @DisplayName("Test new NormalXReference(long, COSObjectKey, COSBase); when COSStream(); then return Object is COSStream()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void NormalXReference.<init>(long, COSObjectKey, COSBase)"})
-  void testNewNormalXReference_whenCOSStream_thenReturnObjectIsCOSStream() {
+  void testGetSecondColumnValue2() throws IOException {
     // Arrange
-    COSObjectKey key = new COSObjectKey(1L, 1);
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    COSDocument object = new COSDocument(streamCacheCreateFunction);
 
-    COSStream object = new COSStream();
+    // Act
+    long actualSecondColumnValue = (new NormalXReference(1L, new COSObjectKey(1L, 1), object)).getSecondColumnValue();
 
-    // Act and Assert
-    assertSame(object, (new NormalXReference(1L, key, object)).getObject());
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertEquals(1L, actualSecondColumnValue);
   }
 
   /**
-   * Test {@link NormalXReference#NormalXReference(long, COSObjectKey, COSBase)}.
-   * <ul>
-   *   <li>When {@link COSBoolean#FALSE}.</li>
-   *   <li>Then return Object is {@link COSBoolean#FALSE} {@link COSBoolean#FALSE}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link NormalXReference#NormalXReference(long, COSObjectKey, COSBase)}
+   * Method under test: {@link NormalXReference#getThirdColumnValue()}
    */
   @Test
-  @DisplayName("Test new NormalXReference(long, COSObjectKey, COSBase); when FALSE; then return Object is FALSE FALSE")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void NormalXReference.<init>(long, COSObjectKey, COSBase)"})
-  void testNewNormalXReference_whenFalse_thenReturnObjectIsFalseFalse() {
-    // Arrange
-    COSBoolean object = COSBoolean.FALSE;
-
-    // Act and Assert
-    COSBoolean expectedObject = object.FALSE;
-    assertSame(expectedObject, (new NormalXReference(1L, new COSObjectKey(1L, 1), object)).getObject());
+  void testGetThirdColumnValue() {
+    // Arrange, Act and Assert
+    assertEquals(1L, (new NormalXReference(1L, new COSObjectKey(1L, 1), COSBoolean.FALSE)).getThirdColumnValue());
   }
 
   /**
-   * Test getters and setters.
-   * <p>
+   * Method under test: {@link NormalXReference#getThirdColumnValue()}
+   */
+  @Test
+  void testGetThirdColumnValue2() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    COSDocument object = new COSDocument(streamCacheCreateFunction);
+
+    // Act
+    long actualThirdColumnValue = (new NormalXReference(1L, new COSObjectKey(1L, 1), object)).getThirdColumnValue();
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertEquals(1L, actualThirdColumnValue);
+  }
+
+  /**
+   * Method under test: {@link NormalXReference#toString()}
+   */
+  @Test
+  void testToString() {
+    // Arrange, Act and Assert
+    assertEquals("NormalReference{ key=1 1 R, type=1, byteOffset=1 }",
+        (new NormalXReference(1L, new COSObjectKey(1L, 1), COSBoolean.FALSE)).toString());
+  }
+
+  /**
+   * Method under test: {@link NormalXReference#toString()}
+   */
+  @Test
+  void testToString2() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    COSDocument object = new COSDocument(streamCacheCreateFunction);
+
+    // Act
+    String actualToStringResult = (new NormalXReference(1L, new COSObjectKey(1L, 1), object)).toString();
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertEquals("NormalReference{ key=1 1 R, type=1, byteOffset=1 }", actualToStringResult);
+  }
+
+  /**
    * Methods under test:
    * <ul>
    *   <li>{@link NormalXReference#getByteOffset()}
@@ -90,10 +113,6 @@ class NormalXReferenceDiffblueTest {
    * </ul>
    */
   @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"long NormalXReference.getByteOffset()", "COSBase NormalXReference.getObject()",
-      "COSObjectKey NormalXReference.getReferencedKey()", "boolean NormalXReference.isObjectStream()"})
   void testGettersAndSetters() {
     // Arrange
     COSObjectKey key = new COSObjectKey(1L, 1);
@@ -113,49 +132,107 @@ class NormalXReferenceDiffblueTest {
   }
 
   /**
-   * Test {@link NormalXReference#getSecondColumnValue()}.
-   * <p>
-   * Method under test: {@link NormalXReference#getSecondColumnValue()}
+   * Method under test:
+   * {@link NormalXReference#NormalXReference(long, COSObjectKey, COSBase)}
    */
   @Test
-  @DisplayName("Test getSecondColumnValue()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"long NormalXReference.getSecondColumnValue()"})
-  void testGetSecondColumnValue() {
-    // Arrange, Act and Assert
-    assertEquals(1L, (new NormalXReference(1L, new COSObjectKey(1L, 1), COSBoolean.FALSE)).getSecondColumnValue());
+  void testNewNormalXReference() {
+    // Arrange
+    COSObjectKey key = new COSObjectKey(1L, 1);
+
+    COSBoolean object = COSBoolean.FALSE;
+
+    // Act
+    NormalXReference actualNormalXReference = new NormalXReference(1L, key, object);
+
+    // Assert
+    assertEquals(1L, actualNormalXReference.getFirstColumnValue());
+    assertEquals(1L, actualNormalXReference.getByteOffset());
+    assertEquals(1L, actualNormalXReference.getSecondColumnValue());
+    assertEquals(1L, actualNormalXReference.getThirdColumnValue());
+    assertEquals(XReferenceType.NORMAL, actualNormalXReference.getType());
+    assertFalse(actualNormalXReference.isObjectStream());
+    assertSame(key, actualNormalXReference.getReferencedKey());
+    COSBoolean expectedObject = object.FALSE;
+    assertSame(expectedObject, actualNormalXReference.getObject());
   }
 
   /**
-   * Test {@link NormalXReference#getThirdColumnValue()}.
-   * <ul>
-   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
-   *   <li>Then return one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link NormalXReference#getThirdColumnValue()}
+   * Method under test:
+   * {@link NormalXReference#NormalXReference(long, COSObjectKey, COSBase)}
    */
   @Test
-  @DisplayName("Test getThirdColumnValue(); given COSObjectKey(long, int) with num is one and gen is one; then return one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"long NormalXReference.getThirdColumnValue()"})
-  void testGetThirdColumnValue_givenCOSObjectKeyWithNumIsOneAndGenIsOne_thenReturnOne() {
-    // Arrange, Act and Assert
-    assertEquals(1L, (new NormalXReference(1L, new COSObjectKey(1L, 1), COSBoolean.FALSE)).getThirdColumnValue());
+  void testNewNormalXReference2() {
+    // Arrange
+    COSObjectKey key = new COSObjectKey(1L, 1);
+
+    COSObject object = new COSObject(COSBoolean.FALSE, new COSObjectKey(1L, 1));
+
+    // Act
+    NormalXReference actualNormalXReference = new NormalXReference(1L, key, object);
+
+    // Assert
+    assertEquals(1L, actualNormalXReference.getFirstColumnValue());
+    assertEquals(1L, actualNormalXReference.getByteOffset());
+    assertEquals(1L, actualNormalXReference.getSecondColumnValue());
+    assertEquals(1L, actualNormalXReference.getThirdColumnValue());
+    assertEquals(XReferenceType.NORMAL, actualNormalXReference.getType());
+    assertFalse(actualNormalXReference.isObjectStream());
+    assertSame(object, actualNormalXReference.getObject());
+    assertSame(key, actualNormalXReference.getReferencedKey());
   }
 
   /**
-   * Test {@link NormalXReference#toString()}.
-   * <p>
-   * Method under test: {@link NormalXReference#toString()}
+   * Method under test:
+   * {@link NormalXReference#NormalXReference(long, COSObjectKey, COSBase)}
    */
   @Test
-  @DisplayName("Test toString()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"java.lang.String NormalXReference.toString()"})
-  void testToString() {
-    // Arrange, Act and Assert
-    assertEquals("NormalReference{ key=1 1 R, type=1, byteOffset=1 }",
-        (new NormalXReference(1L, new COSObjectKey(1L, 1), COSBoolean.FALSE)).toString());
+  void testNewNormalXReference3() {
+    // Arrange
+    COSObjectKey key = new COSObjectKey(1L, 1);
+
+    COSStream object = new COSStream();
+
+    // Act
+    NormalXReference actualNormalXReference = new NormalXReference(1L, key, object);
+
+    // Assert
+    assertEquals(1L, actualNormalXReference.getFirstColumnValue());
+    assertEquals(1L, actualNormalXReference.getByteOffset());
+    assertEquals(1L, actualNormalXReference.getSecondColumnValue());
+    assertEquals(1L, actualNormalXReference.getThirdColumnValue());
+    assertEquals(XReferenceType.NORMAL, actualNormalXReference.getType());
+    assertFalse(actualNormalXReference.isObjectStream());
+    assertSame(key, actualNormalXReference.getReferencedKey());
+    assertSame(object, actualNormalXReference.getObject());
+  }
+
+  /**
+   * Method under test:
+   * {@link NormalXReference#NormalXReference(long, COSObjectKey, COSBase)}
+   */
+  @Test
+  void testNewNormalXReference4() throws IOException {
+    // Arrange
+    COSObjectKey key = new COSObjectKey(1L, 1);
+
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    COSDocument object = new COSDocument(streamCacheCreateFunction);
+
+    // Act
+    NormalXReference actualNormalXReference = new NormalXReference(1L, key, object);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertEquals(1L, actualNormalXReference.getFirstColumnValue());
+    assertEquals(1L, actualNormalXReference.getByteOffset());
+    assertEquals(1L, actualNormalXReference.getSecondColumnValue());
+    assertEquals(1L, actualNormalXReference.getThirdColumnValue());
+    assertEquals(XReferenceType.NORMAL, actualNormalXReference.getType());
+    assertFalse(actualNormalXReference.isObjectStream());
+    assertSame(object, actualNormalXReference.getObject());
+    assertSame(key, actualNormalXReference.getReferencedKey());
   }
 }

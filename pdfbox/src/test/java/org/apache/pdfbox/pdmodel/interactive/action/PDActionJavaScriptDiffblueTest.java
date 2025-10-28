@@ -5,24 +5,46 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.cos.COSIncrement;
 import org.apache.pdfbox.cos.COSUpdateState;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class PDActionJavaScriptDiffblueTest {
   /**
-   * Test {@link PDActionJavaScript#PDActionJavaScript(COSDictionary)}.
-   * <p>
-   * Method under test: {@link PDActionJavaScript#PDActionJavaScript(COSDictionary)}
+   * Method under test: {@link PDActionJavaScript#setAction(String)}
    */
   @Test
-  @DisplayName("Test new PDActionJavaScript(COSDictionary)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDActionJavaScript.<init>(COSDictionary)"})
+  void testSetAction() {
+    // Arrange
+    PDActionJavaScript pdActionJavaScript = new PDActionJavaScript();
+
+    // Act
+    pdActionJavaScript.setAction("S Action");
+
+    // Assert
+    assertEquals("S Action", pdActionJavaScript.getAction());
+    COSDictionary cOSObject = pdActionJavaScript.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
+  }
+
+  /**
+   * Method under test: {@link PDActionJavaScript#getAction()}
+   */
+  @Test
+  void testGetAction() {
+    // Arrange, Act and Assert
+    assertNull((new PDActionJavaScript()).getAction());
+    assertEquals("Js", (new PDActionJavaScript("Js")).getAction());
+    assertEquals("", (new PDActionJavaScript("")).getAction());
+  }
+
+  /**
+   * Method under test:
+   * {@link PDActionJavaScript#PDActionJavaScript(COSDictionary)}
+   */
+  @Test
   void testNewPDActionJavaScript() {
     // Arrange
     COSDictionary a = new COSDictionary();
@@ -32,14 +54,9 @@ class PDActionJavaScriptDiffblueTest {
   }
 
   /**
-   * Test {@link PDActionJavaScript#PDActionJavaScript()}.
-   * <p>
    * Method under test: {@link PDActionJavaScript#PDActionJavaScript()}
    */
   @Test
-  @DisplayName("Test new PDActionJavaScript()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDActionJavaScript.<init>()"})
   void testNewPDActionJavaScript2() {
     // Arrange and Act
     PDActionJavaScript actualPdActionJavaScript = new PDActionJavaScript();
@@ -64,19 +81,10 @@ class PDActionJavaScriptDiffblueTest {
   }
 
   /**
-   * Test {@link PDActionJavaScript#PDActionJavaScript(String)}.
-   * <ul>
-   *   <li>When {@code Js}.</li>
-   *   <li>Then return Action is {@code Js}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDActionJavaScript#PDActionJavaScript(String)}
    */
   @Test
-  @DisplayName("Test new PDActionJavaScript(String); when 'Js'; then return Action is 'Js'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDActionJavaScript.<init>(String)"})
-  void testNewPDActionJavaScript_whenJs_thenReturnActionIsJs() {
+  void testNewPDActionJavaScript3() {
     // Arrange and Act
     PDActionJavaScript actualPdActionJavaScript = new PDActionJavaScript("Js");
 
@@ -100,19 +108,10 @@ class PDActionJavaScriptDiffblueTest {
   }
 
   /**
-   * Test {@link PDActionJavaScript#PDActionJavaScript(String)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then return Action is {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDActionJavaScript#PDActionJavaScript(String)}
    */
   @Test
-  @DisplayName("Test new PDActionJavaScript(String); when 'null'; then return Action is 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDActionJavaScript.<init>(String)"})
-  void testNewPDActionJavaScript_whenNull_thenReturnActionIsNull() {
+  void testNewPDActionJavaScript4() {
     // Arrange and Act
     PDActionJavaScript actualPdActionJavaScript = new PDActionJavaScript((String) null);
 
@@ -133,86 +132,5 @@ class PDActionJavaScriptDiffblueTest {
     assertTrue(toIncrementResult.getObjects().isEmpty());
     assertEquals(PDAction.TYPE, actualPdActionJavaScript.getType());
     assertEquals(PDActionJavaScript.SUB_TYPE, actualPdActionJavaScript.getSubType());
-  }
-
-  /**
-   * Test {@link PDActionJavaScript#setAction(String)}.
-   * <ul>
-   *   <li>Given {@link PDActionJavaScript#PDActionJavaScript()}.</li>
-   *   <li>Then {@link PDActionJavaScript#PDActionJavaScript()} Action is {@code S Action}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDActionJavaScript#setAction(String)}
-   */
-  @Test
-  @DisplayName("Test setAction(String); given PDActionJavaScript(); then PDActionJavaScript() Action is 'S Action'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDActionJavaScript.setAction(String)"})
-  void testSetAction_givenPDActionJavaScript_thenPDActionJavaScriptActionIsSAction() {
-    // Arrange
-    PDActionJavaScript pdActionJavaScript = new PDActionJavaScript();
-
-    // Act
-    pdActionJavaScript.setAction("S Action");
-
-    // Assert
-    assertEquals("S Action", pdActionJavaScript.getAction());
-    COSDictionary cOSObject = pdActionJavaScript.getCOSObject();
-    assertEquals(3, cOSObject.getValues().size());
-    assertEquals(3, cOSObject.size());
-  }
-
-  /**
-   * Test {@link PDActionJavaScript#getAction()}.
-   * <ul>
-   *   <li>Given {@link PDActionJavaScript#PDActionJavaScript(String)} with js is empty string.</li>
-   *   <li>Then return empty string.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDActionJavaScript#getAction()}
-   */
-  @Test
-  @DisplayName("Test getAction(); given PDActionJavaScript(String) with js is empty string; then return empty string")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDActionJavaScript.getAction()"})
-  void testGetAction_givenPDActionJavaScriptWithJsIsEmptyString_thenReturnEmptyString() {
-    // Arrange, Act and Assert
-    assertEquals("", (new PDActionJavaScript("")).getAction());
-  }
-
-  /**
-   * Test {@link PDActionJavaScript#getAction()}.
-   * <ul>
-   *   <li>Given {@link PDActionJavaScript#PDActionJavaScript(String)} with {@code Js}.</li>
-   *   <li>Then return {@code Js}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDActionJavaScript#getAction()}
-   */
-  @Test
-  @DisplayName("Test getAction(); given PDActionJavaScript(String) with 'Js'; then return 'Js'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDActionJavaScript.getAction()"})
-  void testGetAction_givenPDActionJavaScriptWithJs_thenReturnJs() {
-    // Arrange, Act and Assert
-    assertEquals("Js", (new PDActionJavaScript("Js")).getAction());
-  }
-
-  /**
-   * Test {@link PDActionJavaScript#getAction()}.
-   * <ul>
-   *   <li>Given {@link PDActionJavaScript#PDActionJavaScript()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDActionJavaScript#getAction()}
-   */
-  @Test
-  @DisplayName("Test getAction(); given PDActionJavaScript(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDActionJavaScript.getAction()"})
-  void testGetAction_givenPDActionJavaScript_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull((new PDActionJavaScript()).getAction());
   }
 }

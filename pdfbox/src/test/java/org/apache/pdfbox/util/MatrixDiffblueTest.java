@@ -7,7 +7,9 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
 import java.util.List;
@@ -15,147 +17,15 @@ import org.apache.pdfbox.cos.COSArray;
 import org.apache.pdfbox.cos.COSBase;
 import org.apache.pdfbox.cos.COSBoolean;
 import org.apache.pdfbox.cos.COSFloat;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
+import org.apache.pdfbox.pdmodel.common.COSObjectable;
 import org.junit.jupiter.api.Test;
 
 class MatrixDiffblueTest {
   /**
-   * Test {@link Matrix#Matrix()}.
-   * <p>
-   * Method under test: {@link Matrix#Matrix()}
-   */
-  @Test
-  @DisplayName("Test new Matrix()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void Matrix.<init>()"})
-  void testNewMatrix() {
-    // Arrange and Act
-    Matrix actualMatrix = new Matrix();
-
-    // Assert
-    assertEquals(0.0f, actualMatrix.getShearX());
-    assertEquals(0.0f, actualMatrix.getShearY());
-    assertEquals(0.0f, actualMatrix.getTranslateX());
-    assertEquals(0.0f, actualMatrix.getTranslateY());
-    assertEquals(1.0f, actualMatrix.getScaleX());
-    assertEquals(1.0f, actualMatrix.getScaleY());
-    assertEquals(1.0f, actualMatrix.getScalingFactorX());
-    assertEquals(1.0f, actualMatrix.getScalingFactorY());
-    float[][] values = actualMatrix.getValues();
-    assertEquals(3, values.length);
-    assertArrayEquals(new float[]{0.0f, 0.0f, 1.0f}, values[2], 0.0f);
-    assertArrayEquals(new float[]{0.0f, 1.0f, 0.0f}, values[1], 0.0f);
-    assertArrayEquals(new float[]{1.0f, 0.0f, 0.0f}, values[0], 0.0f);
-  }
-
-  /**
-   * Test {@link Matrix#Matrix(float, float, float, float, float, float)}.
-   * <p>
-   * Method under test: {@link Matrix#Matrix(float, float, float, float, float, float)}
-   */
-  @Test
-  @DisplayName("Test new Matrix(float, float, float, float, float, float)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void Matrix.<init>(float, float, float, float, float, float)"})
-  void testNewMatrix2() {
-    // Arrange and Act
-    Matrix actualMatrix = new Matrix(10.0f, 10.0f, 10.0f, 10.0f, 10.0f, 10.0f);
-
-    // Assert
-    assertEquals(10.0f, actualMatrix.getScaleX());
-    assertEquals(10.0f, actualMatrix.getScaleY());
-    assertEquals(10.0f, actualMatrix.getShearX());
-    assertEquals(10.0f, actualMatrix.getShearY());
-    assertEquals(10.0f, actualMatrix.getTranslateX());
-    assertEquals(10.0f, actualMatrix.getTranslateY());
-    assertEquals(14.142136f, actualMatrix.getScalingFactorX());
-    assertEquals(14.142136f, actualMatrix.getScalingFactorY());
-    float[][] values = actualMatrix.getValues();
-    assertEquals(3, values.length);
-    assertArrayEquals(new float[]{10.0f, 10.0f, 0.0f}, values[0], 0.0f);
-    assertArrayEquals(new float[]{10.0f, 10.0f, 0.0f}, values[1], 0.0f);
-    assertArrayEquals(new float[]{10.0f, 10.0f, 1.0f}, values[2], 0.0f);
-  }
-
-  /**
-   * Test {@link Matrix#Matrix(AffineTransform)}.
-   * <ul>
-   *   <li>When {@link AffineTransform#AffineTransform()}.</li>
-   *   <li>Then return ShearX is zero.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link Matrix#Matrix(AffineTransform)}
-   */
-  @Test
-  @DisplayName("Test new Matrix(AffineTransform); when AffineTransform(); then return ShearX is zero")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void Matrix.<init>(AffineTransform)"})
-  void testNewMatrix_whenAffineTransform_thenReturnShearXIsZero() {
-    // Arrange and Act
-    Matrix actualMatrix = new Matrix(new AffineTransform());
-
-    // Assert
-    assertEquals(0.0f, actualMatrix.getShearX());
-    assertEquals(0.0f, actualMatrix.getShearY());
-    assertEquals(0.0f, actualMatrix.getTranslateX());
-    assertEquals(0.0f, actualMatrix.getTranslateY());
-    assertEquals(1.0f, actualMatrix.getScaleX());
-    assertEquals(1.0f, actualMatrix.getScaleY());
-    assertEquals(1.0f, actualMatrix.getScalingFactorX());
-    assertEquals(1.0f, actualMatrix.getScalingFactorY());
-    float[][] values = actualMatrix.getValues();
-    assertEquals(3, values.length);
-    assertArrayEquals(new float[]{0.0f, 0.0f, 1.0f}, values[2], 0.0f);
-    assertArrayEquals(new float[]{0.0f, 1.0f, 0.0f}, values[1], 0.0f);
-    assertArrayEquals(new float[]{1.0f, 0.0f, 0.0f}, values[0], 0.0f);
-  }
-
-  /**
-   * Test {@link Matrix#createMatrix(COSBase)}.
-   * <ul>
-   *   <li>When {@link COSArray#COSArray()}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link Matrix#createMatrix(COSBase)}
    */
   @Test
-  @DisplayName("Test createMatrix(COSBase); when COSArray()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Matrix Matrix.createMatrix(COSBase)"})
-  void testCreateMatrix_whenCOSArray() {
-    // Arrange and Act
-    Matrix actualCreateMatrixResult = Matrix.createMatrix(new COSArray());
-
-    // Assert
-    assertEquals(0.0f, actualCreateMatrixResult.getShearX());
-    assertEquals(0.0f, actualCreateMatrixResult.getShearY());
-    assertEquals(0.0f, actualCreateMatrixResult.getTranslateX());
-    assertEquals(0.0f, actualCreateMatrixResult.getTranslateY());
-    assertEquals(1.0f, actualCreateMatrixResult.getScaleX());
-    assertEquals(1.0f, actualCreateMatrixResult.getScaleY());
-    assertEquals(1.0f, actualCreateMatrixResult.getScalingFactorX());
-    assertEquals(1.0f, actualCreateMatrixResult.getScalingFactorY());
-    float[][] values = actualCreateMatrixResult.getValues();
-    assertEquals(3, values.length);
-    assertArrayEquals(new float[]{0.0f, 0.0f, 1.0f}, values[2], 0.0f);
-    assertArrayEquals(new float[]{0.0f, 1.0f, 0.0f}, values[1], 0.0f);
-    assertArrayEquals(new float[]{1.0f, 0.0f, 0.0f}, values[0], 0.0f);
-  }
-
-  /**
-   * Test {@link Matrix#createMatrix(COSBase)}.
-   * <ul>
-   *   <li>When {@link COSBoolean#FALSE}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link Matrix#createMatrix(COSBase)}
-   */
-  @Test
-  @DisplayName("Test createMatrix(COSBase); when FALSE")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Matrix Matrix.createMatrix(COSBase)"})
-  void testCreateMatrix_whenFalse() {
+  void testCreateMatrix() {
     // Arrange and Act
     Matrix actualCreateMatrixResult = Matrix.createMatrix(COSBoolean.FALSE);
 
@@ -176,14 +46,65 @@ class MatrixDiffblueTest {
   }
 
   /**
-   * Test {@link Matrix#createAffineTransform()}.
-   * <p>
+   * Method under test: {@link Matrix#createMatrix(COSBase)}
+   */
+  @Test
+  void testCreateMatrix2() {
+    // Arrange and Act
+    Matrix actualCreateMatrixResult = Matrix.createMatrix(new COSArray());
+
+    // Assert
+    assertEquals(0.0f, actualCreateMatrixResult.getShearX());
+    assertEquals(0.0f, actualCreateMatrixResult.getShearY());
+    assertEquals(0.0f, actualCreateMatrixResult.getTranslateX());
+    assertEquals(0.0f, actualCreateMatrixResult.getTranslateY());
+    assertEquals(1.0f, actualCreateMatrixResult.getScaleX());
+    assertEquals(1.0f, actualCreateMatrixResult.getScaleY());
+    assertEquals(1.0f, actualCreateMatrixResult.getScalingFactorX());
+    assertEquals(1.0f, actualCreateMatrixResult.getScalingFactorY());
+    float[][] values = actualCreateMatrixResult.getValues();
+    assertEquals(3, values.length);
+    assertArrayEquals(new float[]{0.0f, 0.0f, 1.0f}, values[2], 0.0f);
+    assertArrayEquals(new float[]{0.0f, 1.0f, 0.0f}, values[1], 0.0f);
+    assertArrayEquals(new float[]{1.0f, 0.0f, 0.0f}, values[0], 0.0f);
+  }
+
+  /**
+   * Method under test: {@link Matrix#createMatrix(COSBase)}
+   */
+  @Test
+  void testCreateMatrix3() {
+    // Arrange
+    COSObjectable object = mock(COSObjectable.class);
+    when(object.getCOSObject()).thenReturn(COSBoolean.FALSE);
+
+    COSArray base = new COSArray();
+    base.add(object);
+
+    // Act
+    Matrix actualCreateMatrixResult = Matrix.createMatrix(base);
+
+    // Assert
+    verify(object).getCOSObject();
+    assertEquals(0.0f, actualCreateMatrixResult.getShearX());
+    assertEquals(0.0f, actualCreateMatrixResult.getShearY());
+    assertEquals(0.0f, actualCreateMatrixResult.getTranslateX());
+    assertEquals(0.0f, actualCreateMatrixResult.getTranslateY());
+    assertEquals(1.0f, actualCreateMatrixResult.getScaleX());
+    assertEquals(1.0f, actualCreateMatrixResult.getScaleY());
+    assertEquals(1.0f, actualCreateMatrixResult.getScalingFactorX());
+    assertEquals(1.0f, actualCreateMatrixResult.getScalingFactorY());
+    float[][] values = actualCreateMatrixResult.getValues();
+    assertEquals(3, values.length);
+    assertArrayEquals(new float[]{0.0f, 0.0f, 1.0f}, values[2], 0.0f);
+    assertArrayEquals(new float[]{0.0f, 1.0f, 0.0f}, values[1], 0.0f);
+    assertArrayEquals(new float[]{1.0f, 0.0f, 0.0f}, values[0], 0.0f);
+  }
+
+  /**
    * Method under test: {@link Matrix#createAffineTransform()}
    */
   @Test
-  @DisplayName("Test createAffineTransform()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"AffineTransform Matrix.createAffineTransform()"})
   void testCreateAffineTransform() {
     // Arrange and Act
     AffineTransform actualCreateAffineTransformResult = (new Matrix()).createAffineTransform();
@@ -201,73 +122,21 @@ class MatrixDiffblueTest {
   }
 
   /**
-   * Test {@link Matrix#getValue(int, int)}.
-   * <ul>
-   *   <li>When minus one.</li>
-   *   <li>Then return one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link Matrix#getValue(int, int)}
    */
   @Test
-  @DisplayName("Test getValue(int, int); when minus one; then return one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"float Matrix.getValue(int, int)"})
-  void testGetValue_whenMinusOne_thenReturnOne() {
+  void testGetValue() {
     // Arrange, Act and Assert
+    assertEquals(0.0f, (new Matrix()).getValue(1, 3));
+    assertEquals(0.0f, (new Matrix()).getValue(0, 3));
     assertEquals(1.0f, (new Matrix()).getValue(-1, 3));
   }
 
   /**
-   * Test {@link Matrix#getValue(int, int)}.
-   * <ul>
-   *   <li>When one.</li>
-   *   <li>Then return zero.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link Matrix#getValue(int, int)}
-   */
-  @Test
-  @DisplayName("Test getValue(int, int); when one; then return zero")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"float Matrix.getValue(int, int)"})
-  void testGetValue_whenOne_thenReturnZero() {
-    // Arrange, Act and Assert
-    assertEquals(0.0f, (new Matrix()).getValue(1, 3));
-  }
-
-  /**
-   * Test {@link Matrix#getValue(int, int)}.
-   * <ul>
-   *   <li>When zero.</li>
-   *   <li>Then return zero.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link Matrix#getValue(int, int)}
-   */
-  @Test
-  @DisplayName("Test getValue(int, int); when zero; then return zero")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"float Matrix.getValue(int, int)"})
-  void testGetValue_whenZero_thenReturnZero() {
-    // Arrange, Act and Assert
-    assertEquals(0.0f, (new Matrix()).getValue(0, 3));
-  }
-
-  /**
-   * Test {@link Matrix#setValue(int, int, float)}.
-   * <ul>
-   *   <li>When one.</li>
-   *   <li>Then {@link Matrix#Matrix()} ScaleY is ten.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link Matrix#setValue(int, int, float)}
    */
   @Test
-  @DisplayName("Test setValue(int, int, float); when one; then Matrix() ScaleY is ten")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void Matrix.setValue(int, int, float)"})
-  void testSetValue_whenOne_thenMatrixScaleYIsTen() {
+  void testSetValue() {
     // Arrange
     Matrix matrix = new Matrix();
 
@@ -278,19 +147,16 @@ class MatrixDiffblueTest {
     assertEquals(10.0f, matrix.getScaleY());
     assertEquals(10.0f, matrix.getScalingFactorY());
     float[][] values = matrix.getValues();
+    float[] floatArray = values[1];
+    assertEquals(10.0f, floatArray[1]);
     assertEquals(3, values.length);
-    assertArrayEquals(new float[]{0.0f, 10.0f, 0.0f}, values[1], 0.0f);
+    assertEquals(3, floatArray.length);
   }
 
   /**
-   * Test {@link Matrix#getValues()}.
-   * <p>
    * Method under test: {@link Matrix#getValues()}
    */
   @Test
-  @DisplayName("Test getValues()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"float[][] Matrix.getValues()"})
   void testGetValues() {
     // Arrange and Act
     float[][] actualValues = (new Matrix()).getValues();
@@ -303,122 +169,10 @@ class MatrixDiffblueTest {
   }
 
   /**
-   * Test {@link Matrix#concatenate(Matrix, Matrix)} with {@code a}, {@code b}.
-   * <ul>
-   *   <li>When {@link Matrix#Matrix()}.</li>
-   *   <li>Then return {@link Matrix#Matrix()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link Matrix#concatenate(Matrix, Matrix)}
-   */
-  @Test
-  @DisplayName("Test concatenate(Matrix, Matrix) with 'a', 'b'; when Matrix(); then return Matrix()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Matrix Matrix.concatenate(Matrix, Matrix)"})
-  void testConcatenateWithAB_whenMatrix_thenReturnMatrix() {
-    // Arrange
-    Matrix a = new Matrix();
-
-    // Act and Assert
-    assertEquals(a, Matrix.concatenate(a, new Matrix()));
-  }
-
-  /**
-   * Test {@link Matrix#concatenate(Matrix, Matrix)} with {@code a}, {@code b}.
-   * <ul>
-   *   <li>When ScaleInstance {@link Float#NaN} is ten.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link Matrix#concatenate(Matrix, Matrix)}
-   */
-  @Test
-  @DisplayName("Test concatenate(Matrix, Matrix) with 'a', 'b'; when ScaleInstance NaN is ten")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Matrix Matrix.concatenate(Matrix, Matrix)"})
-  void testConcatenateWithAB_whenScaleInstanceNaNIsTen() {
-    // Arrange
-    Matrix a = Matrix.getScaleInstance(Float.NaN, 10.0f);
-
-    // Act and Assert
-    assertThrows(IllegalArgumentException.class, () -> Matrix.concatenate(a, new Matrix()));
-  }
-
-  /**
-   * Test {@link Matrix#concatenate(Matrix, Matrix)} with {@code a}, {@code b}.
-   * <ul>
-   *   <li>When ScaleInstance ten is {@link Float#NaN}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link Matrix#concatenate(Matrix, Matrix)}
-   */
-  @Test
-  @DisplayName("Test concatenate(Matrix, Matrix) with 'a', 'b'; when ScaleInstance ten is NaN")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Matrix Matrix.concatenate(Matrix, Matrix)"})
-  void testConcatenateWithAB_whenScaleInstanceTenIsNaN() {
-    // Arrange
-    Matrix a = Matrix.getScaleInstance(10.0f, Float.NaN);
-
-    // Act and Assert
-    assertThrows(IllegalArgumentException.class, () -> Matrix.concatenate(a, new Matrix()));
-  }
-
-  /**
-   * Test {@link Matrix#concatenate(Matrix, Matrix)} with {@code a}, {@code b}.
-   * <ul>
-   *   <li>When ScaleInstance ten is {@link Float#NaN}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link Matrix#concatenate(Matrix, Matrix)}
-   */
-  @Test
-  @DisplayName("Test concatenate(Matrix, Matrix) with 'a', 'b'; when ScaleInstance ten is NaN")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Matrix Matrix.concatenate(Matrix, Matrix)"})
-  void testConcatenateWithAB_whenScaleInstanceTenIsNaN2() {
-    // Arrange
-    Matrix a = new Matrix();
-
-    // Act and Assert
-    assertThrows(IllegalArgumentException.class,
-        () -> Matrix.concatenate(a, Matrix.getScaleInstance(10.0f, Float.NaN)));
-  }
-
-  /**
-   * Test {@link Matrix#concatenate(Matrix, Matrix)} with {@code a}, {@code b}.
-   * <ul>
-   *   <li>When TranslateInstance {@link Float#NaN} is ten.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link Matrix#concatenate(Matrix, Matrix)}
-   */
-  @Test
-  @DisplayName("Test concatenate(Matrix, Matrix) with 'a', 'b'; when TranslateInstance NaN is ten")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Matrix Matrix.concatenate(Matrix, Matrix)"})
-  void testConcatenateWithAB_whenTranslateInstanceNaNIsTen() {
-    // Arrange
-    Matrix a = new Matrix();
-
-    // Act and Assert
-    assertThrows(IllegalArgumentException.class,
-        () -> Matrix.concatenate(a, Matrix.getTranslateInstance(Float.NaN, 10.0f)));
-  }
-
-  /**
-   * Test {@link Matrix#concatenate(Matrix)} with {@code matrix}.
-   * <ul>
-   *   <li>Given ScaleInstance {@link Float#NaN} is ten.</li>
-   *   <li>When {@link Matrix#Matrix()}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link Matrix#concatenate(Matrix)}
    */
   @Test
-  @DisplayName("Test concatenate(Matrix) with 'matrix'; given ScaleInstance NaN is ten; when Matrix()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void Matrix.concatenate(Matrix)"})
-  void testConcatenateWithMatrix_givenScaleInstanceNaNIsTen_whenMatrix() {
+  void testConcatenate() {
     // Arrange
     Matrix scaleInstance = Matrix.getScaleInstance(Float.NaN, 10.0f);
 
@@ -427,19 +181,10 @@ class MatrixDiffblueTest {
   }
 
   /**
-   * Test {@link Matrix#concatenate(Matrix)} with {@code matrix}.
-   * <ul>
-   *   <li>Given ScaleInstance ten is {@link Float#NaN}.</li>
-   *   <li>When {@link Matrix#Matrix()}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link Matrix#concatenate(Matrix)}
    */
   @Test
-  @DisplayName("Test concatenate(Matrix) with 'matrix'; given ScaleInstance ten is NaN; when Matrix()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void Matrix.concatenate(Matrix)"})
-  void testConcatenateWithMatrix_givenScaleInstanceTenIsNaN_whenMatrix() {
+  void testConcatenate2() {
     // Arrange
     Matrix scaleInstance = Matrix.getScaleInstance(10.0f, Float.NaN);
 
@@ -448,18 +193,10 @@ class MatrixDiffblueTest {
   }
 
   /**
-   * Test {@link Matrix#concatenate(Matrix)} with {@code matrix}.
-   * <ul>
-   *   <li>When ScaleInstance ten is {@link Float#NaN}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link Matrix#concatenate(Matrix)}
    */
   @Test
-  @DisplayName("Test concatenate(Matrix) with 'matrix'; when ScaleInstance ten is NaN")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void Matrix.concatenate(Matrix)"})
-  void testConcatenateWithMatrix_whenScaleInstanceTenIsNaN() {
+  void testConcatenate3() {
     // Arrange
     Matrix matrix = new Matrix();
 
@@ -468,18 +205,10 @@ class MatrixDiffblueTest {
   }
 
   /**
-   * Test {@link Matrix#concatenate(Matrix)} with {@code matrix}.
-   * <ul>
-   *   <li>When TranslateInstance {@link Float#NaN} is ten.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link Matrix#concatenate(Matrix)}
    */
   @Test
-  @DisplayName("Test concatenate(Matrix) with 'matrix'; when TranslateInstance NaN is ten")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void Matrix.concatenate(Matrix)"})
-  void testConcatenateWithMatrix_whenTranslateInstanceNaNIsTen() {
+  void testConcatenate4() {
     // Arrange
     Matrix matrix = new Matrix();
 
@@ -489,39 +218,72 @@ class MatrixDiffblueTest {
   }
 
   /**
-   * Test {@link Matrix#translate(float, float)} with {@code tx}, {@code ty}.
-   * <ul>
-   *   <li>Given {@link Matrix#Matrix()}.</li>
-   *   <li>When {@link Float#NaN}.</li>
-   *   <li>Then throw {@link IllegalArgumentException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link Matrix#translate(float, float)}
+   * Method under test: {@link Matrix#concatenate(Matrix, Matrix)}
    */
   @Test
-  @DisplayName("Test translate(float, float) with 'tx', 'ty'; given Matrix(); when NaN; then throw IllegalArgumentException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void Matrix.translate(float, float)"})
-  void testTranslateWithTxTy_givenMatrix_whenNaN_thenThrowIllegalArgumentException() {
-    // Arrange, Act and Assert
-    assertThrows(IllegalArgumentException.class, () -> (new Matrix()).translate(Float.NaN, 10.0f));
+  void testConcatenate5() {
+    // Arrange
+    Matrix a = new Matrix();
+
+    // Act and Assert
+    assertEquals(a, Matrix.concatenate(a, new Matrix()));
   }
 
   /**
-   * Test {@link Matrix#translate(float, float)} with {@code tx}, {@code ty}.
-   * <ul>
-   *   <li>Given {@link Matrix#Matrix()}.</li>
-   *   <li>When ten.</li>
-   *   <li>Then {@link Matrix#Matrix()} TranslateX is ten.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link Matrix#concatenate(Matrix, Matrix)}
+   */
+  @Test
+  void testConcatenate6() {
+    // Arrange
+    Matrix a = Matrix.getScaleInstance(Float.NaN, 10.0f);
+
+    // Act and Assert
+    assertThrows(IllegalArgumentException.class, () -> Matrix.concatenate(a, new Matrix()));
+  }
+
+  /**
+   * Method under test: {@link Matrix#concatenate(Matrix, Matrix)}
+   */
+  @Test
+  void testConcatenate7() {
+    // Arrange
+    Matrix a = Matrix.getScaleInstance(10.0f, Float.NaN);
+
+    // Act and Assert
+    assertThrows(IllegalArgumentException.class, () -> Matrix.concatenate(a, new Matrix()));
+  }
+
+  /**
+   * Method under test: {@link Matrix#concatenate(Matrix, Matrix)}
+   */
+  @Test
+  void testConcatenate8() {
+    // Arrange
+    Matrix a = new Matrix();
+
+    // Act and Assert
+    assertThrows(IllegalArgumentException.class,
+        () -> Matrix.concatenate(a, Matrix.getScaleInstance(10.0f, Float.NaN)));
+  }
+
+  /**
+   * Method under test: {@link Matrix#concatenate(Matrix, Matrix)}
+   */
+  @Test
+  void testConcatenate9() {
+    // Arrange
+    Matrix a = new Matrix();
+
+    // Act and Assert
+    assertThrows(IllegalArgumentException.class,
+        () -> Matrix.concatenate(a, Matrix.getTranslateInstance(Float.NaN, 10.0f)));
+  }
+
+  /**
    * Method under test: {@link Matrix#translate(float, float)}
    */
   @Test
-  @DisplayName("Test translate(float, float) with 'tx', 'ty'; given Matrix(); when ten; then Matrix() TranslateX is ten")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void Matrix.translate(float, float)"})
-  void testTranslateWithTxTy_givenMatrix_whenTen_thenMatrixTranslateXIsTen() {
+  void testTranslate() {
     // Arrange
     Matrix matrix = new Matrix();
 
@@ -532,78 +294,57 @@ class MatrixDiffblueTest {
     assertEquals(10.0f, matrix.getTranslateX());
     assertEquals(10.0f, matrix.getTranslateY());
     float[][] values = matrix.getValues();
+    float[] floatArray = values[2];
+    assertEquals(10.0f, floatArray[0]);
+    assertEquals(10.0f, floatArray[1]);
     assertEquals(3, values.length);
-    assertArrayEquals(new float[]{10.0f, 10.0f, 1.0f}, values[2], 0.0f);
+    assertEquals(3, floatArray.length);
   }
 
   /**
-   * Test {@link Matrix#translate(float, float)} with {@code tx}, {@code ty}.
-   * <ul>
-   *   <li>Given ScaleInstance {@link Float#NaN} is ten.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link Matrix#translate(float, float)}
    */
   @Test
-  @DisplayName("Test translate(float, float) with 'tx', 'ty'; given ScaleInstance NaN is ten")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void Matrix.translate(float, float)"})
-  void testTranslateWithTxTy_givenScaleInstanceNaNIsTen() {
+  void testTranslate2() {
+    // Arrange, Act and Assert
+    assertThrows(IllegalArgumentException.class, () -> (new Matrix()).translate(Float.NaN, 10.0f));
+  }
+
+  /**
+   * Method under test: {@link Matrix#translate(float, float)}
+   */
+  @Test
+  void testTranslate3() {
     // Arrange, Act and Assert
     assertThrows(IllegalArgumentException.class,
         () -> Matrix.getScaleInstance(Float.NaN, 10.0f).translate(10.0f, 10.0f));
   }
 
   /**
-   * Test {@link Matrix#translate(float, float)} with {@code tx}, {@code ty}.
-   * <ul>
-   *   <li>Given ScaleInstance ten is {@link Float#NaN}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link Matrix#translate(float, float)}
    */
   @Test
-  @DisplayName("Test translate(float, float) with 'tx', 'ty'; given ScaleInstance ten is NaN")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void Matrix.translate(float, float)"})
-  void testTranslateWithTxTy_givenScaleInstanceTenIsNaN() {
+  void testTranslate4() {
     // Arrange, Act and Assert
     assertThrows(IllegalArgumentException.class,
         () -> Matrix.getScaleInstance(10.0f, Float.NaN).translate(10.0f, 10.0f));
   }
 
   /**
-   * Test {@link Matrix#translate(float, float)} with {@code tx}, {@code ty}.
-   * <ul>
-   *   <li>Given TranslateInstance ten is {@link Float#NaN}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link Matrix#translate(float, float)}
    */
   @Test
-  @DisplayName("Test translate(float, float) with 'tx', 'ty'; given TranslateInstance ten is NaN")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void Matrix.translate(float, float)"})
-  void testTranslateWithTxTy_givenTranslateInstanceTenIsNaN() {
+  void testTranslate5() {
     // Arrange, Act and Assert
     assertThrows(IllegalArgumentException.class,
         () -> Matrix.getTranslateInstance(10.0f, Float.NaN).translate(10.0f, 10.0f));
   }
 
   /**
-   * Test {@link Matrix#translate(Vector)} with {@code vector}.
-   * <ul>
-   *   <li>Given {@link Matrix#Matrix()}.</li>
-   *   <li>Then {@link Matrix#Matrix()} TranslateX is ten.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link Matrix#translate(Vector)}
    */
   @Test
-  @DisplayName("Test translate(Vector) with 'vector'; given Matrix(); then Matrix() TranslateX is ten")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void Matrix.translate(Vector)"})
-  void testTranslateWithVector_givenMatrix_thenMatrixTranslateXIsTen() {
+  void testTranslate6() {
     // Arrange
     Matrix matrix = new Matrix();
 
@@ -614,24 +355,18 @@ class MatrixDiffblueTest {
     assertEquals(10.0f, matrix.getTranslateX());
     assertEquals(10.0f, matrix.getTranslateY());
     float[][] values = matrix.getValues();
+    float[] floatArray = values[2];
+    assertEquals(10.0f, floatArray[0]);
+    assertEquals(10.0f, floatArray[1]);
     assertEquals(3, values.length);
-    assertArrayEquals(new float[]{10.0f, 10.0f, 1.0f}, values[2], 0.0f);
+    assertEquals(3, floatArray.length);
   }
 
   /**
-   * Test {@link Matrix#translate(Vector)} with {@code vector}.
-   * <ul>
-   *   <li>Given {@link Matrix#Matrix()}.</li>
-   *   <li>When {@link Vector#Vector(float, float)} with x is {@link Float#NaN} and y is ten.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link Matrix#translate(Vector)}
    */
   @Test
-  @DisplayName("Test translate(Vector) with 'vector'; given Matrix(); when Vector(float, float) with x is NaN and y is ten")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void Matrix.translate(Vector)"})
-  void testTranslateWithVector_givenMatrix_whenVectorWithXIsNaNAndYIsTen() {
+  void testTranslate7() {
     // Arrange
     Matrix matrix = new Matrix();
 
@@ -640,18 +375,10 @@ class MatrixDiffblueTest {
   }
 
   /**
-   * Test {@link Matrix#translate(Vector)} with {@code vector}.
-   * <ul>
-   *   <li>Given ScaleInstance {@link Float#NaN} is ten.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link Matrix#translate(Vector)}
    */
   @Test
-  @DisplayName("Test translate(Vector) with 'vector'; given ScaleInstance NaN is ten")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void Matrix.translate(Vector)"})
-  void testTranslateWithVector_givenScaleInstanceNaNIsTen() {
+  void testTranslate8() {
     // Arrange
     Matrix scaleInstance = Matrix.getScaleInstance(Float.NaN, 10.0f);
 
@@ -660,18 +387,10 @@ class MatrixDiffblueTest {
   }
 
   /**
-   * Test {@link Matrix#translate(Vector)} with {@code vector}.
-   * <ul>
-   *   <li>Given ScaleInstance ten is {@link Float#NaN}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link Matrix#translate(Vector)}
    */
   @Test
-  @DisplayName("Test translate(Vector) with 'vector'; given ScaleInstance ten is NaN")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void Matrix.translate(Vector)"})
-  void testTranslateWithVector_givenScaleInstanceTenIsNaN() {
+  void testTranslate9() {
     // Arrange
     Matrix scaleInstance = Matrix.getScaleInstance(10.0f, Float.NaN);
 
@@ -680,18 +399,10 @@ class MatrixDiffblueTest {
   }
 
   /**
-   * Test {@link Matrix#translate(Vector)} with {@code vector}.
-   * <ul>
-   *   <li>Given TranslateInstance ten is {@link Float#NaN}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link Matrix#translate(Vector)}
    */
   @Test
-  @DisplayName("Test translate(Vector) with 'vector'; given TranslateInstance ten is NaN")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void Matrix.translate(Vector)"})
-  void testTranslateWithVector_givenTranslateInstanceTenIsNaN() {
+  void testTranslate10() {
     // Arrange
     Matrix translateInstance = Matrix.getTranslateInstance(10.0f, Float.NaN);
 
@@ -700,58 +411,10 @@ class MatrixDiffblueTest {
   }
 
   /**
-   * Test {@link Matrix#scale(float, float)}.
-   * <ul>
-   *   <li>Given {@link Matrix#Matrix()}.</li>
-   *   <li>When {@link Float#NaN}.</li>
-   *   <li>Then throw {@link IllegalArgumentException}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link Matrix#scale(float, float)}
    */
   @Test
-  @DisplayName("Test scale(float, float); given Matrix(); when NaN; then throw IllegalArgumentException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void Matrix.scale(float, float)"})
-  void testScale_givenMatrix_whenNaN_thenThrowIllegalArgumentException() {
-    // Arrange, Act and Assert
-    assertThrows(IllegalArgumentException.class, () -> (new Matrix()).scale(Float.NaN, 10.0f));
-  }
-
-  /**
-   * Test {@link Matrix#scale(float, float)}.
-   * <ul>
-   *   <li>Given {@link Matrix#Matrix()}.</li>
-   *   <li>When {@link Float#NaN}.</li>
-   *   <li>Then throw {@link IllegalArgumentException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link Matrix#scale(float, float)}
-   */
-  @Test
-  @DisplayName("Test scale(float, float); given Matrix(); when NaN; then throw IllegalArgumentException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void Matrix.scale(float, float)"})
-  void testScale_givenMatrix_whenNaN_thenThrowIllegalArgumentException2() {
-    // Arrange, Act and Assert
-    assertThrows(IllegalArgumentException.class, () -> (new Matrix()).scale(10.0f, Float.NaN));
-  }
-
-  /**
-   * Test {@link Matrix#scale(float, float)}.
-   * <ul>
-   *   <li>Given {@link Matrix#Matrix()}.</li>
-   *   <li>When ten.</li>
-   *   <li>Then {@link Matrix#Matrix()} ScaleX is ten.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link Matrix#scale(float, float)}
-   */
-  @Test
-  @DisplayName("Test scale(float, float); given Matrix(); when ten; then Matrix() ScaleX is ten")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void Matrix.scale(float, float)"})
-  void testScale_givenMatrix_whenTen_thenMatrixScaleXIsTen() {
+  void testScale() {
     // Arrange
     Matrix matrix = new Matrix();
 
@@ -764,102 +427,67 @@ class MatrixDiffblueTest {
     assertEquals(10.0f, matrix.getScalingFactorX());
     assertEquals(10.0f, matrix.getScalingFactorY());
     float[][] values = matrix.getValues();
+    float[] floatArray = values[0];
+    assertEquals(10.0f, floatArray[0]);
+    float[] floatArray2 = values[1];
+    assertEquals(10.0f, floatArray2[1]);
     assertEquals(3, values.length);
-    assertArrayEquals(new float[]{0.0f, 10.0f, 0.0f}, values[1], 0.0f);
-    assertArrayEquals(new float[]{10.0f, 0.0f, 0.0f}, values[0], 0.0f);
+    assertEquals(3, floatArray.length);
+    assertEquals(3, floatArray2.length);
   }
 
   /**
-   * Test {@link Matrix#scale(float, float)}.
-   * <ul>
-   *   <li>Given ScaleInstance ten is {@link Float#NaN}.</li>
-   *   <li>When ten.</li>
-   *   <li>Then throw {@link IllegalArgumentException}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link Matrix#scale(float, float)}
    */
   @Test
-  @DisplayName("Test scale(float, float); given ScaleInstance ten is NaN; when ten; then throw IllegalArgumentException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void Matrix.scale(float, float)"})
-  void testScale_givenScaleInstanceTenIsNaN_whenTen_thenThrowIllegalArgumentException() {
+  void testScale2() {
+    // Arrange, Act and Assert
+    assertThrows(IllegalArgumentException.class, () -> (new Matrix()).scale(Float.NaN, 10.0f));
+  }
+
+  /**
+   * Method under test: {@link Matrix#scale(float, float)}
+   */
+  @Test
+  void testScale3() {
+    // Arrange, Act and Assert
+    assertThrows(IllegalArgumentException.class, () -> (new Matrix()).scale(10.0f, Float.NaN));
+  }
+
+  /**
+   * Method under test: {@link Matrix#scale(float, float)}
+   */
+  @Test
+  void testScale4() {
     // Arrange, Act and Assert
     assertThrows(IllegalArgumentException.class, () -> Matrix.getScaleInstance(10.0f, Float.NaN).scale(10.0f, 10.0f));
   }
 
   /**
-   * Test {@link Matrix#scale(float, float)}.
-   * <ul>
-   *   <li>Given TranslateInstance {@link Float#NaN} is ten.</li>
-   *   <li>Then throw {@link IllegalArgumentException}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link Matrix#scale(float, float)}
    */
   @Test
-  @DisplayName("Test scale(float, float); given TranslateInstance NaN is ten; then throw IllegalArgumentException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void Matrix.scale(float, float)"})
-  void testScale_givenTranslateInstanceNaNIsTen_thenThrowIllegalArgumentException() {
+  void testScale5() {
     // Arrange, Act and Assert
     assertThrows(IllegalArgumentException.class,
         () -> Matrix.getTranslateInstance(Float.NaN, 10.0f).scale(10.0f, 10.0f));
   }
 
   /**
-   * Test {@link Matrix#scale(float, float)}.
-   * <ul>
-   *   <li>Given TranslateInstance ten is {@link Float#NaN}.</li>
-   *   <li>Then throw {@link IllegalArgumentException}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link Matrix#scale(float, float)}
    */
   @Test
-  @DisplayName("Test scale(float, float); given TranslateInstance ten is NaN; then throw IllegalArgumentException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void Matrix.scale(float, float)"})
-  void testScale_givenTranslateInstanceTenIsNaN_thenThrowIllegalArgumentException() {
+  void testScale6() {
     // Arrange, Act and Assert
     assertThrows(IllegalArgumentException.class,
         () -> Matrix.getTranslateInstance(10.0f, Float.NaN).scale(10.0f, 10.0f));
   }
 
   /**
-   * Test {@link Matrix#rotate(double)}.
-   * <ul>
-   *   <li>Given {@link Matrix#Matrix()}.</li>
-   *   <li>When {@link Double#NaN}.</li>
-   *   <li>Then throw {@link IllegalArgumentException}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link Matrix#rotate(double)}
    */
   @Test
-  @DisplayName("Test rotate(double); given Matrix(); when NaN; then throw IllegalArgumentException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void Matrix.rotate(double)"})
-  void testRotate_givenMatrix_whenNaN_thenThrowIllegalArgumentException() {
-    // Arrange, Act and Assert
-    assertThrows(IllegalArgumentException.class, () -> (new Matrix()).rotate(Double.NaN));
-  }
-
-  /**
-   * Test {@link Matrix#rotate(double)}.
-   * <ul>
-   *   <li>Given {@link Matrix#Matrix()}.</li>
-   *   <li>When ten.</li>
-   *   <li>Then {@link Matrix#Matrix()} ShearY is {@code -0.5440211}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link Matrix#rotate(double)}
-   */
-  @Test
-  @DisplayName("Test rotate(double); given Matrix(); when ten; then Matrix() ShearY is '-0.5440211'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void Matrix.rotate(double)"})
-  void testRotate_givenMatrix_whenTen_thenMatrixShearYIs05440211() {
+  void testRotate() {
     // Arrange
     Matrix matrix = new Matrix();
 
@@ -868,49 +496,44 @@ class MatrixDiffblueTest {
 
     // Assert
     assertEquals(-0.5440211f, matrix.getShearY());
+    float[][] values = matrix.getValues();
+    float[] floatArray = values[0];
+    assertEquals(-0.5440211f, floatArray[1]);
     assertEquals(-0.8390715f, matrix.getScaleX());
     assertEquals(-0.8390715f, matrix.getScaleY());
+    assertEquals(-0.8390715f, floatArray[0]);
+    float[] floatArray2 = values[1];
+    assertEquals(-0.8390715f, floatArray2[1]);
     assertEquals(0.5440211f, matrix.getShearX());
-    float[][] values = matrix.getValues();
+    assertEquals(0.5440211f, floatArray2[0]);
     assertEquals(3, values.length);
-    assertArrayEquals(new float[]{-0.8390715f, -0.5440211f, 0.0f}, values[0], 0.0f);
-    assertArrayEquals(new float[]{0.5440211f, -0.8390715f, 0.0f}, values[1], 0.0f);
+    assertEquals(3, floatArray.length);
+    assertEquals(3, floatArray2.length);
   }
 
   /**
-   * Test {@link Matrix#rotate(double)}.
-   * <ul>
-   *   <li>Given ScaleInstance one is {@link Float#NaN}.</li>
-   *   <li>When ten.</li>
-   *   <li>Then throw {@link IllegalArgumentException}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link Matrix#rotate(double)}
    */
   @Test
-  @DisplayName("Test rotate(double); given ScaleInstance one is NaN; when ten; then throw IllegalArgumentException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void Matrix.rotate(double)"})
-  void testRotate_givenScaleInstanceOneIsNaN_whenTen_thenThrowIllegalArgumentException() {
+  void testRotate2() {
+    // Arrange, Act and Assert
+    assertThrows(IllegalArgumentException.class, () -> (new Matrix()).rotate(Double.NaN));
+  }
+
+  /**
+   * Method under test: {@link Matrix#rotate(double)}
+   */
+  @Test
+  void testRotate3() {
     // Arrange, Act and Assert
     assertThrows(IllegalArgumentException.class, () -> Matrix.getScaleInstance(1.0f, Float.NaN).rotate(10.0d));
   }
 
   /**
-   * Test {@link Matrix#multiply(Matrix)}.
-   * <ul>
-   *   <li>Given {@link Matrix#Matrix()}.</li>
-   *   <li>When {@link Matrix#Matrix()}.</li>
-   *   <li>Then return {@link Matrix#Matrix()}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link Matrix#multiply(Matrix)}
    */
   @Test
-  @DisplayName("Test multiply(Matrix); given Matrix(); when Matrix(); then return Matrix()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Matrix Matrix.multiply(Matrix)"})
-  void testMultiply_givenMatrix_whenMatrix_thenReturnMatrix() {
+  void testMultiply() {
     // Arrange
     Matrix matrix = new Matrix();
 
@@ -919,40 +542,10 @@ class MatrixDiffblueTest {
   }
 
   /**
-   * Test {@link Matrix#multiply(Matrix)}.
-   * <ul>
-   *   <li>Given {@link Matrix#Matrix()}.</li>
-   *   <li>When ScaleInstance ten is {@link Float#NaN}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link Matrix#multiply(Matrix)}
    */
   @Test
-  @DisplayName("Test multiply(Matrix); given Matrix(); when ScaleInstance ten is NaN")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Matrix Matrix.multiply(Matrix)"})
-  void testMultiply_givenMatrix_whenScaleInstanceTenIsNaN() {
-    // Arrange
-    Matrix matrix = new Matrix();
-
-    // Act and Assert
-    assertThrows(IllegalArgumentException.class, () -> matrix.multiply(Matrix.getScaleInstance(10.0f, Float.NaN)));
-  }
-
-  /**
-   * Test {@link Matrix#multiply(Matrix)}.
-   * <ul>
-   *   <li>Given ScaleInstance {@link Float#NaN} is ten.</li>
-   *   <li>Then throw {@link IllegalArgumentException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link Matrix#multiply(Matrix)}
-   */
-  @Test
-  @DisplayName("Test multiply(Matrix); given ScaleInstance NaN is ten; then throw IllegalArgumentException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Matrix Matrix.multiply(Matrix)"})
-  void testMultiply_givenScaleInstanceNaNIsTen_thenThrowIllegalArgumentException() {
+  void testMultiply2() {
     // Arrange
     Matrix scaleInstance = Matrix.getScaleInstance(Float.NaN, 10.0f);
 
@@ -961,19 +554,10 @@ class MatrixDiffblueTest {
   }
 
   /**
-   * Test {@link Matrix#multiply(Matrix)}.
-   * <ul>
-   *   <li>Given ScaleInstance ten is {@link Float#NaN}.</li>
-   *   <li>Then throw {@link IllegalArgumentException}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link Matrix#multiply(Matrix)}
    */
   @Test
-  @DisplayName("Test multiply(Matrix); given ScaleInstance ten is NaN; then throw IllegalArgumentException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Matrix Matrix.multiply(Matrix)"})
-  void testMultiply_givenScaleInstanceTenIsNaN_thenThrowIllegalArgumentException() {
+  void testMultiply3() {
     // Arrange
     Matrix scaleInstance = Matrix.getScaleInstance(10.0f, Float.NaN);
 
@@ -982,19 +566,10 @@ class MatrixDiffblueTest {
   }
 
   /**
-   * Test {@link Matrix#multiply(Matrix)}.
-   * <ul>
-   *   <li>Given TranslateInstance {@link Float#NaN} is ten.</li>
-   *   <li>Then throw {@link IllegalArgumentException}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link Matrix#multiply(Matrix)}
    */
   @Test
-  @DisplayName("Test multiply(Matrix); given TranslateInstance NaN is ten; then throw IllegalArgumentException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Matrix Matrix.multiply(Matrix)"})
-  void testMultiply_givenTranslateInstanceNaNIsTen_thenThrowIllegalArgumentException() {
+  void testMultiply4() {
     // Arrange
     Matrix translateInstance = Matrix.getTranslateInstance(Float.NaN, 10.0f);
 
@@ -1003,19 +578,22 @@ class MatrixDiffblueTest {
   }
 
   /**
-   * Test {@link Matrix#transform(Vector)} with {@code vector}.
-   * <ul>
-   *   <li>When {@link Vector#Vector(float, float)} with x is ten and y is ten.</li>
-   *   <li>Then return X is ten.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link Matrix#multiply(Matrix)}
+   */
+  @Test
+  void testMultiply5() {
+    // Arrange
+    Matrix matrix = new Matrix();
+
+    // Act and Assert
+    assertThrows(IllegalArgumentException.class, () -> matrix.multiply(Matrix.getScaleInstance(10.0f, Float.NaN)));
+  }
+
+  /**
    * Method under test: {@link Matrix#transform(Vector)}
    */
   @Test
-  @DisplayName("Test transform(Vector) with 'vector'; when Vector(float, float) with x is ten and y is ten; then return X is ten")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Vector Matrix.transform(Vector)"})
-  void testTransformWithVector_whenVectorWithXIsTenAndYIsTen_thenReturnXIsTen() {
+  void testTransform() {
     // Arrange
     Matrix matrix = new Matrix();
 
@@ -1028,14 +606,9 @@ class MatrixDiffblueTest {
   }
 
   /**
-   * Test {@link Matrix#transformPoint(float, float)}.
-   * <p>
    * Method under test: {@link Matrix#transformPoint(float, float)}
    */
   @Test
-  @DisplayName("Test transformPoint(float, float)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Point2D.Float Matrix.transformPoint(float, float)"})
   void testTransformPoint() {
     // Arrange and Act
     Point2D.Float actualTransformPointResult = (new Matrix()).transformPoint(10.0f, 10.0f);
@@ -1048,14 +621,9 @@ class MatrixDiffblueTest {
   }
 
   /**
-   * Test {@link Matrix#getScaleInstance(float, float)}.
-   * <p>
    * Method under test: {@link Matrix#getScaleInstance(float, float)}
    */
   @Test
-  @DisplayName("Test getScaleInstance(float, float)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Matrix Matrix.getScaleInstance(float, float)"})
   void testGetScaleInstance() {
     // Arrange and Act
     Matrix actualScaleInstance = Matrix.getScaleInstance(10.0f, 10.0f);
@@ -1077,14 +645,9 @@ class MatrixDiffblueTest {
   }
 
   /**
-   * Test {@link Matrix#getTranslateInstance(float, float)}.
-   * <p>
    * Method under test: {@link Matrix#getTranslateInstance(float, float)}
    */
   @Test
-  @DisplayName("Test getTranslateInstance(float, float)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Matrix Matrix.getTranslateInstance(float, float)"})
   void testGetTranslateInstance() {
     // Arrange and Act
     Matrix actualTranslateInstance = Matrix.getTranslateInstance(10.0f, 10.0f);
@@ -1106,14 +669,9 @@ class MatrixDiffblueTest {
   }
 
   /**
-   * Test {@link Matrix#getRotateInstance(double, float, float)}.
-   * <p>
    * Method under test: {@link Matrix#getRotateInstance(double, float, float)}
    */
   @Test
-  @DisplayName("Test getRotateInstance(double, float, float)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Matrix Matrix.getRotateInstance(double, float, float)"})
   void testGetRotateInstance() {
     // Arrange and Act
     Matrix actualRotateInstance = Matrix.getRotateInstance(10.0d, 10.0f, 10.0f);
@@ -1135,14 +693,9 @@ class MatrixDiffblueTest {
   }
 
   /**
-   * Test {@link Matrix#clone()}.
-   * <p>
    * Method under test: {@link Matrix#clone()}
    */
   @Test
-  @DisplayName("Test clone()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Matrix Matrix.clone()"})
   void testClone() {
     // Arrange
     Matrix matrix = new Matrix();
@@ -1152,126 +705,81 @@ class MatrixDiffblueTest {
   }
 
   /**
-   * Test {@link Matrix#getScalingFactorX()}.
-   * <p>
    * Method under test: {@link Matrix#getScalingFactorX()}
    */
   @Test
-  @DisplayName("Test getScalingFactorX()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"float Matrix.getScalingFactorX()"})
   void testGetScalingFactorX() {
     // Arrange, Act and Assert
     assertEquals(1.0f, (new Matrix()).getScalingFactorX());
   }
 
   /**
-   * Test {@link Matrix#getScalingFactorY()}.
-   * <p>
    * Method under test: {@link Matrix#getScalingFactorY()}
    */
   @Test
-  @DisplayName("Test getScalingFactorY()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"float Matrix.getScalingFactorY()"})
   void testGetScalingFactorY() {
     // Arrange, Act and Assert
     assertEquals(1.0f, (new Matrix()).getScalingFactorY());
   }
 
   /**
-   * Test {@link Matrix#getScaleX()}.
-   * <p>
    * Method under test: {@link Matrix#getScaleX()}
    */
   @Test
-  @DisplayName("Test getScaleX()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"float Matrix.getScaleX()"})
   void testGetScaleX() {
     // Arrange, Act and Assert
     assertEquals(1.0f, (new Matrix()).getScaleX());
   }
 
   /**
-   * Test {@link Matrix#getShearY()}.
-   * <p>
    * Method under test: {@link Matrix#getShearY()}
    */
   @Test
-  @DisplayName("Test getShearY()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"float Matrix.getShearY()"})
   void testGetShearY() {
     // Arrange, Act and Assert
     assertEquals(0.0f, (new Matrix()).getShearY());
   }
 
   /**
-   * Test {@link Matrix#getShearX()}.
-   * <p>
    * Method under test: {@link Matrix#getShearX()}
    */
   @Test
-  @DisplayName("Test getShearX()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"float Matrix.getShearX()"})
   void testGetShearX() {
     // Arrange, Act and Assert
     assertEquals(0.0f, (new Matrix()).getShearX());
   }
 
   /**
-   * Test {@link Matrix#getScaleY()}.
-   * <p>
    * Method under test: {@link Matrix#getScaleY()}
    */
   @Test
-  @DisplayName("Test getScaleY()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"float Matrix.getScaleY()"})
   void testGetScaleY() {
     // Arrange, Act and Assert
     assertEquals(1.0f, (new Matrix()).getScaleY());
   }
 
   /**
-   * Test {@link Matrix#getTranslateX()}.
-   * <p>
    * Method under test: {@link Matrix#getTranslateX()}
    */
   @Test
-  @DisplayName("Test getTranslateX()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"float Matrix.getTranslateX()"})
   void testGetTranslateX() {
     // Arrange, Act and Assert
     assertEquals(0.0f, (new Matrix()).getTranslateX());
   }
 
   /**
-   * Test {@link Matrix#getTranslateY()}.
-   * <p>
    * Method under test: {@link Matrix#getTranslateY()}
    */
   @Test
-  @DisplayName("Test getTranslateY()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"float Matrix.getTranslateY()"})
   void testGetTranslateY() {
     // Arrange, Act and Assert
     assertEquals(0.0f, (new Matrix()).getTranslateY());
   }
 
   /**
-   * Test {@link Matrix#toCOSArray()}.
-   * <p>
    * Method under test: {@link Matrix#toCOSArray()}
    */
   @Test
-  @DisplayName("Test toCOSArray()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"COSArray Matrix.toCOSArray()"})
   void testToCOSArray() {
     // Arrange, Act and Assert
     List<? extends COSBase> toListResult = (new Matrix()).toCOSArray().toList();
@@ -1299,26 +807,118 @@ class MatrixDiffblueTest {
   }
 
   /**
-   * Test {@link Matrix#toString()}.
-   * <p>
+   * Method under test: {@link Matrix#equals(Object)}
+   */
+  @Test
+  void testEquals_whenOtherIsDifferent_thenReturnNotEqual() {
+    // Arrange
+    Matrix scaleInstance = Matrix.getScaleInstance(10.0f, 10.0f);
+
+    // Act and Assert
+    assertNotEquals(scaleInstance, new Matrix());
+  }
+
+  /**
+   * Method under test: {@link Matrix#equals(Object)}
+   */
+  @Test
+  void testEquals_whenOtherIsNull_thenReturnNotEqual() {
+    // Arrange, Act and Assert
+    assertNotEquals(new Matrix(), null);
+  }
+
+  /**
+   * Method under test: {@link Matrix#equals(Object)}
+   */
+  @Test
+  void testEquals_whenOtherIsWrongType_thenReturnNotEqual() {
+    // Arrange, Act and Assert
+    assertNotEquals(new Matrix(), "Different type to Matrix");
+  }
+
+  /**
+   * Method under test: {@link Matrix#Matrix()}
+   */
+  @Test
+  void testNewMatrix() {
+    // Arrange and Act
+    Matrix actualMatrix = new Matrix();
+
+    // Assert
+    assertEquals(0.0f, actualMatrix.getShearX());
+    assertEquals(0.0f, actualMatrix.getShearY());
+    assertEquals(0.0f, actualMatrix.getTranslateX());
+    assertEquals(0.0f, actualMatrix.getTranslateY());
+    assertEquals(1.0f, actualMatrix.getScaleX());
+    assertEquals(1.0f, actualMatrix.getScaleY());
+    assertEquals(1.0f, actualMatrix.getScalingFactorX());
+    assertEquals(1.0f, actualMatrix.getScalingFactorY());
+    float[][] values = actualMatrix.getValues();
+    assertEquals(3, values.length);
+    assertArrayEquals(new float[]{0.0f, 0.0f, 1.0f}, values[2], 0.0f);
+    assertArrayEquals(new float[]{0.0f, 1.0f, 0.0f}, values[1], 0.0f);
+    assertArrayEquals(new float[]{1.0f, 0.0f, 0.0f}, values[0], 0.0f);
+  }
+
+  /**
+   * Method under test:
+   * {@link Matrix#Matrix(float, float, float, float, float, float)}
+   */
+  @Test
+  void testNewMatrix2() {
+    // Arrange and Act
+    Matrix actualMatrix = new Matrix(10.0f, 10.0f, 10.0f, 10.0f, 10.0f, 10.0f);
+
+    // Assert
+    assertEquals(10.0f, actualMatrix.getScaleX());
+    assertEquals(10.0f, actualMatrix.getScaleY());
+    assertEquals(10.0f, actualMatrix.getShearX());
+    assertEquals(10.0f, actualMatrix.getShearY());
+    assertEquals(10.0f, actualMatrix.getTranslateX());
+    assertEquals(10.0f, actualMatrix.getTranslateY());
+    assertEquals(14.142136f, actualMatrix.getScalingFactorX());
+    assertEquals(14.142136f, actualMatrix.getScalingFactorY());
+    float[][] values = actualMatrix.getValues();
+    assertEquals(3, values.length);
+    assertArrayEquals(new float[]{10.0f, 10.0f, 0.0f}, values[0], 0.0f);
+    assertArrayEquals(new float[]{10.0f, 10.0f, 0.0f}, values[1], 0.0f);
+    assertArrayEquals(new float[]{10.0f, 10.0f, 1.0f}, values[2], 0.0f);
+  }
+
+  /**
+   * Method under test: {@link Matrix#Matrix(AffineTransform)}
+   */
+  @Test
+  void testNewMatrix3() {
+    // Arrange and Act
+    Matrix actualMatrix = new Matrix(new AffineTransform());
+
+    // Assert
+    assertEquals(0.0f, actualMatrix.getShearX());
+    assertEquals(0.0f, actualMatrix.getShearY());
+    assertEquals(0.0f, actualMatrix.getTranslateX());
+    assertEquals(0.0f, actualMatrix.getTranslateY());
+    assertEquals(1.0f, actualMatrix.getScaleX());
+    assertEquals(1.0f, actualMatrix.getScaleY());
+    assertEquals(1.0f, actualMatrix.getScalingFactorX());
+    assertEquals(1.0f, actualMatrix.getScalingFactorY());
+    float[][] values = actualMatrix.getValues();
+    assertEquals(3, values.length);
+    assertArrayEquals(new float[]{0.0f, 0.0f, 1.0f}, values[2], 0.0f);
+    assertArrayEquals(new float[]{0.0f, 1.0f, 0.0f}, values[1], 0.0f);
+    assertArrayEquals(new float[]{1.0f, 0.0f, 0.0f}, values[0], 0.0f);
+  }
+
+  /**
    * Method under test: {@link Matrix#toString()}
    */
   @Test
-  @DisplayName("Test toString()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"java.lang.String Matrix.toString()"})
   void testToString() {
     // Arrange, Act and Assert
     assertEquals("[1.0,0.0,0.0,1.0,0.0,0.0]", (new Matrix()).toString());
   }
 
   /**
-   * Test {@link Matrix#equals(Object)}, and {@link Matrix#hashCode()}.
-   * <ul>
-   *   <li>When other is equal.</li>
-   *   <li>Then return equal.</li>
-   * </ul>
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link Matrix#equals(Object)}
@@ -1326,9 +926,6 @@ class MatrixDiffblueTest {
    * </ul>
    */
   @Test
-  @DisplayName("Test equals(Object), and hashCode(); when other is equal; then return equal")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean Matrix.equals(Object)", "int Matrix.hashCode()"})
   void testEqualsAndHashCode_whenOtherIsEqual_thenReturnEqual() {
     // Arrange
     Matrix matrix = new Matrix();
@@ -1341,12 +938,6 @@ class MatrixDiffblueTest {
   }
 
   /**
-   * Test {@link Matrix#equals(Object)}, and {@link Matrix#hashCode()}.
-   * <ul>
-   *   <li>When other is same.</li>
-   *   <li>Then return equal.</li>
-   * </ul>
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link Matrix#equals(Object)}
@@ -1354,9 +945,6 @@ class MatrixDiffblueTest {
    * </ul>
    */
   @Test
-  @DisplayName("Test equals(Object), and hashCode(); when other is same; then return equal")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean Matrix.equals(Object)", "int Matrix.hashCode()"})
   void testEqualsAndHashCode_whenOtherIsSame_thenReturnEqual() {
     // Arrange
     Matrix matrix = new Matrix();
@@ -1365,62 +953,5 @@ class MatrixDiffblueTest {
     assertEquals(matrix, matrix);
     int expectedHashCodeResult = matrix.hashCode();
     assertEquals(expectedHashCodeResult, matrix.hashCode());
-  }
-
-  /**
-   * Test {@link Matrix#equals(Object)}.
-   * <ul>
-   *   <li>When other is different.</li>
-   *   <li>Then return not equal.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link Matrix#equals(Object)}
-   */
-  @Test
-  @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean Matrix.equals(Object)", "int Matrix.hashCode()"})
-  void testEquals_whenOtherIsDifferent_thenReturnNotEqual() {
-    // Arrange
-    Matrix scaleInstance = Matrix.getScaleInstance(10.0f, 10.0f);
-
-    // Act and Assert
-    assertNotEquals(scaleInstance, new Matrix());
-  }
-
-  /**
-   * Test {@link Matrix#equals(Object)}.
-   * <ul>
-   *   <li>When other is {@code null}.</li>
-   *   <li>Then return not equal.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link Matrix#equals(Object)}
-   */
-  @Test
-  @DisplayName("Test equals(Object); when other is 'null'; then return not equal")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean Matrix.equals(Object)", "int Matrix.hashCode()"})
-  void testEquals_whenOtherIsNull_thenReturnNotEqual() {
-    // Arrange, Act and Assert
-    assertNotEquals(new Matrix(), null);
-  }
-
-  /**
-   * Test {@link Matrix#equals(Object)}.
-   * <ul>
-   *   <li>When other is wrong type.</li>
-   *   <li>Then return not equal.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link Matrix#equals(Object)}
-   */
-  @Test
-  @DisplayName("Test equals(Object); when other is wrong type; then return not equal")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean Matrix.equals(Object)", "int Matrix.hashCode()"})
-  void testEquals_whenOtherIsWrongType_thenReturnNotEqual() {
-    // Arrange, Act and Assert
-    assertNotEquals(new Matrix(), "Different type to Matrix");
   }
 }

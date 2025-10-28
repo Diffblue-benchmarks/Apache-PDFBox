@@ -8,165 +8,113 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
-import java.awt.geom.Rectangle2D.Double;
 import java.io.IOException;
 import org.apache.pdfbox.cos.COSArray;
+import org.apache.pdfbox.cos.COSBoolean;
 import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.cos.COSName;
 import org.apache.pdfbox.cos.COSStream;
+import org.apache.pdfbox.pdmodel.common.COSObjectable;
 import org.apache.pdfbox.pdmodel.common.PDRange;
 import org.apache.pdfbox.util.Matrix;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 class PDTriangleBasedShadingTypeDiffblueTest {
   /**
-   * Test {@link PDTriangleBasedShadingType#getBitsPerComponent()}.
-   * <ul>
-   *   <li>Then return minus one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDTriangleBasedShadingType#getBitsPerComponent()}
    */
   @Test
-  @DisplayName("Test getBitsPerComponent(); then return minus one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"int PDTriangleBasedShadingType.getBitsPerComponent()"})
-  void testGetBitsPerComponent_thenReturnMinusOne() {
+  void testGetBitsPerComponent() {
     // Arrange, Act and Assert
     assertEquals(-1, (new PDShadingType4(new COSDictionary())).getBitsPerComponent());
   }
 
   /**
-   * Test {@link PDTriangleBasedShadingType#setBitsPerComponent(int)}.
-   * <p>
-   * Method under test: {@link PDTriangleBasedShadingType#setBitsPerComponent(int)}
+   * Method under test:
+   * {@link PDTriangleBasedShadingType#setBitsPerComponent(int)}
    */
   @Test
-  @DisplayName("Test setBitsPerComponent(int)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDTriangleBasedShadingType.setBitsPerComponent(int)"})
   void testSetBitsPerComponent() {
     // Arrange
-    PDShadingType4 pdShadingType4 = new PDShadingType4(new COSDictionary());
+    COSDictionary shadingDictionary = new COSDictionary();
+    PDShadingType4 pdShadingType4 = new PDShadingType4(shadingDictionary);
 
     // Act
     pdShadingType4.setBitsPerComponent(1);
 
     // Assert
-    COSDictionary cOSObject = pdShadingType4.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
+    assertSame(shadingDictionary, pdShadingType4.getCOSObject());
   }
 
   /**
-   * Test {@link PDTriangleBasedShadingType#setBitsPerComponent(int)}.
-   * <ul>
-   *   <li>When {@link Integer#MIN_VALUE}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDTriangleBasedShadingType#setBitsPerComponent(int)}
+   * Method under test:
+   * {@link PDTriangleBasedShadingType#setBitsPerComponent(int)}
    */
   @Test
-  @DisplayName("Test setBitsPerComponent(int); when MIN_VALUE")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDTriangleBasedShadingType.setBitsPerComponent(int)"})
-  void testSetBitsPerComponent_whenMin_value() {
+  void testSetBitsPerComponent2() {
     // Arrange
-    PDShadingType4 pdShadingType4 = new PDShadingType4(new COSDictionary());
+    COSDictionary shadingDictionary = new COSDictionary();
+    PDShadingType4 pdShadingType4 = new PDShadingType4(shadingDictionary);
 
     // Act
     pdShadingType4.setBitsPerComponent(Integer.MIN_VALUE);
 
     // Assert
-    COSDictionary cOSObject = pdShadingType4.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
+    assertSame(shadingDictionary, pdShadingType4.getCOSObject());
   }
 
   /**
-   * Test {@link PDTriangleBasedShadingType#getBitsPerCoordinate()}.
-   * <ul>
-   *   <li>Then return minus one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDTriangleBasedShadingType#getBitsPerCoordinate()}
    */
   @Test
-  @DisplayName("Test getBitsPerCoordinate(); then return minus one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"int PDTriangleBasedShadingType.getBitsPerCoordinate()"})
-  void testGetBitsPerCoordinate_thenReturnMinusOne() {
+  void testGetBitsPerCoordinate() {
     // Arrange, Act and Assert
     assertEquals(-1, (new PDShadingType4(new COSDictionary())).getBitsPerCoordinate());
   }
 
   /**
-   * Test {@link PDTriangleBasedShadingType#setBitsPerCoordinate(int)}.
-   * <p>
-   * Method under test: {@link PDTriangleBasedShadingType#setBitsPerCoordinate(int)}
+   * Method under test:
+   * {@link PDTriangleBasedShadingType#setBitsPerCoordinate(int)}
    */
   @Test
-  @DisplayName("Test setBitsPerCoordinate(int)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDTriangleBasedShadingType.setBitsPerCoordinate(int)"})
   void testSetBitsPerCoordinate() {
     // Arrange
-    PDShadingType4 pdShadingType4 = new PDShadingType4(new COSDictionary());
+    COSDictionary shadingDictionary = new COSDictionary();
+    PDShadingType4 pdShadingType4 = new PDShadingType4(shadingDictionary);
 
     // Act
     pdShadingType4.setBitsPerCoordinate(1);
 
     // Assert
-    COSDictionary cOSObject = pdShadingType4.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
+    assertSame(shadingDictionary, pdShadingType4.getCOSObject());
   }
 
   /**
-   * Test {@link PDTriangleBasedShadingType#setBitsPerCoordinate(int)}.
-   * <ul>
-   *   <li>When {@link Integer#MIN_VALUE}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDTriangleBasedShadingType#setBitsPerCoordinate(int)}
+   * Method under test:
+   * {@link PDTriangleBasedShadingType#setBitsPerCoordinate(int)}
    */
   @Test
-  @DisplayName("Test setBitsPerCoordinate(int); when MIN_VALUE")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDTriangleBasedShadingType.setBitsPerCoordinate(int)"})
-  void testSetBitsPerCoordinate_whenMin_value() {
+  void testSetBitsPerCoordinate2() {
     // Arrange
-    PDShadingType4 pdShadingType4 = new PDShadingType4(new COSDictionary());
+    COSDictionary shadingDictionary = new COSDictionary();
+    PDShadingType4 pdShadingType4 = new PDShadingType4(shadingDictionary);
 
     // Act
     pdShadingType4.setBitsPerCoordinate(Integer.MIN_VALUE);
 
     // Assert
-    COSDictionary cOSObject = pdShadingType4.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
+    assertSame(shadingDictionary, pdShadingType4.getCOSObject());
   }
 
   /**
-   * Test {@link PDTriangleBasedShadingType#getNumberOfColorComponents()}.
-   * <ul>
-   *   <li>Given {@link COSDictionary} {@link COSDictionary#getInt(COSName)} return zero.</li>
-   *   <li>Then return one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDTriangleBasedShadingType#getNumberOfColorComponents()}
+   * Method under test:
+   * {@link PDTriangleBasedShadingType#getNumberOfColorComponents()}
    */
   @Test
-  @DisplayName("Test getNumberOfColorComponents(); given COSDictionary getInt(COSName) return zero; then return one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"int PDTriangleBasedShadingType.getNumberOfColorComponents()"})
-  void testGetNumberOfColorComponents_givenCOSDictionaryGetIntReturnZero_thenReturnOne() throws IOException {
+  void testGetNumberOfColorComponents() throws IOException {
     // Arrange
     COSDictionary cosDictionary = mock(COSDictionary.class);
     when(cosDictionary.getInt(Mockito.<COSName>any())).thenReturn(0);
@@ -183,76 +131,78 @@ class PDTriangleBasedShadingTypeDiffblueTest {
   }
 
   /**
-   * Test {@link PDTriangleBasedShadingType#setDecodeValues(COSArray)}.
-   * <p>
-   * Method under test: {@link PDTriangleBasedShadingType#setDecodeValues(COSArray)}
+   * Method under test:
+   * {@link PDTriangleBasedShadingType#setDecodeValues(COSArray)}
    */
   @Test
-  @DisplayName("Test setDecodeValues(COSArray)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDTriangleBasedShadingType.setDecodeValues(COSArray)"})
   void testSetDecodeValues() {
     // Arrange
-    PDShadingType4 pdShadingType4 = new PDShadingType4(new COSDictionary());
+    COSDictionary shadingDictionary = new COSDictionary();
+    PDShadingType4 pdShadingType4 = new PDShadingType4(shadingDictionary);
 
     // Act
     pdShadingType4.setDecodeValues(new COSArray());
 
     // Assert
-    COSDictionary cOSObject = pdShadingType4.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
+    assertSame(shadingDictionary, pdShadingType4.getCOSObject());
   }
 
   /**
-   * Test {@link PDTriangleBasedShadingType#setDecodeValues(COSArray)}.
-   * <p>
-   * Method under test: {@link PDTriangleBasedShadingType#setDecodeValues(COSArray)}
+   * Method under test:
+   * {@link PDTriangleBasedShadingType#setDecodeValues(COSArray)}
    */
   @Test
-  @DisplayName("Test setDecodeValues(COSArray)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDTriangleBasedShadingType.setDecodeValues(COSArray)"})
   void testSetDecodeValues2() {
     // Arrange
-    PDShadingType4 pdShadingType4 = new PDShadingType4(new COSDictionary());
+    COSDictionary shadingDictionary = new COSDictionary();
+    PDShadingType4 pdShadingType4 = new PDShadingType4(shadingDictionary);
 
     // Act
     pdShadingType4.setDecodeValues(null);
 
-    // Assert that nothing has changed
-    COSDictionary cOSObject = pdShadingType4.getCOSObject();
-    assertEquals(0, cOSObject.size());
-    assertTrue(cOSObject.getValues().isEmpty());
+    // Assert
+    assertSame(shadingDictionary, pdShadingType4.getCOSObject());
   }
 
   /**
-   * Test {@link PDTriangleBasedShadingType#getDecodeForParameter(int)}.
-   * <p>
-   * Method under test: {@link PDTriangleBasedShadingType#getDecodeForParameter(int)}
+   * Method under test:
+   * {@link PDTriangleBasedShadingType#setDecodeValues(COSArray)}
    */
   @Test
-  @DisplayName("Test getDecodeForParameter(int)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDRange PDTriangleBasedShadingType.getDecodeForParameter(int)"})
+  void testSetDecodeValues3() {
+    // Arrange
+    COSDictionary shadingDictionary = new COSDictionary();
+    PDShadingType4 pdShadingType4 = new PDShadingType4(shadingDictionary);
+    COSObjectable object = mock(COSObjectable.class);
+    when(object.getCOSObject()).thenReturn(COSBoolean.FALSE);
+
+    COSArray cosArray = new COSArray();
+    cosArray.add(object);
+
+    // Act
+    pdShadingType4.setDecodeValues(cosArray);
+
+    // Assert
+    verify(object).getCOSObject();
+    assertSame(shadingDictionary, pdShadingType4.getCOSObject());
+  }
+
+  /**
+   * Method under test:
+   * {@link PDTriangleBasedShadingType#getDecodeForParameter(int)}
+   */
+  @Test
   void testGetDecodeForParameter() {
     // Arrange, Act and Assert
     assertNull((new PDShadingType4(new COSDictionary())).getDecodeForParameter(10));
   }
 
   /**
-   * Test {@link PDTriangleBasedShadingType#getDecodeForParameter(int)}.
-   * <ul>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDTriangleBasedShadingType#getDecodeForParameter(int)}
+   * Method under test:
+   * {@link PDTriangleBasedShadingType#getDecodeForParameter(int)}
    */
   @Test
-  @DisplayName("Test getDecodeForParameter(int); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDRange PDTriangleBasedShadingType.getDecodeForParameter(int)"})
-  void testGetDecodeForParameter_thenReturnNull() {
+  void testGetDecodeForParameter2() {
     // Arrange
     PDShadingType4 pdShadingType4 = new PDShadingType4(new COSDictionary());
     pdShadingType4.setDecodeValues(new COSArray());
@@ -262,119 +212,73 @@ class PDTriangleBasedShadingTypeDiffblueTest {
   }
 
   /**
-   * Test {@link PDTriangleBasedShadingType#getDecodeForParameter(int)}.
-   * <ul>
-   *   <li>When minus one.</li>
-   *   <li>Then return COSArray toList Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDTriangleBasedShadingType#getDecodeForParameter(int)}
+   * Method under test:
+   * {@link PDTriangleBasedShadingType#getDecodeForParameter(int)}
    */
   @Test
-  @DisplayName("Test getDecodeForParameter(int); when minus one; then return COSArray toList Empty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDRange PDTriangleBasedShadingType.getDecodeForParameter(int)"})
-  void testGetDecodeForParameter_whenMinusOne_thenReturnCOSArrayToListEmpty() {
+  void testGetDecodeForParameter3() {
     // Arrange
-    PDShadingType4 pdShadingType4 = new PDShadingType4(new COSDictionary());
+    COSObjectable object = mock(COSObjectable.class);
+    when(object.getCOSObject()).thenReturn(COSBoolean.FALSE);
+
     COSArray cosArray = new COSArray();
+    cosArray.add(object);
+
+    PDShadingType4 pdShadingType4 = new PDShadingType4(new COSDictionary());
     pdShadingType4.setDecodeValues(cosArray);
 
     // Act
-    PDRange actualDecodeForParameter = pdShadingType4.getDecodeForParameter(-1);
+    PDRange actualDecodeForParameter = pdShadingType4.getDecodeForParameter(10);
 
     // Assert
-    COSArray cOSArray = actualDecodeForParameter.getCOSArray();
-    assertTrue(cOSArray.toList().isEmpty());
-    assertSame(cosArray, cOSArray);
+    verify(object).getCOSObject();
+    assertNull(actualDecodeForParameter);
+  }
+
+  /**
+   * Method under test:
+   * {@link PDTriangleBasedShadingType#getDecodeForParameter(int)}
+   */
+  @Test
+  void testGetDecodeForParameter4() {
+    // Arrange
+    COSObjectable object = mock(COSObjectable.class);
+    when(object.getCOSObject()).thenReturn(COSBoolean.FALSE);
+
+    COSArray cosArray = new COSArray();
+    cosArray.add(object);
+
+    PDShadingType4 pdShadingType4 = new PDShadingType4(new COSDictionary());
+    pdShadingType4.setDecodeValues(cosArray);
+
+    // Act
+    PDRange actualDecodeForParameter = pdShadingType4.getDecodeForParameter(0);
+
+    // Assert
+    verify(object).getCOSObject();
+    assertSame(cosArray, actualDecodeForParameter.getCOSArray());
     assertSame(cosArray, actualDecodeForParameter.getCOSObject());
   }
 
   /**
-   * Test {@link PDTriangleBasedShadingType#interpolate(float, long, float, float)}.
-   * <ul>
-   *   <li>When {@code 0.5}.</li>
-   *   <li>Then return ten.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDTriangleBasedShadingType#interpolate(float, long, float, float)}
+   * Method under test:
+   * {@link PDTriangleBasedShadingType#interpolate(float, long, float, float)}
    */
   @Test
-  @DisplayName("Test interpolate(float, long, float, float); when '0.5'; then return ten")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"float PDTriangleBasedShadingType.interpolate(float, long, float, float)"})
-  void testInterpolate_when05_thenReturnTen() {
-    // Arrange, Act and Assert
-    assertEquals(10.0f, (new PDShadingType4(new COSDictionary())).interpolate(0.5f, 5L, 10.0f, 10.0f));
-  }
-
-  /**
-   * Test {@link PDTriangleBasedShadingType#interpolate(float, long, float, float)}.
-   * <ul>
-   *   <li>When {@code -0.5}.</li>
-   *   <li>Then return ten.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDTriangleBasedShadingType#interpolate(float, long, float, float)}
-   */
-  @Test
-  @DisplayName("Test interpolate(float, long, float, float); when '-0.5'; then return ten")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"float PDTriangleBasedShadingType.interpolate(float, long, float, float)"})
-  void testInterpolate_when05_thenReturnTen2() {
-    // Arrange, Act and Assert
-    assertEquals(10.0f, (new PDShadingType4(new COSDictionary())).interpolate(-0.5f, 5L, 10.0f, 10.0f));
-  }
-
-  /**
-   * Test {@link PDTriangleBasedShadingType#interpolate(float, long, float, float)}.
-   * <ul>
-   *   <li>When five.</li>
-   *   <li>Then return ten.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDTriangleBasedShadingType#interpolate(float, long, float, float)}
-   */
-  @Test
-  @DisplayName("Test interpolate(float, long, float, float); when five; then return ten")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"float PDTriangleBasedShadingType.interpolate(float, long, float, float)"})
-  void testInterpolate_whenFive_thenReturnTen() {
+  void testInterpolate() {
     // Arrange, Act and Assert
     assertEquals(10.0f, (new PDShadingType4(new COSDictionary())).interpolate(10.0f, 5L, 10.0f, 10.0f));
-  }
-
-  /**
-   * Test {@link PDTriangleBasedShadingType#interpolate(float, long, float, float)}.
-   * <ul>
-   *   <li>When {@link Float#NaN}.</li>
-   *   <li>Then return {@link Float#NaN}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDTriangleBasedShadingType#interpolate(float, long, float, float)}
-   */
-  @Test
-  @DisplayName("Test interpolate(float, long, float, float); when NaN; then return NaN")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"float PDTriangleBasedShadingType.interpolate(float, long, float, float)"})
-  void testInterpolate_whenNaN_thenReturnNaN() {
-    // Arrange, Act and Assert
+    assertEquals(10.0f, (new PDShadingType4(new COSDictionary())).interpolate(0.5f, 5L, 10.0f, 10.0f));
+    assertEquals(10.0f, (new PDShadingType4(new COSDictionary())).interpolate(-0.5f, 5L, 10.0f, 10.0f));
     assertEquals(Float.NaN, (new PDShadingType4(new COSDictionary())).interpolate(Float.NaN, 5L, 10.0f, 10.0f));
   }
 
   /**
-   * Test {@link PDTriangleBasedShadingType#getBounds(AffineTransform, Matrix)}.
-   * <ul>
-   *   <li>Given {@link PDShadingType4#PDShadingType4(COSDictionary)} with shadingDictionary is {@link COSDictionary#COSDictionary()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDTriangleBasedShadingType#getBounds(AffineTransform, Matrix)}
+   * Method under test:
+   * {@link PDTriangleBasedShadingType#getBounds(AffineTransform, Matrix)}
    */
   @Test
-  @DisplayName("Test getBounds(AffineTransform, Matrix); given PDShadingType4(COSDictionary) with shadingDictionary is COSDictionary()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Rectangle2D PDTriangleBasedShadingType.getBounds(AffineTransform, Matrix)"})
-  void testGetBounds_givenPDShadingType4WithShadingDictionaryIsCOSDictionary() throws IOException {
+  void testGetBounds() throws IOException {
     // Arrange
     PDShadingType4 pdShadingType4 = new PDShadingType4(new COSDictionary());
     AffineTransform affineTransform = new AffineTransform();
@@ -384,28 +288,36 @@ class PDTriangleBasedShadingTypeDiffblueTest {
 
     // Assert
     Rectangle2D frame = actualBounds.getFrame();
-    assertTrue(frame instanceof Double);
+    assertTrue(frame instanceof Rectangle2D.Double);
     Rectangle2D bounds2D = actualBounds.getBounds2D();
     assertTrue(bounds2D instanceof Rectangle2D.Float);
     assertTrue(actualBounds instanceof Rectangle2D.Float);
+    assertEquals(0.0d, actualBounds.getCenterX());
+    assertEquals(0.0d, actualBounds.getCenterY());
+    assertEquals(0.0d, actualBounds.getHeight());
+    assertEquals(0.0d, actualBounds.getMaxX());
+    assertEquals(0.0d, actualBounds.getMaxY());
+    assertEquals(0.0d, actualBounds.getMinX());
+    assertEquals(0.0d, actualBounds.getMinY());
+    assertEquals(0.0d, actualBounds.getWidth());
+    assertEquals(0.0d, actualBounds.getX());
+    assertEquals(0.0d, actualBounds.getY());
+    assertEquals(0.0f, ((Rectangle2D.Float) actualBounds).height);
+    assertEquals(0.0f, ((Rectangle2D.Float) actualBounds).width);
+    assertEquals(0.0f, ((Rectangle2D.Float) actualBounds).x);
+    assertEquals(0.0f, ((Rectangle2D.Float) actualBounds).y);
+    assertTrue(actualBounds.isEmpty());
     assertEquals(actualBounds, actualBounds.getBounds());
     assertEquals(actualBounds, frame);
     assertEquals(actualBounds, bounds2D);
   }
 
   /**
-   * Test {@link PDTriangleBasedShadingType#getBounds(AffineTransform, Matrix)}.
-   * <ul>
-   *   <li>Given {@link PDShadingType4#PDShadingType4(COSDictionary)} with shadingDictionary is {@link COSStream#COSStream()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDTriangleBasedShadingType#getBounds(AffineTransform, Matrix)}
+   * Method under test:
+   * {@link PDTriangleBasedShadingType#getBounds(AffineTransform, Matrix)}
    */
   @Test
-  @DisplayName("Test getBounds(AffineTransform, Matrix); given PDShadingType4(COSDictionary) with shadingDictionary is COSStream()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Rectangle2D PDTriangleBasedShadingType.getBounds(AffineTransform, Matrix)"})
-  void testGetBounds_givenPDShadingType4WithShadingDictionaryIsCOSStream() throws IOException {
+  void testGetBounds2() throws IOException {
     // Arrange
     PDShadingType4 pdShadingType4 = new PDShadingType4(new COSStream());
     AffineTransform affineTransform = new AffineTransform();
@@ -415,10 +327,25 @@ class PDTriangleBasedShadingTypeDiffblueTest {
 
     // Assert
     Rectangle2D frame = actualBounds.getFrame();
-    assertTrue(frame instanceof Double);
+    assertTrue(frame instanceof Rectangle2D.Double);
     Rectangle2D bounds2D = actualBounds.getBounds2D();
     assertTrue(bounds2D instanceof Rectangle2D.Float);
     assertTrue(actualBounds instanceof Rectangle2D.Float);
+    assertEquals(0.0d, actualBounds.getCenterX());
+    assertEquals(0.0d, actualBounds.getCenterY());
+    assertEquals(0.0d, actualBounds.getHeight());
+    assertEquals(0.0d, actualBounds.getMaxX());
+    assertEquals(0.0d, actualBounds.getMaxY());
+    assertEquals(0.0d, actualBounds.getMinX());
+    assertEquals(0.0d, actualBounds.getMinY());
+    assertEquals(0.0d, actualBounds.getWidth());
+    assertEquals(0.0d, actualBounds.getX());
+    assertEquals(0.0d, actualBounds.getY());
+    assertEquals(0.0f, ((Rectangle2D.Float) actualBounds).height);
+    assertEquals(0.0f, ((Rectangle2D.Float) actualBounds).width);
+    assertEquals(0.0f, ((Rectangle2D.Float) actualBounds).x);
+    assertEquals(0.0f, ((Rectangle2D.Float) actualBounds).y);
+    assertTrue(actualBounds.isEmpty());
     assertEquals(actualBounds, actualBounds.getBounds());
     assertEquals(actualBounds, frame);
     assertEquals(actualBounds, bounds2D);

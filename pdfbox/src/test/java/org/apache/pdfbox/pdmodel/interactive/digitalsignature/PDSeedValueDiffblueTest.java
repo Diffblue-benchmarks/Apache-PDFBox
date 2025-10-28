@@ -6,102 +6,19 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.cos.COSIncrement;
 import org.apache.pdfbox.cos.COSName;
 import org.apache.pdfbox.cos.COSUpdateState;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class PDSeedValueDiffblueTest {
   /**
-   * Test {@link PDSeedValue#PDSeedValue()}.
-   * <p>
-   * Method under test: {@link PDSeedValue#PDSeedValue()}
-   */
-  @Test
-  @DisplayName("Test new PDSeedValue()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDSeedValue.<init>()"})
-  void testNewPDSeedValue() {
-    // Arrange and Act
-    PDSeedValue actualPdSeedValue = new PDSeedValue();
-
-    // Assert
-    assertNull(actualPdSeedValue.getFilter());
-    assertNull(actualPdSeedValue.getSeedValueCertificate());
-    assertNull(actualPdSeedValue.getMDP());
-    assertNull(actualPdSeedValue.getTimeStamp());
-    assertEquals(-1.0f, actualPdSeedValue.getV());
-    assertFalse(actualPdSeedValue.isAddRevInfoRequired());
-    assertFalse(actualPdSeedValue.isDigestMethodRequired());
-    assertFalse(actualPdSeedValue.isFilterRequired());
-    assertFalse(actualPdSeedValue.isLegalAttestationRequired());
-    assertFalse(actualPdSeedValue.isReasonRequired());
-    assertFalse(actualPdSeedValue.isSubFilterRequired());
-    assertFalse(actualPdSeedValue.isVRequired());
-    List<String> digestMethod = actualPdSeedValue.getDigestMethod();
-    assertTrue(digestMethod.isEmpty());
-    assertSame(digestMethod, actualPdSeedValue.getLegalAttestation());
-    assertSame(digestMethod, actualPdSeedValue.getReasons());
-    assertSame(digestMethod, actualPdSeedValue.getSubFilter());
-  }
-
-  /**
-   * Test {@link PDSeedValue#PDSeedValue(COSDictionary)}.
-   * <ul>
-   *   <li>When {@link COSDictionary#COSDictionary()}.</li>
-   *   <li>Then return Filter is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDSeedValue#PDSeedValue(COSDictionary)}
-   */
-  @Test
-  @DisplayName("Test new PDSeedValue(COSDictionary); when COSDictionary(); then return Filter is 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDSeedValue.<init>(COSDictionary)"})
-  void testNewPDSeedValue_whenCOSDictionary_thenReturnFilterIsNull() {
-    // Arrange
-    COSDictionary dict = new COSDictionary();
-
-    // Act
-    PDSeedValue actualPdSeedValue = new PDSeedValue(dict);
-
-    // Assert
-    assertNull(actualPdSeedValue.getFilter());
-    assertNull(actualPdSeedValue.getSeedValueCertificate());
-    assertNull(actualPdSeedValue.getMDP());
-    assertNull(actualPdSeedValue.getTimeStamp());
-    assertEquals(-1.0f, actualPdSeedValue.getV());
-    assertFalse(actualPdSeedValue.isAddRevInfoRequired());
-    assertFalse(actualPdSeedValue.isDigestMethodRequired());
-    assertFalse(actualPdSeedValue.isFilterRequired());
-    assertFalse(actualPdSeedValue.isLegalAttestationRequired());
-    assertFalse(actualPdSeedValue.isReasonRequired());
-    assertFalse(actualPdSeedValue.isSubFilterRequired());
-    assertFalse(actualPdSeedValue.isVRequired());
-    List<String> digestMethod = actualPdSeedValue.getDigestMethod();
-    assertTrue(digestMethod.isEmpty());
-    assertTrue(dict.isDirect());
-    assertSame(dict, actualPdSeedValue.getCOSObject());
-    assertSame(digestMethod, actualPdSeedValue.getLegalAttestation());
-    assertSame(digestMethod, actualPdSeedValue.getReasons());
-    assertSame(digestMethod, actualPdSeedValue.getSubFilter());
-  }
-
-  /**
-   * Test {@link PDSeedValue#getCOSObject()}.
-   * <p>
    * Method under test: {@link PDSeedValue#getCOSObject()}
    */
   @Test
-  @DisplayName("Test getCOSObject()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"COSDictionary PDSeedValue.getCOSObject()"})
   void testGetCOSObject() {
     // Arrange and Act
     COSDictionary actualCOSObject = (new PDSeedValue()).getCOSObject();
@@ -121,60 +38,19 @@ class PDSeedValueDiffblueTest {
   }
 
   /**
-   * Test {@link PDSeedValue#isFilterRequired()}.
-   * <p>
    * Method under test: {@link PDSeedValue#isFilterRequired()}
    */
   @Test
-  @DisplayName("Test isFilterRequired()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean PDSeedValue.isFilterRequired()"})
   void testIsFilterRequired() {
     // Arrange, Act and Assert
     assertFalse((new PDSeedValue()).isFilterRequired());
   }
 
   /**
-   * Test {@link PDSeedValue#setFilterRequired(boolean)}.
-   * <ul>
-   *   <li>When {@code false}.</li>
-   *   <li>Then not {@link PDSeedValue#PDSeedValue()} FilterRequired.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDSeedValue#setFilterRequired(boolean)}
    */
   @Test
-  @DisplayName("Test setFilterRequired(boolean); when 'false'; then not PDSeedValue() FilterRequired")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDSeedValue.setFilterRequired(boolean)"})
-  void testSetFilterRequired_whenFalse_thenNotPDSeedValueFilterRequired() {
-    // Arrange
-    PDSeedValue pdSeedValue = new PDSeedValue();
-
-    // Act
-    pdSeedValue.setFilterRequired(false);
-
-    // Assert
-    COSDictionary cOSObject = pdSeedValue.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    assertFalse(pdSeedValue.isFilterRequired());
-  }
-
-  /**
-   * Test {@link PDSeedValue#setFilterRequired(boolean)}.
-   * <ul>
-   *   <li>When {@code true}.</li>
-   *   <li>Then {@link PDSeedValue#PDSeedValue()} FilterRequired.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDSeedValue#setFilterRequired(boolean)}
-   */
-  @Test
-  @DisplayName("Test setFilterRequired(boolean); when 'true'; then PDSeedValue() FilterRequired")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDSeedValue.setFilterRequired(boolean)"})
-  void testSetFilterRequired_whenTrue_thenPDSeedValueFilterRequired() {
+  void testSetFilterRequired() {
     // Arrange
     PDSeedValue pdSeedValue = new PDSeedValue();
 
@@ -189,60 +65,37 @@ class PDSeedValueDiffblueTest {
   }
 
   /**
-   * Test {@link PDSeedValue#isSubFilterRequired()}.
-   * <p>
+   * Method under test: {@link PDSeedValue#setFilterRequired(boolean)}
+   */
+  @Test
+  void testSetFilterRequired2() {
+    // Arrange
+    PDSeedValue pdSeedValue = new PDSeedValue();
+
+    // Act
+    pdSeedValue.setFilterRequired(false);
+
+    // Assert
+    COSDictionary cOSObject = pdSeedValue.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    assertFalse(pdSeedValue.isFilterRequired());
+  }
+
+  /**
    * Method under test: {@link PDSeedValue#isSubFilterRequired()}
    */
   @Test
-  @DisplayName("Test isSubFilterRequired()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean PDSeedValue.isSubFilterRequired()"})
   void testIsSubFilterRequired() {
     // Arrange, Act and Assert
     assertFalse((new PDSeedValue()).isSubFilterRequired());
   }
 
   /**
-   * Test {@link PDSeedValue#setSubFilterRequired(boolean)}.
-   * <ul>
-   *   <li>When {@code false}.</li>
-   *   <li>Then not {@link PDSeedValue#PDSeedValue()} SubFilterRequired.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDSeedValue#setSubFilterRequired(boolean)}
    */
   @Test
-  @DisplayName("Test setSubFilterRequired(boolean); when 'false'; then not PDSeedValue() SubFilterRequired")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDSeedValue.setSubFilterRequired(boolean)"})
-  void testSetSubFilterRequired_whenFalse_thenNotPDSeedValueSubFilterRequired() {
-    // Arrange
-    PDSeedValue pdSeedValue = new PDSeedValue();
-
-    // Act
-    pdSeedValue.setSubFilterRequired(false);
-
-    // Assert
-    COSDictionary cOSObject = pdSeedValue.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    assertFalse(pdSeedValue.isSubFilterRequired());
-  }
-
-  /**
-   * Test {@link PDSeedValue#setSubFilterRequired(boolean)}.
-   * <ul>
-   *   <li>When {@code true}.</li>
-   *   <li>Then {@link PDSeedValue#PDSeedValue()} SubFilterRequired.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDSeedValue#setSubFilterRequired(boolean)}
-   */
-  @Test
-  @DisplayName("Test setSubFilterRequired(boolean); when 'true'; then PDSeedValue() SubFilterRequired")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDSeedValue.setSubFilterRequired(boolean)"})
-  void testSetSubFilterRequired_whenTrue_thenPDSeedValueSubFilterRequired() {
+  void testSetSubFilterRequired() {
     // Arrange
     PDSeedValue pdSeedValue = new PDSeedValue();
 
@@ -257,60 +110,37 @@ class PDSeedValueDiffblueTest {
   }
 
   /**
-   * Test {@link PDSeedValue#isDigestMethodRequired()}.
-   * <p>
+   * Method under test: {@link PDSeedValue#setSubFilterRequired(boolean)}
+   */
+  @Test
+  void testSetSubFilterRequired2() {
+    // Arrange
+    PDSeedValue pdSeedValue = new PDSeedValue();
+
+    // Act
+    pdSeedValue.setSubFilterRequired(false);
+
+    // Assert
+    COSDictionary cOSObject = pdSeedValue.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    assertFalse(pdSeedValue.isSubFilterRequired());
+  }
+
+  /**
    * Method under test: {@link PDSeedValue#isDigestMethodRequired()}
    */
   @Test
-  @DisplayName("Test isDigestMethodRequired()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean PDSeedValue.isDigestMethodRequired()"})
   void testIsDigestMethodRequired() {
     // Arrange, Act and Assert
     assertFalse((new PDSeedValue()).isDigestMethodRequired());
   }
 
   /**
-   * Test {@link PDSeedValue#setDigestMethodRequired(boolean)}.
-   * <ul>
-   *   <li>When {@code false}.</li>
-   *   <li>Then not {@link PDSeedValue#PDSeedValue()} DigestMethodRequired.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDSeedValue#setDigestMethodRequired(boolean)}
    */
   @Test
-  @DisplayName("Test setDigestMethodRequired(boolean); when 'false'; then not PDSeedValue() DigestMethodRequired")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDSeedValue.setDigestMethodRequired(boolean)"})
-  void testSetDigestMethodRequired_whenFalse_thenNotPDSeedValueDigestMethodRequired() {
-    // Arrange
-    PDSeedValue pdSeedValue = new PDSeedValue();
-
-    // Act
-    pdSeedValue.setDigestMethodRequired(false);
-
-    // Assert
-    COSDictionary cOSObject = pdSeedValue.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    assertFalse(pdSeedValue.isDigestMethodRequired());
-  }
-
-  /**
-   * Test {@link PDSeedValue#setDigestMethodRequired(boolean)}.
-   * <ul>
-   *   <li>When {@code true}.</li>
-   *   <li>Then {@link PDSeedValue#PDSeedValue()} DigestMethodRequired.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDSeedValue#setDigestMethodRequired(boolean)}
-   */
-  @Test
-  @DisplayName("Test setDigestMethodRequired(boolean); when 'true'; then PDSeedValue() DigestMethodRequired")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDSeedValue.setDigestMethodRequired(boolean)"})
-  void testSetDigestMethodRequired_whenTrue_thenPDSeedValueDigestMethodRequired() {
+  void testSetDigestMethodRequired() {
     // Arrange
     PDSeedValue pdSeedValue = new PDSeedValue();
 
@@ -325,60 +155,37 @@ class PDSeedValueDiffblueTest {
   }
 
   /**
-   * Test {@link PDSeedValue#isVRequired()}.
-   * <p>
+   * Method under test: {@link PDSeedValue#setDigestMethodRequired(boolean)}
+   */
+  @Test
+  void testSetDigestMethodRequired2() {
+    // Arrange
+    PDSeedValue pdSeedValue = new PDSeedValue();
+
+    // Act
+    pdSeedValue.setDigestMethodRequired(false);
+
+    // Assert
+    COSDictionary cOSObject = pdSeedValue.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    assertFalse(pdSeedValue.isDigestMethodRequired());
+  }
+
+  /**
    * Method under test: {@link PDSeedValue#isVRequired()}
    */
   @Test
-  @DisplayName("Test isVRequired()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean PDSeedValue.isVRequired()"})
   void testIsVRequired() {
     // Arrange, Act and Assert
     assertFalse((new PDSeedValue()).isVRequired());
   }
 
   /**
-   * Test {@link PDSeedValue#setVRequired(boolean)}.
-   * <ul>
-   *   <li>When {@code false}.</li>
-   *   <li>Then not {@link PDSeedValue#PDSeedValue()} VRequired.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDSeedValue#setVRequired(boolean)}
    */
   @Test
-  @DisplayName("Test setVRequired(boolean); when 'false'; then not PDSeedValue() VRequired")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDSeedValue.setVRequired(boolean)"})
-  void testSetVRequired_whenFalse_thenNotPDSeedValueVRequired() {
-    // Arrange
-    PDSeedValue pdSeedValue = new PDSeedValue();
-
-    // Act
-    pdSeedValue.setVRequired(false);
-
-    // Assert
-    COSDictionary cOSObject = pdSeedValue.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    assertFalse(pdSeedValue.isVRequired());
-  }
-
-  /**
-   * Test {@link PDSeedValue#setVRequired(boolean)}.
-   * <ul>
-   *   <li>When {@code true}.</li>
-   *   <li>Then {@link PDSeedValue#PDSeedValue()} VRequired.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDSeedValue#setVRequired(boolean)}
-   */
-  @Test
-  @DisplayName("Test setVRequired(boolean); when 'true'; then PDSeedValue() VRequired")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDSeedValue.setVRequired(boolean)"})
-  void testSetVRequired_whenTrue_thenPDSeedValueVRequired() {
+  void testSetVRequired() {
     // Arrange
     PDSeedValue pdSeedValue = new PDSeedValue();
 
@@ -393,60 +200,37 @@ class PDSeedValueDiffblueTest {
   }
 
   /**
-   * Test {@link PDSeedValue#isReasonRequired()}.
-   * <p>
+   * Method under test: {@link PDSeedValue#setVRequired(boolean)}
+   */
+  @Test
+  void testSetVRequired2() {
+    // Arrange
+    PDSeedValue pdSeedValue = new PDSeedValue();
+
+    // Act
+    pdSeedValue.setVRequired(false);
+
+    // Assert
+    COSDictionary cOSObject = pdSeedValue.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    assertFalse(pdSeedValue.isVRequired());
+  }
+
+  /**
    * Method under test: {@link PDSeedValue#isReasonRequired()}
    */
   @Test
-  @DisplayName("Test isReasonRequired()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean PDSeedValue.isReasonRequired()"})
   void testIsReasonRequired() {
     // Arrange, Act and Assert
     assertFalse((new PDSeedValue()).isReasonRequired());
   }
 
   /**
-   * Test {@link PDSeedValue#setReasonRequired(boolean)}.
-   * <ul>
-   *   <li>When {@code false}.</li>
-   *   <li>Then not {@link PDSeedValue#PDSeedValue()} ReasonRequired.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDSeedValue#setReasonRequired(boolean)}
    */
   @Test
-  @DisplayName("Test setReasonRequired(boolean); when 'false'; then not PDSeedValue() ReasonRequired")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDSeedValue.setReasonRequired(boolean)"})
-  void testSetReasonRequired_whenFalse_thenNotPDSeedValueReasonRequired() {
-    // Arrange
-    PDSeedValue pdSeedValue = new PDSeedValue();
-
-    // Act
-    pdSeedValue.setReasonRequired(false);
-
-    // Assert
-    COSDictionary cOSObject = pdSeedValue.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    assertFalse(pdSeedValue.isReasonRequired());
-  }
-
-  /**
-   * Test {@link PDSeedValue#setReasonRequired(boolean)}.
-   * <ul>
-   *   <li>When {@code true}.</li>
-   *   <li>Then {@link PDSeedValue#PDSeedValue()} ReasonRequired.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDSeedValue#setReasonRequired(boolean)}
-   */
-  @Test
-  @DisplayName("Test setReasonRequired(boolean); when 'true'; then PDSeedValue() ReasonRequired")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDSeedValue.setReasonRequired(boolean)"})
-  void testSetReasonRequired_whenTrue_thenPDSeedValueReasonRequired() {
+  void testSetReasonRequired() {
     // Arrange
     PDSeedValue pdSeedValue = new PDSeedValue();
 
@@ -461,59 +245,37 @@ class PDSeedValueDiffblueTest {
   }
 
   /**
-   * Test {@link PDSeedValue#isLegalAttestationRequired()}.
-   * <p>
+   * Method under test: {@link PDSeedValue#setReasonRequired(boolean)}
+   */
+  @Test
+  void testSetReasonRequired2() {
+    // Arrange
+    PDSeedValue pdSeedValue = new PDSeedValue();
+
+    // Act
+    pdSeedValue.setReasonRequired(false);
+
+    // Assert
+    COSDictionary cOSObject = pdSeedValue.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    assertFalse(pdSeedValue.isReasonRequired());
+  }
+
+  /**
    * Method under test: {@link PDSeedValue#isLegalAttestationRequired()}
    */
   @Test
-  @DisplayName("Test isLegalAttestationRequired()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean PDSeedValue.isLegalAttestationRequired()"})
   void testIsLegalAttestationRequired() {
     // Arrange, Act and Assert
     assertFalse((new PDSeedValue()).isLegalAttestationRequired());
   }
 
   /**
-   * Test {@link PDSeedValue#setLegalAttestationRequired(boolean)}.
-   * <ul>
-   *   <li>Then not {@link PDSeedValue#PDSeedValue()} LegalAttestationRequired.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDSeedValue#setLegalAttestationRequired(boolean)}
    */
   @Test
-  @DisplayName("Test setLegalAttestationRequired(boolean); then not PDSeedValue() LegalAttestationRequired")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDSeedValue.setLegalAttestationRequired(boolean)"})
-  void testSetLegalAttestationRequired_thenNotPDSeedValueLegalAttestationRequired() {
-    // Arrange
-    PDSeedValue pdSeedValue = new PDSeedValue();
-
-    // Act
-    pdSeedValue.setLegalAttestationRequired(false);
-
-    // Assert
-    COSDictionary cOSObject = pdSeedValue.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    assertFalse(pdSeedValue.isLegalAttestationRequired());
-  }
-
-  /**
-   * Test {@link PDSeedValue#setLegalAttestationRequired(boolean)}.
-   * <ul>
-   *   <li>When {@code true}.</li>
-   *   <li>Then {@link PDSeedValue#PDSeedValue()} LegalAttestationRequired.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDSeedValue#setLegalAttestationRequired(boolean)}
-   */
-  @Test
-  @DisplayName("Test setLegalAttestationRequired(boolean); when 'true'; then PDSeedValue() LegalAttestationRequired")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDSeedValue.setLegalAttestationRequired(boolean)"})
-  void testSetLegalAttestationRequired_whenTrue_thenPDSeedValueLegalAttestationRequired() {
+  void testSetLegalAttestationRequired() {
     // Arrange
     PDSeedValue pdSeedValue = new PDSeedValue();
 
@@ -528,60 +290,37 @@ class PDSeedValueDiffblueTest {
   }
 
   /**
-   * Test {@link PDSeedValue#isAddRevInfoRequired()}.
-   * <p>
+   * Method under test: {@link PDSeedValue#setLegalAttestationRequired(boolean)}
+   */
+  @Test
+  void testSetLegalAttestationRequired2() {
+    // Arrange
+    PDSeedValue pdSeedValue = new PDSeedValue();
+
+    // Act
+    pdSeedValue.setLegalAttestationRequired(false);
+
+    // Assert
+    COSDictionary cOSObject = pdSeedValue.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    assertFalse(pdSeedValue.isLegalAttestationRequired());
+  }
+
+  /**
    * Method under test: {@link PDSeedValue#isAddRevInfoRequired()}
    */
   @Test
-  @DisplayName("Test isAddRevInfoRequired()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean PDSeedValue.isAddRevInfoRequired()"})
   void testIsAddRevInfoRequired() {
     // Arrange, Act and Assert
     assertFalse((new PDSeedValue()).isAddRevInfoRequired());
   }
 
   /**
-   * Test {@link PDSeedValue#setAddRevInfoRequired(boolean)}.
-   * <ul>
-   *   <li>When {@code false}.</li>
-   *   <li>Then not {@link PDSeedValue#PDSeedValue()} AddRevInfoRequired.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDSeedValue#setAddRevInfoRequired(boolean)}
    */
   @Test
-  @DisplayName("Test setAddRevInfoRequired(boolean); when 'false'; then not PDSeedValue() AddRevInfoRequired")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDSeedValue.setAddRevInfoRequired(boolean)"})
-  void testSetAddRevInfoRequired_whenFalse_thenNotPDSeedValueAddRevInfoRequired() {
-    // Arrange
-    PDSeedValue pdSeedValue = new PDSeedValue();
-
-    // Act
-    pdSeedValue.setAddRevInfoRequired(false);
-
-    // Assert
-    COSDictionary cOSObject = pdSeedValue.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    assertFalse(pdSeedValue.isAddRevInfoRequired());
-  }
-
-  /**
-   * Test {@link PDSeedValue#setAddRevInfoRequired(boolean)}.
-   * <ul>
-   *   <li>When {@code true}.</li>
-   *   <li>Then {@link PDSeedValue#PDSeedValue()} AddRevInfoRequired.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDSeedValue#setAddRevInfoRequired(boolean)}
-   */
-  @Test
-  @DisplayName("Test setAddRevInfoRequired(boolean); when 'true'; then PDSeedValue() AddRevInfoRequired")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDSeedValue.setAddRevInfoRequired(boolean)"})
-  void testSetAddRevInfoRequired_whenTrue_thenPDSeedValueAddRevInfoRequired() {
+  void testSetAddRevInfoRequired() {
     // Arrange
     PDSeedValue pdSeedValue = new PDSeedValue();
 
@@ -596,36 +335,37 @@ class PDSeedValueDiffblueTest {
   }
 
   /**
-   * Test {@link PDSeedValue#getFilter()}.
-   * <ul>
-   *   <li>Given {@link PDSeedValue#PDSeedValue()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PDSeedValue#setAddRevInfoRequired(boolean)}
+   */
+  @Test
+  void testSetAddRevInfoRequired2() {
+    // Arrange
+    PDSeedValue pdSeedValue = new PDSeedValue();
+
+    // Act
+    pdSeedValue.setAddRevInfoRequired(false);
+
+    // Assert
+    COSDictionary cOSObject = pdSeedValue.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    assertFalse(pdSeedValue.isAddRevInfoRequired());
+  }
+
+  /**
    * Method under test: {@link PDSeedValue#getFilter()}
    */
   @Test
-  @DisplayName("Test getFilter(); given PDSeedValue(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDSeedValue.getFilter()"})
-  void testGetFilter_givenPDSeedValue_thenReturnNull() {
+  void testGetFilter() {
     // Arrange, Act and Assert
     assertNull((new PDSeedValue()).getFilter());
   }
 
   /**
-   * Test {@link PDSeedValue#getFilter()}.
-   * <ul>
-   *   <li>Then return {@code Adobe.PPKLite}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDSeedValue#getFilter()}
    */
   @Test
-  @DisplayName("Test getFilter(); then return 'Adobe.PPKLite'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDSeedValue.getFilter()"})
-  void testGetFilter_thenReturnAdobePPKLite() {
+  void testGetFilter2() {
     // Arrange
     PDSeedValue pdSeedValue = new PDSeedValue();
     pdSeedValue.setFilter(PDSignature.FILTER_ADOBE_PPKLITE);
@@ -635,19 +375,10 @@ class PDSeedValueDiffblueTest {
   }
 
   /**
-   * Test {@link PDSeedValue#setFilter(COSName)}.
-   * <ul>
-   *   <li>When {@link PDSignature#FILTER_ADOBE_PPKLITE}.</li>
-   *   <li>Then {@link PDSeedValue#PDSeedValue()} Filter is {@code Adobe.PPKLite}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDSeedValue#setFilter(COSName)}
    */
   @Test
-  @DisplayName("Test setFilter(COSName); when FILTER_ADOBE_PPKLITE; then PDSeedValue() Filter is 'Adobe.PPKLite'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDSeedValue.setFilter(COSName)"})
-  void testSetFilter_whenFilter_adobe_ppklite_thenPDSeedValueFilterIsAdobePPKLite() {
+  void testSetFilter() {
     // Arrange
     PDSeedValue pdSeedValue = new PDSeedValue();
 
@@ -662,71 +393,50 @@ class PDSeedValueDiffblueTest {
   }
 
   /**
-   * Test {@link PDSeedValue#setFilter(COSName)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then {@link PDSeedValue#PDSeedValue()} COSObject Values size is one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDSeedValue#setFilter(COSName)}
    */
   @Test
-  @DisplayName("Test setFilter(COSName); when 'null'; then PDSeedValue() COSObject Values size is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDSeedValue.setFilter(COSName)"})
-  void testSetFilter_whenNull_thenPDSeedValueCOSObjectValuesSizeIsOne() {
+  void testSetFilter2() {
     // Arrange
     PDSeedValue pdSeedValue = new PDSeedValue();
 
     // Act
     pdSeedValue.setFilter(null);
 
-    // Assert that nothing has changed
+    // Assert
+    assertNull(pdSeedValue.getFilter());
     COSDictionary cOSObject = pdSeedValue.getCOSObject();
     assertEquals(1, cOSObject.getValues().size());
     assertEquals(1, cOSObject.size());
   }
 
   /**
-   * Test {@link PDSeedValue#getSubFilter()}.
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@code 42}.</li>
-   *   <li>Then return {@link ArrayList#ArrayList()}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDSeedValue#getSubFilter()}
    */
   @Test
-  @DisplayName("Test getSubFilter(); given ArrayList() add '42'; then return ArrayList()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List PDSeedValue.getSubFilter()"})
-  void testGetSubFilter_givenArrayListAdd42_thenReturnArrayList() {
-    // Arrange
-    ArrayList<String> subfilter = new ArrayList<>();
-    subfilter.add("42");
-    subfilter.add("foo");
-
-    PDSeedValue pdSeedValue = new PDSeedValue();
-    pdSeedValue.setSubFilter(subfilter);
-
-    // Act and Assert
-    assertEquals(subfilter, pdSeedValue.getSubFilter());
+  void testGetSubFilter() {
+    // Arrange, Act and Assert
+    assertTrue((new PDSeedValue()).getSubFilter().isEmpty());
   }
 
   /**
-   * Test {@link PDSeedValue#getSubFilter()}.
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@code foo}.</li>
-   *   <li>Then return size is one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDSeedValue#getSubFilter()}
    */
   @Test
-  @DisplayName("Test getSubFilter(); given ArrayList() add 'foo'; then return size is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List PDSeedValue.getSubFilter()"})
-  void testGetSubFilter_givenArrayListAddFoo_thenReturnSizeIsOne() {
+  void testGetSubFilter2() {
+    // Arrange
+    PDSeedValue pdSeedValue = new PDSeedValue();
+    pdSeedValue.setSubFilter(new ArrayList<>());
+
+    // Act and Assert
+    assertTrue(pdSeedValue.getSubFilter().isEmpty());
+  }
+
+  /**
+   * Method under test: {@link PDSeedValue#getSubFilter()}
+   */
+  @Test
+  void testGetSubFilter3() {
     // Arrange
     ArrayList<String> subfilter = new ArrayList<>();
     subfilter.add("foo");
@@ -743,60 +453,68 @@ class PDSeedValueDiffblueTest {
   }
 
   /**
-   * Test {@link PDSeedValue#getSubFilter()}.
-   * <ul>
-   *   <li>Given {@link PDSeedValue#PDSeedValue()} SubFilter is {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then return Empty.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDSeedValue#getSubFilter()}
    */
   @Test
-  @DisplayName("Test getSubFilter(); given PDSeedValue() SubFilter is ArrayList(); then return Empty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List PDSeedValue.getSubFilter()"})
-  void testGetSubFilter_givenPDSeedValueSubFilterIsArrayList_thenReturnEmpty() {
+  void testGetSubFilter4() {
     // Arrange
+    ArrayList<String> subfilter = new ArrayList<>();
+    subfilter.add("42");
+    subfilter.add("foo");
+
     PDSeedValue pdSeedValue = new PDSeedValue();
-    pdSeedValue.setSubFilter(new ArrayList<>());
+    pdSeedValue.setSubFilter(subfilter);
 
     // Act and Assert
+    assertEquals(subfilter, pdSeedValue.getSubFilter());
+  }
+
+  /**
+   * Method under test: {@link PDSeedValue#setSubFilter(List)}
+   */
+  @Test
+  void testSetSubFilter() {
+    // Arrange
+    PDSeedValue pdSeedValue = new PDSeedValue();
+
+    // Act
+    pdSeedValue.setSubFilter(new ArrayList<>());
+
+    // Assert
+    COSDictionary cOSObject = pdSeedValue.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
     assertTrue(pdSeedValue.getSubFilter().isEmpty());
   }
 
   /**
-   * Test {@link PDSeedValue#getSubFilter()}.
-   * <ul>
-   *   <li>Given {@link PDSeedValue#PDSeedValue()}.</li>
-   *   <li>Then return Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDSeedValue#getSubFilter()}
-   */
-  @Test
-  @DisplayName("Test getSubFilter(); given PDSeedValue(); then return Empty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List PDSeedValue.getSubFilter()"})
-  void testGetSubFilter_givenPDSeedValue_thenReturnEmpty() {
-    // Arrange, Act and Assert
-    assertTrue((new PDSeedValue()).getSubFilter().isEmpty());
-  }
-
-  /**
-   * Test {@link PDSeedValue#setSubFilter(List)}.
-   * <ul>
-   *   <li>Given {@code 42}.</li>
-   *   <li>When {@link ArrayList#ArrayList()} add {@code 42}.</li>
-   *   <li>Then {@link PDSeedValue#PDSeedValue()} SubFilter is {@link ArrayList#ArrayList()}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDSeedValue#setSubFilter(List)}
    */
   @Test
-  @DisplayName("Test setSubFilter(List); given '42'; when ArrayList() add '42'; then PDSeedValue() SubFilter is ArrayList()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDSeedValue.setSubFilter(List)"})
-  void testSetSubFilter_given42_whenArrayListAdd42_thenPDSeedValueSubFilterIsArrayList() {
+  void testSetSubFilter2() {
+    // Arrange
+    PDSeedValue pdSeedValue = new PDSeedValue();
+
+    ArrayList<String> subfilter = new ArrayList<>();
+    subfilter.add("foo");
+
+    // Act
+    pdSeedValue.setSubFilter(subfilter);
+
+    // Assert
+    List<String> subFilter = pdSeedValue.getSubFilter();
+    assertEquals(1, subFilter.size());
+    assertEquals("foo", subFilter.get(0));
+    COSDictionary cOSObject = pdSeedValue.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+  }
+
+  /**
+   * Method under test: {@link PDSeedValue#setSubFilter(List)}
+   */
+  @Test
+  void testSetSubFilter3() {
     // Arrange
     PDSeedValue pdSeedValue = new PDSeedValue();
 
@@ -815,92 +533,19 @@ class PDSeedValueDiffblueTest {
   }
 
   /**
-   * Test {@link PDSeedValue#setSubFilter(List)}.
-   * <ul>
-   *   <li>Given {@code foo}.</li>
-   *   <li>Then {@link PDSeedValue#PDSeedValue()} SubFilter is {@link ArrayList#ArrayList()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDSeedValue#setSubFilter(List)}
-   */
-  @Test
-  @DisplayName("Test setSubFilter(List); given 'foo'; then PDSeedValue() SubFilter is ArrayList()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDSeedValue.setSubFilter(List)"})
-  void testSetSubFilter_givenFoo_thenPDSeedValueSubFilterIsArrayList() {
-    // Arrange
-    PDSeedValue pdSeedValue = new PDSeedValue();
-
-    ArrayList<String> subfilter = new ArrayList<>();
-    subfilter.add("foo");
-
-    // Act
-    pdSeedValue.setSubFilter(subfilter);
-
-    // Assert
-    COSDictionary cOSObject = pdSeedValue.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    assertEquals(subfilter, pdSeedValue.getSubFilter());
-  }
-
-  /**
-   * Test {@link PDSeedValue#setSubFilter(List)}.
-   * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then {@link PDSeedValue#PDSeedValue()} SubFilter Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDSeedValue#setSubFilter(List)}
-   */
-  @Test
-  @DisplayName("Test setSubFilter(List); when ArrayList(); then PDSeedValue() SubFilter Empty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDSeedValue.setSubFilter(List)"})
-  void testSetSubFilter_whenArrayList_thenPDSeedValueSubFilterEmpty() {
-    // Arrange
-    PDSeedValue pdSeedValue = new PDSeedValue();
-
-    // Act
-    pdSeedValue.setSubFilter(new ArrayList<>());
-
-    // Assert
-    COSDictionary cOSObject = pdSeedValue.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    assertTrue(pdSeedValue.getSubFilter().isEmpty());
-  }
-
-  /**
-   * Test {@link PDSeedValue#getDigestMethod()}.
-   * <ul>
-   *   <li>Given {@link PDSeedValue#PDSeedValue()}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDSeedValue#getDigestMethod()}
    */
   @Test
-  @DisplayName("Test getDigestMethod(); given PDSeedValue()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List PDSeedValue.getDigestMethod()"})
-  void testGetDigestMethod_givenPDSeedValue() {
+  void testGetDigestMethod() {
     // Arrange, Act and Assert
     assertTrue((new PDSeedValue()).getDigestMethod().isEmpty());
   }
 
   /**
-   * Test {@link PDSeedValue#getDigestMethod()}.
-   * <ul>
-   *   <li>Given {@link PDSeedValue#PDSeedValue()} DigestMethod is {@link ArrayList#ArrayList()}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDSeedValue#getDigestMethod()}
    */
   @Test
-  @DisplayName("Test getDigestMethod(); given PDSeedValue() DigestMethod is ArrayList()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List PDSeedValue.getDigestMethod()"})
-  void testGetDigestMethod_givenPDSeedValueDigestMethodIsArrayList() {
+  void testGetDigestMethod2() {
     // Arrange
     PDSeedValue pdSeedValue = new PDSeedValue();
     pdSeedValue.setDigestMethod(new ArrayList<>());
@@ -910,69 +555,10 @@ class PDSeedValueDiffblueTest {
   }
 
   /**
-   * Test {@link PDSeedValue#setDigestMethod(List)}.
-   * <ul>
-   *   <li>Given {@code 42}.</li>
-   *   <li>When {@link ArrayList#ArrayList()} add {@code 42}.</li>
-   *   <li>Then throw {@link IllegalArgumentException}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDSeedValue#setDigestMethod(List)}
    */
   @Test
-  @DisplayName("Test setDigestMethod(List); given '42'; when ArrayList() add '42'; then throw IllegalArgumentException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDSeedValue.setDigestMethod(List)"})
-  void testSetDigestMethod_given42_whenArrayListAdd42_thenThrowIllegalArgumentException() {
-    // Arrange
-    PDSeedValue pdSeedValue = new PDSeedValue();
-
-    ArrayList<String> digestMethod = new ArrayList<>();
-    digestMethod.add("42");
-    digestMethod.add("foo");
-
-    // Act and Assert
-    assertThrows(IllegalArgumentException.class, () -> pdSeedValue.setDigestMethod(digestMethod));
-  }
-
-  /**
-   * Test {@link PDSeedValue#setDigestMethod(List)}.
-   * <ul>
-   *   <li>Given {@code foo}.</li>
-   *   <li>Then throw {@link IllegalArgumentException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDSeedValue#setDigestMethod(List)}
-   */
-  @Test
-  @DisplayName("Test setDigestMethod(List); given 'foo'; then throw IllegalArgumentException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDSeedValue.setDigestMethod(List)"})
-  void testSetDigestMethod_givenFoo_thenThrowIllegalArgumentException() {
-    // Arrange
-    PDSeedValue pdSeedValue = new PDSeedValue();
-
-    ArrayList<String> digestMethod = new ArrayList<>();
-    digestMethod.add("foo");
-
-    // Act and Assert
-    assertThrows(IllegalArgumentException.class, () -> pdSeedValue.setDigestMethod(digestMethod));
-  }
-
-  /**
-   * Test {@link PDSeedValue#setDigestMethod(List)}.
-   * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then {@link PDSeedValue#PDSeedValue()} COSObject Values size is two.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDSeedValue#setDigestMethod(List)}
-   */
-  @Test
-  @DisplayName("Test setDigestMethod(List); when ArrayList(); then PDSeedValue() COSObject Values size is two")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDSeedValue.setDigestMethod(List)"})
-  void testSetDigestMethod_whenArrayList_thenPDSeedValueCOSObjectValuesSizeIsTwo() {
+  void testSetDigestMethod() {
     // Arrange
     PDSeedValue pdSeedValue = new PDSeedValue();
 
@@ -990,35 +576,50 @@ class PDSeedValueDiffblueTest {
   }
 
   /**
-   * Test {@link PDSeedValue#getV()}.
-   * <ul>
-   *   <li>Given {@link PDSeedValue#PDSeedValue()}.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PDSeedValue#setDigestMethod(List)}
+   */
+  @Test
+  void testSetDigestMethod2() {
+    // Arrange
+    PDSeedValue pdSeedValue = new PDSeedValue();
+
+    ArrayList<String> digestMethod = new ArrayList<>();
+    digestMethod.add("foo");
+
+    // Act and Assert
+    assertThrows(IllegalArgumentException.class, () -> pdSeedValue.setDigestMethod(digestMethod));
+  }
+
+  /**
+   * Method under test: {@link PDSeedValue#setDigestMethod(List)}
+   */
+  @Test
+  void testSetDigestMethod3() {
+    // Arrange
+    PDSeedValue pdSeedValue = new PDSeedValue();
+
+    ArrayList<String> digestMethod = new ArrayList<>();
+    digestMethod.add("42");
+    digestMethod.add("foo");
+
+    // Act and Assert
+    assertThrows(IllegalArgumentException.class, () -> pdSeedValue.setDigestMethod(digestMethod));
+  }
+
+  /**
    * Method under test: {@link PDSeedValue#getV()}
    */
   @Test
-  @DisplayName("Test getV(); given PDSeedValue()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"float PDSeedValue.getV()"})
-  void testGetV_givenPDSeedValue() {
+  void testGetV() {
     // Arrange, Act and Assert
     assertEquals(-1.0f, (new PDSeedValue()).getV());
   }
 
   /**
-   * Test {@link PDSeedValue#getV()}.
-   * <ul>
-   *   <li>Given {@link PDSeedValue#PDSeedValue()} V is minus one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDSeedValue#getV()}
    */
   @Test
-  @DisplayName("Test getV(); given PDSeedValue() V is minus one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"float PDSeedValue.getV()"})
-  void testGetV_givenPDSeedValueVIsMinusOne() {
+  void testGetV2() {
     // Arrange
     PDSeedValue pdSeedValue = new PDSeedValue();
     pdSeedValue.setV(-1.0f);
@@ -1028,14 +629,9 @@ class PDSeedValueDiffblueTest {
   }
 
   /**
-   * Test {@link PDSeedValue#setV(float)}.
-   * <p>
    * Method under test: {@link PDSeedValue#setV(float)}
    */
   @Test
-  @DisplayName("Test setV(float)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDSeedValue.setV(float)"})
   void testSetV() {
     // Arrange
     PDSeedValue pdSeedValue = new PDSeedValue();
@@ -1051,35 +647,19 @@ class PDSeedValueDiffblueTest {
   }
 
   /**
-   * Test {@link PDSeedValue#getReasons()}.
-   * <ul>
-   *   <li>Given {@link PDSeedValue#PDSeedValue()}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDSeedValue#getReasons()}
    */
   @Test
-  @DisplayName("Test getReasons(); given PDSeedValue()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List PDSeedValue.getReasons()"})
-  void testGetReasons_givenPDSeedValue() {
+  void testGetReasons() {
     // Arrange, Act and Assert
     assertTrue((new PDSeedValue()).getReasons().isEmpty());
   }
 
   /**
-   * Test {@link PDSeedValue#getReasons()}.
-   * <ul>
-   *   <li>Given {@link PDSeedValue#PDSeedValue()} Reasons is {@link ArrayList#ArrayList()}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDSeedValue#getReasons()}
    */
   @Test
-  @DisplayName("Test getReasons(); given PDSeedValue() Reasons is ArrayList()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List PDSeedValue.getReasons()"})
-  void testGetReasons_givenPDSeedValueReasonsIsArrayList() {
+  void testGetReasons2() {
     // Arrange
     PDSeedValue pdSeedValue = new PDSeedValue();
     pdSeedValue.setReasons(new ArrayList<>());
@@ -1089,19 +669,48 @@ class PDSeedValueDiffblueTest {
   }
 
   /**
-   * Test {@link PDSeedValue#setReasons(List)}.
-   * <ul>
-   *   <li>Given {@code 42}.</li>
-   *   <li>When {@link ArrayList#ArrayList()} add {@code 42}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDSeedValue#setReasons(List)}
    */
   @Test
-  @DisplayName("Test setReasons(List); given '42'; when ArrayList() add '42'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDSeedValue.setReasons(List)"})
-  void testSetReasons_given42_whenArrayListAdd42() {
+  void testSetReasons() {
+    // Arrange
+    PDSeedValue pdSeedValue = new PDSeedValue();
+
+    // Act
+    pdSeedValue.setReasons(new ArrayList<>());
+
+    // Assert
+    COSDictionary cOSObject = pdSeedValue.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    assertTrue(pdSeedValue.getReasons().isEmpty());
+  }
+
+  /**
+   * Method under test: {@link PDSeedValue#setReasons(List)}
+   */
+  @Test
+  void testSetReasons2() {
+    // Arrange
+    PDSeedValue pdSeedValue = new PDSeedValue();
+
+    ArrayList<String> reasons = new ArrayList<>();
+    reasons.add("foo");
+
+    // Act
+    pdSeedValue.setReasons(reasons);
+
+    // Assert
+    COSDictionary cOSObject = pdSeedValue.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+  }
+
+  /**
+   * Method under test: {@link PDSeedValue#setReasons(List)}
+   */
+  @Test
+  void testSetReasons3() {
     // Arrange
     PDSeedValue pdSeedValue = new PDSeedValue();
 
@@ -1119,92 +728,19 @@ class PDSeedValueDiffblueTest {
   }
 
   /**
-   * Test {@link PDSeedValue#setReasons(List)}.
-   * <ul>
-   *   <li>Given {@code foo}.</li>
-   *   <li>When {@link ArrayList#ArrayList()} add {@code foo}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDSeedValue#setReasons(List)}
-   */
-  @Test
-  @DisplayName("Test setReasons(List); given 'foo'; when ArrayList() add 'foo'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDSeedValue.setReasons(List)"})
-  void testSetReasons_givenFoo_whenArrayListAddFoo() {
-    // Arrange
-    PDSeedValue pdSeedValue = new PDSeedValue();
-
-    ArrayList<String> reasons = new ArrayList<>();
-    reasons.add("foo");
-
-    // Act
-    pdSeedValue.setReasons(reasons);
-
-    // Assert
-    COSDictionary cOSObject = pdSeedValue.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-  }
-
-  /**
-   * Test {@link PDSeedValue#setReasons(List)}.
-   * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then {@link PDSeedValue#PDSeedValue()} Reasons Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDSeedValue#setReasons(List)}
-   */
-  @Test
-  @DisplayName("Test setReasons(List); when ArrayList(); then PDSeedValue() Reasons Empty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDSeedValue.setReasons(List)"})
-  void testSetReasons_whenArrayList_thenPDSeedValueReasonsEmpty() {
-    // Arrange
-    PDSeedValue pdSeedValue = new PDSeedValue();
-
-    // Act
-    pdSeedValue.setReasons(new ArrayList<>());
-
-    // Assert
-    COSDictionary cOSObject = pdSeedValue.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    assertTrue(pdSeedValue.getReasons().isEmpty());
-  }
-
-  /**
-   * Test {@link PDSeedValue#getMDP()}.
-   * <ul>
-   *   <li>Given {@link PDSeedValue#PDSeedValue()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDSeedValue#getMDP()}
    */
   @Test
-  @DisplayName("Test getMDP(); given PDSeedValue(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDSeedValueMDP PDSeedValue.getMDP()"})
-  void testGetMDP_givenPDSeedValue_thenReturnNull() {
+  void testGetMDP() {
     // Arrange, Act and Assert
     assertNull((new PDSeedValue()).getMDP());
   }
 
   /**
-   * Test {@link PDSeedValue#getMDP()}.
-   * <ul>
-   *   <li>Then return COSObject UpdateState OriginDocumentState is {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDSeedValue#getMDP()}
    */
   @Test
-  @DisplayName("Test getMDP(); then return COSObject UpdateState OriginDocumentState is 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDSeedValueMDP PDSeedValue.getMDP()"})
-  void testGetMDP_thenReturnCOSObjectUpdateStateOriginDocumentStateIsNull() {
+  void testGetMDP2() {
     // Arrange
     PDSeedValue pdSeedValue = new PDSeedValue();
     pdSeedValue.setMPD(new PDSeedValueMDP());
@@ -1229,45 +765,10 @@ class PDSeedValueDiffblueTest {
   }
 
   /**
-   * Test {@link PDSeedValue#setMPD(PDSeedValueMDP)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then {@link PDSeedValue#PDSeedValue()} COSObject Values size is one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDSeedValue#setMPD(PDSeedValueMDP)}
    */
   @Test
-  @DisplayName("Test setMPD(PDSeedValueMDP); when 'null'; then PDSeedValue() COSObject Values size is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDSeedValue.setMPD(PDSeedValueMDP)"})
-  void testSetMPD_whenNull_thenPDSeedValueCOSObjectValuesSizeIsOne() {
-    // Arrange
-    PDSeedValue pdSeedValue = new PDSeedValue();
-
-    // Act
-    pdSeedValue.setMPD(null);
-
-    // Assert that nothing has changed
-    COSDictionary cOSObject = pdSeedValue.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-  }
-
-  /**
-   * Test {@link PDSeedValue#setMPD(PDSeedValueMDP)}.
-   * <ul>
-   *   <li>When {@link PDSeedValueMDP#PDSeedValueMDP()}.</li>
-   *   <li>Then {@link PDSeedValue#PDSeedValue()} MDP P is minus one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDSeedValue#setMPD(PDSeedValueMDP)}
-   */
-  @Test
-  @DisplayName("Test setMPD(PDSeedValueMDP); when PDSeedValueMDP(); then PDSeedValue() MDP P is minus one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDSeedValue.setMPD(PDSeedValueMDP)"})
-  void testSetMPD_whenPDSeedValueMDP_thenPDSeedValueMdpPIsMinusOne() {
+  void testSetMPD() {
     // Arrange
     PDSeedValue pdSeedValue = new PDSeedValue();
 
@@ -1282,36 +783,36 @@ class PDSeedValueDiffblueTest {
   }
 
   /**
-   * Test {@link PDSeedValue#getSeedValueCertificate()}.
-   * <ul>
-   *   <li>Given {@link PDSeedValue#PDSeedValue()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PDSeedValue#setMPD(PDSeedValueMDP)}
+   */
+  @Test
+  void testSetMPD2() {
+    // Arrange
+    PDSeedValue pdSeedValue = new PDSeedValue();
+
+    // Act
+    pdSeedValue.setMPD(null);
+
+    // Assert that nothing has changed
+    COSDictionary cOSObject = pdSeedValue.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+  }
+
+  /**
    * Method under test: {@link PDSeedValue#getSeedValueCertificate()}
    */
   @Test
-  @DisplayName("Test getSeedValueCertificate(); given PDSeedValue(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDSeedValueCertificate PDSeedValue.getSeedValueCertificate()"})
-  void testGetSeedValueCertificate_givenPDSeedValue_thenReturnNull() {
+  void testGetSeedValueCertificate() {
     // Arrange, Act and Assert
     assertNull((new PDSeedValue()).getSeedValueCertificate());
   }
 
   /**
-   * Test {@link PDSeedValue#getSeedValueCertificate()}.
-   * <ul>
-   *   <li>Then return URL is {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDSeedValue#getSeedValueCertificate()}
    */
   @Test
-  @DisplayName("Test getSeedValueCertificate(); then return URL is 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDSeedValueCertificate PDSeedValue.getSeedValueCertificate()"})
-  void testGetSeedValueCertificate_thenReturnUrlIsNull() {
+  void testGetSeedValueCertificate2() {
     // Arrange
     PDSeedValue pdSeedValue = new PDSeedValue();
     pdSeedValue.setSeedValueCertificate(new PDSeedValueCertificate());
@@ -1327,27 +828,32 @@ class PDSeedValueDiffblueTest {
     assertNull(actualSeedValueCertificate.getSubject());
     assertNull(actualSeedValueCertificate.getKeyUsage());
     assertNull(actualSeedValueCertificate.getSubjectDN());
+    COSDictionary cOSObject = actualSeedValueCertificate.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
     assertFalse(actualSeedValueCertificate.isIssuerRequired());
     assertFalse(actualSeedValueCertificate.isKeyUsageRequired());
     assertFalse(actualSeedValueCertificate.isOIDRequired());
     assertFalse(actualSeedValueCertificate.isSubjectDNRequired());
     assertFalse(actualSeedValueCertificate.isSubjectRequired());
     assertFalse(actualSeedValueCertificate.isURLRequired());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertTrue(cOSObject.isDirect());
   }
 
   /**
-   * Test {@link PDSeedValue#setSeedValueCertificate(PDSeedValueCertificate)}.
-   * <ul>
-   *   <li>Then {@link PDSeedValue#PDSeedValue()} SeedValueCertificate URL is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDSeedValue#setSeedValueCertificate(PDSeedValueCertificate)}
+   * Method under test:
+   * {@link PDSeedValue#setSeedValueCertificate(PDSeedValueCertificate)}
    */
   @Test
-  @DisplayName("Test setSeedValueCertificate(PDSeedValueCertificate); then PDSeedValue() SeedValueCertificate URL is 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDSeedValue.setSeedValueCertificate(PDSeedValueCertificate)"})
-  void testSetSeedValueCertificate_thenPDSeedValueSeedValueCertificateUrlIsNull() {
+  void testSetSeedValueCertificate() {
     // Arrange
     PDSeedValue pdSeedValue = new PDSeedValue();
 
@@ -1375,62 +881,38 @@ class PDSeedValueDiffblueTest {
   }
 
   /**
-   * Test {@link PDSeedValue#setSeedValueCertificate(PDSeedValueCertificate)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then {@link PDSeedValue#PDSeedValue()} COSObject Values size is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDSeedValue#setSeedValueCertificate(PDSeedValueCertificate)}
+   * Method under test:
+   * {@link PDSeedValue#setSeedValueCertificate(PDSeedValueCertificate)}
    */
   @Test
-  @DisplayName("Test setSeedValueCertificate(PDSeedValueCertificate); when 'null'; then PDSeedValue() COSObject Values size is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDSeedValue.setSeedValueCertificate(PDSeedValueCertificate)"})
-  void testSetSeedValueCertificate_whenNull_thenPDSeedValueCOSObjectValuesSizeIsOne() {
+  void testSetSeedValueCertificate2() {
     // Arrange
     PDSeedValue pdSeedValue = new PDSeedValue();
 
     // Act
     pdSeedValue.setSeedValueCertificate(null);
 
-    // Assert that nothing has changed
+    // Assert
+    assertNull(pdSeedValue.getSeedValueCertificate());
     COSDictionary cOSObject = pdSeedValue.getCOSObject();
     assertEquals(1, cOSObject.getValues().size());
     assertEquals(1, cOSObject.size());
   }
 
   /**
-   * Test {@link PDSeedValue#getTimeStamp()}.
-   * <ul>
-   *   <li>Given {@link PDSeedValue#PDSeedValue()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDSeedValue#getTimeStamp()}
    */
   @Test
-  @DisplayName("Test getTimeStamp(); given PDSeedValue(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDSeedValueTimeStamp PDSeedValue.getTimeStamp()"})
-  void testGetTimeStamp_givenPDSeedValue_thenReturnNull() {
+  void testGetTimeStamp() {
     // Arrange, Act and Assert
     assertNull((new PDSeedValue()).getTimeStamp());
   }
 
   /**
-   * Test {@link PDSeedValue#getTimeStamp()}.
-   * <ul>
-   *   <li>Then return URL is {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDSeedValue#getTimeStamp()}
    */
   @Test
-  @DisplayName("Test getTimeStamp(); then return URL is 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDSeedValueTimeStamp PDSeedValue.getTimeStamp()"})
-  void testGetTimeStamp_thenReturnUrlIsNull() {
+  void testGetTimeStamp2() {
     // Arrange
     PDSeedValue pdSeedValue = new PDSeedValue();
     pdSeedValue.setTimeStamp(new PDSeedValueTimeStamp());
@@ -1456,45 +938,10 @@ class PDSeedValueDiffblueTest {
   }
 
   /**
-   * Test {@link PDSeedValue#setTimeStamp(PDSeedValueTimeStamp)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then {@link PDSeedValue#PDSeedValue()} COSObject Values size is one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDSeedValue#setTimeStamp(PDSeedValueTimeStamp)}
    */
   @Test
-  @DisplayName("Test setTimeStamp(PDSeedValueTimeStamp); when 'null'; then PDSeedValue() COSObject Values size is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDSeedValue.setTimeStamp(PDSeedValueTimeStamp)"})
-  void testSetTimeStamp_whenNull_thenPDSeedValueCOSObjectValuesSizeIsOne() {
-    // Arrange
-    PDSeedValue pdSeedValue = new PDSeedValue();
-
-    // Act
-    pdSeedValue.setTimeStamp(null);
-
-    // Assert that nothing has changed
-    COSDictionary cOSObject = pdSeedValue.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-  }
-
-  /**
-   * Test {@link PDSeedValue#setTimeStamp(PDSeedValueTimeStamp)}.
-   * <ul>
-   *   <li>When {@link PDSeedValueTimeStamp#PDSeedValueTimeStamp()}.</li>
-   *   <li>Then {@link PDSeedValue#PDSeedValue()} TimeStamp URL is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDSeedValue#setTimeStamp(PDSeedValueTimeStamp)}
-   */
-  @Test
-  @DisplayName("Test setTimeStamp(PDSeedValueTimeStamp); when PDSeedValueTimeStamp(); then PDSeedValue() TimeStamp URL is 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDSeedValue.setTimeStamp(PDSeedValueTimeStamp)"})
-  void testSetTimeStamp_whenPDSeedValueTimeStamp_thenPDSeedValueTimeStampUrlIsNull() {
+  void testSetTimeStamp() {
     // Arrange
     PDSeedValue pdSeedValue = new PDSeedValue();
 
@@ -1511,35 +958,36 @@ class PDSeedValueDiffblueTest {
   }
 
   /**
-   * Test {@link PDSeedValue#getLegalAttestation()}.
-   * <ul>
-   *   <li>Given {@link PDSeedValue#PDSeedValue()}.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PDSeedValue#setTimeStamp(PDSeedValueTimeStamp)}
+   */
+  @Test
+  void testSetTimeStamp2() {
+    // Arrange
+    PDSeedValue pdSeedValue = new PDSeedValue();
+
+    // Act
+    pdSeedValue.setTimeStamp(null);
+
+    // Assert that nothing has changed
+    COSDictionary cOSObject = pdSeedValue.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+  }
+
+  /**
    * Method under test: {@link PDSeedValue#getLegalAttestation()}
    */
   @Test
-  @DisplayName("Test getLegalAttestation(); given PDSeedValue()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List PDSeedValue.getLegalAttestation()"})
-  void testGetLegalAttestation_givenPDSeedValue() {
+  void testGetLegalAttestation() {
     // Arrange, Act and Assert
     assertTrue((new PDSeedValue()).getLegalAttestation().isEmpty());
   }
 
   /**
-   * Test {@link PDSeedValue#getLegalAttestation()}.
-   * <ul>
-   *   <li>Given {@link PDSeedValue#PDSeedValue()} LegalAttestation is {@link ArrayList#ArrayList()}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDSeedValue#getLegalAttestation()}
    */
   @Test
-  @DisplayName("Test getLegalAttestation(); given PDSeedValue() LegalAttestation is ArrayList()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List PDSeedValue.getLegalAttestation()"})
-  void testGetLegalAttestation_givenPDSeedValueLegalAttestationIsArrayList() {
+  void testGetLegalAttestation2() {
     // Arrange
     PDSeedValue pdSeedValue = new PDSeedValue();
     pdSeedValue.setLegalAttestation(new ArrayList<>());
@@ -1549,19 +997,48 @@ class PDSeedValueDiffblueTest {
   }
 
   /**
-   * Test {@link PDSeedValue#setLegalAttestation(List)}.
-   * <ul>
-   *   <li>Given {@code 42}.</li>
-   *   <li>When {@link ArrayList#ArrayList()} add {@code 42}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDSeedValue#setLegalAttestation(List)}
    */
   @Test
-  @DisplayName("Test setLegalAttestation(List); given '42'; when ArrayList() add '42'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDSeedValue.setLegalAttestation(List)"})
-  void testSetLegalAttestation_given42_whenArrayListAdd42() {
+  void testSetLegalAttestation() {
+    // Arrange
+    PDSeedValue pdSeedValue = new PDSeedValue();
+
+    // Act
+    pdSeedValue.setLegalAttestation(new ArrayList<>());
+
+    // Assert
+    COSDictionary cOSObject = pdSeedValue.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    assertTrue(pdSeedValue.getLegalAttestation().isEmpty());
+  }
+
+  /**
+   * Method under test: {@link PDSeedValue#setLegalAttestation(List)}
+   */
+  @Test
+  void testSetLegalAttestation2() {
+    // Arrange
+    PDSeedValue pdSeedValue = new PDSeedValue();
+
+    ArrayList<String> legalAttestation = new ArrayList<>();
+    legalAttestation.add("foo");
+
+    // Act
+    pdSeedValue.setLegalAttestation(legalAttestation);
+
+    // Assert
+    COSDictionary cOSObject = pdSeedValue.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+  }
+
+  /**
+   * Method under test: {@link PDSeedValue#setLegalAttestation(List)}
+   */
+  @Test
+  void testSetLegalAttestation3() {
     // Arrange
     PDSeedValue pdSeedValue = new PDSeedValue();
 
@@ -1579,58 +1056,75 @@ class PDSeedValueDiffblueTest {
   }
 
   /**
-   * Test {@link PDSeedValue#setLegalAttestation(List)}.
-   * <ul>
-   *   <li>Given {@code foo}.</li>
-   *   <li>When {@link ArrayList#ArrayList()} add {@code foo}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDSeedValue#setLegalAttestation(List)}
+   * Method under test: {@link PDSeedValue#PDSeedValue()}
    */
   @Test
-  @DisplayName("Test setLegalAttestation(List); given 'foo'; when ArrayList() add 'foo'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDSeedValue.setLegalAttestation(List)"})
-  void testSetLegalAttestation_givenFoo_whenArrayListAddFoo() {
-    // Arrange
-    PDSeedValue pdSeedValue = new PDSeedValue();
-
-    ArrayList<String> legalAttestation = new ArrayList<>();
-    legalAttestation.add("foo");
-
-    // Act
-    pdSeedValue.setLegalAttestation(legalAttestation);
+  void testNewPDSeedValue() {
+    // Arrange and Act
+    PDSeedValue actualPdSeedValue = new PDSeedValue();
 
     // Assert
-    COSDictionary cOSObject = pdSeedValue.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
+    assertNull(actualPdSeedValue.getFilter());
+    COSDictionary cOSObject = actualPdSeedValue.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertNull(actualPdSeedValue.getSeedValueCertificate());
+    assertNull(actualPdSeedValue.getMDP());
+    assertNull(actualPdSeedValue.getTimeStamp());
+    assertEquals(-1.0f, actualPdSeedValue.getV());
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertFalse(actualPdSeedValue.isAddRevInfoRequired());
+    assertFalse(actualPdSeedValue.isDigestMethodRequired());
+    assertFalse(actualPdSeedValue.isFilterRequired());
+    assertFalse(actualPdSeedValue.isLegalAttestationRequired());
+    assertFalse(actualPdSeedValue.isReasonRequired());
+    assertFalse(actualPdSeedValue.isSubFilterRequired());
+    assertFalse(actualPdSeedValue.isVRequired());
+    List<String> digestMethod = actualPdSeedValue.getDigestMethod();
+    assertTrue(digestMethod.isEmpty());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertTrue(cOSObject.isDirect());
+    assertSame(digestMethod, actualPdSeedValue.getLegalAttestation());
+    assertSame(digestMethod, actualPdSeedValue.getReasons());
+    assertSame(digestMethod, actualPdSeedValue.getSubFilter());
   }
 
   /**
-   * Test {@link PDSeedValue#setLegalAttestation(List)}.
-   * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then {@link PDSeedValue#PDSeedValue()} LegalAttestation Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDSeedValue#setLegalAttestation(List)}
+   * Method under test: {@link PDSeedValue#PDSeedValue(COSDictionary)}
    */
   @Test
-  @DisplayName("Test setLegalAttestation(List); when ArrayList(); then PDSeedValue() LegalAttestation Empty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDSeedValue.setLegalAttestation(List)"})
-  void testSetLegalAttestation_whenArrayList_thenPDSeedValueLegalAttestationEmpty() {
+  void testNewPDSeedValue2() {
     // Arrange
-    PDSeedValue pdSeedValue = new PDSeedValue();
+    COSDictionary dict = new COSDictionary();
 
     // Act
-    pdSeedValue.setLegalAttestation(new ArrayList<>());
+    PDSeedValue actualPdSeedValue = new PDSeedValue(dict);
 
     // Assert
-    COSDictionary cOSObject = pdSeedValue.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    assertTrue(pdSeedValue.getLegalAttestation().isEmpty());
+    assertNull(actualPdSeedValue.getFilter());
+    assertNull(actualPdSeedValue.getSeedValueCertificate());
+    assertNull(actualPdSeedValue.getMDP());
+    assertNull(actualPdSeedValue.getTimeStamp());
+    assertEquals(-1.0f, actualPdSeedValue.getV());
+    assertFalse(actualPdSeedValue.isAddRevInfoRequired());
+    assertFalse(actualPdSeedValue.isDigestMethodRequired());
+    assertFalse(actualPdSeedValue.isFilterRequired());
+    assertFalse(actualPdSeedValue.isLegalAttestationRequired());
+    assertFalse(actualPdSeedValue.isReasonRequired());
+    assertFalse(actualPdSeedValue.isSubFilterRequired());
+    assertFalse(actualPdSeedValue.isVRequired());
+    List<String> digestMethod = actualPdSeedValue.getDigestMethod();
+    assertTrue(digestMethod.isEmpty());
+    assertTrue(dict.isDirect());
+    assertSame(dict, actualPdSeedValue.getCOSObject());
+    assertSame(digestMethod, actualPdSeedValue.getLegalAttestation());
+    assertSame(digestMethod, actualPdSeedValue.getReasons());
+    assertSame(digestMethod, actualPdSeedValue.getSubFilter());
   }
 }

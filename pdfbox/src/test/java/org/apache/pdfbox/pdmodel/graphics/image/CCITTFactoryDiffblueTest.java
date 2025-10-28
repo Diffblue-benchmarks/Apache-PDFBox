@@ -1,25 +1,22 @@
 package org.apache.pdfbox.pdmodel.graphics.image;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import org.apache.pdfbox.io.RandomAccessStreamCache;
+import org.apache.pdfbox.io.RandomAccessStreamCacheImpl;
 import org.apache.pdfbox.pdmodel.PDDocument;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class CCITTFactoryDiffblueTest {
   /**
-   * Test {@link CCITTFactory#createFromImage(PDDocument, BufferedImage)}.
-   * <p>
-   * Method under test: {@link CCITTFactory#createFromImage(PDDocument, BufferedImage)}
+   * Method under test:
+   * {@link CCITTFactory#createFromImage(PDDocument, BufferedImage)}
    */
   @Test
-  @DisplayName("Test createFromImage(PDDocument, BufferedImage)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject CCITTFactory.createFromImage(PDDocument, BufferedImage)"})
   void testCreateFromImage() throws IOException {
     // Arrange
     PDDocument document = new PDDocument();
@@ -30,16 +27,11 @@ class CCITTFactoryDiffblueTest {
   }
 
   /**
-   * Test {@link CCITTFactory#createFromByteArray(PDDocument, byte[])} with {@code document}, {@code byteArray}.
-   * <p>
-   * Method under test: {@link CCITTFactory#createFromByteArray(PDDocument, byte[])}
+   * Method under test:
+   * {@link CCITTFactory#createFromByteArray(PDDocument, byte[])}
    */
   @Test
-  @DisplayName("Test createFromByteArray(PDDocument, byte[]) with 'document', 'byteArray'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject CCITTFactory.createFromByteArray(PDDocument, byte[])"})
-  void testCreateFromByteArrayWithDocumentByteArray() throws IOException {
+  void testCreateFromByteArray() throws IOException {
     // Arrange
     PDDocument document = new PDDocument();
 
@@ -48,20 +40,83 @@ class CCITTFactoryDiffblueTest {
   }
 
   /**
-   * Test {@link CCITTFactory#createFromByteArray(PDDocument, byte[], int)} with {@code document}, {@code byteArray}, {@code number}.
-   * <p>
-   * Method under test: {@link CCITTFactory#createFromByteArray(PDDocument, byte[], int)}
+   * Method under test:
+   * {@link CCITTFactory#createFromByteArray(PDDocument, byte[])}
    */
   @Test
-  @DisplayName("Test createFromByteArray(PDDocument, byte[], int) with 'document', 'byteArray', 'number'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject CCITTFactory.createFromByteArray(PDDocument, byte[], int)"})
-  void testCreateFromByteArrayWithDocumentByteArrayNumber() throws IOException {
+  void testCreateFromByteArray2() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDDocument document = new PDDocument(streamCacheCreateFunction);
+
+    // Act and Assert
+    assertThrows(IOException.class, () -> CCITTFactory.createFromByteArray(document, "XXAXAXAX".getBytes("UTF-8")));
+    verify(streamCacheCreateFunction).create();
+  }
+
+  /**
+   * Method under test:
+   * {@link CCITTFactory#createFromByteArray(PDDocument, byte[])}
+   */
+  @Test
+  void testCreateFromByteArray3() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+
+    // Act and Assert
+    assertThrows(IOException.class,
+        () -> CCITTFactory.createFromByteArray(new PDDocument(streamCacheCreateFunction), new byte[]{}));
+    verify(streamCacheCreateFunction).create();
+  }
+
+  /**
+   * Method under test:
+   * {@link CCITTFactory#createFromByteArray(PDDocument, byte[], int)}
+   */
+  @Test
+  void testCreateFromByteArray4() throws IOException {
     // Arrange
     PDDocument document = new PDDocument();
 
     // Act and Assert
     assertThrows(IOException.class, () -> CCITTFactory.createFromByteArray(document, "AXAXAXAX".getBytes("UTF-8"), 10));
+  }
+
+  /**
+   * Method under test:
+   * {@link CCITTFactory#createFromByteArray(PDDocument, byte[], int)}
+   */
+  @Test
+  void testCreateFromByteArray5() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDDocument document = new PDDocument(streamCacheCreateFunction);
+
+    // Act and Assert
+    assertThrows(IOException.class, () -> CCITTFactory.createFromByteArray(document, "XXAXAXAX".getBytes("UTF-8"), 10));
+    verify(streamCacheCreateFunction).create();
+  }
+
+  /**
+   * Method under test:
+   * {@link CCITTFactory#createFromByteArray(PDDocument, byte[], int)}
+   */
+  @Test
+  void testCreateFromByteArray6() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+
+    // Act and Assert
+    assertThrows(IOException.class,
+        () -> CCITTFactory.createFromByteArray(new PDDocument(streamCacheCreateFunction), new byte[]{}, 10));
+    verify(streamCacheCreateFunction).create();
   }
 }

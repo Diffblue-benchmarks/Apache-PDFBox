@@ -4,25 +4,48 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.List;
 import org.apache.pdfbox.cos.COSArray;
 import org.apache.pdfbox.cos.COSBase;
 import org.apache.pdfbox.cos.COSFloat;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class PDImmutableRectangleDiffblueTest {
   /**
-   * Test {@link PDImmutableRectangle#PDImmutableRectangle(float, float)}.
-   * <p>
-   * Method under test: {@link PDImmutableRectangle#PDImmutableRectangle(float, float)}
+   * Method under test: {@link PDImmutableRectangle#setUpperRightY(float)}
    */
   @Test
-  @DisplayName("Test new PDImmutableRectangle(float, float)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDImmutableRectangle.<init>(float, float)"})
+  void testSetUpperRightY() {
+    // Arrange, Act and Assert
+    assertThrows(UnsupportedOperationException.class,
+        () -> (new PDImmutableRectangle(10.0f, 10.0f)).setUpperRightY(10.0f));
+  }
+
+  /**
+   * Method under test: {@link PDImmutableRectangle#setUpperRightX(float)}
+   */
+  @Test
+  void testSetUpperRightX() {
+    // Arrange, Act and Assert
+    assertThrows(UnsupportedOperationException.class,
+        () -> (new PDImmutableRectangle(10.0f, 10.0f)).setUpperRightX(10.0f));
+  }
+
+  /**
+   * Method under test: {@link PDImmutableRectangle#setLowerLeftY(float)}
+   */
+  @Test
+  void testSetLowerLeftY() {
+    // Arrange, Act and Assert
+    assertThrows(UnsupportedOperationException.class,
+        () -> (new PDImmutableRectangle(10.0f, 10.0f)).setLowerLeftY(10.0f));
+  }
+
+  /**
+   * Method under test:
+   * {@link PDImmutableRectangle#PDImmutableRectangle(float, float)}
+   */
+  @Test
   void testNewPDImmutableRectangle() {
     // Arrange and Act
     PDImmutableRectangle actualPdImmutableRectangle = new PDImmutableRectangle(10.0f, 10.0f);
@@ -45,59 +68,9 @@ class PDImmutableRectangleDiffblueTest {
   }
 
   /**
-   * Test {@link PDImmutableRectangle#setUpperRightY(float)}.
-   * <p>
-   * Method under test: {@link PDImmutableRectangle#setUpperRightY(float)}
-   */
-  @Test
-  @DisplayName("Test setUpperRightY(float)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDImmutableRectangle.setUpperRightY(float)"})
-  void testSetUpperRightY() {
-    // Arrange, Act and Assert
-    assertThrows(UnsupportedOperationException.class,
-        () -> (new PDImmutableRectangle(10.0f, 10.0f)).setUpperRightY(10.0f));
-  }
-
-  /**
-   * Test {@link PDImmutableRectangle#setUpperRightX(float)}.
-   * <p>
-   * Method under test: {@link PDImmutableRectangle#setUpperRightX(float)}
-   */
-  @Test
-  @DisplayName("Test setUpperRightX(float)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDImmutableRectangle.setUpperRightX(float)"})
-  void testSetUpperRightX() {
-    // Arrange, Act and Assert
-    assertThrows(UnsupportedOperationException.class,
-        () -> (new PDImmutableRectangle(10.0f, 10.0f)).setUpperRightX(10.0f));
-  }
-
-  /**
-   * Test {@link PDImmutableRectangle#setLowerLeftY(float)}.
-   * <p>
-   * Method under test: {@link PDImmutableRectangle#setLowerLeftY(float)}
-   */
-  @Test
-  @DisplayName("Test setLowerLeftY(float)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDImmutableRectangle.setLowerLeftY(float)"})
-  void testSetLowerLeftY() {
-    // Arrange, Act and Assert
-    assertThrows(UnsupportedOperationException.class,
-        () -> (new PDImmutableRectangle(10.0f, 10.0f)).setLowerLeftY(10.0f));
-  }
-
-  /**
-   * Test {@link PDImmutableRectangle#setLowerLeftX(float)}.
-   * <p>
    * Method under test: {@link PDImmutableRectangle#setLowerLeftX(float)}
    */
   @Test
-  @DisplayName("Test setLowerLeftX(float)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDImmutableRectangle.setLowerLeftX(float)"})
   void testSetLowerLeftX() {
     // Arrange, Act and Assert
     assertThrows(UnsupportedOperationException.class,

@@ -5,24 +5,54 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.cos.COSIncrement;
 import org.apache.pdfbox.cos.COSUpdateState;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class PDListAttributeObjectDiffblueTest {
   /**
-   * Test {@link PDListAttributeObject#PDListAttributeObject(COSDictionary)}.
-   * <p>
-   * Method under test: {@link PDListAttributeObject#PDListAttributeObject(COSDictionary)}
+   * Method under test: {@link PDListAttributeObject#getListNumbering()}
    */
   @Test
-  @DisplayName("Test new PDListAttributeObject(COSDictionary)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDListAttributeObject.<init>(COSDictionary)"})
+  void testGetListNumbering() {
+    // Arrange, Act and Assert
+    assertEquals(PDListAttributeObject.LIST_NUMBERING_NONE, (new PDListAttributeObject()).getListNumbering());
+  }
+
+  /**
+   * Method under test: {@link PDListAttributeObject#setListNumbering(String)}
+   */
+  @Test
+  void testSetListNumbering() {
+    // Arrange
+    PDListAttributeObject pdListAttributeObject = new PDListAttributeObject();
+
+    // Act
+    pdListAttributeObject.setListNumbering("42");
+
+    // Assert
+    assertEquals("42", pdListAttributeObject.getListNumbering());
+    COSDictionary cOSObject = pdListAttributeObject.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    assertFalse(pdListAttributeObject.isEmpty());
+  }
+
+  /**
+   * Method under test: {@link PDListAttributeObject#toString()}
+   */
+  @Test
+  void testToString() {
+    // Arrange, Act and Assert
+    assertEquals("O=List", (new PDListAttributeObject()).toString());
+  }
+
+  /**
+   * Method under test:
+   * {@link PDListAttributeObject#PDListAttributeObject(COSDictionary)}
+   */
+  @Test
   void testNewPDListAttributeObject() {
     // Arrange
     COSDictionary dictionary = new COSDictionary();
@@ -32,14 +62,9 @@ class PDListAttributeObjectDiffblueTest {
   }
 
   /**
-   * Test {@link PDListAttributeObject#PDListAttributeObject()}.
-   * <p>
    * Method under test: {@link PDListAttributeObject#PDListAttributeObject()}
    */
   @Test
-  @DisplayName("Test new PDListAttributeObject()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDListAttributeObject.<init>()"})
   void testNewPDListAttributeObject2() {
     // Arrange and Act
     PDListAttributeObject actualPdListAttributeObject = new PDListAttributeObject();
@@ -60,68 +85,5 @@ class PDListAttributeObjectDiffblueTest {
     assertTrue(actualPdListAttributeObject.isEmpty());
     assertEquals(PDListAttributeObject.LIST_NUMBERING_NONE, actualPdListAttributeObject.getListNumbering());
     assertEquals(PDListAttributeObject.OWNER_LIST, actualPdListAttributeObject.getOwner());
-  }
-
-  /**
-   * Test {@link PDListAttributeObject#getListNumbering()}.
-   * <ul>
-   *   <li>Given {@link PDListAttributeObject#PDListAttributeObject()}.</li>
-   *   <li>Then return {@link PDListAttributeObject#LIST_NUMBERING_NONE}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDListAttributeObject#getListNumbering()}
-   */
-  @Test
-  @DisplayName("Test getListNumbering(); given PDListAttributeObject(); then return LIST_NUMBERING_NONE")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDListAttributeObject.getListNumbering()"})
-  void testGetListNumbering_givenPDListAttributeObject_thenReturnList_numbering_none() {
-    // Arrange, Act and Assert
-    assertEquals(PDListAttributeObject.LIST_NUMBERING_NONE, (new PDListAttributeObject()).getListNumbering());
-  }
-
-  /**
-   * Test {@link PDListAttributeObject#setListNumbering(String)}.
-   * <ul>
-   *   <li>Then {@link PDListAttributeObject#PDListAttributeObject()} ListNumbering is {@code 42}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDListAttributeObject#setListNumbering(String)}
-   */
-  @Test
-  @DisplayName("Test setListNumbering(String); then PDListAttributeObject() ListNumbering is '42'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDListAttributeObject.setListNumbering(String)"})
-  void testSetListNumbering_thenPDListAttributeObjectListNumberingIs42() {
-    // Arrange
-    PDListAttributeObject pdListAttributeObject = new PDListAttributeObject();
-
-    // Act
-    pdListAttributeObject.setListNumbering("42");
-
-    // Assert
-    assertEquals("42", pdListAttributeObject.getListNumbering());
-    COSDictionary cOSObject = pdListAttributeObject.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    assertFalse(pdListAttributeObject.isEmpty());
-  }
-
-  /**
-   * Test {@link PDListAttributeObject#toString()}.
-   * <ul>
-   *   <li>Given {@link PDListAttributeObject#PDListAttributeObject()}.</li>
-   *   <li>Then return {@code O=List}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDListAttributeObject#toString()}
-   */
-  @Test
-  @DisplayName("Test toString(); given PDListAttributeObject(); then return 'O=List'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDListAttributeObject.toString()"})
-  void testToString_givenPDListAttributeObject_thenReturnOList() {
-    // Arrange, Act and Assert
-    assertEquals("O=List", (new PDListAttributeObject()).toString());
   }
 }

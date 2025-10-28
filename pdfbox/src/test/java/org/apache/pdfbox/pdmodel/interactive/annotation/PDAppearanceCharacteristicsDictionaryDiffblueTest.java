@@ -5,45 +5,24 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import org.apache.pdfbox.cos.COSArray;
 import org.apache.pdfbox.cos.COSBoolean;
 import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.cos.COSName;
+import org.apache.pdfbox.pdmodel.common.COSObjectable;
 import org.apache.pdfbox.pdmodel.graphics.color.PDColor;
 import org.apache.pdfbox.pdmodel.graphics.color.PDDeviceGray;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class PDAppearanceCharacteristicsDictionaryDiffblueTest {
   /**
-   * Test {@link PDAppearanceCharacteristicsDictionary#PDAppearanceCharacteristicsDictionary(COSDictionary)}.
-   * <p>
-   * Method under test: {@link PDAppearanceCharacteristicsDictionary#PDAppearanceCharacteristicsDictionary(COSDictionary)}
+   * Method under test:
+   * {@link PDAppearanceCharacteristicsDictionary#getCOSObject()}
    */
   @Test
-  @DisplayName("Test new PDAppearanceCharacteristicsDictionary(COSDictionary)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAppearanceCharacteristicsDictionary.<init>(COSDictionary)"})
-  void testNewPDAppearanceCharacteristicsDictionary() {
-    // Arrange
-    COSDictionary dict = new COSDictionary();
-
-    // Act and Assert
-    assertSame(dict, (new PDAppearanceCharacteristicsDictionary(dict)).getCOSObject());
-  }
-
-  /**
-   * Test {@link PDAppearanceCharacteristicsDictionary#getCOSObject()}.
-   * <p>
-   * Method under test: {@link PDAppearanceCharacteristicsDictionary#getCOSObject()}
-   */
-  @Test
-  @DisplayName("Test getCOSObject()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"COSDictionary PDAppearanceCharacteristicsDictionary.getCOSObject()"})
   void testGetCOSObject() {
     // Arrange
     COSDictionary dict = new COSDictionary();
@@ -53,147 +32,111 @@ class PDAppearanceCharacteristicsDictionaryDiffblueTest {
   }
 
   /**
-   * Test {@link PDAppearanceCharacteristicsDictionary#getRotation()}.
-   * <ul>
-   *   <li>Then return zero.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAppearanceCharacteristicsDictionary#getRotation()}
+   * Method under test:
+   * {@link PDAppearanceCharacteristicsDictionary#getRotation()}
    */
   @Test
-  @DisplayName("Test getRotation(); then return zero")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"int PDAppearanceCharacteristicsDictionary.getRotation()"})
-  void testGetRotation_thenReturnZero() {
+  void testGetRotation() {
     // Arrange, Act and Assert
     assertEquals(0, (new PDAppearanceCharacteristicsDictionary(new COSDictionary())).getRotation());
   }
 
   /**
-   * Test {@link PDAppearanceCharacteristicsDictionary#setRotation(int)}.
-   * <p>
-   * Method under test: {@link PDAppearanceCharacteristicsDictionary#setRotation(int)}
+   * Method under test:
+   * {@link PDAppearanceCharacteristicsDictionary#setRotation(int)}
    */
   @Test
-  @DisplayName("Test setRotation(int)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAppearanceCharacteristicsDictionary.setRotation(int)"})
   void testSetRotation() {
     // Arrange
+    COSDictionary dict = new COSDictionary();
     PDAppearanceCharacteristicsDictionary pdAppearanceCharacteristicsDictionary = new PDAppearanceCharacteristicsDictionary(
-        new COSDictionary());
+        dict);
 
     // Act
     pdAppearanceCharacteristicsDictionary.setRotation(1);
 
     // Assert
-    COSDictionary cOSObject = pdAppearanceCharacteristicsDictionary.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
     assertEquals(1, pdAppearanceCharacteristicsDictionary.getRotation());
+    assertSame(dict, pdAppearanceCharacteristicsDictionary.getCOSObject());
   }
 
   /**
-   * Test {@link PDAppearanceCharacteristicsDictionary#setRotation(int)}.
-   * <p>
-   * Method under test: {@link PDAppearanceCharacteristicsDictionary#setRotation(int)}
+   * Method under test:
+   * {@link PDAppearanceCharacteristicsDictionary#setRotation(int)}
    */
   @Test
-  @DisplayName("Test setRotation(int)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAppearanceCharacteristicsDictionary.setRotation(int)"})
   void testSetRotation2() {
     // Arrange
+    COSDictionary dict = new COSDictionary();
     PDAppearanceCharacteristicsDictionary pdAppearanceCharacteristicsDictionary = new PDAppearanceCharacteristicsDictionary(
-        new COSDictionary());
+        dict);
 
     // Act
     pdAppearanceCharacteristicsDictionary.setRotation(-100);
 
     // Assert
     assertEquals(-100, pdAppearanceCharacteristicsDictionary.getRotation());
-    COSDictionary cOSObject = pdAppearanceCharacteristicsDictionary.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
+    assertSame(dict, pdAppearanceCharacteristicsDictionary.getCOSObject());
   }
 
   /**
-   * Test {@link PDAppearanceCharacteristicsDictionary#setRotation(int)}.
-   * <p>
-   * Method under test: {@link PDAppearanceCharacteristicsDictionary#setRotation(int)}
+   * Method under test:
+   * {@link PDAppearanceCharacteristicsDictionary#setRotation(int)}
    */
   @Test
-  @DisplayName("Test setRotation(int)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAppearanceCharacteristicsDictionary.setRotation(int)"})
   void testSetRotation3() {
     // Arrange
+    COSDictionary dict = new COSDictionary();
     PDAppearanceCharacteristicsDictionary pdAppearanceCharacteristicsDictionary = new PDAppearanceCharacteristicsDictionary(
-        new COSDictionary());
+        dict);
 
     // Act
     pdAppearanceCharacteristicsDictionary.setRotation(Integer.MIN_VALUE);
 
     // Assert
-    COSDictionary cOSObject = pdAppearanceCharacteristicsDictionary.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
     assertEquals(Integer.MIN_VALUE, pdAppearanceCharacteristicsDictionary.getRotation());
+    assertSame(dict, pdAppearanceCharacteristicsDictionary.getCOSObject());
   }
 
   /**
-   * Test {@link PDAppearanceCharacteristicsDictionary#getBorderColour()}.
-   * <ul>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAppearanceCharacteristicsDictionary#getBorderColour()}
+   * Method under test:
+   * {@link PDAppearanceCharacteristicsDictionary#getBorderColour()}
    */
   @Test
-  @DisplayName("Test getBorderColour(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDColor PDAppearanceCharacteristicsDictionary.getBorderColour()"})
-  void testGetBorderColour_thenReturnNull() {
+  void testGetBorderColour() {
     // Arrange, Act and Assert
     assertNull((new PDAppearanceCharacteristicsDictionary(new COSDictionary())).getBorderColour());
   }
 
   /**
-   * Test {@link PDAppearanceCharacteristicsDictionary#setBorderColour(PDColor)}.
-   * <p>
-   * Method under test: {@link PDAppearanceCharacteristicsDictionary#setBorderColour(PDColor)}
+   * Method under test:
+   * {@link PDAppearanceCharacteristicsDictionary#setBorderColour(PDColor)}
    */
   @Test
-  @DisplayName("Test setBorderColour(PDColor)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAppearanceCharacteristicsDictionary.setBorderColour(PDColor)"})
   void testSetBorderColour() {
     // Arrange
+    COSDictionary dict = new COSDictionary();
     PDAppearanceCharacteristicsDictionary pdAppearanceCharacteristicsDictionary = new PDAppearanceCharacteristicsDictionary(
-        new COSDictionary());
+        dict);
 
     // Act
     pdAppearanceCharacteristicsDictionary.setBorderColour(new PDColor(new COSArray(), PDDeviceGray.INSTANCE));
 
     // Assert
-    COSDictionary cOSObject = pdAppearanceCharacteristicsDictionary.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
+    assertNull(pdAppearanceCharacteristicsDictionary.getBorderColour());
+    assertSame(dict, pdAppearanceCharacteristicsDictionary.getCOSObject());
   }
 
   /**
-   * Test {@link PDAppearanceCharacteristicsDictionary#setBorderColour(PDColor)}.
-   * <p>
-   * Method under test: {@link PDAppearanceCharacteristicsDictionary#setBorderColour(PDColor)}
+   * Method under test:
+   * {@link PDAppearanceCharacteristicsDictionary#setBorderColour(PDColor)}
    */
   @Test
-  @DisplayName("Test setBorderColour(PDColor)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAppearanceCharacteristicsDictionary.setBorderColour(PDColor)"})
   void testSetBorderColour2() {
     // Arrange
+    COSDictionary dict = new COSDictionary();
     PDAppearanceCharacteristicsDictionary pdAppearanceCharacteristicsDictionary = new PDAppearanceCharacteristicsDictionary(
-        new COSDictionary());
+        dict);
 
     COSArray array = new COSArray();
     array.add(COSBoolean.FALSE);
@@ -205,85 +148,101 @@ class PDAppearanceCharacteristicsDictionaryDiffblueTest {
     PDColor borderColour = pdAppearanceCharacteristicsDictionary.getBorderColour();
     assertNull(borderColour.getPatternName());
     assertFalse(borderColour.isPattern());
+    assertSame(dict, pdAppearanceCharacteristicsDictionary.getCOSObject());
     assertArrayEquals(new float[]{0.0f}, borderColour.getComponents(), 0.0f);
   }
 
   /**
-   * Test {@link PDAppearanceCharacteristicsDictionary#setBorderColour(PDColor)}.
-   * <p>
-   * Method under test: {@link PDAppearanceCharacteristicsDictionary#setBorderColour(PDColor)}
+   * Method under test:
+   * {@link PDAppearanceCharacteristicsDictionary#setBorderColour(PDColor)}
    */
   @Test
-  @DisplayName("Test setBorderColour(PDColor)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAppearanceCharacteristicsDictionary.setBorderColour(PDColor)"})
   void testSetBorderColour3() {
     // Arrange
+    COSDictionary dict = new COSDictionary();
     PDAppearanceCharacteristicsDictionary pdAppearanceCharacteristicsDictionary = new PDAppearanceCharacteristicsDictionary(
-        new COSDictionary());
+        dict);
+    COSObjectable object = mock(COSObjectable.class);
+    when(object.getCOSObject()).thenReturn(COSBoolean.FALSE);
+
+    COSArray array = new COSArray();
+    array.add(object);
+    array.add(COSBoolean.FALSE);
 
     // Act
-    pdAppearanceCharacteristicsDictionary.setBorderColour(new PDColor(COSName.A, PDDeviceGray.INSTANCE));
+    pdAppearanceCharacteristicsDictionary.setBorderColour(new PDColor(array, PDDeviceGray.INSTANCE));
 
     // Assert
-    PDColor borderColour = pdAppearanceCharacteristicsDictionary.getBorderColour();
-    assertTrue(borderColour.isPattern());
-    assertArrayEquals(new float[]{0.0f}, borderColour.getComponents(), 0.0f);
+    verify(object).getCOSObject();
+    assertNull(pdAppearanceCharacteristicsDictionary.getBorderColour());
+    assertSame(dict, pdAppearanceCharacteristicsDictionary.getCOSObject());
   }
 
   /**
-   * Test {@link PDAppearanceCharacteristicsDictionary#getBackground()}.
-   * <ul>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAppearanceCharacteristicsDictionary#getBackground()}
+   * Method under test:
+   * {@link PDAppearanceCharacteristicsDictionary#setBorderColour(PDColor)}
    */
   @Test
-  @DisplayName("Test getBackground(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDColor PDAppearanceCharacteristicsDictionary.getBackground()"})
-  void testGetBackground_thenReturnNull() {
+  void testSetBorderColour4() {
+    // Arrange
+    COSDictionary dict = new COSDictionary();
+    PDAppearanceCharacteristicsDictionary pdAppearanceCharacteristicsDictionary = new PDAppearanceCharacteristicsDictionary(
+        dict);
+    COSObjectable object = mock(COSObjectable.class);
+    when(object.getCOSObject()).thenReturn(COSBoolean.FALSE);
+
+    COSArray array = new COSArray();
+    array.add(object);
+    array.add(COSName.A);
+
+    // Act
+    pdAppearanceCharacteristicsDictionary.setBorderColour(new PDColor(array, PDDeviceGray.INSTANCE));
+
+    // Assert
+    verify(object).getCOSObject();
+    assertNull(pdAppearanceCharacteristicsDictionary.getBorderColour());
+    assertSame(dict, pdAppearanceCharacteristicsDictionary.getCOSObject());
+  }
+
+  /**
+   * Method under test:
+   * {@link PDAppearanceCharacteristicsDictionary#getBackground()}
+   */
+  @Test
+  void testGetBackground() {
     // Arrange, Act and Assert
     assertNull((new PDAppearanceCharacteristicsDictionary(new COSDictionary())).getBackground());
   }
 
   /**
-   * Test {@link PDAppearanceCharacteristicsDictionary#setBackground(PDColor)}.
-   * <p>
-   * Method under test: {@link PDAppearanceCharacteristicsDictionary#setBackground(PDColor)}
+   * Method under test:
+   * {@link PDAppearanceCharacteristicsDictionary#setBackground(PDColor)}
    */
   @Test
-  @DisplayName("Test setBackground(PDColor)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAppearanceCharacteristicsDictionary.setBackground(PDColor)"})
   void testSetBackground() {
     // Arrange
+    COSDictionary dict = new COSDictionary();
     PDAppearanceCharacteristicsDictionary pdAppearanceCharacteristicsDictionary = new PDAppearanceCharacteristicsDictionary(
-        new COSDictionary());
+        dict);
 
     // Act
     pdAppearanceCharacteristicsDictionary.setBackground(new PDColor(new COSArray(), PDDeviceGray.INSTANCE));
 
     // Assert
-    COSDictionary cOSObject = pdAppearanceCharacteristicsDictionary.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
+    assertNull(pdAppearanceCharacteristicsDictionary.getBackground());
+    assertSame(dict, pdAppearanceCharacteristicsDictionary.getCOSObject());
   }
 
   /**
-   * Test {@link PDAppearanceCharacteristicsDictionary#setBackground(PDColor)}.
-   * <p>
-   * Method under test: {@link PDAppearanceCharacteristicsDictionary#setBackground(PDColor)}
+   * Method under test:
+   * {@link PDAppearanceCharacteristicsDictionary#setBackground(PDColor)}
    */
   @Test
-  @DisplayName("Test setBackground(PDColor)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAppearanceCharacteristicsDictionary.setBackground(PDColor)"})
   void testSetBackground2() {
     // Arrange
+    COSDictionary dict = new COSDictionary();
     PDAppearanceCharacteristicsDictionary pdAppearanceCharacteristicsDictionary = new PDAppearanceCharacteristicsDictionary(
-        new COSDictionary());
+        dict);
 
     COSArray array = new COSArray();
     array.add(COSBoolean.FALSE);
@@ -295,206 +254,189 @@ class PDAppearanceCharacteristicsDictionaryDiffblueTest {
     PDColor background = pdAppearanceCharacteristicsDictionary.getBackground();
     assertNull(background.getPatternName());
     assertFalse(background.isPattern());
+    assertSame(dict, pdAppearanceCharacteristicsDictionary.getCOSObject());
     assertArrayEquals(new float[]{0.0f}, background.getComponents(), 0.0f);
   }
 
   /**
-   * Test {@link PDAppearanceCharacteristicsDictionary#setBackground(PDColor)}.
-   * <p>
-   * Method under test: {@link PDAppearanceCharacteristicsDictionary#setBackground(PDColor)}
+   * Method under test:
+   * {@link PDAppearanceCharacteristicsDictionary#setBackground(PDColor)}
    */
   @Test
-  @DisplayName("Test setBackground(PDColor)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAppearanceCharacteristicsDictionary.setBackground(PDColor)"})
   void testSetBackground3() {
     // Arrange
+    COSDictionary dict = new COSDictionary();
     PDAppearanceCharacteristicsDictionary pdAppearanceCharacteristicsDictionary = new PDAppearanceCharacteristicsDictionary(
-        new COSDictionary());
+        dict);
+    COSObjectable object = mock(COSObjectable.class);
+    when(object.getCOSObject()).thenReturn(COSBoolean.FALSE);
+
+    COSArray array = new COSArray();
+    array.add(object);
+    array.add(COSBoolean.FALSE);
 
     // Act
-    pdAppearanceCharacteristicsDictionary.setBackground(new PDColor(COSName.A, PDDeviceGray.INSTANCE));
+    pdAppearanceCharacteristicsDictionary.setBackground(new PDColor(array, PDDeviceGray.INSTANCE));
 
     // Assert
-    PDColor background = pdAppearanceCharacteristicsDictionary.getBackground();
-    assertTrue(background.isPattern());
-    assertArrayEquals(new float[]{0.0f}, background.getComponents(), 0.0f);
+    verify(object).getCOSObject();
+    assertNull(pdAppearanceCharacteristicsDictionary.getBackground());
+    assertSame(dict, pdAppearanceCharacteristicsDictionary.getCOSObject());
   }
 
   /**
-   * Test {@link PDAppearanceCharacteristicsDictionary#getNormalCaption()}.
-   * <ul>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAppearanceCharacteristicsDictionary#getNormalCaption()}
+   * Method under test:
+   * {@link PDAppearanceCharacteristicsDictionary#setBackground(PDColor)}
    */
   @Test
-  @DisplayName("Test getNormalCaption(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDAppearanceCharacteristicsDictionary.getNormalCaption()"})
-  void testGetNormalCaption_thenReturnNull() {
+  void testSetBackground4() {
+    // Arrange
+    COSDictionary dict = new COSDictionary();
+    PDAppearanceCharacteristicsDictionary pdAppearanceCharacteristicsDictionary = new PDAppearanceCharacteristicsDictionary(
+        dict);
+    COSObjectable object = mock(COSObjectable.class);
+    when(object.getCOSObject()).thenReturn(COSBoolean.FALSE);
+
+    COSArray array = new COSArray();
+    array.add(object);
+    array.add(COSName.A);
+
+    // Act
+    pdAppearanceCharacteristicsDictionary.setBackground(new PDColor(array, PDDeviceGray.INSTANCE));
+
+    // Assert
+    verify(object).getCOSObject();
+    assertNull(pdAppearanceCharacteristicsDictionary.getBackground());
+    assertSame(dict, pdAppearanceCharacteristicsDictionary.getCOSObject());
+  }
+
+  /**
+   * Method under test:
+   * {@link PDAppearanceCharacteristicsDictionary#getNormalCaption()}
+   */
+  @Test
+  void testGetNormalCaption() {
     // Arrange, Act and Assert
     assertNull((new PDAppearanceCharacteristicsDictionary(new COSDictionary())).getNormalCaption());
   }
 
   /**
-   * Test {@link PDAppearanceCharacteristicsDictionary#setNormalCaption(String)}.
-   * <p>
-   * Method under test: {@link PDAppearanceCharacteristicsDictionary#setNormalCaption(String)}
+   * Method under test:
+   * {@link PDAppearanceCharacteristicsDictionary#setNormalCaption(String)}
    */
   @Test
-  @DisplayName("Test setNormalCaption(String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAppearanceCharacteristicsDictionary.setNormalCaption(String)"})
   void testSetNormalCaption() {
     // Arrange
+    COSDictionary dict = new COSDictionary();
     PDAppearanceCharacteristicsDictionary pdAppearanceCharacteristicsDictionary = new PDAppearanceCharacteristicsDictionary(
-        new COSDictionary());
+        dict);
 
     // Act
     pdAppearanceCharacteristicsDictionary.setNormalCaption("Caption");
 
     // Assert
     assertEquals("Caption", pdAppearanceCharacteristicsDictionary.getNormalCaption());
-    COSDictionary cOSObject = pdAppearanceCharacteristicsDictionary.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
+    assertSame(dict, pdAppearanceCharacteristicsDictionary.getCOSObject());
   }
 
   /**
-   * Test {@link PDAppearanceCharacteristicsDictionary#getRolloverCaption()}.
-   * <ul>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAppearanceCharacteristicsDictionary#getRolloverCaption()}
+   * Method under test:
+   * {@link PDAppearanceCharacteristicsDictionary#getRolloverCaption()}
    */
   @Test
-  @DisplayName("Test getRolloverCaption(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDAppearanceCharacteristicsDictionary.getRolloverCaption()"})
-  void testGetRolloverCaption_thenReturnNull() {
+  void testGetRolloverCaption() {
     // Arrange, Act and Assert
     assertNull((new PDAppearanceCharacteristicsDictionary(new COSDictionary())).getRolloverCaption());
   }
 
   /**
-   * Test {@link PDAppearanceCharacteristicsDictionary#setRolloverCaption(String)}.
-   * <p>
-   * Method under test: {@link PDAppearanceCharacteristicsDictionary#setRolloverCaption(String)}
+   * Method under test:
+   * {@link PDAppearanceCharacteristicsDictionary#setRolloverCaption(String)}
    */
   @Test
-  @DisplayName("Test setRolloverCaption(String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAppearanceCharacteristicsDictionary.setRolloverCaption(String)"})
   void testSetRolloverCaption() {
     // Arrange
+    COSDictionary dict = new COSDictionary();
     PDAppearanceCharacteristicsDictionary pdAppearanceCharacteristicsDictionary = new PDAppearanceCharacteristicsDictionary(
-        new COSDictionary());
+        dict);
 
     // Act
     pdAppearanceCharacteristicsDictionary.setRolloverCaption("Caption");
 
     // Assert
     assertEquals("Caption", pdAppearanceCharacteristicsDictionary.getRolloverCaption());
-    COSDictionary cOSObject = pdAppearanceCharacteristicsDictionary.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
+    assertSame(dict, pdAppearanceCharacteristicsDictionary.getCOSObject());
   }
 
   /**
-   * Test {@link PDAppearanceCharacteristicsDictionary#getAlternateCaption()}.
-   * <ul>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAppearanceCharacteristicsDictionary#getAlternateCaption()}
+   * Method under test:
+   * {@link PDAppearanceCharacteristicsDictionary#getAlternateCaption()}
    */
   @Test
-  @DisplayName("Test getAlternateCaption(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDAppearanceCharacteristicsDictionary.getAlternateCaption()"})
-  void testGetAlternateCaption_thenReturnNull() {
+  void testGetAlternateCaption() {
     // Arrange, Act and Assert
     assertNull((new PDAppearanceCharacteristicsDictionary(new COSDictionary())).getAlternateCaption());
   }
 
   /**
-   * Test {@link PDAppearanceCharacteristicsDictionary#setAlternateCaption(String)}.
-   * <p>
-   * Method under test: {@link PDAppearanceCharacteristicsDictionary#setAlternateCaption(String)}
+   * Method under test:
+   * {@link PDAppearanceCharacteristicsDictionary#setAlternateCaption(String)}
    */
   @Test
-  @DisplayName("Test setAlternateCaption(String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAppearanceCharacteristicsDictionary.setAlternateCaption(String)"})
   void testSetAlternateCaption() {
     // Arrange
+    COSDictionary dict = new COSDictionary();
     PDAppearanceCharacteristicsDictionary pdAppearanceCharacteristicsDictionary = new PDAppearanceCharacteristicsDictionary(
-        new COSDictionary());
+        dict);
 
     // Act
     pdAppearanceCharacteristicsDictionary.setAlternateCaption("Caption");
 
     // Assert
     assertEquals("Caption", pdAppearanceCharacteristicsDictionary.getAlternateCaption());
-    COSDictionary cOSObject = pdAppearanceCharacteristicsDictionary.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
+    assertSame(dict, pdAppearanceCharacteristicsDictionary.getCOSObject());
   }
 
   /**
-   * Test {@link PDAppearanceCharacteristicsDictionary#getNormalIcon()}.
-   * <ul>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAppearanceCharacteristicsDictionary#getNormalIcon()}
+   * Method under test:
+   * {@link PDAppearanceCharacteristicsDictionary#getNormalIcon()}
    */
   @Test
-  @DisplayName("Test getNormalIcon(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "org.apache.pdfbox.pdmodel.graphics.form.PDFormXObject PDAppearanceCharacteristicsDictionary.getNormalIcon()"})
-  void testGetNormalIcon_thenReturnNull() {
+  void testGetNormalIcon() {
     // Arrange, Act and Assert
     assertNull((new PDAppearanceCharacteristicsDictionary(new COSDictionary())).getNormalIcon());
   }
 
   /**
-   * Test {@link PDAppearanceCharacteristicsDictionary#getRolloverIcon()}.
-   * <ul>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAppearanceCharacteristicsDictionary#getRolloverIcon()}
+   * Method under test:
+   * {@link PDAppearanceCharacteristicsDictionary#getRolloverIcon()}
    */
   @Test
-  @DisplayName("Test getRolloverIcon(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "org.apache.pdfbox.pdmodel.graphics.form.PDFormXObject PDAppearanceCharacteristicsDictionary.getRolloverIcon()"})
-  void testGetRolloverIcon_thenReturnNull() {
+  void testGetRolloverIcon() {
     // Arrange, Act and Assert
     assertNull((new PDAppearanceCharacteristicsDictionary(new COSDictionary())).getRolloverIcon());
   }
 
   /**
-   * Test {@link PDAppearanceCharacteristicsDictionary#getAlternateIcon()}.
-   * <ul>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAppearanceCharacteristicsDictionary#getAlternateIcon()}
+   * Method under test:
+   * {@link PDAppearanceCharacteristicsDictionary#getAlternateIcon()}
    */
   @Test
-  @DisplayName("Test getAlternateIcon(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "org.apache.pdfbox.pdmodel.graphics.form.PDFormXObject PDAppearanceCharacteristicsDictionary.getAlternateIcon()"})
-  void testGetAlternateIcon_thenReturnNull() {
+  void testGetAlternateIcon() {
     // Arrange, Act and Assert
     assertNull((new PDAppearanceCharacteristicsDictionary(new COSDictionary())).getAlternateIcon());
+  }
+
+  /**
+   * Method under test:
+   * {@link PDAppearanceCharacteristicsDictionary#PDAppearanceCharacteristicsDictionary(COSDictionary)}
+   */
+  @Test
+  void testNewPDAppearanceCharacteristicsDictionary() {
+    // Arrange
+    COSDictionary dict = new COSDictionary();
+
+    // Act and Assert
+    assertSame(dict, (new PDAppearanceCharacteristicsDictionary(dict)).getCOSObject());
   }
 }

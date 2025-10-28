@@ -1,136 +1,42 @@
 package org.apache.pdfbox.pdmodel.interactive.action;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import java.io.IOException;
 import org.apache.pdfbox.cos.COSArray;
 import org.apache.pdfbox.cos.COSBase;
+import org.apache.pdfbox.cos.COSBoolean;
 import org.apache.pdfbox.cos.COSDictionary;
-import org.apache.pdfbox.cos.COSObjectKey;
+import org.apache.pdfbox.cos.COSIncrement;
 import org.apache.pdfbox.cos.COSString;
+import org.apache.pdfbox.cos.COSUpdateState;
+import org.apache.pdfbox.pdmodel.common.COSObjectable;
 import org.apache.pdfbox.pdmodel.common.filespecification.PDComplexFileSpecification;
 import org.apache.pdfbox.pdmodel.common.filespecification.PDFileSpecification;
 import org.apache.pdfbox.pdmodel.common.filespecification.PDSimpleFileSpecification;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class PDActionSubmitFormDiffblueTest {
   /**
-   * Test {@link PDActionSubmitForm#PDActionSubmitForm(COSDictionary)}.
-   * <p>
-   * Method under test: {@link PDActionSubmitForm#PDActionSubmitForm(COSDictionary)}
-   */
-  @Test
-  @DisplayName("Test new PDActionSubmitForm(COSDictionary)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDActionSubmitForm.<init>(COSDictionary)"})
-  void testNewPDActionSubmitForm() {
-    // Arrange
-    COSDictionary a = new COSDictionary();
-
-    // Act and Assert
-    assertSame(a, (new PDActionSubmitForm(a)).getCOSObject());
-  }
-
-  /**
-   * Test {@link PDActionSubmitForm#PDActionSubmitForm()}.
-   * <p>
-   * Method under test: {@link PDActionSubmitForm#PDActionSubmitForm()}
-   */
-  @Test
-  @DisplayName("Test new PDActionSubmitForm()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDActionSubmitForm.<init>()"})
-  void testNewPDActionSubmitForm2() throws IOException {
-    // Arrange and Act
-    PDActionSubmitForm actualPdActionSubmitForm = new PDActionSubmitForm();
-
-    // Assert
-    assertNull(actualPdActionSubmitForm.getNext());
-    assertNull(actualPdActionSubmitForm.getFields());
-    COSDictionary cOSObject = actualPdActionSubmitForm.getCOSObject();
-    assertNull(cOSObject.getKey());
-    assertNull(actualPdActionSubmitForm.getFile());
-    assertEquals(0, actualPdActionSubmitForm.getFlags());
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    assertFalse(cOSObject.isDirect());
-    assertFalse(cOSObject.isNeedToBeUpdated());
-    assertEquals(PDAction.TYPE, actualPdActionSubmitForm.getType());
-    assertEquals(PDActionSubmitForm.SUB_TYPE, actualPdActionSubmitForm.getSubType());
-  }
-
-  /**
-   * Test {@link PDActionSubmitForm#getFile()}.
-   * <ul>
-   *   <li>Given {@link PDActionSubmitForm#PDActionSubmitForm()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDActionSubmitForm#getFile()}
    */
   @Test
-  @DisplayName("Test getFile(); given PDActionSubmitForm(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDFileSpecification PDActionSubmitForm.getFile()"})
-  void testGetFile_givenPDActionSubmitForm_thenReturnNull() throws IOException {
+  void testGetFile() throws IOException {
     // Arrange, Act and Assert
     assertNull((new PDActionSubmitForm()).getFile());
   }
 
   /**
-   * Test {@link PDActionSubmitForm#getFile()}.
-   * <ul>
-   *   <li>Then COSObject return {@link COSString}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDActionSubmitForm#getFile()}
    */
   @Test
-  @DisplayName("Test getFile(); then COSObject return COSString")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDFileSpecification PDActionSubmitForm.getFile()"})
-  void testGetFile_thenCOSObjectReturnCOSString() throws IOException {
-    // Arrange
-    PDActionSubmitForm pdActionSubmitForm = new PDActionSubmitForm();
-    pdActionSubmitForm.setFile(new PDSimpleFileSpecification());
-
-    // Act
-    PDFileSpecification actualFile = pdActionSubmitForm.getFile();
-
-    // Assert
-    COSBase cOSObject = actualFile.getCOSObject();
-    assertTrue(cOSObject instanceof COSString);
-    assertTrue(actualFile instanceof PDSimpleFileSpecification);
-    assertEquals("", ((COSString) cOSObject).getASCII());
-    assertEquals("", ((COSString) cOSObject).getString());
-    assertEquals("", ((COSString) cOSObject).toHexString());
-    assertEquals("", actualFile.getFile());
-    assertNull(cOSObject.getKey());
-    assertFalse(cOSObject.isDirect());
-    assertFalse(((COSString) cOSObject).getForceHexForm());
-    assertArrayEquals(new byte[]{}, ((COSString) cOSObject).getBytes());
-  }
-
-  /**
-   * Test {@link PDActionSubmitForm#getFile()}.
-   * <ul>
-   *   <li>Then return {@link PDComplexFileSpecification}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDActionSubmitForm#getFile()}
-   */
-  @Test
-  @DisplayName("Test getFile(); then return PDComplexFileSpecification")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDFileSpecification PDActionSubmitForm.getFile()"})
-  void testGetFile_thenReturnPDComplexFileSpecification() throws IOException {
+  void testGetFile2() throws IOException {
     // Arrange
     PDActionSubmitForm pdActionSubmitForm = new PDActionSubmitForm();
     pdActionSubmitForm.setFile(new PDComplexFileSpecification());
@@ -147,27 +53,80 @@ class PDActionSubmitFormDiffblueTest {
     assertNull(((PDComplexFileSpecification) actualFile).getFileUnix());
     assertNull(((PDComplexFileSpecification) actualFile).getFilename());
     assertNull(actualFile.getFile());
+    COSBase cOSObject = actualFile.getCOSObject();
+    COSUpdateState updateState = ((COSDictionary) cOSObject).getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
     assertNull(((PDComplexFileSpecification) actualFile).getEmbeddedFile());
     assertNull(((PDComplexFileSpecification) actualFile).getEmbeddedFileDos());
     assertNull(((PDComplexFileSpecification) actualFile).getEmbeddedFileMac());
     assertNull(((PDComplexFileSpecification) actualFile).getEmbeddedFileUnicode());
     assertNull(((PDComplexFileSpecification) actualFile).getEmbeddedFileUnix());
+    assertEquals(1, ((COSDictionary) cOSObject).getValues().size());
+    assertEquals(1, ((COSDictionary) cOSObject).size());
+    COSIncrement toIncrementResult = ((COSDictionary) cOSObject).toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(((COSDictionary) cOSObject).isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
     assertFalse(((PDComplexFileSpecification) actualFile).isVolatile());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
   }
 
   /**
-   * Test {@link PDActionSubmitForm#setFile(PDFileSpecification)}.
-   * <ul>
-   *   <li>Then {@link PDActionSubmitForm#PDActionSubmitForm()} File {@link PDComplexFileSpecification}.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PDActionSubmitForm#getFile()}
+   */
+  @Test
+  void testGetFile3() throws IOException {
+    // Arrange
+    PDActionSubmitForm pdActionSubmitForm = new PDActionSubmitForm();
+    pdActionSubmitForm.setFile(new PDSimpleFileSpecification());
+
+    // Act
+    PDFileSpecification actualFile = pdActionSubmitForm.getFile();
+
+    // Assert
+    COSBase cOSObject = actualFile.getCOSObject();
+    assertTrue(cOSObject instanceof COSString);
+    assertTrue(actualFile instanceof PDSimpleFileSpecification);
+    assertEquals("", ((COSString) cOSObject).getASCII());
+    assertEquals("", ((COSString) cOSObject).getString());
+    assertEquals("", ((COSString) cOSObject).toHexString());
+    assertEquals("", actualFile.getFile());
+    assertNull(cOSObject.getKey());
+    assertEquals(0, ((COSString) cOSObject).getBytes().length);
+    assertFalse(cOSObject.isDirect());
+    assertFalse(((COSString) cOSObject).getForceHexForm());
+  }
+
+  /**
+   * Method under test: {@link PDActionSubmitForm#getFile()}
+   */
+  @Test
+  void testGetFile4() throws IOException {
+    // Arrange
+    COSObjectable object = mock(COSObjectable.class);
+    when(object.getCOSObject()).thenReturn(COSBoolean.FALSE);
+
+    COSArray array = new COSArray();
+    array.add(object);
+
+    PDActionSubmitForm pdActionSubmitForm = new PDActionSubmitForm();
+    pdActionSubmitForm.setFields(array);
+
+    // Act
+    PDFileSpecification actualFile = pdActionSubmitForm.getFile();
+
+    // Assert
+    verify(object).getCOSObject();
+    assertNull(actualFile);
+  }
+
+  /**
    * Method under test: {@link PDActionSubmitForm#setFile(PDFileSpecification)}
    */
   @Test
-  @DisplayName("Test setFile(PDFileSpecification); then PDActionSubmitForm() File PDComplexFileSpecification")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDActionSubmitForm.setFile(PDFileSpecification)"})
-  void testSetFile_thenPDActionSubmitFormFilePDComplexFileSpecification() throws IOException {
+  void testSetFile() throws IOException {
     // Arrange
     PDActionSubmitForm pdActionSubmitForm = new PDActionSubmitForm();
 
@@ -189,22 +148,17 @@ class PDActionSubmitFormDiffblueTest {
     assertNull(((PDComplexFileSpecification) file).getEmbeddedFileMac());
     assertNull(((PDComplexFileSpecification) file).getEmbeddedFileUnicode());
     assertNull(((PDComplexFileSpecification) file).getEmbeddedFileUnix());
+    COSDictionary cOSObject = pdActionSubmitForm.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
     assertFalse(((PDComplexFileSpecification) file).isVolatile());
   }
 
   /**
-   * Test {@link PDActionSubmitForm#setFile(PDFileSpecification)}.
-   * <ul>
-   *   <li>Then {@link PDActionSubmitForm#PDActionSubmitForm()} File {@link PDSimpleFileSpecification}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDActionSubmitForm#setFile(PDFileSpecification)}
    */
   @Test
-  @DisplayName("Test setFile(PDFileSpecification); then PDActionSubmitForm() File PDSimpleFileSpecification")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDActionSubmitForm.setFile(PDFileSpecification)"})
-  void testSetFile_thenPDActionSubmitFormFilePDSimpleFileSpecification() throws IOException {
+  void testSetFile2() throws IOException {
     // Arrange
     PDActionSubmitForm pdActionSubmitForm = new PDActionSubmitForm();
 
@@ -221,45 +175,77 @@ class PDActionSubmitFormDiffblueTest {
   }
 
   /**
-   * Test {@link PDActionSubmitForm#setFile(PDFileSpecification)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then {@link PDActionSubmitForm#PDActionSubmitForm()} COSObject Values size is two.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDActionSubmitForm#setFile(PDFileSpecification)}
    */
   @Test
-  @DisplayName("Test setFile(PDFileSpecification); when 'null'; then PDActionSubmitForm() COSObject Values size is two")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDActionSubmitForm.setFile(PDFileSpecification)"})
-  void testSetFile_whenNull_thenPDActionSubmitFormCOSObjectValuesSizeIsTwo() {
+  void testSetFile3() throws IOException {
     // Arrange
     PDActionSubmitForm pdActionSubmitForm = new PDActionSubmitForm();
 
     // Act
     pdActionSubmitForm.setFile(null);
 
-    // Assert that nothing has changed
+    // Assert
+    assertNull(pdActionSubmitForm.getFile());
     COSDictionary cOSObject = pdActionSubmitForm.getCOSObject();
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
   }
 
   /**
-   * Test {@link PDActionSubmitForm#getFields()}.
-   * <ul>
-   *   <li>Given {@link PDActionSubmitForm#PDActionSubmitForm()} Fields is {@link COSArray#COSArray()}.</li>
-   *   <li>Then return toList Empty.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PDActionSubmitForm#setFile(PDFileSpecification)}
+   */
+  @Test
+  void testSetFile4() throws IOException {
+    // Arrange
+    COSObjectable object = mock(COSObjectable.class);
+    when(object.getCOSObject()).thenReturn(COSBoolean.FALSE);
+
+    COSArray array = new COSArray();
+    array.add(object);
+
+    PDActionSubmitForm pdActionSubmitForm = new PDActionSubmitForm();
+    pdActionSubmitForm.setFields(array);
+
+    // Act
+    pdActionSubmitForm.setFile(new PDComplexFileSpecification());
+
+    // Assert
+    verify(object).getCOSObject();
+    PDFileSpecification file = pdActionSubmitForm.getFile();
+    assertTrue(file instanceof PDComplexFileSpecification);
+    assertNull(((PDComplexFileSpecification) file).getFileDescription());
+    assertNull(((PDComplexFileSpecification) file).getFileDos());
+    assertNull(((PDComplexFileSpecification) file).getFileMac());
+    assertNull(((PDComplexFileSpecification) file).getFileUnicode());
+    assertNull(((PDComplexFileSpecification) file).getFileUnix());
+    assertNull(((PDComplexFileSpecification) file).getFilename());
+    assertNull(file.getFile());
+    assertNull(((PDComplexFileSpecification) file).getEmbeddedFile());
+    assertNull(((PDComplexFileSpecification) file).getEmbeddedFileDos());
+    assertNull(((PDComplexFileSpecification) file).getEmbeddedFileMac());
+    assertNull(((PDComplexFileSpecification) file).getEmbeddedFileUnicode());
+    assertNull(((PDComplexFileSpecification) file).getEmbeddedFileUnix());
+    COSDictionary cOSObject = pdActionSubmitForm.getCOSObject();
+    assertEquals(4, cOSObject.getValues().size());
+    assertEquals(4, cOSObject.size());
+    assertFalse(((PDComplexFileSpecification) file).isVolatile());
+  }
+
+  /**
    * Method under test: {@link PDActionSubmitForm#getFields()}
    */
   @Test
-  @DisplayName("Test getFields(); given PDActionSubmitForm() Fields is COSArray(); then return toList Empty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"COSArray PDActionSubmitForm.getFields()"})
-  void testGetFields_givenPDActionSubmitFormFieldsIsCOSArray_thenReturnToListEmpty() {
+  void testGetFields() {
+    // Arrange, Act and Assert
+    assertNull((new PDActionSubmitForm()).getFields());
+  }
+
+  /**
+   * Method under test: {@link PDActionSubmitForm#getFields()}
+   */
+  @Test
+  void testGetFields2() {
     // Arrange
     PDActionSubmitForm pdActionSubmitForm = new PDActionSubmitForm();
     COSArray array = new COSArray();
@@ -274,97 +260,33 @@ class PDActionSubmitFormDiffblueTest {
   }
 
   /**
-   * Test {@link PDActionSubmitForm#getFields()}.
-   * <ul>
-   *   <li>Given {@link PDActionSubmitForm#PDActionSubmitForm()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDActionSubmitForm#getFields()}
    */
   @Test
-  @DisplayName("Test getFields(); given PDActionSubmitForm(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"COSArray PDActionSubmitForm.getFields()"})
-  void testGetFields_givenPDActionSubmitForm_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull((new PDActionSubmitForm()).getFields());
-  }
-
-  /**
-   * Test {@link PDActionSubmitForm#setFields(COSArray)}.
-   * <ul>
-   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDActionSubmitForm#setFields(COSArray)}
-   */
-  @Test
-  @DisplayName("Test setFields(COSArray); given COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDActionSubmitForm.setFields(COSArray)"})
-  void testSetFields_givenCOSObjectKeyWithNumIsOneAndGenIsOne() {
+  void testGetFields3() {
     // Arrange
-    PDActionSubmitForm pdActionSubmitForm = new PDActionSubmitForm();
+    COSObjectable object = mock(COSObjectable.class);
+    when(object.getCOSObject()).thenReturn(COSBoolean.FALSE);
 
     COSArray array = new COSArray();
-    array.setKey(new COSObjectKey(1L, 1));
-    array.setDirect(false);
+    array.add(object);
 
-    // Act
-    pdActionSubmitForm.setFields(array);
-
-    // Assert
-    COSDictionary cOSObject = pdActionSubmitForm.getCOSObject();
-    assertEquals(3, cOSObject.getValues().size());
-    assertEquals(3, cOSObject.size());
-    assertSame(array, pdActionSubmitForm.getFields());
-  }
-
-  /**
-   * Test {@link PDActionSubmitForm#setFields(COSArray)}.
-   * <ul>
-   *   <li>Given {@code false}.</li>
-   *   <li>When {@link COSArray#COSArray()} Direct is {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDActionSubmitForm#setFields(COSArray)}
-   */
-  @Test
-  @DisplayName("Test setFields(COSArray); given 'false'; when COSArray() Direct is 'false'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDActionSubmitForm.setFields(COSArray)"})
-  void testSetFields_givenFalse_whenCOSArrayDirectIsFalse() {
-    // Arrange
     PDActionSubmitForm pdActionSubmitForm = new PDActionSubmitForm();
-
-    COSArray array = new COSArray();
-    array.setDirect(false);
-
-    // Act
     pdActionSubmitForm.setFields(array);
 
+    // Act
+    COSArray actualFields = pdActionSubmitForm.getFields();
+
     // Assert
-    COSDictionary cOSObject = pdActionSubmitForm.getCOSObject();
-    assertEquals(3, cOSObject.getValues().size());
-    assertEquals(3, cOSObject.size());
-    assertSame(array, pdActionSubmitForm.getFields());
+    verify(object).getCOSObject();
+    assertSame(array, actualFields);
   }
 
   /**
-   * Test {@link PDActionSubmitForm#setFields(COSArray)}.
-   * <ul>
-   *   <li>When {@link COSArray#COSArray()}.</li>
-   *   <li>Then {@link PDActionSubmitForm#PDActionSubmitForm()} COSObject Values size is three.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDActionSubmitForm#setFields(COSArray)}
    */
   @Test
-  @DisplayName("Test setFields(COSArray); when COSArray(); then PDActionSubmitForm() COSObject Values size is three")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDActionSubmitForm.setFields(COSArray)"})
-  void testSetFields_whenCOSArray_thenPDActionSubmitFormCOSObjectValuesSizeIsThree() {
+  void testSetFields() {
     // Arrange
     PDActionSubmitForm pdActionSubmitForm = new PDActionSubmitForm();
     COSArray array = new COSArray();
@@ -380,45 +302,61 @@ class PDActionSubmitFormDiffblueTest {
   }
 
   /**
-   * Test {@link PDActionSubmitForm#setFields(COSArray)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then {@link PDActionSubmitForm#PDActionSubmitForm()} COSObject Values size is two.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDActionSubmitForm#setFields(COSArray)}
    */
   @Test
-  @DisplayName("Test setFields(COSArray); when 'null'; then PDActionSubmitForm() COSObject Values size is two")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDActionSubmitForm.setFields(COSArray)"})
-  void testSetFields_whenNull_thenPDActionSubmitFormCOSObjectValuesSizeIsTwo() {
+  void testSetFields2() {
     // Arrange
     PDActionSubmitForm pdActionSubmitForm = new PDActionSubmitForm();
 
     // Act
     pdActionSubmitForm.setFields(null);
 
-    // Assert that nothing has changed
+    // Assert
+    assertNull(pdActionSubmitForm.getFields());
     COSDictionary cOSObject = pdActionSubmitForm.getCOSObject();
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
   }
 
   /**
-   * Test {@link PDActionSubmitForm#getFlags()}.
-   * <ul>
-   *   <li>Given {@link PDActionSubmitForm#PDActionSubmitForm()} Flags is one.</li>
-   *   <li>Then return one.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PDActionSubmitForm#setFields(COSArray)}
+   */
+  @Test
+  void testSetFields3() {
+    // Arrange
+    PDActionSubmitForm pdActionSubmitForm = new PDActionSubmitForm();
+    COSObjectable object = mock(COSObjectable.class);
+    when(object.getCOSObject()).thenReturn(COSBoolean.FALSE);
+
+    COSArray array = new COSArray();
+    array.add(object);
+
+    // Act
+    pdActionSubmitForm.setFields(array);
+
+    // Assert
+    verify(object).getCOSObject();
+    COSDictionary cOSObject = pdActionSubmitForm.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
+    assertSame(array, pdActionSubmitForm.getFields());
+  }
+
+  /**
    * Method under test: {@link PDActionSubmitForm#getFlags()}
    */
   @Test
-  @DisplayName("Test getFlags(); given PDActionSubmitForm() Flags is one; then return one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"int PDActionSubmitForm.getFlags()"})
-  void testGetFlags_givenPDActionSubmitFormFlagsIsOne_thenReturnOne() {
+  void testGetFlags() {
+    // Arrange, Act and Assert
+    assertEquals(0, (new PDActionSubmitForm()).getFlags());
+  }
+
+  /**
+   * Method under test: {@link PDActionSubmitForm#getFlags()}
+   */
+  @Test
+  void testGetFlags2() {
     // Arrange
     PDActionSubmitForm pdActionSubmitForm = new PDActionSubmitForm();
     pdActionSubmitForm.setFlags(1);
@@ -428,38 +366,33 @@ class PDActionSubmitFormDiffblueTest {
   }
 
   /**
-   * Test {@link PDActionSubmitForm#getFlags()}.
-   * <ul>
-   *   <li>Given {@link PDActionSubmitForm#PDActionSubmitForm()}.</li>
-   *   <li>Then return zero.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDActionSubmitForm#getFlags()}
    */
   @Test
-  @DisplayName("Test getFlags(); given PDActionSubmitForm(); then return zero")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"int PDActionSubmitForm.getFlags()"})
-  void testGetFlags_givenPDActionSubmitForm_thenReturnZero() {
-    // Arrange, Act and Assert
-    assertEquals(0, (new PDActionSubmitForm()).getFlags());
+  void testGetFlags3() {
+    // Arrange
+    COSObjectable object = mock(COSObjectable.class);
+    when(object.getCOSObject()).thenReturn(COSBoolean.FALSE);
+
+    COSArray array = new COSArray();
+    array.add(object);
+
+    PDActionSubmitForm pdActionSubmitForm = new PDActionSubmitForm();
+    pdActionSubmitForm.setFields(array);
+
+    // Act
+    int actualFlags = pdActionSubmitForm.getFlags();
+
+    // Assert
+    verify(object).getCOSObject();
+    assertEquals(0, actualFlags);
   }
 
   /**
-   * Test {@link PDActionSubmitForm#setFlags(int)}.
-   * <ul>
-   *   <li>Given {@link PDActionSubmitForm#PDActionSubmitForm()}.</li>
-   *   <li>When one.</li>
-   *   <li>Then {@link PDActionSubmitForm#PDActionSubmitForm()} Flags is one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDActionSubmitForm#setFlags(int)}
    */
   @Test
-  @DisplayName("Test setFlags(int); given PDActionSubmitForm(); when one; then PDActionSubmitForm() Flags is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDActionSubmitForm.setFlags(int)"})
-  void testSetFlags_givenPDActionSubmitForm_whenOne_thenPDActionSubmitFormFlagsIsOne() {
+  void testSetFlags() {
     // Arrange
     PDActionSubmitForm pdActionSubmitForm = new PDActionSubmitForm();
 
@@ -474,19 +407,10 @@ class PDActionSubmitFormDiffblueTest {
   }
 
   /**
-   * Test {@link PDActionSubmitForm#setFlags(int)}.
-   * <ul>
-   *   <li>When {@link Integer#MIN_VALUE}.</li>
-   *   <li>Then {@link PDActionSubmitForm#PDActionSubmitForm()} Flags is {@link Integer#MIN_VALUE}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDActionSubmitForm#setFlags(int)}
    */
   @Test
-  @DisplayName("Test setFlags(int); when MIN_VALUE; then PDActionSubmitForm() Flags is MIN_VALUE")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDActionSubmitForm.setFlags(int)"})
-  void testSetFlags_whenMin_value_thenPDActionSubmitFormFlagsIsMin_value() {
+  void testSetFlags2() {
     // Arrange
     PDActionSubmitForm pdActionSubmitForm = new PDActionSubmitForm();
 
@@ -498,5 +422,73 @@ class PDActionSubmitFormDiffblueTest {
     assertEquals(3, cOSObject.getValues().size());
     assertEquals(3, cOSObject.size());
     assertEquals(Integer.MIN_VALUE, pdActionSubmitForm.getFlags());
+  }
+
+  /**
+   * Method under test: {@link PDActionSubmitForm#setFlags(int)}
+   */
+  @Test
+  void testSetFlags3() {
+    // Arrange
+    COSObjectable object = mock(COSObjectable.class);
+    when(object.getCOSObject()).thenReturn(COSBoolean.FALSE);
+
+    COSArray array = new COSArray();
+    array.add(object);
+
+    PDActionSubmitForm pdActionSubmitForm = new PDActionSubmitForm();
+    pdActionSubmitForm.setFields(array);
+
+    // Act
+    pdActionSubmitForm.setFlags(1);
+
+    // Assert
+    verify(object).getCOSObject();
+    assertEquals(1, pdActionSubmitForm.getFlags());
+    COSDictionary cOSObject = pdActionSubmitForm.getCOSObject();
+    assertEquals(4, cOSObject.getValues().size());
+    assertEquals(4, cOSObject.size());
+  }
+
+  /**
+   * Method under test:
+   * {@link PDActionSubmitForm#PDActionSubmitForm(COSDictionary)}
+   */
+  @Test
+  void testNewPDActionSubmitForm() {
+    // Arrange
+    COSDictionary a = new COSDictionary();
+
+    // Act and Assert
+    assertSame(a, (new PDActionSubmitForm(a)).getCOSObject());
+  }
+
+  /**
+   * Method under test: {@link PDActionSubmitForm#PDActionSubmitForm()}
+   */
+  @Test
+  void testNewPDActionSubmitForm2() throws IOException {
+    // Arrange and Act
+    PDActionSubmitForm actualPdActionSubmitForm = new PDActionSubmitForm();
+
+    // Assert
+    assertNull(actualPdActionSubmitForm.getNext());
+    assertNull(actualPdActionSubmitForm.getFields());
+    COSDictionary cOSObject = actualPdActionSubmitForm.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertNull(actualPdActionSubmitForm.getFile());
+    assertEquals(0, actualPdActionSubmitForm.getFlags());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertEquals(PDAction.TYPE, actualPdActionSubmitForm.getType());
+    assertEquals(PDActionSubmitForm.SUB_TYPE, actualPdActionSubmitForm.getSubType());
   }
 }

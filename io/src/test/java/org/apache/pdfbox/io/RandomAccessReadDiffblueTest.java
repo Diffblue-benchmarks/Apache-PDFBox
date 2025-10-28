@@ -3,26 +3,40 @@ package org.apache.pdfbox.io;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.ArgumentMatchers.isA;
+import static org.mockito.Mockito.anyInt;
+import static org.mockito.Mockito.atLeast;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import java.io.ByteArrayInputStream;
+import java.io.DataInputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 class RandomAccessReadDiffblueTest {
   /**
-   * Test {@link RandomAccessRead#read(byte[])} with {@code byte[]}.
-   * <p>
    * Method under test: {@link RandomAccessRead#read(byte[])}
    */
   @Test
-  @DisplayName("Test read(byte[]) with 'byte[]'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"int RandomAccessRead.read(byte[])"})
-  void testReadWithByte() throws IOException {
+  void testRead() throws IOException {
+    // Arrange
+    RandomAccessReadBuffer randomAccessReadBuffer = new RandomAccessReadBuffer();
+    byte[] b = "AXAXAXAX".getBytes("UTF-8");
+
+    // Act and Assert
+    assertEquals(-1, randomAccessReadBuffer.read(b));
+    assertArrayEquals("AXAXAXAX".getBytes("UTF-8"), b);
+  }
+
+  /**
+   * Method under test: {@link RandomAccessRead#read(byte[])}
+   */
+  @Test
+  void testRead2() throws IOException {
     // Arrange
     RandomAccessReadBuffer createBufferFromStreamResult = RandomAccessReadBuffer
         .createBufferFromStream(new ByteArrayInputStream(new byte[]{'A', -1, 'A', -1, 'A', -1, 'A', -1}));
@@ -44,50 +58,41 @@ class RandomAccessReadDiffblueTest {
   }
 
   /**
-   * Test {@link RandomAccessRead#read(byte[])} with {@code byte[]}.
-   * <ul>
-   *   <li>Given {@link RandomAccessReadBuffer#RandomAccessReadBuffer()}.</li>
-   *   <li>Then return minus one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link RandomAccessRead#read(byte[])}
    */
   @Test
-  @DisplayName("Test read(byte[]) with 'byte[]'; given RandomAccessReadBuffer(); then return minus one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"int RandomAccessRead.read(byte[])"})
-  void testReadWithByte_givenRandomAccessReadBuffer_thenReturnMinusOne() throws IOException {
+  void testRead3() throws IOException {
     // Arrange
-    RandomAccessReadBuffer randomAccessReadBuffer = new RandomAccessReadBuffer();
+    DataInputStream inputStream = mock(DataInputStream.class);
+    when(inputStream.read(Mockito.<byte[]>any())).thenReturn(-1);
+    when(inputStream.read(Mockito.<byte[]>any(), anyInt(), anyInt())).thenReturn(1);
+    doNothing().when(inputStream).close();
+    RandomAccessReadBuffer createBufferFromStreamResult = RandomAccessReadBuffer.createBufferFromStream(inputStream);
     byte[] b = "AXAXAXAX".getBytes("UTF-8");
 
-    // Act and Assert
-    assertEquals(-1, randomAccessReadBuffer.read(b));
-    ByteBuffer byteBuffer = randomAccessReadBuffer.currentBuffer;
-    assertEquals(0, byteBuffer.position());
-    assertEquals(0, randomAccessReadBuffer.available());
-    assertEquals(0, randomAccessReadBuffer.currentBufferPointer);
-    assertEquals(0L, randomAccessReadBuffer.getPosition());
-    assertEquals(0L, randomAccessReadBuffer.pointer);
-    assertTrue(byteBuffer.hasRemaining());
-    assertArrayEquals("AXAXAXAX".getBytes("UTF-8"), b);
+    // Act
+    int actualReadResult = createBufferFromStreamResult.read(b);
+
+    // Assert
+    verify(inputStream).read(isA(byte[].class));
+    verify(inputStream, atLeast(1)).read(isA(byte[].class), anyInt(), anyInt());
+    verify(inputStream).close();
+    assertEquals(4088, createBufferFromStreamResult.available());
+    assertEquals(8, createBufferFromStreamResult.currentBuffer.position());
+    assertEquals(8, actualReadResult);
+    assertEquals(8, createBufferFromStreamResult.currentBufferPointer);
+    assertEquals(8L, createBufferFromStreamResult.getPosition());
+    assertEquals(8L, createBufferFromStreamResult.pointer);
+    assertArrayEquals(new byte[]{0, 0, 0, 0, 0, 0, 0, 0}, b);
   }
 
   /**
-   * Test {@link RandomAccessRead#peek()}.
-   * <ul>
-   *   <li>Given {@code A}.</li>
-   *   <li>Then return sixty-five.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link RandomAccessRead#peek()}
    */
   @Test
-  @DisplayName("Test peek(); given 'A'; then return sixty-five")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"int RandomAccessRead.peek()"})
-  void testPeek_givenA_thenReturnSixtyFive() throws IOException {
+  void testPeek() throws IOException {
     // Arrange, Act and Assert
+    assertEquals(-1, (new RandomAccessReadBuffer()).peek());
     assertEquals(65,
         RandomAccessReadBuffer
             .createBufferFromStream(new ByteArrayInputStream(new byte[]{'A', -1, 'A', -1, 'A', -1, 'A', -1}))
@@ -95,34 +100,79 @@ class RandomAccessReadDiffblueTest {
   }
 
   /**
-   * Test {@link RandomAccessRead#peek()}.
-   * <ul>
-   *   <li>Given {@link RandomAccessReadBuffer#RandomAccessReadBuffer()}.</li>
-   *   <li>Then return minus one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link RandomAccessRead#peek()}
    */
   @Test
-  @DisplayName("Test peek(); given RandomAccessReadBuffer(); then return minus one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"int RandomAccessRead.peek()"})
-  void testPeek_givenRandomAccessReadBuffer_thenReturnMinusOne() throws IOException {
-    // Arrange, Act and Assert
-    assertEquals(-1, (new RandomAccessReadBuffer()).peek());
+  void testPeek2() throws IOException {
+    // Arrange
+    DataInputStream inputStream = mock(DataInputStream.class);
+    when(inputStream.read(Mockito.<byte[]>any())).thenReturn(-1);
+    when(inputStream.read(Mockito.<byte[]>any(), anyInt(), anyInt())).thenReturn(1);
+    doNothing().when(inputStream).close();
+
+    // Act
+    int actualPeekResult = RandomAccessReadBuffer.createBufferFromStream(inputStream).peek();
+
+    // Assert
+    verify(inputStream).read(isA(byte[].class));
+    verify(inputStream, atLeast(1)).read(isA(byte[].class), anyInt(), anyInt());
+    verify(inputStream).close();
+    assertEquals(0, actualPeekResult);
   }
 
   /**
-   * Test {@link RandomAccessRead#available()}.
-   * <p>
    * Method under test: {@link RandomAccessRead#available()}
    */
   @Test
-  @DisplayName("Test available()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"int RandomAccessRead.available()"})
   void testAvailable() throws IOException {
     // Arrange, Act and Assert
     assertEquals(0, (new RandomAccessReadBuffer()).available());
+  }
+
+  /**
+   * Method under test: {@link RandomAccessRead#available()}
+   */
+  @Test
+  void testAvailable2() throws IOException {
+    // Arrange
+    DataInputStream inputStream = mock(DataInputStream.class);
+    when(inputStream.read(Mockito.<byte[]>any())).thenReturn(-1);
+    when(inputStream.read(Mockito.<byte[]>any(), anyInt(), anyInt())).thenReturn(1);
+    doNothing().when(inputStream).close();
+
+    // Act
+    int actualAvailableResult = RandomAccessReadBuffer.createBufferFromStream(inputStream).available();
+
+    // Assert
+    verify(inputStream).read(isA(byte[].class));
+    verify(inputStream, atLeast(1)).read(isA(byte[].class), anyInt(), anyInt());
+    verify(inputStream).close();
+    assertEquals(RandomAccessReadBuffer.DEFAULT_CHUNK_SIZE_4KB, actualAvailableResult);
+  }
+
+  /**
+   * Method under test: {@link RandomAccessRead#skip(int)}
+   */
+  @Test
+  void testSkip() throws IOException {
+    // Arrange
+    DataInputStream inputStream = mock(DataInputStream.class);
+    when(inputStream.read(Mockito.<byte[]>any())).thenReturn(-1);
+    when(inputStream.read(Mockito.<byte[]>any(), anyInt(), anyInt())).thenReturn(1);
+    doNothing().when(inputStream).close();
+    RandomAccessReadBuffer createBufferFromStreamResult = RandomAccessReadBuffer.createBufferFromStream(inputStream);
+
+    // Act
+    createBufferFromStreamResult.skip(3);
+
+    // Assert
+    verify(inputStream).read(isA(byte[].class));
+    verify(inputStream, atLeast(1)).read(isA(byte[].class), anyInt(), anyInt());
+    verify(inputStream).close();
+    assertEquals(3, createBufferFromStreamResult.currentBuffer.position());
+    assertEquals(3, createBufferFromStreamResult.currentBufferPointer);
+    assertEquals(3L, createBufferFromStreamResult.getPosition());
+    assertEquals(3L, createBufferFromStreamResult.pointer);
+    assertEquals(4093, createBufferFromStreamResult.available());
   }
 }

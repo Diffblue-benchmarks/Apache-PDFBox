@@ -3,7 +3,6 @@ package org.apache.fontbox.ttf.gsub;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashMap;
 import org.apache.fontbox.ttf.model.GsubData;
 import org.apache.fontbox.ttf.model.Language;
@@ -16,22 +15,15 @@ import org.apache.fontbox.ttf.table.common.LookupListTable;
 import org.apache.fontbox.ttf.table.common.LookupSubTable;
 import org.apache.fontbox.ttf.table.common.LookupTable;
 import org.apache.fontbox.ttf.table.common.ScriptTable;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class GlyphSubstitutionDataExtractorDiffblueTest {
   /**
-   * Test {@link GlyphSubstitutionDataExtractor#getGsubData(String, ScriptTable, FeatureListTable, LookupListTable)} with {@code scriptName}, {@code scriptTable}, {@code featureListTable}, {@code lookupListTable}.
-   * <p>
-   * Method under test: {@link GlyphSubstitutionDataExtractor#getGsubData(String, ScriptTable, FeatureListTable, LookupListTable)}
+   * Method under test:
+   * {@link GlyphSubstitutionDataExtractor#getGsubData(String, ScriptTable, FeatureListTable, LookupListTable)}
    */
   @Test
-  @DisplayName("Test getGsubData(String, ScriptTable, FeatureListTable, LookupListTable) with 'scriptName', 'scriptTable', 'featureListTable', 'lookupListTable'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "GsubData GlyphSubstitutionDataExtractor.getGsubData(String, ScriptTable, FeatureListTable, LookupListTable)"})
-  void testGetGsubDataWithScriptNameScriptTableFeatureListTableLookupListTable() {
+  void testGetGsubData() {
     // Arrange
     GlyphSubstitutionDataExtractor glyphSubstitutionDataExtractor = new GlyphSubstitutionDataExtractor();
     LangSysTable defaultLangSysTable = new LangSysTable(1, 1, 3, new int[]{});
@@ -54,16 +46,11 @@ class GlyphSubstitutionDataExtractorDiffblueTest {
   }
 
   /**
-   * Test {@link GlyphSubstitutionDataExtractor#getGsubData(String, ScriptTable, FeatureListTable, LookupListTable)} with {@code scriptName}, {@code scriptTable}, {@code featureListTable}, {@code lookupListTable}.
-   * <p>
-   * Method under test: {@link GlyphSubstitutionDataExtractor#getGsubData(String, ScriptTable, FeatureListTable, LookupListTable)}
+   * Method under test:
+   * {@link GlyphSubstitutionDataExtractor#getGsubData(String, ScriptTable, FeatureListTable, LookupListTable)}
    */
   @Test
-  @DisplayName("Test getGsubData(String, ScriptTable, FeatureListTable, LookupListTable) with 'scriptName', 'scriptTable', 'featureListTable', 'lookupListTable'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "GsubData GlyphSubstitutionDataExtractor.getGsubData(String, ScriptTable, FeatureListTable, LookupListTable)"})
-  void testGetGsubDataWithScriptNameScriptTableFeatureListTableLookupListTable2() {
+  void testGetGsubData2() {
     // Arrange
     GlyphSubstitutionDataExtractor glyphSubstitutionDataExtractor = new GlyphSubstitutionDataExtractor();
     ScriptTable scriptTable = new ScriptTable(null, new HashMap<>());
@@ -84,16 +71,11 @@ class GlyphSubstitutionDataExtractorDiffblueTest {
   }
 
   /**
-   * Test {@link GlyphSubstitutionDataExtractor#getGsubData(String, ScriptTable, FeatureListTable, LookupListTable)} with {@code scriptName}, {@code scriptTable}, {@code featureListTable}, {@code lookupListTable}.
-   * <p>
-   * Method under test: {@link GlyphSubstitutionDataExtractor#getGsubData(String, ScriptTable, FeatureListTable, LookupListTable)}
+   * Method under test:
+   * {@link GlyphSubstitutionDataExtractor#getGsubData(String, ScriptTable, FeatureListTable, LookupListTable)}
    */
   @Test
-  @DisplayName("Test getGsubData(String, ScriptTable, FeatureListTable, LookupListTable) with 'scriptName', 'scriptTable', 'featureListTable', 'lookupListTable'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "GsubData GlyphSubstitutionDataExtractor.getGsubData(String, ScriptTable, FeatureListTable, LookupListTable)"})
-  void testGetGsubDataWithScriptNameScriptTableFeatureListTableLookupListTable3() {
+  void testGetGsubData3() {
     // Arrange
     GlyphSubstitutionDataExtractor glyphSubstitutionDataExtractor = new GlyphSubstitutionDataExtractor();
 

@@ -6,80 +6,22 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.apache.pdfbox.cos.COSDictionary;
+import org.apache.pdfbox.cos.COSIncrement;
 import org.apache.pdfbox.cos.COSObjectKey;
 import org.apache.pdfbox.cos.COSStream;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
+import org.apache.pdfbox.cos.COSUpdateState;
 import org.junit.jupiter.api.Test;
 
 class PDActionSoundDiffblueTest {
   /**
-   * Test {@link PDActionSound#PDActionSound(COSDictionary)}.
-   * <p>
-   * Method under test: {@link PDActionSound#PDActionSound(COSDictionary)}
-   */
-  @Test
-  @DisplayName("Test new PDActionSound(COSDictionary)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDActionSound.<init>(COSDictionary)"})
-  void testNewPDActionSound() {
-    // Arrange
-    COSDictionary a = new COSDictionary();
-
-    // Act and Assert
-    assertSame(a, (new PDActionSound(a)).getCOSObject());
-  }
-
-  /**
-   * Test {@link PDActionSound#PDActionSound()}.
-   * <p>
-   * Method under test: {@link PDActionSound#PDActionSound()}
-   */
-  @Test
-  @DisplayName("Test new PDActionSound()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDActionSound.<init>()"})
-  void testNewPDActionSound2() {
-    // Arrange and Act
-    PDActionSound actualPdActionSound = new PDActionSound();
-
-    // Assert
-    assertNull(actualPdActionSound.getNext());
-    COSDictionary cOSObject = actualPdActionSound.getCOSObject();
-    assertNull(cOSObject.getKey());
-    assertNull(actualPdActionSound.getSound());
-    assertEquals(1.0f, actualPdActionSound.getVolume());
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    assertFalse(cOSObject.isDirect());
-    assertFalse(cOSObject.isNeedToBeUpdated());
-    assertFalse(actualPdActionSound.getMix());
-    assertFalse(actualPdActionSound.getRepeat());
-    assertFalse(actualPdActionSound.getSynchronous());
-    assertEquals(PDAction.TYPE, actualPdActionSound.getType());
-    assertEquals(PDActionSound.SUB_TYPE, actualPdActionSound.getSubType());
-  }
-
-  /**
-   * Test {@link PDActionSound#setSound(COSStream)}.
-   * <ul>
-   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDActionSound#setSound(COSStream)}
    */
   @Test
-  @DisplayName("Test setSound(COSStream); given COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDActionSound.setSound(COSStream)"})
-  void testSetSound_givenCOSObjectKeyWithNumIsOneAndGenIsOne() {
+  void testSetSound() {
     // Arrange
     PDActionSound pdActionSound = new PDActionSound();
-
     COSStream sound = new COSStream();
-    sound.setKey(new COSObjectKey(1L, 1));
 
     // Act
     pdActionSound.setSound(sound);
@@ -92,19 +34,28 @@ class PDActionSoundDiffblueTest {
   }
 
   /**
-   * Test {@link PDActionSound#setSound(COSStream)}.
-   * <ul>
-   *   <li>Given {@code true}.</li>
-   *   <li>When {@link COSStream#COSStream()} Direct is {@code true}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDActionSound#setSound(COSStream)}
    */
   @Test
-  @DisplayName("Test setSound(COSStream); given 'true'; when COSStream() Direct is 'true'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDActionSound.setSound(COSStream)"})
-  void testSetSound_givenTrue_whenCOSStreamDirectIsTrue() {
+  void testSetSound2() {
+    // Arrange
+    PDActionSound pdActionSound = new PDActionSound();
+
+    // Act
+    pdActionSound.setSound(null);
+
+    // Assert
+    assertNull(pdActionSound.getSound());
+    COSDictionary cOSObject = pdActionSound.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+  }
+
+  /**
+   * Method under test: {@link PDActionSound#setSound(COSStream)}
+   */
+  @Test
+  void testSetSound3() {
     // Arrange
     PDActionSound pdActionSound = new PDActionSound();
 
@@ -122,22 +73,15 @@ class PDActionSoundDiffblueTest {
   }
 
   /**
-   * Test {@link PDActionSound#setSound(COSStream)}.
-   * <ul>
-   *   <li>When {@link COSStream#COSStream()}.</li>
-   *   <li>Then {@link PDActionSound#PDActionSound()} COSObject Values size is three.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDActionSound#setSound(COSStream)}
    */
   @Test
-  @DisplayName("Test setSound(COSStream); when COSStream(); then PDActionSound() COSObject Values size is three")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDActionSound.setSound(COSStream)"})
-  void testSetSound_whenCOSStream_thenPDActionSoundCOSObjectValuesSizeIsThree() {
+  void testSetSound4() {
     // Arrange
     PDActionSound pdActionSound = new PDActionSound();
+
     COSStream sound = new COSStream();
+    sound.setKey(new COSObjectKey(1L, 1));
 
     // Act
     pdActionSound.setSound(sound);
@@ -150,45 +94,19 @@ class PDActionSoundDiffblueTest {
   }
 
   /**
-   * Test {@link PDActionSound#setSound(COSStream)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then {@link PDActionSound#PDActionSound()} COSObject Values size is two.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDActionSound#setSound(COSStream)}
-   */
-  @Test
-  @DisplayName("Test setSound(COSStream); when 'null'; then PDActionSound() COSObject Values size is two")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDActionSound.setSound(COSStream)"})
-  void testSetSound_whenNull_thenPDActionSoundCOSObjectValuesSizeIsTwo() {
-    // Arrange
-    PDActionSound pdActionSound = new PDActionSound();
-
-    // Act
-    pdActionSound.setSound(null);
-
-    // Assert that nothing has changed
-    COSDictionary cOSObject = pdActionSound.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-  }
-
-  /**
-   * Test {@link PDActionSound#getSound()}.
-   * <ul>
-   *   <li>Given {@link PDActionSound#PDActionSound()} Sound is {@link COSStream#COSStream()}.</li>
-   *   <li>Then return {@link COSStream#COSStream()}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDActionSound#getSound()}
    */
   @Test
-  @DisplayName("Test getSound(); given PDActionSound() Sound is COSStream(); then return COSStream()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"COSStream PDActionSound.getSound()"})
-  void testGetSound_givenPDActionSoundSoundIsCOSStream_thenReturnCOSStream() {
+  void testGetSound() {
+    // Arrange, Act and Assert
+    assertNull((new PDActionSound()).getSound());
+  }
+
+  /**
+   * Method under test: {@link PDActionSound#getSound()}
+   */
+  @Test
+  void testGetSound2() {
     // Arrange
     PDActionSound pdActionSound = new PDActionSound();
     COSStream sound = new COSStream();
@@ -199,83 +117,36 @@ class PDActionSoundDiffblueTest {
   }
 
   /**
-   * Test {@link PDActionSound#getSound()}.
-   * <ul>
-   *   <li>Given {@link PDActionSound#PDActionSound()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDActionSound#getSound()}
    */
   @Test
-  @DisplayName("Test getSound(); given PDActionSound(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"COSStream PDActionSound.getSound()"})
-  void testGetSound_givenPDActionSound_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull((new PDActionSound()).getSound());
-  }
-
-  /**
-   * Test {@link PDActionSound#getSound()}.
-   * <ul>
-   *   <li>Then return Key is {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDActionSound#getSound()}
-   */
-  @Test
-  @DisplayName("Test getSound(); then return Key is COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"COSStream PDActionSound.getSound()"})
-  void testGetSound_thenReturnKeyIsCOSObjectKeyWithNumIsOneAndGenIsOne() {
+  void testGetSound3() {
     // Arrange
     COSStream sound = new COSStream();
-    COSObjectKey key = new COSObjectKey(1L, 1);
-
-    sound.setKey(key);
+    sound.setKey(new COSObjectKey(1L, 1));
 
     PDActionSound pdActionSound = new PDActionSound();
     pdActionSound.setSound(sound);
 
     // Act and Assert
-    assertSame(key, pdActionSound.getSound().getKey());
+    assertSame(sound, pdActionSound.getSound());
   }
 
   /**
-   * Test {@link PDActionSound#setVolume(float)}.
-   * <ul>
-   *   <li>Given {@link PDActionSound#PDActionSound()}.</li>
-   *   <li>When {@code -1.0000001}.</li>
-   *   <li>Then throw {@link IllegalArgumentException}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDActionSound#setVolume(float)}
    */
   @Test
-  @DisplayName("Test setVolume(float); given PDActionSound(); when '-1.0000001'; then throw IllegalArgumentException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDActionSound.setVolume(float)"})
-  void testSetVolume_givenPDActionSound_when10000001_thenThrowIllegalArgumentException() {
+  void testSetVolume() {
     // Arrange, Act and Assert
+    assertThrows(IllegalArgumentException.class, () -> (new PDActionSound()).setVolume(10.0f));
     assertThrows(IllegalArgumentException.class, () -> (new PDActionSound()).setVolume(-1.0000001f));
   }
 
   /**
-   * Test {@link PDActionSound#setVolume(float)}.
-   * <ul>
-   *   <li>Given {@link PDActionSound#PDActionSound()}.</li>
-   *   <li>When minus one.</li>
-   *   <li>Then {@link PDActionSound#PDActionSound()} Volume is minus one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDActionSound#setVolume(float)}
    */
   @Test
-  @DisplayName("Test setVolume(float); given PDActionSound(); when minus one; then PDActionSound() Volume is minus one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDActionSound.setVolume(float)"})
-  void testSetVolume_givenPDActionSound_whenMinusOne_thenPDActionSoundVolumeIsMinusOne() {
+  void testSetVolume2() {
     // Arrange
     PDActionSound pdActionSound = new PDActionSound();
 
@@ -290,38 +161,19 @@ class PDActionSoundDiffblueTest {
   }
 
   /**
-   * Test {@link PDActionSound#setVolume(float)}.
-   * <ul>
-   *   <li>Given {@link PDActionSound#PDActionSound()}.</li>
-   *   <li>When ten.</li>
-   *   <li>Then throw {@link IllegalArgumentException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDActionSound#setVolume(float)}
-   */
-  @Test
-  @DisplayName("Test setVolume(float); given PDActionSound(); when ten; then throw IllegalArgumentException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDActionSound.setVolume(float)"})
-  void testSetVolume_givenPDActionSound_whenTen_thenThrowIllegalArgumentException() {
-    // Arrange, Act and Assert
-    assertThrows(IllegalArgumentException.class, () -> (new PDActionSound()).setVolume(10.0f));
-  }
-
-  /**
-   * Test {@link PDActionSound#getVolume()}.
-   * <ul>
-   *   <li>Given {@link PDActionSound#PDActionSound()} Volume is one.</li>
-   *   <li>Then return one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDActionSound#getVolume()}
    */
   @Test
-  @DisplayName("Test getVolume(); given PDActionSound() Volume is one; then return one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"float PDActionSound.getVolume()"})
-  void testGetVolume_givenPDActionSoundVolumeIsOne_thenReturnOne() {
+  void testGetVolume() {
+    // Arrange, Act and Assert
+    assertEquals(1.0f, (new PDActionSound()).getVolume());
+  }
+
+  /**
+   * Method under test: {@link PDActionSound#getVolume()}
+   */
+  @Test
+  void testGetVolume2() {
     // Arrange
     PDActionSound pdActionSound = new PDActionSound();
     pdActionSound.setVolume(1.0f);
@@ -331,66 +183,10 @@ class PDActionSoundDiffblueTest {
   }
 
   /**
-   * Test {@link PDActionSound#getVolume()}.
-   * <ul>
-   *   <li>Given {@link PDActionSound#PDActionSound()}.</li>
-   *   <li>Then return one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDActionSound#getVolume()}
-   */
-  @Test
-  @DisplayName("Test getVolume(); given PDActionSound(); then return one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"float PDActionSound.getVolume()"})
-  void testGetVolume_givenPDActionSound_thenReturnOne() {
-    // Arrange, Act and Assert
-    assertEquals(1.0f, (new PDActionSound()).getVolume());
-  }
-
-  /**
-   * Test {@link PDActionSound#setSynchronous(boolean)}.
-   * <ul>
-   *   <li>Given {@link PDActionSound#PDActionSound()}.</li>
-   *   <li>When {@code false}.</li>
-   *   <li>Then not {@link PDActionSound#PDActionSound()} Synchronous.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDActionSound#setSynchronous(boolean)}
    */
   @Test
-  @DisplayName("Test setSynchronous(boolean); given PDActionSound(); when 'false'; then not PDActionSound() Synchronous")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDActionSound.setSynchronous(boolean)"})
-  void testSetSynchronous_givenPDActionSound_whenFalse_thenNotPDActionSoundSynchronous() {
-    // Arrange
-    PDActionSound pdActionSound = new PDActionSound();
-
-    // Act
-    pdActionSound.setSynchronous(false);
-
-    // Assert
-    COSDictionary cOSObject = pdActionSound.getCOSObject();
-    assertEquals(3, cOSObject.getValues().size());
-    assertEquals(3, cOSObject.size());
-    assertFalse(pdActionSound.getSynchronous());
-  }
-
-  /**
-   * Test {@link PDActionSound#setSynchronous(boolean)}.
-   * <ul>
-   *   <li>Given {@link PDActionSound#PDActionSound()}.</li>
-   *   <li>When {@code true}.</li>
-   *   <li>Then {@link PDActionSound#PDActionSound()} Synchronous.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDActionSound#setSynchronous(boolean)}
-   */
-  @Test
-  @DisplayName("Test setSynchronous(boolean); given PDActionSound(); when 'true'; then PDActionSound() Synchronous")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDActionSound.setSynchronous(boolean)"})
-  void testSetSynchronous_givenPDActionSound_whenTrue_thenPDActionSoundSynchronous() {
+  void testSetSynchronous() {
     // Arrange
     PDActionSound pdActionSound = new PDActionSound();
 
@@ -405,110 +201,63 @@ class PDActionSoundDiffblueTest {
   }
 
   /**
-   * Test {@link PDActionSound#getSynchronous()}.
-   * <ul>
-   *   <li>Given {@link PDActionSound#PDActionSound()} Synchronous is {@code false}.</li>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDActionSound#getSynchronous()}
+   * Method under test: {@link PDActionSound#setSynchronous(boolean)}
    */
   @Test
-  @DisplayName("Test getSynchronous(); given PDActionSound() Synchronous is 'false'; then return 'false'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean PDActionSound.getSynchronous()"})
-  void testGetSynchronous_givenPDActionSoundSynchronousIsFalse_thenReturnFalse() {
+  void testSetSynchronous2() {
     // Arrange
     PDActionSound pdActionSound = new PDActionSound();
+
+    // Act
     pdActionSound.setSynchronous(false);
 
-    // Act and Assert
+    // Assert
+    COSDictionary cOSObject = pdActionSound.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
     assertFalse(pdActionSound.getSynchronous());
   }
 
   /**
-   * Test {@link PDActionSound#getSynchronous()}.
-   * <ul>
-   *   <li>Given {@link PDActionSound#PDActionSound()} Synchronous is {@code true}.</li>
-   *   <li>Then return {@code true}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDActionSound#getSynchronous()}
    */
   @Test
-  @DisplayName("Test getSynchronous(); given PDActionSound() Synchronous is 'true'; then return 'true'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean PDActionSound.getSynchronous()"})
-  void testGetSynchronous_givenPDActionSoundSynchronousIsTrue_thenReturnTrue() {
-    // Arrange
-    PDActionSound pdActionSound = new PDActionSound();
-    pdActionSound.setSynchronous(true);
-
-    // Act and Assert
-    assertTrue(pdActionSound.getSynchronous());
-  }
-
-  /**
-   * Test {@link PDActionSound#getSynchronous()}.
-   * <ul>
-   *   <li>Given {@link PDActionSound#PDActionSound()}.</li>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDActionSound#getSynchronous()}
-   */
-  @Test
-  @DisplayName("Test getSynchronous(); given PDActionSound(); then return 'false'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean PDActionSound.getSynchronous()"})
-  void testGetSynchronous_givenPDActionSound_thenReturnFalse() {
+  void testGetSynchronous() {
     // Arrange, Act and Assert
     assertFalse((new PDActionSound()).getSynchronous());
   }
 
   /**
-   * Test {@link PDActionSound#setRepeat(boolean)}.
-   * <ul>
-   *   <li>Given {@link PDActionSound#PDActionSound()}.</li>
-   *   <li>When {@code false}.</li>
-   *   <li>Then not {@link PDActionSound#PDActionSound()} Repeat.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDActionSound#setRepeat(boolean)}
+   * Method under test: {@link PDActionSound#getSynchronous()}
    */
   @Test
-  @DisplayName("Test setRepeat(boolean); given PDActionSound(); when 'false'; then not PDActionSound() Repeat")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDActionSound.setRepeat(boolean)"})
-  void testSetRepeat_givenPDActionSound_whenFalse_thenNotPDActionSoundRepeat() {
+  void testGetSynchronous2() {
     // Arrange
     PDActionSound pdActionSound = new PDActionSound();
+    pdActionSound.setSynchronous(true);
 
-    // Act
-    pdActionSound.setRepeat(false);
-
-    // Assert
-    COSDictionary cOSObject = pdActionSound.getCOSObject();
-    assertEquals(3, cOSObject.getValues().size());
-    assertEquals(3, cOSObject.size());
-    assertFalse(pdActionSound.getRepeat());
+    // Act and Assert
+    assertTrue(pdActionSound.getSynchronous());
   }
 
   /**
-   * Test {@link PDActionSound#setRepeat(boolean)}.
-   * <ul>
-   *   <li>Given {@link PDActionSound#PDActionSound()}.</li>
-   *   <li>When {@code true}.</li>
-   *   <li>Then {@link PDActionSound#PDActionSound()} Repeat.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PDActionSound#getSynchronous()}
+   */
+  @Test
+  void testGetSynchronous3() {
+    // Arrange
+    PDActionSound pdActionSound = new PDActionSound();
+    pdActionSound.setSynchronous(false);
+
+    // Act and Assert
+    assertFalse(pdActionSound.getSynchronous());
+  }
+
+  /**
    * Method under test: {@link PDActionSound#setRepeat(boolean)}
    */
   @Test
-  @DisplayName("Test setRepeat(boolean); given PDActionSound(); when 'true'; then PDActionSound() Repeat")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDActionSound.setRepeat(boolean)"})
-  void testSetRepeat_givenPDActionSound_whenTrue_thenPDActionSoundRepeat() {
+  void testSetRepeat() {
     // Arrange
     PDActionSound pdActionSound = new PDActionSound();
 
@@ -523,110 +272,63 @@ class PDActionSoundDiffblueTest {
   }
 
   /**
-   * Test {@link PDActionSound#getRepeat()}.
-   * <ul>
-   *   <li>Given {@link PDActionSound#PDActionSound()} Repeat is {@code false}.</li>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDActionSound#getRepeat()}
+   * Method under test: {@link PDActionSound#setRepeat(boolean)}
    */
   @Test
-  @DisplayName("Test getRepeat(); given PDActionSound() Repeat is 'false'; then return 'false'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean PDActionSound.getRepeat()"})
-  void testGetRepeat_givenPDActionSoundRepeatIsFalse_thenReturnFalse() {
+  void testSetRepeat2() {
     // Arrange
     PDActionSound pdActionSound = new PDActionSound();
+
+    // Act
     pdActionSound.setRepeat(false);
 
-    // Act and Assert
+    // Assert
+    COSDictionary cOSObject = pdActionSound.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
     assertFalse(pdActionSound.getRepeat());
   }
 
   /**
-   * Test {@link PDActionSound#getRepeat()}.
-   * <ul>
-   *   <li>Given {@link PDActionSound#PDActionSound()} Repeat is {@code true}.</li>
-   *   <li>Then return {@code true}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDActionSound#getRepeat()}
    */
   @Test
-  @DisplayName("Test getRepeat(); given PDActionSound() Repeat is 'true'; then return 'true'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean PDActionSound.getRepeat()"})
-  void testGetRepeat_givenPDActionSoundRepeatIsTrue_thenReturnTrue() {
-    // Arrange
-    PDActionSound pdActionSound = new PDActionSound();
-    pdActionSound.setRepeat(true);
-
-    // Act and Assert
-    assertTrue(pdActionSound.getRepeat());
-  }
-
-  /**
-   * Test {@link PDActionSound#getRepeat()}.
-   * <ul>
-   *   <li>Given {@link PDActionSound#PDActionSound()}.</li>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDActionSound#getRepeat()}
-   */
-  @Test
-  @DisplayName("Test getRepeat(); given PDActionSound(); then return 'false'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean PDActionSound.getRepeat()"})
-  void testGetRepeat_givenPDActionSound_thenReturnFalse() {
+  void testGetRepeat() {
     // Arrange, Act and Assert
     assertFalse((new PDActionSound()).getRepeat());
   }
 
   /**
-   * Test {@link PDActionSound#setMix(boolean)}.
-   * <ul>
-   *   <li>Given {@link PDActionSound#PDActionSound()}.</li>
-   *   <li>When {@code false}.</li>
-   *   <li>Then not {@link PDActionSound#PDActionSound()} Mix.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDActionSound#setMix(boolean)}
+   * Method under test: {@link PDActionSound#getRepeat()}
    */
   @Test
-  @DisplayName("Test setMix(boolean); given PDActionSound(); when 'false'; then not PDActionSound() Mix")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDActionSound.setMix(boolean)"})
-  void testSetMix_givenPDActionSound_whenFalse_thenNotPDActionSoundMix() {
+  void testGetRepeat2() {
     // Arrange
     PDActionSound pdActionSound = new PDActionSound();
+    pdActionSound.setRepeat(true);
 
-    // Act
-    pdActionSound.setMix(false);
-
-    // Assert
-    COSDictionary cOSObject = pdActionSound.getCOSObject();
-    assertEquals(3, cOSObject.getValues().size());
-    assertEquals(3, cOSObject.size());
-    assertFalse(pdActionSound.getMix());
+    // Act and Assert
+    assertTrue(pdActionSound.getRepeat());
   }
 
   /**
-   * Test {@link PDActionSound#setMix(boolean)}.
-   * <ul>
-   *   <li>Given {@link PDActionSound#PDActionSound()}.</li>
-   *   <li>When {@code true}.</li>
-   *   <li>Then {@link PDActionSound#PDActionSound()} Mix.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PDActionSound#getRepeat()}
+   */
+  @Test
+  void testGetRepeat3() {
+    // Arrange
+    PDActionSound pdActionSound = new PDActionSound();
+    pdActionSound.setRepeat(false);
+
+    // Act and Assert
+    assertFalse(pdActionSound.getRepeat());
+  }
+
+  /**
    * Method under test: {@link PDActionSound#setMix(boolean)}
    */
   @Test
-  @DisplayName("Test setMix(boolean); given PDActionSound(); when 'true'; then PDActionSound() Mix")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDActionSound.setMix(boolean)"})
-  void testSetMix_givenPDActionSound_whenTrue_thenPDActionSoundMix() {
+  void testSetMix() {
     // Arrange
     PDActionSound pdActionSound = new PDActionSound();
 
@@ -641,64 +343,98 @@ class PDActionSoundDiffblueTest {
   }
 
   /**
-   * Test {@link PDActionSound#getMix()}.
-   * <ul>
-   *   <li>Given {@link PDActionSound#PDActionSound()} Mix is {@code false}.</li>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDActionSound#getMix()}
+   * Method under test: {@link PDActionSound#setMix(boolean)}
    */
   @Test
-  @DisplayName("Test getMix(); given PDActionSound() Mix is 'false'; then return 'false'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean PDActionSound.getMix()"})
-  void testGetMix_givenPDActionSoundMixIsFalse_thenReturnFalse() {
+  void testSetMix2() {
     // Arrange
     PDActionSound pdActionSound = new PDActionSound();
+
+    // Act
     pdActionSound.setMix(false);
 
-    // Act and Assert
+    // Assert
+    COSDictionary cOSObject = pdActionSound.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
     assertFalse(pdActionSound.getMix());
   }
 
   /**
-   * Test {@link PDActionSound#getMix()}.
-   * <ul>
-   *   <li>Given {@link PDActionSound#PDActionSound()} Mix is {@code true}.</li>
-   *   <li>Then return {@code true}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDActionSound#getMix()}
    */
   @Test
-  @DisplayName("Test getMix(); given PDActionSound() Mix is 'true'; then return 'true'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean PDActionSound.getMix()"})
-  void testGetMix_givenPDActionSoundMixIsTrue_thenReturnTrue() {
-    // Arrange
-    PDActionSound pdActionSound = new PDActionSound();
-    pdActionSound.setMix(true);
-
-    // Act and Assert
-    assertTrue(pdActionSound.getMix());
-  }
-
-  /**
-   * Test {@link PDActionSound#getMix()}.
-   * <ul>
-   *   <li>Given {@link PDActionSound#PDActionSound()}.</li>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDActionSound#getMix()}
-   */
-  @Test
-  @DisplayName("Test getMix(); given PDActionSound(); then return 'false'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean PDActionSound.getMix()"})
-  void testGetMix_givenPDActionSound_thenReturnFalse() {
+  void testGetMix() {
     // Arrange, Act and Assert
     assertFalse((new PDActionSound()).getMix());
+  }
+
+  /**
+   * Method under test: {@link PDActionSound#getMix()}
+   */
+  @Test
+  void testGetMix2() {
+    // Arrange
+    PDActionSound pdActionSound = new PDActionSound();
+    pdActionSound.setMix(true);
+
+    // Act and Assert
+    assertTrue(pdActionSound.getMix());
+  }
+
+  /**
+   * Method under test: {@link PDActionSound#getMix()}
+   */
+  @Test
+  void testGetMix3() {
+    // Arrange
+    PDActionSound pdActionSound = new PDActionSound();
+    pdActionSound.setMix(false);
+
+    // Act and Assert
+    assertFalse(pdActionSound.getMix());
+  }
+
+  /**
+   * Method under test: {@link PDActionSound#PDActionSound(COSDictionary)}
+   */
+  @Test
+  void testNewPDActionSound() {
+    // Arrange
+    COSDictionary a = new COSDictionary();
+
+    // Act and Assert
+    assertSame(a, (new PDActionSound(a)).getCOSObject());
+  }
+
+  /**
+   * Method under test: {@link PDActionSound#PDActionSound()}
+   */
+  @Test
+  void testNewPDActionSound2() {
+    // Arrange and Act
+    PDActionSound actualPdActionSound = new PDActionSound();
+
+    // Assert
+    assertNull(actualPdActionSound.getNext());
+    COSDictionary cOSObject = actualPdActionSound.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertNull(actualPdActionSound.getSound());
+    assertEquals(1.0f, actualPdActionSound.getVolume());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertFalse(actualPdActionSound.getMix());
+    assertFalse(actualPdActionSound.getRepeat());
+    assertFalse(actualPdActionSound.getSynchronous());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertEquals(PDAction.TYPE, actualPdActionSound.getType());
+    assertEquals(PDActionSound.SUB_TYPE, actualPdActionSound.getSubType());
   }
 }

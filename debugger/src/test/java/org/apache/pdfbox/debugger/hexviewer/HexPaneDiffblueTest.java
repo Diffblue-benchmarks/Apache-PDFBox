@@ -1,146 +1,144 @@
 package org.apache.pdfbox.debugger.hexviewer;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.when;
 import java.awt.Canvas;
-import java.awt.Dimension;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-import java.awt.image.ColorModel;
-import java.awt.image.DirectColorModel;
-import java.io.UnsupportedEncodingException;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 class HexPaneDiffblueTest {
   /**
-   * Test {@link HexPane#HexPane(HexModel)}.
-   * <ul>
-   *   <li>Then return PreferredSize Size Size Size {@link Dimension#height} is forty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link HexPane#HexPane(HexModel)}
+   * Method under test: {@link HexPane#keyTyped(KeyEvent)}
    */
   @Test
-  @DisplayName("Test new HexPane(HexModel); then return PreferredSize Size Size Size height is forty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void HexPane.<init>(HexModel)"})
-  void testNewHexPane_thenReturnPreferredSizeSizeSizeSizeHeightIsForty() throws UnsupportedEncodingException {
-    // Arrange and Act
-    HexPane actualHexPane = new HexPane(new HexModel("AXAXAXAX".getBytes("UTF-8")));
+  void testKeyTyped() {
+    // Arrange
+    HexModel model = mock(HexModel.class);
+    when(model.totalLine()).thenReturn(2);
+    doNothing().when(model).addHexModelChangeListener(Mockito.<HexModelChangeListener>any());
+    HexPane hexPane = new HexPane(model);
 
-    // Assert
-    ColorModel colorModel = actualHexPane.getColorModel();
-    assertTrue(colorModel instanceof DirectColorModel);
-    Dimension preferredSize = actualHexPane.getPreferredSize();
-    Dimension size = preferredSize.getSize();
-    Dimension size2 = size.getSize();
-    assertEquals(40, size2.getSize().height);
-    assertEquals(40, size2.height);
-    assertEquals(40, size.height);
-    assertEquals(40, preferredSize.height);
-    assertEquals(40.0d, size2.getHeight());
-    assertEquals(40.0d, size.getHeight());
-    assertEquals(40.0d, preferredSize.getHeight());
-    assertArrayEquals(new int[]{16711680, 65280, 255, -16777216}, ((DirectColorModel) colorModel).getMasks());
-    assertArrayEquals(new int[]{8, 8, 8, 8}, colorModel.getComponentSize());
+    // Act
+    hexPane.keyTyped(new KeyEvent(new Canvas(), 1, 1L, 1, 1));
+
+    // Assert that nothing has changed
+    verify(model).addHexModelChangeListener(isA(HexModelChangeListener.class));
+    verify(model).totalLine();
   }
 
   /**
-   * Test {@link HexPane#HexPane(HexModel)}.
-   * <ul>
-   *   <li>Then return PreferredSize Size Size Size {@link Dimension#height} is twenty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link HexPane#HexPane(HexModel)}
+   * Method under test: {@link HexPane#keyPressed(KeyEvent)}
    */
   @Test
-  @DisplayName("Test new HexPane(HexModel); then return PreferredSize Size Size Size height is twenty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void HexPane.<init>(HexModel)"})
-  void testNewHexPane_thenReturnPreferredSizeSizeSizeSizeHeightIsTwenty() {
-    // Arrange and Act
-    HexPane actualHexPane = new HexPane(new HexModel(new byte[]{}));
+  void testKeyPressed() {
+    // Arrange
+    HexModel model = mock(HexModel.class);
+    when(model.totalLine()).thenReturn(2);
+    doNothing().when(model).addHexModelChangeListener(Mockito.<HexModelChangeListener>any());
+    HexPane hexPane = new HexPane(model);
 
-    // Assert
-    ColorModel colorModel = actualHexPane.getColorModel();
-    assertTrue(colorModel instanceof DirectColorModel);
-    Dimension preferredSize = actualHexPane.getPreferredSize();
-    Dimension size = preferredSize.getSize();
-    Dimension size2 = size.getSize();
-    assertEquals(20, size2.getSize().height);
-    assertEquals(20, size2.height);
-    assertEquals(20, size.height);
-    assertEquals(20, preferredSize.height);
-    assertEquals(20.0d, size2.getHeight());
-    assertEquals(20.0d, size.getHeight());
-    assertEquals(20.0d, preferredSize.getHeight());
-    assertArrayEquals(new int[]{16711680, 65280, 255, -16777216}, ((DirectColorModel) colorModel).getMasks());
-    assertArrayEquals(new int[]{8, 8, 8, 8}, colorModel.getComponentSize());
+    // Act
+    hexPane.keyPressed(new KeyEvent(new Canvas(), 1, 1L, 1, 1));
+
+    // Assert that nothing has changed
+    verify(model).addHexModelChangeListener(isA(HexModelChangeListener.class));
+    verify(model).totalLine();
   }
 
   /**
-   * Test {@link HexPane#mouseClicked(MouseEvent)}.
-   * <ul>
-   *   <li>Then calls {@link SelectionChangeListener#selectionChanged(SelectEvent)}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link HexPane#mouseClicked(MouseEvent)}
    */
   @Test
-  @DisplayName("Test mouseClicked(MouseEvent); then calls selectionChanged(SelectEvent)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void HexPane.mouseClicked(MouseEvent)"})
-  void testMouseClicked_thenCallsSelectionChanged() throws UnsupportedEncodingException {
+  void testMouseClicked() {
     // Arrange
-    SelectionChangeListener listener = mock(SelectionChangeListener.class);
-    doNothing().when(listener).selectionChanged(Mockito.<SelectEvent>any());
-
-    HexPane hexPane = new HexPane(new HexModel("AXAXAXAX".getBytes("UTF-8")));
-    hexPane.addSelectionChangeListener(listener);
+    HexModel model = mock(HexModel.class);
+    when(model.totalLine()).thenReturn(2);
+    doNothing().when(model).addHexModelChangeListener(Mockito.<HexModelChangeListener>any());
+    HexPane hexPane = new HexPane(model);
 
     // Act
     hexPane.mouseClicked(new MouseEvent(new Canvas(), 1, 1L, 1, 1, 1, 1, true));
 
     // Assert
-    verify(listener).selectionChanged(isA(SelectEvent.class));
+    verify(model).addHexModelChangeListener(isA(HexModelChangeListener.class));
+    verify(model).totalLine();
   }
 
   /**
-   * Test {@link HexPane#mouseClicked(MouseEvent)}.
-   * <ul>
-   *   <li>Then calls {@link SelectionChangeListener#selectionChanged(SelectEvent)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link HexPane#mouseClicked(MouseEvent)}
+   * Method under test: {@link HexPane#setSelected(int)}
    */
   @Test
-  @DisplayName("Test mouseClicked(MouseEvent); then calls selectionChanged(SelectEvent)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void HexPane.mouseClicked(MouseEvent)"})
-  void testMouseClicked_thenCallsSelectionChanged2() throws UnsupportedEncodingException {
+  void testSetSelected() {
     // Arrange
-    SelectionChangeListener listener = mock(SelectionChangeListener.class);
-    doNothing().when(listener).selectionChanged(Mockito.<SelectEvent>any());
-    SelectionChangeListener listener2 = mock(SelectionChangeListener.class);
-    doNothing().when(listener2).selectionChanged(Mockito.<SelectEvent>any());
-
-    HexPane hexPane = new HexPane(new HexModel("AXAXAXAX".getBytes("UTF-8")));
-    hexPane.addSelectionChangeListener(listener2);
-    hexPane.addSelectionChangeListener(listener);
+    HexModel model = mock(HexModel.class);
+    when(model.totalLine()).thenReturn(2);
+    doNothing().when(model).addHexModelChangeListener(Mockito.<HexModelChangeListener>any());
 
     // Act
-    hexPane.mouseClicked(new MouseEvent(new Canvas(), 1, 1L, 1, 1, 1, 1, true));
+    (new HexPane(model)).setSelected(1);
 
     // Assert
-    verify(listener2).selectionChanged(isA(SelectEvent.class));
-    verify(listener).selectionChanged(isA(SelectEvent.class));
+    verify(model).addHexModelChangeListener(isA(HexModelChangeListener.class));
+    verify(model).totalLine();
+  }
+
+  /**
+   * Method under test: {@link HexPane#setSelected(int)}
+   */
+  @Test
+  void testSetSelected2() {
+    // Arrange
+    HexModel model = mock(HexModel.class);
+    when(model.totalLine()).thenReturn(2);
+    doNothing().when(model).addHexModelChangeListener(Mockito.<HexModelChangeListener>any());
+
+    // Act
+    (new HexPane(model)).setSelected(-1);
+
+    // Assert that nothing has changed
+    verify(model).addHexModelChangeListener(isA(HexModelChangeListener.class));
+    verify(model).totalLine();
+  }
+
+  /**
+   * Method under test: {@link HexPane#setSelected(int)}
+   */
+  @Test
+  void testSetSelected3() {
+    // Arrange
+    HexModel model = mock(HexModel.class);
+    when(model.totalLine()).thenReturn(2);
+    doNothing().when(model).addHexModelChangeListener(Mockito.<HexModelChangeListener>any());
+
+    // Act
+    (new HexPane(model)).setSelected(Short.SIZE);
+
+    // Assert
+    verify(model).addHexModelChangeListener(isA(HexModelChangeListener.class));
+    verify(model).totalLine();
+  }
+
+  /**
+   * Method under test: {@link HexPane#hexModelChanged(HexModelChangedEvent)}
+   */
+  @Test
+  void testHexModelChanged() {
+    // Arrange
+    HexModel model = mock(HexModel.class);
+    when(model.totalLine()).thenReturn(2);
+    doNothing().when(model).addHexModelChangeListener(Mockito.<HexModelChangeListener>any());
+    HexPane hexPane = new HexPane(model);
+
+    // Act
+    hexPane.hexModelChanged(new HexModelChangedEvent(1, 1));
+
+    // Assert that nothing has changed
+    verify(model).addHexModelChangeListener(isA(HexModelChangeListener.class));
+    verify(model).totalLine();
   }
 }

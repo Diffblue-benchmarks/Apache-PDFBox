@@ -4,28 +4,21 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import org.apache.pdfbox.cos.COSDictionary;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class RunLengthDecodeFilterDiffblueTest {
   /**
-   * Test {@link RunLengthDecodeFilter#decode(InputStream, OutputStream, COSDictionary, int)} with {@code encoded}, {@code decoded}, {@code parameters}, {@code index}.
-   * <p>
-   * Method under test: {@link RunLengthDecodeFilter#decode(InputStream, OutputStream, COSDictionary, int)}
+   * Method under test:
+   * {@link RunLengthDecodeFilter#decode(InputStream, OutputStream, COSDictionary, int)}
    */
   @Test
-  @DisplayName("Test decode(InputStream, OutputStream, COSDictionary, int) with 'encoded', 'decoded', 'parameters', 'index'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"DecodeResult RunLengthDecodeFilter.decode(InputStream, OutputStream, COSDictionary, int)"})
-  void testDecodeWithEncodedDecodedParametersIndex() throws IOException {
+  void testDecode() throws IOException {
     // Arrange
     RunLengthDecodeFilter runLengthDecodeFilter = new RunLengthDecodeFilter();
     ByteArrayInputStream encoded = new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"));
@@ -45,15 +38,11 @@ class RunLengthDecodeFilterDiffblueTest {
   }
 
   /**
-   * Test {@link RunLengthDecodeFilter#decode(InputStream, OutputStream, COSDictionary, int)} with {@code encoded}, {@code decoded}, {@code parameters}, {@code index}.
-   * <p>
-   * Method under test: {@link RunLengthDecodeFilter#decode(InputStream, OutputStream, COSDictionary, int)}
+   * Method under test:
+   * {@link RunLengthDecodeFilter#decode(InputStream, OutputStream, COSDictionary, int)}
    */
   @Test
-  @DisplayName("Test decode(InputStream, OutputStream, COSDictionary, int) with 'encoded', 'decoded', 'parameters', 'index'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"DecodeResult RunLengthDecodeFilter.decode(InputStream, OutputStream, COSDictionary, int)"})
-  void testDecodeWithEncodedDecodedParametersIndex2() throws IOException {
+  void testDecode2() throws IOException {
     // Arrange
     RunLengthDecodeFilter runLengthDecodeFilter = new RunLengthDecodeFilter();
     ByteArrayInputStream encoded = new ByteArrayInputStream(
@@ -67,23 +56,19 @@ class RunLengthDecodeFilterDiffblueTest {
     // Assert
     assertNull(actualDecodeResult.getJPXSMask());
     assertNull(actualDecodeResult.getJPXColorSpace());
+    assertEquals(0, decoded.toByteArray().length);
     byte[] byteArray = new byte[7];
     assertEquals(7, encoded.read(byteArray));
     assertSame(parameters, actualDecodeResult.getParameters());
     assertArrayEquals("XAXAXAX".getBytes("UTF-8"), byteArray);
-    assertArrayEquals(new byte[]{}, decoded.toByteArray());
   }
 
   /**
-   * Test {@link RunLengthDecodeFilter#decode(InputStream, OutputStream, COSDictionary, int)} with {@code encoded}, {@code decoded}, {@code parameters}, {@code index}.
-   * <p>
-   * Method under test: {@link RunLengthDecodeFilter#decode(InputStream, OutputStream, COSDictionary, int)}
+   * Method under test:
+   * {@link RunLengthDecodeFilter#decode(InputStream, OutputStream, COSDictionary, int)}
    */
   @Test
-  @DisplayName("Test decode(InputStream, OutputStream, COSDictionary, int) with 'encoded', 'decoded', 'parameters', 'index'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"DecodeResult RunLengthDecodeFilter.decode(InputStream, OutputStream, COSDictionary, int)"})
-  void testDecodeWithEncodedDecodedParametersIndex3() throws IOException {
+  void testDecode3() throws IOException {
     // Arrange
     RunLengthDecodeFilter runLengthDecodeFilter = new RunLengthDecodeFilter();
     ByteArrayInputStream encoded = new ByteArrayInputStream(new byte[]{-1, 'X', 'A', 'X', 'A', 'X', 'A', 'X'});
@@ -103,15 +88,11 @@ class RunLengthDecodeFilterDiffblueTest {
   }
 
   /**
-   * Test {@link RunLengthDecodeFilter#decode(InputStream, OutputStream, COSDictionary, int)} with {@code encoded}, {@code decoded}, {@code parameters}, {@code index}.
-   * <p>
-   * Method under test: {@link RunLengthDecodeFilter#decode(InputStream, OutputStream, COSDictionary, int)}
+   * Method under test:
+   * {@link RunLengthDecodeFilter#decode(InputStream, OutputStream, COSDictionary, int)}
    */
   @Test
-  @DisplayName("Test decode(InputStream, OutputStream, COSDictionary, int) with 'encoded', 'decoded', 'parameters', 'index'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"DecodeResult RunLengthDecodeFilter.decode(InputStream, OutputStream, COSDictionary, int)"})
-  void testDecodeWithEncodedDecodedParametersIndex4() throws IOException {
+  void testDecode4() throws IOException {
     // Arrange
     RunLengthDecodeFilter runLengthDecodeFilter = new RunLengthDecodeFilter();
     ByteArrayInputStream encoded = new ByteArrayInputStream(new byte[]{1, 'X', 'A', 'X', 'A', 'X', 'A', 'X'});
@@ -131,15 +112,11 @@ class RunLengthDecodeFilterDiffblueTest {
   }
 
   /**
-   * Test {@link RunLengthDecodeFilter#encode(InputStream, OutputStream, COSDictionary)} with {@code input}, {@code encoded}, {@code parameters}.
-   * <p>
-   * Method under test: {@link RunLengthDecodeFilter#encode(InputStream, OutputStream, COSDictionary)}
+   * Method under test:
+   * {@link RunLengthDecodeFilter#encode(InputStream, OutputStream, COSDictionary)}
    */
   @Test
-  @DisplayName("Test encode(InputStream, OutputStream, COSDictionary) with 'input', 'encoded', 'parameters'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void RunLengthDecodeFilter.encode(InputStream, OutputStream, COSDictionary)"})
-  void testEncodeWithInputEncodedParameters() throws IOException {
+  void testEncode() throws IOException {
     // Arrange
     RunLengthDecodeFilter runLengthDecodeFilter = new RunLengthDecodeFilter();
     ByteArrayInputStream input = new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"));
@@ -154,15 +131,11 @@ class RunLengthDecodeFilterDiffblueTest {
   }
 
   /**
-   * Test {@link RunLengthDecodeFilter#encode(InputStream, OutputStream, COSDictionary)} with {@code input}, {@code encoded}, {@code parameters}.
-   * <p>
-   * Method under test: {@link RunLengthDecodeFilter#encode(InputStream, OutputStream, COSDictionary)}
+   * Method under test:
+   * {@link RunLengthDecodeFilter#encode(InputStream, OutputStream, COSDictionary)}
    */
   @Test
-  @DisplayName("Test encode(InputStream, OutputStream, COSDictionary) with 'input', 'encoded', 'parameters'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void RunLengthDecodeFilter.encode(InputStream, OutputStream, COSDictionary)"})
-  void testEncodeWithInputEncodedParameters2() throws IOException {
+  void testEncode2() throws IOException {
     // Arrange
     RunLengthDecodeFilter runLengthDecodeFilter = new RunLengthDecodeFilter();
     ByteArrayInputStream input = new ByteArrayInputStream("XXAXAXAX".getBytes("UTF-8"));
@@ -177,15 +150,11 @@ class RunLengthDecodeFilterDiffblueTest {
   }
 
   /**
-   * Test {@link RunLengthDecodeFilter#encode(InputStream, OutputStream, COSDictionary)} with {@code input}, {@code encoded}, {@code parameters}.
-   * <p>
-   * Method under test: {@link RunLengthDecodeFilter#encode(InputStream, OutputStream, COSDictionary)}
+   * Method under test:
+   * {@link RunLengthDecodeFilter#encode(InputStream, OutputStream, COSDictionary)}
    */
   @Test
-  @DisplayName("Test encode(InputStream, OutputStream, COSDictionary) with 'input', 'encoded', 'parameters'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void RunLengthDecodeFilter.encode(InputStream, OutputStream, COSDictionary)"})
-  void testEncodeWithInputEncodedParameters3() throws IOException {
+  void testEncode3() throws IOException {
     // Arrange
     RunLengthDecodeFilter runLengthDecodeFilter = new RunLengthDecodeFilter();
     ByteArrayInputStream input = new ByteArrayInputStream("AAAXAXAX".getBytes("UTF-8"));
@@ -200,15 +169,11 @@ class RunLengthDecodeFilterDiffblueTest {
   }
 
   /**
-   * Test {@link RunLengthDecodeFilter#encode(InputStream, OutputStream, COSDictionary)} with {@code input}, {@code encoded}, {@code parameters}.
-   * <p>
-   * Method under test: {@link RunLengthDecodeFilter#encode(InputStream, OutputStream, COSDictionary)}
+   * Method under test:
+   * {@link RunLengthDecodeFilter#encode(InputStream, OutputStream, COSDictionary)}
    */
   @Test
-  @DisplayName("Test encode(InputStream, OutputStream, COSDictionary) with 'input', 'encoded', 'parameters'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void RunLengthDecodeFilter.encode(InputStream, OutputStream, COSDictionary)"})
-  void testEncodeWithInputEncodedParameters4() throws IOException {
+  void testEncode4() throws IOException {
     // Arrange
     RunLengthDecodeFilter runLengthDecodeFilter = new RunLengthDecodeFilter();
     ByteArrayInputStream input = new ByteArrayInputStream("AXXXAXAX".getBytes("UTF-8"));
@@ -223,15 +188,11 @@ class RunLengthDecodeFilterDiffblueTest {
   }
 
   /**
-   * Test {@link RunLengthDecodeFilter#encode(InputStream, OutputStream, COSDictionary)} with {@code input}, {@code encoded}, {@code parameters}.
-   * <p>
-   * Method under test: {@link RunLengthDecodeFilter#encode(InputStream, OutputStream, COSDictionary)}
+   * Method under test:
+   * {@link RunLengthDecodeFilter#encode(InputStream, OutputStream, COSDictionary)}
    */
   @Test
-  @DisplayName("Test encode(InputStream, OutputStream, COSDictionary) with 'input', 'encoded', 'parameters'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void RunLengthDecodeFilter.encode(InputStream, OutputStream, COSDictionary)"})
-  void testEncodeWithInputEncodedParameters5() throws IOException {
+  void testEncode5() throws IOException {
     // Arrange
     RunLengthDecodeFilter runLengthDecodeFilter = new RunLengthDecodeFilter();
     ByteArrayInputStream input = new ByteArrayInputStream("AXAXAAAX".getBytes("UTF-8"));
@@ -246,15 +207,11 @@ class RunLengthDecodeFilterDiffblueTest {
   }
 
   /**
-   * Test {@link RunLengthDecodeFilter#encode(InputStream, OutputStream, COSDictionary)} with {@code input}, {@code encoded}, {@code parameters}.
-   * <p>
-   * Method under test: {@link RunLengthDecodeFilter#encode(InputStream, OutputStream, COSDictionary)}
+   * Method under test:
+   * {@link RunLengthDecodeFilter#encode(InputStream, OutputStream, COSDictionary)}
    */
   @Test
-  @DisplayName("Test encode(InputStream, OutputStream, COSDictionary) with 'input', 'encoded', 'parameters'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void RunLengthDecodeFilter.encode(InputStream, OutputStream, COSDictionary)"})
-  void testEncodeWithInputEncodedParameters6() throws IOException {
+  void testEncode6() throws IOException {
     // Arrange
     RunLengthDecodeFilter runLengthDecodeFilter = new RunLengthDecodeFilter();
     ByteArrayInputStream input = new ByteArrayInputStream("AXAXAXXX".getBytes("UTF-8"));
@@ -269,15 +226,11 @@ class RunLengthDecodeFilterDiffblueTest {
   }
 
   /**
-   * Test {@link RunLengthDecodeFilter#encode(InputStream, OutputStream, COSDictionary)} with {@code input}, {@code encoded}, {@code parameters}.
-   * <p>
-   * Method under test: {@link RunLengthDecodeFilter#encode(InputStream, OutputStream, COSDictionary)}
+   * Method under test:
+   * {@link RunLengthDecodeFilter#encode(InputStream, OutputStream, COSDictionary)}
    */
   @Test
-  @DisplayName("Test encode(InputStream, OutputStream, COSDictionary) with 'input', 'encoded', 'parameters'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void RunLengthDecodeFilter.encode(InputStream, OutputStream, COSDictionary)"})
-  void testEncodeWithInputEncodedParameters7() throws IOException {
+  void testEncode7() throws IOException {
     // Arrange
     RunLengthDecodeFilter runLengthDecodeFilter = new RunLengthDecodeFilter();
     ByteArrayInputStream input = new ByteArrayInputStream(new byte[]{});
@@ -286,7 +239,7 @@ class RunLengthDecodeFilterDiffblueTest {
     // Act
     runLengthDecodeFilter.encode(input, encoded, new COSDictionary());
 
-    // Assert
+    // Assert that nothing has changed
     assertEquals(-1, input.read(new byte[]{}));
     assertArrayEquals(new byte[]{Byte.MIN_VALUE}, encoded.toByteArray());
   }

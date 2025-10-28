@@ -5,80 +5,34 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import java.util.List;
 import org.apache.pdfbox.cos.COSArray;
 import org.apache.pdfbox.cos.COSBase;
+import org.apache.pdfbox.cos.COSBoolean;
 import org.apache.pdfbox.cos.COSInteger;
 import org.apache.pdfbox.cos.COSName;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
+import org.apache.pdfbox.pdmodel.common.COSObjectable;
 import org.junit.jupiter.api.Test;
 
 class PDPageFitRectangleDestinationDiffblueTest {
   /**
-   * Test {@link PDPageFitRectangleDestination#PDPageFitRectangleDestination(COSArray)}.
-   * <p>
-   * Method under test: {@link PDPageFitRectangleDestination#PDPageFitRectangleDestination(COSArray)}
-   */
-  @Test
-  @DisplayName("Test new PDPageFitRectangleDestination(COSArray)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDPageFitRectangleDestination.<init>(COSArray)"})
-  void testNewPDPageFitRectangleDestination() {
-    // Arrange
-    COSArray arr = new COSArray();
-
-    // Act and Assert
-    COSArray cOSObject = (new PDPageFitRectangleDestination(arr)).getCOSObject();
-    assertTrue(cOSObject.toList().isEmpty());
-    assertSame(arr, cOSObject);
-  }
-
-  /**
-   * Test {@link PDPageFitRectangleDestination#PDPageFitRectangleDestination()}.
-   * <p>
-   * Method under test: {@link PDPageFitRectangleDestination#PDPageFitRectangleDestination()}
-   */
-  @Test
-  @DisplayName("Test new PDPageFitRectangleDestination()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDPageFitRectangleDestination.<init>()"})
-  void testNewPDPageFitRectangleDestination2() {
-    // Arrange and Act
-    PDPageFitRectangleDestination actualPdPageFitRectangleDestination = new PDPageFitRectangleDestination();
-
-    // Assert
-    List<? extends COSBase> toListResult = actualPdPageFitRectangleDestination.getCOSObject().toList();
-    assertEquals(6, toListResult.size());
-    assertTrue(toListResult.get(1) instanceof COSName);
-    assertNull(toListResult.get(0));
-    assertNull(toListResult.get(2));
-    assertNull(toListResult.get(3));
-    assertNull(toListResult.get(4));
-    assertNull(toListResult.get(5));
-    assertNull(actualPdPageFitRectangleDestination.getPage());
-    assertEquals(-1, actualPdPageFitRectangleDestination.getPageNumber());
-    assertEquals(-1, actualPdPageFitRectangleDestination.getBottom());
-    assertEquals(-1, actualPdPageFitRectangleDestination.getLeft());
-    assertEquals(-1, actualPdPageFitRectangleDestination.getRight());
-    assertEquals(-1, actualPdPageFitRectangleDestination.getTop());
-  }
-
-  /**
-   * Test {@link PDPageFitRectangleDestination#getLeft()}.
-   * <ul>
-   *   <li>Given {@link PDPageFitRectangleDestination#PDPageFitRectangleDestination()} Left is two.</li>
-   *   <li>Then return two.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDPageFitRectangleDestination#getLeft()}
    */
   @Test
-  @DisplayName("Test getLeft(); given PDPageFitRectangleDestination() Left is two; then return two")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"int PDPageFitRectangleDestination.getLeft()"})
-  void testGetLeft_givenPDPageFitRectangleDestinationLeftIsTwo_thenReturnTwo() {
+  void testGetLeft() {
+    // Arrange, Act and Assert
+    assertEquals(-1, (new PDPageFitRectangleDestination()).getLeft());
+    assertEquals(-1, (new PDPageFitRectangleDestination(new COSArray())).getLeft());
+  }
+
+  /**
+   * Method under test: {@link PDPageFitRectangleDestination#getLeft()}
+   */
+  @Test
+  void testGetLeft2() {
     // Arrange
     PDPageFitRectangleDestination pdPageFitRectangleDestination = new PDPageFitRectangleDestination();
     pdPageFitRectangleDestination.setLeft(2);
@@ -88,106 +42,65 @@ class PDPageFitRectangleDestinationDiffblueTest {
   }
 
   /**
-   * Test {@link PDPageFitRectangleDestination#getLeft()}.
-   * <ul>
-   *   <li>Given {@link PDPageFitRectangleDestination#PDPageFitRectangleDestination(COSArray)} with arr is {@link COSArray#COSArray()}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDPageFitRectangleDestination#getLeft()}
    */
   @Test
-  @DisplayName("Test getLeft(); given PDPageFitRectangleDestination(COSArray) with arr is COSArray()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"int PDPageFitRectangleDestination.getLeft()"})
-  void testGetLeft_givenPDPageFitRectangleDestinationWithArrIsCOSArray() {
-    // Arrange, Act and Assert
-    assertEquals(-1, (new PDPageFitRectangleDestination(new COSArray())).getLeft());
+  void testGetLeft3() {
+    // Arrange
+    COSObjectable object = mock(COSObjectable.class);
+    when(object.getCOSObject()).thenReturn(COSBoolean.FALSE);
+
+    COSArray arr = new COSArray();
+    arr.add(object);
+
+    // Act
+    int actualLeft = (new PDPageFitRectangleDestination(arr)).getLeft();
+
+    // Assert
+    verify(object).getCOSObject();
+    assertEquals(-1, actualLeft);
   }
 
   /**
-   * Test {@link PDPageFitRectangleDestination#getLeft()}.
-   * <ul>
-   *   <li>Given {@link PDPageFitRectangleDestination#PDPageFitRectangleDestination()}.</li>
-   *   <li>Then return minus one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDPageFitRectangleDestination#getLeft()}
-   */
-  @Test
-  @DisplayName("Test getLeft(); given PDPageFitRectangleDestination(); then return minus one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"int PDPageFitRectangleDestination.getLeft()"})
-  void testGetLeft_givenPDPageFitRectangleDestination_thenReturnMinusOne() {
-    // Arrange, Act and Assert
-    assertEquals(-1, (new PDPageFitRectangleDestination()).getLeft());
-  }
-
-  /**
-   * Test {@link PDPageFitRectangleDestination#setLeft(int)}.
-   * <p>
    * Method under test: {@link PDPageFitRectangleDestination#setLeft(int)}
    */
   @Test
-  @DisplayName("Test setLeft(int)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDPageFitRectangleDestination.setLeft(int)"})
   void testSetLeft() {
     // Arrange
-    PDPageFitRectangleDestination pdPageFitRectangleDestination = new PDPageFitRectangleDestination(new COSArray());
+    COSArray arr = new COSArray();
+    PDPageFitRectangleDestination pdPageFitRectangleDestination = new PDPageFitRectangleDestination(arr);
 
     // Act
     pdPageFitRectangleDestination.setLeft(2);
 
     // Assert
-    List<? extends COSBase> toListResult = pdPageFitRectangleDestination.getCOSObject().toList();
-    assertEquals(6, toListResult.size());
-    assertNull(toListResult.get(0));
-    assertNull(toListResult.get(1));
-    assertNull(toListResult.get(3));
-    assertNull(toListResult.get(4));
-    assertNull(toListResult.get(5));
+    assertEquals(2, pdPageFitRectangleDestination.getLeft());
+    assertSame(arr, pdPageFitRectangleDestination.getCOSObject());
   }
 
   /**
-   * Test {@link PDPageFitRectangleDestination#setLeft(int)}.
-   * <ul>
-   *   <li>Then {@link PDPageFitRectangleDestination#PDPageFitRectangleDestination()} COSObject toList second {@link COSName}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDPageFitRectangleDestination#setLeft(int)}
    */
   @Test
-  @DisplayName("Test setLeft(int); then PDPageFitRectangleDestination() COSObject toList second COSName")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDPageFitRectangleDestination.setLeft(int)"})
-  void testSetLeft_thenPDPageFitRectangleDestinationCOSObjectToListSecondCOSName() {
+  void testSetLeft2() {
     // Arrange
     PDPageFitRectangleDestination pdPageFitRectangleDestination = new PDPageFitRectangleDestination();
 
     // Act
     pdPageFitRectangleDestination.setLeft(-1);
 
-    // Assert that nothing has changed
+    // Assert
     List<? extends COSBase> toListResult = pdPageFitRectangleDestination.getCOSObject().toList();
     assertEquals(6, toListResult.size());
-    assertTrue(toListResult.get(1) instanceof COSName);
+    assertNull(toListResult.get(2));
     assertEquals(-1, pdPageFitRectangleDestination.getLeft());
   }
 
   /**
-   * Test {@link PDPageFitRectangleDestination#setLeft(int)}.
-   * <ul>
-   *   <li>When {@link Integer#MIN_VALUE}.</li>
-   *   <li>Then {@link PDPageFitRectangleDestination#PDPageFitRectangleDestination()} Left is {@link Integer#MIN_VALUE}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDPageFitRectangleDestination#setLeft(int)}
    */
   @Test
-  @DisplayName("Test setLeft(int); when MIN_VALUE; then PDPageFitRectangleDestination() Left is MIN_VALUE")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDPageFitRectangleDestination.setLeft(int)"})
-  void testSetLeft_whenMin_value_thenPDPageFitRectangleDestinationLeftIsMin_value() {
+  void testSetLeft3() {
     // Arrange
     PDPageFitRectangleDestination pdPageFitRectangleDestination = new PDPageFitRectangleDestination();
 
@@ -206,19 +119,42 @@ class PDPageFitRectangleDestinationDiffblueTest {
   }
 
   /**
-   * Test {@link PDPageFitRectangleDestination#getBottom()}.
-   * <ul>
-   *   <li>Given {@link PDPageFitRectangleDestination#PDPageFitRectangleDestination()} Bottom is three.</li>
-   *   <li>Then return three.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PDPageFitRectangleDestination#setLeft(int)}
+   */
+  @Test
+  void testSetLeft4() {
+    // Arrange
+    COSObjectable object = mock(COSObjectable.class);
+    when(object.getCOSObject()).thenReturn(COSBoolean.FALSE);
+
+    COSArray arr = new COSArray();
+    arr.add(object);
+    PDPageFitRectangleDestination pdPageFitRectangleDestination = new PDPageFitRectangleDestination(arr);
+
+    // Act
+    pdPageFitRectangleDestination.setLeft(2);
+
+    // Assert
+    verify(object).getCOSObject();
+    assertEquals(2, pdPageFitRectangleDestination.getLeft());
+    assertSame(arr, pdPageFitRectangleDestination.getCOSObject());
+  }
+
+  /**
    * Method under test: {@link PDPageFitRectangleDestination#getBottom()}
    */
   @Test
-  @DisplayName("Test getBottom(); given PDPageFitRectangleDestination() Bottom is three; then return three")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"int PDPageFitRectangleDestination.getBottom()"})
-  void testGetBottom_givenPDPageFitRectangleDestinationBottomIsThree_thenReturnThree() {
+  void testGetBottom() {
+    // Arrange, Act and Assert
+    assertEquals(-1, (new PDPageFitRectangleDestination()).getBottom());
+    assertEquals(-1, (new PDPageFitRectangleDestination(new COSArray())).getBottom());
+  }
+
+  /**
+   * Method under test: {@link PDPageFitRectangleDestination#getBottom()}
+   */
+  @Test
+  void testGetBottom2() {
     // Arrange
     PDPageFitRectangleDestination pdPageFitRectangleDestination = new PDPageFitRectangleDestination();
     pdPageFitRectangleDestination.setBottom(3);
@@ -228,106 +164,65 @@ class PDPageFitRectangleDestinationDiffblueTest {
   }
 
   /**
-   * Test {@link PDPageFitRectangleDestination#getBottom()}.
-   * <ul>
-   *   <li>Given {@link PDPageFitRectangleDestination#PDPageFitRectangleDestination(COSArray)} with arr is {@link COSArray#COSArray()}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDPageFitRectangleDestination#getBottom()}
    */
   @Test
-  @DisplayName("Test getBottom(); given PDPageFitRectangleDestination(COSArray) with arr is COSArray()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"int PDPageFitRectangleDestination.getBottom()"})
-  void testGetBottom_givenPDPageFitRectangleDestinationWithArrIsCOSArray() {
-    // Arrange, Act and Assert
-    assertEquals(-1, (new PDPageFitRectangleDestination(new COSArray())).getBottom());
+  void testGetBottom3() {
+    // Arrange
+    COSObjectable object = mock(COSObjectable.class);
+    when(object.getCOSObject()).thenReturn(COSBoolean.FALSE);
+
+    COSArray arr = new COSArray();
+    arr.add(object);
+
+    // Act
+    int actualBottom = (new PDPageFitRectangleDestination(arr)).getBottom();
+
+    // Assert
+    verify(object).getCOSObject();
+    assertEquals(-1, actualBottom);
   }
 
   /**
-   * Test {@link PDPageFitRectangleDestination#getBottom()}.
-   * <ul>
-   *   <li>Given {@link PDPageFitRectangleDestination#PDPageFitRectangleDestination()}.</li>
-   *   <li>Then return minus one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDPageFitRectangleDestination#getBottom()}
-   */
-  @Test
-  @DisplayName("Test getBottom(); given PDPageFitRectangleDestination(); then return minus one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"int PDPageFitRectangleDestination.getBottom()"})
-  void testGetBottom_givenPDPageFitRectangleDestination_thenReturnMinusOne() {
-    // Arrange, Act and Assert
-    assertEquals(-1, (new PDPageFitRectangleDestination()).getBottom());
-  }
-
-  /**
-   * Test {@link PDPageFitRectangleDestination#setBottom(int)}.
-   * <p>
    * Method under test: {@link PDPageFitRectangleDestination#setBottom(int)}
    */
   @Test
-  @DisplayName("Test setBottom(int)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDPageFitRectangleDestination.setBottom(int)"})
   void testSetBottom() {
     // Arrange
-    PDPageFitRectangleDestination pdPageFitRectangleDestination = new PDPageFitRectangleDestination(new COSArray());
+    COSArray arr = new COSArray();
+    PDPageFitRectangleDestination pdPageFitRectangleDestination = new PDPageFitRectangleDestination(arr);
 
     // Act
     pdPageFitRectangleDestination.setBottom(3);
 
     // Assert
-    List<? extends COSBase> toListResult = pdPageFitRectangleDestination.getCOSObject().toList();
-    assertEquals(6, toListResult.size());
-    assertNull(toListResult.get(0));
-    assertNull(toListResult.get(1));
-    assertNull(toListResult.get(2));
-    assertNull(toListResult.get(4));
-    assertNull(toListResult.get(5));
+    assertEquals(3, pdPageFitRectangleDestination.getBottom());
+    assertSame(arr, pdPageFitRectangleDestination.getCOSObject());
   }
 
   /**
-   * Test {@link PDPageFitRectangleDestination#setBottom(int)}.
-   * <ul>
-   *   <li>Then {@link PDPageFitRectangleDestination#PDPageFitRectangleDestination()} COSObject toList second {@link COSName}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDPageFitRectangleDestination#setBottom(int)}
    */
   @Test
-  @DisplayName("Test setBottom(int); then PDPageFitRectangleDestination() COSObject toList second COSName")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDPageFitRectangleDestination.setBottom(int)"})
-  void testSetBottom_thenPDPageFitRectangleDestinationCOSObjectToListSecondCOSName() {
+  void testSetBottom2() {
     // Arrange
     PDPageFitRectangleDestination pdPageFitRectangleDestination = new PDPageFitRectangleDestination();
 
     // Act
     pdPageFitRectangleDestination.setBottom(-1);
 
-    // Assert that nothing has changed
+    // Assert
     List<? extends COSBase> toListResult = pdPageFitRectangleDestination.getCOSObject().toList();
     assertEquals(6, toListResult.size());
-    assertTrue(toListResult.get(1) instanceof COSName);
+    assertNull(toListResult.get(3));
     assertEquals(-1, pdPageFitRectangleDestination.getBottom());
   }
 
   /**
-   * Test {@link PDPageFitRectangleDestination#setBottom(int)}.
-   * <ul>
-   *   <li>When {@link Integer#MIN_VALUE}.</li>
-   *   <li>Then {@link PDPageFitRectangleDestination#PDPageFitRectangleDestination()} Bottom is {@link Integer#MIN_VALUE}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDPageFitRectangleDestination#setBottom(int)}
    */
   @Test
-  @DisplayName("Test setBottom(int); when MIN_VALUE; then PDPageFitRectangleDestination() Bottom is MIN_VALUE")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDPageFitRectangleDestination.setBottom(int)"})
-  void testSetBottom_whenMin_value_thenPDPageFitRectangleDestinationBottomIsMin_value() {
+  void testSetBottom3() {
     // Arrange
     PDPageFitRectangleDestination pdPageFitRectangleDestination = new PDPageFitRectangleDestination();
 
@@ -346,19 +241,42 @@ class PDPageFitRectangleDestinationDiffblueTest {
   }
 
   /**
-   * Test {@link PDPageFitRectangleDestination#getRight()}.
-   * <ul>
-   *   <li>Given {@link PDPageFitRectangleDestination#PDPageFitRectangleDestination()} Right is two.</li>
-   *   <li>Then return two.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PDPageFitRectangleDestination#setBottom(int)}
+   */
+  @Test
+  void testSetBottom4() {
+    // Arrange
+    COSObjectable object = mock(COSObjectable.class);
+    when(object.getCOSObject()).thenReturn(COSBoolean.FALSE);
+
+    COSArray arr = new COSArray();
+    arr.add(object);
+    PDPageFitRectangleDestination pdPageFitRectangleDestination = new PDPageFitRectangleDestination(arr);
+
+    // Act
+    pdPageFitRectangleDestination.setBottom(3);
+
+    // Assert
+    verify(object).getCOSObject();
+    assertEquals(3, pdPageFitRectangleDestination.getBottom());
+    assertSame(arr, pdPageFitRectangleDestination.getCOSObject());
+  }
+
+  /**
    * Method under test: {@link PDPageFitRectangleDestination#getRight()}
    */
   @Test
-  @DisplayName("Test getRight(); given PDPageFitRectangleDestination() Right is two; then return two")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"int PDPageFitRectangleDestination.getRight()"})
-  void testGetRight_givenPDPageFitRectangleDestinationRightIsTwo_thenReturnTwo() {
+  void testGetRight() {
+    // Arrange, Act and Assert
+    assertEquals(-1, (new PDPageFitRectangleDestination()).getRight());
+    assertEquals(-1, (new PDPageFitRectangleDestination(new COSArray())).getRight());
+  }
+
+  /**
+   * Method under test: {@link PDPageFitRectangleDestination#getRight()}
+   */
+  @Test
+  void testGetRight2() {
     // Arrange
     PDPageFitRectangleDestination pdPageFitRectangleDestination = new PDPageFitRectangleDestination();
     pdPageFitRectangleDestination.setRight(2);
@@ -368,106 +286,65 @@ class PDPageFitRectangleDestinationDiffblueTest {
   }
 
   /**
-   * Test {@link PDPageFitRectangleDestination#getRight()}.
-   * <ul>
-   *   <li>Given {@link PDPageFitRectangleDestination#PDPageFitRectangleDestination(COSArray)} with arr is {@link COSArray#COSArray()}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDPageFitRectangleDestination#getRight()}
    */
   @Test
-  @DisplayName("Test getRight(); given PDPageFitRectangleDestination(COSArray) with arr is COSArray()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"int PDPageFitRectangleDestination.getRight()"})
-  void testGetRight_givenPDPageFitRectangleDestinationWithArrIsCOSArray() {
-    // Arrange, Act and Assert
-    assertEquals(-1, (new PDPageFitRectangleDestination(new COSArray())).getRight());
+  void testGetRight3() {
+    // Arrange
+    COSObjectable object = mock(COSObjectable.class);
+    when(object.getCOSObject()).thenReturn(COSBoolean.FALSE);
+
+    COSArray arr = new COSArray();
+    arr.add(object);
+
+    // Act
+    int actualRight = (new PDPageFitRectangleDestination(arr)).getRight();
+
+    // Assert
+    verify(object).getCOSObject();
+    assertEquals(-1, actualRight);
   }
 
   /**
-   * Test {@link PDPageFitRectangleDestination#getRight()}.
-   * <ul>
-   *   <li>Given {@link PDPageFitRectangleDestination#PDPageFitRectangleDestination()}.</li>
-   *   <li>Then return minus one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDPageFitRectangleDestination#getRight()}
-   */
-  @Test
-  @DisplayName("Test getRight(); given PDPageFitRectangleDestination(); then return minus one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"int PDPageFitRectangleDestination.getRight()"})
-  void testGetRight_givenPDPageFitRectangleDestination_thenReturnMinusOne() {
-    // Arrange, Act and Assert
-    assertEquals(-1, (new PDPageFitRectangleDestination()).getRight());
-  }
-
-  /**
-   * Test {@link PDPageFitRectangleDestination#setRight(int)}.
-   * <p>
    * Method under test: {@link PDPageFitRectangleDestination#setRight(int)}
    */
   @Test
-  @DisplayName("Test setRight(int)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDPageFitRectangleDestination.setRight(int)"})
   void testSetRight() {
     // Arrange
-    PDPageFitRectangleDestination pdPageFitRectangleDestination = new PDPageFitRectangleDestination(new COSArray());
+    COSArray arr = new COSArray();
+    PDPageFitRectangleDestination pdPageFitRectangleDestination = new PDPageFitRectangleDestination(arr);
 
     // Act
     pdPageFitRectangleDestination.setRight(2);
 
     // Assert
-    List<? extends COSBase> toListResult = pdPageFitRectangleDestination.getCOSObject().toList();
-    assertEquals(6, toListResult.size());
-    assertNull(toListResult.get(0));
-    assertNull(toListResult.get(1));
-    assertNull(toListResult.get(2));
-    assertNull(toListResult.get(3));
-    assertNull(toListResult.get(5));
+    assertEquals(2, pdPageFitRectangleDestination.getRight());
+    assertSame(arr, pdPageFitRectangleDestination.getCOSObject());
   }
 
   /**
-   * Test {@link PDPageFitRectangleDestination#setRight(int)}.
-   * <ul>
-   *   <li>Then {@link PDPageFitRectangleDestination#PDPageFitRectangleDestination()} COSObject toList second {@link COSName}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDPageFitRectangleDestination#setRight(int)}
    */
   @Test
-  @DisplayName("Test setRight(int); then PDPageFitRectangleDestination() COSObject toList second COSName")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDPageFitRectangleDestination.setRight(int)"})
-  void testSetRight_thenPDPageFitRectangleDestinationCOSObjectToListSecondCOSName() {
+  void testSetRight2() {
     // Arrange
     PDPageFitRectangleDestination pdPageFitRectangleDestination = new PDPageFitRectangleDestination();
 
     // Act
     pdPageFitRectangleDestination.setRight(-1);
 
-    // Assert that nothing has changed
+    // Assert
     List<? extends COSBase> toListResult = pdPageFitRectangleDestination.getCOSObject().toList();
     assertEquals(6, toListResult.size());
-    assertTrue(toListResult.get(1) instanceof COSName);
+    assertNull(toListResult.get(4));
     assertEquals(-1, pdPageFitRectangleDestination.getRight());
   }
 
   /**
-   * Test {@link PDPageFitRectangleDestination#setRight(int)}.
-   * <ul>
-   *   <li>When {@link Integer#MIN_VALUE}.</li>
-   *   <li>Then {@link PDPageFitRectangleDestination#PDPageFitRectangleDestination()} Right is {@link Integer#MIN_VALUE}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDPageFitRectangleDestination#setRight(int)}
    */
   @Test
-  @DisplayName("Test setRight(int); when MIN_VALUE; then PDPageFitRectangleDestination() Right is MIN_VALUE")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDPageFitRectangleDestination.setRight(int)"})
-  void testSetRight_whenMin_value_thenPDPageFitRectangleDestinationRightIsMin_value() {
+  void testSetRight3() {
     // Arrange
     PDPageFitRectangleDestination pdPageFitRectangleDestination = new PDPageFitRectangleDestination();
 
@@ -486,19 +363,42 @@ class PDPageFitRectangleDestinationDiffblueTest {
   }
 
   /**
-   * Test {@link PDPageFitRectangleDestination#getTop()}.
-   * <ul>
-   *   <li>Given {@link PDPageFitRectangleDestination#PDPageFitRectangleDestination()} Top is three.</li>
-   *   <li>Then return three.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PDPageFitRectangleDestination#setRight(int)}
+   */
+  @Test
+  void testSetRight4() {
+    // Arrange
+    COSObjectable object = mock(COSObjectable.class);
+    when(object.getCOSObject()).thenReturn(COSBoolean.FALSE);
+
+    COSArray arr = new COSArray();
+    arr.add(object);
+    PDPageFitRectangleDestination pdPageFitRectangleDestination = new PDPageFitRectangleDestination(arr);
+
+    // Act
+    pdPageFitRectangleDestination.setRight(2);
+
+    // Assert
+    verify(object).getCOSObject();
+    assertEquals(2, pdPageFitRectangleDestination.getRight());
+    assertSame(arr, pdPageFitRectangleDestination.getCOSObject());
+  }
+
+  /**
    * Method under test: {@link PDPageFitRectangleDestination#getTop()}
    */
   @Test
-  @DisplayName("Test getTop(); given PDPageFitRectangleDestination() Top is three; then return three")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"int PDPageFitRectangleDestination.getTop()"})
-  void testGetTop_givenPDPageFitRectangleDestinationTopIsThree_thenReturnThree() {
+  void testGetTop() {
+    // Arrange, Act and Assert
+    assertEquals(-1, (new PDPageFitRectangleDestination()).getTop());
+    assertEquals(-1, (new PDPageFitRectangleDestination(new COSArray())).getTop());
+  }
+
+  /**
+   * Method under test: {@link PDPageFitRectangleDestination#getTop()}
+   */
+  @Test
+  void testGetTop2() {
     // Arrange
     PDPageFitRectangleDestination pdPageFitRectangleDestination = new PDPageFitRectangleDestination();
     pdPageFitRectangleDestination.setTop(3);
@@ -508,106 +408,65 @@ class PDPageFitRectangleDestinationDiffblueTest {
   }
 
   /**
-   * Test {@link PDPageFitRectangleDestination#getTop()}.
-   * <ul>
-   *   <li>Given {@link PDPageFitRectangleDestination#PDPageFitRectangleDestination(COSArray)} with arr is {@link COSArray#COSArray()}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDPageFitRectangleDestination#getTop()}
    */
   @Test
-  @DisplayName("Test getTop(); given PDPageFitRectangleDestination(COSArray) with arr is COSArray()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"int PDPageFitRectangleDestination.getTop()"})
-  void testGetTop_givenPDPageFitRectangleDestinationWithArrIsCOSArray() {
-    // Arrange, Act and Assert
-    assertEquals(-1, (new PDPageFitRectangleDestination(new COSArray())).getTop());
+  void testGetTop3() {
+    // Arrange
+    COSObjectable object = mock(COSObjectable.class);
+    when(object.getCOSObject()).thenReturn(COSBoolean.FALSE);
+
+    COSArray arr = new COSArray();
+    arr.add(object);
+
+    // Act
+    int actualTop = (new PDPageFitRectangleDestination(arr)).getTop();
+
+    // Assert
+    verify(object).getCOSObject();
+    assertEquals(-1, actualTop);
   }
 
   /**
-   * Test {@link PDPageFitRectangleDestination#getTop()}.
-   * <ul>
-   *   <li>Given {@link PDPageFitRectangleDestination#PDPageFitRectangleDestination()}.</li>
-   *   <li>Then return minus one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDPageFitRectangleDestination#getTop()}
-   */
-  @Test
-  @DisplayName("Test getTop(); given PDPageFitRectangleDestination(); then return minus one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"int PDPageFitRectangleDestination.getTop()"})
-  void testGetTop_givenPDPageFitRectangleDestination_thenReturnMinusOne() {
-    // Arrange, Act and Assert
-    assertEquals(-1, (new PDPageFitRectangleDestination()).getTop());
-  }
-
-  /**
-   * Test {@link PDPageFitRectangleDestination#setTop(int)}.
-   * <p>
    * Method under test: {@link PDPageFitRectangleDestination#setTop(int)}
    */
   @Test
-  @DisplayName("Test setTop(int)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDPageFitRectangleDestination.setTop(int)"})
   void testSetTop() {
     // Arrange
-    PDPageFitRectangleDestination pdPageFitRectangleDestination = new PDPageFitRectangleDestination(new COSArray());
+    COSArray arr = new COSArray();
+    PDPageFitRectangleDestination pdPageFitRectangleDestination = new PDPageFitRectangleDestination(arr);
 
     // Act
     pdPageFitRectangleDestination.setTop(3);
 
     // Assert
-    List<? extends COSBase> toListResult = pdPageFitRectangleDestination.getCOSObject().toList();
-    assertEquals(6, toListResult.size());
-    assertNull(toListResult.get(0));
-    assertNull(toListResult.get(1));
-    assertNull(toListResult.get(2));
-    assertNull(toListResult.get(3));
-    assertNull(toListResult.get(4));
+    assertEquals(3, pdPageFitRectangleDestination.getTop());
+    assertSame(arr, pdPageFitRectangleDestination.getCOSObject());
   }
 
   /**
-   * Test {@link PDPageFitRectangleDestination#setTop(int)}.
-   * <ul>
-   *   <li>Then {@link PDPageFitRectangleDestination#PDPageFitRectangleDestination()} COSObject toList second {@link COSName}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDPageFitRectangleDestination#setTop(int)}
    */
   @Test
-  @DisplayName("Test setTop(int); then PDPageFitRectangleDestination() COSObject toList second COSName")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDPageFitRectangleDestination.setTop(int)"})
-  void testSetTop_thenPDPageFitRectangleDestinationCOSObjectToListSecondCOSName() {
+  void testSetTop2() {
     // Arrange
     PDPageFitRectangleDestination pdPageFitRectangleDestination = new PDPageFitRectangleDestination();
 
     // Act
     pdPageFitRectangleDestination.setTop(-1);
 
-    // Assert that nothing has changed
+    // Assert
     List<? extends COSBase> toListResult = pdPageFitRectangleDestination.getCOSObject().toList();
     assertEquals(6, toListResult.size());
-    assertTrue(toListResult.get(1) instanceof COSName);
+    assertNull(toListResult.get(5));
     assertEquals(-1, pdPageFitRectangleDestination.getTop());
   }
 
   /**
-   * Test {@link PDPageFitRectangleDestination#setTop(int)}.
-   * <ul>
-   *   <li>When {@link Integer#MIN_VALUE}.</li>
-   *   <li>Then {@link PDPageFitRectangleDestination#PDPageFitRectangleDestination()} Top is {@link Integer#MIN_VALUE}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDPageFitRectangleDestination#setTop(int)}
    */
   @Test
-  @DisplayName("Test setTop(int); when MIN_VALUE; then PDPageFitRectangleDestination() Top is MIN_VALUE")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDPageFitRectangleDestination.setTop(int)"})
-  void testSetTop_whenMin_value_thenPDPageFitRectangleDestinationTopIsMin_value() {
+  void testSetTop3() {
     // Arrange
     PDPageFitRectangleDestination pdPageFitRectangleDestination = new PDPageFitRectangleDestination();
 
@@ -623,5 +482,73 @@ class PDPageFitRectangleDestinationDiffblueTest {
     assertFalse(getResult.isDirect());
     assertTrue(((COSInteger) getResult).isValid());
     assertEquals(Integer.MIN_VALUE, pdPageFitRectangleDestination.getTop());
+  }
+
+  /**
+   * Method under test: {@link PDPageFitRectangleDestination#setTop(int)}
+   */
+  @Test
+  void testSetTop4() {
+    // Arrange
+    COSObjectable object = mock(COSObjectable.class);
+    when(object.getCOSObject()).thenReturn(COSBoolean.FALSE);
+
+    COSArray arr = new COSArray();
+    arr.add(object);
+    PDPageFitRectangleDestination pdPageFitRectangleDestination = new PDPageFitRectangleDestination(arr);
+
+    // Act
+    pdPageFitRectangleDestination.setTop(3);
+
+    // Assert
+    verify(object).getCOSObject();
+    assertEquals(3, pdPageFitRectangleDestination.getTop());
+    assertSame(arr, pdPageFitRectangleDestination.getCOSObject());
+  }
+
+  /**
+   * Method under test:
+   * {@link PDPageFitRectangleDestination#PDPageFitRectangleDestination(COSArray)}
+   */
+  @Test
+  void testNewPDPageFitRectangleDestination() {
+    // Arrange
+    COSArray arr = new COSArray();
+
+    // Act and Assert
+    COSArray cOSObject = (new PDPageFitRectangleDestination(arr)).getCOSObject();
+    assertTrue(cOSObject.toList().isEmpty());
+    assertSame(arr, cOSObject);
+  }
+
+  /**
+   * Method under test:
+   * {@link PDPageFitRectangleDestination#PDPageFitRectangleDestination()}
+   */
+  @Test
+  void testNewPDPageFitRectangleDestination2() {
+    // Arrange and Act
+    PDPageFitRectangleDestination actualPdPageFitRectangleDestination = new PDPageFitRectangleDestination();
+
+    // Assert
+    List<? extends COSBase> toListResult = actualPdPageFitRectangleDestination.getCOSObject().toList();
+    assertEquals(6, toListResult.size());
+    COSBase getResult = toListResult.get(1);
+    assertTrue(getResult instanceof COSName);
+    assertEquals("FitR", ((COSName) getResult).getName());
+    assertNull(toListResult.get(0));
+    assertNull(toListResult.get(2));
+    assertNull(toListResult.get(3));
+    assertNull(toListResult.get(4));
+    assertNull(toListResult.get(5));
+    assertNull(getResult.getKey());
+    assertNull(actualPdPageFitRectangleDestination.getPage());
+    assertEquals(-1, actualPdPageFitRectangleDestination.getPageNumber());
+    assertEquals(-1, actualPdPageFitRectangleDestination.getBottom());
+    assertEquals(-1, actualPdPageFitRectangleDestination.getLeft());
+    assertEquals(-1, actualPdPageFitRectangleDestination.getRight());
+    assertEquals(-1, actualPdPageFitRectangleDestination.getTop());
+    assertFalse(getResult.isDirect());
+    assertFalse(((COSName) getResult).isEmpty());
   }
 }

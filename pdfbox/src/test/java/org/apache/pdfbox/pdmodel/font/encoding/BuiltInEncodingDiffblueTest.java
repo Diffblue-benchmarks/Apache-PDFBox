@@ -3,28 +3,80 @@ package org.apache.pdfbox.pdmodel.font.encoding;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
 import java.util.HashMap;
 import java.util.Map;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
+import java.util.function.BiFunction;
 import org.junit.jupiter.api.Test;
 
 class BuiltInEncodingDiffblueTest {
   /**
-   * Test {@link BuiltInEncoding#BuiltInEncoding(Map)}.
-   * <ul>
-   *   <li>Given one.</li>
-   *   <li>Then return NameToCodeMap size is two.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link BuiltInEncoding#getCOSObject()}
+   */
+  @Test
+  void testGetCOSObject() {
+    // Arrange, Act and Assert
+    assertThrows(UnsupportedOperationException.class, () -> (new BuiltInEncoding(new HashMap<>())).getCOSObject());
+  }
+
+  /**
+   * Method under test: {@link BuiltInEncoding#getEncodingName()}
+   */
+  @Test
+  void testGetEncodingName() {
+    // Arrange, Act and Assert
+    assertEquals("built-in (TTF)", (new BuiltInEncoding(new HashMap<>())).getEncodingName());
+  }
+
+  /**
    * Method under test: {@link BuiltInEncoding#BuiltInEncoding(Map)}
    */
   @Test
-  @DisplayName("Test new BuiltInEncoding(Map); given one; then return NameToCodeMap size is two")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void BuiltInEncoding.<init>(Map)"})
-  void testNewBuiltInEncoding_givenOne_thenReturnNameToCodeMapSizeIsTwo() {
+  void testNewBuiltInEncoding() {
+    // Arrange and Act
+    BuiltInEncoding actualBuiltInEncoding = new BuiltInEncoding(new HashMap<>());
+
+    // Assert
+    assertEquals("built-in (TTF)", actualBuiltInEncoding.getEncodingName());
+    assertTrue(actualBuiltInEncoding.getCodeToNameMap().isEmpty());
+    assertTrue(actualBuiltInEncoding.getNameToCodeMap().isEmpty());
+    assertTrue(actualBuiltInEncoding.codeToName.isEmpty());
+    assertTrue(actualBuiltInEncoding.inverted.isEmpty());
+  }
+
+  /**
+   * Method under test: {@link BuiltInEncoding#BuiltInEncoding(Map)}
+   */
+  @Test
+  void testNewBuiltInEncoding2() {
+    // Arrange
+    HashMap<Integer, String> codeToName = new HashMap<>();
+    codeToName.put(250, "foo");
+
+    // Act
+    BuiltInEncoding actualBuiltInEncoding = new BuiltInEncoding(codeToName);
+
+    // Assert
+    assertEquals("built-in (TTF)", actualBuiltInEncoding.getEncodingName());
+    Map<Integer, String> codeToNameMap = actualBuiltInEncoding.getCodeToNameMap();
+    assertEquals(1, codeToNameMap.size());
+    assertEquals("foo", codeToNameMap.get(250));
+    Map<Integer, String> integerStringMap = actualBuiltInEncoding.codeToName;
+    assertEquals(1, integerStringMap.size());
+    assertEquals("foo", integerStringMap.get(250));
+    Map<String, Integer> nameToCodeMap = actualBuiltInEncoding.getNameToCodeMap();
+    assertEquals(1, nameToCodeMap.size());
+    Map<String, Integer> stringIntegerMap = actualBuiltInEncoding.inverted;
+    assertEquals(1, stringIntegerMap.size());
+    assertEquals(250, nameToCodeMap.get("foo").intValue());
+    assertEquals(250, stringIntegerMap.get("foo").intValue());
+  }
+
+  /**
+   * Method under test: {@link BuiltInEncoding#BuiltInEncoding(Map)}
+   */
+  @Test
+  void testNewBuiltInEncoding3() {
     // Arrange
     HashMap<Integer, String> codeToName = new HashMap<>();
     codeToName.put(1, "42");
@@ -34,97 +86,43 @@ class BuiltInEncodingDiffblueTest {
     BuiltInEncoding actualBuiltInEncoding = new BuiltInEncoding(codeToName);
 
     // Assert
-    Map<String, Integer> nameToCodeMap = actualBuiltInEncoding.getNameToCodeMap();
-    assertEquals(2, nameToCodeMap.size());
-    assertEquals(1, nameToCodeMap.get("42").intValue());
+    assertEquals("built-in (TTF)", actualBuiltInEncoding.getEncodingName());
     Map<String, Integer> stringIntegerMap = actualBuiltInEncoding.inverted;
     assertEquals(2, stringIntegerMap.size());
     assertEquals(1, stringIntegerMap.get("42").intValue());
-    assertTrue(nameToCodeMap.containsKey("foo"));
-    assertTrue(stringIntegerMap.containsKey("foo"));
+    assertEquals(250, stringIntegerMap.get("foo").intValue());
+    assertEquals(codeToName, actualBuiltInEncoding.getCodeToNameMap());
+    assertEquals(codeToName, actualBuiltInEncoding.codeToName);
+    Map<String, Integer> expectedNameToCodeMap = actualBuiltInEncoding.inverted;
+    assertEquals(expectedNameToCodeMap, actualBuiltInEncoding.getNameToCodeMap());
   }
 
   /**
-   * Test {@link BuiltInEncoding#BuiltInEncoding(Map)}.
-   * <ul>
-   *   <li>Given two hundred fifty.</li>
-   *   <li>Then return NameToCodeMap size is one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link BuiltInEncoding#BuiltInEncoding(Map)}
    */
   @Test
-  @DisplayName("Test new BuiltInEncoding(Map); given two hundred fifty; then return NameToCodeMap size is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void BuiltInEncoding.<init>(Map)"})
-  void testNewBuiltInEncoding_givenTwoHundredFifty_thenReturnNameToCodeMapSizeIsOne() {
+  void testNewBuiltInEncoding4() {
     // Arrange
     HashMap<Integer, String> codeToName = new HashMap<>();
+    codeToName.computeIfPresent(250, mock(BiFunction.class));
     codeToName.put(250, "foo");
 
     // Act
     BuiltInEncoding actualBuiltInEncoding = new BuiltInEncoding(codeToName);
 
     // Assert
+    assertEquals("built-in (TTF)", actualBuiltInEncoding.getEncodingName());
+    Map<Integer, String> codeToNameMap = actualBuiltInEncoding.getCodeToNameMap();
+    assertEquals(1, codeToNameMap.size());
+    assertEquals("foo", codeToNameMap.get(250));
+    Map<Integer, String> integerStringMap = actualBuiltInEncoding.codeToName;
+    assertEquals(1, integerStringMap.size());
+    assertEquals("foo", integerStringMap.get(250));
     Map<String, Integer> nameToCodeMap = actualBuiltInEncoding.getNameToCodeMap();
     assertEquals(1, nameToCodeMap.size());
     Map<String, Integer> stringIntegerMap = actualBuiltInEncoding.inverted;
     assertEquals(1, stringIntegerMap.size());
     assertEquals(250, nameToCodeMap.get("foo").intValue());
     assertEquals(250, stringIntegerMap.get("foo").intValue());
-    assertEquals(codeToName, actualBuiltInEncoding.getCodeToNameMap());
-    assertEquals(codeToName, actualBuiltInEncoding.codeToName);
-  }
-
-  /**
-   * Test {@link BuiltInEncoding#BuiltInEncoding(Map)}.
-   * <ul>
-   *   <li>When {@link HashMap#HashMap()}.</li>
-   *   <li>Then return CodeToNameMap Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link BuiltInEncoding#BuiltInEncoding(Map)}
-   */
-  @Test
-  @DisplayName("Test new BuiltInEncoding(Map); when HashMap(); then return CodeToNameMap Empty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void BuiltInEncoding.<init>(Map)"})
-  void testNewBuiltInEncoding_whenHashMap_thenReturnCodeToNameMapEmpty() {
-    // Arrange and Act
-    BuiltInEncoding actualBuiltInEncoding = new BuiltInEncoding(new HashMap<>());
-
-    // Assert
-    assertTrue(actualBuiltInEncoding.getCodeToNameMap().isEmpty());
-    assertTrue(actualBuiltInEncoding.getNameToCodeMap().isEmpty());
-    assertTrue(actualBuiltInEncoding.codeToName.isEmpty());
-    assertTrue(actualBuiltInEncoding.inverted.isEmpty());
-  }
-
-  /**
-   * Test {@link BuiltInEncoding#getCOSObject()}.
-   * <p>
-   * Method under test: {@link BuiltInEncoding#getCOSObject()}
-   */
-  @Test
-  @DisplayName("Test getCOSObject()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"org.apache.pdfbox.cos.COSBase BuiltInEncoding.getCOSObject()"})
-  void testGetCOSObject() {
-    // Arrange, Act and Assert
-    assertThrows(UnsupportedOperationException.class, () -> (new BuiltInEncoding(new HashMap<>())).getCOSObject());
-  }
-
-  /**
-   * Test {@link BuiltInEncoding#getEncodingName()}.
-   * <p>
-   * Method under test: {@link BuiltInEncoding#getEncodingName()}
-   */
-  @Test
-  @DisplayName("Test getEncodingName()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String BuiltInEncoding.getEncodingName()"})
-  void testGetEncodingName() {
-    // Arrange, Act and Assert
-    assertEquals("built-in (TTF)", (new BuiltInEncoding(new HashMap<>())).getEncodingName());
   }
 }

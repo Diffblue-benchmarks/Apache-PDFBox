@@ -1,144 +1,28 @@
 package org.apache.pdfbox.debugger.hexviewer;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.image.ColorModel;
-import java.awt.image.DirectColorModel;
+import java.awt.GridBagLayout;
+import java.awt.LayoutManager;
+import java.awt.Rectangle;
+import java.awt.geom.Rectangle2D;
 import java.io.UnsupportedEncodingException;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
+import javax.swing.JScrollPane;
 import org.junit.jupiter.api.Test;
 
 class HexViewDiffblueTest {
   /**
-   * Test {@link HexView#HexView()}.
-   * <p>
-   * Method under test: {@link HexView#HexView()}
-   */
-  @Test
-  @DisplayName("Test new HexView()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void HexView.<init>()"})
-  void testNewHexView() {
-    // Arrange, Act and Assert
-    assertTrue((new HexView()).getPane() instanceof JPanel);
-  }
-
-  /**
-   * Test {@link HexView#HexView(byte[])}.
-   * <ul>
-   *   <li>Then return first element PreferredSize {@link Dimension#height} is ninety-two.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link HexView#HexView(byte[])}
-   */
-  @Test
-  @DisplayName("Test new HexView(byte[]); then return first element PreferredSize height is ninety-two")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void HexView.<init>(byte[])"})
-  void testNewHexView_thenReturnFirstElementPreferredSizeHeightIsNinetyTwo() throws UnsupportedEncodingException {
-    // Arrange, Act and Assert
-    JComponent pane = (new HexView("AXAXAXAX".getBytes("UTF-8"))).getPane();
-    ColorModel colorModel = pane.getColorModel();
-    assertTrue(colorModel instanceof DirectColorModel);
-    assertTrue(pane instanceof JPanel);
-    Component[] components = pane.getComponents();
-    Component component = components[0];
-    assertTrue(component instanceof HexEditor);
-    assertEquals(1, components.length);
-    assertEquals(92, component.getPreferredSize().height);
-    Dimension preferredSize = pane.getPreferredSize();
-    Dimension size = preferredSize.getSize();
-    Dimension size2 = size.getSize();
-    assertEquals(92, size2.height);
-    assertEquals(92, size.height);
-    assertEquals(92, preferredSize.height);
-    assertEquals(92.0d, size2.getHeight());
-    assertEquals(92.0d, size.getHeight());
-    assertEquals(92.0d, preferredSize.getHeight());
-    assertArrayEquals(new int[]{16711680, 65280, 255, -16777216}, ((DirectColorModel) colorModel).getMasks());
-    assertArrayEquals(new int[]{8, 8, 8, 8}, colorModel.getComponentSize());
-  }
-
-  /**
-   * Test {@link HexView#HexView(byte[])}.
-   * <ul>
-   *   <li>Then return first element PreferredSize {@link Dimension#height} is seventy-two.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link HexView#HexView(byte[])}
-   */
-  @Test
-  @DisplayName("Test new HexView(byte[]); then return first element PreferredSize height is seventy-two")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void HexView.<init>(byte[])"})
-  void testNewHexView_thenReturnFirstElementPreferredSizeHeightIsSeventyTwo() {
-    // Arrange, Act and Assert
-    JComponent pane = (new HexView(new byte[]{})).getPane();
-    ColorModel colorModel = pane.getColorModel();
-    assertTrue(colorModel instanceof DirectColorModel);
-    assertTrue(pane instanceof JPanel);
-    Component[] components = pane.getComponents();
-    Component component = components[0];
-    assertTrue(component instanceof HexEditor);
-    assertEquals(1, components.length);
-    assertEquals(72, component.getPreferredSize().height);
-    Dimension preferredSize = pane.getPreferredSize();
-    Dimension size = preferredSize.getSize();
-    Dimension size2 = size.getSize();
-    assertEquals(72, size2.height);
-    assertEquals(72, size.height);
-    assertEquals(72, preferredSize.height);
-    assertEquals(72.0d, size2.getHeight());
-    assertEquals(72.0d, size.getHeight());
-    assertEquals(72.0d, preferredSize.getHeight());
-    assertArrayEquals(new int[]{16711680, 65280, 255, -16777216}, ((DirectColorModel) colorModel).getMasks());
-    assertArrayEquals(new int[]{8, 8, 8, 8}, colorModel.getComponentSize());
-  }
-
-  /**
-   * Test {@link HexView#changeData(byte[])}.
-   * <p>
    * Method under test: {@link HexView#changeData(byte[])}
    */
   @Test
-  @DisplayName("Test changeData(byte[])")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void HexView.changeData(byte[])"})
   void testChangeData() throws UnsupportedEncodingException {
-    // Arrange
-    HexView hexView = new HexView("A\bA\bA\bA\b".getBytes("UTF-8"));
-
-    // Act
-    hexView.changeData("AXAXAXAX".getBytes("UTF-8"));
-
-    // Assert that nothing has changed
-    JComponent pane = hexView.getPane();
-    assertTrue(pane instanceof JPanel);
-    assertEquals(1, pane.getComponents().length);
-  }
-
-  /**
-   * Test {@link HexView#changeData(byte[])}.
-   * <ul>
-   *   <li>Given {@link HexView#HexView()}.</li>
-   *   <li>Then first element PreferredSize {@link Dimension#height} is ninety-two.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link HexView#changeData(byte[])}
-   */
-  @Test
-  @DisplayName("Test changeData(byte[]); given HexView(); then first element PreferredSize height is ninety-two")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void HexView.changeData(byte[])"})
-  void testChangeData_givenHexView_thenFirstElementPreferredSizeHeightIsNinetyTwo()
-      throws UnsupportedEncodingException {
     // Arrange
     HexView hexView = new HexView();
 
@@ -147,37 +31,136 @@ class HexViewDiffblueTest {
 
     // Assert
     JComponent pane = hexView.getPane();
-    assertTrue(pane instanceof JPanel);
     Component[] components = pane.getComponents();
     Component component = components[0];
+    LayoutManager layout = ((HexEditor) component).getLayout();
+    assertTrue(layout instanceof GridBagLayout);
+    Rectangle boundsResult = pane.bounds();
+    Rectangle2D bounds2D = boundsResult.getBounds2D();
+    assertTrue(bounds2D instanceof Rectangle);
+    Rectangle2D frame = boundsResult.getFrame();
+    assertTrue(frame instanceof Rectangle2D.Double);
+    assertTrue(pane instanceof JPanel);
+    Component[] components2 = ((HexEditor) component).getComponents();
+    assertTrue(components2[1] instanceof JScrollPane);
     assertTrue(component instanceof HexEditor);
+    assertTrue(components2[2] instanceof StatusPane);
+    assertTrue(components2[0] instanceof UpperPane);
+    assertEquals("PanelUI", ((HexEditor) component).getUIClassID());
+    assertNull(((GridBagLayout) layout).columnWeights);
+    assertNull(((GridBagLayout) layout).rowWeights);
+    assertNull(((GridBagLayout) layout).columnWidths);
+    assertNull(((GridBagLayout) layout).rowHeights);
+    assertNull(((HexEditor) component).getNextFocusableComponent());
+    assertNull(component.getFocusCycleRootAncestor());
+    assertNull(((HexEditor) component).getTopLevelAncestor());
+    assertNull(((HexEditor) component).getFocusTraversalPolicy());
+    assertNull(component.getGraphics());
+    assertNull(component.getGraphicsConfiguration());
+    assertNull(component.getDropTarget());
+    assertNull(component.getInputContext());
+    assertNull(component.getInputMethodRequests());
+    assertNull(component.getName());
+    assertNull(((HexEditor) component).getToolTipText());
+    assertNull(((HexEditor) component).getInputVerifier());
+    assertNull(((HexEditor) component).getComponentPopupMenu());
+    assertNull(((HexEditor) component).getRootPane());
+    assertNull(((HexEditor) component).getTransferHandler());
+    assertNull(((HexEditor) component).getBorder());
+    assertEquals(0, component.getHeight());
+    assertEquals(0, component.getWidth());
+    assertEquals(0, component.getX());
+    assertEquals(0, component.getY());
+    assertEquals(0, ((HexEditor) component).getDebugGraphicsOptions());
+    assertEquals(0, component.getComponentListeners().length);
+    assertEquals(0, component.getFocusListeners().length);
+    assertEquals(0, component.getHierarchyBoundsListeners().length);
+    assertEquals(0, component.getHierarchyListeners().length);
+    assertEquals(0, component.getInputMethodListeners().length);
+    assertEquals(0, component.getKeyListeners().length);
+    assertEquals(0, component.getMouseListeners().length);
+    assertEquals(0, component.getMouseMotionListeners().length);
+    assertEquals(0, component.getMouseWheelListeners().length);
+    assertEquals(0, component.getPropertyChangeListeners().length);
+    assertEquals(0, ((HexEditor) component).getContainerListeners().length);
+    assertEquals(0, ((HexEditor) component).getAncestorListeners().length);
+    assertEquals(0, ((HexEditor) component).getVetoableChangeListeners().length);
+    assertEquals(0.5f, component.getAlignmentX());
+    assertEquals(0.5f, component.getAlignmentY());
+    assertEquals(1, pane.getComponentCount());
     assertEquals(1, components.length);
-    assertEquals(92, component.getPreferredSize().height);
+    assertEquals(1, ((HexEditor) component).getRegisteredKeyStrokes().length);
+    Dimension minimumSize = pane.getMinimumSize();
+    assertEquals(170, minimumSize.width);
+    assertEquals(170.0d, minimumSize.getWidth());
+    assertEquals(3, ((HexEditor) component).getComponentCount());
+    assertEquals(3, components2.length);
+    assertEquals(59, minimumSize.height);
+    assertEquals(59.0d, minimumSize.getHeight());
     Dimension preferredSize = pane.getPreferredSize();
-    Dimension size = preferredSize.getSize();
-    Dimension size2 = size.getSize();
-    assertEquals(92, size2.getSize().height);
-    assertEquals(92, size2.height);
-    assertEquals(92, size.height);
     assertEquals(92, preferredSize.height);
-    assertEquals(92.0d, size2.getHeight());
-    assertEquals(92.0d, size.getHeight());
     assertEquals(92.0d, preferredSize.getHeight());
+    assertEquals(992, preferredSize.width);
+    assertEquals(992.0d, preferredSize.getWidth());
+    assertEquals(Component.BaselineResizeBehavior.OTHER, component.getBaselineResizeBehavior());
+    assertFalse(component.getIgnoreRepaint());
+    assertFalse(component.hasFocus());
+    assertFalse(component.isCursorSet());
+    assertFalse(component.isDisplayable());
+    assertFalse(component.isFocusOwner());
+    assertFalse(component.isLightweight());
+    assertFalse(component.isMaximumSizeSet());
+    assertFalse(component.isMinimumSizeSet());
+    assertFalse(component.isPreferredSizeSet());
+    assertFalse(component.isShowing());
+    assertFalse(component.isValid());
+    assertFalse(((HexEditor) component).isFocusCycleRoot());
+    assertFalse(((HexEditor) component).isFocusTraversalPolicyProvider());
+    assertFalse(((HexEditor) component).isFocusTraversalPolicySet());
+    assertFalse(((HexEditor) component).getAutoscrolls());
+    assertFalse(((HexEditor) component).getInheritsPopupMenu());
+    assertFalse(((HexEditor) component).isManagingFocus());
+    assertFalse(((HexEditor) component).isPaintingForPrint());
+    assertFalse(((HexEditor) component).isPaintingTile());
+    assertFalse(((HexEditor) component).isValidateRoot());
+    assertTrue(component.getFocusTraversalKeysEnabled());
+    assertTrue(component.isBackgroundSet());
+    assertTrue(component.isDoubleBuffered());
+    assertTrue(component.isEnabled());
+    assertTrue(component.isFocusable());
+    assertTrue(component.isFontSet());
+    assertTrue(component.isForegroundSet());
+    assertTrue(component.isOpaque());
+    assertTrue(component.isVisible());
+    assertTrue(((HexEditor) component).getVerifyInputWhenFocusTarget());
+    assertTrue(((HexEditor) component).isOptimizedDrawingEnabled());
+    assertTrue(((HexEditor) component).isRequestFocusEnabled());
+    assertEquals(boundsResult, component.bounds());
+    assertEquals(boundsResult, pane.getBounds());
+    assertEquals(boundsResult, component.getBounds());
+    assertEquals(boundsResult, boundsResult.getBounds());
+    assertEquals(boundsResult, pane.getVisibleRect());
+    assertEquals(boundsResult, ((HexEditor) component).getVisibleRect());
+    assertEquals(boundsResult, bounds2D);
+    assertEquals(boundsResult, frame);
+    Dimension size = pane.getSize();
+    assertEquals(size, component.getSize());
+    assertEquals(size, pane.size());
+    assertEquals(size, component.size());
+    assertEquals(size, size.getSize());
+    assertEquals(size, boundsResult.getSize());
+    assertEquals(minimumSize, component.getMinimumSize());
+    assertEquals(minimumSize, minimumSize.getSize());
+    assertEquals(preferredSize, component.getPreferredSize());
+    assertEquals(preferredSize, preferredSize.getSize());
+    assertSame(pane, component.getParent());
   }
 
   /**
-   * Test {@link HexView#changeData(byte[])}.
-   * <ul>
-   *   <li>Then first element PreferredSize {@link Dimension#height} is seventy-two.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link HexView#changeData(byte[])}
    */
   @Test
-  @DisplayName("Test changeData(byte[]); then first element PreferredSize height is seventy-two")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void HexView.changeData(byte[])"})
-  void testChangeData_thenFirstElementPreferredSizeHeightIsSeventyTwo() {
+  void testChangeData2() {
     // Arrange
     HexView hexView = new HexView();
 
@@ -186,33 +169,135 @@ class HexViewDiffblueTest {
 
     // Assert
     JComponent pane = hexView.getPane();
-    assertTrue(pane instanceof JPanel);
     Component[] components = pane.getComponents();
     Component component = components[0];
+    LayoutManager layout = ((HexEditor) component).getLayout();
+    assertTrue(layout instanceof GridBagLayout);
+    Rectangle boundsResult = pane.bounds();
+    Rectangle2D bounds2D = boundsResult.getBounds2D();
+    assertTrue(bounds2D instanceof Rectangle);
+    Rectangle2D frame = boundsResult.getFrame();
+    assertTrue(frame instanceof Rectangle2D.Double);
+    assertTrue(pane instanceof JPanel);
+    Component[] components2 = ((HexEditor) component).getComponents();
+    assertTrue(components2[1] instanceof JScrollPane);
     assertTrue(component instanceof HexEditor);
+    assertTrue(components2[2] instanceof StatusPane);
+    assertTrue(components2[0] instanceof UpperPane);
+    assertEquals("PanelUI", ((HexEditor) component).getUIClassID());
+    assertNull(((GridBagLayout) layout).columnWeights);
+    assertNull(((GridBagLayout) layout).rowWeights);
+    assertNull(((GridBagLayout) layout).columnWidths);
+    assertNull(((GridBagLayout) layout).rowHeights);
+    assertNull(((HexEditor) component).getNextFocusableComponent());
+    assertNull(component.getFocusCycleRootAncestor());
+    assertNull(((HexEditor) component).getTopLevelAncestor());
+    assertNull(((HexEditor) component).getFocusTraversalPolicy());
+    assertNull(component.getGraphics());
+    assertNull(component.getGraphicsConfiguration());
+    assertNull(component.getDropTarget());
+    assertNull(component.getInputContext());
+    assertNull(component.getInputMethodRequests());
+    assertNull(component.getName());
+    assertNull(((HexEditor) component).getToolTipText());
+    assertNull(((HexEditor) component).getInputVerifier());
+    assertNull(((HexEditor) component).getComponentPopupMenu());
+    assertNull(((HexEditor) component).getRootPane());
+    assertNull(((HexEditor) component).getTransferHandler());
+    assertNull(((HexEditor) component).getBorder());
+    assertEquals(0, component.getHeight());
+    assertEquals(0, component.getWidth());
+    assertEquals(0, component.getX());
+    assertEquals(0, component.getY());
+    assertEquals(0, ((HexEditor) component).getDebugGraphicsOptions());
+    assertEquals(0, component.getComponentListeners().length);
+    assertEquals(0, component.getFocusListeners().length);
+    assertEquals(0, component.getHierarchyBoundsListeners().length);
+    assertEquals(0, component.getHierarchyListeners().length);
+    assertEquals(0, component.getInputMethodListeners().length);
+    assertEquals(0, component.getKeyListeners().length);
+    assertEquals(0, component.getMouseListeners().length);
+    assertEquals(0, component.getMouseMotionListeners().length);
+    assertEquals(0, component.getMouseWheelListeners().length);
+    assertEquals(0, component.getPropertyChangeListeners().length);
+    assertEquals(0, ((HexEditor) component).getContainerListeners().length);
+    assertEquals(0, ((HexEditor) component).getAncestorListeners().length);
+    assertEquals(0, ((HexEditor) component).getVetoableChangeListeners().length);
+    assertEquals(0.5f, component.getAlignmentX());
+    assertEquals(0.5f, component.getAlignmentY());
+    assertEquals(1, pane.getComponentCount());
     assertEquals(1, components.length);
-    assertEquals(72, component.getPreferredSize().height);
+    assertEquals(1, ((HexEditor) component).getRegisteredKeyStrokes().length);
+    Dimension minimumSize = pane.getMinimumSize();
+    assertEquals(170, minimumSize.width);
+    assertEquals(170.0d, minimumSize.getWidth());
+    assertEquals(3, ((HexEditor) component).getComponentCount());
+    assertEquals(3, components2.length);
+    assertEquals(59, minimumSize.height);
+    assertEquals(59.0d, minimumSize.getHeight());
     Dimension preferredSize = pane.getPreferredSize();
-    Dimension size = preferredSize.getSize();
-    Dimension size2 = size.getSize();
-    assertEquals(72, size2.getSize().height);
-    assertEquals(72, size2.height);
-    assertEquals(72, size.height);
     assertEquals(72, preferredSize.height);
-    assertEquals(72.0d, size2.getHeight());
-    assertEquals(72.0d, size.getHeight());
     assertEquals(72.0d, preferredSize.getHeight());
+    assertEquals(992, preferredSize.width);
+    assertEquals(992.0d, preferredSize.getWidth());
+    assertEquals(Component.BaselineResizeBehavior.OTHER, component.getBaselineResizeBehavior());
+    assertFalse(component.getIgnoreRepaint());
+    assertFalse(component.hasFocus());
+    assertFalse(component.isCursorSet());
+    assertFalse(component.isDisplayable());
+    assertFalse(component.isFocusOwner());
+    assertFalse(component.isLightweight());
+    assertFalse(component.isMaximumSizeSet());
+    assertFalse(component.isMinimumSizeSet());
+    assertFalse(component.isPreferredSizeSet());
+    assertFalse(component.isShowing());
+    assertFalse(component.isValid());
+    assertFalse(((HexEditor) component).isFocusCycleRoot());
+    assertFalse(((HexEditor) component).isFocusTraversalPolicyProvider());
+    assertFalse(((HexEditor) component).isFocusTraversalPolicySet());
+    assertFalse(((HexEditor) component).getAutoscrolls());
+    assertFalse(((HexEditor) component).getInheritsPopupMenu());
+    assertFalse(((HexEditor) component).isManagingFocus());
+    assertFalse(((HexEditor) component).isPaintingForPrint());
+    assertFalse(((HexEditor) component).isPaintingTile());
+    assertFalse(((HexEditor) component).isValidateRoot());
+    assertTrue(component.getFocusTraversalKeysEnabled());
+    assertTrue(component.isBackgroundSet());
+    assertTrue(component.isDoubleBuffered());
+    assertTrue(component.isEnabled());
+    assertTrue(component.isFocusable());
+    assertTrue(component.isFontSet());
+    assertTrue(component.isForegroundSet());
+    assertTrue(component.isOpaque());
+    assertTrue(component.isVisible());
+    assertTrue(((HexEditor) component).getVerifyInputWhenFocusTarget());
+    assertTrue(((HexEditor) component).isOptimizedDrawingEnabled());
+    assertTrue(((HexEditor) component).isRequestFocusEnabled());
+    assertEquals(boundsResult, component.bounds());
+    assertEquals(boundsResult, pane.getBounds());
+    assertEquals(boundsResult, component.getBounds());
+    assertEquals(boundsResult, boundsResult.getBounds());
+    assertEquals(boundsResult, pane.getVisibleRect());
+    assertEquals(boundsResult, ((HexEditor) component).getVisibleRect());
+    assertEquals(boundsResult, bounds2D);
+    assertEquals(boundsResult, frame);
+    Dimension size = pane.getSize();
+    assertEquals(size, component.getSize());
+    assertEquals(size, pane.size());
+    assertEquals(size, component.size());
+    assertEquals(size, size.getSize());
+    assertEquals(size, boundsResult.getSize());
+    assertEquals(minimumSize, component.getMinimumSize());
+    assertEquals(minimumSize, minimumSize.getSize());
+    assertEquals(preferredSize, component.getPreferredSize());
+    assertEquals(preferredSize, preferredSize.getSize());
+    assertSame(pane, component.getParent());
   }
 
   /**
-   * Test {@link HexView#getPane()}.
-   * <p>
    * Method under test: {@link HexView#getPane()}
    */
   @Test
-  @DisplayName("Test getPane()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"JComponent HexView.getPane()"})
   void testGetPane() {
     // Arrange, Act and Assert
     assertTrue((new HexView()).getPane() instanceof JPanel);

@@ -3,12 +3,16 @@ package org.apache.pdfbox.pdmodel.fdf;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.isA;
+import static org.mockito.Mockito.atLeast;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -17,210 +21,26 @@ import java.io.Writer;
 import javax.imageio.metadata.IIOMetadataNode;
 import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.cos.COSDocument;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
+import org.apache.pdfbox.cos.COSDocumentState;
+import org.apache.pdfbox.cos.COSIncrement;
+import org.apache.pdfbox.cos.COSName;
+import org.apache.pdfbox.cos.COSObjectKey;
+import org.apache.pdfbox.cos.COSUpdateState;
+import org.apache.pdfbox.io.RandomAccessRead;
+import org.apache.pdfbox.io.RandomAccessReadBuffer;
+import org.apache.pdfbox.io.RandomAccessStreamCache;
+import org.apache.pdfbox.io.RandomAccessStreamCacheImpl;
+import org.apache.pdfbox.pdmodel.common.COSObjectable;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.w3c.dom.Document;
 
 class FDFDocumentDiffblueTest {
   /**
-   * Test {@link FDFDocument#FDFDocument()}.
-   * <p>
-   * Method under test: {@link FDFDocument#FDFDocument()}
-   */
-  @Test
-  @DisplayName("Test new FDFDocument()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void FDFDocument.<init>()"})
-  void testNewFDFDocument() {
-    // Arrange and Act
-    FDFDocument actualFdfDocument = new FDFDocument();
-
-    // Assert
-    FDFCatalog catalog = actualFdfDocument.getCatalog();
-    assertNull(catalog.getVersion());
-    COSDocument document = actualFdfDocument.getDocument();
-    assertNull(document.getDocumentID());
-    assertNull(document.getEncryptionDictionary());
-    assertNull(document.getLinearizedDictionary());
-    assertNull(document.getKey());
-    assertNull(catalog.getSignature());
-    assertEquals(0L, document.getHighestXRefObjectNumber());
-    assertEquals(0L, document.getStartXref());
-    assertEquals(1.2f, document.getVersion());
-    assertFalse(document.isDirect());
-    assertFalse(document.hasHybridXRef());
-    assertFalse(document.isClosed());
-    assertFalse(document.isDecrypted());
-    assertFalse(document.isEncrypted());
-    assertFalse(document.isXRefStream());
-    assertTrue(document.getXrefTable().isEmpty());
-  }
-
-  /**
-   * Test {@link FDFDocument#FDFDocument(Document)}.
-   * <p>
-   * Method under test: {@link FDFDocument#FDFDocument(Document)}
-   */
-  @Test
-  @DisplayName("Test new FDFDocument(Document)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void FDFDocument.<init>(Document)"})
-  void testNewFDFDocument2() throws IOException {
-    // Arrange
-    IIOMetadataNode iioMetadataNode = new IIOMetadataNode("xfdf");
-    IIOMetadataNode iioMetadataNode2 = new IIOMetadataNode("xfdf");
-    iioMetadataNode.insertBefore(iioMetadataNode2, new IIOMetadataNode("xfdf"));
-    Document doc = mock(Document.class);
-    when(doc.getDocumentElement()).thenReturn(iioMetadataNode);
-
-    // Act
-    FDFDocument actualFdfDocument = new FDFDocument(doc);
-
-    // Assert
-    verify(doc).getDocumentElement();
-    FDFCatalog catalog = actualFdfDocument.getCatalog();
-    assertNull(catalog.getVersion());
-    COSDocument document = actualFdfDocument.getDocument();
-    assertNull(document.getDocumentID());
-    assertNull(document.getEncryptionDictionary());
-    assertNull(document.getLinearizedDictionary());
-    assertNull(document.getKey());
-    assertNull(catalog.getSignature());
-    assertEquals(0L, document.getHighestXRefObjectNumber());
-    assertEquals(0L, document.getStartXref());
-    assertEquals(1.2f, document.getVersion());
-    assertFalse(document.isDirect());
-    assertFalse(document.hasHybridXRef());
-    assertFalse(document.isClosed());
-    assertFalse(document.isDecrypted());
-    assertFalse(document.isEncrypted());
-    assertFalse(document.isXRefStream());
-    assertTrue(document.getXrefTable().isEmpty());
-  }
-
-  /**
-   * Test {@link FDFDocument#FDFDocument(Document)}.
-   * <p>
-   * Method under test: {@link FDFDocument#FDFDocument(Document)}
-   */
-  @Test
-  @DisplayName("Test new FDFDocument(Document)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void FDFDocument.<init>(Document)"})
-  void testNewFDFDocument3() throws IOException {
-    // Arrange
-    IIOMetadataNode iioMetadataNode = new IIOMetadataNode("xfdf");
-    iioMetadataNode.appendChild(new IIOMetadataNode("xfdf"));
-    Document doc = mock(Document.class);
-    when(doc.getDocumentElement()).thenReturn(iioMetadataNode);
-
-    // Act
-    FDFDocument actualFdfDocument = new FDFDocument(doc);
-
-    // Assert
-    verify(doc).getDocumentElement();
-    FDFCatalog catalog = actualFdfDocument.getCatalog();
-    assertNull(catalog.getVersion());
-    COSDocument document = actualFdfDocument.getDocument();
-    assertNull(document.getDocumentID());
-    assertNull(document.getEncryptionDictionary());
-    assertNull(document.getLinearizedDictionary());
-    assertNull(document.getKey());
-    assertNull(catalog.getSignature());
-    assertEquals(0L, document.getHighestXRefObjectNumber());
-    assertEquals(0L, document.getStartXref());
-    assertEquals(1.2f, document.getVersion());
-    assertFalse(document.isDirect());
-    assertFalse(document.hasHybridXRef());
-    assertFalse(document.isClosed());
-    assertFalse(document.isDecrypted());
-    assertFalse(document.isEncrypted());
-    assertFalse(document.isXRefStream());
-    assertTrue(document.getXrefTable().isEmpty());
-  }
-
-  /**
-   * Test {@link FDFDocument#FDFDocument(Document)}.
-   * <ul>
-   *   <li>Given {@link IIOMetadataNode#IIOMetadataNode(String)} with {@code foo}.</li>
-   *   <li>Then throw {@link IOException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link FDFDocument#FDFDocument(Document)}
-   */
-  @Test
-  @DisplayName("Test new FDFDocument(Document); given IIOMetadataNode(String) with 'foo'; then throw IOException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void FDFDocument.<init>(Document)"})
-  void testNewFDFDocument_givenIIOMetadataNodeWithFoo_thenThrowIOException() throws IOException {
-    // Arrange
-    Document doc = mock(Document.class);
-    when(doc.getDocumentElement()).thenReturn(new IIOMetadataNode("foo"));
-
-    // Act and Assert
-    assertThrows(IOException.class, () -> new FDFDocument(doc));
-    verify(doc).getDocumentElement();
-  }
-
-  /**
-   * Test {@link FDFDocument#FDFDocument(Document)}.
-   * <ul>
-   *   <li>Given {@link IIOMetadataNode#IIOMetadataNode(String)} with {@code xfdf}.</li>
-   *   <li>Then return Catalog Version is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link FDFDocument#FDFDocument(Document)}
-   */
-  @Test
-  @DisplayName("Test new FDFDocument(Document); given IIOMetadataNode(String) with 'xfdf'; then return Catalog Version is 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void FDFDocument.<init>(Document)"})
-  void testNewFDFDocument_givenIIOMetadataNodeWithXfdf_thenReturnCatalogVersionIsNull() throws IOException {
-    // Arrange
-    Document doc = mock(Document.class);
-    when(doc.getDocumentElement()).thenReturn(new IIOMetadataNode("xfdf"));
-
-    // Act
-    FDFDocument actualFdfDocument = new FDFDocument(doc);
-
-    // Assert
-    verify(doc).getDocumentElement();
-    FDFCatalog catalog = actualFdfDocument.getCatalog();
-    assertNull(catalog.getVersion());
-    COSDocument document = actualFdfDocument.getDocument();
-    assertNull(document.getDocumentID());
-    assertNull(document.getEncryptionDictionary());
-    assertNull(document.getLinearizedDictionary());
-    assertNull(document.getKey());
-    assertNull(catalog.getSignature());
-    assertEquals(0L, document.getHighestXRefObjectNumber());
-    assertEquals(0L, document.getStartXref());
-    assertEquals(1.2f, document.getVersion());
-    assertFalse(document.isDirect());
-    assertFalse(document.hasHybridXRef());
-    assertFalse(document.isClosed());
-    assertFalse(document.isDecrypted());
-    assertFalse(document.isEncrypted());
-    assertFalse(document.isXRefStream());
-    assertTrue(document.getXrefTable().isEmpty());
-  }
-
-  /**
-   * Test {@link FDFDocument#writeXML(Writer)}.
-   * <ul>
-   *   <li>Given {@link FDFDocument#FDFDocument()}.</li>
-   *   <li>When {@link StringWriter#StringWriter()}.</li>
-   *   <li>Then {@link StringWriter#StringWriter()} toString is a string.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link FDFDocument#writeXML(Writer)}
    */
   @Test
-  @DisplayName("Test writeXML(Writer); given FDFDocument(); when StringWriter(); then StringWriter() toString is a string")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void FDFDocument.writeXML(Writer)"})
-  void testWriteXML_givenFDFDocument_whenStringWriter_thenStringWriterToStringIsAString() throws IOException {
+  void testWriteXML() throws IOException {
     // Arrange
     FDFDocument fdfDocument = new FDFDocument();
     StringWriter output = new StringWriter();
@@ -234,23 +54,24 @@ class FDFDocumentDiffblueTest {
   }
 
   /**
-   * Test {@link FDFDocument#getCatalog()}.
-   * <ul>
-   *   <li>Given {@link FDFDocument#FDFDocument()}.</li>
-   *   <li>Then return FDF Encoding is {@code PDFDocEncoding}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link FDFDocument#getCatalog()}
    */
   @Test
-  @DisplayName("Test getCatalog(); given FDFDocument(); then return FDF Encoding is 'PDFDocEncoding'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"FDFCatalog FDFDocument.getCatalog()"})
-  void testGetCatalog_givenFDFDocument_thenReturnFdfEncodingIsPDFDocEncoding() throws IOException {
-    // Arrange and Act
-    FDFCatalog actualCatalog = (new FDFDocument()).getCatalog();
+  void testGetCatalog() throws IOException {
+    // Arrange
+    COSDocumentState cosDocumentState = new COSDocumentState();
+    cosDocumentState.setParsing(true);
+    COSDocument doc = mock(COSDocument.class);
+    when(doc.getTrailer()).thenReturn(new COSDictionary());
+    when(doc.getDocumentState()).thenReturn(cosDocumentState);
+
+    // Act
+    FDFCatalog actualCatalog = (new FDFDocument(doc,
+        new RandomAccessReadBuffer(new ByteArrayInputStream(new byte[]{'A', 1, 'A', 1, 'A', 1, 'A', 1})))).getCatalog();
 
     // Assert
+    verify(doc).getDocumentState();
+    verify(doc, atLeast(1)).getTrailer();
     FDFDictionary fDF = actualCatalog.getFDF();
     assertEquals("PDFDocEncoding", fDF.getEncoding());
     assertNull(actualCatalog.getVersion());
@@ -262,31 +83,156 @@ class FDFDocumentDiffblueTest {
     assertNull(fDF.getPages());
     assertNull(fDF.getID());
     COSDictionary cOSObject = actualCatalog.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    COSDictionary cOSObject2 = fDF.getCOSObject();
+    COSUpdateState updateState2 = cOSObject2.getUpdateState();
+    assertNull(updateState2.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertNull(cOSObject2.getKey());
+    assertNull(fDF.getDifferences());
+    assertNull(fDF.getFile());
+    assertNull(fDF.getJavaScript());
+    assertNull(actualCatalog.getSignature());
+    assertEquals(0, cOSObject2.size());
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    COSIncrement toIncrementResult2 = cOSObject2.toIncrement();
+    assertFalse(toIncrementResult2.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject2.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(cOSObject2.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertFalse(updateState2.isUpdated());
+    assertTrue(cOSObject2.getValues().isEmpty());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertTrue(toIncrementResult2.getObjects().isEmpty());
+  }
+
+  /**
+   * Method under test: {@link FDFDocument#getCatalog()}
+   */
+  @Test
+  void testGetCatalog2() throws IOException {
+    // Arrange
+    COSDocumentState cosDocumentState = new COSDocumentState();
+    cosDocumentState.setParsing(true);
+    COSDictionary cosDictionary = mock(COSDictionary.class);
+    COSDictionary cosDictionary2 = new COSDictionary();
+    when(cosDictionary.getCOSDictionary(Mockito.<COSName>any())).thenReturn(cosDictionary2);
+    COSDocument doc = mock(COSDocument.class);
+    when(doc.getTrailer()).thenReturn(cosDictionary);
+    when(doc.getDocumentState()).thenReturn(cosDocumentState);
+
+    // Act
+    FDFCatalog actualCatalog = (new FDFDocument(doc,
+        new RandomAccessReadBuffer(new ByteArrayInputStream(new byte[]{'A', 1, 'A', 1, 'A', 1, 'A', 1})))).getCatalog();
+
+    // Assert
+    verify(cosDictionary).getCOSDictionary(isA(COSName.class));
+    verify(doc).getDocumentState();
+    verify(doc).getTrailer();
+    FDFDictionary fDF = actualCatalog.getFDF();
+    assertEquals("PDFDocEncoding", fDF.getEncoding());
+    assertNull(actualCatalog.getVersion());
+    assertNull(fDF.getStatus());
+    assertNull(fDF.getTarget());
+    assertNull(fDF.getEmbeddedFDFs());
+    assertNull(fDF.getAnnotations());
+    assertNull(fDF.getFields());
+    assertNull(fDF.getPages());
+    assertNull(fDF.getID());
+    COSDictionary cOSObject = fDF.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
     assertNull(cOSObject.getKey());
     assertNull(fDF.getDifferences());
     assertNull(fDF.getFile());
     assertNull(fDF.getJavaScript());
     assertNull(actualCatalog.getSignature());
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
+    assertEquals(0, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
     assertFalse(cOSObject.isDirect());
-    assertTrue(cOSObject.isNeedToBeUpdated());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(cOSObject.getValues().isEmpty());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertSame(cosDictionary2, actualCatalog.getCOSObject());
   }
 
   /**
-   * Test {@link FDFDocument#save(OutputStream)} with {@code OutputStream}.
-   * <ul>
-   *   <li>Given {@link FDFDocument#FDFDocument()}.</li>
-   *   <li>Then array length is one hundred thirty-eight.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link FDFDocument#getCatalog()}
+   */
+  @Test
+  void testGetCatalog3() throws IOException {
+    // Arrange
+    COSDocumentState cosDocumentState = new COSDocumentState();
+    cosDocumentState.setParsing(true);
+    COSDictionary cosDictionary = mock(COSDictionary.class);
+    when(cosDictionary.getCOSDictionary(Mockito.<COSName>any())).thenReturn(null);
+    doNothing().when(cosDictionary).setItem(Mockito.<COSName>any(), Mockito.<COSObjectable>any());
+    COSDocument doc = mock(COSDocument.class);
+    when(doc.getTrailer()).thenReturn(cosDictionary);
+    when(doc.getDocumentState()).thenReturn(cosDocumentState);
+
+    // Act
+    FDFCatalog actualCatalog = (new FDFDocument(doc,
+        new RandomAccessReadBuffer(new ByteArrayInputStream(new byte[]{'A', 1, 'A', 1, 'A', 1, 'A', 1})))).getCatalog();
+
+    // Assert
+    verify(cosDictionary).getCOSDictionary(isA(COSName.class));
+    verify(cosDictionary).setItem(isA(COSName.class), isA(COSObjectable.class));
+    verify(doc).getDocumentState();
+    verify(doc, atLeast(1)).getTrailer();
+    FDFDictionary fDF = actualCatalog.getFDF();
+    assertEquals("PDFDocEncoding", fDF.getEncoding());
+    assertNull(actualCatalog.getVersion());
+    assertNull(fDF.getStatus());
+    assertNull(fDF.getTarget());
+    assertNull(fDF.getEmbeddedFDFs());
+    assertNull(fDF.getAnnotations());
+    assertNull(fDF.getFields());
+    assertNull(fDF.getPages());
+    assertNull(fDF.getID());
+    COSDictionary cOSObject = actualCatalog.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    COSDictionary cOSObject2 = fDF.getCOSObject();
+    COSUpdateState updateState2 = cOSObject2.getUpdateState();
+    assertNull(updateState2.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertNull(cOSObject2.getKey());
+    assertNull(fDF.getDifferences());
+    assertNull(fDF.getFile());
+    assertNull(fDF.getJavaScript());
+    assertNull(actualCatalog.getSignature());
+    assertEquals(0, cOSObject2.size());
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    COSIncrement toIncrementResult2 = cOSObject2.toIncrement();
+    assertFalse(toIncrementResult2.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject2.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(cOSObject2.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertFalse(updateState2.isUpdated());
+    assertTrue(cOSObject2.getValues().isEmpty());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertTrue(toIncrementResult2.getObjects().isEmpty());
+  }
+
+  /**
    * Method under test: {@link FDFDocument#save(OutputStream)}
    */
   @Test
-  @DisplayName("Test save(OutputStream) with 'OutputStream'; given FDFDocument(); then array length is one hundred thirty-eight")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void FDFDocument.save(OutputStream)"})
-  void testSaveWithOutputStream_givenFDFDocument_thenArrayLengthIsOneHundredThirtyEight() throws IOException {
+  void testSave() throws IOException {
     // Arrange
     FDFDocument fdfDocument = new FDFDocument();
     ByteArrayOutputStream output = new ByteArrayOutputStream(1);
@@ -295,23 +241,73 @@ class FDFDocumentDiffblueTest {
     fdfDocument.save(output);
 
     // Assert
-    assertEquals(138, output.toByteArray().length);
+    COSObjectKey key = fdfDocument.getCatalog().getCOSObject().getKey();
+    assertEquals(-1, key.getStreamIndex());
+    byte[] toByteArrayResult = output.toByteArray();
+    assertEquals((byte) -10, toByteArrayResult[10]);
+    assertEquals((byte) -28, toByteArrayResult[11]);
+    assertEquals((byte) -33, toByteArrayResult[13]);
+    assertEquals((byte) -4, toByteArrayResult[12]);
+    assertEquals(0, key.getGeneration());
+    assertEquals(138, toByteArrayResult.length);
+    assertEquals(1L, key.getNumber());
+    COSDictionary trailer = fdfDocument.getDocument().getTrailer();
+    assertEquals(2, trailer.getValues().size());
+    assertEquals(2, trailer.size());
+    assertEquals(65536L, key.getInternalHash());
+    assertEquals(' ', toByteArrayResult[113]);
+    assertEquals(' ', toByteArrayResult[18]);
+    assertEquals(' ', toByteArrayResult[Short.SIZE]);
+    assertEquals('%', toByteArrayResult[0]);
+    assertEquals('%', toByteArrayResult[132]);
+    assertEquals('%', toByteArrayResult[133]);
+    assertEquals('%', toByteArrayResult[9]);
+    assertEquals('-', toByteArrayResult[4]);
+    assertEquals('.', toByteArrayResult[6]);
+    assertEquals('0', toByteArrayResult[17]);
+    assertEquals('1', toByteArrayResult[15]);
+    assertEquals('1', toByteArrayResult[5]);
+    assertEquals('2', toByteArrayResult[114]);
+    assertEquals('2', toByteArrayResult[7]);
+    assertEquals('3', toByteArrayResult[129]);
+    assertEquals('6', toByteArrayResult[130]);
+    assertEquals('<', toByteArrayResult[23]);
+    assertEquals('<', toByteArrayResult[24]);
+    assertEquals('>', toByteArrayResult[116]);
+    assertEquals('>', toByteArrayResult[117]);
+    assertEquals('D', toByteArrayResult[2]);
+    assertEquals('E', toByteArrayResult[134]);
+    assertEquals('F', toByteArrayResult[1]);
+    assertEquals('F', toByteArrayResult[136]);
+    assertEquals('F', toByteArrayResult[3]);
+    assertEquals('O', toByteArrayResult[135]);
+    assertEquals('\n', toByteArrayResult[115]);
+    assertEquals('\n', toByteArrayResult[118]);
+    assertEquals('\n', toByteArrayResult[128]);
+    assertEquals('\n', toByteArrayResult[131]);
+    assertEquals('\n', toByteArrayResult[137]);
+    assertEquals('\n', toByteArrayResult[14]);
+    assertEquals('\n', toByteArrayResult[22]);
+    assertEquals('\n', toByteArrayResult[8]);
+    assertEquals('a', toByteArrayResult[121]);
+    assertEquals('b', toByteArrayResult[20]);
+    assertEquals('e', toByteArrayResult[126]);
+    assertEquals('f', toByteArrayResult[Float.MAX_EXPONENT]);
+    assertEquals('j', toByteArrayResult[21]);
+    assertEquals('o', toByteArrayResult[19]);
+    assertEquals('r', toByteArrayResult[122]);
+    assertEquals('r', toByteArrayResult[125]);
+    assertEquals('s', toByteArrayResult[119]);
+    assertEquals('t', toByteArrayResult[120]);
+    assertEquals('t', toByteArrayResult[123]);
+    assertEquals('x', toByteArrayResult[124]);
   }
 
   /**
-   * Test {@link FDFDocument#saveXFDF(Writer)} with {@code Writer}.
-   * <ul>
-   *   <li>Given {@link FDFDocument#FDFDocument()}.</li>
-   *   <li>Then {@link StringWriter#StringWriter()} toString is a string.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link FDFDocument#saveXFDF(Writer)}
    */
   @Test
-  @DisplayName("Test saveXFDF(Writer) with 'Writer'; given FDFDocument(); then StringWriter() toString is a string")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void FDFDocument.saveXFDF(Writer)"})
-  void testSaveXFDFWithWriter_givenFDFDocument_thenStringWriterToStringIsAString() throws IOException {
+  void testSaveXFDF() throws IOException {
     // Arrange
     FDFDocument fdfDocument = new FDFDocument();
     StringWriter output = new StringWriter();
@@ -325,19 +321,10 @@ class FDFDocumentDiffblueTest {
   }
 
   /**
-   * Test {@link FDFDocument#close()}.
-   * <ul>
-   *   <li>Given {@link FDFDocument#FDFDocument()}.</li>
-   *   <li>Then {@link FDFDocument#FDFDocument()} Document Closed.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link FDFDocument#close()}
    */
   @Test
-  @DisplayName("Test close(); given FDFDocument(); then FDFDocument() Document Closed")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void FDFDocument.close()"})
-  void testClose_givenFDFDocument_thenFDFDocumentDocumentClosed() throws IOException {
+  void testClose() throws IOException {
     // Arrange
     FDFDocument fdfDocument = new FDFDocument();
 
@@ -346,5 +333,74 @@ class FDFDocumentDiffblueTest {
 
     // Assert
     assertTrue(fdfDocument.getDocument().isClosed());
+  }
+
+  /**
+   * Method under test: {@link FDFDocument#close()}
+   */
+  @Test
+  void testClose2() throws IOException {
+    // Arrange
+    COSDocument doc = new COSDocument();
+    FDFDocument fdfDocument = new FDFDocument(doc,
+        new RandomAccessReadBuffer(new ByteArrayInputStream(new byte[]{'A', 3, 'A', 3, 'A', 3, 'A', 3})));
+
+    // Act
+    fdfDocument.close();
+
+    // Assert
+    COSDocument document = fdfDocument.getDocument();
+    assertTrue(document.isClosed());
+    assertSame(doc, document);
+  }
+
+  /**
+   * Method under test:
+   * {@link FDFDocument#FDFDocument(COSDocument, RandomAccessRead)}
+   */
+  @Test
+  void testNewFDFDocument() throws IOException {
+    // Arrange
+    COSDocument doc = new COSDocument();
+
+    // Act and Assert
+    assertSame(doc,
+        (new FDFDocument(doc, new RandomAccessReadBuffer(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8")))))
+            .getDocument());
+  }
+
+  /**
+   * Method under test:
+   * {@link FDFDocument#FDFDocument(COSDocument, RandomAccessRead)}
+   */
+  @Test
+  void testNewFDFDocument2() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    COSDocument doc = new COSDocument(streamCacheCreateFunction);
+
+    // Act
+    FDFDocument actualFdfDocument = new FDFDocument(doc,
+        new RandomAccessReadBuffer(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"))));
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertSame(doc, actualFdfDocument.getDocument());
+  }
+
+  /**
+   * Method under test: {@link FDFDocument#FDFDocument(Document)}
+   */
+  @Test
+  void testNewFDFDocument3() throws IOException {
+    // Arrange
+    Document doc = mock(Document.class);
+    when(doc.getDocumentElement()).thenReturn(new IIOMetadataNode("foo"));
+
+    // Act and Assert
+    assertThrows(IOException.class, () -> new FDFDocument(doc));
+    verify(doc).getDocumentElement();
   }
 }

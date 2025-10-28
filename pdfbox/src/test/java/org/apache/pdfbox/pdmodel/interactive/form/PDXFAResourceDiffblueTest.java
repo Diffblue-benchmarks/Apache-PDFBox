@@ -1,6 +1,6 @@
 package org.apache.pdfbox.pdmodel.interactive.form;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.eq;
@@ -8,7 +8,6 @@ import static org.mockito.Mockito.anyInt;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import org.apache.pdfbox.cos.COSArray;
 import org.apache.pdfbox.cos.COSBase;
@@ -16,128 +15,87 @@ import org.apache.pdfbox.cos.COSBoolean;
 import org.apache.pdfbox.cos.COSObject;
 import org.apache.pdfbox.cos.COSObjectKey;
 import org.apache.pdfbox.cos.COSStream;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
+import org.apache.pdfbox.pdmodel.common.COSObjectable;
 import org.junit.jupiter.api.Test;
 
 class PDXFAResourceDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
-   * Methods under test:
-   * <ul>
-   *   <li>{@link PDXFAResource#PDXFAResource(COSBase)}
-   *   <li>{@link PDXFAResource#getCOSObject()}
-   * </ul>
+   * Method under test: {@link PDXFAResource#getBytes()}
    */
   @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDXFAResource.<init>(COSBase)", "COSBase PDXFAResource.getCOSObject()"})
-  void testGettersAndSetters() {
-    // Arrange and Act
-    COSBase actualCOSObject = (new PDXFAResource(COSBoolean.FALSE)).getCOSObject();
+  void testGetBytes() throws IOException {
+    // Arrange, Act and Assert
+    assertEquals(0, (new PDXFAResource(COSBoolean.FALSE)).getBytes().length);
+    assertEquals(0, (new PDXFAResource(new COSArray())).getBytes().length);
+  }
+
+  /**
+   * Method under test: {@link PDXFAResource#getBytes()}
+   */
+  @Test
+  void testGetBytes2() throws IOException {
+    // Arrange
+    COSObjectable object = mock(COSObjectable.class);
+    when(object.getCOSObject()).thenReturn(COSBoolean.FALSE);
+
+    COSArray xfaBase = new COSArray();
+    xfaBase.add(object);
+
+    // Act
+    byte[] actualBytes = (new PDXFAResource(xfaBase)).getBytes();
 
     // Assert
-    assertSame(((COSBoolean) actualCOSObject).FALSE, actualCOSObject);
+    verify(object).getCOSObject();
+    assertEquals(0, actualBytes.length);
   }
 
   /**
-   * Test {@link PDXFAResource#getBytes()}.
-   * <ul>
-   *   <li>Given {@link COSArray#COSArray()} add {@link COSBoolean#FALSE}.</li>
-   *   <li>Then return empty array of {@code byte}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDXFAResource#getBytes()}
    */
   @Test
-  @DisplayName("Test getBytes(); given COSArray() add FALSE; then return empty array of byte")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"byte[] PDXFAResource.getBytes()"})
-  void testGetBytes_givenCOSArrayAddFalse_thenReturnEmptyArrayOfByte() throws IOException {
+  void testGetBytes3() throws IOException {
     // Arrange
+    COSObjectable object = mock(COSObjectable.class);
+    when(object.getCOSObject()).thenReturn(COSBoolean.FALSE);
+
     COSArray xfaBase = new COSArray();
     xfaBase.add(COSBoolean.FALSE);
-    xfaBase.add(COSBoolean.FALSE);
+    xfaBase.add(object);
 
-    // Act and Assert
-    assertArrayEquals(new byte[]{}, (new PDXFAResource(xfaBase)).getBytes());
+    // Act
+    byte[] actualBytes = (new PDXFAResource(xfaBase)).getBytes();
+
+    // Assert
+    verify(object).getCOSObject();
+    assertEquals(0, actualBytes.length);
   }
 
   /**
-   * Test {@link PDXFAResource#getBytes()}.
-   * <ul>
-   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
-   *   <li>Then return empty array of {@code byte}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDXFAResource#getBytes()}
    */
   @Test
-  @DisplayName("Test getBytes(); given COSObjectKey(long, int) with num is one and gen is one; then return empty array of byte")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"byte[] PDXFAResource.getBytes()"})
-  void testGetBytes_givenCOSObjectKeyWithNumIsOneAndGenIsOne_thenReturnEmptyArrayOfByte() throws IOException {
+  void testGetBytes4() throws IOException {
     // Arrange
+    COSObjectable object = mock(COSObjectable.class);
+    when(object.getCOSObject()).thenReturn(new COSObject(COSBoolean.FALSE, new COSObjectKey(1L, 1)));
+
     COSArray xfaBase = new COSArray();
     xfaBase.add(COSBoolean.FALSE);
-    xfaBase.add((COSBase) new COSObject(COSBoolean.FALSE, new COSObjectKey(1L, 1)));
+    xfaBase.add(object);
 
-    // Act and Assert
-    assertArrayEquals(new byte[]{}, (new PDXFAResource(xfaBase)).getBytes());
+    // Act
+    byte[] actualBytes = (new PDXFAResource(xfaBase)).getBytes();
+
+    // Assert
+    verify(object).getCOSObject();
+    assertEquals(0, actualBytes.length);
   }
 
   /**
-   * Test {@link PDXFAResource#getBytes()}.
-   * <ul>
-   *   <li>Given {@link PDXFAResource#PDXFAResource(COSBase)} with xfaBase is {@link COSArray#COSArray()}.</li>
-   *   <li>Then return empty array of {@code byte}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDXFAResource#getBytes()}
-   */
-  @Test
-  @DisplayName("Test getBytes(); given PDXFAResource(COSBase) with xfaBase is COSArray(); then return empty array of byte")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"byte[] PDXFAResource.getBytes()"})
-  void testGetBytes_givenPDXFAResourceWithXfaBaseIsCOSArray_thenReturnEmptyArrayOfByte() throws IOException {
-    // Arrange, Act and Assert
-    assertArrayEquals(new byte[]{}, (new PDXFAResource(new COSArray())).getBytes());
-  }
-
-  /**
-   * Test {@link PDXFAResource#getBytes()}.
-   * <ul>
-   *   <li>Given {@link PDXFAResource#PDXFAResource(COSBase)} with xfaBase is {@link COSBoolean#FALSE}.</li>
-   *   <li>Then return empty array of {@code byte}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDXFAResource#getBytes()}
-   */
-  @Test
-  @DisplayName("Test getBytes(); given PDXFAResource(COSBase) with xfaBase is FALSE; then return empty array of byte")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"byte[] PDXFAResource.getBytes()"})
-  void testGetBytes_givenPDXFAResourceWithXfaBaseIsFalse_thenReturnEmptyArrayOfByte() throws IOException {
-    // Arrange, Act and Assert
-    assertArrayEquals(new byte[]{}, (new PDXFAResource(COSBoolean.FALSE)).getBytes());
-  }
-
-  /**
-   * Test {@link PDXFAResource#getDocument()}.
-   * <ul>
-   *   <li>Given {@link COSStream} {@link COSBase#getCOSObject()} return {@link COSStream#COSStream()}.</li>
-   *   <li>Then throw {@link IOException}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDXFAResource#getDocument()}
    */
   @Test
-  @DisplayName("Test getDocument(); given COSStream getCOSObject() return COSStream(); then throw IOException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"org.w3c.dom.Document PDXFAResource.getDocument()"})
-  void testGetDocument_givenCOSStreamGetCOSObjectReturnCOSStream_thenThrowIOException() throws IOException {
+  void testGetDocument() throws IOException {
     // Arrange
     COSStream cosStream = mock(COSStream.class);
     when(cosStream.getCOSObject()).thenReturn(new COSStream());
@@ -150,5 +108,21 @@ class PDXFAResourceDiffblueTest {
     verify(xfaBase).getObject(eq(1));
     verify(xfaBase).size();
     verify(cosStream).getCOSObject();
+  }
+
+  /**
+   * Methods under test:
+   * <ul>
+   *   <li>{@link PDXFAResource#PDXFAResource(COSBase)}
+   *   <li>{@link PDXFAResource#getCOSObject()}
+   * </ul>
+   */
+  @Test
+  void testGettersAndSetters() {
+    // Arrange and Act
+    COSBase actualCOSObject = (new PDXFAResource(COSBoolean.FALSE)).getCOSObject();
+
+    // Assert
+    assertSame(((COSBoolean) actualCOSObject).FALSE, actualCOSObject);
   }
 }

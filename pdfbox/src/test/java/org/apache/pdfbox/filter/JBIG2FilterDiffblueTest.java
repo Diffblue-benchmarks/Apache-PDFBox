@@ -1,29 +1,21 @@
 package org.apache.pdfbox.filter;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import org.apache.pdfbox.cos.COSDictionary;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class JBIG2FilterDiffblueTest {
   /**
-   * Test {@link JBIG2Filter#decode(InputStream, OutputStream, COSDictionary, int)} with {@code encoded}, {@code decoded}, {@code parameters}, {@code index}.
-   * <p>
-   * Method under test: {@link JBIG2Filter#decode(InputStream, OutputStream, COSDictionary, int)}
+   * Method under test:
+   * {@link JBIG2Filter#decode(InputStream, OutputStream, COSDictionary, int)}
    */
   @Test
-  @DisplayName("Test decode(InputStream, OutputStream, COSDictionary, int) with 'encoded', 'decoded', 'parameters', 'index'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "org.apache.pdfbox.filter.DecodeResult JBIG2Filter.decode(InputStream, OutputStream, COSDictionary, int)"})
-  void testDecodeWithEncodedDecodedParametersIndex() throws IOException {
+  void testDecode() throws IOException {
     // Arrange
     JBIG2Filter jbig2Filter = new JBIG2Filter();
     ByteArrayInputStream encoded = new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"));
@@ -34,16 +26,11 @@ class JBIG2FilterDiffblueTest {
   }
 
   /**
-   * Test {@link JBIG2Filter#decode(InputStream, OutputStream, COSDictionary, int, DecodeOptions)} with {@code encoded}, {@code decoded}, {@code parameters}, {@code index}, {@code options}.
-   * <p>
-   * Method under test: {@link JBIG2Filter#decode(InputStream, OutputStream, COSDictionary, int, DecodeOptions)}
+   * Method under test:
+   * {@link JBIG2Filter#decode(InputStream, OutputStream, COSDictionary, int, DecodeOptions)}
    */
   @Test
-  @DisplayName("Test decode(InputStream, OutputStream, COSDictionary, int, DecodeOptions) with 'encoded', 'decoded', 'parameters', 'index', 'options'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "org.apache.pdfbox.filter.DecodeResult JBIG2Filter.decode(InputStream, OutputStream, COSDictionary, int, DecodeOptions)"})
-  void testDecodeWithEncodedDecodedParametersIndexOptions() throws IOException {
+  void testDecode2() throws IOException {
     // Arrange
     JBIG2Filter jbig2Filter = new JBIG2Filter();
     ByteArrayInputStream encoded = new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"));
@@ -55,15 +42,11 @@ class JBIG2FilterDiffblueTest {
   }
 
   /**
-   * Test {@link JBIG2Filter#encode(InputStream, OutputStream, COSDictionary)} with {@code input}, {@code encoded}, {@code parameters}.
-   * <p>
-   * Method under test: {@link JBIG2Filter#encode(InputStream, OutputStream, COSDictionary)}
+   * Method under test:
+   * {@link JBIG2Filter#encode(InputStream, OutputStream, COSDictionary)}
    */
   @Test
-  @DisplayName("Test encode(InputStream, OutputStream, COSDictionary) with 'input', 'encoded', 'parameters'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void JBIG2Filter.encode(InputStream, OutputStream, COSDictionary)"})
-  void testEncodeWithInputEncodedParameters() throws IOException {
+  void testEncode() throws IOException {
     // Arrange
     JBIG2Filter jbig2Filter = new JBIG2Filter();
     ByteArrayInputStream input = new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"));

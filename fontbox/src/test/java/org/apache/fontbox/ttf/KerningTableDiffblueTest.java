@@ -4,48 +4,20 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import java.io.ByteArrayInputStream;
+import java.io.DataInputStream;
 import java.io.IOException;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class KerningTableDiffblueTest {
   /**
-   * Test {@link KerningTable#KerningTable()}.
-   * <p>
-   * Method under test: default or parameterless constructor of {@link KerningTable}
-   */
-  @Test
-  @DisplayName("Test new KerningTable()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void KerningTable.<init>()"})
-  void testNewKerningTable() {
-    // Arrange and Act
-    KerningTable actualKerningTable = new KerningTable();
-
-    // Assert
-    assertNull(actualKerningTable.getTag());
-    assertEquals(0L, actualKerningTable.getCheckSum());
-    assertEquals(0L, actualKerningTable.getLength());
-    assertEquals(0L, actualKerningTable.getOffset());
-    assertFalse(actualKerningTable.getInitialized());
-  }
-
-  /**
-   * Test {@link KerningTable#read(TrueTypeFont, TTFDataStream)}.
-   * <ul>
-   *   <li>Then {@link KerningTable#KerningTable()} Initialized.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link KerningTable#read(TrueTypeFont, TTFDataStream)}
    */
   @Test
-  @DisplayName("Test read(TrueTypeFont, TTFDataStream); then KerningTable() Initialized")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void KerningTable.read(TrueTypeFont, TTFDataStream)"})
-  void testRead_thenKerningTableInitialized() throws IOException {
+  void testRead() throws IOException {
     // Arrange
     KerningTable kerningTable = new KerningTable();
     TrueTypeFont ttf = new TrueTypeFont(
@@ -59,30 +31,48 @@ class KerningTableDiffblueTest {
   }
 
   /**
-   * Test {@link KerningTable#getHorizontalKerningSubtable()}.
-   * <p>
-   * Method under test: {@link KerningTable#getHorizontalKerningSubtable()}
+   * Method under test: {@link KerningTable#read(TrueTypeFont, TTFDataStream)}
    */
   @Test
-  @DisplayName("Test getHorizontalKerningSubtable()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"org.apache.fontbox.ttf.KerningSubtable KerningTable.getHorizontalKerningSubtable()"})
-  void testGetHorizontalKerningSubtable() {
-    // Arrange, Act and Assert
-    assertNull((new KerningTable()).getHorizontalKerningSubtable());
+  void testRead2() throws IOException {
+    // Arrange
+    KerningTable kerningTable = new KerningTable();
+    DataInputStream inputStream = mock(DataInputStream.class);
+    when(inputStream.readAllBytes()).thenReturn("AXAXAXAX".getBytes("UTF-8"));
+    TrueTypeFont ttf = new TrueTypeFont(new RandomAccessReadDataStream(inputStream));
+
+    // Act
+    kerningTable.read(ttf, new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"))));
+
+    // Assert
+    verify(inputStream).readAllBytes();
+    assertTrue(kerningTable.getInitialized());
   }
 
   /**
-   * Test {@link KerningTable#getHorizontalKerningSubtable(boolean)} with {@code boolean}.
-   * <p>
-   * Method under test: {@link KerningTable#getHorizontalKerningSubtable(boolean)}
+   * Method under test: {@link KerningTable#getHorizontalKerningSubtable()}
    */
   @Test
-  @DisplayName("Test getHorizontalKerningSubtable(boolean) with 'boolean'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"org.apache.fontbox.ttf.KerningSubtable KerningTable.getHorizontalKerningSubtable(boolean)"})
-  void testGetHorizontalKerningSubtableWithBoolean() {
+  void testGetHorizontalKerningSubtable() {
     // Arrange, Act and Assert
+    assertNull((new KerningTable()).getHorizontalKerningSubtable());
     assertNull((new KerningTable()).getHorizontalKerningSubtable(true));
+  }
+
+  /**
+   * Method under test: default or parameterless constructor of
+   * {@link KerningTable}
+   */
+  @Test
+  void testNewKerningTable() {
+    // Arrange and Act
+    KerningTable actualKerningTable = new KerningTable();
+
+    // Assert
+    assertNull(actualKerningTable.getTag());
+    assertEquals(0L, actualKerningTable.getCheckSum());
+    assertEquals(0L, actualKerningTable.getLength());
+    assertEquals(0L, actualKerningTable.getOffset());
+    assertFalse(actualKerningTable.getInitialized());
   }
 }

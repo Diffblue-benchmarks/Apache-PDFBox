@@ -5,79 +5,35 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import java.util.List;
 import org.apache.pdfbox.cos.COSArray;
 import org.apache.pdfbox.cos.COSBase;
+import org.apache.pdfbox.cos.COSBoolean;
 import org.apache.pdfbox.cos.COSFloat;
 import org.apache.pdfbox.cos.COSInteger;
 import org.apache.pdfbox.cos.COSName;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
+import org.apache.pdfbox.pdmodel.common.COSObjectable;
 import org.junit.jupiter.api.Test;
 
 class PDPageXYZDestinationDiffblueTest {
   /**
-   * Test {@link PDPageXYZDestination#PDPageXYZDestination(COSArray)}.
-   * <p>
-   * Method under test: {@link PDPageXYZDestination#PDPageXYZDestination(COSArray)}
-   */
-  @Test
-  @DisplayName("Test new PDPageXYZDestination(COSArray)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDPageXYZDestination.<init>(COSArray)"})
-  void testNewPDPageXYZDestination() {
-    // Arrange
-    COSArray arr = new COSArray();
-
-    // Act and Assert
-    COSArray cOSObject = (new PDPageXYZDestination(arr)).getCOSObject();
-    assertTrue(cOSObject.toList().isEmpty());
-    assertSame(arr, cOSObject);
-  }
-
-  /**
-   * Test {@link PDPageXYZDestination#PDPageXYZDestination()}.
-   * <p>
-   * Method under test: {@link PDPageXYZDestination#PDPageXYZDestination()}
-   */
-  @Test
-  @DisplayName("Test new PDPageXYZDestination()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDPageXYZDestination.<init>()"})
-  void testNewPDPageXYZDestination2() {
-    // Arrange and Act
-    PDPageXYZDestination actualPdPageXYZDestination = new PDPageXYZDestination();
-
-    // Assert
-    List<? extends COSBase> toListResult = actualPdPageXYZDestination.getCOSObject().toList();
-    assertEquals(5, toListResult.size());
-    assertTrue(toListResult.get(1) instanceof COSName);
-    assertNull(toListResult.get(0));
-    assertNull(toListResult.get(2));
-    assertNull(toListResult.get(3));
-    assertNull(toListResult.get(4));
-    assertNull(actualPdPageXYZDestination.getPage());
-    assertEquals(-1, actualPdPageXYZDestination.getPageNumber());
-    assertEquals(-1, actualPdPageXYZDestination.getLeft());
-    assertEquals(-1, actualPdPageXYZDestination.getTop());
-    assertEquals(-1.0f, actualPdPageXYZDestination.getZoom());
-  }
-
-  /**
-   * Test {@link PDPageXYZDestination#getLeft()}.
-   * <ul>
-   *   <li>Given {@link PDPageXYZDestination#PDPageXYZDestination()} Left is two.</li>
-   *   <li>Then return two.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDPageXYZDestination#getLeft()}
    */
   @Test
-  @DisplayName("Test getLeft(); given PDPageXYZDestination() Left is two; then return two")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"int PDPageXYZDestination.getLeft()"})
-  void testGetLeft_givenPDPageXYZDestinationLeftIsTwo_thenReturnTwo() {
+  void testGetLeft() {
+    // Arrange, Act and Assert
+    assertEquals(-1, (new PDPageXYZDestination()).getLeft());
+    assertEquals(-1, (new PDPageXYZDestination(new COSArray())).getLeft());
+  }
+
+  /**
+   * Method under test: {@link PDPageXYZDestination#getLeft()}
+   */
+  @Test
+  void testGetLeft2() {
     // Arrange
     PDPageXYZDestination pdPageXYZDestination = new PDPageXYZDestination();
     pdPageXYZDestination.setLeft(2);
@@ -87,84 +43,66 @@ class PDPageXYZDestinationDiffblueTest {
   }
 
   /**
-   * Test {@link PDPageXYZDestination#getLeft()}.
-   * <ul>
-   *   <li>Given {@link PDPageXYZDestination#PDPageXYZDestination(COSArray)} with arr is {@link COSArray#COSArray()}.</li>
-   *   <li>Then return minus one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDPageXYZDestination#getLeft()}
    */
   @Test
-  @DisplayName("Test getLeft(); given PDPageXYZDestination(COSArray) with arr is COSArray(); then return minus one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"int PDPageXYZDestination.getLeft()"})
-  void testGetLeft_givenPDPageXYZDestinationWithArrIsCOSArray_thenReturnMinusOne() {
-    // Arrange, Act and Assert
-    assertEquals(-1, (new PDPageXYZDestination(new COSArray())).getLeft());
+  void testGetLeft3() {
+    // Arrange
+    COSObjectable object = mock(COSObjectable.class);
+    when(object.getCOSObject()).thenReturn(COSBoolean.FALSE);
+
+    COSArray arr = new COSArray();
+    arr.add(object);
+
+    // Act
+    int actualLeft = (new PDPageXYZDestination(arr)).getLeft();
+
+    // Assert
+    verify(object).getCOSObject();
+    assertEquals(-1, actualLeft);
   }
 
   /**
-   * Test {@link PDPageXYZDestination#getLeft()}.
-   * <ul>
-   *   <li>Given {@link PDPageXYZDestination#PDPageXYZDestination()}.</li>
-   *   <li>Then return minus one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDPageXYZDestination#getLeft()}
-   */
-  @Test
-  @DisplayName("Test getLeft(); given PDPageXYZDestination(); then return minus one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"int PDPageXYZDestination.getLeft()"})
-  void testGetLeft_givenPDPageXYZDestination_thenReturnMinusOne() {
-    // Arrange, Act and Assert
-    assertEquals(-1, (new PDPageXYZDestination()).getLeft());
-  }
-
-  /**
-   * Test {@link PDPageXYZDestination#setLeft(int)}.
-   * <ul>
-   *   <li>Then {@link PDPageXYZDestination#PDPageXYZDestination(COSArray)} with arr is {@link COSArray#COSArray()} COSObject toList size is five.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDPageXYZDestination#setLeft(int)}
    */
   @Test
-  @DisplayName("Test setLeft(int); then PDPageXYZDestination(COSArray) with arr is COSArray() COSObject toList size is five")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDPageXYZDestination.setLeft(int)"})
-  void testSetLeft_thenPDPageXYZDestinationWithArrIsCOSArrayCOSObjectToListSizeIsFive() {
+  void testSetLeft() {
     // Arrange
-    PDPageXYZDestination pdPageXYZDestination = new PDPageXYZDestination(new COSArray());
+    COSArray arr = new COSArray();
+    PDPageXYZDestination pdPageXYZDestination = new PDPageXYZDestination(arr);
 
     // Act
     pdPageXYZDestination.setLeft(2);
 
     // Assert
-    List<? extends COSBase> toListResult = pdPageXYZDestination.getCOSObject().toList();
-    assertEquals(5, toListResult.size());
-    assertNull(toListResult.get(0));
-    assertNull(toListResult.get(1));
-    assertNull(toListResult.get(3));
-    assertNull(toListResult.get(4));
     assertEquals(-1.0f, pdPageXYZDestination.getZoom());
+    assertEquals(2, pdPageXYZDestination.getLeft());
+    assertSame(arr, pdPageXYZDestination.getCOSObject());
   }
 
   /**
-   * Test {@link PDPageXYZDestination#setLeft(int)}.
-   * <ul>
-   *   <li>When {@link Integer#MIN_VALUE}.</li>
-   *   <li>Then {@link PDPageXYZDestination#PDPageXYZDestination()} Left is {@link Integer#MIN_VALUE}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDPageXYZDestination#setLeft(int)}
    */
   @Test
-  @DisplayName("Test setLeft(int); when MIN_VALUE; then PDPageXYZDestination() Left is MIN_VALUE")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDPageXYZDestination.setLeft(int)"})
-  void testSetLeft_whenMin_value_thenPDPageXYZDestinationLeftIsMin_value() {
+  void testSetLeft2() {
+    // Arrange
+    PDPageXYZDestination pdPageXYZDestination = new PDPageXYZDestination();
+
+    // Act
+    pdPageXYZDestination.setLeft(-1);
+
+    // Assert
+    List<? extends COSBase> toListResult = pdPageXYZDestination.getCOSObject().toList();
+    assertEquals(5, toListResult.size());
+    assertNull(toListResult.get(2));
+    assertEquals(-1, pdPageXYZDestination.getLeft());
+  }
+
+  /**
+   * Method under test: {@link PDPageXYZDestination#setLeft(int)}
+   */
+  @Test
+  void testSetLeft3() {
     // Arrange
     PDPageXYZDestination pdPageXYZDestination = new PDPageXYZDestination();
 
@@ -183,47 +121,43 @@ class PDPageXYZDestinationDiffblueTest {
   }
 
   /**
-   * Test {@link PDPageXYZDestination#setLeft(int)}.
-   * <ul>
-   *   <li>When minus one.</li>
-   *   <li>Then {@link PDPageXYZDestination#PDPageXYZDestination()} COSObject toList second {@link COSName}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDPageXYZDestination#setLeft(int)}
    */
   @Test
-  @DisplayName("Test setLeft(int); when minus one; then PDPageXYZDestination() COSObject toList second COSName")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDPageXYZDestination.setLeft(int)"})
-  void testSetLeft_whenMinusOne_thenPDPageXYZDestinationCOSObjectToListSecondCOSName() {
+  void testSetLeft4() {
     // Arrange
-    PDPageXYZDestination pdPageXYZDestination = new PDPageXYZDestination();
+    COSObjectable object = mock(COSObjectable.class);
+    when(object.getCOSObject()).thenReturn(COSBoolean.FALSE);
+
+    COSArray arr = new COSArray();
+    arr.add(object);
+    PDPageXYZDestination pdPageXYZDestination = new PDPageXYZDestination(arr);
 
     // Act
-    pdPageXYZDestination.setLeft(-1);
+    pdPageXYZDestination.setLeft(2);
 
-    // Assert that nothing has changed
-    List<? extends COSBase> toListResult = pdPageXYZDestination.getCOSObject().toList();
-    assertEquals(5, toListResult.size());
-    assertTrue(toListResult.get(1) instanceof COSName);
-    assertEquals(-1, pdPageXYZDestination.getLeft());
+    // Assert
+    verify(object).getCOSObject();
     assertEquals(-1.0f, pdPageXYZDestination.getZoom());
+    assertEquals(2, pdPageXYZDestination.getLeft());
+    assertSame(arr, pdPageXYZDestination.getCOSObject());
   }
 
   /**
-   * Test {@link PDPageXYZDestination#getTop()}.
-   * <ul>
-   *   <li>Given {@link PDPageXYZDestination#PDPageXYZDestination()} Top is three.</li>
-   *   <li>Then return three.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDPageXYZDestination#getTop()}
    */
   @Test
-  @DisplayName("Test getTop(); given PDPageXYZDestination() Top is three; then return three")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"int PDPageXYZDestination.getTop()"})
-  void testGetTop_givenPDPageXYZDestinationTopIsThree_thenReturnThree() {
+  void testGetTop() {
+    // Arrange, Act and Assert
+    assertEquals(-1, (new PDPageXYZDestination()).getTop());
+    assertEquals(-1, (new PDPageXYZDestination(new COSArray())).getTop());
+  }
+
+  /**
+   * Method under test: {@link PDPageXYZDestination#getTop()}
+   */
+  @Test
+  void testGetTop2() {
     // Arrange
     PDPageXYZDestination pdPageXYZDestination = new PDPageXYZDestination();
     pdPageXYZDestination.setTop(3);
@@ -233,84 +167,66 @@ class PDPageXYZDestinationDiffblueTest {
   }
 
   /**
-   * Test {@link PDPageXYZDestination#getTop()}.
-   * <ul>
-   *   <li>Given {@link PDPageXYZDestination#PDPageXYZDestination(COSArray)} with arr is {@link COSArray#COSArray()}.</li>
-   *   <li>Then return minus one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDPageXYZDestination#getTop()}
    */
   @Test
-  @DisplayName("Test getTop(); given PDPageXYZDestination(COSArray) with arr is COSArray(); then return minus one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"int PDPageXYZDestination.getTop()"})
-  void testGetTop_givenPDPageXYZDestinationWithArrIsCOSArray_thenReturnMinusOne() {
-    // Arrange, Act and Assert
-    assertEquals(-1, (new PDPageXYZDestination(new COSArray())).getTop());
+  void testGetTop3() {
+    // Arrange
+    COSObjectable object = mock(COSObjectable.class);
+    when(object.getCOSObject()).thenReturn(COSBoolean.FALSE);
+
+    COSArray arr = new COSArray();
+    arr.add(object);
+
+    // Act
+    int actualTop = (new PDPageXYZDestination(arr)).getTop();
+
+    // Assert
+    verify(object).getCOSObject();
+    assertEquals(-1, actualTop);
   }
 
   /**
-   * Test {@link PDPageXYZDestination#getTop()}.
-   * <ul>
-   *   <li>Given {@link PDPageXYZDestination#PDPageXYZDestination()}.</li>
-   *   <li>Then return minus one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDPageXYZDestination#getTop()}
-   */
-  @Test
-  @DisplayName("Test getTop(); given PDPageXYZDestination(); then return minus one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"int PDPageXYZDestination.getTop()"})
-  void testGetTop_givenPDPageXYZDestination_thenReturnMinusOne() {
-    // Arrange, Act and Assert
-    assertEquals(-1, (new PDPageXYZDestination()).getTop());
-  }
-
-  /**
-   * Test {@link PDPageXYZDestination#setTop(int)}.
-   * <ul>
-   *   <li>Then {@link PDPageXYZDestination#PDPageXYZDestination(COSArray)} with arr is {@link COSArray#COSArray()} COSObject toList size is five.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDPageXYZDestination#setTop(int)}
    */
   @Test
-  @DisplayName("Test setTop(int); then PDPageXYZDestination(COSArray) with arr is COSArray() COSObject toList size is five")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDPageXYZDestination.setTop(int)"})
-  void testSetTop_thenPDPageXYZDestinationWithArrIsCOSArrayCOSObjectToListSizeIsFive() {
+  void testSetTop() {
     // Arrange
-    PDPageXYZDestination pdPageXYZDestination = new PDPageXYZDestination(new COSArray());
+    COSArray arr = new COSArray();
+    PDPageXYZDestination pdPageXYZDestination = new PDPageXYZDestination(arr);
 
     // Act
     pdPageXYZDestination.setTop(3);
 
     // Assert
-    List<? extends COSBase> toListResult = pdPageXYZDestination.getCOSObject().toList();
-    assertEquals(5, toListResult.size());
-    assertNull(toListResult.get(0));
-    assertNull(toListResult.get(1));
-    assertNull(toListResult.get(2));
-    assertNull(toListResult.get(4));
     assertEquals(-1.0f, pdPageXYZDestination.getZoom());
+    assertEquals(3, pdPageXYZDestination.getTop());
+    assertSame(arr, pdPageXYZDestination.getCOSObject());
   }
 
   /**
-   * Test {@link PDPageXYZDestination#setTop(int)}.
-   * <ul>
-   *   <li>When {@link Integer#MIN_VALUE}.</li>
-   *   <li>Then {@link PDPageXYZDestination#PDPageXYZDestination()} Top is {@link Integer#MIN_VALUE}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDPageXYZDestination#setTop(int)}
    */
   @Test
-  @DisplayName("Test setTop(int); when MIN_VALUE; then PDPageXYZDestination() Top is MIN_VALUE")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDPageXYZDestination.setTop(int)"})
-  void testSetTop_whenMin_value_thenPDPageXYZDestinationTopIsMin_value() {
+  void testSetTop2() {
+    // Arrange
+    PDPageXYZDestination pdPageXYZDestination = new PDPageXYZDestination();
+
+    // Act
+    pdPageXYZDestination.setTop(-1);
+
+    // Assert
+    List<? extends COSBase> toListResult = pdPageXYZDestination.getCOSObject().toList();
+    assertEquals(5, toListResult.size());
+    assertNull(toListResult.get(3));
+    assertEquals(-1, pdPageXYZDestination.getTop());
+  }
+
+  /**
+   * Method under test: {@link PDPageXYZDestination#setTop(int)}
+   */
+  @Test
+  void testSetTop3() {
     // Arrange
     PDPageXYZDestination pdPageXYZDestination = new PDPageXYZDestination();
 
@@ -329,86 +245,65 @@ class PDPageXYZDestinationDiffblueTest {
   }
 
   /**
-   * Test {@link PDPageXYZDestination#setTop(int)}.
-   * <ul>
-   *   <li>When minus one.</li>
-   *   <li>Then {@link PDPageXYZDestination#PDPageXYZDestination()} COSObject toList second {@link COSName}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDPageXYZDestination#setTop(int)}
    */
   @Test
-  @DisplayName("Test setTop(int); when minus one; then PDPageXYZDestination() COSObject toList second COSName")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDPageXYZDestination.setTop(int)"})
-  void testSetTop_whenMinusOne_thenPDPageXYZDestinationCOSObjectToListSecondCOSName() {
+  void testSetTop4() {
     // Arrange
-    PDPageXYZDestination pdPageXYZDestination = new PDPageXYZDestination();
+    COSObjectable object = mock(COSObjectable.class);
+    when(object.getCOSObject()).thenReturn(COSBoolean.FALSE);
+
+    COSArray arr = new COSArray();
+    arr.add(object);
+    PDPageXYZDestination pdPageXYZDestination = new PDPageXYZDestination(arr);
 
     // Act
-    pdPageXYZDestination.setTop(-1);
+    pdPageXYZDestination.setTop(3);
 
-    // Assert that nothing has changed
-    List<? extends COSBase> toListResult = pdPageXYZDestination.getCOSObject().toList();
-    assertEquals(5, toListResult.size());
-    assertTrue(toListResult.get(1) instanceof COSName);
-    assertEquals(-1, pdPageXYZDestination.getTop());
+    // Assert
+    verify(object).getCOSObject();
     assertEquals(-1.0f, pdPageXYZDestination.getZoom());
+    assertEquals(3, pdPageXYZDestination.getTop());
+    assertSame(arr, pdPageXYZDestination.getCOSObject());
   }
 
   /**
-   * Test {@link PDPageXYZDestination#getZoom()}.
-   * <ul>
-   *   <li>Given {@link PDPageXYZDestination#PDPageXYZDestination(COSArray)} with arr is {@link COSArray#COSArray()} Zoom is ten.</li>
-   *   <li>Then return ten.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDPageXYZDestination#getZoom()}
    */
   @Test
-  @DisplayName("Test getZoom(); given PDPageXYZDestination(COSArray) with arr is COSArray() Zoom is ten; then return ten")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"float PDPageXYZDestination.getZoom()"})
-  void testGetZoom_givenPDPageXYZDestinationWithArrIsCOSArrayZoomIsTen_thenReturnTen() {
-    // Arrange
-    PDPageXYZDestination pdPageXYZDestination = new PDPageXYZDestination(new COSArray());
-    pdPageXYZDestination.setZoom(10.0f);
-
-    // Act and Assert
-    assertEquals(10.0f, pdPageXYZDestination.getZoom());
-  }
-
-  /**
-   * Test {@link PDPageXYZDestination#getZoom()}.
-   * <ul>
-   *   <li>Given {@link PDPageXYZDestination#PDPageXYZDestination()}.</li>
-   *   <li>Then return minus one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDPageXYZDestination#getZoom()}
-   */
-  @Test
-  @DisplayName("Test getZoom(); given PDPageXYZDestination(); then return minus one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"float PDPageXYZDestination.getZoom()"})
-  void testGetZoom_givenPDPageXYZDestination_thenReturnMinusOne() {
+  void testGetZoom() {
     // Arrange, Act and Assert
     assertEquals(-1.0f, (new PDPageXYZDestination()).getZoom());
   }
 
   /**
-   * Test {@link PDPageXYZDestination#setZoom(float)}.
-   * <ul>
-   *   <li>Then {@link PDPageXYZDestination#PDPageXYZDestination()} COSObject toList fifth {@link COSFloat}.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PDPageXYZDestination#getZoom()}
+   */
+  @Test
+  void testGetZoom2() {
+    // Arrange
+    COSObjectable object = mock(COSObjectable.class);
+    when(object.getCOSObject()).thenReturn(COSBoolean.FALSE);
+
+    COSArray arr = new COSArray();
+    arr.add(object);
+
+    PDPageXYZDestination pdPageXYZDestination = new PDPageXYZDestination(arr);
+    pdPageXYZDestination.setZoom(10.0f);
+
+    // Act
+    float actualZoom = pdPageXYZDestination.getZoom();
+
+    // Assert
+    verify(object).getCOSObject();
+    assertEquals(10.0f, actualZoom);
+  }
+
+  /**
    * Method under test: {@link PDPageXYZDestination#setZoom(float)}
    */
   @Test
-  @DisplayName("Test setZoom(float); then PDPageXYZDestination() COSObject toList fifth COSFloat")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDPageXYZDestination.setZoom(float)"})
-  void testSetZoom_thenPDPageXYZDestinationCOSObjectToListFifthCOSFloat() {
+  void testSetZoom() {
     // Arrange
     PDPageXYZDestination pdPageXYZDestination = new PDPageXYZDestination();
 
@@ -426,56 +321,102 @@ class PDPageXYZDestinationDiffblueTest {
   }
 
   /**
-   * Test {@link PDPageXYZDestination#setZoom(float)}.
-   * <ul>
-   *   <li>Then {@link PDPageXYZDestination#PDPageXYZDestination(COSArray)} with arr is {@link COSArray#COSArray()} COSObject toList size is five.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDPageXYZDestination#setZoom(float)}
    */
   @Test
-  @DisplayName("Test setZoom(float); then PDPageXYZDestination(COSArray) with arr is COSArray() COSObject toList size is five")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDPageXYZDestination.setZoom(float)"})
-  void testSetZoom_thenPDPageXYZDestinationWithArrIsCOSArrayCOSObjectToListSizeIsFive() {
+  void testSetZoom2() {
     // Arrange
-    PDPageXYZDestination pdPageXYZDestination = new PDPageXYZDestination(new COSArray());
+    COSArray arr = new COSArray();
+    PDPageXYZDestination pdPageXYZDestination = new PDPageXYZDestination(arr);
 
     // Act
     pdPageXYZDestination.setZoom(10.0f);
 
     // Assert
-    List<? extends COSBase> toListResult = pdPageXYZDestination.getCOSObject().toList();
-    assertEquals(5, toListResult.size());
-    assertNull(toListResult.get(0));
-    assertNull(toListResult.get(1));
-    assertNull(toListResult.get(2));
-    assertNull(toListResult.get(3));
+    assertEquals(10.0f, pdPageXYZDestination.getZoom());
+    assertSame(arr, pdPageXYZDestination.getCOSObject());
   }
 
   /**
-   * Test {@link PDPageXYZDestination#setZoom(float)}.
-   * <ul>
-   *   <li>When minus one.</li>
-   *   <li>Then {@link PDPageXYZDestination#PDPageXYZDestination()} COSObject toList second {@link COSName}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDPageXYZDestination#setZoom(float)}
    */
   @Test
-  @DisplayName("Test setZoom(float); when minus one; then PDPageXYZDestination() COSObject toList second COSName")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDPageXYZDestination.setZoom(float)"})
-  void testSetZoom_whenMinusOne_thenPDPageXYZDestinationCOSObjectToListSecondCOSName() {
+  void testSetZoom3() {
     // Arrange
     PDPageXYZDestination pdPageXYZDestination = new PDPageXYZDestination();
 
     // Act
     pdPageXYZDestination.setZoom(-1.0f);
 
-    // Assert that nothing has changed
+    // Assert
     List<? extends COSBase> toListResult = pdPageXYZDestination.getCOSObject().toList();
     assertEquals(5, toListResult.size());
-    assertTrue(toListResult.get(1) instanceof COSName);
+    assertNull(toListResult.get(4));
+    assertEquals(-1.0f, pdPageXYZDestination.getZoom());
+  }
+
+  /**
+   * Method under test: {@link PDPageXYZDestination#setZoom(float)}
+   */
+  @Test
+  void testSetZoom4() {
+    // Arrange
+    COSObjectable object = mock(COSObjectable.class);
+    when(object.getCOSObject()).thenReturn(COSBoolean.FALSE);
+
+    COSArray arr = new COSArray();
+    arr.add(object);
+    PDPageXYZDestination pdPageXYZDestination = new PDPageXYZDestination(arr);
+
+    // Act
+    pdPageXYZDestination.setZoom(10.0f);
+
+    // Assert
+    verify(object).getCOSObject();
+    assertEquals(10.0f, pdPageXYZDestination.getZoom());
+    assertSame(arr, pdPageXYZDestination.getCOSObject());
+  }
+
+  /**
+   * Method under test:
+   * {@link PDPageXYZDestination#PDPageXYZDestination(COSArray)}
+   */
+  @Test
+  void testNewPDPageXYZDestination() {
+    // Arrange
+    COSArray arr = new COSArray();
+
+    // Act and Assert
+    COSArray cOSObject = (new PDPageXYZDestination(arr)).getCOSObject();
+    assertTrue(cOSObject.toList().isEmpty());
+    assertSame(arr, cOSObject);
+  }
+
+  /**
+   * Method under test: {@link PDPageXYZDestination#PDPageXYZDestination()}
+   */
+  @Test
+  void testNewPDPageXYZDestination2() {
+    // Arrange and Act
+    PDPageXYZDestination actualPdPageXYZDestination = new PDPageXYZDestination();
+
+    // Assert
+    List<? extends COSBase> toListResult = actualPdPageXYZDestination.getCOSObject().toList();
+    assertEquals(5, toListResult.size());
+    COSBase getResult = toListResult.get(1);
+    assertTrue(getResult instanceof COSName);
+    assertEquals("XYZ", ((COSName) getResult).getName());
+    assertNull(toListResult.get(0));
+    assertNull(toListResult.get(2));
+    assertNull(toListResult.get(3));
+    assertNull(toListResult.get(4));
+    assertNull(getResult.getKey());
+    assertNull(actualPdPageXYZDestination.getPage());
+    assertEquals(-1, actualPdPageXYZDestination.getPageNumber());
+    assertEquals(-1, actualPdPageXYZDestination.getLeft());
+    assertEquals(-1, actualPdPageXYZDestination.getTop());
+    assertEquals(-1.0f, actualPdPageXYZDestination.getZoom());
+    assertFalse(getResult.isDirect());
+    assertFalse(((COSName) getResult).isEmpty());
   }
 }

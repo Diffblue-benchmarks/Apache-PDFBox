@@ -3,27 +3,16 @@ package org.apache.xmpbox.type;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.apache.xmpbox.XMPMetadata;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class LocaleTypeDiffblueTest {
   /**
-   * Test {@link LocaleType#LocaleType(XMPMetadata, String, String, String, Object)}.
-   * <ul>
-   *   <li>When {@code Value}.</li>
-   *   <li>Then return StringValue is {@code Value}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link LocaleType#LocaleType(XMPMetadata, String, String, String, Object)}
+   * Method under test:
+   * {@link LocaleType#LocaleType(XMPMetadata, String, String, String, Object)}
    */
   @Test
-  @DisplayName("Test new LocaleType(XMPMetadata, String, String, String, Object); when 'Value'; then return StringValue is 'Value'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void LocaleType.<init>(XMPMetadata, String, String, String, Object)"})
-  void testNewLocaleType_whenValue_thenReturnStringValueIsValue() {
+  void testNewLocaleType() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
 

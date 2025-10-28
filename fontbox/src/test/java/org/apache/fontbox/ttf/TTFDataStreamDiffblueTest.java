@@ -5,329 +5,217 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import java.io.ByteArrayInputStream;
+import java.io.DataInputStream;
 import java.io.EOFException;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.TimeZone;
 import org.apache.pdfbox.io.RandomAccessRead;
 import org.apache.pdfbox.io.RandomAccessReadView;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class TTFDataStreamDiffblueTest {
   /**
-   * Test {@link TTFDataStream#read32Fixed()}.
-   * <ul>
-   *   <li>Then return {@code 16728.256}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link TTFDataStream#read32Fixed()}
    */
   @Test
-  @DisplayName("Test read32Fixed(); then return '16728.256'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"float TTFDataStream.read32Fixed()"})
-  void testRead32Fixed_thenReturn16728256() throws IOException {
+  void testRead32Fixed() throws IOException {
     // Arrange, Act and Assert
     assertEquals(16728.256f,
         (new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8")))).read32Fixed());
-  }
-
-  /**
-   * Test {@link TTFDataStream#read32Fixed()}.
-   * <ul>
-   *   <li>Then throw {@link EOFException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link TTFDataStream#read32Fixed()}
-   */
-  @Test
-  @DisplayName("Test read32Fixed(); then throw EOFException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"float TTFDataStream.read32Fixed()"})
-  void testRead32Fixed_thenThrowEOFException() throws IOException {
-    // Arrange, Act and Assert
     assertThrows(EOFException.class,
         () -> (new RandomAccessReadDataStream(new ByteArrayInputStream(new byte[]{}))).read32Fixed());
   }
 
   /**
-   * Test {@link TTFDataStream#readString(int, Charset)} with {@code length}, {@code charset}.
-   * <ul>
-   *   <li>Then return {@code AXA}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link TTFDataStream#readString(int, Charset)}
+   * Method under test: {@link TTFDataStream#read32Fixed()}
    */
   @Test
-  @DisplayName("Test readString(int, Charset) with 'length', 'charset'; then return 'AXA'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"java.lang.String TTFDataStream.readString(int, Charset)"})
-  void testReadStringWithLengthCharset_thenReturnAxa() throws IOException {
+  void testRead32Fixed2() throws IOException {
     // Arrange
-    RandomAccessReadDataStream randomAccessReadDataStream = new RandomAccessReadDataStream(
-        new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8")));
+    DataInputStream inputStream = mock(DataInputStream.class);
+    when(inputStream.readAllBytes()).thenReturn("AXAXAXAX".getBytes("UTF-8"));
 
-    // Act and Assert
-    assertEquals("AXA", randomAccessReadDataStream.readString(3, Charset.forName("UTF-8")));
+    // Act
+    float actualRead32FixedResult = (new RandomAccessReadDataStream(inputStream)).read32Fixed();
+
+    // Assert
+    verify(inputStream).readAllBytes();
+    assertEquals(16728.256f, actualRead32FixedResult);
   }
 
   /**
-   * Test {@link TTFDataStream#readString(int, Charset)} with {@code length}, {@code charset}.
-   * <ul>
-   *   <li>Then throw {@link IOException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link TTFDataStream#readString(int, Charset)}
-   */
-  @Test
-  @DisplayName("Test readString(int, Charset) with 'length', 'charset'; then throw IOException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"java.lang.String TTFDataStream.readString(int, Charset)"})
-  void testReadStringWithLengthCharset_thenThrowIOException() throws IOException {
-    // Arrange
-    RandomAccessReadDataStream randomAccessReadDataStream = new RandomAccessReadDataStream(
-        new ByteArrayInputStream(new byte[]{}));
-
-    // Act and Assert
-    assertThrows(IOException.class, () -> randomAccessReadDataStream.readString(3, Charset.forName("UTF-8")));
-  }
-
-  /**
-   * Test {@link TTFDataStream#readString(int)} with {@code length}.
-   * <ul>
-   *   <li>Then return {@code AXA}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link TTFDataStream#readString(int)}
    */
   @Test
-  @DisplayName("Test readString(int) with 'length'; then return 'AXA'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"java.lang.String TTFDataStream.readString(int)"})
-  void testReadStringWithLength_thenReturnAxa() throws IOException {
+  void testReadString() throws IOException {
     // Arrange, Act and Assert
     assertEquals("AXA",
         (new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8")))).readString(3));
+    assertThrows(IOException.class,
+        () -> (new RandomAccessReadDataStream(new ByteArrayInputStream(new byte[]{}))).readString(3));
+    assertThrows(IOException.class,
+        () -> (new RandomAccessReadDataStream(new ByteArrayInputStream(new byte[]{}))).readString(3, null));
   }
 
   /**
-   * Test {@link TTFDataStream#readString(int)} with {@code length}.
-   * <ul>
-   *   <li>Then throw {@link IOException}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link TTFDataStream#readString(int)}
    */
   @Test
-  @DisplayName("Test readString(int) with 'length'; then throw IOException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"java.lang.String TTFDataStream.readString(int)"})
-  void testReadStringWithLength_thenThrowIOException() throws IOException {
-    // Arrange, Act and Assert
-    assertThrows(IOException.class,
-        () -> (new RandomAccessReadDataStream(new ByteArrayInputStream(new byte[]{}))).readString(3));
+  void testReadString2() throws IOException {
+    // Arrange
+    DataInputStream inputStream = mock(DataInputStream.class);
+    when(inputStream.readAllBytes()).thenReturn("AXAXAXAX".getBytes("UTF-8"));
+
+    // Act
+    String actualReadStringResult = (new RandomAccessReadDataStream(inputStream)).readString(3);
+
+    // Assert
+    verify(inputStream).readAllBytes();
+    assertEquals("AXA", actualReadStringResult);
   }
 
   /**
-   * Test {@link TTFDataStream#read(int)} with {@code int}.
-   * <ul>
-   *   <li>When {@link CmapTable#ENCODING_WIN_UNICODE_FULL}.</li>
-   *   <li>Then throw {@link IOException}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link TTFDataStream#read(int)}
    */
   @Test
-  @DisplayName("Test read(int) with 'int'; when ENCODING_WIN_UNICODE_FULL; then throw IOException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"byte[] TTFDataStream.read(int)"})
-  void testReadWithInt_whenEncoding_win_unicode_full_thenThrowIOException() throws IOException {
+  void testRead() throws IOException {
     // Arrange, Act and Assert
     assertThrows(IOException.class,
         () -> (new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"))))
             .read(CmapTable.ENCODING_WIN_UNICODE_FULL));
+    assertEquals(0,
+        (new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8")))).read(0).length);
   }
 
   /**
-   * Test {@link TTFDataStream#read(int)} with {@code int}.
-   * <ul>
-   *   <li>When zero.</li>
-   *   <li>Then return empty array of {@code byte}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link TTFDataStream#read(int)}
-   */
-  @Test
-  @DisplayName("Test read(int) with 'int'; when zero; then return empty array of byte")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"byte[] TTFDataStream.read(int)"})
-  void testReadWithInt_whenZero_thenReturnEmptyArrayOfByte() throws IOException {
-    // Arrange, Act and Assert
-    assertArrayEquals(new byte[]{},
-        (new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8")))).read(0));
-  }
-
-  /**
-   * Test {@link TTFDataStream#readSignedByte()}.
-   * <ul>
-   *   <li>Given {@code A}.</li>
-   *   <li>Then return minus one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link TTFDataStream#readSignedByte()}
    */
   @Test
-  @DisplayName("Test readSignedByte(); given 'A'; then return minus one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"int TTFDataStream.readSignedByte()"})
-  void testReadSignedByte_givenA_thenReturnMinusOne() throws IOException {
+  void testReadSignedByte() throws IOException {
     // Arrange, Act and Assert
+    assertEquals(65,
+        (new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8")))).readSignedByte());
     assertEquals(-1,
         (new RandomAccessReadDataStream(new ByteArrayInputStream(new byte[]{-1, 'X', 'A', 'X', 'A', 'X', 'A', 'X'})))
             .readSignedByte());
   }
 
   /**
-   * Test {@link TTFDataStream#readSignedByte()}.
-   * <ul>
-   *   <li>Then return sixty-five.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link TTFDataStream#readSignedByte()}
    */
   @Test
-  @DisplayName("Test readSignedByte(); then return sixty-five")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"int TTFDataStream.readSignedByte()"})
-  void testReadSignedByte_thenReturnSixtyFive() throws IOException {
-    // Arrange, Act and Assert
-    assertEquals(65,
-        (new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8")))).readSignedByte());
+  void testReadSignedByte2() throws IOException {
+    // Arrange
+    DataInputStream inputStream = mock(DataInputStream.class);
+    when(inputStream.readAllBytes()).thenReturn("AXAXAXAX".getBytes("UTF-8"));
+
+    // Act
+    int actualReadSignedByteResult = (new RandomAccessReadDataStream(inputStream)).readSignedByte();
+
+    // Assert
+    verify(inputStream).readAllBytes();
+    assertEquals(65, actualReadSignedByteResult);
   }
 
   /**
-   * Test {@link TTFDataStream#readUnsignedByte()}.
-   * <ul>
-   *   <li>Then return sixty-five.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link TTFDataStream#readUnsignedByte()}
    */
   @Test
-  @DisplayName("Test readUnsignedByte(); then return sixty-five")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"int TTFDataStream.readUnsignedByte()"})
-  void testReadUnsignedByte_thenReturnSixtyFive() throws IOException {
+  void testReadUnsignedByte() throws IOException {
     // Arrange, Act and Assert
     assertEquals(65,
         (new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8")))).readUnsignedByte());
-  }
-
-  /**
-   * Test {@link TTFDataStream#readUnsignedByte()}.
-   * <ul>
-   *   <li>Then throw {@link EOFException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link TTFDataStream#readUnsignedByte()}
-   */
-  @Test
-  @DisplayName("Test readUnsignedByte(); then throw EOFException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"int TTFDataStream.readUnsignedByte()"})
-  void testReadUnsignedByte_thenThrowEOFException() throws IOException {
-    // Arrange, Act and Assert
     assertThrows(EOFException.class,
         () -> (new RandomAccessReadDataStream(new ByteArrayInputStream(new byte[]{}))).readUnsignedByte());
   }
 
   /**
-   * Test {@link TTFDataStream#readUnsignedInt()}.
-   * <ul>
-   *   <li>Then return {@code 1096302936}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link TTFDataStream#readUnsignedInt()}
+   * Method under test: {@link TTFDataStream#readUnsignedByte()}
    */
   @Test
-  @DisplayName("Test readUnsignedInt(); then return '1096302936'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"long TTFDataStream.readUnsignedInt()"})
-  void testReadUnsignedInt_thenReturn1096302936() throws IOException {
-    // Arrange, Act and Assert
-    assertEquals(1096302936L,
-        (new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8")))).readUnsignedInt());
+  void testReadUnsignedByte2() throws IOException {
+    // Arrange
+    DataInputStream inputStream = mock(DataInputStream.class);
+    when(inputStream.readAllBytes()).thenReturn("AXAXAXAX".getBytes("UTF-8"));
+
+    // Act
+    int actualReadUnsignedByteResult = (new RandomAccessReadDataStream(inputStream)).readUnsignedByte();
+
+    // Assert
+    verify(inputStream).readAllBytes();
+    assertEquals(65, actualReadUnsignedByteResult);
   }
 
   /**
-   * Test {@link TTFDataStream#readUnsignedInt()}.
-   * <ul>
-   *   <li>Then throw {@link EOFException}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link TTFDataStream#readUnsignedInt()}
    */
   @Test
-  @DisplayName("Test readUnsignedInt(); then throw EOFException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"long TTFDataStream.readUnsignedInt()"})
-  void testReadUnsignedInt_thenThrowEOFException() throws IOException {
+  void testReadUnsignedInt() throws IOException {
     // Arrange, Act and Assert
+    assertEquals(1096302936L,
+        (new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8")))).readUnsignedInt());
     assertThrows(EOFException.class,
         () -> (new RandomAccessReadDataStream(new ByteArrayInputStream(new byte[]{}))).readUnsignedInt());
   }
 
   /**
-   * Test {@link TTFDataStream#readUnsignedShort()}.
-   * <ul>
-   *   <li>Then return {@code 16728}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link TTFDataStream#readUnsignedShort()}
+   * Method under test: {@link TTFDataStream#readUnsignedInt()}
    */
   @Test
-  @DisplayName("Test readUnsignedShort(); then return '16728'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"int TTFDataStream.readUnsignedShort()"})
-  void testReadUnsignedShort_thenReturn16728() throws IOException {
-    // Arrange, Act and Assert
-    assertEquals(16728,
-        (new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8")))).readUnsignedShort());
+  void testReadUnsignedInt2() throws IOException {
+    // Arrange
+    DataInputStream inputStream = mock(DataInputStream.class);
+    when(inputStream.readAllBytes()).thenReturn("AXAXAXAX".getBytes("UTF-8"));
+
+    // Act
+    long actualReadUnsignedIntResult = (new RandomAccessReadDataStream(inputStream)).readUnsignedInt();
+
+    // Assert
+    verify(inputStream).readAllBytes();
+    assertEquals(1096302936L, actualReadUnsignedIntResult);
   }
 
   /**
-   * Test {@link TTFDataStream#readUnsignedShort()}.
-   * <ul>
-   *   <li>Then throw {@link EOFException}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link TTFDataStream#readUnsignedShort()}
    */
   @Test
-  @DisplayName("Test readUnsignedShort(); then throw EOFException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"int TTFDataStream.readUnsignedShort()"})
-  void testReadUnsignedShort_thenThrowEOFException() throws IOException {
+  void testReadUnsignedShort() throws IOException {
     // Arrange, Act and Assert
+    assertEquals(16728,
+        (new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8")))).readUnsignedShort());
     assertThrows(EOFException.class,
         () -> (new RandomAccessReadDataStream(new ByteArrayInputStream(new byte[]{}))).readUnsignedShort());
   }
 
   /**
-   * Test {@link TTFDataStream#readUnsignedByteArray(int)}.
-   * <p>
+   * Method under test: {@link TTFDataStream#readUnsignedShort()}
+   */
+  @Test
+  void testReadUnsignedShort2() throws IOException {
+    // Arrange
+    DataInputStream inputStream = mock(DataInputStream.class);
+    when(inputStream.readAllBytes()).thenReturn("AXAXAXAX".getBytes("UTF-8"));
+
+    // Act
+    int actualReadUnsignedShortResult = (new RandomAccessReadDataStream(inputStream)).readUnsignedShort();
+
+    // Assert
+    verify(inputStream).readAllBytes();
+    assertEquals(16728, actualReadUnsignedShortResult);
+  }
+
+  /**
    * Method under test: {@link TTFDataStream#readUnsignedByteArray(int)}
    */
   @Test
-  @DisplayName("Test readUnsignedByteArray(int)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"int[] TTFDataStream.readUnsignedByteArray(int)"})
   void testReadUnsignedByteArray() throws IOException {
     // Arrange, Act and Assert
     assertArrayEquals(new int[]{65, 88, 65},
@@ -336,90 +224,69 @@ class TTFDataStreamDiffblueTest {
   }
 
   /**
-   * Test {@link TTFDataStream#readUnsignedShortArray(int)}.
-   * <ul>
-   *   <li>When five.</li>
-   *   <li>Then throw {@link EOFException}.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link TTFDataStream#readUnsignedByteArray(int)}
+   */
+  @Test
+  void testReadUnsignedByteArray2() throws IOException {
+    // Arrange
+    DataInputStream inputStream = mock(DataInputStream.class);
+    when(inputStream.readAllBytes()).thenReturn("AXAXAXAX".getBytes("UTF-8"));
+
+    // Act
+    int[] actualReadUnsignedByteArrayResult = (new RandomAccessReadDataStream(inputStream)).readUnsignedByteArray(3);
+
+    // Assert
+    verify(inputStream).readAllBytes();
+    assertArrayEquals(new int[]{65, 88, 65}, actualReadUnsignedByteArrayResult);
+  }
+
+  /**
    * Method under test: {@link TTFDataStream#readUnsignedShortArray(int)}
    */
   @Test
-  @DisplayName("Test readUnsignedShortArray(int); when five; then throw EOFException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"int[] TTFDataStream.readUnsignedShortArray(int)"})
-  void testReadUnsignedShortArray_whenFive_thenThrowEOFException() throws IOException {
+  void testReadUnsignedShortArray() throws IOException {
     // Arrange, Act and Assert
+    assertArrayEquals(new int[]{16728, 16728, 16728},
+        (new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"))))
+            .readUnsignedShortArray(3));
     assertThrows(EOFException.class,
         () -> (new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"))))
             .readUnsignedShortArray(5));
   }
 
   /**
-   * Test {@link TTFDataStream#readUnsignedShortArray(int)}.
-   * <ul>
-   *   <li>When three.</li>
-   *   <li>Then return array of {@code int} with {@code 16728} and {@code 16728}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link TTFDataStream#readUnsignedShortArray(int)}
-   */
-  @Test
-  @DisplayName("Test readUnsignedShortArray(int); when three; then return array of int with '16728' and '16728'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"int[] TTFDataStream.readUnsignedShortArray(int)"})
-  void testReadUnsignedShortArray_whenThree_thenReturnArrayOfIntWith16728And16728() throws IOException {
-    // Arrange, Act and Assert
-    assertArrayEquals(new int[]{16728, 16728, 16728},
-        (new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"))))
-            .readUnsignedShortArray(3));
-  }
-
-  /**
-   * Test {@link TTFDataStream#readSignedShort()}.
-   * <ul>
-   *   <li>Then return {@code 16728}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link TTFDataStream#readSignedShort()}
    */
   @Test
-  @DisplayName("Test readSignedShort(); then return '16728'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"short TTFDataStream.readSignedShort()"})
-  void testReadSignedShort_thenReturn16728() throws IOException {
+  void testReadSignedShort() throws IOException {
     // Arrange, Act and Assert
     assertEquals((short) 16728,
         (new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8")))).readSignedShort());
-  }
-
-  /**
-   * Test {@link TTFDataStream#readSignedShort()}.
-   * <ul>
-   *   <li>Then throw {@link EOFException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link TTFDataStream#readSignedShort()}
-   */
-  @Test
-  @DisplayName("Test readSignedShort(); then throw EOFException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"short TTFDataStream.readSignedShort()"})
-  void testReadSignedShort_thenThrowEOFException() throws IOException {
-    // Arrange, Act and Assert
     assertThrows(EOFException.class,
         () -> (new RandomAccessReadDataStream(new ByteArrayInputStream(new byte[]{}))).readSignedShort());
   }
 
   /**
-   * Test {@link TTFDataStream#readInternationalDate()}.
-   * <p>
+   * Method under test: {@link TTFDataStream#readSignedShort()}
+   */
+  @Test
+  void testReadSignedShort2() throws IOException {
+    // Arrange
+    DataInputStream inputStream = mock(DataInputStream.class);
+    when(inputStream.readAllBytes()).thenReturn("AXAXAXAX".getBytes("UTF-8"));
+
+    // Act
+    short actualReadSignedShortResult = (new RandomAccessReadDataStream(inputStream)).readSignedShort();
+
+    // Assert
+    verify(inputStream).readAllBytes();
+    assertEquals((short) 16728, actualReadSignedShortResult);
+  }
+
+  /**
    * Method under test: {@link TTFDataStream#readInternationalDate()}
    */
   @Test
-  @DisplayName("Test readInternationalDate()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Calendar TTFDataStream.readInternationalDate()"})
   void testReadInternationalDate() throws IOException {
     // Arrange and Act
     Calendar actualReadInternationalDateResult = (new RandomAccessReadDataStream(
@@ -429,7 +296,11 @@ class TTFDataStreamDiffblueTest {
     assertTrue(actualReadInternationalDateResult instanceof GregorianCalendar);
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
     assertEquals("147846313-05-05", simpleDateFormat.format(actualReadInternationalDateResult.getTime()));
+    TimeZone timeZone = actualReadInternationalDateResult.getTimeZone();
+    assertEquals("Coordinated Universal Time", timeZone.getDisplayName());
+    assertEquals("UTC", timeZone.getID());
     assertEquals("gregory", actualReadInternationalDateResult.getCalendarType());
+    assertEquals(0, timeZone.getDSTSavings());
     assertEquals(1, actualReadInternationalDateResult.getFirstDayOfWeek());
     assertEquals(1, actualReadInternationalDateResult.getMinimalDaysInFirstWeek());
     assertEquals(147846313, actualReadInternationalDateResult.getWeekYear());
@@ -440,58 +311,95 @@ class TTFDataStreamDiffblueTest {
   }
 
   /**
-   * Test {@link TTFDataStream#readTag()}.
-   * <ul>
-   *   <li>Given {@link ByteArrayInputStream#ByteArrayInputStream(byte[])} with {@code AXAXAXAX} Bytes is {@code UTF-8}.</li>
-   *   <li>Then return {@code AXAX}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link TTFDataStream#readTag()}
+   * Method under test: {@link TTFDataStream#readInternationalDate()}
    */
   @Test
-  @DisplayName("Test readTag(); given ByteArrayInputStream(byte[]) with 'AXAXAXAX' Bytes is 'UTF-8'; then return 'AXAX'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"java.lang.String TTFDataStream.readTag()"})
-  void testReadTag_givenByteArrayInputStreamWithAxaxaxaxBytesIsUtf8_thenReturnAxax() throws IOException {
-    // Arrange, Act and Assert
-    assertEquals("AXAX",
-        (new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8")))).readTag());
+  void testReadInternationalDate2() throws IOException {
+    // Arrange
+    DataInputStream inputStream = mock(DataInputStream.class);
+    when(inputStream.readAllBytes()).thenReturn("AXAXAXAX".getBytes("UTF-8"));
+
+    // Act
+    Calendar actualReadInternationalDateResult = (new RandomAccessReadDataStream(inputStream)).readInternationalDate();
+
+    // Assert
+    verify(inputStream).readAllBytes();
+    assertTrue(actualReadInternationalDateResult instanceof GregorianCalendar);
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    assertEquals("147846313-05-05", simpleDateFormat.format(actualReadInternationalDateResult.getTime()));
+    TimeZone timeZone = actualReadInternationalDateResult.getTimeZone();
+    assertEquals("Coordinated Universal Time", timeZone.getDisplayName());
+    assertEquals("UTC", timeZone.getID());
+    assertEquals("gregory", actualReadInternationalDateResult.getCalendarType());
+    assertEquals(0, timeZone.getDSTSavings());
+    assertEquals(1, actualReadInternationalDateResult.getFirstDayOfWeek());
+    assertEquals(1, actualReadInternationalDateResult.getMinimalDaysInFirstWeek());
+    assertEquals(147846313, actualReadInternationalDateResult.getWeekYear());
+    assertEquals(4665516846303529920L, actualReadInternationalDateResult.getTimeInMillis());
+    assertEquals(52, actualReadInternationalDateResult.getWeeksInWeekYear());
+    assertTrue(actualReadInternationalDateResult.isLenient());
+    assertTrue(actualReadInternationalDateResult.isWeekDateSupported());
   }
 
   /**
-   * Test {@link TTFDataStream#readTag()}.
-   * <ul>
-   *   <li>Given {@link ByteArrayInputStream#ByteArrayInputStream(byte[])} with empty array of {@code byte}.</li>
-   *   <li>Then throw {@link IOException}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link TTFDataStream#readTag()}
    */
   @Test
-  @DisplayName("Test readTag(); given ByteArrayInputStream(byte[]) with empty array of byte; then throw IOException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"java.lang.String TTFDataStream.readTag()"})
-  void testReadTag_givenByteArrayInputStreamWithEmptyArrayOfByte_thenThrowIOException() throws IOException {
+  void testReadTag() throws IOException {
     // Arrange, Act and Assert
+    assertEquals("AXAX",
+        (new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8")))).readTag());
     assertThrows(IOException.class,
         () -> (new RandomAccessReadDataStream(new ByteArrayInputStream(new byte[]{}))).readTag());
   }
 
   /**
-   * Test {@link TTFDataStream#createSubView(long)}.
-   * <p>
+   * Method under test: {@link TTFDataStream#readTag()}
+   */
+  @Test
+  void testReadTag2() throws IOException {
+    // Arrange
+    DataInputStream inputStream = mock(DataInputStream.class);
+    when(inputStream.readAllBytes()).thenReturn("AXAXAXAX".getBytes("UTF-8"));
+
+    // Act
+    String actualReadTagResult = (new RandomAccessReadDataStream(inputStream)).readTag();
+
+    // Assert
+    verify(inputStream).readAllBytes();
+    assertEquals("AXAX", actualReadTagResult);
+  }
+
+  /**
    * Method under test: {@link TTFDataStream#createSubView(long)}
    */
   @Test
-  @DisplayName("Test createSubView(long)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"RandomAccessRead TTFDataStream.createSubView(long)"})
   void testCreateSubView() throws IOException {
     // Arrange and Act
     RandomAccessRead actualCreateSubViewResult = (new RandomAccessReadDataStream(
         new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8")))).createSubView(3L);
 
     // Assert
+    assertTrue(actualCreateSubViewResult instanceof RandomAccessReadView);
+    assertEquals(0L, actualCreateSubViewResult.getPosition());
+    assertEquals(3, actualCreateSubViewResult.available());
+    assertFalse(actualCreateSubViewResult.isClosed());
+  }
+
+  /**
+   * Method under test: {@link TTFDataStream#createSubView(long)}
+   */
+  @Test
+  void testCreateSubView2() throws IOException {
+    // Arrange
+    DataInputStream inputStream = mock(DataInputStream.class);
+    when(inputStream.readAllBytes()).thenReturn("AXAXAXAX".getBytes("UTF-8"));
+
+    // Act
+    RandomAccessRead actualCreateSubViewResult = (new RandomAccessReadDataStream(inputStream)).createSubView(3L);
+
+    // Assert
+    verify(inputStream).readAllBytes();
     assertTrue(actualCreateSubViewResult instanceof RandomAccessReadView);
     assertEquals(0L, actualCreateSubViewResult.getPosition());
     assertEquals(3, actualCreateSubViewResult.available());

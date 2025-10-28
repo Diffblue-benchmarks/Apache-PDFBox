@@ -5,24 +5,16 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.cos.COSIncrement;
 import org.apache.pdfbox.cos.COSUpdateState;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class PDPropertyListDiffblueTest {
   /**
-   * Test {@link PDPropertyList#create(COSDictionary)}.
-   * <p>
    * Method under test: {@link PDPropertyList#create(COSDictionary)}
    */
   @Test
-  @DisplayName("Test create(COSDictionary)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDPropertyList PDPropertyList.create(COSDictionary)"})
   void testCreate() {
     // Arrange
     COSDictionary dict = new COSDictionary();
@@ -32,14 +24,21 @@ class PDPropertyListDiffblueTest {
   }
 
   /**
-   * Test {@link PDPropertyList#PDPropertyList(COSDictionary)}.
-   * <p>
+   * Method under test: {@link PDPropertyList#getCOSObject()}
+   */
+  @Test
+  void testGetCOSObject() {
+    // Arrange
+    PDPropertyList pdPropertyList = new PDPropertyList();
+
+    // Act and Assert
+    assertSame(pdPropertyList.dict, pdPropertyList.getCOSObject());
+  }
+
+  /**
    * Method under test: {@link PDPropertyList#PDPropertyList(COSDictionary)}
    */
   @Test
-  @DisplayName("Test new PDPropertyList(COSDictionary)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDPropertyList.<init>(COSDictionary)"})
   void testNewPDPropertyList() {
     // Arrange
     COSDictionary dict = new COSDictionary();
@@ -49,14 +48,9 @@ class PDPropertyListDiffblueTest {
   }
 
   /**
-   * Test {@link PDPropertyList#PDPropertyList()}.
-   * <p>
    * Method under test: {@link PDPropertyList#PDPropertyList()}
    */
   @Test
-  @DisplayName("Test new PDPropertyList()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDPropertyList.<init>()"})
   void testNewPDPropertyList2() {
     // Arrange and Act
     COSDictionary actualCOSObject = (new PDPropertyList()).getCOSObject();
@@ -73,22 +67,5 @@ class PDPropertyListDiffblueTest {
     assertFalse(updateState.isUpdated());
     assertTrue(actualCOSObject.getValues().isEmpty());
     assertTrue(toIncrementResult.getObjects().isEmpty());
-  }
-
-  /**
-   * Test {@link PDPropertyList#getCOSObject()}.
-   * <p>
-   * Method under test: {@link PDPropertyList#getCOSObject()}
-   */
-  @Test
-  @DisplayName("Test getCOSObject()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"COSDictionary PDPropertyList.getCOSObject()"})
-  void testGetCOSObject() {
-    // Arrange
-    PDPropertyList pdPropertyList = new PDPropertyList();
-
-    // Act and Assert
-    assertSame(pdPropertyList.dict, pdPropertyList.getCOSObject());
   }
 }

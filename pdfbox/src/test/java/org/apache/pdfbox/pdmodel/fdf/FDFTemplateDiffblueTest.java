@@ -5,75 +5,26 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.pdfbox.cos.COSDictionary;
+import org.apache.pdfbox.cos.COSDocument;
 import org.apache.pdfbox.cos.COSIncrement;
 import org.apache.pdfbox.cos.COSObjectKey;
 import org.apache.pdfbox.cos.COSUpdateState;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
+import org.apache.pdfbox.io.RandomAccessStreamCache;
+import org.apache.pdfbox.io.RandomAccessStreamCacheImpl;
 import org.junit.jupiter.api.Test;
 
 class FDFTemplateDiffblueTest {
   /**
-   * Test {@link FDFTemplate#FDFTemplate(COSDictionary)}.
-   * <p>
-   * Method under test: {@link FDFTemplate#FDFTemplate(COSDictionary)}
-   */
-  @Test
-  @DisplayName("Test new FDFTemplate(COSDictionary)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void FDFTemplate.<init>(COSDictionary)"})
-  void testNewFDFTemplate() {
-    // Arrange
-    COSDictionary t = new COSDictionary();
-
-    // Act and Assert
-    assertSame(t, (new FDFTemplate(t)).getCOSObject());
-  }
-
-  /**
-   * Test {@link FDFTemplate#FDFTemplate()}.
-   * <p>
-   * Method under test: {@link FDFTemplate#FDFTemplate()}
-   */
-  @Test
-  @DisplayName("Test new FDFTemplate()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void FDFTemplate.<init>()"})
-  void testNewFDFTemplate2() {
-    // Arrange and Act
-    FDFTemplate actualFdfTemplate = new FDFTemplate();
-
-    // Assert
-    assertNull(actualFdfTemplate.getFields());
-    COSDictionary cOSObject = actualFdfTemplate.getCOSObject();
-    COSUpdateState updateState = cOSObject.getUpdateState();
-    assertNull(updateState.getOriginDocumentState());
-    assertNull(cOSObject.getKey());
-    assertNull(actualFdfTemplate.getTemplateReference());
-    assertEquals(0, cOSObject.size());
-    COSIncrement toIncrementResult = cOSObject.toIncrement();
-    assertFalse(toIncrementResult.iterator().hasNext());
-    assertFalse(cOSObject.isDirect());
-    assertFalse(cOSObject.isNeedToBeUpdated());
-    assertFalse(updateState.isUpdated());
-    assertTrue(cOSObject.getValues().isEmpty());
-    assertTrue(toIncrementResult.getObjects().isEmpty());
-  }
-
-  /**
-   * Test {@link FDFTemplate#getCOSObject()}.
-   * <p>
    * Method under test: {@link FDFTemplate#getCOSObject()}
    */
   @Test
-  @DisplayName("Test getCOSObject()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"COSDictionary FDFTemplate.getCOSObject()"})
   void testGetCOSObject() {
     // Arrange and Act
     COSDictionary actualCOSObject = (new FDFTemplate()).getCOSObject();
@@ -93,61 +44,19 @@ class FDFTemplateDiffblueTest {
   }
 
   /**
-   * Test {@link FDFTemplate#getTemplateReference()}.
-   * <ul>
-   *   <li>Given {@link FDFTemplate#FDFTemplate()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link FDFTemplate#getTemplateReference()}
    */
   @Test
-  @DisplayName("Test getTemplateReference(); given FDFTemplate(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"FDFNamedPageReference FDFTemplate.getTemplateReference()"})
-  void testGetTemplateReference_givenFDFTemplate_thenReturnNull() {
+  void testGetTemplateReference() {
     // Arrange, Act and Assert
     assertNull((new FDFTemplate()).getTemplateReference());
   }
 
   /**
-   * Test {@link FDFTemplate#getTemplateReference()}.
-   * <ul>
-   *   <li>Then return COSObject is {@link COSDictionary#COSDictionary()}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link FDFTemplate#getTemplateReference()}
    */
   @Test
-  @DisplayName("Test getTemplateReference(); then return COSObject is COSDictionary()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"FDFNamedPageReference FDFTemplate.getTemplateReference()"})
-  void testGetTemplateReference_thenReturnCOSObjectIsCOSDictionary() {
-    // Arrange
-    COSDictionary r = new COSDictionary();
-    r.setKey(new COSObjectKey(1L, 1));
-    FDFNamedPageReference tRef = new FDFNamedPageReference(r);
-
-    FDFTemplate fdfTemplate = new FDFTemplate();
-    fdfTemplate.setTemplateReference(tRef);
-
-    // Act and Assert
-    assertSame(r, fdfTemplate.getTemplateReference().getCOSObject());
-  }
-
-  /**
-   * Test {@link FDFTemplate#getTemplateReference()}.
-   * <ul>
-   *   <li>Then return Name is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link FDFTemplate#getTemplateReference()}
-   */
-  @Test
-  @DisplayName("Test getTemplateReference(); then return Name is 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"FDFNamedPageReference FDFTemplate.getTemplateReference()"})
-  void testGetTemplateReference_thenReturnNameIsNull() throws IOException {
+  void testGetTemplateReference2() throws IOException {
     // Arrange
     FDFTemplate fdfTemplate = new FDFTemplate();
     fdfTemplate.setTemplateReference(new FDFNamedPageReference());
@@ -173,26 +82,38 @@ class FDFTemplateDiffblueTest {
   }
 
   /**
-   * Test {@link FDFTemplate#setTemplateReference(FDFNamedPageReference)}.
-   * <ul>
-   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link FDFTemplate#setTemplateReference(FDFNamedPageReference)}
+   * Method under test: {@link FDFTemplate#getTemplateReference()}
    */
   @Test
-  @DisplayName("Test setTemplateReference(FDFNamedPageReference); given COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void FDFTemplate.setTemplateReference(FDFNamedPageReference)"})
-  void testSetTemplateReference_givenCOSObjectKeyWithNumIsOneAndGenIsOne() throws IOException {
+  void testGetTemplateReference3() throws IOException {
+    // Arrange
+    COSDictionary r = new COSDictionary();
+    r.setKey(new COSObjectKey(1L, 1));
+    FDFNamedPageReference tRef = new FDFNamedPageReference(r);
+
+    FDFTemplate fdfTemplate = new FDFTemplate();
+    fdfTemplate.setTemplateReference(tRef);
+
+    // Act
+    FDFNamedPageReference actualTemplateReference = fdfTemplate.getTemplateReference();
+
+    // Assert
+    assertNull(actualTemplateReference.getName());
+    assertNull(actualTemplateReference.getFileSpecification());
+    assertSame(r, actualTemplateReference.getCOSObject());
+  }
+
+  /**
+   * Method under test:
+   * {@link FDFTemplate#setTemplateReference(FDFNamedPageReference)}
+   */
+  @Test
+  void testSetTemplateReference() throws IOException {
     // Arrange
     FDFTemplate fdfTemplate = new FDFTemplate();
 
-    COSDictionary r = new COSDictionary();
-    r.setKey(new COSObjectKey(1L, 1));
-
     // Act
-    fdfTemplate.setTemplateReference(new FDFNamedPageReference(r));
+    fdfTemplate.setTemplateReference(new FDFNamedPageReference());
 
     // Assert
     FDFNamedPageReference templateReference = fdfTemplate.getTemplateReference();
@@ -201,23 +122,33 @@ class FDFTemplateDiffblueTest {
     COSDictionary cOSObject = fdfTemplate.getCOSObject();
     assertEquals(1, cOSObject.getValues().size());
     assertEquals(1, cOSObject.size());
-    assertSame(r, templateReference.getCOSObject());
   }
 
   /**
-   * Test {@link FDFTemplate#setTemplateReference(FDFNamedPageReference)}.
-   * <ul>
-   *   <li>Given {@code true}.</li>
-   *   <li>When {@link COSDictionary#COSDictionary()} Direct is {@code true}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link FDFTemplate#setTemplateReference(FDFNamedPageReference)}
+   * Method under test:
+   * {@link FDFTemplate#setTemplateReference(FDFNamedPageReference)}
    */
   @Test
-  @DisplayName("Test setTemplateReference(FDFNamedPageReference); given 'true'; when COSDictionary() Direct is 'true'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void FDFTemplate.setTemplateReference(FDFNamedPageReference)"})
-  void testSetTemplateReference_givenTrue_whenCOSDictionaryDirectIsTrue() throws IOException {
+  void testSetTemplateReference2() {
+    // Arrange
+    FDFTemplate fdfTemplate = new FDFTemplate();
+
+    // Act
+    fdfTemplate.setTemplateReference(null);
+
+    // Assert
+    assertNull(fdfTemplate.getTemplateReference());
+    COSDictionary cOSObject = fdfTemplate.getCOSObject();
+    assertEquals(0, cOSObject.size());
+    assertTrue(cOSObject.getValues().isEmpty());
+  }
+
+  /**
+   * Method under test:
+   * {@link FDFTemplate#setTemplateReference(FDFNamedPageReference)}
+   */
+  @Test
+  void testSetTemplateReference3() throws IOException {
     // Arrange
     FDFTemplate fdfTemplate = new FDFTemplate();
 
@@ -238,23 +169,19 @@ class FDFTemplateDiffblueTest {
   }
 
   /**
-   * Test {@link FDFTemplate#setTemplateReference(FDFNamedPageReference)}.
-   * <ul>
-   *   <li>When {@link FDFNamedPageReference#FDFNamedPageReference()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link FDFTemplate#setTemplateReference(FDFNamedPageReference)}
+   * Method under test:
+   * {@link FDFTemplate#setTemplateReference(FDFNamedPageReference)}
    */
   @Test
-  @DisplayName("Test setTemplateReference(FDFNamedPageReference); when FDFNamedPageReference()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void FDFTemplate.setTemplateReference(FDFNamedPageReference)"})
-  void testSetTemplateReference_whenFDFNamedPageReference() throws IOException {
+  void testSetTemplateReference4() throws IOException {
     // Arrange
     FDFTemplate fdfTemplate = new FDFTemplate();
 
+    COSDictionary r = new COSDictionary();
+    r.setKey(new COSObjectKey(1L, 1));
+
     // Act
-    fdfTemplate.setTemplateReference(new FDFNamedPageReference());
+    fdfTemplate.setTemplateReference(new FDFNamedPageReference(r));
 
     // Assert
     FDFNamedPageReference templateReference = fdfTemplate.getTemplateReference();
@@ -263,48 +190,36 @@ class FDFTemplateDiffblueTest {
     COSDictionary cOSObject = fdfTemplate.getCOSObject();
     assertEquals(1, cOSObject.getValues().size());
     assertEquals(1, cOSObject.size());
+    assertSame(r, templateReference.getCOSObject());
   }
 
   /**
-   * Test {@link FDFTemplate#setTemplateReference(FDFNamedPageReference)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then {@link FDFTemplate#FDFTemplate()} COSObject size is zero.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link FDFTemplate#setTemplateReference(FDFNamedPageReference)}
-   */
-  @Test
-  @DisplayName("Test setTemplateReference(FDFNamedPageReference); when 'null'; then FDFTemplate() COSObject size is zero")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void FDFTemplate.setTemplateReference(FDFNamedPageReference)"})
-  void testSetTemplateReference_whenNull_thenFDFTemplateCOSObjectSizeIsZero() {
-    // Arrange
-    FDFTemplate fdfTemplate = new FDFTemplate();
-
-    // Act
-    fdfTemplate.setTemplateReference(null);
-
-    // Assert that nothing has changed
-    COSDictionary cOSObject = fdfTemplate.getCOSObject();
-    assertEquals(0, cOSObject.size());
-    assertTrue(cOSObject.getValues().isEmpty());
-  }
-
-  /**
-   * Test {@link FDFTemplate#getFields()}.
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link FDFField#FDFField()}.</li>
-   *   <li>Then return size is one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link FDFTemplate#getFields()}
    */
   @Test
-  @DisplayName("Test getFields(); given ArrayList() add FDFField(); then return size is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List FDFTemplate.getFields()"})
-  void testGetFields_givenArrayListAddFDFField_thenReturnSizeIsOne() throws IOException {
+  void testGetFields() {
+    // Arrange, Act and Assert
+    assertNull((new FDFTemplate()).getFields());
+  }
+
+  /**
+   * Method under test: {@link FDFTemplate#getFields()}
+   */
+  @Test
+  void testGetFields2() {
+    // Arrange
+    FDFTemplate fdfTemplate = new FDFTemplate();
+    fdfTemplate.setFields(new ArrayList<>());
+
+    // Act and Assert
+    assertTrue(fdfTemplate.getFields().isEmpty());
+  }
+
+  /**
+   * Method under test: {@link FDFTemplate#getFields()}
+   */
+  @Test
+  void testGetFields3() throws IOException {
     // Arrange
     ArrayList<FDFField> fields = new ArrayList<>();
     fields.add(new FDFField());
@@ -330,67 +245,104 @@ class FDFTemplateDiffblueTest {
     assertNull(getResult.getOptions());
     assertNull(getResult.getKids());
     assertNull(getResult.getCOSValue());
+    COSDictionary cOSObject = getResult.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
     assertNull(getResult.getIconFit());
     assertNull(getResult.getAppearanceStreamReference());
     assertNull(getResult.getAction());
     assertNull(getResult.getAdditionalActions());
     assertNull(getResult.getAppearanceDictionary());
+    assertEquals(0, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(cOSObject.getValues().isEmpty());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
   }
 
   /**
-   * Test {@link FDFTemplate#getFields()}.
-   * <ul>
-   *   <li>Given {@link FDFTemplate#FDFTemplate()} Fields is {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then return Empty.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link FDFTemplate#getFields()}
    */
   @Test
-  @DisplayName("Test getFields(); given FDFTemplate() Fields is ArrayList(); then return Empty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List FDFTemplate.getFields()"})
-  void testGetFields_givenFDFTemplateFieldsIsArrayList_thenReturnEmpty() {
+  void testGetFields4() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    COSDocument value = new COSDocument(streamCacheCreateFunction);
+
+    FDFField fdfField = new FDFField();
+    fdfField.setValue(value);
+
+    ArrayList<FDFField> fields = new ArrayList<>();
+    fields.add(fdfField);
+
+    FDFTemplate fdfTemplate = new FDFTemplate();
+    fdfTemplate.setFields(fields);
+
+    // Act
+    List<FDFField> actualFields = fdfTemplate.getFields();
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertEquals(1, actualFields.size());
+    FDFField getResult = actualFields.get(0);
+    assertNull(getResult.getClearFieldFlags());
+    assertNull(getResult.getClearWidgetFieldFlags());
+    assertNull(getResult.getFieldFlags());
+    assertNull(getResult.getSetFieldFlags());
+    assertNull(getResult.getSetWidgetFieldFlags());
+    assertNull(getResult.getWidgetFieldFlags());
+    assertNull(getResult.getPartialFieldName());
+    assertNull(getResult.getRichText());
+    assertNull(getResult.getOptions());
+    assertNull(getResult.getKids());
+    COSDictionary cOSObject = getResult.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertNull(getResult.getIconFit());
+    assertNull(getResult.getAppearanceStreamReference());
+    assertNull(getResult.getAction());
+    assertNull(getResult.getAdditionalActions());
+    assertNull(getResult.getAppearanceDictionary());
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+  }
+
+  /**
+   * Method under test: {@link FDFTemplate#setFields(List)}
+   */
+  @Test
+  void testSetFields() {
     // Arrange
     FDFTemplate fdfTemplate = new FDFTemplate();
+
+    // Act
     fdfTemplate.setFields(new ArrayList<>());
 
-    // Act and Assert
+    // Assert
+    COSDictionary cOSObject = fdfTemplate.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
     assertTrue(fdfTemplate.getFields().isEmpty());
   }
 
   /**
-   * Test {@link FDFTemplate#getFields()}.
-   * <ul>
-   *   <li>Given {@link FDFTemplate#FDFTemplate()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link FDFTemplate#getFields()}
-   */
-  @Test
-  @DisplayName("Test getFields(); given FDFTemplate(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List FDFTemplate.getFields()"})
-  void testGetFields_givenFDFTemplate_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull((new FDFTemplate()).getFields());
-  }
-
-  /**
-   * Test {@link FDFTemplate#setFields(List)}.
-   * <ul>
-   *   <li>Given {@link FDFField#FDFField()}.</li>
-   *   <li>Then {@link FDFTemplate#FDFTemplate()} Fields first ClearFieldFlags is {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link FDFTemplate#setFields(List)}
    */
   @Test
-  @DisplayName("Test setFields(List); given FDFField(); then FDFTemplate() Fields first ClearFieldFlags is 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void FDFTemplate.setFields(List)"})
-  void testSetFields_givenFDFField_thenFDFTemplateFieldsFirstClearFieldFlagsIsNull() throws IOException {
+  void testSetFields2() throws IOException {
     // Arrange
     FDFTemplate fdfTemplate = new FDFTemplate();
 
@@ -421,22 +373,16 @@ class FDFTemplateDiffblueTest {
     assertNull(getResult.getAction());
     assertNull(getResult.getAdditionalActions());
     assertNull(getResult.getAppearanceDictionary());
+    COSDictionary cOSObject = fdfTemplate.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
   }
 
   /**
-   * Test {@link FDFTemplate#setFields(List)}.
-   * <ul>
-   *   <li>Given {@link FDFField#FDFField()}.</li>
-   *   <li>Then {@link FDFTemplate#FDFTemplate()} Fields size is two.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link FDFTemplate#setFields(List)}
    */
   @Test
-  @DisplayName("Test setFields(List); given FDFField(); then FDFTemplate() Fields size is two")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void FDFTemplate.setFields(List)"})
-  void testSetFields_givenFDFField_thenFDFTemplateFieldsSizeIsTwo() throws IOException {
+  void testSetFields3() throws IOException {
     // Arrange
     FDFTemplate fdfTemplate = new FDFTemplate();
 
@@ -450,68 +396,52 @@ class FDFTemplateDiffblueTest {
     // Assert
     List<FDFField> fields2 = fdfTemplate.getFields();
     assertEquals(2, fields2.size());
-    FDFField getResult = fields2.get(1);
+    FDFField getResult = fields2.get(0);
     assertNull(getResult.getClearFieldFlags());
+    FDFField getResult2 = fields2.get(1);
+    assertNull(getResult2.getClearFieldFlags());
     assertNull(getResult.getClearWidgetFieldFlags());
+    assertNull(getResult2.getClearWidgetFieldFlags());
     assertNull(getResult.getFieldFlags());
+    assertNull(getResult2.getFieldFlags());
     assertNull(getResult.getSetFieldFlags());
+    assertNull(getResult2.getSetFieldFlags());
     assertNull(getResult.getSetWidgetFieldFlags());
+    assertNull(getResult2.getSetWidgetFieldFlags());
     assertNull(getResult.getWidgetFieldFlags());
+    assertNull(getResult2.getWidgetFieldFlags());
     assertNull(getResult.getValue());
+    assertNull(getResult2.getValue());
     assertNull(getResult.getPartialFieldName());
+    assertNull(getResult2.getPartialFieldName());
     assertNull(getResult.getRichText());
+    assertNull(getResult2.getRichText());
     assertNull(getResult.getOptions());
+    assertNull(getResult2.getOptions());
     assertNull(getResult.getKids());
+    assertNull(getResult2.getKids());
     assertNull(getResult.getCOSValue());
+    assertNull(getResult2.getCOSValue());
     assertNull(getResult.getIconFit());
+    assertNull(getResult2.getIconFit());
     assertNull(getResult.getAppearanceStreamReference());
+    assertNull(getResult2.getAppearanceStreamReference());
     assertNull(getResult.getAction());
+    assertNull(getResult2.getAction());
     assertNull(getResult.getAdditionalActions());
+    assertNull(getResult2.getAdditionalActions());
     assertNull(getResult.getAppearanceDictionary());
-  }
-
-  /**
-   * Test {@link FDFTemplate#setFields(List)}.
-   * <ul>
-   *   <li>Given {@link FDFTemplate#FDFTemplate()}.</li>
-   *   <li>When {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then {@link FDFTemplate#FDFTemplate()} Fields Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link FDFTemplate#setFields(List)}
-   */
-  @Test
-  @DisplayName("Test setFields(List); given FDFTemplate(); when ArrayList(); then FDFTemplate() Fields Empty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void FDFTemplate.setFields(List)"})
-  void testSetFields_givenFDFTemplate_whenArrayList_thenFDFTemplateFieldsEmpty() {
-    // Arrange
-    FDFTemplate fdfTemplate = new FDFTemplate();
-
-    // Act
-    fdfTemplate.setFields(new ArrayList<>());
-
-    // Assert
+    assertNull(getResult2.getAppearanceDictionary());
     COSDictionary cOSObject = fdfTemplate.getCOSObject();
     assertEquals(1, cOSObject.getValues().size());
     assertEquals(1, cOSObject.size());
-    assertTrue(fdfTemplate.getFields().isEmpty());
   }
 
   /**
-   * Test {@link FDFTemplate#setFields(List)}.
-   * <ul>
-   *   <li>Given {@code null}.</li>
-   *   <li>Then {@link FDFTemplate#FDFTemplate()} Fields first COSObject is {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link FDFTemplate#setFields(List)}
    */
   @Test
-  @DisplayName("Test setFields(List); given 'null'; then FDFTemplate() Fields first COSObject is 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void FDFTemplate.setFields(List)"})
-  void testSetFields_givenNull_thenFDFTemplateFieldsFirstCOSObjectIsNull() {
+  void testSetFields4() {
     // Arrange
     FDFTemplate fdfTemplate = new FDFTemplate();
 
@@ -531,41 +461,65 @@ class FDFTemplateDiffblueTest {
   }
 
   /**
-   * Test {@link FDFTemplate#shouldRename()}.
-   * <ul>
-   *   <li>Given {@link FDFTemplate#FDFTemplate()} Rename is {@code false}.</li>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link FDFTemplate#shouldRename()}
+   * Method under test: {@link FDFTemplate#setFields(List)}
    */
   @Test
-  @DisplayName("Test shouldRename(); given FDFTemplate() Rename is 'false'; then return 'false'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean FDFTemplate.shouldRename()"})
-  void testShouldRename_givenFDFTemplateRenameIsFalse_thenReturnFalse() {
+  void testSetFields5() throws IOException {
     // Arrange
     FDFTemplate fdfTemplate = new FDFTemplate();
-    fdfTemplate.setRename(false);
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    COSDocument value = new COSDocument(streamCacheCreateFunction);
 
-    // Act and Assert
-    assertFalse(fdfTemplate.shouldRename());
+    FDFField fdfField = new FDFField();
+    fdfField.setValue(value);
+
+    ArrayList<FDFField> fields = new ArrayList<>();
+    fields.add(fdfField);
+
+    // Act
+    fdfTemplate.setFields(fields);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    List<FDFField> fields2 = fdfTemplate.getFields();
+    assertEquals(1, fields2.size());
+    FDFField getResult = fields2.get(0);
+    assertNull(getResult.getClearFieldFlags());
+    assertNull(getResult.getClearWidgetFieldFlags());
+    assertNull(getResult.getFieldFlags());
+    assertNull(getResult.getSetFieldFlags());
+    assertNull(getResult.getSetWidgetFieldFlags());
+    assertNull(getResult.getWidgetFieldFlags());
+    assertNull(getResult.getPartialFieldName());
+    assertNull(getResult.getRichText());
+    assertNull(getResult.getOptions());
+    assertNull(getResult.getKids());
+    assertNull(getResult.getIconFit());
+    assertNull(getResult.getAppearanceStreamReference());
+    assertNull(getResult.getAction());
+    assertNull(getResult.getAdditionalActions());
+    assertNull(getResult.getAppearanceDictionary());
+    COSDictionary cOSObject = fdfTemplate.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
   }
 
   /**
-   * Test {@link FDFTemplate#shouldRename()}.
-   * <ul>
-   *   <li>Given {@link FDFTemplate#FDFTemplate()} Rename is {@code true}.</li>
-   *   <li>Then return {@code true}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link FDFTemplate#shouldRename()}
    */
   @Test
-  @DisplayName("Test shouldRename(); given FDFTemplate() Rename is 'true'; then return 'true'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean FDFTemplate.shouldRename()"})
-  void testShouldRename_givenFDFTemplateRenameIsTrue_thenReturnTrue() {
+  void testShouldRename() {
+    // Arrange, Act and Assert
+    assertFalse((new FDFTemplate()).shouldRename());
+  }
+
+  /**
+   * Method under test: {@link FDFTemplate#shouldRename()}
+   */
+  @Test
+  void testShouldRename2() {
     // Arrange
     FDFTemplate fdfTemplate = new FDFTemplate();
     fdfTemplate.setRename(true);
@@ -575,38 +529,40 @@ class FDFTemplateDiffblueTest {
   }
 
   /**
-   * Test {@link FDFTemplate#shouldRename()}.
-   * <ul>
-   *   <li>Given {@link FDFTemplate#FDFTemplate()}.</li>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link FDFTemplate#shouldRename()}
    */
   @Test
-  @DisplayName("Test shouldRename(); given FDFTemplate(); then return 'false'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean FDFTemplate.shouldRename()"})
-  void testShouldRename_givenFDFTemplate_thenReturnFalse() {
-    // Arrange, Act and Assert
-    assertFalse((new FDFTemplate()).shouldRename());
+  void testShouldRename3() {
+    // Arrange
+    FDFTemplate fdfTemplate = new FDFTemplate();
+    fdfTemplate.setRename(false);
+
+    // Act and Assert
+    assertFalse(fdfTemplate.shouldRename());
   }
 
   /**
-   * Test {@link FDFTemplate#setRename(boolean)}.
-   * <ul>
-   *   <li>Given {@link FDFTemplate#FDFTemplate()}.</li>
-   *   <li>When {@code false}.</li>
-   *   <li>Then {@link FDFTemplate#FDFTemplate()} COSObject Values size is one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link FDFTemplate#setRename(boolean)}
    */
   @Test
-  @DisplayName("Test setRename(boolean); given FDFTemplate(); when 'false'; then FDFTemplate() COSObject Values size is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void FDFTemplate.setRename(boolean)"})
-  void testSetRename_givenFDFTemplate_whenFalse_thenFDFTemplateCOSObjectValuesSizeIsOne() {
+  void testSetRename() {
+    // Arrange
+    FDFTemplate fdfTemplate = new FDFTemplate();
+
+    // Act
+    fdfTemplate.setRename(true);
+
+    // Assert
+    COSDictionary cOSObject = fdfTemplate.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+  }
+
+  /**
+   * Method under test: {@link FDFTemplate#setRename(boolean)}
+   */
+  @Test
+  void testSetRename2() {
     // Arrange
     FDFTemplate fdfTemplate = new FDFTemplate();
 
@@ -620,29 +576,39 @@ class FDFTemplateDiffblueTest {
   }
 
   /**
-   * Test {@link FDFTemplate#setRename(boolean)}.
-   * <ul>
-   *   <li>Given {@link FDFTemplate#FDFTemplate()}.</li>
-   *   <li>When {@code true}.</li>
-   *   <li>Then {@link FDFTemplate#FDFTemplate()} COSObject Values size is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link FDFTemplate#setRename(boolean)}
+   * Method under test: {@link FDFTemplate#FDFTemplate(COSDictionary)}
    */
   @Test
-  @DisplayName("Test setRename(boolean); given FDFTemplate(); when 'true'; then FDFTemplate() COSObject Values size is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void FDFTemplate.setRename(boolean)"})
-  void testSetRename_givenFDFTemplate_whenTrue_thenFDFTemplateCOSObjectValuesSizeIsOne() {
+  void testNewFDFTemplate() {
     // Arrange
-    FDFTemplate fdfTemplate = new FDFTemplate();
+    COSDictionary t = new COSDictionary();
 
-    // Act
-    fdfTemplate.setRename(true);
+    // Act and Assert
+    assertSame(t, (new FDFTemplate(t)).getCOSObject());
+  }
+
+  /**
+   * Method under test: {@link FDFTemplate#FDFTemplate()}
+   */
+  @Test
+  void testNewFDFTemplate2() {
+    // Arrange and Act
+    FDFTemplate actualFdfTemplate = new FDFTemplate();
 
     // Assert
-    COSDictionary cOSObject = fdfTemplate.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
+    assertNull(actualFdfTemplate.getFields());
+    COSDictionary cOSObject = actualFdfTemplate.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertNull(actualFdfTemplate.getTemplateReference());
+    assertEquals(0, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(cOSObject.getValues().isEmpty());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
   }
 }

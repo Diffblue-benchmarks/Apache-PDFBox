@@ -4,24 +4,19 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
+import java.util.List;
 import java.util.Map;
 import org.apache.xmpbox.XMPMetadata;
 import org.apache.xmpbox.schema.AdobePDFSchema;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class AbstractComplexPropertyDiffblueTest {
   /**
-   * Test {@link AbstractComplexProperty#addNamespace(String, String)}.
-   * <p>
-   * Method under test: {@link AbstractComplexProperty#addNamespace(String, String)}
+   * Method under test:
+   * {@link AbstractComplexProperty#addNamespace(String, String)}
    */
   @Test
-  @DisplayName("Test addNamespace(String, String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void AbstractComplexProperty.addNamespace(String, String)"})
   void testAddNamespace() {
     // Arrange
     AdobePDFSchema adobePDFSchema = new AdobePDFSchema(XMPMetadata.createXMPMetadata());
@@ -37,28 +32,19 @@ class AbstractComplexPropertyDiffblueTest {
   }
 
   /**
-   * Test {@link AbstractComplexProperty#getNamespacePrefix(String)}.
-   * <p>
    * Method under test: {@link AbstractComplexProperty#getNamespacePrefix(String)}
    */
   @Test
-  @DisplayName("Test getNamespacePrefix(String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String AbstractComplexProperty.getNamespacePrefix(String)"})
   void testGetNamespacePrefix() {
     // Arrange, Act and Assert
     assertNull((new AdobePDFSchema(XMPMetadata.createXMPMetadata())).getNamespacePrefix("Namespace"));
   }
 
   /**
-   * Test {@link AbstractComplexProperty#getAllNamespacesWithPrefix()}.
-   * <p>
-   * Method under test: {@link AbstractComplexProperty#getAllNamespacesWithPrefix()}
+   * Method under test:
+   * {@link AbstractComplexProperty#getAllNamespacesWithPrefix()}
    */
   @Test
-  @DisplayName("Test getAllNamespacesWithPrefix()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Map AbstractComplexProperty.getAllNamespacesWithPrefix()"})
   void testGetAllNamespacesWithPrefix() {
     // Arrange and Act
     Map<String, String> actualAllNamespacesWithPrefix = (new AdobePDFSchema(XMPMetadata.createXMPMetadata()))
@@ -70,63 +56,68 @@ class AbstractComplexPropertyDiffblueTest {
   }
 
   /**
-   * Test {@link AbstractComplexProperty#getContainer()}.
-   * <p>
+   * Method under test: {@link AbstractComplexProperty#addProperty(AbstractField)}
+   */
+  @Test
+  void testAddProperty() {
+    // Arrange
+    AdobePDFSchema adobePDFSchema = new AdobePDFSchema(mock(XMPMetadata.class));
+    AdobePDFSchema obj = new AdobePDFSchema(XMPMetadata.createXMPMetadata());
+
+    // Act
+    adobePDFSchema.addProperty(obj);
+
+    // Assert
+    List<AbstractField> allProperties = adobePDFSchema.getAllProperties();
+    assertEquals(1, allProperties.size());
+    assertSame(obj, allProperties.get(0));
+  }
+
+  /**
    * Method under test: {@link AbstractComplexProperty#getContainer()}
    */
   @Test
-  @DisplayName("Test getContainer()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"org.apache.xmpbox.type.ComplexPropertyContainer AbstractComplexProperty.getContainer()"})
   void testGetContainer() {
     // Arrange, Act and Assert
     assertTrue((new AdobePDFSchema(XMPMetadata.createXMPMetadata())).getContainer().getAllProperties().isEmpty());
   }
 
   /**
-   * Test {@link AbstractComplexProperty#getAllProperties()}.
-   * <p>
    * Method under test: {@link AbstractComplexProperty#getAllProperties()}
    */
   @Test
-  @DisplayName("Test getAllProperties()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"java.util.List AbstractComplexProperty.getAllProperties()"})
   void testGetAllProperties() {
     // Arrange, Act and Assert
     assertTrue((new AdobePDFSchema(XMPMetadata.createXMPMetadata())).getAllProperties().isEmpty());
   }
 
   /**
-   * Test {@link AbstractComplexProperty#getProperty(String)}.
-   * <ul>
-   *   <li>Given {@link AdobePDFSchema#AdobePDFSchema(XMPMetadata)} with metadata is createXMPMetadata.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link AbstractComplexProperty#getProperty(String)}
    */
   @Test
-  @DisplayName("Test getProperty(String); given AdobePDFSchema(XMPMetadata) with metadata is createXMPMetadata")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"AbstractField AbstractComplexProperty.getProperty(String)"})
-  void testGetProperty_givenAdobePDFSchemaWithMetadataIsCreateXMPMetadata() {
+  void testGetProperty() {
     // Arrange, Act and Assert
     assertNull((new AdobePDFSchema(XMPMetadata.createXMPMetadata())).getProperty("Field Name"));
   }
 
   /**
-   * Test {@link AbstractComplexProperty#getProperty(String)}.
-   * <ul>
-   *   <li>Then return {@link ArrayProperty}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link AbstractComplexProperty#getProperty(String)}
    */
   @Test
-  @DisplayName("Test getProperty(String); then return ArrayProperty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"AbstractField AbstractComplexProperty.getProperty(String)"})
-  void testGetProperty_thenReturnArrayProperty() {
+  void testGetProperty2() {
+    // Arrange
+    AdobePDFSchema adobePDFSchema = new AdobePDFSchema(XMPMetadata.createXMPMetadata());
+    adobePDFSchema.addBagValueAsSimple("Simple Name", "42");
+
+    // Act and Assert
+    assertNull(adobePDFSchema.getProperty("Field Name"));
+  }
+
+  /**
+   * Method under test: {@link AbstractComplexProperty#getProperty(String)}
+   */
+  @Test
+  void testGetProperty3() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
 
@@ -139,68 +130,45 @@ class AbstractComplexPropertyDiffblueTest {
 
     // Assert
     assertTrue(actualProperty instanceof ArrayProperty);
+    List<AbstractField> allProperties = ((ArrayProperty) actualProperty).getAllProperties();
+    assertEquals(1, allProperties.size());
+    AbstractField getResult = allProperties.get(0);
+    assertTrue(getResult instanceof TextType);
     assertEquals("Field Name", actualProperty.getPropertyName());
+    List<String> elementsAsString = ((ArrayProperty) actualProperty).getElementsAsString();
+    assertEquals(1, elementsAsString.size());
+    assertEquals("Simple Name", elementsAsString.get(0));
+    assertEquals("Simple Name", ((TextType) getResult).getStringValue());
+    assertEquals("Simple Name", ((TextType) getResult).getRawValue());
+    assertEquals("Simple Name", ((TextType) getResult).getValue());
+    assertEquals("http://ns.adobe.com/pdf/1.3/", getResult.getNamespace());
     assertEquals("http://ns.adobe.com/pdf/1.3/", actualProperty.getNamespace());
+    assertEquals("li", getResult.getPropertyName());
+    assertEquals("pdf", getResult.getPrefix());
     assertEquals("pdf", actualProperty.getPrefix());
-    assertEquals(1, ((ArrayProperty) actualProperty).getAllProperties().size());
-    assertEquals(1, ((ArrayProperty) actualProperty).getElementsAsString().size());
     assertEquals(Cardinality.Bag, ((ArrayProperty) actualProperty).getArrayType());
+    assertTrue(getResult.getAllAttributes().isEmpty());
     assertTrue(actualProperty.getAllAttributes().isEmpty());
     assertTrue(((ArrayProperty) actualProperty).getAllNamespacesWithPrefix().isEmpty());
+    assertSame(allProperties, ((ArrayProperty) actualProperty).getContainer().getAllProperties());
+    assertSame(metadata, getResult.getMetadata());
     assertSame(metadata, actualProperty.getMetadata());
   }
 
   /**
-   * Test {@link AbstractComplexProperty#getProperty(String)}.
-   * <ul>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link AbstractComplexProperty#getProperty(String)}
-   */
-  @Test
-  @DisplayName("Test getProperty(String); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"AbstractField AbstractComplexProperty.getProperty(String)"})
-  void testGetProperty_thenReturnNull() {
-    // Arrange
-    AdobePDFSchema adobePDFSchema = new AdobePDFSchema(XMPMetadata.createXMPMetadata());
-    adobePDFSchema.addBagValueAsSimple("Simple Name", "42");
-
-    // Act and Assert
-    assertNull(adobePDFSchema.getProperty("Field Name"));
-  }
-
-  /**
-   * Test {@link AbstractComplexProperty#getArrayProperty(String)}.
-   * <ul>
-   *   <li>Given {@link AdobePDFSchema#AdobePDFSchema(XMPMetadata)} with metadata is createXMPMetadata.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link AbstractComplexProperty#getArrayProperty(String)}
    */
   @Test
-  @DisplayName("Test getArrayProperty(String); given AdobePDFSchema(XMPMetadata) with metadata is createXMPMetadata")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"ArrayProperty AbstractComplexProperty.getArrayProperty(String)"})
-  void testGetArrayProperty_givenAdobePDFSchemaWithMetadataIsCreateXMPMetadata() {
+  void testGetArrayProperty() {
     // Arrange, Act and Assert
     assertNull((new AdobePDFSchema(XMPMetadata.createXMPMetadata())).getArrayProperty("Field Name"));
   }
 
   /**
-   * Test {@link AbstractComplexProperty#getArrayProperty(String)}.
-   * <ul>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link AbstractComplexProperty#getArrayProperty(String)}
    */
   @Test
-  @DisplayName("Test getArrayProperty(String); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"ArrayProperty AbstractComplexProperty.getArrayProperty(String)"})
-  void testGetArrayProperty_thenReturnNull() {
+  void testGetArrayProperty2() {
     // Arrange
     AdobePDFSchema adobePDFSchema = new AdobePDFSchema(XMPMetadata.createXMPMetadata());
     adobePDFSchema.addBagValueAsSimple("Simple Name", "42");
@@ -210,18 +178,10 @@ class AbstractComplexPropertyDiffblueTest {
   }
 
   /**
-   * Test {@link AbstractComplexProperty#getArrayProperty(String)}.
-   * <ul>
-   *   <li>Then return PropertyName is {@code Field Name}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link AbstractComplexProperty#getArrayProperty(String)}
    */
   @Test
-  @DisplayName("Test getArrayProperty(String); then return PropertyName is 'Field Name'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"ArrayProperty AbstractComplexProperty.getArrayProperty(String)"})
-  void testGetArrayProperty_thenReturnPropertyNameIsFieldName() {
+  void testGetArrayProperty3() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
 
@@ -233,26 +193,36 @@ class AbstractComplexPropertyDiffblueTest {
     ArrayProperty actualArrayProperty = adobePDFSchema.getArrayProperty("Field Name");
 
     // Assert
+    List<AbstractField> allProperties = actualArrayProperty.getAllProperties();
+    assertEquals(1, allProperties.size());
+    AbstractField getResult = allProperties.get(0);
+    assertTrue(getResult instanceof TextType);
     assertEquals("Field Name", actualArrayProperty.getPropertyName());
+    List<String> elementsAsString = actualArrayProperty.getElementsAsString();
+    assertEquals(1, elementsAsString.size());
+    assertEquals("Simple Name", elementsAsString.get(0));
+    assertEquals("Simple Name", ((TextType) getResult).getStringValue());
+    assertEquals("Simple Name", ((TextType) getResult).getRawValue());
+    assertEquals("Simple Name", ((TextType) getResult).getValue());
+    assertEquals("http://ns.adobe.com/pdf/1.3/", getResult.getNamespace());
     assertEquals("http://ns.adobe.com/pdf/1.3/", actualArrayProperty.getNamespace());
+    assertEquals("li", getResult.getPropertyName());
+    assertEquals("pdf", getResult.getPrefix());
     assertEquals("pdf", actualArrayProperty.getPrefix());
-    assertEquals(1, actualArrayProperty.getAllProperties().size());
-    assertEquals(1, actualArrayProperty.getElementsAsString().size());
     assertEquals(Cardinality.Bag, actualArrayProperty.getArrayType());
+    assertTrue(getResult.getAllAttributes().isEmpty());
     assertTrue(actualArrayProperty.getAllAttributes().isEmpty());
     assertTrue(actualArrayProperty.getAllNamespacesWithPrefix().isEmpty());
+    assertSame(allProperties, actualArrayProperty.getContainer().getAllProperties());
+    assertSame(metadata, getResult.getMetadata());
     assertSame(metadata, actualArrayProperty.getMetadata());
   }
 
   /**
-   * Test {@link AbstractComplexProperty#getFirstEquivalentProperty(String, Class)}.
-   * <p>
-   * Method under test: {@link AbstractComplexProperty#getFirstEquivalentProperty(String, Class)}
+   * Method under test:
+   * {@link AbstractComplexProperty#getFirstEquivalentProperty(String, Class)}
    */
   @Test
-  @DisplayName("Test getFirstEquivalentProperty(String, Class)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"AbstractField AbstractComplexProperty.getFirstEquivalentProperty(String, Class)"})
   void testGetFirstEquivalentProperty() {
     // Arrange
     AdobePDFSchema adobePDFSchema = new AdobePDFSchema(XMPMetadata.createXMPMetadata());
@@ -263,14 +233,10 @@ class AbstractComplexPropertyDiffblueTest {
   }
 
   /**
-   * Test {@link AbstractComplexProperty#getFirstEquivalentProperty(String, Class)}.
-   * <p>
-   * Method under test: {@link AbstractComplexProperty#getFirstEquivalentProperty(String, Class)}
+   * Method under test:
+   * {@link AbstractComplexProperty#getFirstEquivalentProperty(String, Class)}
    */
   @Test
-  @DisplayName("Test getFirstEquivalentProperty(String, Class)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"AbstractField AbstractComplexProperty.getFirstEquivalentProperty(String, Class)"})
   void testGetFirstEquivalentProperty2() {
     // Arrange
     AdobePDFSchema adobePDFSchema = new AdobePDFSchema(XMPMetadata.createXMPMetadata());
@@ -282,14 +248,10 @@ class AbstractComplexPropertyDiffblueTest {
   }
 
   /**
-   * Test {@link AbstractComplexProperty#getFirstEquivalentProperty(String, Class)}.
-   * <p>
-   * Method under test: {@link AbstractComplexProperty#getFirstEquivalentProperty(String, Class)}
+   * Method under test:
+   * {@link AbstractComplexProperty#getFirstEquivalentProperty(String, Class)}
    */
   @Test
-  @DisplayName("Test getFirstEquivalentProperty(String, Class)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"AbstractField AbstractComplexProperty.getFirstEquivalentProperty(String, Class)"})
   void testGetFirstEquivalentProperty3() {
     // Arrange
     AdobePDFSchema adobePDFSchema = new AdobePDFSchema(XMPMetadata.createXMPMetadata());

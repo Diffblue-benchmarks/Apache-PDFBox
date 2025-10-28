@@ -5,74 +5,25 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.ArgumentMatchers.isA;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.cos.COSIncrement;
+import org.apache.pdfbox.cos.COSName;
 import org.apache.pdfbox.cos.COSObjectKey;
 import org.apache.pdfbox.cos.COSUpdateState;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 class FDFPageDiffblueTest {
   /**
-   * Test {@link FDFPage#FDFPage(COSDictionary)}.
-   * <p>
-   * Method under test: {@link FDFPage#FDFPage(COSDictionary)}
-   */
-  @Test
-  @DisplayName("Test new FDFPage(COSDictionary)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void FDFPage.<init>(COSDictionary)"})
-  void testNewFDFPage() {
-    // Arrange
-    COSDictionary p = new COSDictionary();
-
-    // Act and Assert
-    assertSame(p, (new FDFPage(p)).getCOSObject());
-  }
-
-  /**
-   * Test {@link FDFPage#FDFPage()}.
-   * <p>
-   * Method under test: {@link FDFPage#FDFPage()}
-   */
-  @Test
-  @DisplayName("Test new FDFPage()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void FDFPage.<init>()"})
-  void testNewFDFPage2() {
-    // Arrange and Act
-    FDFPage actualFdfPage = new FDFPage();
-
-    // Assert
-    assertNull(actualFdfPage.getTemplates());
-    COSDictionary cOSObject = actualFdfPage.getCOSObject();
-    COSUpdateState updateState = cOSObject.getUpdateState();
-    assertNull(updateState.getOriginDocumentState());
-    assertNull(cOSObject.getKey());
-    assertNull(actualFdfPage.getPageInfo());
-    assertEquals(0, cOSObject.size());
-    COSIncrement toIncrementResult = cOSObject.toIncrement();
-    assertFalse(toIncrementResult.iterator().hasNext());
-    assertFalse(cOSObject.isDirect());
-    assertFalse(cOSObject.isNeedToBeUpdated());
-    assertFalse(updateState.isUpdated());
-    assertTrue(cOSObject.getValues().isEmpty());
-    assertTrue(toIncrementResult.getObjects().isEmpty());
-  }
-
-  /**
-   * Test {@link FDFPage#getCOSObject()}.
-   * <p>
    * Method under test: {@link FDFPage#getCOSObject()}
    */
   @Test
-  @DisplayName("Test getCOSObject()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"COSDictionary FDFPage.getCOSObject()"})
   void testGetCOSObject() {
     // Arrange and Act
     COSDictionary actualCOSObject = (new FDFPage()).getCOSObject();
@@ -92,19 +43,32 @@ class FDFPageDiffblueTest {
   }
 
   /**
-   * Test {@link FDFPage#getTemplates()}.
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link FDFTemplate#FDFTemplate()}.</li>
-   *   <li>Then return size is one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link FDFPage#getTemplates()}
    */
   @Test
-  @DisplayName("Test getTemplates(); given ArrayList() add FDFTemplate(); then return size is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List FDFPage.getTemplates()"})
-  void testGetTemplates_givenArrayListAddFDFTemplate_thenReturnSizeIsOne() {
+  void testGetTemplates() {
+    // Arrange, Act and Assert
+    assertNull((new FDFPage()).getTemplates());
+  }
+
+  /**
+   * Method under test: {@link FDFPage#getTemplates()}
+   */
+  @Test
+  void testGetTemplates2() {
+    // Arrange
+    FDFPage fdfPage = new FDFPage();
+    fdfPage.setTemplates(new ArrayList<>());
+
+    // Act and Assert
+    assertTrue(fdfPage.getTemplates().isEmpty());
+  }
+
+  /**
+   * Method under test: {@link FDFPage#getTemplates()}
+   */
+  @Test
+  void testGetTemplates3() {
     // Arrange
     ArrayList<FDFTemplate> templates = new ArrayList<>();
     templates.add(new FDFTemplate());
@@ -135,60 +99,10 @@ class FDFPageDiffblueTest {
   }
 
   /**
-   * Test {@link FDFPage#getTemplates()}.
-   * <ul>
-   *   <li>Given {@link FDFPage#FDFPage()} Templates is {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then return Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link FDFPage#getTemplates()}
-   */
-  @Test
-  @DisplayName("Test getTemplates(); given FDFPage() Templates is ArrayList(); then return Empty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List FDFPage.getTemplates()"})
-  void testGetTemplates_givenFDFPageTemplatesIsArrayList_thenReturnEmpty() {
-    // Arrange
-    FDFPage fdfPage = new FDFPage();
-    fdfPage.setTemplates(new ArrayList<>());
-
-    // Act and Assert
-    assertTrue(fdfPage.getTemplates().isEmpty());
-  }
-
-  /**
-   * Test {@link FDFPage#getTemplates()}.
-   * <ul>
-   *   <li>Given {@link FDFPage#FDFPage()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link FDFPage#getTemplates()}
-   */
-  @Test
-  @DisplayName("Test getTemplates(); given FDFPage(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List FDFPage.getTemplates()"})
-  void testGetTemplates_givenFDFPage_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull((new FDFPage()).getTemplates());
-  }
-
-  /**
-   * Test {@link FDFPage#setTemplates(List)}.
-   * <ul>
-   *   <li>Given {@link FDFPage#FDFPage()}.</li>
-   *   <li>When {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then {@link FDFPage#FDFPage()} Templates Empty.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link FDFPage#setTemplates(List)}
    */
   @Test
-  @DisplayName("Test setTemplates(List); given FDFPage(); when ArrayList(); then FDFPage() Templates Empty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void FDFPage.setTemplates(List)"})
-  void testSetTemplates_givenFDFPage_whenArrayList_thenFDFPageTemplatesEmpty() {
+  void testSetTemplates() {
     // Arrange
     FDFPage fdfPage = new FDFPage();
 
@@ -203,19 +117,10 @@ class FDFPageDiffblueTest {
   }
 
   /**
-   * Test {@link FDFPage#setTemplates(List)}.
-   * <ul>
-   *   <li>Given {@link FDFTemplate#FDFTemplate()}.</li>
-   *   <li>Then {@link FDFPage#FDFPage()} Templates first Fields is {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link FDFPage#setTemplates(List)}
    */
   @Test
-  @DisplayName("Test setTemplates(List); given FDFTemplate(); then FDFPage() Templates first Fields is 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void FDFPage.setTemplates(List)"})
-  void testSetTemplates_givenFDFTemplate_thenFDFPageTemplatesFirstFieldsIsNull() {
+  void testSetTemplates2() {
     // Arrange
     FDFPage fdfPage = new FDFPage();
 
@@ -231,22 +136,16 @@ class FDFPageDiffblueTest {
     FDFTemplate getResult = templates2.get(0);
     assertNull(getResult.getFields());
     assertNull(getResult.getTemplateReference());
+    COSDictionary cOSObject = fdfPage.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
   }
 
   /**
-   * Test {@link FDFPage#setTemplates(List)}.
-   * <ul>
-   *   <li>Given {@link FDFTemplate#FDFTemplate()}.</li>
-   *   <li>Then {@link FDFPage#FDFPage()} Templates size is two.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link FDFPage#setTemplates(List)}
    */
   @Test
-  @DisplayName("Test setTemplates(List); given FDFTemplate(); then FDFPage() Templates size is two")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void FDFPage.setTemplates(List)"})
-  void testSetTemplates_givenFDFTemplate_thenFDFPageTemplatesSizeIsTwo() {
+  void testSetTemplates3() {
     // Arrange
     FDFPage fdfPage = new FDFPage();
 
@@ -260,25 +159,22 @@ class FDFPageDiffblueTest {
     // Assert
     List<FDFTemplate> templates2 = fdfPage.getTemplates();
     assertEquals(2, templates2.size());
-    FDFTemplate getResult = templates2.get(1);
+    FDFTemplate getResult = templates2.get(0);
     assertNull(getResult.getFields());
+    FDFTemplate getResult2 = templates2.get(1);
+    assertNull(getResult2.getFields());
     assertNull(getResult.getTemplateReference());
+    assertNull(getResult2.getTemplateReference());
+    COSDictionary cOSObject = fdfPage.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
   }
 
   /**
-   * Test {@link FDFPage#setTemplates(List)}.
-   * <ul>
-   *   <li>Given {@code null}.</li>
-   *   <li>Then {@link FDFPage#FDFPage()} Templates first COSObject is {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link FDFPage#setTemplates(List)}
    */
   @Test
-  @DisplayName("Test setTemplates(List); given 'null'; then FDFPage() Templates first COSObject is 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void FDFPage.setTemplates(List)"})
-  void testSetTemplates_givenNull_thenFDFPageTemplatesFirstCOSObjectIsNull() {
+  void testSetTemplates4() {
     // Arrange
     FDFPage fdfPage = new FDFPage();
 
@@ -298,18 +194,84 @@ class FDFPageDiffblueTest {
   }
 
   /**
-   * Test {@link FDFPage#setPageInfo(FDFPageInfo)}.
-   * <ul>
-   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link FDFPage#getPageInfo()}
+   */
+  @Test
+  void testGetPageInfo() {
+    // Arrange
+    COSDictionary p = mock(COSDictionary.class);
+    COSDictionary cosDictionary = new COSDictionary();
+    when(p.getCOSDictionary(Mockito.<COSName>any())).thenReturn(cosDictionary);
+
+    // Act
+    COSDictionary actualCOSObject = (new FDFPage(p)).getPageInfo().getCOSObject();
+
+    // Assert
+    verify(p).getCOSDictionary(isA(COSName.class));
+    assertSame(cosDictionary, actualCOSObject);
+  }
+
+  /**
    * Method under test: {@link FDFPage#setPageInfo(FDFPageInfo)}
    */
   @Test
-  @DisplayName("Test setPageInfo(FDFPageInfo); given COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void FDFPage.setPageInfo(FDFPageInfo)"})
-  void testSetPageInfo_givenCOSObjectKeyWithNumIsOneAndGenIsOne() {
+  void testSetPageInfo() {
+    // Arrange
+    FDFPage fdfPage = new FDFPage();
+
+    // Act
+    fdfPage.setPageInfo(new FDFPageInfo());
+
+    // Assert
+    COSDictionary cOSObject = fdfPage.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+  }
+
+  /**
+   * Method under test: {@link FDFPage#setPageInfo(FDFPageInfo)}
+   */
+  @Test
+  void testSetPageInfo2() {
+    // Arrange
+    FDFPage fdfPage = new FDFPage();
+
+    // Act
+    fdfPage.setPageInfo(null);
+
+    // Assert
+    assertNull(fdfPage.getPageInfo());
+    COSDictionary cOSObject = fdfPage.getCOSObject();
+    assertEquals(0, cOSObject.size());
+    assertTrue(cOSObject.getValues().isEmpty());
+  }
+
+  /**
+   * Method under test: {@link FDFPage#setPageInfo(FDFPageInfo)}
+   */
+  @Test
+  void testSetPageInfo3() {
+    // Arrange
+    FDFPage fdfPage = new FDFPage();
+
+    COSDictionary p = new COSDictionary();
+    p.setDirect(true);
+
+    // Act
+    fdfPage.setPageInfo(new FDFPageInfo(p));
+
+    // Assert
+    COSDictionary cOSObject = fdfPage.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+    assertSame(p, fdfPage.getPageInfo().getCOSObject());
+  }
+
+  /**
+   * Method under test: {@link FDFPage#setPageInfo(FDFPageInfo)}
+   */
+  @Test
+  void testSetPageInfo4() {
     // Arrange
     FDFPage fdfPage = new FDFPage();
 
@@ -327,86 +289,39 @@ class FDFPageDiffblueTest {
   }
 
   /**
-   * Test {@link FDFPage#setPageInfo(FDFPageInfo)}.
-   * <ul>
-   *   <li>Given {@link FDFPage#FDFPage()}.</li>
-   *   <li>When {@link FDFPageInfo#FDFPageInfo()}.</li>
-   *   <li>Then {@link FDFPage#FDFPage()} COSObject Values size is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link FDFPage#setPageInfo(FDFPageInfo)}
+   * Method under test: {@link FDFPage#FDFPage(COSDictionary)}
    */
   @Test
-  @DisplayName("Test setPageInfo(FDFPageInfo); given FDFPage(); when FDFPageInfo(); then FDFPage() COSObject Values size is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void FDFPage.setPageInfo(FDFPageInfo)"})
-  void testSetPageInfo_givenFDFPage_whenFDFPageInfo_thenFDFPageCOSObjectValuesSizeIsOne() {
+  void testNewFDFPage() {
     // Arrange
-    FDFPage fdfPage = new FDFPage();
-
-    // Act
-    fdfPage.setPageInfo(new FDFPageInfo());
-
-    // Assert
-    COSDictionary cOSObject = fdfPage.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-  }
-
-  /**
-   * Test {@link FDFPage#setPageInfo(FDFPageInfo)}.
-   * <ul>
-   *   <li>Given {@link FDFPage#FDFPage()}.</li>
-   *   <li>When {@code null}.</li>
-   *   <li>Then {@link FDFPage#FDFPage()} COSObject size is zero.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link FDFPage#setPageInfo(FDFPageInfo)}
-   */
-  @Test
-  @DisplayName("Test setPageInfo(FDFPageInfo); given FDFPage(); when 'null'; then FDFPage() COSObject size is zero")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void FDFPage.setPageInfo(FDFPageInfo)"})
-  void testSetPageInfo_givenFDFPage_whenNull_thenFDFPageCOSObjectSizeIsZero() {
-    // Arrange
-    FDFPage fdfPage = new FDFPage();
-
-    // Act
-    fdfPage.setPageInfo(null);
-
-    // Assert that nothing has changed
-    COSDictionary cOSObject = fdfPage.getCOSObject();
-    assertEquals(0, cOSObject.size());
-    assertTrue(cOSObject.getValues().isEmpty());
-  }
-
-  /**
-   * Test {@link FDFPage#setPageInfo(FDFPageInfo)}.
-   * <ul>
-   *   <li>Given {@code true}.</li>
-   *   <li>When {@link COSDictionary#COSDictionary()} Direct is {@code true}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link FDFPage#setPageInfo(FDFPageInfo)}
-   */
-  @Test
-  @DisplayName("Test setPageInfo(FDFPageInfo); given 'true'; when COSDictionary() Direct is 'true'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void FDFPage.setPageInfo(FDFPageInfo)"})
-  void testSetPageInfo_givenTrue_whenCOSDictionaryDirectIsTrue() {
-    // Arrange
-    FDFPage fdfPage = new FDFPage();
-
     COSDictionary p = new COSDictionary();
-    p.setDirect(true);
 
-    // Act
-    fdfPage.setPageInfo(new FDFPageInfo(p));
+    // Act and Assert
+    assertSame(p, (new FDFPage(p)).getCOSObject());
+  }
+
+  /**
+   * Method under test: {@link FDFPage#FDFPage()}
+   */
+  @Test
+  void testNewFDFPage2() {
+    // Arrange and Act
+    FDFPage actualFdfPage = new FDFPage();
 
     // Assert
-    COSDictionary cOSObject = fdfPage.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-    assertSame(p, fdfPage.getPageInfo().getCOSObject());
+    assertNull(actualFdfPage.getTemplates());
+    COSDictionary cOSObject = actualFdfPage.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertNull(actualFdfPage.getPageInfo());
+    assertEquals(0, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(cOSObject.getValues().isEmpty());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
   }
 }

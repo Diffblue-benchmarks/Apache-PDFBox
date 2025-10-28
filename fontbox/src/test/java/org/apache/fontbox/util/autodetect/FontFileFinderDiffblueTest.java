@@ -2,23 +2,15 @@ package org.apache.fontbox.util.autodetect;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.net.URI;
 import java.util.List;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class FontFileFinderDiffblueTest {
   /**
-   * Test {@link FontFileFinder#find()}.
-   * <p>
    * Method under test: {@link FontFileFinder#find()}
    */
   @Test
-  @DisplayName("Test find()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List FontFileFinder.find()"})
   void testFind() {
     // Arrange and Act
     List<URI> actualFindResult = (new FontFileFinder()).find();
@@ -46,15 +38,10 @@ class FontFileFinderDiffblueTest {
   }
 
   /**
-   * Test {@link FontFileFinder#find(String)} with {@code String}.
-   * <p>
    * Method under test: {@link FontFileFinder#find(String)}
    */
   @Test
-  @DisplayName("Test find(String) with 'String'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List FontFileFinder.find(String)"})
-  void testFindWithString() {
+  void testFind2() {
     // Arrange, Act and Assert
     assertTrue((new FontFileFinder()).find("Dir").isEmpty());
   }

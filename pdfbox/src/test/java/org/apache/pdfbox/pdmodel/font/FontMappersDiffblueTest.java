@@ -2,22 +2,14 @@ package org.apache.pdfbox.pdmodel.font;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.List;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class FontMappersDiffblueTest {
   /**
-   * Test {@link FontMappers#instance()}.
-   * <p>
    * Method under test: {@link FontMappers#instance()}
    */
   @Test
-  @DisplayName("Test instance()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"FontMapper FontMappers.instance()"})
   void testInstance() {
     // Arrange and Act
     FontMapper actualInstanceResult = FontMappers.instance();

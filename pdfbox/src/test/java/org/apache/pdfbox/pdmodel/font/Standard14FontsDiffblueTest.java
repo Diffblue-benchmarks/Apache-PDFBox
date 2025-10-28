@@ -4,38 +4,32 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import java.awt.Dimension;
+import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
-import java.awt.geom.Rectangle2D.Double;
-import java.awt.geom.Rectangle2D.Float;
 import java.io.IOException;
+import java.util.List;
 import java.util.Set;
+import org.apache.fontbox.afm.CharMetric;
 import org.apache.fontbox.afm.FontMetrics;
-import org.apache.pdfbox.pdmodel.font.Standard14Fonts.FontName;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
+import org.apache.fontbox.util.BoundingBox;
 import org.junit.jupiter.api.Test;
 
 class Standard14FontsDiffblueTest {
   /**
-   * Test FontName getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
-   *   <li>{@link FontName#getName()}
-   *   <li>{@link FontName#toString()}
+   *   <li>{@link Standard14Fonts.FontName#getName()}
+   *   <li>{@link Standard14Fonts.FontName#toString()}
    * </ul>
    */
   @Test
-  @DisplayName("Test FontName getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String FontName.getName()", "String FontName.toString()"})
   void testFontNameGettersAndSetters() {
     // Arrange
-    FontName valueOfResult = FontName.valueOf("TIMES_ROMAN");
+    Standard14Fonts.FontName valueOfResult = Standard14Fonts.FontName.valueOf("TIMES_ROMAN");
 
     // Act
     String actualName = valueOfResult.getName();
@@ -46,19 +40,19 @@ class Standard14FontsDiffblueTest {
   }
 
   /**
-   * Test {@link Standard14Fonts#getAFM(String)}.
-   * <ul>
-   *   <li>When {@code Arial-BoldItalicMT}.</li>
-   *   <li>Then return FontVersion is {@code 002.000}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link Standard14Fonts#getAFM(String)}
    */
   @Test
-  @DisplayName("Test getAFM(String); when 'Arial-BoldItalicMT'; then return FontVersion is '002.000'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"FontMetrics Standard14Fonts.getAFM(String)"})
-  void testGetAFM_whenArialBoldItalicMT_thenReturnFontVersionIs002000() {
+  void testGetAFM() {
+    // Arrange, Act and Assert
+    assertNull(Standard14Fonts.getAFM("Font Name"));
+  }
+
+  /**
+   * Method under test: {@link Standard14Fonts#getAFM(String)}
+   */
+  @Test
+  void testGetAFM2() {
     // Arrange and Act
     FontMetrics actualAFM = Standard14Fonts.getAFM("Arial-BoldItalicMT");
 
@@ -66,104 +60,195 @@ class Standard14FontsDiffblueTest {
     assertEquals("002.000", actualAFM.getFontVersion());
     assertEquals("AdobeStandardEncoding", actualAFM.getEncodingScheme());
     assertEquals("Bold", actualAFM.getWeight());
+    List<String> comments = actualAFM.getComments();
+    assertEquals(4, comments.size());
+    assertEquals("Copyright (c) 1985, 1987, 1989, 1990, 1997 Adobe Systems Incorporated.  All Rights Reserved.",
+        comments.get(0));
     assertEquals("Copyright (c) 1985, 1987, 1989, 1990, 1997 Adobe Systems Incorporated.  All Rights Reserved.Helvetica"
         + " is a trademark of Linotype-Hell AG and/or its subsidiaries.", actualAFM.getNotice());
+    assertEquals("Creation Date: Thu May  1 12:45:12 1997", comments.get(1));
+    List<CharMetric> charMetrics = actualAFM.getCharMetrics();
+    assertEquals(315, charMetrics.size());
+    CharMetric getResult = charMetrics.get(314);
+    assertEquals("Euro", getResult.getName());
     assertEquals("ExtendedRoman", actualAFM.getCharacterSet());
     assertEquals("Helvetica Bold Oblique", actualAFM.getFullName());
     assertEquals("Helvetica", actualAFM.getFamilyName());
     assertEquals("Helvetica-BoldOblique", actualAFM.getFontName());
+    assertEquals("UniqueID 43053", comments.get(2));
+    assertEquals("VMusage 14482 68586", comments.get(3));
+    CharMetric getResult2 = charMetrics.get(1);
+    assertEquals("exclam", getResult2.getName());
+    CharMetric getResult3 = charMetrics.get(313);
+    assertEquals("imacron", getResult3.getName());
+    CharMetric getResult4 = charMetrics.get(312);
+    assertEquals("onesuperior", getResult4.getName());
+    CharMetric getResult5 = charMetrics.get(2);
+    assertEquals("quotedbl", getResult5.getName());
+    CharMetric getResult6 = charMetrics.get(0);
+    assertEquals("space", getResult6.getName());
+    assertNull(getResult6.getVv());
+    assertNull(getResult2.getVv());
+    assertNull(getResult5.getVv());
+    assertNull(getResult4.getVv());
+    assertNull(getResult3.getVv());
+    assertNull(getResult.getVv());
+    assertNull(getResult6.getW());
+    assertNull(getResult2.getW());
+    assertNull(getResult5.getW());
+    assertNull(getResult4.getW());
+    assertNull(getResult3.getW());
+    assertNull(getResult.getW());
+    assertNull(getResult6.getW0());
+    assertNull(getResult2.getW0());
+    assertNull(getResult5.getW0());
+    assertNull(getResult4.getW0());
+    assertNull(getResult3.getW0());
+    assertNull(getResult.getW0());
+    assertNull(getResult6.getW1());
+    assertNull(getResult2.getW1());
+    assertNull(getResult5.getW1());
+    assertNull(getResult4.getW1());
+    assertNull(getResult3.getW1());
+    assertNull(getResult.getW1());
     assertNull(actualAFM.getCharWidth());
     assertNull(actualAFM.getVVector());
+    assertEquals(-1, getResult4.getCharacterCode());
+    assertEquals(-1, getResult3.getCharacterCode());
+    assertEquals(-1, getResult.getCharacterCode());
     assertEquals(-100.0f, actualAFM.getUnderlinePosition());
     assertEquals(-12.0f, actualAFM.getItalicAngle());
+    BoundingBox fontBBox = actualAFM.getFontBBox();
+    assertEquals(-174.0f, fontBBox.getLowerLeftX());
     assertEquals(-207.0f, actualAFM.getDescender());
+    assertEquals(-228.0f, fontBBox.getLowerLeftY());
     assertEquals(0, actualAFM.getCharacters());
     assertEquals(0, actualAFM.getEscChar());
     assertEquals(0, actualAFM.getMappingScheme());
     assertEquals(0, actualAFM.getMetricSets());
+    assertEquals(0.0f, getResult6.getW0x());
+    assertEquals(0.0f, getResult2.getW0x());
+    assertEquals(0.0f, getResult5.getW0x());
+    assertEquals(0.0f, getResult4.getW0x());
+    assertEquals(0.0f, getResult3.getW0x());
+    assertEquals(0.0f, getResult.getW0x());
+    assertEquals(0.0f, getResult6.getW0y());
+    assertEquals(0.0f, getResult2.getW0y());
+    assertEquals(0.0f, getResult5.getW0y());
+    assertEquals(0.0f, getResult4.getW0y());
+    assertEquals(0.0f, getResult3.getW0y());
+    assertEquals(0.0f, getResult.getW0y());
+    assertEquals(0.0f, getResult6.getW1x());
+    assertEquals(0.0f, getResult2.getW1x());
+    assertEquals(0.0f, getResult5.getW1x());
+    assertEquals(0.0f, getResult4.getW1x());
+    assertEquals(0.0f, getResult3.getW1x());
+    assertEquals(0.0f, getResult.getW1x());
+    assertEquals(0.0f, getResult6.getW1y());
+    assertEquals(0.0f, getResult2.getW1y());
+    assertEquals(0.0f, getResult5.getW1y());
+    assertEquals(0.0f, getResult4.getW1y());
+    assertEquals(0.0f, getResult3.getW1y());
+    assertEquals(0.0f, getResult.getW1y());
+    assertEquals(0.0f, getResult6.getWy());
+    assertEquals(0.0f, getResult2.getWy());
+    assertEquals(0.0f, getResult5.getWy());
+    assertEquals(0.0f, getResult4.getWy());
+    assertEquals(0.0f, getResult3.getWy());
+    assertEquals(0.0f, getResult.getWy());
+    BoundingBox boundingBox = getResult6.getBoundingBox();
+    assertEquals(0.0f, boundingBox.getHeight());
+    BoundingBox boundingBox2 = getResult.getBoundingBox();
+    assertEquals(0.0f, boundingBox2.getHeight());
+    assertEquals(0.0f, boundingBox.getLowerLeftX());
+    assertEquals(0.0f, boundingBox2.getLowerLeftX());
+    assertEquals(0.0f, boundingBox.getLowerLeftY());
+    BoundingBox boundingBox3 = getResult2.getBoundingBox();
+    assertEquals(0.0f, boundingBox3.getLowerLeftY());
+    BoundingBox boundingBox4 = getResult3.getBoundingBox();
+    assertEquals(0.0f, boundingBox4.getLowerLeftY());
+    assertEquals(0.0f, boundingBox2.getLowerLeftY());
+    assertEquals(0.0f, boundingBox.getUpperRightX());
+    assertEquals(0.0f, boundingBox2.getUpperRightX());
+    assertEquals(0.0f, boundingBox.getUpperRightY());
+    assertEquals(0.0f, boundingBox2.getUpperRightY());
+    assertEquals(0.0f, boundingBox.getWidth());
+    assertEquals(0.0f, boundingBox2.getWidth());
+    assertEquals(1114.0f, fontBBox.getUpperRightX());
     assertEquals(118.0f, actualAFM.getStandardHorizontalWidth());
+    assertEquals(1190.0f, fontBBox.getHeight());
+    assertEquals(1288.0f, fontBBox.getWidth());
     assertEquals(140.0f, actualAFM.getStandardVerticalWidth());
-    assertEquals(315, actualAFM.getCharMetrics().size());
-    assertEquals(4, actualAFM.getComments().size());
+    BoundingBox boundingBox5 = getResult4.getBoundingBox();
+    assertEquals(148.0f, boundingBox5.getLowerLeftX());
+    BoundingBox boundingBox6 = getResult5.getBoundingBox();
+    assertEquals(193.0f, boundingBox6.getLowerLeftX());
+    assertEquals(240.0f, boundingBox5.getWidth());
+    assertEquals(271.0f, boundingBox6.getHeight());
+    assertEquals(278.0f, getResult6.getWx());
+    assertEquals(278.0f, getResult3.getWx());
+    assertEquals(283.0f, boundingBox5.getLowerLeftY());
+    assertEquals(303.0f, boundingBox3.getWidth());
+    assertEquals(33, getResult2.getCharacterCode());
+    assertEquals(333.0f, getResult2.getWx());
+    assertEquals(333.0f, getResult4.getWx());
+    assertEquals(336.0f, boundingBox6.getWidth());
+    assertEquals(34, getResult5.getCharacterCode());
+    assertEquals(360.0f, boundingBox4.getWidth());
+    assertEquals(388.0f, boundingBox5.getUpperRightX());
+    assertEquals(397.0f, boundingBox3.getUpperRightX());
     assertEquals(4.1f, actualAFM.getAFMVersion());
+    assertEquals(427.0f, boundingBox5.getHeight());
+    assertEquals(429.0f, boundingBox4.getUpperRightX());
+    assertEquals(447.0f, boundingBox6.getLowerLeftY());
+    assertEquals(474.0f, getResult5.getWx());
     assertEquals(50.0f, actualAFM.getUnderlineThickness());
+    assertEquals(529.0f, boundingBox6.getUpperRightX());
     assertEquals(532.0f, actualAFM.getXHeight());
+    assertEquals(556.0f, getResult.getWx());
     assertEquals(564.3619f, actualAFM.getAverageCharacterWidth());
+    assertEquals(678.0f, boundingBox4.getHeight());
+    assertEquals(678.0f, boundingBox4.getUpperRightY());
+    assertEquals(69.0f, boundingBox4.getLowerLeftX());
+    assertEquals(710.0f, boundingBox5.getUpperRightY());
     assertEquals(718.0f, actualAFM.getAscender());
     assertEquals(718.0f, actualAFM.getCapHeight());
+    assertEquals(718.0f, boundingBox3.getHeight());
+    assertEquals(718.0f, boundingBox3.getUpperRightY());
+    assertEquals(718.0f, boundingBox6.getUpperRightY());
+    assertEquals(94.0f, boundingBox3.getLowerLeftX());
+    assertEquals(962.0f, fontBBox.getUpperRightY());
     assertFalse(actualAFM.getIsFixedPitch());
     assertFalse(actualAFM.getIsFixedV());
+    assertTrue(getResult6.getLigatures().isEmpty());
+    assertTrue(getResult2.getLigatures().isEmpty());
+    assertTrue(getResult5.getLigatures().isEmpty());
+    assertTrue(getResult4.getLigatures().isEmpty());
+    assertTrue(getResult3.getLigatures().isEmpty());
+    assertTrue(getResult.getLigatures().isEmpty());
     assertTrue(actualAFM.getComposites().isEmpty());
     assertTrue(actualAFM.getKernPairs().isEmpty());
     assertTrue(actualAFM.getKernPairs0().isEmpty());
     assertTrue(actualAFM.getKernPairs1().isEmpty());
     assertTrue(actualAFM.getTrackKern().isEmpty());
     assertTrue(actualAFM.getIsBaseFont());
+    assertEquals(Integer.SIZE, getResult6.getCharacterCode());
   }
 
   /**
-   * Test {@link Standard14Fonts#getAFM(String)}.
-   * <ul>
-   *   <li>When {@code Font Name}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link Standard14Fonts#getAFM(String)}
-   */
-  @Test
-  @DisplayName("Test getAFM(String); when 'Font Name'; then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"FontMetrics Standard14Fonts.getAFM(String)"})
-  void testGetAFM_whenFontName_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull(Standard14Fonts.getAFM("Font Name"));
-  }
-
-  /**
-   * Test {@link Standard14Fonts#containsName(String)}.
-   * <ul>
-   *   <li>When {@code Arial-BoldItalicMT}.</li>
-   *   <li>Then return {@code true}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link Standard14Fonts#containsName(String)}
    */
   @Test
-  @DisplayName("Test containsName(String); when 'Arial-BoldItalicMT'; then return 'true'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean Standard14Fonts.containsName(String)"})
-  void testContainsName_whenArialBoldItalicMT_thenReturnTrue() {
+  void testContainsName() {
     // Arrange, Act and Assert
+    assertFalse(Standard14Fonts.containsName("Font Name"));
     assertTrue(Standard14Fonts.containsName("Arial-BoldItalicMT"));
   }
 
   /**
-   * Test {@link Standard14Fonts#containsName(String)}.
-   * <ul>
-   *   <li>When {@code Font Name}.</li>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link Standard14Fonts#containsName(String)}
-   */
-  @Test
-  @DisplayName("Test containsName(String); when 'Font Name'; then return 'false'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean Standard14Fonts.containsName(String)"})
-  void testContainsName_whenFontName_thenReturnFalse() {
-    // Arrange, Act and Assert
-    assertFalse(Standard14Fonts.containsName("Font Name"));
-  }
-
-  /**
-   * Test {@link Standard14Fonts#getNames()}.
-   * <p>
    * Method under test: {@link Standard14Fonts#getNames()}
    */
   @Test
-  @DisplayName("Test getNames()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Set Standard14Fonts.getNames()"})
   void testGetNames() {
     // Arrange and Act
     Set<String> actualNames = Standard14Fonts.getNames();
@@ -184,66 +269,60 @@ class Standard14FontsDiffblueTest {
   }
 
   /**
-   * Test {@link Standard14Fonts#getMappedFontName(String)}.
-   * <p>
    * Method under test: {@link Standard14Fonts#getMappedFontName(String)}
    */
   @Test
-  @DisplayName("Test getMappedFontName(String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"FontName Standard14Fonts.getMappedFontName(String)"})
   void testGetMappedFontName() {
     // Arrange, Act and Assert
     assertNull(Standard14Fonts.getMappedFontName("Font Name"));
   }
 
   /**
-   * Test {@link Standard14Fonts#getGlyphPath(FontName, String)}.
-   * <ul>
-   *   <li>When {@code g9}.</li>
-   *   <li>Then CurrentPoint return {@link Point2D.Float}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link Standard14Fonts#getGlyphPath(FontName, String)}
+   * Method under test:
+   * {@link Standard14Fonts#getGlyphPath(Standard14Fonts.FontName, String)}
    */
   @Test
-  @DisplayName("Test getGlyphPath(FontName, String); when 'g9'; then CurrentPoint return Float")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"GeneralPath Standard14Fonts.getGlyphPath(FontName, String)"})
-  void testGetGlyphPath_whenG9_thenCurrentPointReturnFloat() throws IOException {
+  void testGetGlyphPath() throws IOException {
     // Arrange and Act
-    GeneralPath actualGlyphPath = Standard14Fonts.getGlyphPath(FontName.TIMES_ROMAN, "g9");
-
-    // Assert
-    assertTrue(actualGlyphPath.getCurrentPoint() instanceof Point2D.Float);
-    assertTrue(actualGlyphPath.getBounds2D() instanceof Float);
-  }
-
-  /**
-   * Test {@link Standard14Fonts#getGlyphPath(FontName, String)}.
-   * <ul>
-   *   <li>When {@code HELVETICA}.</li>
-   *   <li>Then Bounds Bounds2D return {@link Rectangle}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link Standard14Fonts#getGlyphPath(FontName, String)}
-   */
-  @Test
-  @DisplayName("Test getGlyphPath(FontName, String); when 'HELVETICA'; then Bounds Bounds2D return Rectangle")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"GeneralPath Standard14Fonts.getGlyphPath(FontName, String)"})
-  void testGetGlyphPath_whenHelvetica_thenBoundsBounds2DReturnRectangle() throws IOException {
-    // Arrange and Act
-    GeneralPath actualGlyphPath = Standard14Fonts.getGlyphPath(FontName.HELVETICA, "Glyph Name");
+    GeneralPath actualGlyphPath = Standard14Fonts.getGlyphPath(Standard14Fonts.FontName.TIMES_ROMAN, "Glyph Name");
 
     // Assert
     Rectangle bounds = actualGlyphPath.getBounds();
     Rectangle2D bounds2D = bounds.getBounds2D();
     assertTrue(bounds2D instanceof Rectangle);
     Rectangle2D frame = bounds.getFrame();
-    assertTrue(frame instanceof Double);
+    assertTrue(frame instanceof Rectangle2D.Double);
     Rectangle2D bounds2D2 = actualGlyphPath.getBounds2D();
-    assertTrue(bounds2D2 instanceof Float);
+    assertTrue(bounds2D2 instanceof Rectangle2D.Float);
+    assertNull(actualGlyphPath.getCurrentPoint());
+    Dimension size = bounds.getSize();
+    assertEquals(0, size.height);
+    assertEquals(0, size.width);
+    Point location = bounds.getLocation();
+    assertEquals(0, location.x);
+    assertEquals(0, location.y);
+    assertEquals(0, bounds.height);
+    assertEquals(0, bounds.width);
+    assertEquals(0, bounds.x);
+    assertEquals(0, bounds.y);
+    assertEquals(0.0d, size.getHeight());
+    assertEquals(0.0d, size.getWidth());
+    assertEquals(0.0d, location.getX());
+    assertEquals(0.0d, location.getY());
+    assertEquals(0.0d, bounds.getHeight());
+    assertEquals(0.0d, bounds.getWidth());
+    assertEquals(0.0d, bounds.getX());
+    assertEquals(0.0d, bounds.getY());
+    assertEquals(0.0d, bounds.getCenterX());
+    assertEquals(0.0d, bounds.getCenterY());
+    assertEquals(0.0d, bounds.getMaxX());
+    assertEquals(0.0d, bounds.getMaxY());
+    assertEquals(0.0d, bounds.getMinX());
+    assertEquals(0.0d, bounds.getMinY());
+    assertEquals(1, actualGlyphPath.getWindingRule());
+    assertTrue(bounds.isEmpty());
+    assertEquals(location, location.getLocation());
+    assertEquals(size, size.getSize());
     assertEquals(bounds, bounds.getBounds());
     assertEquals(bounds, bounds2D);
     assertEquals(bounds, frame);
@@ -251,30 +330,51 @@ class Standard14FontsDiffblueTest {
   }
 
   /**
-   * Test {@link Standard14Fonts#getGlyphPath(FontName, String)}.
-   * <ul>
-   *   <li>When {@code .notdef}.</li>
-   *   <li>Then Bounds Bounds2D return {@link Rectangle}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link Standard14Fonts#getGlyphPath(FontName, String)}
+   * Method under test:
+   * {@link Standard14Fonts#getGlyphPath(Standard14Fonts.FontName, String)}
    */
   @Test
-  @DisplayName("Test getGlyphPath(FontName, String); when '.notdef'; then Bounds Bounds2D return Rectangle")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"GeneralPath Standard14Fonts.getGlyphPath(FontName, String)"})
-  void testGetGlyphPath_whenNotdef_thenBoundsBounds2DReturnRectangle() throws IOException {
+  void testGetGlyphPath2() throws IOException {
     // Arrange and Act
-    GeneralPath actualGlyphPath = Standard14Fonts.getGlyphPath(FontName.ZAPF_DINGBATS, ".notdef");
+    GeneralPath actualGlyphPath = Standard14Fonts.getGlyphPath(Standard14Fonts.FontName.ZAPF_DINGBATS, ".notdef");
 
     // Assert
     Rectangle bounds = actualGlyphPath.getBounds();
     Rectangle2D bounds2D = bounds.getBounds2D();
     assertTrue(bounds2D instanceof Rectangle);
     Rectangle2D frame = bounds.getFrame();
-    assertTrue(frame instanceof Double);
+    assertTrue(frame instanceof Rectangle2D.Double);
     Rectangle2D bounds2D2 = actualGlyphPath.getBounds2D();
-    assertTrue(bounds2D2 instanceof Float);
+    assertTrue(bounds2D2 instanceof Rectangle2D.Float);
+    assertNull(actualGlyphPath.getCurrentPoint());
+    Dimension size = bounds.getSize();
+    assertEquals(0, size.height);
+    assertEquals(0, size.width);
+    Point location = bounds.getLocation();
+    assertEquals(0, location.x);
+    assertEquals(0, location.y);
+    assertEquals(0, bounds.height);
+    assertEquals(0, bounds.width);
+    assertEquals(0, bounds.x);
+    assertEquals(0, bounds.y);
+    assertEquals(0.0d, size.getHeight());
+    assertEquals(0.0d, size.getWidth());
+    assertEquals(0.0d, location.getX());
+    assertEquals(0.0d, location.getY());
+    assertEquals(0.0d, bounds.getHeight());
+    assertEquals(0.0d, bounds.getWidth());
+    assertEquals(0.0d, bounds.getX());
+    assertEquals(0.0d, bounds.getY());
+    assertEquals(0.0d, bounds.getCenterX());
+    assertEquals(0.0d, bounds.getCenterY());
+    assertEquals(0.0d, bounds.getMaxX());
+    assertEquals(0.0d, bounds.getMaxY());
+    assertEquals(0.0d, bounds.getMinX());
+    assertEquals(0.0d, bounds.getMinY());
+    assertEquals(1, actualGlyphPath.getWindingRule());
+    assertTrue(bounds.isEmpty());
+    assertEquals(location, location.getLocation());
+    assertEquals(size, size.getSize());
     assertEquals(bounds, bounds.getBounds());
     assertEquals(bounds, bounds2D);
     assertEquals(bounds, frame);
@@ -282,20 +382,231 @@ class Standard14FontsDiffblueTest {
   }
 
   /**
-   * Test {@link Standard14Fonts#getGlyphPath(FontName, String)}.
-   * <ul>
-   *   <li>When {@code Standard14Fonts$FontName}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link Standard14Fonts#getGlyphPath(FontName, String)}
+   * Method under test:
+   * {@link Standard14Fonts#getGlyphPath(Standard14Fonts.FontName, String)}
    */
   @Test
-  @DisplayName("Test getGlyphPath(FontName, String); when 'org.apache.pdfbox.pdmodel.font.Standard14Fonts$FontName'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"GeneralPath Standard14Fonts.getGlyphPath(FontName, String)"})
-  void testGetGlyphPath_whenOrgApachePdfboxPdmodelFontStandard14FontsFontName() throws IOException {
+  void testGetGlyphPath3() throws IOException {
     // Arrange and Act
-    GeneralPath actualGlyphPath = Standard14Fonts.getGlyphPath(FontName.TIMES_ROMAN,
+    GeneralPath actualGlyphPath = Standard14Fonts.getGlyphPath(Standard14Fonts.FontName.ZAPF_DINGBATS, "uni");
+
+    // Assert
+    Rectangle bounds = actualGlyphPath.getBounds();
+    Rectangle2D bounds2D = bounds.getBounds2D();
+    assertTrue(bounds2D instanceof Rectangle);
+    Rectangle2D frame = bounds.getFrame();
+    assertTrue(frame instanceof Rectangle2D.Double);
+    Rectangle2D bounds2D2 = actualGlyphPath.getBounds2D();
+    assertTrue(bounds2D2 instanceof Rectangle2D.Float);
+    assertNull(actualGlyphPath.getCurrentPoint());
+    Dimension size = bounds.getSize();
+    assertEquals(0, size.height);
+    assertEquals(0, size.width);
+    Point location = bounds.getLocation();
+    assertEquals(0, location.x);
+    assertEquals(0, location.y);
+    assertEquals(0, bounds.height);
+    assertEquals(0, bounds.width);
+    assertEquals(0, bounds.x);
+    assertEquals(0, bounds.y);
+    assertEquals(0.0d, size.getHeight());
+    assertEquals(0.0d, size.getWidth());
+    assertEquals(0.0d, location.getX());
+    assertEquals(0.0d, location.getY());
+    assertEquals(0.0d, bounds.getHeight());
+    assertEquals(0.0d, bounds.getWidth());
+    assertEquals(0.0d, bounds.getX());
+    assertEquals(0.0d, bounds.getY());
+    assertEquals(0.0d, bounds.getCenterX());
+    assertEquals(0.0d, bounds.getCenterY());
+    assertEquals(0.0d, bounds.getMaxX());
+    assertEquals(0.0d, bounds.getMaxY());
+    assertEquals(0.0d, bounds.getMinX());
+    assertEquals(0.0d, bounds.getMinY());
+    assertEquals(1, actualGlyphPath.getWindingRule());
+    assertTrue(bounds.isEmpty());
+    assertEquals(location, location.getLocation());
+    assertEquals(size, size.getSize());
+    assertEquals(bounds, bounds.getBounds());
+    assertEquals(bounds, bounds2D);
+    assertEquals(bounds, frame);
+    assertEquals(bounds, bounds2D2);
+  }
+
+  /**
+   * Method under test:
+   * {@link Standard14Fonts#getGlyphPath(Standard14Fonts.FontName, String)}
+   */
+  @Test
+  void testGetGlyphPath4() throws IOException {
+    // Arrange and Act
+    GeneralPath actualGlyphPath = Standard14Fonts.getGlyphPath(Standard14Fonts.FontName.ZAPF_DINGBATS, "u");
+
+    // Assert
+    Rectangle bounds = actualGlyphPath.getBounds();
+    Rectangle2D bounds2D = bounds.getBounds2D();
+    assertTrue(bounds2D instanceof Rectangle);
+    Point2D currentPoint = actualGlyphPath.getCurrentPoint();
+    assertTrue(currentPoint instanceof Point2D.Float);
+    Rectangle2D frame = bounds.getFrame();
+    assertTrue(frame instanceof Rectangle2D.Double);
+    Rectangle2D bounds2D2 = actualGlyphPath.getBounds2D();
+    assertTrue(bounds2D2 instanceof Rectangle2D.Float);
+    Point location = bounds.getLocation();
+    assertEquals(-20, location.y);
+    assertEquals(-20, bounds.y);
+    assertEquals(-20.0d, location.getY());
+    assertEquals(-20.0d, bounds.getY());
+    assertEquals(-20.0d, bounds.getMinY());
+    assertEquals(1, actualGlyphPath.getWindingRule());
+    assertEquals(1003.0d, bounds.getMaxX());
+    assertEquals(1082.0d, currentPoint.getY());
+    assertEquals(1082.0d, bounds.getMaxY());
+    assertEquals(1082.0f, ((Point2D.Float) currentPoint).y);
+    Dimension size = bounds.getSize();
+    assertEquals(1102, size.height);
+    assertEquals(1102, bounds.height);
+    assertEquals(1102.0d, size.getHeight());
+    assertEquals(1102.0d, bounds.getHeight());
+    assertEquals(133, location.x);
+    assertEquals(133, bounds.x);
+    assertEquals(133.0d, location.getX());
+    assertEquals(133.0d, bounds.getX());
+    assertEquals(133.0d, bounds.getMinX());
+    assertEquals(314.0d, currentPoint.getX());
+    assertEquals(314.0f, ((Point2D.Float) currentPoint).x);
+    assertEquals(531.0d, bounds.getCenterY());
+    assertEquals(568.0d, bounds.getCenterX());
+    assertEquals(870, size.width);
+    assertEquals(870, bounds.width);
+    assertEquals(870.0d, size.getWidth());
+    assertEquals(870.0d, bounds.getWidth());
+    assertFalse(bounds.isEmpty());
+    assertEquals(location, location.getLocation());
+    assertEquals(size, size.getSize());
+    assertEquals(bounds, bounds.getBounds());
+    assertEquals(bounds, bounds2D);
+    assertEquals(bounds, frame);
+    assertEquals(bounds, bounds2D2);
+  }
+
+  /**
+   * Method under test:
+   * {@link Standard14Fonts#getGlyphPath(Standard14Fonts.FontName, String)}
+   */
+  @Test
+  void testGetGlyphPath5() throws IOException {
+    // Arrange and Act
+    GeneralPath actualGlyphPath = Standard14Fonts.getGlyphPath(Standard14Fonts.FontName.SYMBOL, "uni");
+
+    // Assert
+    Rectangle bounds = actualGlyphPath.getBounds();
+    Rectangle2D bounds2D = bounds.getBounds2D();
+    assertTrue(bounds2D instanceof Rectangle);
+    Rectangle2D frame = bounds.getFrame();
+    assertTrue(frame instanceof Rectangle2D.Double);
+    Rectangle2D bounds2D2 = actualGlyphPath.getBounds2D();
+    assertTrue(bounds2D2 instanceof Rectangle2D.Float);
+    assertNull(actualGlyphPath.getCurrentPoint());
+    Dimension size = bounds.getSize();
+    assertEquals(0, size.height);
+    assertEquals(0, size.width);
+    Point location = bounds.getLocation();
+    assertEquals(0, location.x);
+    assertEquals(0, location.y);
+    assertEquals(0, bounds.height);
+    assertEquals(0, bounds.width);
+    assertEquals(0, bounds.x);
+    assertEquals(0, bounds.y);
+    assertEquals(0.0d, size.getHeight());
+    assertEquals(0.0d, size.getWidth());
+    assertEquals(0.0d, location.getX());
+    assertEquals(0.0d, location.getY());
+    assertEquals(0.0d, bounds.getHeight());
+    assertEquals(0.0d, bounds.getWidth());
+    assertEquals(0.0d, bounds.getX());
+    assertEquals(0.0d, bounds.getY());
+    assertEquals(0.0d, bounds.getCenterX());
+    assertEquals(0.0d, bounds.getCenterY());
+    assertEquals(0.0d, bounds.getMaxX());
+    assertEquals(0.0d, bounds.getMaxY());
+    assertEquals(0.0d, bounds.getMinX());
+    assertEquals(0.0d, bounds.getMinY());
+    assertEquals(1, actualGlyphPath.getWindingRule());
+    assertTrue(bounds.isEmpty());
+    assertEquals(location, location.getLocation());
+    assertEquals(size, size.getSize());
+    assertEquals(bounds, bounds.getBounds());
+    assertEquals(bounds, bounds2D);
+    assertEquals(bounds, frame);
+    assertEquals(bounds, bounds2D2);
+  }
+
+  /**
+   * Method under test:
+   * {@link Standard14Fonts#getGlyphPath(Standard14Fonts.FontName, String)}
+   */
+  @Test
+  void testGetGlyphPath6() throws IOException {
+    // Arrange and Act
+    GeneralPath actualGlyphPath = Standard14Fonts.getGlyphPath(Standard14Fonts.FontName.TIMES_ROMAN, "g9");
+
+    // Assert
+    Rectangle bounds = actualGlyphPath.getBounds();
+    Rectangle2D bounds2D = bounds.getBounds2D();
+    assertTrue(bounds2D instanceof Rectangle);
+    Point2D currentPoint = actualGlyphPath.getCurrentPoint();
+    assertTrue(currentPoint instanceof Point2D.Float);
+    Rectangle2D frame = bounds.getFrame();
+    assertTrue(frame instanceof Rectangle2D.Double);
+    Rectangle2D bounds2D2 = actualGlyphPath.getBounds2D();
+    assertTrue(bounds2D2 instanceof Rectangle2D.Float);
+    Point location = bounds.getLocation();
+    assertEquals(-20, location.y);
+    assertEquals(-20, bounds.y);
+    assertEquals(-20.0d, location.getY());
+    assertEquals(-20.0d, bounds.getY());
+    assertEquals(-20.0d, bounds.getMinY());
+    assertEquals(1, actualGlyphPath.getWindingRule());
+    assertEquals(1090.0d, currentPoint.getY());
+    assertEquals(1090.0f, ((Point2D.Float) currentPoint).y);
+    assertEquals(1362.0d, bounds.getMaxY());
+    Dimension size = bounds.getSize();
+    assertEquals(1382, size.height);
+    assertEquals(1382, bounds.height);
+    assertEquals(1382.0d, size.getHeight());
+    assertEquals(1382.0d, bounds.getHeight());
+    assertEquals(1478, size.width);
+    assertEquals(1478, bounds.width);
+    assertEquals(1478.0d, size.getWidth());
+    assertEquals(1478.0d, bounds.getWidth());
+    assertEquals(1556.0d, bounds.getMaxX());
+    assertEquals(434.0d, currentPoint.getX());
+    assertEquals(434.0f, ((Point2D.Float) currentPoint).x);
+    assertEquals(671.0d, bounds.getCenterY());
+    assertEquals(78, location.x);
+    assertEquals(78, bounds.x);
+    assertEquals(78.0d, location.getX());
+    assertEquals(78.0d, bounds.getX());
+    assertEquals(78.0d, bounds.getMinX());
+    assertEquals(817.0d, bounds.getCenterX());
+    assertFalse(bounds.isEmpty());
+    assertEquals(location, location.getLocation());
+    assertEquals(size, size.getSize());
+    assertEquals(bounds, bounds.getBounds());
+    assertEquals(bounds, bounds2D);
+    assertEquals(bounds, frame);
+    assertEquals(bounds, bounds2D2);
+  }
+
+  /**
+   * Method under test:
+   * {@link Standard14Fonts#getGlyphPath(Standard14Fonts.FontName, String)}
+   */
+  @Test
+  void testGetGlyphPath7() throws IOException {
+    // Arrange and Act
+    GeneralPath actualGlyphPath = Standard14Fonts.getGlyphPath(Standard14Fonts.FontName.TIMES_ROMAN,
         "org.apache.pdfbox.pdmodel.font.Standard14Fonts$FontName");
 
     // Assert
@@ -303,9 +614,38 @@ class Standard14FontsDiffblueTest {
     Rectangle2D bounds2D = bounds.getBounds2D();
     assertTrue(bounds2D instanceof Rectangle);
     Rectangle2D frame = bounds.getFrame();
-    assertTrue(frame instanceof Double);
+    assertTrue(frame instanceof Rectangle2D.Double);
     Rectangle2D bounds2D2 = actualGlyphPath.getBounds2D();
-    assertTrue(bounds2D2 instanceof Float);
+    assertTrue(bounds2D2 instanceof Rectangle2D.Float);
+    assertNull(actualGlyphPath.getCurrentPoint());
+    Dimension size = bounds.getSize();
+    assertEquals(0, size.height);
+    assertEquals(0, size.width);
+    Point location = bounds.getLocation();
+    assertEquals(0, location.x);
+    assertEquals(0, location.y);
+    assertEquals(0, bounds.height);
+    assertEquals(0, bounds.width);
+    assertEquals(0, bounds.x);
+    assertEquals(0, bounds.y);
+    assertEquals(0.0d, size.getHeight());
+    assertEquals(0.0d, size.getWidth());
+    assertEquals(0.0d, location.getX());
+    assertEquals(0.0d, location.getY());
+    assertEquals(0.0d, bounds.getHeight());
+    assertEquals(0.0d, bounds.getWidth());
+    assertEquals(0.0d, bounds.getX());
+    assertEquals(0.0d, bounds.getY());
+    assertEquals(0.0d, bounds.getCenterX());
+    assertEquals(0.0d, bounds.getCenterY());
+    assertEquals(0.0d, bounds.getMaxX());
+    assertEquals(0.0d, bounds.getMaxY());
+    assertEquals(0.0d, bounds.getMinX());
+    assertEquals(0.0d, bounds.getMinY());
+    assertEquals(1, actualGlyphPath.getWindingRule());
+    assertTrue(bounds.isEmpty());
+    assertEquals(location, location.getLocation());
+    assertEquals(size, size.getSize());
     assertEquals(bounds, bounds.getBounds());
     assertEquals(bounds, bounds2D);
     assertEquals(bounds, frame);
@@ -313,114 +653,52 @@ class Standard14FontsDiffblueTest {
   }
 
   /**
-   * Test {@link Standard14Fonts#getGlyphPath(FontName, String)}.
-   * <ul>
-   *   <li>When {@code SYMBOL}.</li>
-   *   <li>Then Bounds Bounds2D return {@link Rectangle}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link Standard14Fonts#getGlyphPath(FontName, String)}
+   * Method under test:
+   * {@link Standard14Fonts#getGlyphPath(Standard14Fonts.FontName, String)}
    */
   @Test
-  @DisplayName("Test getGlyphPath(FontName, String); when 'SYMBOL'; then Bounds Bounds2D return Rectangle")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"GeneralPath Standard14Fonts.getGlyphPath(FontName, String)"})
-  void testGetGlyphPath_whenSymbol_thenBoundsBounds2DReturnRectangle() throws IOException {
+  void testGetGlyphPath8() throws IOException {
     // Arrange and Act
-    GeneralPath actualGlyphPath = Standard14Fonts.getGlyphPath(FontName.SYMBOL, "uni");
+    GeneralPath actualGlyphPath = Standard14Fonts.getGlyphPath(Standard14Fonts.FontName.COURIER_BOLD_OBLIQUE,
+        "Glyph Name");
 
     // Assert
     Rectangle bounds = actualGlyphPath.getBounds();
     Rectangle2D bounds2D = bounds.getBounds2D();
     assertTrue(bounds2D instanceof Rectangle);
     Rectangle2D frame = bounds.getFrame();
-    assertTrue(frame instanceof Double);
+    assertTrue(frame instanceof Rectangle2D.Double);
     Rectangle2D bounds2D2 = actualGlyphPath.getBounds2D();
-    assertTrue(bounds2D2 instanceof Float);
-    assertEquals(bounds, bounds.getBounds());
-    assertEquals(bounds, bounds2D);
-    assertEquals(bounds, frame);
-    assertEquals(bounds, bounds2D2);
-  }
-
-  /**
-   * Test {@link Standard14Fonts#getGlyphPath(FontName, String)}.
-   * <ul>
-   *   <li>When {@code TIMES_ROMAN}.</li>
-   *   <li>Then Bounds Bounds2D return {@link Rectangle}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link Standard14Fonts#getGlyphPath(FontName, String)}
-   */
-  @Test
-  @DisplayName("Test getGlyphPath(FontName, String); when 'TIMES_ROMAN'; then Bounds Bounds2D return Rectangle")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"GeneralPath Standard14Fonts.getGlyphPath(FontName, String)"})
-  void testGetGlyphPath_whenTimesRoman_thenBoundsBounds2DReturnRectangle() throws IOException {
-    // Arrange and Act
-    GeneralPath actualGlyphPath = Standard14Fonts.getGlyphPath(FontName.TIMES_ROMAN, "Glyph Name");
-
-    // Assert
-    Rectangle bounds = actualGlyphPath.getBounds();
-    Rectangle2D bounds2D = bounds.getBounds2D();
-    assertTrue(bounds2D instanceof Rectangle);
-    Rectangle2D frame = bounds.getFrame();
-    assertTrue(frame instanceof Double);
-    Rectangle2D bounds2D2 = actualGlyphPath.getBounds2D();
-    assertTrue(bounds2D2 instanceof Float);
-    assertEquals(bounds, bounds.getBounds());
-    assertEquals(bounds, bounds2D);
-    assertEquals(bounds, frame);
-    assertEquals(bounds, bounds2D2);
-  }
-
-  /**
-   * Test {@link Standard14Fonts#getGlyphPath(FontName, String)}.
-   * <ul>
-   *   <li>When {@code u}.</li>
-   *   <li>Then CurrentPoint return {@link Point2D.Float}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link Standard14Fonts#getGlyphPath(FontName, String)}
-   */
-  @Test
-  @DisplayName("Test getGlyphPath(FontName, String); when 'u'; then CurrentPoint return Float")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"GeneralPath Standard14Fonts.getGlyphPath(FontName, String)"})
-  void testGetGlyphPath_whenU_thenCurrentPointReturnFloat() throws IOException {
-    // Arrange and Act
-    GeneralPath actualGlyphPath = Standard14Fonts.getGlyphPath(FontName.ZAPF_DINGBATS, "u");
-
-    // Assert
-    assertTrue(actualGlyphPath.getCurrentPoint() instanceof Point2D.Float);
-    assertTrue(actualGlyphPath.getBounds2D() instanceof Float);
-  }
-
-  /**
-   * Test {@link Standard14Fonts#getGlyphPath(FontName, String)}.
-   * <ul>
-   *   <li>When {@code uni}.</li>
-   *   <li>Then Bounds Bounds2D return {@link Rectangle}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link Standard14Fonts#getGlyphPath(FontName, String)}
-   */
-  @Test
-  @DisplayName("Test getGlyphPath(FontName, String); when 'uni'; then Bounds Bounds2D return Rectangle")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"GeneralPath Standard14Fonts.getGlyphPath(FontName, String)"})
-  void testGetGlyphPath_whenUni_thenBoundsBounds2DReturnRectangle() throws IOException {
-    // Arrange and Act
-    GeneralPath actualGlyphPath = Standard14Fonts.getGlyphPath(FontName.ZAPF_DINGBATS, "uni");
-
-    // Assert
-    Rectangle bounds = actualGlyphPath.getBounds();
-    Rectangle2D bounds2D = bounds.getBounds2D();
-    assertTrue(bounds2D instanceof Rectangle);
-    Rectangle2D frame = bounds.getFrame();
-    assertTrue(frame instanceof Double);
-    Rectangle2D bounds2D2 = actualGlyphPath.getBounds2D();
-    assertTrue(bounds2D2 instanceof Float);
+    assertTrue(bounds2D2 instanceof Rectangle2D.Float);
+    assertNull(actualGlyphPath.getCurrentPoint());
+    Dimension size = bounds.getSize();
+    assertEquals(0, size.height);
+    assertEquals(0, size.width);
+    Point location = bounds.getLocation();
+    assertEquals(0, location.x);
+    assertEquals(0, location.y);
+    assertEquals(0, bounds.height);
+    assertEquals(0, bounds.width);
+    assertEquals(0, bounds.x);
+    assertEquals(0, bounds.y);
+    assertEquals(0.0d, size.getHeight());
+    assertEquals(0.0d, size.getWidth());
+    assertEquals(0.0d, location.getX());
+    assertEquals(0.0d, location.getY());
+    assertEquals(0.0d, bounds.getHeight());
+    assertEquals(0.0d, bounds.getWidth());
+    assertEquals(0.0d, bounds.getX());
+    assertEquals(0.0d, bounds.getY());
+    assertEquals(0.0d, bounds.getCenterX());
+    assertEquals(0.0d, bounds.getCenterY());
+    assertEquals(0.0d, bounds.getMaxX());
+    assertEquals(0.0d, bounds.getMaxY());
+    assertEquals(0.0d, bounds.getMinX());
+    assertEquals(0.0d, bounds.getMinY());
+    assertEquals(1, actualGlyphPath.getWindingRule());
+    assertTrue(bounds.isEmpty());
+    assertEquals(location, location.getLocation());
+    assertEquals(size, size.getSize());
     assertEquals(bounds, bounds.getBounds());
     assertEquals(bounds, bounds2D);
     assertEquals(bounds, frame);

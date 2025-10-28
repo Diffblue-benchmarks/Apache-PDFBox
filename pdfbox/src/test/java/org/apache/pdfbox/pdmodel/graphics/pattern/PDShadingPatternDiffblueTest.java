@@ -1,114 +1,43 @@
 package org.apache.pdfbox.pdmodel.graphics.pattern;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import java.io.IOException;
 import org.apache.pdfbox.cos.COSDictionary;
+import org.apache.pdfbox.cos.COSDocument;
+import org.apache.pdfbox.cos.COSIncrement;
 import org.apache.pdfbox.cos.COSObjectKey;
+import org.apache.pdfbox.cos.COSUpdateState;
+import org.apache.pdfbox.io.RandomAccessStreamCache;
+import org.apache.pdfbox.io.RandomAccessStreamCacheImpl;
 import org.apache.pdfbox.pdmodel.graphics.shading.PDShading;
 import org.apache.pdfbox.pdmodel.graphics.shading.PDShadingType1;
 import org.apache.pdfbox.pdmodel.graphics.state.PDExtendedGraphicsState;
 import org.apache.pdfbox.util.Matrix;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class PDShadingPatternDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
-   * Methods under test:
-   * <ul>
-   *   <li>{@link PDShadingPattern#PDShadingPattern(COSDictionary)}
-   *   <li>{@link PDShadingPattern#getPatternType()}
-   * </ul>
-   */
-  @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDShadingPattern.<init>(COSDictionary)", "int PDShadingPattern.getPatternType()"})
-  void testGettersAndSetters() {
-    // Arrange
-    COSDictionary resourceDictionary = new COSDictionary();
-
-    // Act
-    PDShadingPattern actualPdShadingPattern = new PDShadingPattern(resourceDictionary);
-
-    // Assert
-    assertEquals(2, actualPdShadingPattern.getPatternType());
-    assertSame(resourceDictionary, actualPdShadingPattern.getCOSObject());
-  }
-
-  /**
-   * Test {@link PDShadingPattern#PDShadingPattern()}.
-   * <p>
-   * Method under test: {@link PDShadingPattern#PDShadingPattern()}
-   */
-  @Test
-  @DisplayName("Test new PDShadingPattern()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDShadingPattern.<init>()"})
-  void testNewPDShadingPattern() throws IOException {
-    // Arrange and Act
-    PDShadingPattern actualPdShadingPattern = new PDShadingPattern();
-
-    // Assert
-    assertEquals("Pattern", actualPdShadingPattern.getType());
-    COSDictionary cOSObject = actualPdShadingPattern.getCOSObject();
-    assertNull(cOSObject.getKey());
-    assertNull(actualPdShadingPattern.getShading());
-    assertNull(actualPdShadingPattern.getExtendedGraphicsState());
-    Matrix matrix = actualPdShadingPattern.getMatrix();
-    assertEquals(0.0f, matrix.getShearX());
-    assertEquals(0.0f, matrix.getShearY());
-    assertEquals(0.0f, matrix.getTranslateX());
-    assertEquals(0.0f, matrix.getTranslateY());
-    assertEquals(1.0f, matrix.getScaleX());
-    assertEquals(1.0f, matrix.getScaleY());
-    assertEquals(1.0f, matrix.getScalingFactorX());
-    assertEquals(1.0f, matrix.getScalingFactorY());
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    assertEquals(2, actualPdShadingPattern.getPatternType());
-    assertEquals(3, matrix.getValues().length);
-    assertFalse(cOSObject.isDirect());
-    assertFalse(cOSObject.isNeedToBeUpdated());
-  }
-
-  /**
-   * Test {@link PDShadingPattern#getExtendedGraphicsState()}.
-   * <ul>
-   *   <li>Given {@link PDShadingPattern#PDShadingPattern()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDShadingPattern#getExtendedGraphicsState()}
    */
   @Test
-  @DisplayName("Test getExtendedGraphicsState(); given PDShadingPattern(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDExtendedGraphicsState PDShadingPattern.getExtendedGraphicsState()"})
-  void testGetExtendedGraphicsState_givenPDShadingPattern_thenReturnNull() {
+  void testGetExtendedGraphicsState() {
     // Arrange, Act and Assert
     assertNull((new PDShadingPattern()).getExtendedGraphicsState());
   }
 
   /**
-   * Test {@link PDShadingPattern#getExtendedGraphicsState()}.
-   * <ul>
-   *   <li>Then return {@link PDExtendedGraphicsState#PDExtendedGraphicsState()}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDShadingPattern#getExtendedGraphicsState()}
    */
   @Test
-  @DisplayName("Test getExtendedGraphicsState(); then return PDExtendedGraphicsState()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDExtendedGraphicsState PDShadingPattern.getExtendedGraphicsState()"})
-  void testGetExtendedGraphicsState_thenReturnPDExtendedGraphicsState() {
+  void testGetExtendedGraphicsState2() {
     // Arrange
     PDShadingPattern pdShadingPattern = new PDShadingPattern();
     PDExtendedGraphicsState extendedGraphicsState = new PDExtendedGraphicsState();
@@ -119,18 +48,36 @@ class PDShadingPatternDiffblueTest {
   }
 
   /**
-   * Test {@link PDShadingPattern#setExtendedGraphicsState(PDExtendedGraphicsState)}.
-   * <ul>
-   *   <li>Then {@link PDShadingPattern#PDShadingPattern()} COSObject Values size is three.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDShadingPattern#setExtendedGraphicsState(PDExtendedGraphicsState)}
+   * Method under test: {@link PDShadingPattern#getExtendedGraphicsState()}
    */
   @Test
-  @DisplayName("Test setExtendedGraphicsState(PDExtendedGraphicsState); then PDShadingPattern() COSObject Values size is three")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDShadingPattern.setExtendedGraphicsState(PDExtendedGraphicsState)"})
-  void testSetExtendedGraphicsState_thenPDShadingPatternCOSObjectValuesSizeIsThree() {
+  void testGetExtendedGraphicsState3() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    COSDocument transfer = new COSDocument(streamCacheCreateFunction);
+
+    PDExtendedGraphicsState extendedGraphicsState = new PDExtendedGraphicsState();
+    extendedGraphicsState.setTransfer(transfer);
+
+    PDShadingPattern pdShadingPattern = new PDShadingPattern();
+    pdShadingPattern.setExtendedGraphicsState(extendedGraphicsState);
+
+    // Act
+    PDExtendedGraphicsState actualExtendedGraphicsState = pdShadingPattern.getExtendedGraphicsState();
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertSame(extendedGraphicsState, actualExtendedGraphicsState);
+  }
+
+  /**
+   * Method under test:
+   * {@link PDShadingPattern#setExtendedGraphicsState(PDExtendedGraphicsState)}
+   */
+  @Test
+  void testSetExtendedGraphicsState() {
     // Arrange
     PDShadingPattern pdShadingPattern = new PDShadingPattern();
     PDExtendedGraphicsState extendedGraphicsState = new PDExtendedGraphicsState();
@@ -146,61 +93,65 @@ class PDShadingPatternDiffblueTest {
   }
 
   /**
-   * Test {@link PDShadingPattern#setExtendedGraphicsState(PDExtendedGraphicsState)}.
-   * <ul>
-   *   <li>Then {@link PDShadingPattern#PDShadingPattern()} COSObject Values size is two.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDShadingPattern#setExtendedGraphicsState(PDExtendedGraphicsState)}
+   * Method under test:
+   * {@link PDShadingPattern#setExtendedGraphicsState(PDExtendedGraphicsState)}
    */
   @Test
-  @DisplayName("Test setExtendedGraphicsState(PDExtendedGraphicsState); then PDShadingPattern() COSObject Values size is two")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDShadingPattern.setExtendedGraphicsState(PDExtendedGraphicsState)"})
-  void testSetExtendedGraphicsState_thenPDShadingPatternCOSObjectValuesSizeIsTwo() {
+  void testSetExtendedGraphicsState2() {
     // Arrange
     PDShadingPattern pdShadingPattern = new PDShadingPattern();
 
     // Act
     pdShadingPattern.setExtendedGraphicsState(null);
 
-    // Assert that nothing has changed
+    // Assert
+    assertNull(pdShadingPattern.getExtendedGraphicsState());
     COSDictionary cOSObject = pdShadingPattern.getCOSObject();
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
   }
 
   /**
-   * Test {@link PDShadingPattern#getShading()}.
-   * <ul>
-   *   <li>Given {@link PDShadingPattern#PDShadingPattern()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
+   * Method under test:
+   * {@link PDShadingPattern#setExtendedGraphicsState(PDExtendedGraphicsState)}
+   */
+  @Test
+  void testSetExtendedGraphicsState3() throws IOException {
+    // Arrange
+    PDShadingPattern pdShadingPattern = new PDShadingPattern();
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    COSDocument transfer = new COSDocument(streamCacheCreateFunction);
+
+    PDExtendedGraphicsState extendedGraphicsState = new PDExtendedGraphicsState();
+    extendedGraphicsState.setTransfer(transfer);
+
+    // Act
+    pdShadingPattern.setExtendedGraphicsState(extendedGraphicsState);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    COSDictionary cOSObject = pdShadingPattern.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
+    assertSame(extendedGraphicsState, pdShadingPattern.getExtendedGraphicsState());
+  }
+
+  /**
    * Method under test: {@link PDShadingPattern#getShading()}
    */
   @Test
-  @DisplayName("Test getShading(); given PDShadingPattern(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDShading PDShadingPattern.getShading()"})
-  void testGetShading_givenPDShadingPattern_thenReturnNull() throws IOException {
+  void testGetShading() throws IOException {
     // Arrange, Act and Assert
     assertNull((new PDShadingPattern()).getShading());
   }
 
   /**
-   * Test {@link PDShadingPattern#getShading()}.
-   * <ul>
-   *   <li>Then return {@link PDShadingType1#PDShadingType1(COSDictionary)} with shadingDictionary is {@link COSDictionary#COSDictionary()}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDShadingPattern#getShading()}
    */
   @Test
-  @DisplayName("Test getShading(); then return PDShadingType1(COSDictionary) with shadingDictionary is COSDictionary()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDShading PDShadingPattern.getShading()"})
-  void testGetShading_thenReturnPDShadingType1WithShadingDictionaryIsCOSDictionary() throws IOException {
+  void testGetShading2() throws IOException {
     // Arrange
     PDShadingPattern pdShadingPattern = new PDShadingPattern();
     PDShadingType1 shadingResources = new PDShadingType1(new COSDictionary());
@@ -211,15 +162,29 @@ class PDShadingPatternDiffblueTest {
   }
 
   /**
-   * Test {@link PDShadingPattern#setShading(PDShading)}.
-   * <p>
    * Method under test: {@link PDShadingPattern#setShading(PDShading)}
    */
   @Test
-  @DisplayName("Test setShading(PDShading)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDShadingPattern.setShading(PDShading)"})
   void testSetShading() throws IOException {
+    // Arrange
+    PDShadingPattern pdShadingPattern = new PDShadingPattern();
+    PDShadingType1 shadingResources = new PDShadingType1(new COSDictionary());
+
+    // Act
+    pdShadingPattern.setShading(shadingResources);
+
+    // Assert
+    COSDictionary cOSObject = pdShadingPattern.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
+    assertSame(shadingResources, pdShadingPattern.getShading());
+  }
+
+  /**
+   * Method under test: {@link PDShadingPattern#setShading(PDShading)}
+   */
+  @Test
+  void testSetShading2() throws IOException {
     // Arrange
     PDShadingPattern pdShadingPattern = new PDShadingPattern();
     PDShadingType1 shadingResources = new PDShadingType1(null);
@@ -235,49 +200,28 @@ class PDShadingPatternDiffblueTest {
   }
 
   /**
-   * Test {@link PDShadingPattern#setShading(PDShading)}.
-   * <ul>
-   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDShadingPattern#setShading(PDShading)}
    */
   @Test
-  @DisplayName("Test setShading(PDShading); given COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDShadingPattern.setShading(PDShading)"})
-  void testSetShading_givenCOSObjectKeyWithNumIsOneAndGenIsOne() throws IOException {
+  void testSetShading3() throws IOException {
     // Arrange
     PDShadingPattern pdShadingPattern = new PDShadingPattern();
 
-    COSDictionary shadingDictionary = new COSDictionary();
-    shadingDictionary.setKey(new COSObjectKey(1L, 1));
-    PDShadingType1 shadingResources = new PDShadingType1(shadingDictionary);
-
     // Act
-    pdShadingPattern.setShading(shadingResources);
+    pdShadingPattern.setShading(null);
 
     // Assert
+    assertNull(pdShadingPattern.getShading());
     COSDictionary cOSObject = pdShadingPattern.getCOSObject();
-    assertEquals(3, cOSObject.getValues().size());
-    assertEquals(3, cOSObject.size());
-    assertSame(shadingResources, pdShadingPattern.getShading());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
   }
 
   /**
-   * Test {@link PDShadingPattern#setShading(PDShading)}.
-   * <ul>
-   *   <li>Given {@code true}.</li>
-   *   <li>When {@link COSDictionary#COSDictionary()} Direct is {@code true}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDShadingPattern#setShading(PDShading)}
    */
   @Test
-  @DisplayName("Test setShading(PDShading); given 'true'; when COSDictionary() Direct is 'true'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDShadingPattern.setShading(PDShading)"})
-  void testSetShading_givenTrue_whenCOSDictionaryDirectIsTrue() throws IOException {
+  void testSetShading4() throws IOException {
     // Arrange
     PDShadingPattern pdShadingPattern = new PDShadingPattern();
 
@@ -296,21 +240,16 @@ class PDShadingPatternDiffblueTest {
   }
 
   /**
-   * Test {@link PDShadingPattern#setShading(PDShading)}.
-   * <ul>
-   *   <li>Then {@link PDShadingPattern#PDShadingPattern()} COSObject Values size is three.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDShadingPattern#setShading(PDShading)}
    */
   @Test
-  @DisplayName("Test setShading(PDShading); then PDShadingPattern() COSObject Values size is three")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDShadingPattern.setShading(PDShading)"})
-  void testSetShading_thenPDShadingPatternCOSObjectValuesSizeIsThree() throws IOException {
+  void testSetShading5() throws IOException {
     // Arrange
     PDShadingPattern pdShadingPattern = new PDShadingPattern();
-    PDShadingType1 shadingResources = new PDShadingType1(new COSDictionary());
+
+    COSDictionary shadingDictionary = new COSDictionary();
+    shadingDictionary.setKey(new COSObjectKey(1L, 1));
+    PDShadingType1 shadingResources = new PDShadingType1(shadingDictionary);
 
     // Act
     pdShadingPattern.setShading(shadingResources);
@@ -323,28 +262,63 @@ class PDShadingPatternDiffblueTest {
   }
 
   /**
-   * Test {@link PDShadingPattern#setShading(PDShading)}.
+   * Methods under test:
    * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then {@link PDShadingPattern#PDShadingPattern()} COSObject Values size is two.</li>
+   *   <li>{@link PDShadingPattern#PDShadingPattern(COSDictionary)}
+   *   <li>{@link PDShadingPattern#getPatternType()}
    * </ul>
-   * <p>
-   * Method under test: {@link PDShadingPattern#setShading(PDShading)}
    */
   @Test
-  @DisplayName("Test setShading(PDShading); when 'null'; then PDShadingPattern() COSObject Values size is two")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDShadingPattern.setShading(PDShading)"})
-  void testSetShading_whenNull_thenPDShadingPatternCOSObjectValuesSizeIsTwo() {
+  void testGettersAndSetters() {
     // Arrange
-    PDShadingPattern pdShadingPattern = new PDShadingPattern();
+    COSDictionary resourceDictionary = new COSDictionary();
 
     // Act
-    pdShadingPattern.setShading(null);
+    PDShadingPattern actualPdShadingPattern = new PDShadingPattern(resourceDictionary);
 
-    // Assert that nothing has changed
-    COSDictionary cOSObject = pdShadingPattern.getCOSObject();
+    // Assert
+    assertEquals(2, actualPdShadingPattern.getPatternType());
+    assertSame(resourceDictionary, actualPdShadingPattern.getCOSObject());
+  }
+
+  /**
+   * Method under test: {@link PDShadingPattern#PDShadingPattern()}
+   */
+  @Test
+  void testNewPDShadingPattern() throws IOException {
+    // Arrange and Act
+    PDShadingPattern actualPdShadingPattern = new PDShadingPattern();
+
+    // Assert
+    assertEquals("Pattern", actualPdShadingPattern.getType());
+    COSDictionary cOSObject = actualPdShadingPattern.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertNull(actualPdShadingPattern.getShading());
+    assertNull(actualPdShadingPattern.getExtendedGraphicsState());
+    Matrix matrix = actualPdShadingPattern.getMatrix();
+    assertEquals(0.0f, matrix.getShearX());
+    assertEquals(0.0f, matrix.getShearY());
+    assertEquals(0.0f, matrix.getTranslateX());
+    assertEquals(0.0f, matrix.getTranslateY());
+    assertEquals(1.0f, matrix.getScaleX());
+    assertEquals(1.0f, matrix.getScaleY());
+    assertEquals(1.0f, matrix.getScalingFactorX());
+    assertEquals(1.0f, matrix.getScalingFactorY());
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
+    assertEquals(2, actualPdShadingPattern.getPatternType());
+    float[][] values = matrix.getValues();
+    assertEquals(3, values.length);
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertArrayEquals(new float[]{0.0f, 0.0f, 1.0f}, values[2], 0.0f);
+    assertArrayEquals(new float[]{0.0f, 1.0f, 0.0f}, values[1], 0.0f);
+    assertArrayEquals(new float[]{1.0f, 0.0f, 0.0f}, values[0], 0.0f);
   }
 }

@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.List;
 import java.util.Map;
 import org.apache.xmpbox.XMPMetadata;
@@ -15,142 +14,14 @@ import org.apache.xmpbox.type.ArrayProperty;
 import org.apache.xmpbox.type.BadFieldValueException;
 import org.apache.xmpbox.type.IntegerType;
 import org.apache.xmpbox.type.TextType;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class PDFAIdentificationSchemaDiffblueTest {
   /**
-   * Test {@link PDFAIdentificationSchema#PDFAIdentificationSchema(XMPMetadata)}.
-   * <p>
-   * Method under test: {@link PDFAIdentificationSchema#PDFAIdentificationSchema(XMPMetadata)}
+   * Method under test:
+   * {@link PDFAIdentificationSchema#setPartValueWithString(String)}
    */
   @Test
-  @DisplayName("Test new PDFAIdentificationSchema(XMPMetadata)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFAIdentificationSchema.<init>(XMPMetadata)"})
-  void testNewPDFAIdentificationSchema() {
-    // Arrange
-    XMPMetadata metadata = XMPMetadata.createXMPMetadata();
-
-    // Act
-    PDFAIdentificationSchema actualPdfaIdentificationSchema = new PDFAIdentificationSchema(metadata);
-
-    // Assert
-    assertEquals("", actualPdfaIdentificationSchema.getAboutValue());
-    assertEquals("http://www.aiim.org/pdfa/ns/id/", actualPdfaIdentificationSchema.getNamespace());
-    assertEquals("pdfaid", actualPdfaIdentificationSchema.getPreferedPrefix());
-    assertEquals("pdfaid", actualPdfaIdentificationSchema.getPrefix());
-    assertNull(actualPdfaIdentificationSchema.getPart());
-    assertNull(actualPdfaIdentificationSchema.getAmd());
-    assertNull(actualPdfaIdentificationSchema.getAmendment());
-    assertNull(actualPdfaIdentificationSchema.getConformance());
-    assertNull(actualPdfaIdentificationSchema.getPropertyName());
-    assertNull(actualPdfaIdentificationSchema.getAboutAttribute());
-    assertNull(actualPdfaIdentificationSchema.getPartProperty());
-    assertNull(actualPdfaIdentificationSchema.getAmdProperty());
-    assertNull(actualPdfaIdentificationSchema.getConformanceProperty());
-    Map<String, String> allNamespacesWithPrefix = actualPdfaIdentificationSchema.getAllNamespacesWithPrefix();
-    assertEquals(1, allNamespacesWithPrefix.size());
-    assertTrue(actualPdfaIdentificationSchema.getAllProperties().isEmpty());
-    assertTrue(actualPdfaIdentificationSchema.getAllAttributes().isEmpty());
-    assertTrue(allNamespacesWithPrefix.containsKey("http://www.aiim.org/pdfa/ns/id/"));
-    assertSame(metadata, actualPdfaIdentificationSchema.getMetadata());
-  }
-
-  /**
-   * Test {@link PDFAIdentificationSchema#PDFAIdentificationSchema(XMPMetadata, String)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then return Prefix is {@code pdfaid}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDFAIdentificationSchema#PDFAIdentificationSchema(XMPMetadata, String)}
-   */
-  @Test
-  @DisplayName("Test new PDFAIdentificationSchema(XMPMetadata, String); when 'null'; then return Prefix is 'pdfaid'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFAIdentificationSchema.<init>(XMPMetadata, String)"})
-  void testNewPDFAIdentificationSchema_whenNull_thenReturnPrefixIsPdfaid() {
-    // Arrange
-    XMPMetadata metadata = XMPMetadata.createXMPMetadata();
-
-    // Act
-    PDFAIdentificationSchema actualPdfaIdentificationSchema = new PDFAIdentificationSchema(metadata, null);
-
-    // Assert
-    assertEquals("", actualPdfaIdentificationSchema.getAboutValue());
-    assertEquals("http://www.aiim.org/pdfa/ns/id/", actualPdfaIdentificationSchema.getNamespace());
-    assertEquals("pdfaid", actualPdfaIdentificationSchema.getPreferedPrefix());
-    assertEquals("pdfaid", actualPdfaIdentificationSchema.getPrefix());
-    assertNull(actualPdfaIdentificationSchema.getPart());
-    assertNull(actualPdfaIdentificationSchema.getAmd());
-    assertNull(actualPdfaIdentificationSchema.getAmendment());
-    assertNull(actualPdfaIdentificationSchema.getConformance());
-    assertNull(actualPdfaIdentificationSchema.getPropertyName());
-    assertNull(actualPdfaIdentificationSchema.getAboutAttribute());
-    assertNull(actualPdfaIdentificationSchema.getPartProperty());
-    assertNull(actualPdfaIdentificationSchema.getAmdProperty());
-    assertNull(actualPdfaIdentificationSchema.getConformanceProperty());
-    Map<String, String> allNamespacesWithPrefix = actualPdfaIdentificationSchema.getAllNamespacesWithPrefix();
-    assertEquals(1, allNamespacesWithPrefix.size());
-    assertTrue(actualPdfaIdentificationSchema.getAllProperties().isEmpty());
-    assertTrue(actualPdfaIdentificationSchema.getAllAttributes().isEmpty());
-    assertTrue(allNamespacesWithPrefix.containsKey("http://www.aiim.org/pdfa/ns/id/"));
-    assertSame(metadata, actualPdfaIdentificationSchema.getMetadata());
-  }
-
-  /**
-   * Test {@link PDFAIdentificationSchema#PDFAIdentificationSchema(XMPMetadata, String)}.
-   * <ul>
-   *   <li>When {@code Prefix}.</li>
-   *   <li>Then return {@code Prefix}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDFAIdentificationSchema#PDFAIdentificationSchema(XMPMetadata, String)}
-   */
-  @Test
-  @DisplayName("Test new PDFAIdentificationSchema(XMPMetadata, String); when 'Prefix'; then return 'Prefix'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFAIdentificationSchema.<init>(XMPMetadata, String)"})
-  void testNewPDFAIdentificationSchema_whenPrefix_thenReturnPrefix() {
-    // Arrange
-    XMPMetadata metadata = XMPMetadata.createXMPMetadata();
-
-    // Act
-    PDFAIdentificationSchema actualPdfaIdentificationSchema = new PDFAIdentificationSchema(metadata, "Prefix");
-
-    // Assert
-    assertEquals("", actualPdfaIdentificationSchema.getAboutValue());
-    assertEquals("Prefix", actualPdfaIdentificationSchema.getPrefix());
-    assertEquals("http://www.aiim.org/pdfa/ns/id/", actualPdfaIdentificationSchema.getNamespace());
-    assertEquals("pdfaid", actualPdfaIdentificationSchema.getPreferedPrefix());
-    assertNull(actualPdfaIdentificationSchema.getPart());
-    assertNull(actualPdfaIdentificationSchema.getAmd());
-    assertNull(actualPdfaIdentificationSchema.getAmendment());
-    assertNull(actualPdfaIdentificationSchema.getConformance());
-    assertNull(actualPdfaIdentificationSchema.getPropertyName());
-    assertNull(actualPdfaIdentificationSchema.getAboutAttribute());
-    assertNull(actualPdfaIdentificationSchema.getPartProperty());
-    assertNull(actualPdfaIdentificationSchema.getAmdProperty());
-    assertNull(actualPdfaIdentificationSchema.getConformanceProperty());
-    Map<String, String> allNamespacesWithPrefix = actualPdfaIdentificationSchema.getAllNamespacesWithPrefix();
-    assertEquals(1, allNamespacesWithPrefix.size());
-    assertTrue(actualPdfaIdentificationSchema.getAllProperties().isEmpty());
-    assertTrue(actualPdfaIdentificationSchema.getAllAttributes().isEmpty());
-    assertTrue(allNamespacesWithPrefix.containsKey("http://www.aiim.org/pdfa/ns/id/"));
-    assertSame(metadata, actualPdfaIdentificationSchema.getMetadata());
-  }
-
-  /**
-   * Test {@link PDFAIdentificationSchema#setPartValueWithString(String)}.
-   * <p>
-   * Method under test: {@link PDFAIdentificationSchema#setPartValueWithString(String)}
-   */
-  @Test
-  @DisplayName("Test setPartValueWithString(String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFAIdentificationSchema.setPartValueWithString(String)"})
   void testSetPartValueWithString() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -176,14 +47,10 @@ class PDFAIdentificationSchemaDiffblueTest {
   }
 
   /**
-   * Test {@link PDFAIdentificationSchema#setPartValueWithString(String)}.
-   * <p>
-   * Method under test: {@link PDFAIdentificationSchema#setPartValueWithString(String)}
+   * Method under test:
+   * {@link PDFAIdentificationSchema#setPartValueWithString(String)}
    */
   @Test
-  @DisplayName("Test setPartValueWithString(String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFAIdentificationSchema.setPartValueWithString(String)"})
   void testSetPartValueWithString2() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -211,14 +78,10 @@ class PDFAIdentificationSchemaDiffblueTest {
   }
 
   /**
-   * Test {@link PDFAIdentificationSchema#setPartValueWithString(String)}.
-   * <p>
-   * Method under test: {@link PDFAIdentificationSchema#setPartValueWithString(String)}
+   * Method under test:
+   * {@link PDFAIdentificationSchema#setPartValueWithString(String)}
    */
   @Test
-  @DisplayName("Test setPartValueWithString(String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFAIdentificationSchema.setPartValueWithString(String)"})
   void testSetPartValueWithString3() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -248,14 +111,10 @@ class PDFAIdentificationSchemaDiffblueTest {
   }
 
   /**
-   * Test {@link PDFAIdentificationSchema#setPartValueWithString(String)}.
-   * <p>
-   * Method under test: {@link PDFAIdentificationSchema#setPartValueWithString(String)}
+   * Method under test:
+   * {@link PDFAIdentificationSchema#setPartValueWithString(String)}
    */
   @Test
-  @DisplayName("Test setPartValueWithString(String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFAIdentificationSchema.setPartValueWithString(String)"})
   void testSetPartValueWithString4() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -284,14 +143,9 @@ class PDFAIdentificationSchemaDiffblueTest {
   }
 
   /**
-   * Test {@link PDFAIdentificationSchema#setPartValueWithInt(int)}.
-   * <p>
    * Method under test: {@link PDFAIdentificationSchema#setPartValueWithInt(int)}
    */
   @Test
-  @DisplayName("Test setPartValueWithInt(int)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFAIdentificationSchema.setPartValueWithInt(int)"})
   void testSetPartValueWithInt() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -309,7 +163,6 @@ class PDFAIdentificationSchemaDiffblueTest {
     assertEquals(1, allProperties.size());
     assertEquals(42, pdfaIdentificationSchema.getPart().intValue());
     assertEquals(42, partProperty.getValue().intValue());
-    assertEquals(42, ((Integer) partProperty.getRawValue()).intValue());
     assertTrue(partProperty.getAllAttributes().isEmpty());
     assertEquals(PDFAIdentificationSchema.PART, partProperty.getPropertyName());
     assertSame(partProperty, allProperties.get(0));
@@ -317,14 +170,9 @@ class PDFAIdentificationSchemaDiffblueTest {
   }
 
   /**
-   * Test {@link PDFAIdentificationSchema#setPartValueWithInt(int)}.
-   * <p>
    * Method under test: {@link PDFAIdentificationSchema#setPartValueWithInt(int)}
    */
   @Test
-  @DisplayName("Test setPartValueWithInt(int)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFAIdentificationSchema.setPartValueWithInt(int)"})
   void testSetPartValueWithInt2() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -344,7 +192,6 @@ class PDFAIdentificationSchemaDiffblueTest {
     assertEquals(1, allProperties.size());
     assertEquals(42, pdfaIdentificationSchema.getPart().intValue());
     assertEquals(42, partProperty.getValue().intValue());
-    assertEquals(42, ((Integer) partProperty.getRawValue()).intValue());
     assertTrue(partProperty.getAllAttributes().isEmpty());
     assertEquals(PDFAIdentificationSchema.PART, partProperty.getPropertyName());
     assertSame(partProperty, allProperties.get(0));
@@ -352,14 +199,9 @@ class PDFAIdentificationSchemaDiffblueTest {
   }
 
   /**
-   * Test {@link PDFAIdentificationSchema#setPartValueWithInt(int)}.
-   * <p>
    * Method under test: {@link PDFAIdentificationSchema#setPartValueWithInt(int)}
    */
   @Test
-  @DisplayName("Test setPartValueWithInt(int)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFAIdentificationSchema.setPartValueWithInt(int)"})
   void testSetPartValueWithInt3() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -381,7 +223,6 @@ class PDFAIdentificationSchemaDiffblueTest {
     assertNull(partProperty.getNamespace());
     assertEquals(42, pdfaIdentificationSchema.getPart().intValue());
     assertEquals(42, partProperty.getValue().intValue());
-    assertEquals(42, ((Integer) partProperty.getRawValue()).intValue());
     assertTrue(partProperty.getAllAttributes().isEmpty());
     assertEquals(PDFAIdentificationSchema.PART, partProperty.getPropertyName());
     assertSame(partProperty, allProperties.get(1));
@@ -389,14 +230,9 @@ class PDFAIdentificationSchemaDiffblueTest {
   }
 
   /**
-   * Test {@link PDFAIdentificationSchema#setPartValueWithInt(int)}.
-   * <p>
    * Method under test: {@link PDFAIdentificationSchema#setPartValueWithInt(int)}
    */
   @Test
-  @DisplayName("Test setPartValueWithInt(int)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFAIdentificationSchema.setPartValueWithInt(int)"})
   void testSetPartValueWithInt4() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -417,7 +253,6 @@ class PDFAIdentificationSchemaDiffblueTest {
     assertNull(partProperty.getNamespace());
     assertEquals(42, pdfaIdentificationSchema.getPart().intValue());
     assertEquals(42, partProperty.getValue().intValue());
-    assertEquals(42, ((Integer) partProperty.getRawValue()).intValue());
     assertTrue(partProperty.getAllAttributes().isEmpty());
     assertEquals(PDFAIdentificationSchema.PART, partProperty.getPropertyName());
     assertSame(partProperty, allProperties.get(1));
@@ -425,15 +260,37 @@ class PDFAIdentificationSchemaDiffblueTest {
   }
 
   /**
-   * Test {@link PDFAIdentificationSchema#setPart(Integer)}.
-   * <p>
    * Method under test: {@link PDFAIdentificationSchema#setPart(Integer)}
    */
   @Test
-  @DisplayName("Test setPart(Integer)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFAIdentificationSchema.setPart(Integer)"})
   void testSetPart() {
+    // Arrange
+    XMPMetadata metadata = XMPMetadata.createXMPMetadata();
+    PDFAIdentificationSchema pdfaIdentificationSchema = new PDFAIdentificationSchema(metadata);
+
+    // Act
+    pdfaIdentificationSchema.setPart(42);
+
+    // Assert
+    IntegerType partProperty = pdfaIdentificationSchema.getPartProperty();
+    assertEquals("42", partProperty.getStringValue());
+    assertEquals("pdfaid", partProperty.getPrefix());
+    assertNull(partProperty.getNamespace());
+    List<AbstractField> allProperties = pdfaIdentificationSchema.getAllProperties();
+    assertEquals(1, allProperties.size());
+    assertEquals(42, pdfaIdentificationSchema.getPart().intValue());
+    assertEquals(42, partProperty.getValue().intValue());
+    assertTrue(partProperty.getAllAttributes().isEmpty());
+    assertEquals(PDFAIdentificationSchema.PART, partProperty.getPropertyName());
+    assertSame(partProperty, allProperties.get(0));
+    assertSame(metadata, partProperty.getMetadata());
+  }
+
+  /**
+   * Method under test: {@link PDFAIdentificationSchema#setPart(Integer)}
+   */
+  @Test
+  void testSetPart2() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
 
@@ -452,7 +309,6 @@ class PDFAIdentificationSchemaDiffblueTest {
     assertEquals(1, allProperties.size());
     assertEquals(42, pdfaIdentificationSchema.getPart().intValue());
     assertEquals(42, partProperty.getValue().intValue());
-    assertEquals(42, ((Integer) partProperty.getRawValue()).intValue());
     assertTrue(partProperty.getAllAttributes().isEmpty());
     assertEquals(PDFAIdentificationSchema.PART, partProperty.getPropertyName());
     assertSame(partProperty, allProperties.get(0));
@@ -460,15 +316,10 @@ class PDFAIdentificationSchemaDiffblueTest {
   }
 
   /**
-   * Test {@link PDFAIdentificationSchema#setPart(Integer)}.
-   * <p>
    * Method under test: {@link PDFAIdentificationSchema#setPart(Integer)}
    */
   @Test
-  @DisplayName("Test setPart(Integer)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFAIdentificationSchema.setPart(Integer)"})
-  void testSetPart2() {
+  void testSetPart3() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
 
@@ -489,7 +340,6 @@ class PDFAIdentificationSchemaDiffblueTest {
     assertNull(partProperty.getNamespace());
     assertEquals(42, pdfaIdentificationSchema.getPart().intValue());
     assertEquals(42, partProperty.getValue().intValue());
-    assertEquals(42, ((Integer) partProperty.getRawValue()).intValue());
     assertTrue(partProperty.getAllAttributes().isEmpty());
     assertEquals(PDFAIdentificationSchema.PART, partProperty.getPropertyName());
     assertSame(partProperty, allProperties.get(1));
@@ -497,15 +347,10 @@ class PDFAIdentificationSchemaDiffblueTest {
   }
 
   /**
-   * Test {@link PDFAIdentificationSchema#setPart(Integer)}.
-   * <p>
    * Method under test: {@link PDFAIdentificationSchema#setPart(Integer)}
    */
   @Test
-  @DisplayName("Test setPart(Integer)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFAIdentificationSchema.setPart(Integer)"})
-  void testSetPart3() {
+  void testSetPart4() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
 
@@ -525,7 +370,6 @@ class PDFAIdentificationSchemaDiffblueTest {
     assertNull(partProperty.getNamespace());
     assertEquals(42, pdfaIdentificationSchema.getPart().intValue());
     assertEquals(42, partProperty.getValue().intValue());
-    assertEquals(42, ((Integer) partProperty.getRawValue()).intValue());
     assertTrue(partProperty.getAllAttributes().isEmpty());
     assertEquals(PDFAIdentificationSchema.PART, partProperty.getPropertyName());
     assertSame(partProperty, allProperties.get(1));
@@ -533,50 +377,10 @@ class PDFAIdentificationSchemaDiffblueTest {
   }
 
   /**
-   * Test {@link PDFAIdentificationSchema#setPart(Integer)}.
-   * <ul>
-   *   <li>Given {@link PDFAIdentificationSchema#PDFAIdentificationSchema(XMPMetadata)} with metadata is createXMPMetadata.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDFAIdentificationSchema#setPart(Integer)}
+   * Method under test:
+   * {@link PDFAIdentificationSchema#setPartProperty(IntegerType)}
    */
   @Test
-  @DisplayName("Test setPart(Integer); given PDFAIdentificationSchema(XMPMetadata) with metadata is createXMPMetadata")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFAIdentificationSchema.setPart(Integer)"})
-  void testSetPart_givenPDFAIdentificationSchemaWithMetadataIsCreateXMPMetadata() {
-    // Arrange
-    XMPMetadata metadata = XMPMetadata.createXMPMetadata();
-    PDFAIdentificationSchema pdfaIdentificationSchema = new PDFAIdentificationSchema(metadata);
-
-    // Act
-    pdfaIdentificationSchema.setPart(42);
-
-    // Assert
-    IntegerType partProperty = pdfaIdentificationSchema.getPartProperty();
-    assertEquals("42", partProperty.getStringValue());
-    assertEquals("pdfaid", partProperty.getPrefix());
-    assertNull(partProperty.getNamespace());
-    List<AbstractField> allProperties = pdfaIdentificationSchema.getAllProperties();
-    assertEquals(1, allProperties.size());
-    assertEquals(42, pdfaIdentificationSchema.getPart().intValue());
-    assertEquals(42, partProperty.getValue().intValue());
-    assertEquals(42, ((Integer) partProperty.getRawValue()).intValue());
-    assertTrue(partProperty.getAllAttributes().isEmpty());
-    assertEquals(PDFAIdentificationSchema.PART, partProperty.getPropertyName());
-    assertSame(partProperty, allProperties.get(0));
-    assertSame(metadata, partProperty.getMetadata());
-  }
-
-  /**
-   * Test {@link PDFAIdentificationSchema#setPartProperty(IntegerType)}.
-   * <p>
-   * Method under test: {@link PDFAIdentificationSchema#setPartProperty(IntegerType)}
-   */
-  @Test
-  @DisplayName("Test setPartProperty(IntegerType)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFAIdentificationSchema.setPartProperty(IntegerType)"})
   void testSetPartProperty() {
     // Arrange
     PDFAIdentificationSchema pdfaIdentificationSchema = new PDFAIdentificationSchema(XMPMetadata.createXMPMetadata());
@@ -592,14 +396,10 @@ class PDFAIdentificationSchemaDiffblueTest {
   }
 
   /**
-   * Test {@link PDFAIdentificationSchema#setPartProperty(IntegerType)}.
-   * <p>
-   * Method under test: {@link PDFAIdentificationSchema#setPartProperty(IntegerType)}
+   * Method under test:
+   * {@link PDFAIdentificationSchema#setPartProperty(IntegerType)}
    */
   @Test
-  @DisplayName("Test setPartProperty(IntegerType)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFAIdentificationSchema.setPartProperty(IntegerType)"})
   void testSetPartProperty2() {
     // Arrange
     PDFAIdentificationSchema pdfaIdentificationSchema = new PDFAIdentificationSchema(XMPMetadata.createXMPMetadata());
@@ -617,14 +417,10 @@ class PDFAIdentificationSchemaDiffblueTest {
   }
 
   /**
-   * Test {@link PDFAIdentificationSchema#setPartProperty(IntegerType)}.
-   * <p>
-   * Method under test: {@link PDFAIdentificationSchema#setPartProperty(IntegerType)}
+   * Method under test:
+   * {@link PDFAIdentificationSchema#setPartProperty(IntegerType)}
    */
   @Test
-  @DisplayName("Test setPartProperty(IntegerType)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFAIdentificationSchema.setPartProperty(IntegerType)"})
   void testSetPartProperty3() {
     // Arrange
     PDFAIdentificationSchema pdfaIdentificationSchema = new PDFAIdentificationSchema(XMPMetadata.createXMPMetadata());
@@ -644,14 +440,10 @@ class PDFAIdentificationSchemaDiffblueTest {
   }
 
   /**
-   * Test {@link PDFAIdentificationSchema#setPartProperty(IntegerType)}.
-   * <p>
-   * Method under test: {@link PDFAIdentificationSchema#setPartProperty(IntegerType)}
+   * Method under test:
+   * {@link PDFAIdentificationSchema#setPartProperty(IntegerType)}
    */
   @Test
-  @DisplayName("Test setPartProperty(IntegerType)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFAIdentificationSchema.setPartProperty(IntegerType)"})
   void testSetPartProperty4() {
     // Arrange
     PDFAIdentificationSchema pdfaIdentificationSchema = new PDFAIdentificationSchema(XMPMetadata.createXMPMetadata());
@@ -668,15 +460,39 @@ class PDFAIdentificationSchemaDiffblueTest {
   }
 
   /**
-   * Test {@link PDFAIdentificationSchema#setAmd(String)}.
-   * <p>
    * Method under test: {@link PDFAIdentificationSchema#setAmd(String)}
    */
   @Test
-  @DisplayName("Test setAmd(String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFAIdentificationSchema.setAmd(String)"})
   void testSetAmd() {
+    // Arrange
+    XMPMetadata metadata = XMPMetadata.createXMPMetadata();
+    PDFAIdentificationSchema pdfaIdentificationSchema = new PDFAIdentificationSchema(metadata);
+
+    // Act
+    pdfaIdentificationSchema.setAmd("42");
+
+    // Assert
+    assertEquals("42", pdfaIdentificationSchema.getAmd());
+    assertEquals("42", pdfaIdentificationSchema.getAmendment());
+    TextType amdProperty = pdfaIdentificationSchema.getAmdProperty();
+    assertEquals("42", amdProperty.getStringValue());
+    assertEquals("42", amdProperty.getRawValue());
+    assertEquals("42", amdProperty.getValue());
+    assertEquals("http://www.aiim.org/pdfa/ns/id/", amdProperty.getNamespace());
+    assertEquals("pdfaid", amdProperty.getPrefix());
+    List<AbstractField> allProperties = pdfaIdentificationSchema.getAllProperties();
+    assertEquals(1, allProperties.size());
+    assertTrue(amdProperty.getAllAttributes().isEmpty());
+    assertEquals(PDFAIdentificationSchema.AMD, amdProperty.getPropertyName());
+    assertSame(amdProperty, allProperties.get(0));
+    assertSame(metadata, amdProperty.getMetadata());
+  }
+
+  /**
+   * Method under test: {@link PDFAIdentificationSchema#setAmd(String)}
+   */
+  @Test
+  void testSetAmd2() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
 
@@ -704,15 +520,10 @@ class PDFAIdentificationSchemaDiffblueTest {
   }
 
   /**
-   * Test {@link PDFAIdentificationSchema#setAmd(String)}.
-   * <p>
    * Method under test: {@link PDFAIdentificationSchema#setAmd(String)}
    */
   @Test
-  @DisplayName("Test setAmd(String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFAIdentificationSchema.setAmd(String)"})
-  void testSetAmd2() {
+  void testSetAmd3() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
 
@@ -742,15 +553,10 @@ class PDFAIdentificationSchemaDiffblueTest {
   }
 
   /**
-   * Test {@link PDFAIdentificationSchema#setAmd(String)}.
-   * <p>
    * Method under test: {@link PDFAIdentificationSchema#setAmd(String)}
    */
   @Test
-  @DisplayName("Test setAmd(String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFAIdentificationSchema.setAmd(String)"})
-  void testSetAmd3() {
+  void testSetAmd4() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
 
@@ -779,51 +585,9 @@ class PDFAIdentificationSchemaDiffblueTest {
   }
 
   /**
-   * Test {@link PDFAIdentificationSchema#setAmd(String)}.
-   * <ul>
-   *   <li>Given {@link PDFAIdentificationSchema#PDFAIdentificationSchema(XMPMetadata)} with metadata is createXMPMetadata.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDFAIdentificationSchema#setAmd(String)}
-   */
-  @Test
-  @DisplayName("Test setAmd(String); given PDFAIdentificationSchema(XMPMetadata) with metadata is createXMPMetadata")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFAIdentificationSchema.setAmd(String)"})
-  void testSetAmd_givenPDFAIdentificationSchemaWithMetadataIsCreateXMPMetadata() {
-    // Arrange
-    XMPMetadata metadata = XMPMetadata.createXMPMetadata();
-    PDFAIdentificationSchema pdfaIdentificationSchema = new PDFAIdentificationSchema(metadata);
-
-    // Act
-    pdfaIdentificationSchema.setAmd("42");
-
-    // Assert
-    assertEquals("42", pdfaIdentificationSchema.getAmd());
-    assertEquals("42", pdfaIdentificationSchema.getAmendment());
-    TextType amdProperty = pdfaIdentificationSchema.getAmdProperty();
-    assertEquals("42", amdProperty.getStringValue());
-    assertEquals("42", amdProperty.getRawValue());
-    assertEquals("42", amdProperty.getValue());
-    assertEquals("http://www.aiim.org/pdfa/ns/id/", amdProperty.getNamespace());
-    assertEquals("pdfaid", amdProperty.getPrefix());
-    List<AbstractField> allProperties = pdfaIdentificationSchema.getAllProperties();
-    assertEquals(1, allProperties.size());
-    assertTrue(amdProperty.getAllAttributes().isEmpty());
-    assertEquals(PDFAIdentificationSchema.AMD, amdProperty.getPropertyName());
-    assertSame(amdProperty, allProperties.get(0));
-    assertSame(metadata, amdProperty.getMetadata());
-  }
-
-  /**
-   * Test {@link PDFAIdentificationSchema#setAmdProperty(TextType)}.
-   * <p>
    * Method under test: {@link PDFAIdentificationSchema#setAmdProperty(TextType)}
    */
   @Test
-  @DisplayName("Test setAmdProperty(TextType)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFAIdentificationSchema.setAmdProperty(TextType)"})
   void testSetAmdProperty() {
     // Arrange
     PDFAIdentificationSchema pdfaIdentificationSchema = new PDFAIdentificationSchema(XMPMetadata.createXMPMetadata());
@@ -839,14 +603,9 @@ class PDFAIdentificationSchemaDiffblueTest {
   }
 
   /**
-   * Test {@link PDFAIdentificationSchema#setAmdProperty(TextType)}.
-   * <p>
    * Method under test: {@link PDFAIdentificationSchema#setAmdProperty(TextType)}
    */
   @Test
-  @DisplayName("Test setAmdProperty(TextType)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFAIdentificationSchema.setAmdProperty(TextType)"})
   void testSetAmdProperty2() {
     // Arrange
     PDFAIdentificationSchema pdfaIdentificationSchema = new PDFAIdentificationSchema(XMPMetadata.createXMPMetadata());
@@ -876,23 +635,18 @@ class PDFAIdentificationSchemaDiffblueTest {
   }
 
   /**
-   * Test {@link PDFAIdentificationSchema#setAmdProperty(TextType)}.
-   * <p>
    * Method under test: {@link PDFAIdentificationSchema#setAmdProperty(TextType)}
    */
   @Test
-  @DisplayName("Test setAmdProperty(TextType)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFAIdentificationSchema.setAmdProperty(TextType)"})
   void testSetAmdProperty3() {
     // Arrange
     PDFAIdentificationSchema pdfaIdentificationSchema = new PDFAIdentificationSchema(XMPMetadata.createXMPMetadata());
     pdfaIdentificationSchema.addBagValueAsSimple("Property Name", "Simple Name");
     pdfaIdentificationSchema.addBagValueAsSimple("Simple Name", "42");
+    TextType amd = new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
 
     // Act
-    pdfaIdentificationSchema.setAmdProperty(
-        new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value"));
+    pdfaIdentificationSchema.setAmdProperty(amd);
 
     // Assert
     List<AbstractField> allProperties = pdfaIdentificationSchema.getAllProperties();
@@ -910,20 +664,27 @@ class PDFAIdentificationSchemaDiffblueTest {
     assertEquals("42", ((TextType) getResult2).getRawValue());
     assertEquals("42", ((TextType) getResult2).getValue());
     assertEquals("Simple Name", getResult.getPropertyName());
+    assertSame(amd, allProperties.get(1));
   }
 
   /**
-   * Test {@link PDFAIdentificationSchema#setConformance(String)}.
-   * <p>
    * Method under test: {@link PDFAIdentificationSchema#setConformance(String)}
    */
   @Test
-  @DisplayName("Test setConformance(String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFAIdentificationSchema.setConformance(String)"})
   void testSetConformance() throws BadFieldValueException {
+    // Arrange, Act and Assert
+    assertThrows(BadFieldValueException.class,
+        () -> (new PDFAIdentificationSchema(XMPMetadata.createXMPMetadata())).setConformance("42"));
+  }
+
+  /**
+   * Method under test: {@link PDFAIdentificationSchema#setConformance(String)}
+   */
+  @Test
+  void testSetConformance2() throws BadFieldValueException {
     // Arrange
-    PDFAIdentificationSchema pdfaIdentificationSchema = new PDFAIdentificationSchema(XMPMetadata.createXMPMetadata());
+    XMPMetadata metadata = XMPMetadata.createXMPMetadata();
+    PDFAIdentificationSchema pdfaIdentificationSchema = new PDFAIdentificationSchema(metadata);
 
     // Act
     pdfaIdentificationSchema.setConformance("A");
@@ -934,23 +695,24 @@ class PDFAIdentificationSchemaDiffblueTest {
     assertEquals("A", conformanceProperty.getStringValue());
     assertEquals("A", conformanceProperty.getRawValue());
     assertEquals("A", conformanceProperty.getValue());
+    assertEquals("http://www.aiim.org/pdfa/ns/id/", conformanceProperty.getNamespace());
+    assertEquals("pdfaid", conformanceProperty.getPrefix());
     List<AbstractField> allProperties = pdfaIdentificationSchema.getAllProperties();
     assertEquals(1, allProperties.size());
+    assertTrue(conformanceProperty.getAllAttributes().isEmpty());
+    assertEquals(PDFAIdentificationSchema.CONFORMANCE, conformanceProperty.getPropertyName());
     assertSame(conformanceProperty, allProperties.get(0));
+    assertSame(metadata, conformanceProperty.getMetadata());
   }
 
   /**
-   * Test {@link PDFAIdentificationSchema#setConformance(String)}.
-   * <p>
    * Method under test: {@link PDFAIdentificationSchema#setConformance(String)}
    */
   @Test
-  @DisplayName("Test setConformance(String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFAIdentificationSchema.setConformance(String)"})
-  void testSetConformance2() throws BadFieldValueException {
+  void testSetConformance3() throws BadFieldValueException {
     // Arrange
-    PDFAIdentificationSchema pdfaIdentificationSchema = new PDFAIdentificationSchema(XMPMetadata.createXMPMetadata());
+    XMPMetadata metadata = XMPMetadata.createXMPMetadata();
+    PDFAIdentificationSchema pdfaIdentificationSchema = new PDFAIdentificationSchema(metadata);
 
     // Act
     pdfaIdentificationSchema.setConformance("B");
@@ -961,20 +723,24 @@ class PDFAIdentificationSchemaDiffblueTest {
     assertEquals("B", conformanceProperty.getStringValue());
     assertEquals("B", conformanceProperty.getRawValue());
     assertEquals("B", conformanceProperty.getValue());
+    assertEquals("http://www.aiim.org/pdfa/ns/id/", conformanceProperty.getNamespace());
+    assertEquals("pdfaid", conformanceProperty.getPrefix());
+    List<AbstractField> allProperties = pdfaIdentificationSchema.getAllProperties();
+    assertEquals(1, allProperties.size());
+    assertTrue(conformanceProperty.getAllAttributes().isEmpty());
+    assertEquals(PDFAIdentificationSchema.CONFORMANCE, conformanceProperty.getPropertyName());
+    assertSame(conformanceProperty, allProperties.get(0));
+    assertSame(metadata, conformanceProperty.getMetadata());
   }
 
   /**
-   * Test {@link PDFAIdentificationSchema#setConformance(String)}.
-   * <p>
    * Method under test: {@link PDFAIdentificationSchema#setConformance(String)}
    */
   @Test
-  @DisplayName("Test setConformance(String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFAIdentificationSchema.setConformance(String)"})
-  void testSetConformance3() throws BadFieldValueException {
+  void testSetConformance4() throws BadFieldValueException {
     // Arrange
-    PDFAIdentificationSchema pdfaIdentificationSchema = new PDFAIdentificationSchema(XMPMetadata.createXMPMetadata());
+    XMPMetadata metadata = XMPMetadata.createXMPMetadata();
+    PDFAIdentificationSchema pdfaIdentificationSchema = new PDFAIdentificationSchema(metadata);
 
     // Act
     pdfaIdentificationSchema.setConformance("U");
@@ -985,48 +751,68 @@ class PDFAIdentificationSchemaDiffblueTest {
     assertEquals("U", conformanceProperty.getStringValue());
     assertEquals("U", conformanceProperty.getRawValue());
     assertEquals("U", conformanceProperty.getValue());
+    assertEquals("http://www.aiim.org/pdfa/ns/id/", conformanceProperty.getNamespace());
+    assertEquals("pdfaid", conformanceProperty.getPrefix());
+    List<AbstractField> allProperties = pdfaIdentificationSchema.getAllProperties();
+    assertEquals(1, allProperties.size());
+    assertTrue(conformanceProperty.getAllAttributes().isEmpty());
+    assertEquals(PDFAIdentificationSchema.CONFORMANCE, conformanceProperty.getPropertyName());
+    assertSame(conformanceProperty, allProperties.get(0));
+    assertSame(metadata, conformanceProperty.getMetadata());
   }
 
   /**
-   * Test {@link PDFAIdentificationSchema#setConformance(String)}.
-   * <p>
    * Method under test: {@link PDFAIdentificationSchema#setConformance(String)}
    */
   @Test
-  @DisplayName("Test setConformance(String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFAIdentificationSchema.setConformance(String)"})
-  void testSetConformance4() throws BadFieldValueException {
+  void testSetConformance5() throws BadFieldValueException {
     // Arrange
-    PDFAIdentificationSchema pdfaIdentificationSchema = new PDFAIdentificationSchema(XMPMetadata.createXMPMetadata());
+    XMPMetadata metadata = XMPMetadata.createXMPMetadata();
+
+    PDFAIdentificationSchema pdfaIdentificationSchema = new PDFAIdentificationSchema(metadata);
     pdfaIdentificationSchema.addBagValueAsSimple("A", "42");
 
     // Act
     pdfaIdentificationSchema.setConformance("A");
 
     // Assert
+    List<AbstractField> allProperties = pdfaIdentificationSchema.getAllProperties();
+    assertEquals(2, allProperties.size());
+    AbstractField getResult = allProperties.get(0);
+    assertTrue(getResult instanceof ArrayProperty);
+    List<AbstractField> allProperties2 = ((ArrayProperty) getResult).getAllProperties();
+    assertEquals(1, allProperties2.size());
+    AbstractField getResult2 = allProperties2.get(0);
+    assertTrue(getResult2 instanceof TextType);
+    List<String> elementsAsString = ((ArrayProperty) getResult).getElementsAsString();
+    assertEquals(1, elementsAsString.size());
+    assertEquals("42", elementsAsString.get(0));
+    assertEquals("42", ((TextType) getResult2).getStringValue());
+    assertEquals("42", ((TextType) getResult2).getRawValue());
+    assertEquals("42", ((TextType) getResult2).getValue());
     assertEquals("A", pdfaIdentificationSchema.getConformance());
+    assertEquals("A", getResult.getPropertyName());
     TextType conformanceProperty = pdfaIdentificationSchema.getConformanceProperty();
     assertEquals("A", conformanceProperty.getStringValue());
     assertEquals("A", conformanceProperty.getRawValue());
     assertEquals("A", conformanceProperty.getValue());
-    List<AbstractField> allProperties = pdfaIdentificationSchema.getAllProperties();
-    assertEquals(2, allProperties.size());
+    assertEquals("http://www.aiim.org/pdfa/ns/id/", conformanceProperty.getNamespace());
+    assertEquals("pdfaid", conformanceProperty.getPrefix());
+    assertTrue(conformanceProperty.getAllAttributes().isEmpty());
+    assertEquals(PDFAIdentificationSchema.CONFORMANCE, conformanceProperty.getPropertyName());
     assertSame(conformanceProperty, allProperties.get(1));
+    assertSame(metadata, conformanceProperty.getMetadata());
   }
 
   /**
-   * Test {@link PDFAIdentificationSchema#setConformance(String)}.
-   * <p>
    * Method under test: {@link PDFAIdentificationSchema#setConformance(String)}
    */
   @Test
-  @DisplayName("Test setConformance(String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFAIdentificationSchema.setConformance(String)"})
-  void testSetConformance5() throws BadFieldValueException {
+  void testSetConformance6() throws BadFieldValueException {
     // Arrange
-    PDFAIdentificationSchema pdfaIdentificationSchema = new PDFAIdentificationSchema(XMPMetadata.createXMPMetadata());
+    XMPMetadata metadata = XMPMetadata.createXMPMetadata();
+
+    PDFAIdentificationSchema pdfaIdentificationSchema = new PDFAIdentificationSchema(metadata);
     pdfaIdentificationSchema.addBagValueAsSimple(PDFAIdentificationSchema.CONFORMANCE, "A");
     pdfaIdentificationSchema.addBagValueAsSimple("A", "42");
 
@@ -1048,38 +834,40 @@ class PDFAIdentificationSchemaDiffblueTest {
     assertEquals("42", ((TextType) getResult2).getStringValue());
     assertEquals("42", ((TextType) getResult2).getRawValue());
     assertEquals("42", ((TextType) getResult2).getValue());
+    assertEquals("A", pdfaIdentificationSchema.getConformance());
     assertEquals("A", getResult.getPropertyName());
+    TextType conformanceProperty = pdfaIdentificationSchema.getConformanceProperty();
+    assertEquals("A", conformanceProperty.getStringValue());
+    assertEquals("A", conformanceProperty.getRawValue());
+    assertEquals("A", conformanceProperty.getValue());
+    assertEquals("http://www.aiim.org/pdfa/ns/id/", conformanceProperty.getNamespace());
+    assertEquals("pdfaid", conformanceProperty.getPrefix());
+    assertTrue(conformanceProperty.getAllAttributes().isEmpty());
+    assertEquals(PDFAIdentificationSchema.CONFORMANCE, conformanceProperty.getPropertyName());
+    assertSame(conformanceProperty, allProperties.get(1));
+    assertSame(metadata, conformanceProperty.getMetadata());
   }
 
   /**
-   * Test {@link PDFAIdentificationSchema#setConformance(String)}.
-   * <ul>
-   *   <li>When {@code 42}.</li>
-   *   <li>Then throw {@link BadFieldValueException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDFAIdentificationSchema#setConformance(String)}
+   * Method under test:
+   * {@link PDFAIdentificationSchema#setConformanceProperty(TextType)}
    */
   @Test
-  @DisplayName("Test setConformance(String); when '42'; then throw BadFieldValueException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFAIdentificationSchema.setConformance(String)"})
-  void testSetConformance_when42_thenThrowBadFieldValueException() throws BadFieldValueException {
-    // Arrange, Act and Assert
-    assertThrows(BadFieldValueException.class,
-        () -> (new PDFAIdentificationSchema(XMPMetadata.createXMPMetadata())).setConformance("42"));
-  }
-
-  /**
-   * Test {@link PDFAIdentificationSchema#setConformanceProperty(TextType)}.
-   * <p>
-   * Method under test: {@link PDFAIdentificationSchema#setConformanceProperty(TextType)}
-   */
-  @Test
-  @DisplayName("Test setConformanceProperty(TextType)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFAIdentificationSchema.setConformanceProperty(TextType)"})
   void testSetConformanceProperty() throws BadFieldValueException {
+    // Arrange
+    PDFAIdentificationSchema pdfaIdentificationSchema = new PDFAIdentificationSchema(XMPMetadata.createXMPMetadata());
+
+    // Act and Assert
+    assertThrows(BadFieldValueException.class, () -> pdfaIdentificationSchema.setConformanceProperty(
+        new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value")));
+  }
+
+  /**
+   * Method under test:
+   * {@link PDFAIdentificationSchema#setConformanceProperty(TextType)}
+   */
+  @Test
+  void testSetConformanceProperty2() throws BadFieldValueException {
     // Arrange
     PDFAIdentificationSchema pdfaIdentificationSchema = new PDFAIdentificationSchema(XMPMetadata.createXMPMetadata());
 
@@ -1096,15 +884,53 @@ class PDFAIdentificationSchemaDiffblueTest {
   }
 
   /**
-   * Test {@link PDFAIdentificationSchema#setConformanceProperty(TextType)}.
-   * <p>
-   * Method under test: {@link PDFAIdentificationSchema#setConformanceProperty(TextType)}
+   * Method under test:
+   * {@link PDFAIdentificationSchema#setConformanceProperty(TextType)}
    */
   @Test
-  @DisplayName("Test setConformanceProperty(TextType)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFAIdentificationSchema.setConformanceProperty(TextType)"})
-  void testSetConformanceProperty2() throws BadFieldValueException {
+  void testSetConformanceProperty3() throws BadFieldValueException {
+    // Arrange
+    PDFAIdentificationSchema pdfaIdentificationSchema = new PDFAIdentificationSchema(XMPMetadata.createXMPMetadata());
+
+    TextType conf = new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    conf.setValue("B");
+
+    // Act
+    pdfaIdentificationSchema.setConformanceProperty(conf);
+
+    // Assert
+    List<AbstractField> allProperties = pdfaIdentificationSchema.getAllProperties();
+    assertEquals(1, allProperties.size());
+    assertSame(conf, allProperties.get(0));
+  }
+
+  /**
+   * Method under test:
+   * {@link PDFAIdentificationSchema#setConformanceProperty(TextType)}
+   */
+  @Test
+  void testSetConformanceProperty4() throws BadFieldValueException {
+    // Arrange
+    PDFAIdentificationSchema pdfaIdentificationSchema = new PDFAIdentificationSchema(XMPMetadata.createXMPMetadata());
+
+    TextType conf = new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
+    conf.setValue("U");
+
+    // Act
+    pdfaIdentificationSchema.setConformanceProperty(conf);
+
+    // Assert
+    List<AbstractField> allProperties = pdfaIdentificationSchema.getAllProperties();
+    assertEquals(1, allProperties.size());
+    assertSame(conf, allProperties.get(0));
+  }
+
+  /**
+   * Method under test:
+   * {@link PDFAIdentificationSchema#setConformanceProperty(TextType)}
+   */
+  @Test
+  void testSetConformanceProperty5() throws BadFieldValueException {
     // Arrange
     PDFAIdentificationSchema pdfaIdentificationSchema = new PDFAIdentificationSchema(XMPMetadata.createXMPMetadata());
     pdfaIdentificationSchema.addBagValueAsSimple("A", "42");
@@ -1135,15 +961,11 @@ class PDFAIdentificationSchemaDiffblueTest {
   }
 
   /**
-   * Test {@link PDFAIdentificationSchema#setConformanceProperty(TextType)}.
-   * <p>
-   * Method under test: {@link PDFAIdentificationSchema#setConformanceProperty(TextType)}
+   * Method under test:
+   * {@link PDFAIdentificationSchema#setConformanceProperty(TextType)}
    */
   @Test
-  @DisplayName("Test setConformanceProperty(TextType)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFAIdentificationSchema.setConformanceProperty(TextType)"})
-  void testSetConformanceProperty3() throws BadFieldValueException {
+  void testSetConformanceProperty6() throws BadFieldValueException {
     // Arrange
     PDFAIdentificationSchema pdfaIdentificationSchema = new PDFAIdentificationSchema(XMPMetadata.createXMPMetadata());
     pdfaIdentificationSchema.addBagValueAsSimple("Property Name", "A");
@@ -1171,149 +993,59 @@ class PDFAIdentificationSchemaDiffblueTest {
     assertEquals("42", ((TextType) getResult2).getRawValue());
     assertEquals("42", ((TextType) getResult2).getValue());
     assertEquals("A", getResult.getPropertyName());
+    assertSame(conf, allProperties.get(1));
   }
 
   /**
-   * Test {@link PDFAIdentificationSchema#setConformanceProperty(TextType)}.
-   * <ul>
-   *   <li>Given {@code B}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDFAIdentificationSchema#setConformanceProperty(TextType)}
-   */
-  @Test
-  @DisplayName("Test setConformanceProperty(TextType); given 'B'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFAIdentificationSchema.setConformanceProperty(TextType)"})
-  void testSetConformanceProperty_givenB() throws BadFieldValueException {
-    // Arrange
-    PDFAIdentificationSchema pdfaIdentificationSchema = new PDFAIdentificationSchema(XMPMetadata.createXMPMetadata());
-
-    TextType conf = new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
-    conf.setValue("B");
-
-    // Act
-    pdfaIdentificationSchema.setConformanceProperty(conf);
-
-    // Assert
-    List<AbstractField> allProperties = pdfaIdentificationSchema.getAllProperties();
-    assertEquals(1, allProperties.size());
-    assertSame(conf, allProperties.get(0));
-  }
-
-  /**
-   * Test {@link PDFAIdentificationSchema#setConformanceProperty(TextType)}.
-   * <ul>
-   *   <li>Given {@code U}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDFAIdentificationSchema#setConformanceProperty(TextType)}
-   */
-  @Test
-  @DisplayName("Test setConformanceProperty(TextType); given 'U'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFAIdentificationSchema.setConformanceProperty(TextType)"})
-  void testSetConformanceProperty_givenU() throws BadFieldValueException {
-    // Arrange
-    PDFAIdentificationSchema pdfaIdentificationSchema = new PDFAIdentificationSchema(XMPMetadata.createXMPMetadata());
-
-    TextType conf = new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value");
-    conf.setValue("U");
-
-    // Act
-    pdfaIdentificationSchema.setConformanceProperty(conf);
-
-    // Assert
-    List<AbstractField> allProperties = pdfaIdentificationSchema.getAllProperties();
-    assertEquals(1, allProperties.size());
-    assertSame(conf, allProperties.get(0));
-  }
-
-  /**
-   * Test {@link PDFAIdentificationSchema#setConformanceProperty(TextType)}.
-   * <ul>
-   *   <li>Then throw {@link BadFieldValueException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDFAIdentificationSchema#setConformanceProperty(TextType)}
-   */
-  @Test
-  @DisplayName("Test setConformanceProperty(TextType); then throw BadFieldValueException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFAIdentificationSchema.setConformanceProperty(TextType)"})
-  void testSetConformanceProperty_thenThrowBadFieldValueException() throws BadFieldValueException {
-    // Arrange
-    PDFAIdentificationSchema pdfaIdentificationSchema = new PDFAIdentificationSchema(XMPMetadata.createXMPMetadata());
-
-    // Act and Assert
-    assertThrows(BadFieldValueException.class, () -> pdfaIdentificationSchema.setConformanceProperty(
-        new TextType(XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "Value")));
-  }
-
-  /**
-   * Test {@link PDFAIdentificationSchema#getPart()}.
-   * <p>
    * Method under test: {@link PDFAIdentificationSchema#getPart()}
    */
   @Test
-  @DisplayName("Test getPart()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Integer PDFAIdentificationSchema.getPart()"})
   void testGetPart() {
-    // Arrange
-    PDFAIdentificationSchema pdfaIdentificationSchema = new PDFAIdentificationSchema(XMPMetadata.createXMPMetadata());
-    pdfaIdentificationSchema.addBagValueAsSimple(PDFAIdentificationSchema.PART, "42");
-
-    // Act and Assert
-    assertNull(pdfaIdentificationSchema.getPart());
-  }
-
-  /**
-   * Test {@link PDFAIdentificationSchema#getPart()}.
-   * <p>
-   * Method under test: {@link PDFAIdentificationSchema#getPart()}
-   */
-  @Test
-  @DisplayName("Test getPart()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Integer PDFAIdentificationSchema.getPart()"})
-  void testGetPart2() {
-    // Arrange
-    PDFAIdentificationSchema pdfaIdentificationSchema = new PDFAIdentificationSchema(XMPMetadata.createXMPMetadata());
-    pdfaIdentificationSchema.addBagValueAsSimple("Simple Name", PDFAIdentificationSchema.PART);
-    pdfaIdentificationSchema.addBagValueAsSimple(PDFAIdentificationSchema.PART, "42");
-
-    // Act and Assert
-    assertNull(pdfaIdentificationSchema.getPart());
-  }
-
-  /**
-   * Test {@link PDFAIdentificationSchema#getPart()}.
-   * <ul>
-   *   <li>Given {@link PDFAIdentificationSchema#PDFAIdentificationSchema(XMPMetadata)} with metadata is createXMPMetadata.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDFAIdentificationSchema#getPart()}
-   */
-  @Test
-  @DisplayName("Test getPart(); given PDFAIdentificationSchema(XMPMetadata) with metadata is createXMPMetadata")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Integer PDFAIdentificationSchema.getPart()"})
-  void testGetPart_givenPDFAIdentificationSchemaWithMetadataIsCreateXMPMetadata() {
     // Arrange, Act and Assert
     assertNull((new PDFAIdentificationSchema(XMPMetadata.createXMPMetadata())).getPart());
   }
 
   /**
-   * Test {@link PDFAIdentificationSchema#getPartProperty()}.
-   * <p>
+   * Method under test: {@link PDFAIdentificationSchema#getPart()}
+   */
+  @Test
+  void testGetPart2() {
+    // Arrange
+    PDFAIdentificationSchema pdfaIdentificationSchema = new PDFAIdentificationSchema(XMPMetadata.createXMPMetadata());
+    pdfaIdentificationSchema.addBagValueAsSimple(PDFAIdentificationSchema.PART, "42");
+
+    // Act and Assert
+    assertNull(pdfaIdentificationSchema.getPart());
+  }
+
+  /**
+   * Method under test: {@link PDFAIdentificationSchema#getPart()}
+   */
+  @Test
+  void testGetPart3() {
+    // Arrange
+    PDFAIdentificationSchema pdfaIdentificationSchema = new PDFAIdentificationSchema(XMPMetadata.createXMPMetadata());
+    pdfaIdentificationSchema.addBagValueAsSimple("Simple Name", PDFAIdentificationSchema.PART);
+    pdfaIdentificationSchema.addBagValueAsSimple(PDFAIdentificationSchema.PART, "42");
+
+    // Act and Assert
+    assertNull(pdfaIdentificationSchema.getPart());
+  }
+
+  /**
    * Method under test: {@link PDFAIdentificationSchema#getPartProperty()}
    */
   @Test
-  @DisplayName("Test getPartProperty()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"IntegerType PDFAIdentificationSchema.getPartProperty()"})
   void testGetPartProperty() {
+    // Arrange, Act and Assert
+    assertNull((new PDFAIdentificationSchema(XMPMetadata.createXMPMetadata())).getPartProperty());
+  }
+
+  /**
+   * Method under test: {@link PDFAIdentificationSchema#getPartProperty()}
+   */
+  @Test
+  void testGetPartProperty2() {
     // Arrange
     PDFAIdentificationSchema pdfaIdentificationSchema = new PDFAIdentificationSchema(XMPMetadata.createXMPMetadata());
     pdfaIdentificationSchema.addBagValueAsSimple(PDFAIdentificationSchema.PART, "42");
@@ -1323,15 +1055,10 @@ class PDFAIdentificationSchemaDiffblueTest {
   }
 
   /**
-   * Test {@link PDFAIdentificationSchema#getPartProperty()}.
-   * <p>
    * Method under test: {@link PDFAIdentificationSchema#getPartProperty()}
    */
   @Test
-  @DisplayName("Test getPartProperty()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"IntegerType PDFAIdentificationSchema.getPartProperty()"})
-  void testGetPartProperty2() {
+  void testGetPartProperty3() {
     // Arrange
     PDFAIdentificationSchema pdfaIdentificationSchema = new PDFAIdentificationSchema(XMPMetadata.createXMPMetadata());
     pdfaIdentificationSchema.addBagValueAsSimple("Simple Name", PDFAIdentificationSchema.PART);
@@ -1342,32 +1069,19 @@ class PDFAIdentificationSchemaDiffblueTest {
   }
 
   /**
-   * Test {@link PDFAIdentificationSchema#getPartProperty()}.
-   * <ul>
-   *   <li>Given {@link PDFAIdentificationSchema#PDFAIdentificationSchema(XMPMetadata)} with metadata is createXMPMetadata.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDFAIdentificationSchema#getPartProperty()}
-   */
-  @Test
-  @DisplayName("Test getPartProperty(); given PDFAIdentificationSchema(XMPMetadata) with metadata is createXMPMetadata")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"IntegerType PDFAIdentificationSchema.getPartProperty()"})
-  void testGetPartProperty_givenPDFAIdentificationSchemaWithMetadataIsCreateXMPMetadata() {
-    // Arrange, Act and Assert
-    assertNull((new PDFAIdentificationSchema(XMPMetadata.createXMPMetadata())).getPartProperty());
-  }
-
-  /**
-   * Test {@link PDFAIdentificationSchema#getAmendment()}.
-   * <p>
    * Method under test: {@link PDFAIdentificationSchema#getAmendment()}
    */
   @Test
-  @DisplayName("Test getAmendment()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDFAIdentificationSchema.getAmendment()"})
   void testGetAmendment() {
+    // Arrange, Act and Assert
+    assertNull((new PDFAIdentificationSchema(XMPMetadata.createXMPMetadata())).getAmendment());
+  }
+
+  /**
+   * Method under test: {@link PDFAIdentificationSchema#getAmendment()}
+   */
+  @Test
+  void testGetAmendment2() {
     // Arrange
     PDFAIdentificationSchema pdfaIdentificationSchema = new PDFAIdentificationSchema(XMPMetadata.createXMPMetadata());
     pdfaIdentificationSchema.addBagValueAsSimple(PDFAIdentificationSchema.AMD, "42");
@@ -1377,15 +1091,10 @@ class PDFAIdentificationSchemaDiffblueTest {
   }
 
   /**
-   * Test {@link PDFAIdentificationSchema#getAmendment()}.
-   * <p>
    * Method under test: {@link PDFAIdentificationSchema#getAmendment()}
    */
   @Test
-  @DisplayName("Test getAmendment()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDFAIdentificationSchema.getAmendment()"})
-  void testGetAmendment2() {
+  void testGetAmendment3() {
     // Arrange
     PDFAIdentificationSchema pdfaIdentificationSchema = new PDFAIdentificationSchema(XMPMetadata.createXMPMetadata());
     pdfaIdentificationSchema.addBagValueAsSimple("Simple Name", PDFAIdentificationSchema.AMD);
@@ -1396,35 +1105,10 @@ class PDFAIdentificationSchemaDiffblueTest {
   }
 
   /**
-   * Test {@link PDFAIdentificationSchema#getAmendment()}.
-   * <ul>
-   *   <li>Given {@link PDFAIdentificationSchema#PDFAIdentificationSchema(XMPMetadata)} with metadata is createXMPMetadata.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDFAIdentificationSchema#getAmendment()}
    */
   @Test
-  @DisplayName("Test getAmendment(); given PDFAIdentificationSchema(XMPMetadata) with metadata is createXMPMetadata")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDFAIdentificationSchema.getAmendment()"})
-  void testGetAmendment_givenPDFAIdentificationSchemaWithMetadataIsCreateXMPMetadata() {
-    // Arrange, Act and Assert
-    assertNull((new PDFAIdentificationSchema(XMPMetadata.createXMPMetadata())).getAmendment());
-  }
-
-  /**
-   * Test {@link PDFAIdentificationSchema#getAmendment()}.
-   * <ul>
-   *   <li>Then return {@code Value}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDFAIdentificationSchema#getAmendment()}
-   */
-  @Test
-  @DisplayName("Test getAmendment(); then return 'Value'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDFAIdentificationSchema.getAmendment()"})
-  void testGetAmendment_thenReturnValue() {
+  void testGetAmendment4() {
     // Arrange
     PDFAIdentificationSchema pdfaIdentificationSchema = new PDFAIdentificationSchema(XMPMetadata.createXMPMetadata());
     pdfaIdentificationSchema.addProperty(new AgentNameType(XMPMetadata.createXMPMetadata(),
@@ -1435,15 +1119,19 @@ class PDFAIdentificationSchemaDiffblueTest {
   }
 
   /**
-   * Test {@link PDFAIdentificationSchema#getAmdProperty()}.
-   * <p>
    * Method under test: {@link PDFAIdentificationSchema#getAmdProperty()}
    */
   @Test
-  @DisplayName("Test getAmdProperty()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"TextType PDFAIdentificationSchema.getAmdProperty()"})
   void testGetAmdProperty() {
+    // Arrange, Act and Assert
+    assertNull((new PDFAIdentificationSchema(XMPMetadata.createXMPMetadata())).getAmdProperty());
+  }
+
+  /**
+   * Method under test: {@link PDFAIdentificationSchema#getAmdProperty()}
+   */
+  @Test
+  void testGetAmdProperty2() {
     // Arrange
     PDFAIdentificationSchema pdfaIdentificationSchema = new PDFAIdentificationSchema(XMPMetadata.createXMPMetadata());
     pdfaIdentificationSchema.addBagValueAsSimple(PDFAIdentificationSchema.AMD, "42");
@@ -1453,15 +1141,10 @@ class PDFAIdentificationSchemaDiffblueTest {
   }
 
   /**
-   * Test {@link PDFAIdentificationSchema#getAmdProperty()}.
-   * <p>
    * Method under test: {@link PDFAIdentificationSchema#getAmdProperty()}
    */
   @Test
-  @DisplayName("Test getAmdProperty()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"TextType PDFAIdentificationSchema.getAmdProperty()"})
-  void testGetAmdProperty2() {
+  void testGetAmdProperty3() {
     // Arrange
     PDFAIdentificationSchema pdfaIdentificationSchema = new PDFAIdentificationSchema(XMPMetadata.createXMPMetadata());
     pdfaIdentificationSchema.addBagValueAsSimple("Simple Name", PDFAIdentificationSchema.AMD);
@@ -1472,15 +1155,10 @@ class PDFAIdentificationSchemaDiffblueTest {
   }
 
   /**
-   * Test {@link PDFAIdentificationSchema#getAmdProperty()}.
-   * <p>
    * Method under test: {@link PDFAIdentificationSchema#getAmdProperty()}
    */
   @Test
-  @DisplayName("Test getAmdProperty()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"TextType PDFAIdentificationSchema.getAmdProperty()"})
-  void testGetAmdProperty3() {
+  void testGetAmdProperty4() {
     // Arrange
     PDFAIdentificationSchema pdfaIdentificationSchema = new PDFAIdentificationSchema(XMPMetadata.createXMPMetadata());
     AgentNameType obj = new AgentNameType(XMPMetadata.createXMPMetadata(), PDFAIdentificationSchema.AMD,
@@ -1493,32 +1171,19 @@ class PDFAIdentificationSchemaDiffblueTest {
   }
 
   /**
-   * Test {@link PDFAIdentificationSchema#getAmdProperty()}.
-   * <ul>
-   *   <li>Given {@link PDFAIdentificationSchema#PDFAIdentificationSchema(XMPMetadata)} with metadata is createXMPMetadata.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDFAIdentificationSchema#getAmdProperty()}
-   */
-  @Test
-  @DisplayName("Test getAmdProperty(); given PDFAIdentificationSchema(XMPMetadata) with metadata is createXMPMetadata")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"TextType PDFAIdentificationSchema.getAmdProperty()"})
-  void testGetAmdProperty_givenPDFAIdentificationSchemaWithMetadataIsCreateXMPMetadata() {
-    // Arrange, Act and Assert
-    assertNull((new PDFAIdentificationSchema(XMPMetadata.createXMPMetadata())).getAmdProperty());
-  }
-
-  /**
-   * Test {@link PDFAIdentificationSchema#getAmd()}.
-   * <p>
    * Method under test: {@link PDFAIdentificationSchema#getAmd()}
    */
   @Test
-  @DisplayName("Test getAmd()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDFAIdentificationSchema.getAmd()"})
   void testGetAmd() {
+    // Arrange, Act and Assert
+    assertNull((new PDFAIdentificationSchema(XMPMetadata.createXMPMetadata())).getAmd());
+  }
+
+  /**
+   * Method under test: {@link PDFAIdentificationSchema#getAmd()}
+   */
+  @Test
+  void testGetAmd2() {
     // Arrange
     PDFAIdentificationSchema pdfaIdentificationSchema = new PDFAIdentificationSchema(XMPMetadata.createXMPMetadata());
     pdfaIdentificationSchema.addBagValueAsSimple(PDFAIdentificationSchema.AMD, "42");
@@ -1528,15 +1193,10 @@ class PDFAIdentificationSchemaDiffblueTest {
   }
 
   /**
-   * Test {@link PDFAIdentificationSchema#getAmd()}.
-   * <p>
    * Method under test: {@link PDFAIdentificationSchema#getAmd()}
    */
   @Test
-  @DisplayName("Test getAmd()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDFAIdentificationSchema.getAmd()"})
-  void testGetAmd2() {
+  void testGetAmd3() {
     // Arrange
     PDFAIdentificationSchema pdfaIdentificationSchema = new PDFAIdentificationSchema(XMPMetadata.createXMPMetadata());
     pdfaIdentificationSchema.addBagValueAsSimple("Simple Name", PDFAIdentificationSchema.AMD);
@@ -1547,35 +1207,10 @@ class PDFAIdentificationSchemaDiffblueTest {
   }
 
   /**
-   * Test {@link PDFAIdentificationSchema#getAmd()}.
-   * <ul>
-   *   <li>Given {@link PDFAIdentificationSchema#PDFAIdentificationSchema(XMPMetadata)} with metadata is createXMPMetadata.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDFAIdentificationSchema#getAmd()}
    */
   @Test
-  @DisplayName("Test getAmd(); given PDFAIdentificationSchema(XMPMetadata) with metadata is createXMPMetadata")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDFAIdentificationSchema.getAmd()"})
-  void testGetAmd_givenPDFAIdentificationSchemaWithMetadataIsCreateXMPMetadata() {
-    // Arrange, Act and Assert
-    assertNull((new PDFAIdentificationSchema(XMPMetadata.createXMPMetadata())).getAmd());
-  }
-
-  /**
-   * Test {@link PDFAIdentificationSchema#getAmd()}.
-   * <ul>
-   *   <li>Then return {@code Value}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDFAIdentificationSchema#getAmd()}
-   */
-  @Test
-  @DisplayName("Test getAmd(); then return 'Value'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDFAIdentificationSchema.getAmd()"})
-  void testGetAmd_thenReturnValue() {
+  void testGetAmd4() {
     // Arrange
     PDFAIdentificationSchema pdfaIdentificationSchema = new PDFAIdentificationSchema(XMPMetadata.createXMPMetadata());
     pdfaIdentificationSchema.addProperty(new AgentNameType(XMPMetadata.createXMPMetadata(),
@@ -1586,28 +1221,18 @@ class PDFAIdentificationSchemaDiffblueTest {
   }
 
   /**
-   * Test {@link PDFAIdentificationSchema#getConformanceProperty()}.
-   * <p>
    * Method under test: {@link PDFAIdentificationSchema#getConformanceProperty()}
    */
   @Test
-  @DisplayName("Test getConformanceProperty()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"TextType PDFAIdentificationSchema.getConformanceProperty()"})
   void testGetConformanceProperty() {
     // Arrange, Act and Assert
     assertNull((new PDFAIdentificationSchema(XMPMetadata.createXMPMetadata())).getConformanceProperty());
   }
 
   /**
-   * Test {@link PDFAIdentificationSchema#getConformanceProperty()}.
-   * <p>
    * Method under test: {@link PDFAIdentificationSchema#getConformanceProperty()}
    */
   @Test
-  @DisplayName("Test getConformanceProperty()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"TextType PDFAIdentificationSchema.getConformanceProperty()"})
   void testGetConformanceProperty2() {
     // Arrange
     PDFAIdentificationSchema pdfaIdentificationSchema = new PDFAIdentificationSchema(XMPMetadata.createXMPMetadata());
@@ -1618,14 +1243,9 @@ class PDFAIdentificationSchemaDiffblueTest {
   }
 
   /**
-   * Test {@link PDFAIdentificationSchema#getConformanceProperty()}.
-   * <p>
    * Method under test: {@link PDFAIdentificationSchema#getConformanceProperty()}
    */
   @Test
-  @DisplayName("Test getConformanceProperty()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"TextType PDFAIdentificationSchema.getConformanceProperty()"})
   void testGetConformanceProperty3() {
     // Arrange
     PDFAIdentificationSchema pdfaIdentificationSchema = new PDFAIdentificationSchema(XMPMetadata.createXMPMetadata());
@@ -1637,14 +1257,9 @@ class PDFAIdentificationSchemaDiffblueTest {
   }
 
   /**
-   * Test {@link PDFAIdentificationSchema#getConformanceProperty()}.
-   * <p>
    * Method under test: {@link PDFAIdentificationSchema#getConformanceProperty()}
    */
   @Test
-  @DisplayName("Test getConformanceProperty()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"TextType PDFAIdentificationSchema.getConformanceProperty()"})
   void testGetConformanceProperty4() {
     // Arrange
     PDFAIdentificationSchema pdfaIdentificationSchema = new PDFAIdentificationSchema(XMPMetadata.createXMPMetadata());
@@ -1658,15 +1273,19 @@ class PDFAIdentificationSchemaDiffblueTest {
   }
 
   /**
-   * Test {@link PDFAIdentificationSchema#getConformance()}.
-   * <p>
    * Method under test: {@link PDFAIdentificationSchema#getConformance()}
    */
   @Test
-  @DisplayName("Test getConformance()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDFAIdentificationSchema.getConformance()"})
   void testGetConformance() {
+    // Arrange, Act and Assert
+    assertNull((new PDFAIdentificationSchema(XMPMetadata.createXMPMetadata())).getConformance());
+  }
+
+  /**
+   * Method under test: {@link PDFAIdentificationSchema#getConformance()}
+   */
+  @Test
+  void testGetConformance2() {
     // Arrange
     PDFAIdentificationSchema pdfaIdentificationSchema = new PDFAIdentificationSchema(XMPMetadata.createXMPMetadata());
     pdfaIdentificationSchema.addBagValueAsSimple(PDFAIdentificationSchema.CONFORMANCE, "42");
@@ -1676,15 +1295,10 @@ class PDFAIdentificationSchemaDiffblueTest {
   }
 
   /**
-   * Test {@link PDFAIdentificationSchema#getConformance()}.
-   * <p>
    * Method under test: {@link PDFAIdentificationSchema#getConformance()}
    */
   @Test
-  @DisplayName("Test getConformance()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDFAIdentificationSchema.getConformance()"})
-  void testGetConformance2() {
+  void testGetConformance3() {
     // Arrange
     PDFAIdentificationSchema pdfaIdentificationSchema = new PDFAIdentificationSchema(XMPMetadata.createXMPMetadata());
     pdfaIdentificationSchema.addBagValueAsSimple("Simple Name", PDFAIdentificationSchema.CONFORMANCE);
@@ -1695,35 +1309,10 @@ class PDFAIdentificationSchemaDiffblueTest {
   }
 
   /**
-   * Test {@link PDFAIdentificationSchema#getConformance()}.
-   * <ul>
-   *   <li>Given {@link PDFAIdentificationSchema#PDFAIdentificationSchema(XMPMetadata)} with metadata is createXMPMetadata.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDFAIdentificationSchema#getConformance()}
    */
   @Test
-  @DisplayName("Test getConformance(); given PDFAIdentificationSchema(XMPMetadata) with metadata is createXMPMetadata")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDFAIdentificationSchema.getConformance()"})
-  void testGetConformance_givenPDFAIdentificationSchemaWithMetadataIsCreateXMPMetadata() {
-    // Arrange, Act and Assert
-    assertNull((new PDFAIdentificationSchema(XMPMetadata.createXMPMetadata())).getConformance());
-  }
-
-  /**
-   * Test {@link PDFAIdentificationSchema#getConformance()}.
-   * <ul>
-   *   <li>Then return {@code Value}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDFAIdentificationSchema#getConformance()}
-   */
-  @Test
-  @DisplayName("Test getConformance(); then return 'Value'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDFAIdentificationSchema.getConformance()"})
-  void testGetConformance_thenReturnValue() {
+  void testGetConformance4() {
     // Arrange
     PDFAIdentificationSchema pdfaIdentificationSchema = new PDFAIdentificationSchema(XMPMetadata.createXMPMetadata());
     pdfaIdentificationSchema
@@ -1732,5 +1321,113 @@ class PDFAIdentificationSchemaDiffblueTest {
 
     // Act and Assert
     assertEquals("Value", pdfaIdentificationSchema.getConformance());
+  }
+
+  /**
+   * Method under test:
+   * {@link PDFAIdentificationSchema#PDFAIdentificationSchema(XMPMetadata)}
+   */
+  @Test
+  void testNewPDFAIdentificationSchema() {
+    // Arrange
+    XMPMetadata metadata = XMPMetadata.createXMPMetadata();
+
+    // Act
+    PDFAIdentificationSchema actualPdfaIdentificationSchema = new PDFAIdentificationSchema(metadata);
+
+    // Assert
+    assertEquals("", actualPdfaIdentificationSchema.getAboutValue());
+    assertEquals("http://www.aiim.org/pdfa/ns/id/", actualPdfaIdentificationSchema.getNamespace());
+    Map<String, String> allNamespacesWithPrefix = actualPdfaIdentificationSchema.getAllNamespacesWithPrefix();
+    assertEquals(1, allNamespacesWithPrefix.size());
+    assertEquals("pdfaid", allNamespacesWithPrefix.get("http://www.aiim.org/pdfa/ns/id/"));
+    assertEquals("pdfaid", actualPdfaIdentificationSchema.getPreferedPrefix());
+    assertEquals("pdfaid", actualPdfaIdentificationSchema.getPrefix());
+    assertNull(actualPdfaIdentificationSchema.getPart());
+    assertNull(actualPdfaIdentificationSchema.getAmd());
+    assertNull(actualPdfaIdentificationSchema.getAmendment());
+    assertNull(actualPdfaIdentificationSchema.getConformance());
+    assertNull(actualPdfaIdentificationSchema.getPropertyName());
+    assertNull(actualPdfaIdentificationSchema.getAboutAttribute());
+    assertNull(actualPdfaIdentificationSchema.getPartProperty());
+    assertNull(actualPdfaIdentificationSchema.getAmdProperty());
+    assertNull(actualPdfaIdentificationSchema.getConformanceProperty());
+    List<AbstractField> allProperties = actualPdfaIdentificationSchema.getAllProperties();
+    assertTrue(allProperties.isEmpty());
+    assertTrue(actualPdfaIdentificationSchema.getAllAttributes().isEmpty());
+    assertSame(allProperties, actualPdfaIdentificationSchema.getContainer().getAllProperties());
+    assertSame(metadata, actualPdfaIdentificationSchema.getMetadata());
+  }
+
+  /**
+   * Method under test:
+   * {@link PDFAIdentificationSchema#PDFAIdentificationSchema(XMPMetadata, String)}
+   */
+  @Test
+  void testNewPDFAIdentificationSchema2() {
+    // Arrange
+    XMPMetadata metadata = XMPMetadata.createXMPMetadata();
+
+    // Act
+    PDFAIdentificationSchema actualPdfaIdentificationSchema = new PDFAIdentificationSchema(metadata, "Prefix");
+
+    // Assert
+    assertEquals("", actualPdfaIdentificationSchema.getAboutValue());
+    Map<String, String> allNamespacesWithPrefix = actualPdfaIdentificationSchema.getAllNamespacesWithPrefix();
+    assertEquals(1, allNamespacesWithPrefix.size());
+    assertEquals("Prefix", allNamespacesWithPrefix.get("http://www.aiim.org/pdfa/ns/id/"));
+    assertEquals("Prefix", actualPdfaIdentificationSchema.getPrefix());
+    assertEquals("http://www.aiim.org/pdfa/ns/id/", actualPdfaIdentificationSchema.getNamespace());
+    assertEquals("pdfaid", actualPdfaIdentificationSchema.getPreferedPrefix());
+    assertNull(actualPdfaIdentificationSchema.getPart());
+    assertNull(actualPdfaIdentificationSchema.getAmd());
+    assertNull(actualPdfaIdentificationSchema.getAmendment());
+    assertNull(actualPdfaIdentificationSchema.getConformance());
+    assertNull(actualPdfaIdentificationSchema.getPropertyName());
+    assertNull(actualPdfaIdentificationSchema.getAboutAttribute());
+    assertNull(actualPdfaIdentificationSchema.getPartProperty());
+    assertNull(actualPdfaIdentificationSchema.getAmdProperty());
+    assertNull(actualPdfaIdentificationSchema.getConformanceProperty());
+    List<AbstractField> allProperties = actualPdfaIdentificationSchema.getAllProperties();
+    assertTrue(allProperties.isEmpty());
+    assertTrue(actualPdfaIdentificationSchema.getAllAttributes().isEmpty());
+    assertSame(allProperties, actualPdfaIdentificationSchema.getContainer().getAllProperties());
+    assertSame(metadata, actualPdfaIdentificationSchema.getMetadata());
+  }
+
+  /**
+   * Method under test:
+   * {@link PDFAIdentificationSchema#PDFAIdentificationSchema(XMPMetadata, String)}
+   */
+  @Test
+  void testNewPDFAIdentificationSchema3() {
+    // Arrange
+    XMPMetadata metadata = XMPMetadata.createXMPMetadata();
+
+    // Act
+    PDFAIdentificationSchema actualPdfaIdentificationSchema = new PDFAIdentificationSchema(metadata, null);
+
+    // Assert
+    assertEquals("", actualPdfaIdentificationSchema.getAboutValue());
+    assertEquals("http://www.aiim.org/pdfa/ns/id/", actualPdfaIdentificationSchema.getNamespace());
+    Map<String, String> allNamespacesWithPrefix = actualPdfaIdentificationSchema.getAllNamespacesWithPrefix();
+    assertEquals(1, allNamespacesWithPrefix.size());
+    assertEquals("pdfaid", allNamespacesWithPrefix.get("http://www.aiim.org/pdfa/ns/id/"));
+    assertEquals("pdfaid", actualPdfaIdentificationSchema.getPreferedPrefix());
+    assertEquals("pdfaid", actualPdfaIdentificationSchema.getPrefix());
+    assertNull(actualPdfaIdentificationSchema.getPart());
+    assertNull(actualPdfaIdentificationSchema.getAmd());
+    assertNull(actualPdfaIdentificationSchema.getAmendment());
+    assertNull(actualPdfaIdentificationSchema.getConformance());
+    assertNull(actualPdfaIdentificationSchema.getPropertyName());
+    assertNull(actualPdfaIdentificationSchema.getAboutAttribute());
+    assertNull(actualPdfaIdentificationSchema.getPartProperty());
+    assertNull(actualPdfaIdentificationSchema.getAmdProperty());
+    assertNull(actualPdfaIdentificationSchema.getConformanceProperty());
+    List<AbstractField> allProperties = actualPdfaIdentificationSchema.getAllProperties();
+    assertTrue(allProperties.isEmpty());
+    assertTrue(actualPdfaIdentificationSchema.getAllAttributes().isEmpty());
+    assertSame(allProperties, actualPdfaIdentificationSchema.getContainer().getAllProperties());
+    assertSame(metadata, actualPdfaIdentificationSchema.getMetadata());
   }
 }

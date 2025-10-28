@@ -4,21 +4,32 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class CompressParametersDiffblueTest {
   /**
-   * Test {@link CompressParameters#CompressParameters()}.
-   * <p>
+   * Method under test: {@link CompressParameters#getObjectStreamSize()}
+   */
+  @Test
+  void testGetObjectStreamSize() {
+    // Arrange, Act and Assert
+    assertEquals(CompressParameters.DEFAULT_OBJECT_STREAM_SIZE, (new CompressParameters()).getObjectStreamSize());
+  }
+
+  /**
+   * Method under test: {@link CompressParameters#isCompress()}
+   */
+  @Test
+  void testIsCompress() {
+    // Arrange, Act and Assert
+    assertTrue(CompressParameters.DEFAULT_COMPRESSION.isCompress());
+    assertFalse(CompressParameters.NO_COMPRESSION.isCompress());
+  }
+
+  /**
    * Method under test: {@link CompressParameters#CompressParameters()}
    */
   @Test
-  @DisplayName("Test new CompressParameters()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void CompressParameters.<init>()"})
   void testNewCompressParameters() {
     // Arrange and Act
     CompressParameters actualCompressParameters = new CompressParameters();
@@ -29,37 +40,10 @@ class CompressParametersDiffblueTest {
   }
 
   /**
-   * Test {@link CompressParameters#CompressParameters(int)}.
-   * <ul>
-   *   <li>When minus one.</li>
-   *   <li>Then throw {@link IllegalArgumentException}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link CompressParameters#CompressParameters(int)}
    */
   @Test
-  @DisplayName("Test new CompressParameters(int); when minus one; then throw IllegalArgumentException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void CompressParameters.<init>(int)"})
-  void testNewCompressParameters_whenMinusOne_thenThrowIllegalArgumentException() {
-    // Arrange, Act and Assert
-    assertThrows(IllegalArgumentException.class, () -> new CompressParameters(-1));
-  }
-
-  /**
-   * Test {@link CompressParameters#CompressParameters(int)}.
-   * <ul>
-   *   <li>When three.</li>
-   *   <li>Then return ObjectStreamSize is three.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link CompressParameters#CompressParameters(int)}
-   */
-  @Test
-  @DisplayName("Test new CompressParameters(int); when three; then return ObjectStreamSize is three")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void CompressParameters.<init>(int)"})
-  void testNewCompressParameters_whenThree_thenReturnObjectStreamSizeIsThree() {
+  void testNewCompressParameters2() {
     // Arrange and Act
     CompressParameters actualCompressParameters = new CompressParameters(3);
 
@@ -69,52 +53,11 @@ class CompressParametersDiffblueTest {
   }
 
   /**
-   * Test {@link CompressParameters#getObjectStreamSize()}.
-   * <p>
-   * Method under test: {@link CompressParameters#getObjectStreamSize()}
+   * Method under test: {@link CompressParameters#CompressParameters(int)}
    */
   @Test
-  @DisplayName("Test getObjectStreamSize()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"int CompressParameters.getObjectStreamSize()"})
-  void testGetObjectStreamSize() {
+  void testNewCompressParameters3() {
     // Arrange, Act and Assert
-    assertEquals(CompressParameters.DEFAULT_OBJECT_STREAM_SIZE, (new CompressParameters()).getObjectStreamSize());
-  }
-
-  /**
-   * Test {@link CompressParameters#isCompress()}.
-   * <ul>
-   *   <li>Given {@link CompressParameters#DEFAULT_COMPRESSION}.</li>
-   *   <li>Then return {@code true}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link CompressParameters#isCompress()}
-   */
-  @Test
-  @DisplayName("Test isCompress(); given DEFAULT_COMPRESSION; then return 'true'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean CompressParameters.isCompress()"})
-  void testIsCompress_givenDefault_compression_thenReturnTrue() {
-    // Arrange, Act and Assert
-    assertTrue(CompressParameters.DEFAULT_COMPRESSION.isCompress());
-  }
-
-  /**
-   * Test {@link CompressParameters#isCompress()}.
-   * <ul>
-   *   <li>Given {@link CompressParameters#NO_COMPRESSION}.</li>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link CompressParameters#isCompress()}
-   */
-  @Test
-  @DisplayName("Test isCompress(); given NO_COMPRESSION; then return 'false'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean CompressParameters.isCompress()"})
-  void testIsCompress_givenNo_compression_thenReturnFalse() {
-    // Arrange, Act and Assert
-    assertFalse(CompressParameters.NO_COMPRESSION.isCompress());
+    assertThrows(IllegalArgumentException.class, () -> new CompressParameters(-1));
   }
 }

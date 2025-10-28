@@ -5,73 +5,18 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.cos.COSIncrement;
 import org.apache.pdfbox.cos.COSObjectKey;
 import org.apache.pdfbox.cos.COSUpdateState;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class PDPageAdditionalActionsDiffblueTest {
   /**
-   * Test {@link PDPageAdditionalActions#PDPageAdditionalActions(COSDictionary)}.
-   * <p>
-   * Method under test: {@link PDPageAdditionalActions#PDPageAdditionalActions(COSDictionary)}
-   */
-  @Test
-  @DisplayName("Test new PDPageAdditionalActions(COSDictionary)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDPageAdditionalActions.<init>(COSDictionary)"})
-  void testNewPDPageAdditionalActions() {
-    // Arrange
-    COSDictionary a = new COSDictionary();
-
-    // Act and Assert
-    assertSame(a, (new PDPageAdditionalActions(a)).getCOSObject());
-  }
-
-  /**
-   * Test {@link PDPageAdditionalActions#PDPageAdditionalActions()}.
-   * <p>
-   * Method under test: {@link PDPageAdditionalActions#PDPageAdditionalActions()}
-   */
-  @Test
-  @DisplayName("Test new PDPageAdditionalActions()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDPageAdditionalActions.<init>()"})
-  void testNewPDPageAdditionalActions2() {
-    // Arrange and Act
-    PDPageAdditionalActions actualPdPageAdditionalActions = new PDPageAdditionalActions();
-
-    // Assert
-    COSDictionary cOSObject = actualPdPageAdditionalActions.getCOSObject();
-    COSUpdateState updateState = cOSObject.getUpdateState();
-    assertNull(updateState.getOriginDocumentState());
-    assertNull(cOSObject.getKey());
-    assertNull(actualPdPageAdditionalActions.getC());
-    assertNull(actualPdPageAdditionalActions.getO());
-    assertEquals(0, cOSObject.size());
-    COSIncrement toIncrementResult = cOSObject.toIncrement();
-    assertFalse(toIncrementResult.iterator().hasNext());
-    assertFalse(cOSObject.isDirect());
-    assertFalse(cOSObject.isNeedToBeUpdated());
-    assertFalse(updateState.isUpdated());
-    assertTrue(cOSObject.getValues().isEmpty());
-    assertTrue(toIncrementResult.getObjects().isEmpty());
-  }
-
-  /**
-   * Test {@link PDPageAdditionalActions#getCOSObject()}.
-   * <p>
    * Method under test: {@link PDPageAdditionalActions#getCOSObject()}
    */
   @Test
-  @DisplayName("Test getCOSObject()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"COSDictionary PDPageAdditionalActions.getCOSObject()"})
   void testGetCOSObject() {
     // Arrange and Act
     COSDictionary actualCOSObject = (new PDPageAdditionalActions()).getCOSObject();
@@ -91,18 +36,196 @@ class PDPageAdditionalActionsDiffblueTest {
   }
 
   /**
-   * Test {@link PDPageAdditionalActions#getO()}.
-   * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary()} Key is {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDPageAdditionalActions#getO()}
    */
   @Test
-  @DisplayName("Test getO(); given COSDictionary() Key is COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDPageAdditionalActions.getO()"})
-  void testGetO_givenCOSDictionaryKeyIsCOSObjectKeyWithNumIsOneAndGenIsOne() {
+  void testGetO() {
+    // Arrange, Act and Assert
+    assertNull((new PDPageAdditionalActions()).getO());
+  }
+
+  /**
+   * Method under test: {@link PDPageAdditionalActions#getO()}
+   */
+  @Test
+  void testGetO2() throws IOException {
+    // Arrange
+    PDPageAdditionalActions pdPageAdditionalActions = new PDPageAdditionalActions();
+    pdPageAdditionalActions.setO(new PDActionEmbeddedGoTo());
+
+    // Act
+    PDAction actualO = pdPageAdditionalActions.getO();
+
+    // Assert
+    assertTrue(actualO instanceof PDActionEmbeddedGoTo);
+    assertNull(actualO.getNext());
+    COSDictionary cOSObject = actualO.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertNull(((PDActionEmbeddedGoTo) actualO).getFile());
+    assertNull(((PDActionEmbeddedGoTo) actualO).getTargetDirectory());
+    assertNull(((PDActionEmbeddedGoTo) actualO).getDestination());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    assertEquals(OpenMode.USER_PREFERENCE, ((PDActionEmbeddedGoTo) actualO).getOpenInNewWindow());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertEquals(PDAction.TYPE, actualO.getType());
+    assertEquals(PDActionEmbeddedGoTo.SUB_TYPE, actualO.getSubType());
+  }
+
+  /**
+   * Method under test: {@link PDPageAdditionalActions#getO()}
+   */
+  @Test
+  void testGetO3() {
+    // Arrange
+    PDPageAdditionalActions pdPageAdditionalActions = new PDPageAdditionalActions();
+    pdPageAdditionalActions.setO(new PDActionEmbeddedGoTo(new COSDictionary()));
+
+    // Act and Assert
+    assertNull(pdPageAdditionalActions.getO());
+  }
+
+  /**
+   * Method under test: {@link PDPageAdditionalActions#getO()}
+   */
+  @Test
+  void testGetO4() throws IOException {
+    // Arrange
+    PDPageAdditionalActions pdPageAdditionalActions = new PDPageAdditionalActions();
+    pdPageAdditionalActions.setO(new PDActionGoTo());
+
+    // Act
+    PDAction actualO = pdPageAdditionalActions.getO();
+
+    // Assert
+    assertTrue(actualO instanceof PDActionGoTo);
+    assertNull(actualO.getNext());
+    COSDictionary cOSObject = actualO.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertNull(((PDActionGoTo) actualO).getDestination());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertEquals(PDAction.TYPE, actualO.getType());
+    assertEquals(PDActionGoTo.SUB_TYPE, actualO.getSubType());
+  }
+
+  /**
+   * Method under test: {@link PDPageAdditionalActions#getO()}
+   */
+  @Test
+  void testGetO5() {
+    // Arrange
+    PDPageAdditionalActions pdPageAdditionalActions = new PDPageAdditionalActions();
+    pdPageAdditionalActions.setO(new PDActionHide());
+
+    // Act
+    PDAction actualO = pdPageAdditionalActions.getO();
+
+    // Assert
+    assertTrue(actualO instanceof PDActionHide);
+    assertNull(actualO.getNext());
+    assertNull(((PDActionHide) actualO).getT());
+    COSDictionary cOSObject = actualO.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertTrue(((PDActionHide) actualO).getH());
+    assertEquals(PDAction.TYPE, actualO.getType());
+    assertEquals(PDActionHide.SUB_TYPE, actualO.getSubType());
+  }
+
+  /**
+   * Method under test: {@link PDPageAdditionalActions#getO()}
+   */
+  @Test
+  void testGetO6() throws IOException {
+    // Arrange
+    PDPageAdditionalActions pdPageAdditionalActions = new PDPageAdditionalActions();
+    pdPageAdditionalActions.setO(new PDActionImportData());
+
+    // Act
+    PDAction actualO = pdPageAdditionalActions.getO();
+
+    // Assert
+    assertTrue(actualO instanceof PDActionImportData);
+    assertNull(actualO.getNext());
+    COSDictionary cOSObject = actualO.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertNull(((PDActionImportData) actualO).getFile());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertEquals(PDAction.TYPE, actualO.getType());
+    assertEquals(PDActionImportData.SUB_TYPE, actualO.getSubType());
+  }
+
+  /**
+   * Method under test: {@link PDPageAdditionalActions#getO()}
+   */
+  @Test
+  void testGetO7() {
+    // Arrange
+    PDPageAdditionalActions pdPageAdditionalActions = new PDPageAdditionalActions();
+    pdPageAdditionalActions.setO(new PDActionJavaScript());
+
+    // Act
+    PDAction actualO = pdPageAdditionalActions.getO();
+
+    // Assert
+    assertTrue(actualO instanceof PDActionJavaScript);
+    assertNull(((PDActionJavaScript) actualO).getAction());
+    assertNull(actualO.getNext());
+    COSDictionary cOSObject = actualO.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertEquals(PDAction.TYPE, actualO.getType());
+    assertEquals(PDActionJavaScript.SUB_TYPE, actualO.getSubType());
+  }
+
+  /**
+   * Method under test: {@link PDPageAdditionalActions#getO()}
+   */
+  @Test
+  void testGetO8() {
     // Arrange
     COSDictionary a = new COSDictionary();
     a.setKey(new COSObjectKey(1L, 1));
@@ -116,18 +239,10 @@ class PDPageAdditionalActionsDiffblueTest {
   }
 
   /**
-   * Test {@link PDPageAdditionalActions#getO()}.
-   * <ul>
-   *   <li>Given {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo(COSDictionary)} with a is {@link COSDictionary#COSDictionary()} SubType is {@code foo}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDPageAdditionalActions#getO()}
    */
   @Test
-  @DisplayName("Test getO(); given PDActionEmbeddedGoTo(COSDictionary) with a is COSDictionary() SubType is 'foo'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDPageAdditionalActions.getO()"})
-  void testGetO_givenPDActionEmbeddedGoToWithAIsCOSDictionarySubTypeIsFoo() {
+  void testGetO9() {
     // Arrange
     PDActionEmbeddedGoTo o = new PDActionEmbeddedGoTo(new COSDictionary());
     o.setSubType("foo");
@@ -140,103 +255,10 @@ class PDPageAdditionalActionsDiffblueTest {
   }
 
   /**
-   * Test {@link PDPageAdditionalActions#getO()}.
-   * <ul>
-   *   <li>Given {@link PDPageAdditionalActions#PDPageAdditionalActions()} O is {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo(COSDictionary)} with a is {@link COSDictionary#COSDictionary()}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDPageAdditionalActions#getO()}
    */
   @Test
-  @DisplayName("Test getO(); given PDPageAdditionalActions() O is PDActionEmbeddedGoTo(COSDictionary) with a is COSDictionary()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDPageAdditionalActions.getO()"})
-  void testGetO_givenPDPageAdditionalActionsOIsPDActionEmbeddedGoToWithAIsCOSDictionary() {
-    // Arrange
-    PDPageAdditionalActions pdPageAdditionalActions = new PDPageAdditionalActions();
-    pdPageAdditionalActions.setO(new PDActionEmbeddedGoTo(new COSDictionary()));
-
-    // Act and Assert
-    assertNull(pdPageAdditionalActions.getO());
-  }
-
-  /**
-   * Test {@link PDPageAdditionalActions#getO()}.
-   * <ul>
-   *   <li>Given {@link PDPageAdditionalActions#PDPageAdditionalActions()} O is {@link PDActionGoTo#PDActionGoTo()}.</li>
-   *   <li>Then return {@link PDActionGoTo}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDPageAdditionalActions#getO()}
-   */
-  @Test
-  @DisplayName("Test getO(); given PDPageAdditionalActions() O is PDActionGoTo(); then return PDActionGoTo")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDPageAdditionalActions.getO()"})
-  void testGetO_givenPDPageAdditionalActionsOIsPDActionGoTo_thenReturnPDActionGoTo() throws IOException {
-    // Arrange
-    PDPageAdditionalActions pdPageAdditionalActions = new PDPageAdditionalActions();
-    pdPageAdditionalActions.setO(new PDActionGoTo());
-
-    // Act
-    PDAction actualO = pdPageAdditionalActions.getO();
-
-    // Assert
-    assertTrue(actualO instanceof PDActionGoTo);
-    assertNull(actualO.getNext());
-    COSDictionary cOSObject = actualO.getCOSObject();
-    assertNull(cOSObject.getKey());
-    assertNull(((PDActionGoTo) actualO).getDestination());
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    assertFalse(cOSObject.isDirect());
-    assertFalse(cOSObject.isNeedToBeUpdated());
-    assertEquals(PDAction.TYPE, actualO.getType());
-    assertEquals(PDActionGoTo.SUB_TYPE, actualO.getSubType());
-  }
-
-  /**
-   * Test {@link PDPageAdditionalActions#getO()}.
-   * <ul>
-   *   <li>Given {@link PDPageAdditionalActions#PDPageAdditionalActions()} O is {@link PDActionHide#PDActionHide()}.</li>
-   *   <li>Then return {@link PDActionHide}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDPageAdditionalActions#getO()}
-   */
-  @Test
-  @DisplayName("Test getO(); given PDPageAdditionalActions() O is PDActionHide(); then return PDActionHide")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDPageAdditionalActions.getO()"})
-  void testGetO_givenPDPageAdditionalActionsOIsPDActionHide_thenReturnPDActionHide() {
-    // Arrange
-    PDPageAdditionalActions pdPageAdditionalActions = new PDPageAdditionalActions();
-    pdPageAdditionalActions.setO(new PDActionHide());
-
-    // Act
-    PDAction actualO = pdPageAdditionalActions.getO();
-
-    // Assert
-    assertTrue(actualO instanceof PDActionHide);
-    assertNull(((PDActionHide) actualO).getT());
-    assertTrue(((PDActionHide) actualO).getH());
-    assertEquals(PDActionHide.SUB_TYPE, actualO.getSubType());
-  }
-
-  /**
-   * Test {@link PDPageAdditionalActions#getO()}.
-   * <ul>
-   *   <li>Given {@link PDPageAdditionalActions#PDPageAdditionalActions()} O is {@link PDActionLaunch#PDActionLaunch()}.</li>
-   *   <li>Then return {@link PDActionLaunch}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDPageAdditionalActions#getO()}
-   */
-  @Test
-  @DisplayName("Test getO(); given PDPageAdditionalActions() O is PDActionLaunch(); then return PDActionLaunch")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDPageAdditionalActions.getO()"})
-  void testGetO_givenPDPageAdditionalActionsOIsPDActionLaunch_thenReturnPDActionLaunch() throws IOException {
+  void testGetO10() throws IOException {
     // Arrange
     PDPageAdditionalActions pdPageAdditionalActions = new PDPageAdditionalActions();
     pdPageAdditionalActions.setO(new PDActionLaunch());
@@ -250,26 +272,31 @@ class PDPageAdditionalActionsDiffblueTest {
     assertNull(((PDActionLaunch) actualO).getF());
     assertNull(((PDActionLaunch) actualO).getO());
     assertNull(((PDActionLaunch) actualO).getP());
+    assertNull(actualO.getNext());
+    COSDictionary cOSObject = actualO.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
     assertNull(((PDActionLaunch) actualO).getFile());
     assertNull(((PDActionLaunch) actualO).getWinLaunchParams());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
     assertEquals(OpenMode.USER_PREFERENCE, ((PDActionLaunch) actualO).getOpenInNewWindow());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertEquals(PDAction.TYPE, actualO.getType());
     assertEquals(PDActionLaunch.SUB_TYPE, actualO.getSubType());
   }
 
   /**
-   * Test {@link PDPageAdditionalActions#getO()}.
-   * <ul>
-   *   <li>Given {@link PDPageAdditionalActions#PDPageAdditionalActions()} O is {@link PDActionMovie#PDActionMovie()}.</li>
-   *   <li>Then return {@link PDActionMovie}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDPageAdditionalActions#getO()}
    */
   @Test
-  @DisplayName("Test getO(); given PDPageAdditionalActions() O is PDActionMovie(); then return PDActionMovie")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDPageAdditionalActions.getO()"})
-  void testGetO_givenPDPageAdditionalActionsOIsPDActionMovie_thenReturnPDActionMovie() {
+  void testGetO11() {
     // Arrange
     PDPageAdditionalActions pdPageAdditionalActions = new PDPageAdditionalActions();
     pdPageAdditionalActions.setO(new PDActionMovie());
@@ -279,30 +306,28 @@ class PDPageAdditionalActionsDiffblueTest {
 
     // Assert
     assertTrue(actualO instanceof PDActionMovie);
+    assertNull(actualO.getNext());
     COSDictionary cOSObject = actualO.getCOSObject();
     COSUpdateState updateState = cOSObject.getUpdateState();
     assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
     COSIncrement toIncrementResult = cOSObject.toIncrement();
     assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
     assertFalse(updateState.isUpdated());
     assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertEquals(PDAction.TYPE, actualO.getType());
     assertEquals(PDActionMovie.SUB_TYPE, actualO.getSubType());
   }
 
   /**
-   * Test {@link PDPageAdditionalActions#getO()}.
-   * <ul>
-   *   <li>Given {@link PDPageAdditionalActions#PDPageAdditionalActions()} O is {@link PDActionNamed#PDActionNamed()}.</li>
-   *   <li>Then return {@link PDActionNamed}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDPageAdditionalActions#getO()}
    */
   @Test
-  @DisplayName("Test getO(); given PDPageAdditionalActions() O is PDActionNamed(); then return PDActionNamed")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDPageAdditionalActions.getO()"})
-  void testGetO_givenPDPageAdditionalActionsOIsPDActionNamed_thenReturnPDActionNamed() {
+  void testGetO12() {
     // Arrange
     PDPageAdditionalActions pdPageAdditionalActions = new PDPageAdditionalActions();
     pdPageAdditionalActions.setO(new PDActionNamed());
@@ -315,29 +340,93 @@ class PDPageAdditionalActionsDiffblueTest {
     assertNull(((PDActionNamed) actualO).getN());
     assertNull(actualO.getNext());
     COSDictionary cOSObject = actualO.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
     assertNull(cOSObject.getKey());
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
     assertFalse(cOSObject.isDirect());
     assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
     assertEquals(PDAction.TYPE, actualO.getType());
     assertEquals(PDActionNamed.SUB_TYPE, actualO.getSubType());
   }
 
   /**
-   * Test {@link PDPageAdditionalActions#getO()}.
-   * <ul>
-   *   <li>Given {@link PDPageAdditionalActions#PDPageAdditionalActions()} O is {@link PDActionSound#PDActionSound()}.</li>
-   *   <li>Then return {@link PDActionSound}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDPageAdditionalActions#getO()}
    */
   @Test
-  @DisplayName("Test getO(); given PDPageAdditionalActions() O is PDActionSound(); then return PDActionSound")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDPageAdditionalActions.getO()"})
-  void testGetO_givenPDPageAdditionalActionsOIsPDActionSound_thenReturnPDActionSound() {
+  void testGetO13() throws IOException {
+    // Arrange
+    PDPageAdditionalActions pdPageAdditionalActions = new PDPageAdditionalActions();
+    pdPageAdditionalActions.setO(new PDActionRemoteGoTo());
+
+    // Act
+    PDAction actualO = pdPageAdditionalActions.getO();
+
+    // Assert
+    assertTrue(actualO instanceof PDActionRemoteGoTo);
+    assertNull(actualO.getNext());
+    assertNull(((PDActionRemoteGoTo) actualO).getD());
+    COSDictionary cOSObject = actualO.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertNull(((PDActionRemoteGoTo) actualO).getFile());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    assertEquals(OpenMode.USER_PREFERENCE, ((PDActionRemoteGoTo) actualO).getOpenInNewWindow());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertEquals(PDAction.TYPE, actualO.getType());
+    assertEquals(PDActionRemoteGoTo.SUB_TYPE, actualO.getSubType());
+  }
+
+  /**
+   * Method under test: {@link PDPageAdditionalActions#getO()}
+   */
+  @Test
+  void testGetO14() {
+    // Arrange
+    PDPageAdditionalActions pdPageAdditionalActions = new PDPageAdditionalActions();
+    pdPageAdditionalActions.setO(new PDActionResetForm());
+
+    // Act
+    PDAction actualO = pdPageAdditionalActions.getO();
+
+    // Assert
+    assertTrue(actualO instanceof PDActionResetForm);
+    assertNull(actualO.getNext());
+    assertNull(((PDActionResetForm) actualO).getFields());
+    COSDictionary cOSObject = actualO.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertEquals(0, ((PDActionResetForm) actualO).getFlags());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertEquals(PDAction.TYPE, actualO.getType());
+    assertEquals(PDActionResetForm.SUB_TYPE, actualO.getSubType());
+  }
+
+  /**
+   * Method under test: {@link PDPageAdditionalActions#getO()}
+   */
+  @Test
+  void testGetO15() {
     // Arrange
     PDPageAdditionalActions pdPageAdditionalActions = new PDPageAdditionalActions();
     pdPageAdditionalActions.setO(new PDActionSound());
@@ -347,28 +436,67 @@ class PDPageAdditionalActionsDiffblueTest {
 
     // Assert
     assertTrue(actualO instanceof PDActionSound);
+    assertNull(actualO.getNext());
+    COSDictionary cOSObject = actualO.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
     assertNull(((PDActionSound) actualO).getSound());
     assertEquals(1.0f, ((PDActionSound) actualO).getVolume());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
     assertFalse(((PDActionSound) actualO).getMix());
     assertFalse(((PDActionSound) actualO).getRepeat());
     assertFalse(((PDActionSound) actualO).getSynchronous());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertEquals(PDAction.TYPE, actualO.getType());
     assertEquals(PDActionSound.SUB_TYPE, actualO.getSubType());
   }
 
   /**
-   * Test {@link PDPageAdditionalActions#getO()}.
-   * <ul>
-   *   <li>Given {@link PDPageAdditionalActions#PDPageAdditionalActions()} O is {@link PDActionThread#PDActionThread()}.</li>
-   *   <li>Then return {@link PDActionThread}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDPageAdditionalActions#getO()}
    */
   @Test
-  @DisplayName("Test getO(); given PDPageAdditionalActions() O is PDActionThread(); then return PDActionThread")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDPageAdditionalActions.getO()"})
-  void testGetO_givenPDPageAdditionalActionsOIsPDActionThread_thenReturnPDActionThread() throws IOException {
+  void testGetO16() throws IOException {
+    // Arrange
+    PDPageAdditionalActions pdPageAdditionalActions = new PDPageAdditionalActions();
+    pdPageAdditionalActions.setO(new PDActionSubmitForm());
+
+    // Act
+    PDAction actualO = pdPageAdditionalActions.getO();
+
+    // Assert
+    assertTrue(actualO instanceof PDActionSubmitForm);
+    assertNull(actualO.getNext());
+    assertNull(((PDActionSubmitForm) actualO).getFields());
+    COSDictionary cOSObject = actualO.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertNull(((PDActionSubmitForm) actualO).getFile());
+    assertEquals(0, ((PDActionSubmitForm) actualO).getFlags());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertEquals(PDAction.TYPE, actualO.getType());
+    assertEquals(PDActionSubmitForm.SUB_TYPE, actualO.getSubType());
+  }
+
+  /**
+   * Method under test: {@link PDPageAdditionalActions#getO()}
+   */
+  @Test
+  void testGetO17() throws IOException {
     // Arrange
     PDPageAdditionalActions pdPageAdditionalActions = new PDPageAdditionalActions();
     pdPageAdditionalActions.setO(new PDActionThread());
@@ -378,26 +506,31 @@ class PDPageAdditionalActionsDiffblueTest {
 
     // Assert
     assertTrue(actualO instanceof PDActionThread);
+    assertNull(actualO.getNext());
     assertNull(((PDActionThread) actualO).getB());
     assertNull(((PDActionThread) actualO).getD());
+    COSDictionary cOSObject = actualO.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
     assertNull(((PDActionThread) actualO).getFile());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertEquals(PDAction.TYPE, actualO.getType());
     assertEquals(PDActionThread.SUB_TYPE, actualO.getSubType());
   }
 
   /**
-   * Test {@link PDPageAdditionalActions#getO()}.
-   * <ul>
-   *   <li>Given {@link PDPageAdditionalActions#PDPageAdditionalActions()} O is {@link PDActionURI#PDActionURI()}.</li>
-   *   <li>Then return {@link PDActionURI}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDPageAdditionalActions#getO()}
    */
   @Test
-  @DisplayName("Test getO(); given PDPageAdditionalActions() O is PDActionURI(); then return PDActionURI")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDPageAdditionalActions.getO()"})
-  void testGetO_givenPDPageAdditionalActionsOIsPDActionURI_thenReturnPDActionURI() {
+  void testGetO18() {
     // Arrange
     PDPageAdditionalActions pdPageAdditionalActions = new PDPageAdditionalActions();
     pdPageAdditionalActions.setO(new PDActionURI());
@@ -410,226 +543,26 @@ class PDPageAdditionalActionsDiffblueTest {
     assertNull(((PDActionURI) actualO).getURI());
     assertNull(actualO.getNext());
     COSDictionary cOSObject = actualO.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
     assertNull(cOSObject.getKey());
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
     assertFalse(cOSObject.isDirect());
     assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
     assertEquals(PDAction.TYPE, actualO.getType());
     assertEquals(PDActionURI.SUB_TYPE, actualO.getSubType());
   }
 
   /**
-   * Test {@link PDPageAdditionalActions#getO()}.
-   * <ul>
-   *   <li>Given {@link PDPageAdditionalActions#PDPageAdditionalActions()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDPageAdditionalActions#getO()}
-   */
-  @Test
-  @DisplayName("Test getO(); given PDPageAdditionalActions(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDPageAdditionalActions.getO()"})
-  void testGetO_givenPDPageAdditionalActions_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull((new PDPageAdditionalActions()).getO());
-  }
-
-  /**
-   * Test {@link PDPageAdditionalActions#getO()}.
-   * <ul>
-   *   <li>Then return {@link PDActionEmbeddedGoTo}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDPageAdditionalActions#getO()}
-   */
-  @Test
-  @DisplayName("Test getO(); then return PDActionEmbeddedGoTo")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDPageAdditionalActions.getO()"})
-  void testGetO_thenReturnPDActionEmbeddedGoTo() throws IOException {
-    // Arrange
-    PDPageAdditionalActions pdPageAdditionalActions = new PDPageAdditionalActions();
-    pdPageAdditionalActions.setO(new PDActionEmbeddedGoTo());
-
-    // Act
-    PDAction actualO = pdPageAdditionalActions.getO();
-
-    // Assert
-    assertTrue(actualO instanceof PDActionEmbeddedGoTo);
-    assertNull(((PDActionEmbeddedGoTo) actualO).getFile());
-    assertNull(((PDActionEmbeddedGoTo) actualO).getTargetDirectory());
-    assertNull(((PDActionEmbeddedGoTo) actualO).getDestination());
-    assertEquals(OpenMode.USER_PREFERENCE, ((PDActionEmbeddedGoTo) actualO).getOpenInNewWindow());
-    assertEquals(PDActionEmbeddedGoTo.SUB_TYPE, actualO.getSubType());
-  }
-
-  /**
-   * Test {@link PDPageAdditionalActions#getO()}.
-   * <ul>
-   *   <li>Then return {@link PDActionImportData}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDPageAdditionalActions#getO()}
-   */
-  @Test
-  @DisplayName("Test getO(); then return PDActionImportData")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDPageAdditionalActions.getO()"})
-  void testGetO_thenReturnPDActionImportData() throws IOException {
-    // Arrange
-    PDPageAdditionalActions pdPageAdditionalActions = new PDPageAdditionalActions();
-    pdPageAdditionalActions.setO(new PDActionImportData());
-
-    // Act
-    PDAction actualO = pdPageAdditionalActions.getO();
-
-    // Assert
-    assertTrue(actualO instanceof PDActionImportData);
-    assertNull(actualO.getNext());
-    COSDictionary cOSObject = actualO.getCOSObject();
-    assertNull(cOSObject.getKey());
-    assertNull(((PDActionImportData) actualO).getFile());
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    assertFalse(cOSObject.isDirect());
-    assertFalse(cOSObject.isNeedToBeUpdated());
-    assertEquals(PDAction.TYPE, actualO.getType());
-    assertEquals(PDActionImportData.SUB_TYPE, actualO.getSubType());
-  }
-
-  /**
-   * Test {@link PDPageAdditionalActions#getO()}.
-   * <ul>
-   *   <li>Then return {@link PDActionJavaScript}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDPageAdditionalActions#getO()}
-   */
-  @Test
-  @DisplayName("Test getO(); then return PDActionJavaScript")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDPageAdditionalActions.getO()"})
-  void testGetO_thenReturnPDActionJavaScript() {
-    // Arrange
-    PDPageAdditionalActions pdPageAdditionalActions = new PDPageAdditionalActions();
-    pdPageAdditionalActions.setO(new PDActionJavaScript());
-
-    // Act
-    PDAction actualO = pdPageAdditionalActions.getO();
-
-    // Assert
-    assertTrue(actualO instanceof PDActionJavaScript);
-    assertNull(((PDActionJavaScript) actualO).getAction());
-    assertNull(actualO.getNext());
-    COSDictionary cOSObject = actualO.getCOSObject();
-    assertNull(cOSObject.getKey());
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    assertFalse(cOSObject.isDirect());
-    assertFalse(cOSObject.isNeedToBeUpdated());
-    assertEquals(PDAction.TYPE, actualO.getType());
-    assertEquals(PDActionJavaScript.SUB_TYPE, actualO.getSubType());
-  }
-
-  /**
-   * Test {@link PDPageAdditionalActions#getO()}.
-   * <ul>
-   *   <li>Then return {@link PDActionRemoteGoTo}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDPageAdditionalActions#getO()}
-   */
-  @Test
-  @DisplayName("Test getO(); then return PDActionRemoteGoTo")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDPageAdditionalActions.getO()"})
-  void testGetO_thenReturnPDActionRemoteGoTo() throws IOException {
-    // Arrange
-    PDPageAdditionalActions pdPageAdditionalActions = new PDPageAdditionalActions();
-    pdPageAdditionalActions.setO(new PDActionRemoteGoTo());
-
-    // Act
-    PDAction actualO = pdPageAdditionalActions.getO();
-
-    // Assert
-    assertTrue(actualO instanceof PDActionRemoteGoTo);
-    assertNull(((PDActionRemoteGoTo) actualO).getD());
-    assertNull(((PDActionRemoteGoTo) actualO).getFile());
-    assertEquals(OpenMode.USER_PREFERENCE, ((PDActionRemoteGoTo) actualO).getOpenInNewWindow());
-    assertEquals(PDActionRemoteGoTo.SUB_TYPE, actualO.getSubType());
-  }
-
-  /**
-   * Test {@link PDPageAdditionalActions#getO()}.
-   * <ul>
-   *   <li>Then return {@link PDActionResetForm}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDPageAdditionalActions#getO()}
-   */
-  @Test
-  @DisplayName("Test getO(); then return PDActionResetForm")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDPageAdditionalActions.getO()"})
-  void testGetO_thenReturnPDActionResetForm() {
-    // Arrange
-    PDPageAdditionalActions pdPageAdditionalActions = new PDPageAdditionalActions();
-    pdPageAdditionalActions.setO(new PDActionResetForm());
-
-    // Act
-    PDAction actualO = pdPageAdditionalActions.getO();
-
-    // Assert
-    assertTrue(actualO instanceof PDActionResetForm);
-    assertNull(((PDActionResetForm) actualO).getFields());
-    assertEquals(0, ((PDActionResetForm) actualO).getFlags());
-    assertEquals(PDActionResetForm.SUB_TYPE, actualO.getSubType());
-  }
-
-  /**
-   * Test {@link PDPageAdditionalActions#getO()}.
-   * <ul>
-   *   <li>Then return {@link PDActionSubmitForm}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDPageAdditionalActions#getO()}
-   */
-  @Test
-  @DisplayName("Test getO(); then return PDActionSubmitForm")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDPageAdditionalActions.getO()"})
-  void testGetO_thenReturnPDActionSubmitForm() throws IOException {
-    // Arrange
-    PDPageAdditionalActions pdPageAdditionalActions = new PDPageAdditionalActions();
-    pdPageAdditionalActions.setO(new PDActionSubmitForm());
-
-    // Act
-    PDAction actualO = pdPageAdditionalActions.getO();
-
-    // Assert
-    assertTrue(actualO instanceof PDActionSubmitForm);
-    assertNull(((PDActionSubmitForm) actualO).getFields());
-    assertNull(((PDActionSubmitForm) actualO).getFile());
-    assertEquals(0, ((PDActionSubmitForm) actualO).getFlags());
-    assertEquals(PDActionSubmitForm.SUB_TYPE, actualO.getSubType());
-  }
-
-  /**
-   * Test {@link PDPageAdditionalActions#setO(PDAction)}.
-   * <ul>
-   *   <li>Then {@link PDPageAdditionalActions#PDPageAdditionalActions()} O {@link PDActionEmbeddedGoTo}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDPageAdditionalActions#setO(PDAction)}
    */
   @Test
-  @DisplayName("Test setO(PDAction); then PDPageAdditionalActions() O PDActionEmbeddedGoTo")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDPageAdditionalActions.setO(PDAction)"})
-  void testSetO_thenPDPageAdditionalActionsOPDActionEmbeddedGoTo() throws IOException {
+  void testSetO() throws IOException {
     // Arrange
     PDPageAdditionalActions pdPageAdditionalActions = new PDPageAdditionalActions();
 
@@ -652,43 +585,196 @@ class PDPageAdditionalActionsDiffblueTest {
   }
 
   /**
-   * Test {@link PDPageAdditionalActions#setO(PDAction)}.
-   * <ul>
-   *   <li>Then {@link PDPageAdditionalActions#PDPageAdditionalActions(COSDictionary)} with a is {@link COSDictionary#COSDictionary()} COSObject size is zero.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDPageAdditionalActions#setO(PDAction)}
-   */
-  @Test
-  @DisplayName("Test setO(PDAction); then PDPageAdditionalActions(COSDictionary) with a is COSDictionary() COSObject size is zero")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDPageAdditionalActions.setO(PDAction)"})
-  void testSetO_thenPDPageAdditionalActionsWithAIsCOSDictionaryCOSObjectSizeIsZero() {
-    // Arrange
-    PDPageAdditionalActions pdPageAdditionalActions = new PDPageAdditionalActions(new COSDictionary());
-
-    // Act
-    pdPageAdditionalActions.setO(null);
-
-    // Assert that nothing has changed
-    COSDictionary cOSObject = pdPageAdditionalActions.getCOSObject();
-    assertEquals(0, cOSObject.size());
-    assertTrue(cOSObject.getValues().isEmpty());
-  }
-
-  /**
-   * Test {@link PDPageAdditionalActions#getC()}.
-   * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary()} Key is {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDPageAdditionalActions#getC()}
    */
   @Test
-  @DisplayName("Test getC(); given COSDictionary() Key is COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDPageAdditionalActions.getC()"})
-  void testGetC_givenCOSDictionaryKeyIsCOSObjectKeyWithNumIsOneAndGenIsOne() {
+  void testGetC() {
+    // Arrange, Act and Assert
+    assertNull((new PDPageAdditionalActions()).getC());
+  }
+
+  /**
+   * Method under test: {@link PDPageAdditionalActions#getC()}
+   */
+  @Test
+  void testGetC2() throws IOException {
+    // Arrange
+    PDPageAdditionalActions pdPageAdditionalActions = new PDPageAdditionalActions();
+    pdPageAdditionalActions.setC(new PDActionEmbeddedGoTo());
+
+    // Act
+    PDAction actualC = pdPageAdditionalActions.getC();
+
+    // Assert
+    assertTrue(actualC instanceof PDActionEmbeddedGoTo);
+    assertNull(actualC.getNext());
+    COSDictionary cOSObject = actualC.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertNull(((PDActionEmbeddedGoTo) actualC).getFile());
+    assertNull(((PDActionEmbeddedGoTo) actualC).getTargetDirectory());
+    assertNull(((PDActionEmbeddedGoTo) actualC).getDestination());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    assertEquals(OpenMode.USER_PREFERENCE, ((PDActionEmbeddedGoTo) actualC).getOpenInNewWindow());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertEquals(PDAction.TYPE, actualC.getType());
+    assertEquals(PDActionEmbeddedGoTo.SUB_TYPE, actualC.getSubType());
+  }
+
+  /**
+   * Method under test: {@link PDPageAdditionalActions#getC()}
+   */
+  @Test
+  void testGetC3() {
+    // Arrange
+    PDPageAdditionalActions pdPageAdditionalActions = new PDPageAdditionalActions();
+    pdPageAdditionalActions.setC(new PDActionEmbeddedGoTo(new COSDictionary()));
+
+    // Act and Assert
+    assertNull(pdPageAdditionalActions.getC());
+  }
+
+  /**
+   * Method under test: {@link PDPageAdditionalActions#getC()}
+   */
+  @Test
+  void testGetC4() throws IOException {
+    // Arrange
+    PDPageAdditionalActions pdPageAdditionalActions = new PDPageAdditionalActions();
+    pdPageAdditionalActions.setC(new PDActionGoTo());
+
+    // Act
+    PDAction actualC = pdPageAdditionalActions.getC();
+
+    // Assert
+    assertTrue(actualC instanceof PDActionGoTo);
+    assertNull(actualC.getNext());
+    COSDictionary cOSObject = actualC.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertNull(((PDActionGoTo) actualC).getDestination());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertEquals(PDAction.TYPE, actualC.getType());
+    assertEquals(PDActionGoTo.SUB_TYPE, actualC.getSubType());
+  }
+
+  /**
+   * Method under test: {@link PDPageAdditionalActions#getC()}
+   */
+  @Test
+  void testGetC5() {
+    // Arrange
+    PDPageAdditionalActions pdPageAdditionalActions = new PDPageAdditionalActions();
+    pdPageAdditionalActions.setC(new PDActionHide());
+
+    // Act
+    PDAction actualC = pdPageAdditionalActions.getC();
+
+    // Assert
+    assertTrue(actualC instanceof PDActionHide);
+    assertNull(actualC.getNext());
+    assertNull(((PDActionHide) actualC).getT());
+    COSDictionary cOSObject = actualC.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertTrue(((PDActionHide) actualC).getH());
+    assertEquals(PDAction.TYPE, actualC.getType());
+    assertEquals(PDActionHide.SUB_TYPE, actualC.getSubType());
+  }
+
+  /**
+   * Method under test: {@link PDPageAdditionalActions#getC()}
+   */
+  @Test
+  void testGetC6() throws IOException {
+    // Arrange
+    PDPageAdditionalActions pdPageAdditionalActions = new PDPageAdditionalActions();
+    pdPageAdditionalActions.setC(new PDActionImportData());
+
+    // Act
+    PDAction actualC = pdPageAdditionalActions.getC();
+
+    // Assert
+    assertTrue(actualC instanceof PDActionImportData);
+    assertNull(actualC.getNext());
+    COSDictionary cOSObject = actualC.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertNull(((PDActionImportData) actualC).getFile());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertEquals(PDAction.TYPE, actualC.getType());
+    assertEquals(PDActionImportData.SUB_TYPE, actualC.getSubType());
+  }
+
+  /**
+   * Method under test: {@link PDPageAdditionalActions#getC()}
+   */
+  @Test
+  void testGetC7() {
+    // Arrange
+    PDPageAdditionalActions pdPageAdditionalActions = new PDPageAdditionalActions();
+    pdPageAdditionalActions.setC(new PDActionJavaScript());
+
+    // Act
+    PDAction actualC = pdPageAdditionalActions.getC();
+
+    // Assert
+    assertTrue(actualC instanceof PDActionJavaScript);
+    assertNull(((PDActionJavaScript) actualC).getAction());
+    assertNull(actualC.getNext());
+    COSDictionary cOSObject = actualC.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertEquals(PDAction.TYPE, actualC.getType());
+    assertEquals(PDActionJavaScript.SUB_TYPE, actualC.getSubType());
+  }
+
+  /**
+   * Method under test: {@link PDPageAdditionalActions#getC()}
+   */
+  @Test
+  void testGetC8() {
     // Arrange
     COSDictionary a = new COSDictionary();
     a.setKey(new COSObjectKey(1L, 1));
@@ -702,18 +788,10 @@ class PDPageAdditionalActionsDiffblueTest {
   }
 
   /**
-   * Test {@link PDPageAdditionalActions#getC()}.
-   * <ul>
-   *   <li>Given {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo(COSDictionary)} with a is {@link COSDictionary#COSDictionary()} SubType is {@code foo}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDPageAdditionalActions#getC()}
    */
   @Test
-  @DisplayName("Test getC(); given PDActionEmbeddedGoTo(COSDictionary) with a is COSDictionary() SubType is 'foo'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDPageAdditionalActions.getC()"})
-  void testGetC_givenPDActionEmbeddedGoToWithAIsCOSDictionarySubTypeIsFoo() {
+  void testGetC9() {
     // Arrange
     PDActionEmbeddedGoTo c = new PDActionEmbeddedGoTo(new COSDictionary());
     c.setSubType("foo");
@@ -726,103 +804,10 @@ class PDPageAdditionalActionsDiffblueTest {
   }
 
   /**
-   * Test {@link PDPageAdditionalActions#getC()}.
-   * <ul>
-   *   <li>Given {@link PDPageAdditionalActions#PDPageAdditionalActions()} C is {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo(COSDictionary)} with a is {@link COSDictionary#COSDictionary()}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDPageAdditionalActions#getC()}
    */
   @Test
-  @DisplayName("Test getC(); given PDPageAdditionalActions() C is PDActionEmbeddedGoTo(COSDictionary) with a is COSDictionary()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDPageAdditionalActions.getC()"})
-  void testGetC_givenPDPageAdditionalActionsCIsPDActionEmbeddedGoToWithAIsCOSDictionary() {
-    // Arrange
-    PDPageAdditionalActions pdPageAdditionalActions = new PDPageAdditionalActions();
-    pdPageAdditionalActions.setC(new PDActionEmbeddedGoTo(new COSDictionary()));
-
-    // Act and Assert
-    assertNull(pdPageAdditionalActions.getC());
-  }
-
-  /**
-   * Test {@link PDPageAdditionalActions#getC()}.
-   * <ul>
-   *   <li>Given {@link PDPageAdditionalActions#PDPageAdditionalActions()} C is {@link PDActionGoTo#PDActionGoTo()}.</li>
-   *   <li>Then return {@link PDActionGoTo}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDPageAdditionalActions#getC()}
-   */
-  @Test
-  @DisplayName("Test getC(); given PDPageAdditionalActions() C is PDActionGoTo(); then return PDActionGoTo")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDPageAdditionalActions.getC()"})
-  void testGetC_givenPDPageAdditionalActionsCIsPDActionGoTo_thenReturnPDActionGoTo() throws IOException {
-    // Arrange
-    PDPageAdditionalActions pdPageAdditionalActions = new PDPageAdditionalActions();
-    pdPageAdditionalActions.setC(new PDActionGoTo());
-
-    // Act
-    PDAction actualC = pdPageAdditionalActions.getC();
-
-    // Assert
-    assertTrue(actualC instanceof PDActionGoTo);
-    assertNull(actualC.getNext());
-    COSDictionary cOSObject = actualC.getCOSObject();
-    assertNull(cOSObject.getKey());
-    assertNull(((PDActionGoTo) actualC).getDestination());
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    assertFalse(cOSObject.isDirect());
-    assertFalse(cOSObject.isNeedToBeUpdated());
-    assertEquals(PDAction.TYPE, actualC.getType());
-    assertEquals(PDActionGoTo.SUB_TYPE, actualC.getSubType());
-  }
-
-  /**
-   * Test {@link PDPageAdditionalActions#getC()}.
-   * <ul>
-   *   <li>Given {@link PDPageAdditionalActions#PDPageAdditionalActions()} C is {@link PDActionHide#PDActionHide()}.</li>
-   *   <li>Then return {@link PDActionHide}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDPageAdditionalActions#getC()}
-   */
-  @Test
-  @DisplayName("Test getC(); given PDPageAdditionalActions() C is PDActionHide(); then return PDActionHide")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDPageAdditionalActions.getC()"})
-  void testGetC_givenPDPageAdditionalActionsCIsPDActionHide_thenReturnPDActionHide() {
-    // Arrange
-    PDPageAdditionalActions pdPageAdditionalActions = new PDPageAdditionalActions();
-    pdPageAdditionalActions.setC(new PDActionHide());
-
-    // Act
-    PDAction actualC = pdPageAdditionalActions.getC();
-
-    // Assert
-    assertTrue(actualC instanceof PDActionHide);
-    assertNull(((PDActionHide) actualC).getT());
-    assertTrue(((PDActionHide) actualC).getH());
-    assertEquals(PDActionHide.SUB_TYPE, actualC.getSubType());
-  }
-
-  /**
-   * Test {@link PDPageAdditionalActions#getC()}.
-   * <ul>
-   *   <li>Given {@link PDPageAdditionalActions#PDPageAdditionalActions()} C is {@link PDActionLaunch#PDActionLaunch()}.</li>
-   *   <li>Then return {@link PDActionLaunch}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDPageAdditionalActions#getC()}
-   */
-  @Test
-  @DisplayName("Test getC(); given PDPageAdditionalActions() C is PDActionLaunch(); then return PDActionLaunch")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDPageAdditionalActions.getC()"})
-  void testGetC_givenPDPageAdditionalActionsCIsPDActionLaunch_thenReturnPDActionLaunch() throws IOException {
+  void testGetC10() throws IOException {
     // Arrange
     PDPageAdditionalActions pdPageAdditionalActions = new PDPageAdditionalActions();
     pdPageAdditionalActions.setC(new PDActionLaunch());
@@ -836,26 +821,31 @@ class PDPageAdditionalActionsDiffblueTest {
     assertNull(((PDActionLaunch) actualC).getF());
     assertNull(((PDActionLaunch) actualC).getO());
     assertNull(((PDActionLaunch) actualC).getP());
+    assertNull(actualC.getNext());
+    COSDictionary cOSObject = actualC.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
     assertNull(((PDActionLaunch) actualC).getFile());
     assertNull(((PDActionLaunch) actualC).getWinLaunchParams());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
     assertEquals(OpenMode.USER_PREFERENCE, ((PDActionLaunch) actualC).getOpenInNewWindow());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertEquals(PDAction.TYPE, actualC.getType());
     assertEquals(PDActionLaunch.SUB_TYPE, actualC.getSubType());
   }
 
   /**
-   * Test {@link PDPageAdditionalActions#getC()}.
-   * <ul>
-   *   <li>Given {@link PDPageAdditionalActions#PDPageAdditionalActions()} C is {@link PDActionMovie#PDActionMovie()}.</li>
-   *   <li>Then return {@link PDActionMovie}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDPageAdditionalActions#getC()}
    */
   @Test
-  @DisplayName("Test getC(); given PDPageAdditionalActions() C is PDActionMovie(); then return PDActionMovie")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDPageAdditionalActions.getC()"})
-  void testGetC_givenPDPageAdditionalActionsCIsPDActionMovie_thenReturnPDActionMovie() {
+  void testGetC11() {
     // Arrange
     PDPageAdditionalActions pdPageAdditionalActions = new PDPageAdditionalActions();
     pdPageAdditionalActions.setC(new PDActionMovie());
@@ -865,30 +855,28 @@ class PDPageAdditionalActionsDiffblueTest {
 
     // Assert
     assertTrue(actualC instanceof PDActionMovie);
+    assertNull(actualC.getNext());
     COSDictionary cOSObject = actualC.getCOSObject();
     COSUpdateState updateState = cOSObject.getUpdateState();
     assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
     COSIncrement toIncrementResult = cOSObject.toIncrement();
     assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
     assertFalse(updateState.isUpdated());
     assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertEquals(PDAction.TYPE, actualC.getType());
     assertEquals(PDActionMovie.SUB_TYPE, actualC.getSubType());
   }
 
   /**
-   * Test {@link PDPageAdditionalActions#getC()}.
-   * <ul>
-   *   <li>Given {@link PDPageAdditionalActions#PDPageAdditionalActions()} C is {@link PDActionNamed#PDActionNamed()}.</li>
-   *   <li>Then return {@link PDActionNamed}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDPageAdditionalActions#getC()}
    */
   @Test
-  @DisplayName("Test getC(); given PDPageAdditionalActions() C is PDActionNamed(); then return PDActionNamed")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDPageAdditionalActions.getC()"})
-  void testGetC_givenPDPageAdditionalActionsCIsPDActionNamed_thenReturnPDActionNamed() {
+  void testGetC12() {
     // Arrange
     PDPageAdditionalActions pdPageAdditionalActions = new PDPageAdditionalActions();
     pdPageAdditionalActions.setC(new PDActionNamed());
@@ -901,29 +889,93 @@ class PDPageAdditionalActionsDiffblueTest {
     assertNull(((PDActionNamed) actualC).getN());
     assertNull(actualC.getNext());
     COSDictionary cOSObject = actualC.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
     assertNull(cOSObject.getKey());
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
     assertFalse(cOSObject.isDirect());
     assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
     assertEquals(PDAction.TYPE, actualC.getType());
     assertEquals(PDActionNamed.SUB_TYPE, actualC.getSubType());
   }
 
   /**
-   * Test {@link PDPageAdditionalActions#getC()}.
-   * <ul>
-   *   <li>Given {@link PDPageAdditionalActions#PDPageAdditionalActions()} C is {@link PDActionSound#PDActionSound()}.</li>
-   *   <li>Then return {@link PDActionSound}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDPageAdditionalActions#getC()}
    */
   @Test
-  @DisplayName("Test getC(); given PDPageAdditionalActions() C is PDActionSound(); then return PDActionSound")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDPageAdditionalActions.getC()"})
-  void testGetC_givenPDPageAdditionalActionsCIsPDActionSound_thenReturnPDActionSound() {
+  void testGetC13() throws IOException {
+    // Arrange
+    PDPageAdditionalActions pdPageAdditionalActions = new PDPageAdditionalActions();
+    pdPageAdditionalActions.setC(new PDActionRemoteGoTo());
+
+    // Act
+    PDAction actualC = pdPageAdditionalActions.getC();
+
+    // Assert
+    assertTrue(actualC instanceof PDActionRemoteGoTo);
+    assertNull(actualC.getNext());
+    assertNull(((PDActionRemoteGoTo) actualC).getD());
+    COSDictionary cOSObject = actualC.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertNull(((PDActionRemoteGoTo) actualC).getFile());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    assertEquals(OpenMode.USER_PREFERENCE, ((PDActionRemoteGoTo) actualC).getOpenInNewWindow());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertEquals(PDAction.TYPE, actualC.getType());
+    assertEquals(PDActionRemoteGoTo.SUB_TYPE, actualC.getSubType());
+  }
+
+  /**
+   * Method under test: {@link PDPageAdditionalActions#getC()}
+   */
+  @Test
+  void testGetC14() {
+    // Arrange
+    PDPageAdditionalActions pdPageAdditionalActions = new PDPageAdditionalActions();
+    pdPageAdditionalActions.setC(new PDActionResetForm());
+
+    // Act
+    PDAction actualC = pdPageAdditionalActions.getC();
+
+    // Assert
+    assertTrue(actualC instanceof PDActionResetForm);
+    assertNull(actualC.getNext());
+    assertNull(((PDActionResetForm) actualC).getFields());
+    COSDictionary cOSObject = actualC.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertEquals(0, ((PDActionResetForm) actualC).getFlags());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertEquals(PDAction.TYPE, actualC.getType());
+    assertEquals(PDActionResetForm.SUB_TYPE, actualC.getSubType());
+  }
+
+  /**
+   * Method under test: {@link PDPageAdditionalActions#getC()}
+   */
+  @Test
+  void testGetC15() {
     // Arrange
     PDPageAdditionalActions pdPageAdditionalActions = new PDPageAdditionalActions();
     pdPageAdditionalActions.setC(new PDActionSound());
@@ -933,28 +985,67 @@ class PDPageAdditionalActionsDiffblueTest {
 
     // Assert
     assertTrue(actualC instanceof PDActionSound);
+    assertNull(actualC.getNext());
+    COSDictionary cOSObject = actualC.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
     assertNull(((PDActionSound) actualC).getSound());
     assertEquals(1.0f, ((PDActionSound) actualC).getVolume());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
     assertFalse(((PDActionSound) actualC).getMix());
     assertFalse(((PDActionSound) actualC).getRepeat());
     assertFalse(((PDActionSound) actualC).getSynchronous());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertEquals(PDAction.TYPE, actualC.getType());
     assertEquals(PDActionSound.SUB_TYPE, actualC.getSubType());
   }
 
   /**
-   * Test {@link PDPageAdditionalActions#getC()}.
-   * <ul>
-   *   <li>Given {@link PDPageAdditionalActions#PDPageAdditionalActions()} C is {@link PDActionThread#PDActionThread()}.</li>
-   *   <li>Then return {@link PDActionThread}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDPageAdditionalActions#getC()}
    */
   @Test
-  @DisplayName("Test getC(); given PDPageAdditionalActions() C is PDActionThread(); then return PDActionThread")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDPageAdditionalActions.getC()"})
-  void testGetC_givenPDPageAdditionalActionsCIsPDActionThread_thenReturnPDActionThread() throws IOException {
+  void testGetC16() throws IOException {
+    // Arrange
+    PDPageAdditionalActions pdPageAdditionalActions = new PDPageAdditionalActions();
+    pdPageAdditionalActions.setC(new PDActionSubmitForm());
+
+    // Act
+    PDAction actualC = pdPageAdditionalActions.getC();
+
+    // Assert
+    assertTrue(actualC instanceof PDActionSubmitForm);
+    assertNull(actualC.getNext());
+    assertNull(((PDActionSubmitForm) actualC).getFields());
+    COSDictionary cOSObject = actualC.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertNull(((PDActionSubmitForm) actualC).getFile());
+    assertEquals(0, ((PDActionSubmitForm) actualC).getFlags());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertEquals(PDAction.TYPE, actualC.getType());
+    assertEquals(PDActionSubmitForm.SUB_TYPE, actualC.getSubType());
+  }
+
+  /**
+   * Method under test: {@link PDPageAdditionalActions#getC()}
+   */
+  @Test
+  void testGetC17() throws IOException {
     // Arrange
     PDPageAdditionalActions pdPageAdditionalActions = new PDPageAdditionalActions();
     pdPageAdditionalActions.setC(new PDActionThread());
@@ -964,26 +1055,31 @@ class PDPageAdditionalActionsDiffblueTest {
 
     // Assert
     assertTrue(actualC instanceof PDActionThread);
+    assertNull(actualC.getNext());
     assertNull(((PDActionThread) actualC).getB());
     assertNull(((PDActionThread) actualC).getD());
+    COSDictionary cOSObject = actualC.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
     assertNull(((PDActionThread) actualC).getFile());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertEquals(PDAction.TYPE, actualC.getType());
     assertEquals(PDActionThread.SUB_TYPE, actualC.getSubType());
   }
 
   /**
-   * Test {@link PDPageAdditionalActions#getC()}.
-   * <ul>
-   *   <li>Given {@link PDPageAdditionalActions#PDPageAdditionalActions()} C is {@link PDActionURI#PDActionURI()}.</li>
-   *   <li>Then return {@link PDActionURI}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDPageAdditionalActions#getC()}
    */
   @Test
-  @DisplayName("Test getC(); given PDPageAdditionalActions() C is PDActionURI(); then return PDActionURI")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDPageAdditionalActions.getC()"})
-  void testGetC_givenPDPageAdditionalActionsCIsPDActionURI_thenReturnPDActionURI() {
+  void testGetC18() {
     // Arrange
     PDPageAdditionalActions pdPageAdditionalActions = new PDPageAdditionalActions();
     pdPageAdditionalActions.setC(new PDActionURI());
@@ -996,226 +1092,26 @@ class PDPageAdditionalActionsDiffblueTest {
     assertNull(((PDActionURI) actualC).getURI());
     assertNull(actualC.getNext());
     COSDictionary cOSObject = actualC.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
     assertNull(cOSObject.getKey());
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
     assertFalse(cOSObject.isDirect());
     assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
     assertEquals(PDAction.TYPE, actualC.getType());
     assertEquals(PDActionURI.SUB_TYPE, actualC.getSubType());
   }
 
   /**
-   * Test {@link PDPageAdditionalActions#getC()}.
-   * <ul>
-   *   <li>Given {@link PDPageAdditionalActions#PDPageAdditionalActions()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDPageAdditionalActions#getC()}
-   */
-  @Test
-  @DisplayName("Test getC(); given PDPageAdditionalActions(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDPageAdditionalActions.getC()"})
-  void testGetC_givenPDPageAdditionalActions_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull((new PDPageAdditionalActions()).getC());
-  }
-
-  /**
-   * Test {@link PDPageAdditionalActions#getC()}.
-   * <ul>
-   *   <li>Then return {@link PDActionEmbeddedGoTo}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDPageAdditionalActions#getC()}
-   */
-  @Test
-  @DisplayName("Test getC(); then return PDActionEmbeddedGoTo")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDPageAdditionalActions.getC()"})
-  void testGetC_thenReturnPDActionEmbeddedGoTo() throws IOException {
-    // Arrange
-    PDPageAdditionalActions pdPageAdditionalActions = new PDPageAdditionalActions();
-    pdPageAdditionalActions.setC(new PDActionEmbeddedGoTo());
-
-    // Act
-    PDAction actualC = pdPageAdditionalActions.getC();
-
-    // Assert
-    assertTrue(actualC instanceof PDActionEmbeddedGoTo);
-    assertNull(((PDActionEmbeddedGoTo) actualC).getFile());
-    assertNull(((PDActionEmbeddedGoTo) actualC).getTargetDirectory());
-    assertNull(((PDActionEmbeddedGoTo) actualC).getDestination());
-    assertEquals(OpenMode.USER_PREFERENCE, ((PDActionEmbeddedGoTo) actualC).getOpenInNewWindow());
-    assertEquals(PDActionEmbeddedGoTo.SUB_TYPE, actualC.getSubType());
-  }
-
-  /**
-   * Test {@link PDPageAdditionalActions#getC()}.
-   * <ul>
-   *   <li>Then return {@link PDActionImportData}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDPageAdditionalActions#getC()}
-   */
-  @Test
-  @DisplayName("Test getC(); then return PDActionImportData")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDPageAdditionalActions.getC()"})
-  void testGetC_thenReturnPDActionImportData() throws IOException {
-    // Arrange
-    PDPageAdditionalActions pdPageAdditionalActions = new PDPageAdditionalActions();
-    pdPageAdditionalActions.setC(new PDActionImportData());
-
-    // Act
-    PDAction actualC = pdPageAdditionalActions.getC();
-
-    // Assert
-    assertTrue(actualC instanceof PDActionImportData);
-    assertNull(actualC.getNext());
-    COSDictionary cOSObject = actualC.getCOSObject();
-    assertNull(cOSObject.getKey());
-    assertNull(((PDActionImportData) actualC).getFile());
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    assertFalse(cOSObject.isDirect());
-    assertFalse(cOSObject.isNeedToBeUpdated());
-    assertEquals(PDAction.TYPE, actualC.getType());
-    assertEquals(PDActionImportData.SUB_TYPE, actualC.getSubType());
-  }
-
-  /**
-   * Test {@link PDPageAdditionalActions#getC()}.
-   * <ul>
-   *   <li>Then return {@link PDActionJavaScript}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDPageAdditionalActions#getC()}
-   */
-  @Test
-  @DisplayName("Test getC(); then return PDActionJavaScript")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDPageAdditionalActions.getC()"})
-  void testGetC_thenReturnPDActionJavaScript() {
-    // Arrange
-    PDPageAdditionalActions pdPageAdditionalActions = new PDPageAdditionalActions();
-    pdPageAdditionalActions.setC(new PDActionJavaScript());
-
-    // Act
-    PDAction actualC = pdPageAdditionalActions.getC();
-
-    // Assert
-    assertTrue(actualC instanceof PDActionJavaScript);
-    assertNull(((PDActionJavaScript) actualC).getAction());
-    assertNull(actualC.getNext());
-    COSDictionary cOSObject = actualC.getCOSObject();
-    assertNull(cOSObject.getKey());
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    assertFalse(cOSObject.isDirect());
-    assertFalse(cOSObject.isNeedToBeUpdated());
-    assertEquals(PDAction.TYPE, actualC.getType());
-    assertEquals(PDActionJavaScript.SUB_TYPE, actualC.getSubType());
-  }
-
-  /**
-   * Test {@link PDPageAdditionalActions#getC()}.
-   * <ul>
-   *   <li>Then return {@link PDActionRemoteGoTo}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDPageAdditionalActions#getC()}
-   */
-  @Test
-  @DisplayName("Test getC(); then return PDActionRemoteGoTo")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDPageAdditionalActions.getC()"})
-  void testGetC_thenReturnPDActionRemoteGoTo() throws IOException {
-    // Arrange
-    PDPageAdditionalActions pdPageAdditionalActions = new PDPageAdditionalActions();
-    pdPageAdditionalActions.setC(new PDActionRemoteGoTo());
-
-    // Act
-    PDAction actualC = pdPageAdditionalActions.getC();
-
-    // Assert
-    assertTrue(actualC instanceof PDActionRemoteGoTo);
-    assertNull(((PDActionRemoteGoTo) actualC).getD());
-    assertNull(((PDActionRemoteGoTo) actualC).getFile());
-    assertEquals(OpenMode.USER_PREFERENCE, ((PDActionRemoteGoTo) actualC).getOpenInNewWindow());
-    assertEquals(PDActionRemoteGoTo.SUB_TYPE, actualC.getSubType());
-  }
-
-  /**
-   * Test {@link PDPageAdditionalActions#getC()}.
-   * <ul>
-   *   <li>Then return {@link PDActionResetForm}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDPageAdditionalActions#getC()}
-   */
-  @Test
-  @DisplayName("Test getC(); then return PDActionResetForm")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDPageAdditionalActions.getC()"})
-  void testGetC_thenReturnPDActionResetForm() {
-    // Arrange
-    PDPageAdditionalActions pdPageAdditionalActions = new PDPageAdditionalActions();
-    pdPageAdditionalActions.setC(new PDActionResetForm());
-
-    // Act
-    PDAction actualC = pdPageAdditionalActions.getC();
-
-    // Assert
-    assertTrue(actualC instanceof PDActionResetForm);
-    assertNull(((PDActionResetForm) actualC).getFields());
-    assertEquals(0, ((PDActionResetForm) actualC).getFlags());
-    assertEquals(PDActionResetForm.SUB_TYPE, actualC.getSubType());
-  }
-
-  /**
-   * Test {@link PDPageAdditionalActions#getC()}.
-   * <ul>
-   *   <li>Then return {@link PDActionSubmitForm}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDPageAdditionalActions#getC()}
-   */
-  @Test
-  @DisplayName("Test getC(); then return PDActionSubmitForm")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDPageAdditionalActions.getC()"})
-  void testGetC_thenReturnPDActionSubmitForm() throws IOException {
-    // Arrange
-    PDPageAdditionalActions pdPageAdditionalActions = new PDPageAdditionalActions();
-    pdPageAdditionalActions.setC(new PDActionSubmitForm());
-
-    // Act
-    PDAction actualC = pdPageAdditionalActions.getC();
-
-    // Assert
-    assertTrue(actualC instanceof PDActionSubmitForm);
-    assertNull(((PDActionSubmitForm) actualC).getFields());
-    assertNull(((PDActionSubmitForm) actualC).getFile());
-    assertEquals(0, ((PDActionSubmitForm) actualC).getFlags());
-    assertEquals(PDActionSubmitForm.SUB_TYPE, actualC.getSubType());
-  }
-
-  /**
-   * Test {@link PDPageAdditionalActions#setC(PDAction)}.
-   * <ul>
-   *   <li>Then {@link PDPageAdditionalActions#PDPageAdditionalActions()} C {@link PDActionEmbeddedGoTo}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDPageAdditionalActions#setC(PDAction)}
    */
   @Test
-  @DisplayName("Test setC(PDAction); then PDPageAdditionalActions() C PDActionEmbeddedGoTo")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDPageAdditionalActions.setC(PDAction)"})
-  void testSetC_thenPDPageAdditionalActionsCPDActionEmbeddedGoTo() throws IOException {
+  void testSetC() throws IOException {
     // Arrange
     PDPageAdditionalActions pdPageAdditionalActions = new PDPageAdditionalActions();
 
@@ -1238,27 +1134,40 @@ class PDPageAdditionalActionsDiffblueTest {
   }
 
   /**
-   * Test {@link PDPageAdditionalActions#setC(PDAction)}.
-   * <ul>
-   *   <li>Then {@link PDPageAdditionalActions#PDPageAdditionalActions(COSDictionary)} with a is {@link COSDictionary#COSDictionary()} COSObject size is zero.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDPageAdditionalActions#setC(PDAction)}
+   * Method under test:
+   * {@link PDPageAdditionalActions#PDPageAdditionalActions(COSDictionary)}
    */
   @Test
-  @DisplayName("Test setC(PDAction); then PDPageAdditionalActions(COSDictionary) with a is COSDictionary() COSObject size is zero")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDPageAdditionalActions.setC(PDAction)"})
-  void testSetC_thenPDPageAdditionalActionsWithAIsCOSDictionaryCOSObjectSizeIsZero() {
+  void testNewPDPageAdditionalActions() {
     // Arrange
-    PDPageAdditionalActions pdPageAdditionalActions = new PDPageAdditionalActions(new COSDictionary());
+    COSDictionary a = new COSDictionary();
 
-    // Act
-    pdPageAdditionalActions.setC(null);
+    // Act and Assert
+    assertSame(a, (new PDPageAdditionalActions(a)).getCOSObject());
+  }
 
-    // Assert that nothing has changed
-    COSDictionary cOSObject = pdPageAdditionalActions.getCOSObject();
+  /**
+   * Method under test: {@link PDPageAdditionalActions#PDPageAdditionalActions()}
+   */
+  @Test
+  void testNewPDPageAdditionalActions2() {
+    // Arrange and Act
+    PDPageAdditionalActions actualPdPageAdditionalActions = new PDPageAdditionalActions();
+
+    // Assert
+    COSDictionary cOSObject = actualPdPageAdditionalActions.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertNull(actualPdPageAdditionalActions.getC());
+    assertNull(actualPdPageAdditionalActions.getO());
     assertEquals(0, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
     assertTrue(cOSObject.getValues().isEmpty());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
   }
 }

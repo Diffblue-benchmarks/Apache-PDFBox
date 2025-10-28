@@ -4,21 +4,17 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import org.apache.pdfbox.pdmodel.common.COSObjectable;
 import org.junit.jupiter.api.Test;
 
 class COSBaseDiffblueTest {
   /**
-   * Test {@link COSBase#getCOSObject()}.
-   * <p>
    * Method under test: {@link COSBase#getCOSObject()}
    */
   @Test
-  @DisplayName("Test getCOSObject()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"COSBase COSBase.getCOSObject()"})
   void testGetCOSObject() {
     // Arrange
     COSArray cosArray = new COSArray();
@@ -33,52 +29,119 @@ class COSBaseDiffblueTest {
   }
 
   /**
-   * Test {@link COSBase#isDirect()}.
-   * <ul>
-   *   <li>Given {@link COSArray#COSArray()}.</li>
-   *   <li>Then return {@code true}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link COSBase#isDirect()}
+   * Method under test: {@link COSBase#getCOSObject()}
    */
   @Test
-  @DisplayName("Test isDirect(); given COSArray(); then return 'true'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean COSBase.isDirect()"})
-  void testIsDirect_givenCOSArray_thenReturnTrue() {
-    // Arrange, Act and Assert
-    assertTrue((new COSArray()).isDirect());
+  void testGetCOSObject2() {
+    // Arrange
+    COSObjectable object = mock(COSObjectable.class);
+    when(object.getCOSObject()).thenReturn(COSBoolean.FALSE);
+
+    COSArray cosArray = new COSArray();
+    cosArray.add(object);
+
+    // Act
+    COSBase actualCOSObject = cosArray.getCOSObject();
+
+    // Assert
+    verify(object).getCOSObject();
+    assertSame(cosArray, actualCOSObject);
   }
 
   /**
-   * Test {@link COSBase#isDirect()}.
-   * <ul>
-   *   <li>Given {@link COSBoolean#FALSE}.</li>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link COSBase#isDirect()}
    */
   @Test
-  @DisplayName("Test isDirect(); given FALSE; then return 'false'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean COSBase.isDirect()"})
-  void testIsDirect_givenFalse_thenReturnFalse() {
+  void testIsDirect() {
     // Arrange, Act and Assert
+    assertTrue((new COSArray()).isDirect());
     assertFalse(COSBoolean.FALSE.isDirect());
   }
 
   /**
-   * Test {@link COSBase#getKey()}.
-   * <p>
+   * Method under test: {@link COSBase#isDirect()}
+   */
+  @Test
+  void testIsDirect2() {
+    // Arrange
+    COSObjectable object = mock(COSObjectable.class);
+    when(object.getCOSObject()).thenReturn(COSBoolean.FALSE);
+
+    COSArray cosArray = new COSArray();
+    cosArray.add(object);
+
+    // Act
+    boolean actualIsDirectResult = cosArray.isDirect();
+
+    // Assert
+    verify(object).getCOSObject();
+    assertTrue(actualIsDirectResult);
+  }
+
+  /**
+   * Method under test: {@link COSBase#setDirect(boolean)}
+   */
+  @Test
+  void testSetDirect() {
+    // Arrange
+    COSObjectable object = mock(COSObjectable.class);
+    when(object.getCOSObject()).thenReturn(COSBoolean.FALSE);
+
+    COSArray cosArray = new COSArray();
+    cosArray.add(object);
+
+    // Act
+    cosArray.setDirect(true);
+
+    // Assert
+    verify(object).getCOSObject();
+  }
+
+  /**
    * Method under test: {@link COSBase#getKey()}
    */
   @Test
-  @DisplayName("Test getKey()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"org.apache.pdfbox.cos.COSObjectKey COSBase.getKey()"})
   void testGetKey() {
     // Arrange, Act and Assert
     assertNull((new COSArray()).getKey());
+  }
+
+  /**
+   * Method under test: {@link COSBase#getKey()}
+   */
+  @Test
+  void testGetKey2() {
+    // Arrange
+    COSObjectable object = mock(COSObjectable.class);
+    when(object.getCOSObject()).thenReturn(COSBoolean.FALSE);
+
+    COSArray cosArray = new COSArray();
+    cosArray.add(object);
+
+    // Act
+    COSObjectKey actualKey = cosArray.getKey();
+
+    // Assert
+    verify(object).getCOSObject();
+    assertNull(actualKey);
+  }
+
+  /**
+   * Method under test: {@link COSBase#setKey(COSObjectKey)}
+   */
+  @Test
+  void testSetKey() {
+    // Arrange
+    COSObjectable object = mock(COSObjectable.class);
+    when(object.getCOSObject()).thenReturn(COSBoolean.FALSE);
+
+    COSArray cosArray = new COSArray();
+    cosArray.add(object);
+
+    // Act
+    cosArray.setKey(new COSObjectKey(1L, 1));
+
+    // Assert
+    verify(object).getCOSObject();
   }
 }

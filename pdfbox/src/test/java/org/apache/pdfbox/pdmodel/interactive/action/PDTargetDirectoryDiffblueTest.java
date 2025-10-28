@@ -11,7 +11,6 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.UnsupportedEncodingException;
 import org.apache.pdfbox.cos.COSBase;
 import org.apache.pdfbox.cos.COSDictionary;
@@ -22,67 +21,14 @@ import org.apache.pdfbox.cos.COSString;
 import org.apache.pdfbox.cos.COSUpdateState;
 import org.apache.pdfbox.pdmodel.common.COSObjectable;
 import org.apache.pdfbox.pdmodel.interactive.documentnavigation.destination.PDNamedDestination;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 class PDTargetDirectoryDiffblueTest {
   /**
-   * Test {@link PDTargetDirectory#PDTargetDirectory(COSDictionary)}.
-   * <p>
-   * Method under test: {@link PDTargetDirectory#PDTargetDirectory(COSDictionary)}
-   */
-  @Test
-  @DisplayName("Test new PDTargetDirectory(COSDictionary)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDTargetDirectory.<init>(COSDictionary)"})
-  void testNewPDTargetDirectory() {
-    // Arrange
-    COSDictionary dictionary = new COSDictionary();
-
-    // Act and Assert
-    assertSame(dictionary, (new PDTargetDirectory(dictionary)).getCOSObject());
-  }
-
-  /**
-   * Test {@link PDTargetDirectory#PDTargetDirectory()}.
-   * <p>
-   * Method under test: {@link PDTargetDirectory#PDTargetDirectory()}
-   */
-  @Test
-  @DisplayName("Test new PDTargetDirectory()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDTargetDirectory.<init>()"})
-  void testNewPDTargetDirectory2() {
-    // Arrange and Act
-    PDTargetDirectory actualPdTargetDirectory = new PDTargetDirectory();
-
-    // Assert
-    assertNull(actualPdTargetDirectory.getAnnotationName());
-    assertNull(actualPdTargetDirectory.getFilename());
-    assertNull(actualPdTargetDirectory.getRelationship());
-    COSDictionary cOSObject = actualPdTargetDirectory.getCOSObject();
-    assertNull(cOSObject.getKey());
-    assertNull(actualPdTargetDirectory.getTargetDirectory());
-    assertNull(actualPdTargetDirectory.getNamedDestination());
-    assertEquals(-1, actualPdTargetDirectory.getAnnotationIndex());
-    assertEquals(-1, actualPdTargetDirectory.getPageNumber());
-    assertEquals(0, cOSObject.size());
-    assertFalse(cOSObject.isDirect());
-    assertFalse(cOSObject.isNeedToBeUpdated());
-    assertTrue(cOSObject.getValues().isEmpty());
-  }
-
-  /**
-   * Test {@link PDTargetDirectory#getCOSObject()}.
-   * <p>
    * Method under test: {@link PDTargetDirectory#getCOSObject()}
    */
   @Test
-  @DisplayName("Test getCOSObject()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"COSDictionary PDTargetDirectory.getCOSObject()"})
   void testGetCOSObject() {
     // Arrange and Act
     COSDictionary actualCOSObject = (new PDTargetDirectory()).getCOSObject();
@@ -102,55 +48,37 @@ class PDTargetDirectoryDiffblueTest {
   }
 
   /**
-   * Test {@link PDTargetDirectory#getRelationship()}.
-   * <ul>
-   *   <li>Given {@link PDTargetDirectory#PDTargetDirectory()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDTargetDirectory#getRelationship()}
    */
   @Test
-  @DisplayName("Test getRelationship(); given PDTargetDirectory(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"COSName PDTargetDirectory.getRelationship()"})
-  void testGetRelationship_givenPDTargetDirectory_thenReturnNull() {
+  void testGetRelationship() {
     // Arrange, Act and Assert
     assertNull((new PDTargetDirectory()).getRelationship());
   }
 
   /**
-   * Test {@link PDTargetDirectory#setRelationship(COSName)}.
-   * <ul>
-   *   <li>When {@link COSName#A}.</li>
-   *   <li>Then throw {@link IllegalArgumentException}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDTargetDirectory#setRelationship(COSName)}
    */
   @Test
-  @DisplayName("Test setRelationship(COSName); when A; then throw IllegalArgumentException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDTargetDirectory.setRelationship(COSName)"})
-  void testSetRelationship_whenA_thenThrowIllegalArgumentException() {
+  void testSetRelationship() {
     // Arrange, Act and Assert
     assertThrows(IllegalArgumentException.class, () -> (new PDTargetDirectory()).setRelationship(COSName.A));
   }
 
   /**
-   * Test {@link PDTargetDirectory#getFilename()}.
-   * <ul>
-   *   <li>Given {@link PDTargetDirectory#PDTargetDirectory()} Filename is {@code foo.txt}.</li>
-   *   <li>Then return {@code foo.txt}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDTargetDirectory#getFilename()}
    */
   @Test
-  @DisplayName("Test getFilename(); given PDTargetDirectory() Filename is 'foo.txt'; then return 'foo.txt'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDTargetDirectory.getFilename()"})
-  void testGetFilename_givenPDTargetDirectoryFilenameIsFooTxt_thenReturnFooTxt() {
+  void testGetFilename() {
+    // Arrange, Act and Assert
+    assertNull((new PDTargetDirectory()).getFilename());
+  }
+
+  /**
+   * Method under test: {@link PDTargetDirectory#getFilename()}
+   */
+  @Test
+  void testGetFilename2() {
     // Arrange
     PDTargetDirectory pdTargetDirectory = new PDTargetDirectory();
     pdTargetDirectory.setFilename("foo.txt");
@@ -160,36 +88,10 @@ class PDTargetDirectoryDiffblueTest {
   }
 
   /**
-   * Test {@link PDTargetDirectory#getFilename()}.
-   * <ul>
-   *   <li>Given {@link PDTargetDirectory#PDTargetDirectory()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDTargetDirectory#getFilename()}
    */
   @Test
-  @DisplayName("Test getFilename(); given PDTargetDirectory(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDTargetDirectory.getFilename()"})
-  void testGetFilename_givenPDTargetDirectory_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull((new PDTargetDirectory()).getFilename());
-  }
-
-  /**
-   * Test {@link PDTargetDirectory#getFilename()}.
-   * <ul>
-   *   <li>Then return empty string.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDTargetDirectory#getFilename()}
-   */
-  @Test
-  @DisplayName("Test getFilename(); then return empty string")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDTargetDirectory.getFilename()"})
-  void testGetFilename_thenReturnEmptyString() {
+  void testGetFilename3() {
     // Arrange
     PDTargetDirectory pdTargetDirectory = new PDTargetDirectory();
     pdTargetDirectory.setFilename("");
@@ -199,19 +101,10 @@ class PDTargetDirectoryDiffblueTest {
   }
 
   /**
-   * Test {@link PDTargetDirectory#setFilename(String)}.
-   * <ul>
-   *   <li>Given {@link PDTargetDirectory#PDTargetDirectory()}.</li>
-   *   <li>Then {@link PDTargetDirectory#PDTargetDirectory()} Filename is {@code foo.txt}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDTargetDirectory#setFilename(String)}
    */
   @Test
-  @DisplayName("Test setFilename(String); given PDTargetDirectory(); then PDTargetDirectory() Filename is 'foo.txt'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDTargetDirectory.setFilename(String)"})
-  void testSetFilename_givenPDTargetDirectory_thenPDTargetDirectoryFilenameIsFooTxt() {
+  void testSetFilename() {
     // Arrange
     PDTargetDirectory pdTargetDirectory = new PDTargetDirectory();
 
@@ -226,36 +119,19 @@ class PDTargetDirectoryDiffblueTest {
   }
 
   /**
-   * Test {@link PDTargetDirectory#getTargetDirectory()}.
-   * <ul>
-   *   <li>Given {@link PDTargetDirectory#PDTargetDirectory()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDTargetDirectory#getTargetDirectory()}
    */
   @Test
-  @DisplayName("Test getTargetDirectory(); given PDTargetDirectory(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDTargetDirectory PDTargetDirectory.getTargetDirectory()"})
-  void testGetTargetDirectory_givenPDTargetDirectory_thenReturnNull() {
+  void testGetTargetDirectory() {
     // Arrange, Act and Assert
     assertNull((new PDTargetDirectory()).getTargetDirectory());
   }
 
   /**
-   * Test {@link PDTargetDirectory#getTargetDirectory()}.
-   * <ul>
-   *   <li>Then return AnnotationName is {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDTargetDirectory#getTargetDirectory()}
    */
   @Test
-  @DisplayName("Test getTargetDirectory(); then return AnnotationName is 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDTargetDirectory PDTargetDirectory.getTargetDirectory()"})
-  void testGetTargetDirectory_thenReturnAnnotationNameIsNull() {
+  void testGetTargetDirectory2() {
     // Arrange
     PDTargetDirectory pdTargetDirectory = new PDTargetDirectory();
     pdTargetDirectory.setTargetDirectory(new PDTargetDirectory());
@@ -266,31 +142,29 @@ class PDTargetDirectoryDiffblueTest {
     // Assert
     assertNull(actualTargetDirectory.getAnnotationName());
     assertNull(actualTargetDirectory.getFilename());
-    assertNull(actualTargetDirectory.getRelationship());
     COSDictionary cOSObject = actualTargetDirectory.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(actualTargetDirectory.getRelationship());
     assertNull(cOSObject.getKey());
     assertNull(actualTargetDirectory.getNamedDestination());
     assertEquals(-1, actualTargetDirectory.getAnnotationIndex());
     assertEquals(-1, actualTargetDirectory.getPageNumber());
     assertEquals(0, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
     assertFalse(cOSObject.isDirect());
     assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
     assertTrue(cOSObject.getValues().isEmpty());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
   }
 
   /**
-   * Test {@link PDTargetDirectory#getTargetDirectory()}.
-   * <ul>
-   *   <li>Then return COSObject is {@link COSDictionary#COSDictionary()}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDTargetDirectory#getTargetDirectory()}
    */
   @Test
-  @DisplayName("Test getTargetDirectory(); then return COSObject is COSDictionary()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDTargetDirectory PDTargetDirectory.getTargetDirectory()"})
-  void testGetTargetDirectory_thenReturnCOSObjectIsCOSDictionary() {
+  void testGetTargetDirectory3() {
     // Arrange
     COSDictionary dictionary = new COSDictionary();
     dictionary.setKey(new COSObjectKey(1L, 1));
@@ -299,24 +173,25 @@ class PDTargetDirectoryDiffblueTest {
     PDTargetDirectory pdTargetDirectory = new PDTargetDirectory();
     pdTargetDirectory.setTargetDirectory(targetDirectory);
 
-    // Act and Assert
-    assertSame(dictionary, pdTargetDirectory.getTargetDirectory().getCOSObject());
+    // Act
+    PDTargetDirectory actualTargetDirectory = pdTargetDirectory.getTargetDirectory();
+
+    // Assert
+    assertNull(actualTargetDirectory.getAnnotationName());
+    assertNull(actualTargetDirectory.getFilename());
+    assertNull(actualTargetDirectory.getRelationship());
+    assertNull(actualTargetDirectory.getNamedDestination());
+    assertEquals(-1, actualTargetDirectory.getAnnotationIndex());
+    assertEquals(-1, actualTargetDirectory.getPageNumber());
+    assertSame(dictionary, actualTargetDirectory.getCOSObject());
   }
 
   /**
-   * Test {@link PDTargetDirectory#setTargetDirectory(PDTargetDirectory)}.
-   * <ul>
-   *   <li>Given {@link COSDictionary} {@link COSDictionary#setItem(COSName, COSObjectable)} does nothing.</li>
-   *   <li>Then calls {@link COSDictionary#setItem(COSName, COSObjectable)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDTargetDirectory#setTargetDirectory(PDTargetDirectory)}
+   * Method under test:
+   * {@link PDTargetDirectory#setTargetDirectory(PDTargetDirectory)}
    */
   @Test
-  @DisplayName("Test setTargetDirectory(PDTargetDirectory); given COSDictionary setItem(COSName, COSObjectable) does nothing; then calls setItem(COSName, COSObjectable)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDTargetDirectory.setTargetDirectory(PDTargetDirectory)"})
-  void testSetTargetDirectory_givenCOSDictionarySetItemDoesNothing_thenCallsSetItem() {
+  void testSetTargetDirectory() {
     // Arrange
     COSDictionary dictionary = mock(COSDictionary.class);
     doNothing().when(dictionary).setItem(Mockito.<COSName>any(), Mockito.<COSObjectable>any());
@@ -325,24 +200,24 @@ class PDTargetDirectoryDiffblueTest {
     // Act
     pdTargetDirectory.setTargetDirectory(new PDTargetDirectory());
 
-    // Assert
+    // Assert that nothing has changed
     verify(dictionary).setItem(isA(COSName.class), isA(COSObjectable.class));
   }
 
   /**
-   * Test {@link PDTargetDirectory#getPageNumber()}.
-   * <ul>
-   *   <li>Given {@link PDTargetDirectory#PDTargetDirectory()} PageNumber is ten.</li>
-   *   <li>Then return ten.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDTargetDirectory#getPageNumber()}
    */
   @Test
-  @DisplayName("Test getPageNumber(); given PDTargetDirectory() PageNumber is ten; then return ten")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"int PDTargetDirectory.getPageNumber()"})
-  void testGetPageNumber_givenPDTargetDirectoryPageNumberIsTen_thenReturnTen() {
+  void testGetPageNumber() {
+    // Arrange, Act and Assert
+    assertEquals(-1, (new PDTargetDirectory()).getPageNumber());
+  }
+
+  /**
+   * Method under test: {@link PDTargetDirectory#getPageNumber()}
+   */
+  @Test
+  void testGetPageNumber2() {
     // Arrange
     PDTargetDirectory pdTargetDirectory = new PDTargetDirectory();
     pdTargetDirectory.setPageNumber(10);
@@ -352,36 +227,10 @@ class PDTargetDirectoryDiffblueTest {
   }
 
   /**
-   * Test {@link PDTargetDirectory#getPageNumber()}.
-   * <ul>
-   *   <li>Given {@link PDTargetDirectory#PDTargetDirectory()}.</li>
-   *   <li>Then return minus one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDTargetDirectory#getPageNumber()}
-   */
-  @Test
-  @DisplayName("Test getPageNumber(); given PDTargetDirectory(); then return minus one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"int PDTargetDirectory.getPageNumber()"})
-  void testGetPageNumber_givenPDTargetDirectory_thenReturnMinusOne() {
-    // Arrange, Act and Assert
-    assertEquals(-1, (new PDTargetDirectory()).getPageNumber());
-  }
-
-  /**
-   * Test {@link PDTargetDirectory#setPageNumber(int)}.
-   * <ul>
-   *   <li>Then {@link PDTargetDirectory#PDTargetDirectory()} COSObject Values size is one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDTargetDirectory#setPageNumber(int)}
    */
   @Test
-  @DisplayName("Test setPageNumber(int); then PDTargetDirectory() COSObject Values size is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDTargetDirectory.setPageNumber(int)"})
-  void testSetPageNumber_thenPDTargetDirectoryCOSObjectValuesSizeIsOne() {
+  void testSetPageNumber() {
     // Arrange
     PDTargetDirectory pdTargetDirectory = new PDTargetDirectory();
 
@@ -396,25 +245,17 @@ class PDTargetDirectoryDiffblueTest {
   }
 
   /**
-   * Test {@link PDTargetDirectory#setPageNumber(int)}.
-   * <ul>
-   *   <li>Then {@link PDTargetDirectory#PDTargetDirectory()} PageNumber is minus one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDTargetDirectory#setPageNumber(int)}
    */
   @Test
-  @DisplayName("Test setPageNumber(int); then PDTargetDirectory() PageNumber is minus one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDTargetDirectory.setPageNumber(int)"})
-  void testSetPageNumber_thenPDTargetDirectoryPageNumberIsMinusOne() {
+  void testSetPageNumber2() {
     // Arrange
     PDTargetDirectory pdTargetDirectory = new PDTargetDirectory();
 
     // Act
     pdTargetDirectory.setPageNumber(-100);
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals(-1, pdTargetDirectory.getPageNumber());
     COSDictionary cOSObject = pdTargetDirectory.getCOSObject();
     assertEquals(0, cOSObject.size());
@@ -422,36 +263,19 @@ class PDTargetDirectoryDiffblueTest {
   }
 
   /**
-   * Test {@link PDTargetDirectory#getNamedDestination()}.
-   * <ul>
-   *   <li>Given {@link PDTargetDirectory#PDTargetDirectory()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDTargetDirectory#getNamedDestination()}
    */
   @Test
-  @DisplayName("Test getNamedDestination(); given PDTargetDirectory(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDNamedDestination PDTargetDirectory.getNamedDestination()"})
-  void testGetNamedDestination_givenPDTargetDirectory_thenReturnNull() {
+  void testGetNamedDestination() {
     // Arrange, Act and Assert
     assertNull((new PDTargetDirectory()).getNamedDestination());
   }
 
   /**
-   * Test {@link PDTargetDirectory#getNamedDestination()}.
-   * <ul>
-   *   <li>Then COSObject return {@link COSString}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDTargetDirectory#getNamedDestination()}
    */
   @Test
-  @DisplayName("Test getNamedDestination(); then COSObject return COSString")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDNamedDestination PDTargetDirectory.getNamedDestination()"})
-  void testGetNamedDestination_thenCOSObjectReturnCOSString() throws UnsupportedEncodingException {
+  void testGetNamedDestination2() throws UnsupportedEncodingException {
     // Arrange
     PDTargetDirectory pdTargetDirectory = new PDTargetDirectory();
     pdTargetDirectory.setNamedDestination(new PDNamedDestination("Dest"));
@@ -474,14 +298,10 @@ class PDTargetDirectoryDiffblueTest {
   }
 
   /**
-   * Test {@link PDTargetDirectory#setNamedDestination(PDNamedDestination)}.
-   * <p>
-   * Method under test: {@link PDTargetDirectory#setNamedDestination(PDNamedDestination)}
+   * Method under test:
+   * {@link PDTargetDirectory#setNamedDestination(PDNamedDestination)}
    */
   @Test
-  @DisplayName("Test setNamedDestination(PDNamedDestination)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDTargetDirectory.setNamedDestination(PDNamedDestination)"})
   void testSetNamedDestination() {
     // Arrange
     PDTargetDirectory pdTargetDirectory = new PDTargetDirectory();
@@ -497,70 +317,57 @@ class PDTargetDirectoryDiffblueTest {
   }
 
   /**
-   * Test {@link PDTargetDirectory#setNamedDestination(PDNamedDestination)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then {@link PDTargetDirectory#PDTargetDirectory()} COSObject size is zero.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDTargetDirectory#setNamedDestination(PDNamedDestination)}
+   * Method under test:
+   * {@link PDTargetDirectory#setNamedDestination(PDNamedDestination)}
    */
   @Test
-  @DisplayName("Test setNamedDestination(PDNamedDestination); when 'null'; then PDTargetDirectory() COSObject size is zero")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDTargetDirectory.setNamedDestination(PDNamedDestination)"})
-  void testSetNamedDestination_whenNull_thenPDTargetDirectoryCOSObjectSizeIsZero() {
-    // Arrange
-    PDTargetDirectory pdTargetDirectory = new PDTargetDirectory();
-
-    // Act
-    pdTargetDirectory.setNamedDestination(null);
-
-    // Assert that nothing has changed
-    COSDictionary cOSObject = pdTargetDirectory.getCOSObject();
-    assertEquals(0, cOSObject.size());
-    assertTrue(cOSObject.getValues().isEmpty());
-  }
-
-  /**
-   * Test {@link PDTargetDirectory#setNamedDestination(PDNamedDestination)}.
-   * <ul>
-   *   <li>When {@link PDNamedDestination#PDNamedDestination()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDTargetDirectory#setNamedDestination(PDNamedDestination)}
-   */
-  @Test
-  @DisplayName("Test setNamedDestination(PDNamedDestination); when PDNamedDestination()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDTargetDirectory.setNamedDestination(PDNamedDestination)"})
-  void testSetNamedDestination_whenPDNamedDestination() {
+  void testSetNamedDestination2() {
     // Arrange
     PDTargetDirectory pdTargetDirectory = new PDTargetDirectory();
 
     // Act
     pdTargetDirectory.setNamedDestination(new PDNamedDestination());
 
-    // Assert that nothing has changed
+    // Assert
+    assertNull(pdTargetDirectory.getNamedDestination());
     COSDictionary cOSObject = pdTargetDirectory.getCOSObject();
     assertEquals(0, cOSObject.size());
     assertTrue(cOSObject.getValues().isEmpty());
   }
 
   /**
-   * Test {@link PDTargetDirectory#getAnnotationIndex()}.
-   * <ul>
-   *   <li>Given {@link PDTargetDirectory#PDTargetDirectory()} AnnotationIndex is one.</li>
-   *   <li>Then return one.</li>
-   * </ul>
-   * <p>
+   * Method under test:
+   * {@link PDTargetDirectory#setNamedDestination(PDNamedDestination)}
+   */
+  @Test
+  void testSetNamedDestination3() {
+    // Arrange
+    PDTargetDirectory pdTargetDirectory = new PDTargetDirectory();
+
+    // Act
+    pdTargetDirectory.setNamedDestination(null);
+
+    // Assert
+    assertNull(pdTargetDirectory.getNamedDestination());
+    COSDictionary cOSObject = pdTargetDirectory.getCOSObject();
+    assertEquals(0, cOSObject.size());
+    assertTrue(cOSObject.getValues().isEmpty());
+  }
+
+  /**
    * Method under test: {@link PDTargetDirectory#getAnnotationIndex()}
    */
   @Test
-  @DisplayName("Test getAnnotationIndex(); given PDTargetDirectory() AnnotationIndex is one; then return one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"int PDTargetDirectory.getAnnotationIndex()"})
-  void testGetAnnotationIndex_givenPDTargetDirectoryAnnotationIndexIsOne_thenReturnOne() {
+  void testGetAnnotationIndex() {
+    // Arrange, Act and Assert
+    assertEquals(-1, (new PDTargetDirectory()).getAnnotationIndex());
+  }
+
+  /**
+   * Method under test: {@link PDTargetDirectory#getAnnotationIndex()}
+   */
+  @Test
+  void testGetAnnotationIndex2() {
     // Arrange
     PDTargetDirectory pdTargetDirectory = new PDTargetDirectory();
     pdTargetDirectory.setAnnotationIndex(1);
@@ -570,62 +377,10 @@ class PDTargetDirectoryDiffblueTest {
   }
 
   /**
-   * Test {@link PDTargetDirectory#getAnnotationIndex()}.
-   * <ul>
-   *   <li>Given {@link PDTargetDirectory#PDTargetDirectory()}.</li>
-   *   <li>Then return minus one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDTargetDirectory#getAnnotationIndex()}
-   */
-  @Test
-  @DisplayName("Test getAnnotationIndex(); given PDTargetDirectory(); then return minus one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"int PDTargetDirectory.getAnnotationIndex()"})
-  void testGetAnnotationIndex_givenPDTargetDirectory_thenReturnMinusOne() {
-    // Arrange, Act and Assert
-    assertEquals(-1, (new PDTargetDirectory()).getAnnotationIndex());
-  }
-
-  /**
-   * Test {@link PDTargetDirectory#setAnnotationIndex(int)}.
-   * <ul>
-   *   <li>Then {@link PDTargetDirectory#PDTargetDirectory()} AnnotationIndex is minus one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDTargetDirectory#setAnnotationIndex(int)}
    */
   @Test
-  @DisplayName("Test setAnnotationIndex(int); then PDTargetDirectory() AnnotationIndex is minus one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDTargetDirectory.setAnnotationIndex(int)"})
-  void testSetAnnotationIndex_thenPDTargetDirectoryAnnotationIndexIsMinusOne() {
-    // Arrange
-    PDTargetDirectory pdTargetDirectory = new PDTargetDirectory();
-
-    // Act
-    pdTargetDirectory.setAnnotationIndex(-100);
-
-    // Assert that nothing has changed
-    assertEquals(-1, pdTargetDirectory.getAnnotationIndex());
-    COSDictionary cOSObject = pdTargetDirectory.getCOSObject();
-    assertEquals(0, cOSObject.size());
-    assertTrue(cOSObject.getValues().isEmpty());
-  }
-
-  /**
-   * Test {@link PDTargetDirectory#setAnnotationIndex(int)}.
-   * <ul>
-   *   <li>Then {@link PDTargetDirectory#PDTargetDirectory()} COSObject Values size is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDTargetDirectory#setAnnotationIndex(int)}
-   */
-  @Test
-  @DisplayName("Test setAnnotationIndex(int); then PDTargetDirectory() COSObject Values size is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDTargetDirectory.setAnnotationIndex(int)"})
-  void testSetAnnotationIndex_thenPDTargetDirectoryCOSObjectValuesSizeIsOne() {
+  void testSetAnnotationIndex() {
     // Arrange
     PDTargetDirectory pdTargetDirectory = new PDTargetDirectory();
 
@@ -640,19 +395,37 @@ class PDTargetDirectoryDiffblueTest {
   }
 
   /**
-   * Test {@link PDTargetDirectory#getAnnotationName()}.
-   * <ul>
-   *   <li>Given {@link PDTargetDirectory#PDTargetDirectory()} AnnotationName is {@code Name}.</li>
-   *   <li>Then return {@code Name}.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PDTargetDirectory#setAnnotationIndex(int)}
+   */
+  @Test
+  void testSetAnnotationIndex2() {
+    // Arrange
+    PDTargetDirectory pdTargetDirectory = new PDTargetDirectory();
+
+    // Act
+    pdTargetDirectory.setAnnotationIndex(-100);
+
+    // Assert
+    assertEquals(-1, pdTargetDirectory.getAnnotationIndex());
+    COSDictionary cOSObject = pdTargetDirectory.getCOSObject();
+    assertEquals(0, cOSObject.size());
+    assertTrue(cOSObject.getValues().isEmpty());
+  }
+
+  /**
    * Method under test: {@link PDTargetDirectory#getAnnotationName()}
    */
   @Test
-  @DisplayName("Test getAnnotationName(); given PDTargetDirectory() AnnotationName is 'Name'; then return 'Name'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDTargetDirectory.getAnnotationName()"})
-  void testGetAnnotationName_givenPDTargetDirectoryAnnotationNameIsName_thenReturnName() {
+  void testGetAnnotationName() {
+    // Arrange, Act and Assert
+    assertNull((new PDTargetDirectory()).getAnnotationName());
+  }
+
+  /**
+   * Method under test: {@link PDTargetDirectory#getAnnotationName()}
+   */
+  @Test
+  void testGetAnnotationName2() {
     // Arrange
     PDTargetDirectory pdTargetDirectory = new PDTargetDirectory();
     pdTargetDirectory.setAnnotationName("Name");
@@ -662,36 +435,10 @@ class PDTargetDirectoryDiffblueTest {
   }
 
   /**
-   * Test {@link PDTargetDirectory#getAnnotationName()}.
-   * <ul>
-   *   <li>Given {@link PDTargetDirectory#PDTargetDirectory()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDTargetDirectory#getAnnotationName()}
    */
   @Test
-  @DisplayName("Test getAnnotationName(); given PDTargetDirectory(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDTargetDirectory.getAnnotationName()"})
-  void testGetAnnotationName_givenPDTargetDirectory_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull((new PDTargetDirectory()).getAnnotationName());
-  }
-
-  /**
-   * Test {@link PDTargetDirectory#getAnnotationName()}.
-   * <ul>
-   *   <li>Then return empty string.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDTargetDirectory#getAnnotationName()}
-   */
-  @Test
-  @DisplayName("Test getAnnotationName(); then return empty string")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDTargetDirectory.getAnnotationName()"})
-  void testGetAnnotationName_thenReturnEmptyString() {
+  void testGetAnnotationName3() {
     // Arrange
     PDTargetDirectory pdTargetDirectory = new PDTargetDirectory();
     pdTargetDirectory.setAnnotationName("");
@@ -701,18 +448,10 @@ class PDTargetDirectoryDiffblueTest {
   }
 
   /**
-   * Test {@link PDTargetDirectory#setAnnotationName(String)}.
-   * <ul>
-   *   <li>Then {@link PDTargetDirectory#PDTargetDirectory()} AnnotationName is {@code Name}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDTargetDirectory#setAnnotationName(String)}
    */
   @Test
-  @DisplayName("Test setAnnotationName(String); then PDTargetDirectory() AnnotationName is 'Name'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDTargetDirectory.setAnnotationName(String)"})
-  void testSetAnnotationName_thenPDTargetDirectoryAnnotationNameIsName() {
+  void testSetAnnotationName() {
     // Arrange
     PDTargetDirectory pdTargetDirectory = new PDTargetDirectory();
 
@@ -724,5 +463,47 @@ class PDTargetDirectoryDiffblueTest {
     COSDictionary cOSObject = pdTargetDirectory.getCOSObject();
     assertEquals(1, cOSObject.getValues().size());
     assertEquals(1, cOSObject.size());
+  }
+
+  /**
+   * Method under test: {@link PDTargetDirectory#PDTargetDirectory(COSDictionary)}
+   */
+  @Test
+  void testNewPDTargetDirectory() {
+    // Arrange
+    COSDictionary dictionary = new COSDictionary();
+
+    // Act and Assert
+    assertSame(dictionary, (new PDTargetDirectory(dictionary)).getCOSObject());
+  }
+
+  /**
+   * Method under test: {@link PDTargetDirectory#PDTargetDirectory()}
+   */
+  @Test
+  void testNewPDTargetDirectory2() {
+    // Arrange and Act
+    PDTargetDirectory actualPdTargetDirectory = new PDTargetDirectory();
+
+    // Assert
+    assertNull(actualPdTargetDirectory.getAnnotationName());
+    assertNull(actualPdTargetDirectory.getFilename());
+    COSDictionary cOSObject = actualPdTargetDirectory.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(actualPdTargetDirectory.getRelationship());
+    assertNull(cOSObject.getKey());
+    assertNull(actualPdTargetDirectory.getTargetDirectory());
+    assertNull(actualPdTargetDirectory.getNamedDestination());
+    assertEquals(-1, actualPdTargetDirectory.getAnnotationIndex());
+    assertEquals(-1, actualPdTargetDirectory.getPageNumber());
+    assertEquals(0, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(cOSObject.getValues().isEmpty());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
   }
 }

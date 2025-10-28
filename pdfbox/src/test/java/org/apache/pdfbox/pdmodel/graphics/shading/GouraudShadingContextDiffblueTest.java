@@ -8,7 +8,6 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.awt.Rectangle;
 import java.awt.geom.AffineTransform;
 import java.awt.image.DirectColorModel;
@@ -18,21 +17,14 @@ import java.util.List;
 import org.apache.pdfbox.cos.COSArray;
 import org.apache.pdfbox.pdmodel.graphics.color.PDDeviceGray;
 import org.apache.pdfbox.util.Matrix;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 class GouraudShadingContextDiffblueTest {
   /**
-   * Test {@link GouraudShadingContext#setTriangleList(List)}.
-   * <p>
    * Method under test: {@link GouraudShadingContext#setTriangleList(List)}
    */
   @Test
-  @DisplayName("Test setTriangleList(List)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void GouraudShadingContext.setTriangleList(List)"})
   void testSetTriangleList() throws IOException {
     // Arrange
     PDShadingType4 shading = mock(PDShadingType4.class);
@@ -57,14 +49,10 @@ class GouraudShadingContextDiffblueTest {
   }
 
   /**
-   * Test {@link GouraudShadingContext#calcPixelTableArray(Rectangle)}.
-   * <p>
-   * Method under test: {@link GouraudShadingContext#calcPixelTableArray(Rectangle)}
+   * Method under test:
+   * {@link GouraudShadingContext#calcPixelTableArray(Rectangle)}
    */
   @Test
-  @DisplayName("Test calcPixelTableArray(Rectangle)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"int[][] GouraudShadingContext.calcPixelTableArray(Rectangle)"})
   void testCalcPixelTableArray() throws IOException {
     // Arrange
     PDShadingType4 shading = mock(PDShadingType4.class);
@@ -92,14 +80,10 @@ class GouraudShadingContextDiffblueTest {
   }
 
   /**
-   * Test {@link GouraudShadingContext#calcPixelTableArray(Rectangle)}.
-   * <p>
-   * Method under test: {@link GouraudShadingContext#calcPixelTableArray(Rectangle)}
+   * Method under test:
+   * {@link GouraudShadingContext#calcPixelTableArray(Rectangle)}
    */
   @Test
-  @DisplayName("Test calcPixelTableArray(Rectangle)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"int[][] GouraudShadingContext.calcPixelTableArray(Rectangle)"})
   void testCalcPixelTableArray2() throws IOException {
     // Arrange
     COSArray cosArray = mock(COSArray.class);
@@ -130,14 +114,9 @@ class GouraudShadingContextDiffblueTest {
   }
 
   /**
-   * Test {@link GouraudShadingContext#dispose()}.
-   * <p>
    * Method under test: {@link GouraudShadingContext#dispose()}
    */
   @Test
-  @DisplayName("Test dispose()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void GouraudShadingContext.dispose()"})
   void testDispose() throws IOException {
     // Arrange
     PDShadingType4 shading = mock(PDShadingType4.class);
@@ -164,18 +143,10 @@ class GouraudShadingContextDiffblueTest {
   }
 
   /**
-   * Test {@link GouraudShadingContext#isDataEmpty()}.
-   * <ul>
-   *   <li>Then return {@code true}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link GouraudShadingContext#isDataEmpty()}
    */
   @Test
-  @DisplayName("Test isDataEmpty(); then return 'true'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean GouraudShadingContext.isDataEmpty()"})
-  void testIsDataEmpty_thenReturnTrue() throws IOException {
+  void testIsDataEmpty() throws IOException {
     // Arrange
     PDShadingType4 shading = mock(PDShadingType4.class);
     when(shading.collectTriangles(Mockito.<AffineTransform>any(), Mockito.<Matrix>any())).thenReturn(new ArrayList<>());

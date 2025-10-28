@@ -5,24 +5,16 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.cos.COSIncrement;
 import org.apache.pdfbox.cos.COSUpdateState;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class PDActionMovieDiffblueTest {
   /**
-   * Test {@link PDActionMovie#PDActionMovie(COSDictionary)}.
-   * <p>
    * Method under test: {@link PDActionMovie#PDActionMovie(COSDictionary)}
    */
   @Test
-  @DisplayName("Test new PDActionMovie(COSDictionary)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDActionMovie.<init>(COSDictionary)"})
   void testNewPDActionMovie() {
     // Arrange
     COSDictionary a = new COSDictionary();
@@ -32,14 +24,9 @@ class PDActionMovieDiffblueTest {
   }
 
   /**
-   * Test {@link PDActionMovie#PDActionMovie()}.
-   * <p>
    * Method under test: {@link PDActionMovie#PDActionMovie()}
    */
   @Test
-  @DisplayName("Test new PDActionMovie()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDActionMovie.<init>()"})
   void testNewPDActionMovie2() {
     // Arrange and Act
     PDActionMovie actualPdActionMovie = new PDActionMovie();

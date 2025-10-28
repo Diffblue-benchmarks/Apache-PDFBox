@@ -2,15 +2,10 @@ package org.apache.fontbox.ttf.table.common;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import com.diffblue.cover.annotations.MethodsUnderTest;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class FeatureListTableDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link FeatureListTable#FeatureListTable(int, FeatureRecord[])}
@@ -20,10 +15,6 @@ class FeatureListTableDiffblueTest {
    * </ul>
    */
   @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void FeatureListTable.<init>(int, FeatureRecord[])", "int FeatureListTable.getFeatureCount()",
-      "FeatureRecord[] FeatureListTable.getFeatureRecords()", "String FeatureListTable.toString()"})
   void testGettersAndSetters() {
     // Arrange
     FeatureRecord[] featureRecords = new FeatureRecord[]{

@@ -1,20 +1,20 @@
 package org.apache.pdfbox.pdmodel.graphics.state;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
-import java.awt.AlphaComposite;
-import java.awt.Composite;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import java.awt.Dimension;
+import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.geom.Area;
+import java.awt.geom.GeneralPath;
 import java.awt.geom.Path2D;
 import java.awt.geom.Rectangle2D;
-import java.awt.geom.Rectangle2D.Double;
 import java.util.List;
 import org.apache.pdfbox.cos.COSArray;
 import org.apache.pdfbox.cos.COSBase;
@@ -28,59 +28,142 @@ import org.apache.pdfbox.pdmodel.graphics.color.PDColor;
 import org.apache.pdfbox.pdmodel.graphics.color.PDColorSpace;
 import org.apache.pdfbox.pdmodel.graphics.color.PDDeviceGray;
 import org.apache.pdfbox.util.Matrix;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class PDGraphicsStateDiffblueTest {
   /**
-   * Test {@link PDGraphicsState#PDGraphicsState(PDRectangle)}.
-   * <ul>
-   *   <li>When {@link PDRectangle#A0}.</li>
-   *   <li>Then NonStrokingJavaComposite return {@link AlphaComposite}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDGraphicsState#PDGraphicsState(PDRectangle)}
+   * Method under test: {@link PDGraphicsState#setBlendMode(BlendMode)}
    */
   @Test
-  @DisplayName("Test new PDGraphicsState(PDRectangle); when A0; then NonStrokingJavaComposite return AlphaComposite")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDGraphicsState.<init>(PDRectangle)"})
-  void testNewPDGraphicsState_whenA0_thenNonStrokingJavaCompositeReturnAlphaComposite() {
-    // Arrange and Act
-    PDGraphicsState actualPdGraphicsState = new PDGraphicsState(PDRectangle.A0);
+  void testSetBlendMode() {
+    // Arrange
+    PDGraphicsState pdGraphicsState = new PDGraphicsState(PDRectangle.A0);
+    BlendMode blendMode = BlendMode.COLOR;
+
+    // Act
+    pdGraphicsState.setBlendMode(blendMode);
 
     // Assert
-    Composite nonStrokingJavaComposite = actualPdGraphicsState.getNonStrokingJavaComposite();
-    assertTrue(nonStrokingJavaComposite instanceof AlphaComposite);
-    PDColorSpace nonStrokingColorSpace = actualPdGraphicsState.getNonStrokingColorSpace();
-    assertTrue(nonStrokingColorSpace instanceof PDDeviceGray);
-    assertNull(actualPdGraphicsState.getTransfer());
-    assertNull(actualPdGraphicsState.getSoftMask());
-    assertNull(actualPdGraphicsState.getRenderingIntent());
-    assertNull(actualPdGraphicsState.getTextLineMatrix());
-    assertNull(actualPdGraphicsState.getTextMatrix());
-    assertEquals(0, actualPdGraphicsState.getLineCap());
-    assertEquals(0, actualPdGraphicsState.getLineJoin());
-    assertEquals(0, actualPdGraphicsState.getOverprintMode());
-    assertEquals(0.0d, actualPdGraphicsState.getSmoothness());
-    assertEquals(1, actualPdGraphicsState.getCurrentClippingPaths().size());
-    assertEquals(1.0d, actualPdGraphicsState.getAlphaConstant());
-    assertEquals(1.0d, actualPdGraphicsState.getFlatness());
-    assertEquals(1.0d, actualPdGraphicsState.getNonStrokeAlphaConstant());
-    assertEquals(1.0f, actualPdGraphicsState.getLineWidth());
-    assertEquals(10.0f, actualPdGraphicsState.getMiterLimit());
-    assertFalse(actualPdGraphicsState.isAlphaSource());
-    assertFalse(actualPdGraphicsState.isNonStrokingOverprint());
-    assertFalse(actualPdGraphicsState.isOverprint());
-    assertFalse(actualPdGraphicsState.isStrokeAdjustment());
-    assertSame(nonStrokingJavaComposite, actualPdGraphicsState.getStrokingJavaComposite());
-    assertSame(nonStrokingColorSpace, actualPdGraphicsState.getStrokingColorSpace());
+    assertTrue(pdGraphicsState.getNonStrokingJavaComposite() instanceof BlendComposite);
+    assertTrue(pdGraphicsState.getStrokingJavaComposite() instanceof BlendComposite);
+    Rectangle bounds = pdGraphicsState.getCurrentClippingPath().getBounds();
+    assertEquals(bounds, bounds.getBounds());
+    BlendMode expectedBlendMode = blendMode.COLOR;
+    assertSame(expectedBlendMode, pdGraphicsState.getBlendMode());
   }
 
   /**
-   * Test getters and setters.
-   * <p>
+   * Method under test: {@link PDGraphicsState#setBlendMode(BlendMode)}
+   */
+  @Test
+  void testSetBlendMode2() {
+    // Arrange, Act and Assert
+    assertThrows(IllegalArgumentException.class, () -> (new PDGraphicsState(PDRectangle.A0)).setBlendMode(null));
+  }
+
+  /**
+   * Method under test: {@link PDGraphicsState#intersectClippingPath(Area)}
+   */
+  @Test
+  void testIntersectClippingPath() {
+    // Arrange
+    PDRectangle page = mock(PDRectangle.class);
+    when(page.toGeneralPath()).thenReturn(new GeneralPath(1));
+    PDGraphicsState pdGraphicsState = new PDGraphicsState(page);
+
+    // Act
+    pdGraphicsState.intersectClippingPath(new Area());
+
+    // Assert
+    verify(page).toGeneralPath();
+  }
+
+  /**
+   * Method under test: {@link PDGraphicsState#intersectClippingPath(GeneralPath)}
+   */
+  @Test
+  void testIntersectClippingPath2() {
+    // Arrange
+    PDRectangle page = mock(PDRectangle.class);
+    when(page.toGeneralPath()).thenReturn(new GeneralPath(1));
+    PDGraphicsState pdGraphicsState = new PDGraphicsState(page);
+
+    // Act
+    pdGraphicsState.intersectClippingPath(new GeneralPath(1));
+
+    // Assert
+    verify(page).toGeneralPath();
+  }
+
+  /**
+   * Method under test: {@link PDGraphicsState#getCurrentClippingPath()}
+   */
+  @Test
+  void testGetCurrentClippingPath() {
+    // Arrange and Act
+    Area actualCurrentClippingPath = (new PDGraphicsState(PDRectangle.A0)).getCurrentClippingPath();
+
+    // Assert
+    Rectangle bounds = actualCurrentClippingPath.getBounds();
+    Rectangle2D bounds2D = bounds.getBounds2D();
+    assertTrue(bounds2D instanceof Rectangle);
+    Rectangle2D bounds2D2 = actualCurrentClippingPath.getBounds2D();
+    assertTrue(bounds2D2 instanceof Rectangle2D.Double);
+    Rectangle2D bounds2D3 = bounds2D2.getBounds2D();
+    assertTrue(bounds2D3 instanceof Rectangle2D.Double);
+    Rectangle2D frame = bounds.getFrame();
+    assertTrue(frame instanceof Rectangle2D.Double);
+    Rectangle2D frame2 = bounds2D2.getFrame();
+    assertTrue(frame2 instanceof Rectangle2D.Double);
+    Point location = bounds.getLocation();
+    assertEquals(0, location.x);
+    assertEquals(0, location.y);
+    assertEquals(0, bounds.x);
+    assertEquals(0, bounds.y);
+    assertEquals(0.0d, location.getX());
+    assertEquals(0.0d, location.getY());
+    assertEquals(0.0d, bounds.getX());
+    assertEquals(0.0d, bounds.getY());
+    assertEquals(0.0d, bounds.getMinX());
+    assertEquals(0.0d, bounds2D2.getMinX());
+    assertEquals(0.0d, bounds.getMinY());
+    assertEquals(0.0d, bounds2D2.getMinY());
+    assertEquals(0.0d, bounds2D2.getX());
+    assertEquals(0.0d, bounds2D2.getY());
+    assertEquals(1191.968505859375d, bounds2D2.getCenterX());
+    assertEquals(1192.0d, bounds.getCenterX());
+    assertEquals(1685.1968994140625d, bounds2D2.getCenterY());
+    assertEquals(1685.5d, bounds.getCenterY());
+    assertEquals(2383.93701171875d, bounds2D2.getMaxX());
+    assertEquals(2383.93701171875d, bounds2D2.getWidth());
+    Dimension size = bounds.getSize();
+    assertEquals(2384, size.width);
+    assertEquals(2384, bounds.width);
+    assertEquals(2384.0d, size.getWidth());
+    assertEquals(2384.0d, bounds.getWidth());
+    assertEquals(2384.0d, bounds.getMaxX());
+    assertEquals(3370.393798828125d, bounds2D2.getHeight());
+    assertEquals(3370.393798828125d, bounds2D2.getMaxY());
+    assertEquals(3371, size.height);
+    assertEquals(3371, bounds.height);
+    assertEquals(3371.0d, size.getHeight());
+    assertEquals(3371.0d, bounds.getHeight());
+    assertEquals(3371.0d, bounds.getMaxY());
+    assertFalse(bounds.isEmpty());
+    assertFalse(actualCurrentClippingPath.isEmpty());
+    assertFalse(bounds2D2.isEmpty());
+    assertTrue(actualCurrentClippingPath.isRectangular());
+    assertEquals(location, location.getLocation());
+    assertEquals(size, size.getSize());
+    assertEquals(bounds, bounds.getBounds());
+    assertEquals(bounds, bounds2D2.getBounds());
+    assertEquals(bounds, bounds2D);
+    assertEquals(bounds, frame);
+    assertEquals(bounds2D2, bounds2D3);
+    assertEquals(bounds2D2, frame2);
+  }
+
+  /**
    * Methods under test:
    * <ul>
    *   <li>{@link PDGraphicsState#setAlphaConstant(double)}
@@ -138,35 +221,6 @@ class PDGraphicsStateDiffblueTest {
    * </ul>
    */
   @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"double PDGraphicsState.getAlphaConstant()", "BlendMode PDGraphicsState.getBlendMode()",
-      "List PDGraphicsState.getCurrentClippingPaths()", "Matrix PDGraphicsState.getCurrentTransformationMatrix()",
-      "double PDGraphicsState.getFlatness()", "int PDGraphicsState.getLineCap()",
-      "PDLineDashPattern PDGraphicsState.getLineDashPattern()", "int PDGraphicsState.getLineJoin()",
-      "float PDGraphicsState.getLineWidth()", "float PDGraphicsState.getMiterLimit()",
-      "double PDGraphicsState.getNonStrokeAlphaConstant()", "PDColor PDGraphicsState.getNonStrokingColor()",
-      "PDColorSpace PDGraphicsState.getNonStrokingColorSpace()", "int PDGraphicsState.getOverprintMode()",
-      "RenderingIntent PDGraphicsState.getRenderingIntent()", "double PDGraphicsState.getSmoothness()",
-      "PDSoftMask PDGraphicsState.getSoftMask()", "PDColor PDGraphicsState.getStrokingColor()",
-      "PDColorSpace PDGraphicsState.getStrokingColorSpace()", "Matrix PDGraphicsState.getTextLineMatrix()",
-      "Matrix PDGraphicsState.getTextMatrix()", "PDTextState PDGraphicsState.getTextState()",
-      "COSBase PDGraphicsState.getTransfer()", "boolean PDGraphicsState.isAlphaSource()",
-      "boolean PDGraphicsState.isNonStrokingOverprint()", "boolean PDGraphicsState.isOverprint()",
-      "boolean PDGraphicsState.isStrokeAdjustment()", "void PDGraphicsState.setAlphaConstant(double)",
-      "void PDGraphicsState.setAlphaSource(boolean)", "void PDGraphicsState.setCurrentTransformationMatrix(Matrix)",
-      "void PDGraphicsState.setFlatness(double)", "void PDGraphicsState.setLineCap(int)",
-      "void PDGraphicsState.setLineDashPattern(PDLineDashPattern)", "void PDGraphicsState.setLineJoin(int)",
-      "void PDGraphicsState.setLineWidth(float)", "void PDGraphicsState.setMiterLimit(float)",
-      "void PDGraphicsState.setNonStrokeAlphaConstant(double)", "void PDGraphicsState.setNonStrokingColor(PDColor)",
-      "void PDGraphicsState.setNonStrokingColorSpace(PDColorSpace)",
-      "void PDGraphicsState.setNonStrokingOverprint(boolean)", "void PDGraphicsState.setOverprint(boolean)",
-      "void PDGraphicsState.setOverprintMode(int)", "void PDGraphicsState.setRenderingIntent(RenderingIntent)",
-      "void PDGraphicsState.setSmoothness(double)", "void PDGraphicsState.setSoftMask(PDSoftMask)",
-      "void PDGraphicsState.setStrokeAdjustment(boolean)", "void PDGraphicsState.setStrokingColor(PDColor)",
-      "void PDGraphicsState.setStrokingColorSpace(PDColorSpace)", "void PDGraphicsState.setTextLineMatrix(Matrix)",
-      "void PDGraphicsState.setTextMatrix(Matrix)", "void PDGraphicsState.setTextState(PDTextState)",
-      "void PDGraphicsState.setTransfer(COSBase)"})
   void testGettersAndSetters() {
     // Arrange
     PDGraphicsState pdGraphicsState = new PDGraphicsState(PDRectangle.A0);
@@ -234,7 +288,7 @@ class PDGraphicsStateDiffblueTest {
     boolean actualIsNonStrokingOverprintResult = pdGraphicsState.isNonStrokingOverprint();
     boolean actualIsOverprintResult = pdGraphicsState.isOverprint();
 
-    // Assert
+    // Assert that nothing has changed
     assertEquals(1, actualCurrentClippingPaths.size());
     assertTrue(actualCurrentClippingPaths.get(0) instanceof Path2D.Double);
     assertTrue(actualTransfer instanceof COSBoolean);
@@ -265,173 +319,5 @@ class PDGraphicsStateDiffblueTest {
     PDDeviceGray pdDeviceGray = ((PDDeviceGray) actualStrokingColorSpace).INSTANCE;
     assertSame(pdDeviceGray, actualNonStrokingColorSpace);
     assertSame(pdDeviceGray, actualStrokingColorSpace);
-  }
-
-  /**
-   * Test {@link PDGraphicsState#setBlendMode(BlendMode)}.
-   * <p>
-   * Method under test: {@link PDGraphicsState#setBlendMode(BlendMode)}
-   */
-  @Test
-  @DisplayName("Test setBlendMode(BlendMode)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDGraphicsState.setBlendMode(BlendMode)"})
-  void testSetBlendMode() {
-    // Arrange
-    PDGraphicsState pdGraphicsState = new PDGraphicsState(PDRectangle.A0);
-    BlendMode blendMode = BlendMode.COLOR;
-
-    // Act
-    pdGraphicsState.setBlendMode(blendMode);
-
-    // Assert
-    Rectangle bounds = pdGraphicsState.getCurrentClippingPath().getBounds();
-    Rectangle2D frame = bounds.getBounds().getFrame();
-    Rectangle2D bounds2D = frame.getBounds2D();
-    assertTrue(bounds2D instanceof Double);
-    Rectangle2D frame2 = frame.getFrame();
-    Rectangle2D bounds2D2 = frame2.getBounds2D();
-    assertTrue(bounds2D2 instanceof Double);
-    assertTrue(frame instanceof Double);
-    assertTrue(frame2 instanceof Double);
-    Rectangle2D frame3 = frame2.getFrame();
-    assertTrue(frame3 instanceof Double);
-    assertTrue(pdGraphicsState.getNonStrokingJavaComposite() instanceof BlendComposite);
-    assertTrue(pdGraphicsState.getStrokingJavaComposite() instanceof BlendComposite);
-    assertEquals(0.0d, bounds2D.getY());
-    assertEquals(1192.0d, frame2.getCenterX());
-    assertEquals(1685.5d, frame2.getCenterY());
-    assertEquals(2384.0d, frame2.getMaxX());
-    assertEquals(3371.0d, frame2.getHeight());
-    assertEquals(3371.0d, frame2.getMaxY());
-    assertFalse(bounds2D.isEmpty());
-    assertEquals(bounds, frame2.getBounds());
-    assertEquals(bounds, bounds2D2);
-    assertEquals(bounds, frame3);
-    BlendMode expectedBlendMode = blendMode.COLOR;
-    assertSame(expectedBlendMode, pdGraphicsState.getBlendMode());
-  }
-
-  /**
-   * Test {@link PDGraphicsState#setBlendMode(BlendMode)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then throw {@link IllegalArgumentException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDGraphicsState#setBlendMode(BlendMode)}
-   */
-  @Test
-  @DisplayName("Test setBlendMode(BlendMode); when 'null'; then throw IllegalArgumentException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDGraphicsState.setBlendMode(BlendMode)"})
-  void testSetBlendMode_whenNull_thenThrowIllegalArgumentException() {
-    // Arrange, Act and Assert
-    assertThrows(IllegalArgumentException.class, () -> (new PDGraphicsState(PDRectangle.A0)).setBlendMode(null));
-  }
-
-  /**
-   * Test {@link PDGraphicsState#clone()}.
-   * <ul>
-   *   <li>Then CurrentClippingPath Bounds Bounds Frame Bounds2D return {@link Rectangle2D.Double}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDGraphicsState#clone()}
-   */
-  @Test
-  @DisplayName("Test clone(); then CurrentClippingPath Bounds Bounds Frame Bounds2D return Double")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDGraphicsState PDGraphicsState.clone()"})
-  void testClone_thenCurrentClippingPathBoundsBoundsFrameBounds2DReturnDouble() {
-    // Arrange and Act
-    PDGraphicsState actualCloneResult = (new PDGraphicsState(PDRectangle.A0)).clone();
-
-    // Assert
-    Rectangle2D frame = actualCloneResult.getCurrentClippingPath().getBounds().getBounds().getFrame();
-    assertTrue(frame.getBounds2D() instanceof Double);
-    assertTrue(frame instanceof Double);
-    assertTrue(frame.getFrame() instanceof Double);
-    float[][] values = actualCloneResult.getCurrentTransformationMatrix().getValues();
-    assertEquals(3, values.length);
-    assertArrayEquals(new float[]{}, actualCloneResult.getLineDashPattern().getDashArray(), 0.0f);
-    assertArrayEquals(new float[]{0.0f}, actualCloneResult.getNonStrokingColor().getComponents(), 0.0f);
-    assertArrayEquals(new float[]{0.0f, 0.0f, 1.0f}, values[2], 0.0f);
-    assertArrayEquals(new float[]{0.0f, 1.0f, 0.0f}, values[1], 0.0f);
-    assertArrayEquals(new float[]{1.0f, 0.0f, 0.0f}, values[0], 0.0f);
-  }
-
-  /**
-   * Test {@link PDGraphicsState#clone()}.
-   * <ul>
-   *   <li>Then return TextLineMatrix is {@link Matrix#Matrix()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDGraphicsState#clone()}
-   */
-  @Test
-  @DisplayName("Test clone(); then return TextLineMatrix is Matrix()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDGraphicsState PDGraphicsState.clone()"})
-  void testClone_thenReturnTextLineMatrixIsMatrix() {
-    // Arrange
-    PDGraphicsState pdGraphicsState = new PDGraphicsState(PDRectangle.A0);
-    Matrix value = new Matrix();
-    pdGraphicsState.setTextLineMatrix(value);
-    pdGraphicsState.setTextMatrix(null);
-
-    // Act
-    PDGraphicsState actualCloneResult = pdGraphicsState.clone();
-
-    // Assert
-    assertEquals(value, actualCloneResult.getTextLineMatrix());
-    assertArrayEquals(new float[]{}, actualCloneResult.getLineDashPattern().getDashArray(), 0.0f);
-    assertArrayEquals(new float[]{0.0f}, actualCloneResult.getNonStrokingColor().getComponents(), 0.0f);
-  }
-
-  /**
-   * Test {@link PDGraphicsState#clone()}.
-   * <ul>
-   *   <li>Then return TextMatrix is {@link Matrix#Matrix()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDGraphicsState#clone()}
-   */
-  @Test
-  @DisplayName("Test clone(); then return TextMatrix is Matrix()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDGraphicsState PDGraphicsState.clone()"})
-  void testClone_thenReturnTextMatrixIsMatrix() {
-    // Arrange
-    PDGraphicsState pdGraphicsState = new PDGraphicsState(PDRectangle.A0);
-    pdGraphicsState.setTextLineMatrix(null);
-    Matrix value = new Matrix();
-    pdGraphicsState.setTextMatrix(value);
-
-    // Act
-    PDGraphicsState actualCloneResult = pdGraphicsState.clone();
-
-    // Assert
-    assertEquals(value, actualCloneResult.getTextMatrix());
-    assertArrayEquals(new float[]{}, actualCloneResult.getLineDashPattern().getDashArray(), 0.0f);
-    assertArrayEquals(new float[]{0.0f}, actualCloneResult.getNonStrokingColor().getComponents(), 0.0f);
-  }
-
-  /**
-   * Test {@link PDGraphicsState#getCurrentClippingPath()}.
-   * <p>
-   * Method under test: {@link PDGraphicsState#getCurrentClippingPath()}
-   */
-  @Test
-  @DisplayName("Test getCurrentClippingPath()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Area PDGraphicsState.getCurrentClippingPath()"})
-  void testGetCurrentClippingPath() {
-    // Arrange and Act
-    Area actualCurrentClippingPath = (new PDGraphicsState(PDRectangle.A0)).getCurrentClippingPath();
-
-    // Assert
-    assertTrue(actualCurrentClippingPath.getBounds2D() instanceof Double);
-    assertFalse(actualCurrentClippingPath.isEmpty());
-    assertTrue(actualCurrentClippingPath.isRectangular());
   }
 }

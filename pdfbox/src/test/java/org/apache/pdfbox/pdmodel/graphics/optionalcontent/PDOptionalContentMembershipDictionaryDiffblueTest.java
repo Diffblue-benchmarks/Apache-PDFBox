@@ -10,190 +10,35 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.pdfbox.cos.COSBoolean;
 import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.cos.COSFloat;
+import org.apache.pdfbox.cos.COSIncrement;
 import org.apache.pdfbox.cos.COSInteger;
 import org.apache.pdfbox.cos.COSName;
 import org.apache.pdfbox.cos.COSString;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
+import org.apache.pdfbox.cos.COSUpdateState;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 class PDOptionalContentMembershipDictionaryDiffblueTest {
   /**
-   * Test {@link PDOptionalContentMembershipDictionary#PDOptionalContentMembershipDictionary()}.
-   * <p>
-   * Method under test: {@link PDOptionalContentMembershipDictionary#PDOptionalContentMembershipDictionary()}
-   */
-  @Test
-  @DisplayName("Test new PDOptionalContentMembershipDictionary()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDOptionalContentMembershipDictionary.<init>()"})
-  void testNewPDOptionalContentMembershipDictionary() {
-    // Arrange and Act
-    PDOptionalContentMembershipDictionary actualPdOptionalContentMembershipDictionary = new PDOptionalContentMembershipDictionary();
-
-    // Assert
-    COSName visibilityPolicy = actualPdOptionalContentMembershipDictionary.getVisibilityPolicy();
-    assertEquals("AnyOn", visibilityPolicy.getName());
-    COSDictionary cOSObject = actualPdOptionalContentMembershipDictionary.getCOSObject();
-    assertNull(cOSObject.getKey());
-    assertNull(visibilityPolicy.getKey());
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-    assertFalse(cOSObject.isDirect());
-    assertFalse(visibilityPolicy.isDirect());
-    assertFalse(visibilityPolicy.isEmpty());
-    assertFalse(cOSObject.isNeedToBeUpdated());
-    assertTrue(actualPdOptionalContentMembershipDictionary.getOCGs().isEmpty());
-  }
-
-  /**
-   * Test {@link PDOptionalContentMembershipDictionary#PDOptionalContentMembershipDictionary(COSDictionary)}.
-   * <ul>
-   *   <li>Given {@link COSName#A}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDOptionalContentMembershipDictionary#PDOptionalContentMembershipDictionary(COSDictionary)}
-   */
-  @Test
-  @DisplayName("Test new PDOptionalContentMembershipDictionary(COSDictionary); given A")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDOptionalContentMembershipDictionary.<init>(COSDictionary)"})
-  void testNewPDOptionalContentMembershipDictionary_givenA() {
-    // Arrange
-    COSDictionary dict = mock(COSDictionary.class);
-    when(dict.getDictionaryObject(Mockito.<COSName>any())).thenReturn(COSName.A);
-
-    // Act and Assert
-    assertThrows(IllegalArgumentException.class, () -> new PDOptionalContentMembershipDictionary(dict));
-    verify(dict).getDictionaryObject(isA(COSName.class));
-  }
-
-  /**
-   * Test {@link PDOptionalContentMembershipDictionary#PDOptionalContentMembershipDictionary(COSDictionary)}.
-   * <ul>
-   *   <li>Given {@link COSBoolean#FALSE}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDOptionalContentMembershipDictionary#PDOptionalContentMembershipDictionary(COSDictionary)}
-   */
-  @Test
-  @DisplayName("Test new PDOptionalContentMembershipDictionary(COSDictionary); given FALSE")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDOptionalContentMembershipDictionary.<init>(COSDictionary)"})
-  void testNewPDOptionalContentMembershipDictionary_givenFalse() {
-    // Arrange
-    COSDictionary dict = mock(COSDictionary.class);
-    when(dict.getDictionaryObject(Mockito.<COSName>any())).thenReturn(COSBoolean.FALSE);
-
-    // Act and Assert
-    assertThrows(IllegalArgumentException.class, () -> new PDOptionalContentMembershipDictionary(dict));
-    verify(dict).getDictionaryObject(isA(COSName.class));
-  }
-
-  /**
-   * Test {@link PDOptionalContentMembershipDictionary#PDOptionalContentMembershipDictionary(COSDictionary)}.
-   * <ul>
-   *   <li>Given {@link COSFloat#ONE}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDOptionalContentMembershipDictionary#PDOptionalContentMembershipDictionary(COSDictionary)}
-   */
-  @Test
-  @DisplayName("Test new PDOptionalContentMembershipDictionary(COSDictionary); given ONE")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDOptionalContentMembershipDictionary.<init>(COSDictionary)"})
-  void testNewPDOptionalContentMembershipDictionary_givenOne() {
-    // Arrange
-    COSDictionary dict = mock(COSDictionary.class);
-    when(dict.getDictionaryObject(Mockito.<COSName>any())).thenReturn(COSFloat.ONE);
-
-    // Act and Assert
-    assertThrows(IllegalArgumentException.class, () -> new PDOptionalContentMembershipDictionary(dict));
-    verify(dict).getDictionaryObject(isA(COSName.class));
-  }
-
-  /**
-   * Test {@link PDOptionalContentMembershipDictionary#PDOptionalContentMembershipDictionary(COSDictionary)}.
-   * <ul>
-   *   <li>Given {@link COSInteger#ONE}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDOptionalContentMembershipDictionary#PDOptionalContentMembershipDictionary(COSDictionary)}
-   */
-  @Test
-  @DisplayName("Test new PDOptionalContentMembershipDictionary(COSDictionary); given ONE")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDOptionalContentMembershipDictionary.<init>(COSDictionary)"})
-  void testNewPDOptionalContentMembershipDictionary_givenOne2() {
-    // Arrange
-    COSDictionary dict = mock(COSDictionary.class);
-    when(dict.getDictionaryObject(Mockito.<COSName>any())).thenReturn(COSInteger.ONE);
-
-    // Act and Assert
-    assertThrows(IllegalArgumentException.class, () -> new PDOptionalContentMembershipDictionary(dict));
-    verify(dict).getDictionaryObject(isA(COSName.class));
-  }
-
-  /**
-   * Test {@link PDOptionalContentMembershipDictionary#PDOptionalContentMembershipDictionary(COSDictionary)}.
-   * <ul>
-   *   <li>Given parseHex {@code 0123456789ABCDEF}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDOptionalContentMembershipDictionary#PDOptionalContentMembershipDictionary(COSDictionary)}
-   */
-  @Test
-  @DisplayName("Test new PDOptionalContentMembershipDictionary(COSDictionary); given parseHex '0123456789ABCDEF'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDOptionalContentMembershipDictionary.<init>(COSDictionary)"})
-  void testNewPDOptionalContentMembershipDictionary_givenParseHex0123456789abcdef() throws IOException {
-    // Arrange
-    COSDictionary dict = mock(COSDictionary.class);
-    when(dict.getDictionaryObject(Mockito.<COSName>any())).thenReturn(COSString.parseHex("0123456789ABCDEF"));
-
-    // Act and Assert
-    assertThrows(IllegalArgumentException.class, () -> new PDOptionalContentMembershipDictionary(dict));
-    verify(dict).getDictionaryObject(isA(COSName.class));
-  }
-
-  /**
-   * Test {@link PDOptionalContentMembershipDictionary#getOCGs()}.
-   * <ul>
-   *   <li>Given {@link PDOptionalContentMembershipDictionary#PDOptionalContentMembershipDictionary()}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDOptionalContentMembershipDictionary#getOCGs()}
    */
   @Test
-  @DisplayName("Test getOCGs(); given PDOptionalContentMembershipDictionary()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List PDOptionalContentMembershipDictionary.getOCGs()"})
-  void testGetOCGs_givenPDOptionalContentMembershipDictionary() {
+  void testGetOCGs() {
     // Arrange, Act and Assert
     assertTrue((new PDOptionalContentMembershipDictionary()).getOCGs().isEmpty());
   }
 
   /**
-   * Test {@link PDOptionalContentMembershipDictionary#getOCGs()}.
-   * <ul>
-   *   <li>Given {@link PDOptionalContentMembershipDictionary#PDOptionalContentMembershipDictionary()} OCGs is {@link ArrayList#ArrayList()}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDOptionalContentMembershipDictionary#getOCGs()}
    */
   @Test
-  @DisplayName("Test getOCGs(); given PDOptionalContentMembershipDictionary() OCGs is ArrayList()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List PDOptionalContentMembershipDictionary.getOCGs()"})
-  void testGetOCGs_givenPDOptionalContentMembershipDictionaryOCGsIsArrayList() {
+  void testGetOCGs2() {
     // Arrange
     PDOptionalContentMembershipDictionary pdOptionalContentMembershipDictionary = new PDOptionalContentMembershipDictionary();
     pdOptionalContentMembershipDictionary.setOCGs(new ArrayList<>());
@@ -203,14 +48,10 @@ class PDOptionalContentMembershipDictionaryDiffblueTest {
   }
 
   /**
-   * Test {@link PDOptionalContentMembershipDictionary#setOCGs(List)}.
-   * <p>
-   * Method under test: {@link PDOptionalContentMembershipDictionary#setOCGs(List)}
+   * Method under test:
+   * {@link PDOptionalContentMembershipDictionary#setOCGs(List)}
    */
   @Test
-  @DisplayName("Test setOCGs(List)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDOptionalContentMembershipDictionary.setOCGs(List)"})
   void testSetOCGs() {
     // Arrange
     PDOptionalContentMembershipDictionary pdOptionalContentMembershipDictionary = new PDOptionalContentMembershipDictionary();
@@ -225,18 +66,24 @@ class PDOptionalContentMembershipDictionaryDiffblueTest {
   }
 
   /**
-   * Test {@link PDOptionalContentMembershipDictionary#getVisibilityPolicy()}.
-   * <ul>
-   *   <li>Then return {@link COSName#A}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDOptionalContentMembershipDictionary#getVisibilityPolicy()}
+   * Method under test:
+   * {@link PDOptionalContentMembershipDictionary#getVisibilityPolicy()}
    */
   @Test
-  @DisplayName("Test getVisibilityPolicy(); then return A")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"COSName PDOptionalContentMembershipDictionary.getVisibilityPolicy()"})
-  void testGetVisibilityPolicy_thenReturnA() {
+  void testGetVisibilityPolicy() {
+    // Arrange and Act
+    COSName actualVisibilityPolicy = (new PDOptionalContentMembershipDictionary()).getVisibilityPolicy();
+
+    // Assert
+    assertSame(actualVisibilityPolicy.ANY_ON, actualVisibilityPolicy);
+  }
+
+  /**
+   * Method under test:
+   * {@link PDOptionalContentMembershipDictionary#getVisibilityPolicy()}
+   */
+  @Test
+  void testGetVisibilityPolicy2() {
     // Arrange
     PDOptionalContentMembershipDictionary pdOptionalContentMembershipDictionary = new PDOptionalContentMembershipDictionary();
     pdOptionalContentMembershipDictionary.setVisibilityPolicy(COSName.A);
@@ -249,34 +96,10 @@ class PDOptionalContentMembershipDictionaryDiffblueTest {
   }
 
   /**
-   * Test {@link PDOptionalContentMembershipDictionary#getVisibilityPolicy()}.
-   * <ul>
-   *   <li>Then return {@link COSName#ANY_ON}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDOptionalContentMembershipDictionary#getVisibilityPolicy()}
+   * Method under test:
+   * {@link PDOptionalContentMembershipDictionary#setVisibilityPolicy(COSName)}
    */
   @Test
-  @DisplayName("Test getVisibilityPolicy(); then return ANY_ON")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"COSName PDOptionalContentMembershipDictionary.getVisibilityPolicy()"})
-  void testGetVisibilityPolicy_thenReturnAny_on() {
-    // Arrange and Act
-    COSName actualVisibilityPolicy = (new PDOptionalContentMembershipDictionary()).getVisibilityPolicy();
-
-    // Assert
-    assertSame(actualVisibilityPolicy.ANY_ON, actualVisibilityPolicy);
-  }
-
-  /**
-   * Test {@link PDOptionalContentMembershipDictionary#setVisibilityPolicy(COSName)}.
-   * <p>
-   * Method under test: {@link PDOptionalContentMembershipDictionary#setVisibilityPolicy(COSName)}
-   */
-  @Test
-  @DisplayName("Test setVisibilityPolicy(COSName)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDOptionalContentMembershipDictionary.setVisibilityPolicy(COSName)"})
   void testSetVisibilityPolicy() {
     // Arrange
     PDOptionalContentMembershipDictionary pdOptionalContentMembershipDictionary = new PDOptionalContentMembershipDictionary();
@@ -294,14 +117,10 @@ class PDOptionalContentMembershipDictionaryDiffblueTest {
   }
 
   /**
-   * Test {@link PDOptionalContentMembershipDictionary#setVisibilityPolicy(COSName)}.
-   * <p>
-   * Method under test: {@link PDOptionalContentMembershipDictionary#setVisibilityPolicy(COSName)}
+   * Method under test:
+   * {@link PDOptionalContentMembershipDictionary#setVisibilityPolicy(COSName)}
    */
   @Test
-  @DisplayName("Test setVisibilityPolicy(COSName)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDOptionalContentMembershipDictionary.setVisibilityPolicy(COSName)"})
   void testSetVisibilityPolicy2() {
     // Arrange
     PDOptionalContentMembershipDictionary pdOptionalContentMembershipDictionary = new PDOptionalContentMembershipDictionary();
@@ -309,9 +128,114 @@ class PDOptionalContentMembershipDictionaryDiffblueTest {
     // Act
     pdOptionalContentMembershipDictionary.setVisibilityPolicy(null);
 
-    // Assert that nothing has changed
+    // Assert
     COSDictionary cOSObject = pdOptionalContentMembershipDictionary.getCOSObject();
     assertEquals(1, cOSObject.getValues().size());
     assertEquals(1, cOSObject.size());
+  }
+
+  /**
+   * Method under test:
+   * {@link PDOptionalContentMembershipDictionary#PDOptionalContentMembershipDictionary()}
+   */
+  @Test
+  void testNewPDOptionalContentMembershipDictionary() {
+    // Arrange and Act
+    PDOptionalContentMembershipDictionary actualPdOptionalContentMembershipDictionary = new PDOptionalContentMembershipDictionary();
+
+    // Assert
+    COSName visibilityPolicy = actualPdOptionalContentMembershipDictionary.getVisibilityPolicy();
+    assertEquals("AnyOn", visibilityPolicy.getName());
+    COSDictionary cOSObject = actualPdOptionalContentMembershipDictionary.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertNull(visibilityPolicy.getKey());
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(visibilityPolicy.isDirect());
+    assertFalse(visibilityPolicy.isEmpty());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(actualPdOptionalContentMembershipDictionary.getOCGs().isEmpty());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+  }
+
+  /**
+   * Method under test:
+   * {@link PDOptionalContentMembershipDictionary#PDOptionalContentMembershipDictionary(COSDictionary)}
+   */
+  @Test
+  void testNewPDOptionalContentMembershipDictionary2() {
+    // Arrange
+    COSDictionary dict = mock(COSDictionary.class);
+    when(dict.getDictionaryObject(Mockito.<COSName>any())).thenReturn(COSBoolean.FALSE);
+
+    // Act and Assert
+    assertThrows(IllegalArgumentException.class, () -> new PDOptionalContentMembershipDictionary(dict));
+    verify(dict).getDictionaryObject(isA(COSName.class));
+  }
+
+  /**
+   * Method under test:
+   * {@link PDOptionalContentMembershipDictionary#PDOptionalContentMembershipDictionary(COSDictionary)}
+   */
+  @Test
+  void testNewPDOptionalContentMembershipDictionary3() {
+    // Arrange
+    COSDictionary dict = mock(COSDictionary.class);
+    when(dict.getDictionaryObject(Mockito.<COSName>any())).thenReturn(COSFloat.ONE);
+
+    // Act and Assert
+    assertThrows(IllegalArgumentException.class, () -> new PDOptionalContentMembershipDictionary(dict));
+    verify(dict).getDictionaryObject(isA(COSName.class));
+  }
+
+  /**
+   * Method under test:
+   * {@link PDOptionalContentMembershipDictionary#PDOptionalContentMembershipDictionary(COSDictionary)}
+   */
+  @Test
+  void testNewPDOptionalContentMembershipDictionary4() {
+    // Arrange
+    COSDictionary dict = mock(COSDictionary.class);
+    when(dict.getDictionaryObject(Mockito.<COSName>any())).thenReturn(COSInteger.ONE);
+
+    // Act and Assert
+    assertThrows(IllegalArgumentException.class, () -> new PDOptionalContentMembershipDictionary(dict));
+    verify(dict).getDictionaryObject(isA(COSName.class));
+  }
+
+  /**
+   * Method under test:
+   * {@link PDOptionalContentMembershipDictionary#PDOptionalContentMembershipDictionary(COSDictionary)}
+   */
+  @Test
+  void testNewPDOptionalContentMembershipDictionary5() {
+    // Arrange
+    COSDictionary dict = mock(COSDictionary.class);
+    when(dict.getDictionaryObject(Mockito.<COSName>any())).thenReturn(COSName.A);
+
+    // Act and Assert
+    assertThrows(IllegalArgumentException.class, () -> new PDOptionalContentMembershipDictionary(dict));
+    verify(dict).getDictionaryObject(isA(COSName.class));
+  }
+
+  /**
+   * Method under test:
+   * {@link PDOptionalContentMembershipDictionary#PDOptionalContentMembershipDictionary(COSDictionary)}
+   */
+  @Test
+  void testNewPDOptionalContentMembershipDictionary6() throws IOException {
+    // Arrange
+    COSDictionary dict = mock(COSDictionary.class);
+    when(dict.getDictionaryObject(Mockito.<COSName>any())).thenReturn(COSString.parseHex("0123456789ABCDEF"));
+
+    // Act and Assert
+    assertThrows(IllegalArgumentException.class, () -> new PDOptionalContentMembershipDictionary(dict));
+    verify(dict).getDictionaryObject(isA(COSName.class));
   }
 }

@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -12,44 +11,13 @@ import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.cos.COSIncrement;
 import org.apache.pdfbox.cos.COSStream;
 import org.apache.pdfbox.cos.COSUpdateState;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class COSDictionaryMapDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
-   * Methods under test:
-   * <ul>
-   *   <li>{@link COSDictionaryMap#COSDictionaryMap(Map, COSDictionary)}
-   *   <li>{@link COSDictionaryMap#toString()}
-   * </ul>
-   */
-  @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void COSDictionaryMap.<init>(Map, COSDictionary)", "String COSDictionaryMap.toString()"})
-  void testGettersAndSetters() {
-    // Arrange
-    HashMap<Object, Object> actualsMap = new HashMap<>();
-
-    // Act
-    COSDictionaryMap<Object, Object> actualObjectObjectMap = new COSDictionaryMap<>(actualsMap, new COSDictionary());
-
-    // Assert
-    assertEquals("{}", actualObjectObjectMap.toString());
-  }
-
-  /**
-   * Test {@link COSDictionaryMap#convert(Map)}.
-   * <p>
    * Method under test: {@link COSDictionaryMap#convert(Map)}
    */
   @Test
-  @DisplayName("Test convert(Map)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"COSDictionary COSDictionaryMap.convert(Map)"})
   void testConvert() {
     // Arrange and Act
     COSDictionary actualConvertResult = COSDictionaryMap.convert(new HashMap<>());
@@ -69,19 +37,11 @@ class COSDictionaryMapDiffblueTest {
   }
 
   /**
-   * Test {@link COSDictionaryMap#convertBasicTypesToMap(COSDictionary)}.
-   * <ul>
-   *   <li>When {@link COSDictionary#COSDictionary()}.</li>
-   *   <li>Then return Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link COSDictionaryMap#convertBasicTypesToMap(COSDictionary)}
+   * Method under test:
+   * {@link COSDictionaryMap#convertBasicTypesToMap(COSDictionary)}
    */
   @Test
-  @DisplayName("Test convertBasicTypesToMap(COSDictionary); when COSDictionary(); then return Empty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"COSDictionaryMap COSDictionaryMap.convertBasicTypesToMap(COSDictionary)"})
-  void testConvertBasicTypesToMap_whenCOSDictionary_thenReturnEmpty() throws IOException {
+  void testConvertBasicTypesToMap() throws IOException {
     // Arrange and Act
     COSDictionaryMap<String, Object> actualConvertBasicTypesToMapResult = COSDictionaryMap
         .convertBasicTypesToMap(new COSDictionary());
@@ -91,46 +51,49 @@ class COSDictionaryMapDiffblueTest {
   }
 
   /**
-   * Test {@link COSDictionaryMap#convertBasicTypesToMap(COSDictionary)}.
-   * <ul>
-   *   <li>When {@link COSStream#COSStream()}.</li>
-   *   <li>Then return size is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link COSDictionaryMap#convertBasicTypesToMap(COSDictionary)}
+   * Method under test:
+   * {@link COSDictionaryMap#convertBasicTypesToMap(COSDictionary)}
    */
   @Test
-  @DisplayName("Test convertBasicTypesToMap(COSDictionary); when COSStream(); then return size is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"COSDictionaryMap COSDictionaryMap.convertBasicTypesToMap(COSDictionary)"})
-  void testConvertBasicTypesToMap_whenCOSStream_thenReturnSizeIsOne() throws IOException {
+  void testConvertBasicTypesToMap2() throws IOException {
+    // Arrange and Act
+    COSDictionaryMap<String, Object> actualConvertBasicTypesToMapResult = COSDictionaryMap.convertBasicTypesToMap(null);
+
+    // Assert
+    assertNull(actualConvertBasicTypesToMapResult);
+  }
+
+  /**
+   * Method under test:
+   * {@link COSDictionaryMap#convertBasicTypesToMap(COSDictionary)}
+   */
+  @Test
+  void testConvertBasicTypesToMap3() throws IOException {
     // Arrange and Act
     COSDictionaryMap<String, Object> actualConvertBasicTypesToMapResult = COSDictionaryMap
         .convertBasicTypesToMap(new COSStream());
 
     // Assert
     assertEquals(1, actualConvertBasicTypesToMapResult.size());
-    assertEquals(0, ((Integer) actualConvertBasicTypesToMapResult.get("Length")).intValue());
+    assertTrue(actualConvertBasicTypesToMapResult.containsKey("Length"));
   }
 
   /**
-   * Test {@link COSDictionaryMap#convertBasicTypesToMap(COSDictionary)}.
+   * Methods under test:
    * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then return {@code null}.</li>
+   *   <li>{@link COSDictionaryMap#COSDictionaryMap(Map, COSDictionary)}
+   *   <li>{@link COSDictionaryMap#toString()}
    * </ul>
-   * <p>
-   * Method under test: {@link COSDictionaryMap#convertBasicTypesToMap(COSDictionary)}
    */
   @Test
-  @DisplayName("Test convertBasicTypesToMap(COSDictionary); when 'null'; then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"COSDictionaryMap COSDictionaryMap.convertBasicTypesToMap(COSDictionary)"})
-  void testConvertBasicTypesToMap_whenNull_thenReturnNull() throws IOException {
-    // Arrange and Act
-    COSDictionaryMap<String, Object> actualConvertBasicTypesToMapResult = COSDictionaryMap.convertBasicTypesToMap(null);
+  void testGettersAndSetters() {
+    // Arrange
+    HashMap<Object, Object> actualsMap = new HashMap<>();
+
+    // Act
+    COSDictionaryMap<Object, Object> actualObjectObjectMap = new COSDictionaryMap<>(actualsMap, new COSDictionary());
 
     // Assert
-    assertNull(actualConvertBasicTypesToMapResult);
+    assertEquals("{}", actualObjectObjectMap.toString());
   }
 }

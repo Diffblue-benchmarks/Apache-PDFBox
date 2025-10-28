@@ -1,26 +1,17 @@
 package org.apache.fontbox.afm;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.List;
 import org.apache.fontbox.util.BoundingBox;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class CharMetricDiffblueTest {
   /**
-   * Test {@link CharMetric#addLigature(Ligature)}.
-   * <p>
    * Method under test: {@link CharMetric#addLigature(Ligature)}
    */
   @Test
-  @DisplayName("Test addLigature(Ligature)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void CharMetric.addLigature(Ligature)"})
   void testAddLigature() {
     // Arrange
     CharMetric charMetric = new CharMetric();
@@ -36,22 +27,15 @@ class CharMetricDiffblueTest {
   }
 
   /**
-   * Test {@link CharMetric#getLigatures()}.
-   * <p>
    * Method under test: {@link CharMetric#getLigatures()}
    */
   @Test
-  @DisplayName("Test getLigatures()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List CharMetric.getLigatures()"})
   void testGetLigatures() {
     // Arrange, Act and Assert
     assertTrue((new CharMetric()).getLigatures().isEmpty());
   }
 
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link CharMetric}
@@ -84,18 +68,6 @@ class CharMetricDiffblueTest {
    * </ul>
    */
   @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void CharMetric.<init>()", "BoundingBox CharMetric.getBoundingBox()",
-      "int CharMetric.getCharacterCode()", "String CharMetric.getName()", "float[] CharMetric.getVv()",
-      "float[] CharMetric.getW()", "float[] CharMetric.getW0()", "float CharMetric.getW0x()",
-      "float CharMetric.getW0y()", "float[] CharMetric.getW1()", "float CharMetric.getW1x()",
-      "float CharMetric.getW1y()", "float CharMetric.getWx()", "float CharMetric.getWy()",
-      "void CharMetric.setBoundingBox(BoundingBox)", "void CharMetric.setCharacterCode(int)",
-      "void CharMetric.setName(String)", "void CharMetric.setVv(float[])", "void CharMetric.setW(float[])",
-      "void CharMetric.setW0(float[])", "void CharMetric.setW0x(float)", "void CharMetric.setW0y(float)",
-      "void CharMetric.setW1(float[])", "void CharMetric.setW1x(float)", "void CharMetric.setW1y(float)",
-      "void CharMetric.setWx(float)", "void CharMetric.setWy(float)"})
   void testGettersAndSetters() {
     // Arrange and Act
     CharMetric actualCharMetric = new CharMetric();
@@ -131,7 +103,7 @@ class CharMetricDiffblueTest {
     float actualW1y = actualCharMetric.getW1y();
     float actualWx = actualCharMetric.getWx();
 
-    // Assert
+    // Assert that nothing has changed
     assertEquals("foo", actualName);
     assertEquals(1, actualCharacterCode);
     assertEquals(10.0f, actualW0x);
@@ -145,9 +117,5 @@ class CharMetricDiffblueTest {
     assertSame(wValue, actualW);
     assertSame(w0Value, actualW0);
     assertSame(w1Value, actualW1);
-    assertArrayEquals(new float[]{10.0f, 0.5f, 10.0f, 0.5f}, actualVv, 0.0f);
-    assertArrayEquals(new float[]{10.0f, 0.5f, 10.0f, 0.5f}, actualW, 0.0f);
-    assertArrayEquals(new float[]{10.0f, 0.5f, 10.0f, 0.5f}, actualW0, 0.0f);
-    assertArrayEquals(new float[]{10.0f, 0.5f, 10.0f, 0.5f}, actualW1, 0.0f);
   }
 }

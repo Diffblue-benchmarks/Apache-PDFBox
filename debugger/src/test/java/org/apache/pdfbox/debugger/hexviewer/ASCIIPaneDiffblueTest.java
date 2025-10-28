@@ -2,85 +2,806 @@ package org.apache.pdfbox.debugger.hexviewer;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.ArgumentMatchers.isA;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import java.awt.Component;
+import java.awt.ComponentOrientation;
+import java.awt.Cursor;
 import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Insets;
+import java.awt.Point;
+import java.awt.Rectangle;
+import java.awt.Toolkit;
+import java.awt.color.ColorSpace;
+import java.awt.color.ICC_ColorSpace;
+import java.awt.color.ICC_ProfileRGB;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.ColorModel;
 import java.awt.image.DirectColorModel;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeListenerProxy;
 import java.io.UnsupportedEncodingException;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
+import java.util.Locale;
+import java.util.MissingResourceException;
+import java.util.Set;
+import javax.swing.ActionMap;
+import javax.swing.InputMap;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 class ASCIIPaneDiffblueTest {
   /**
-   * Test {@link ASCIIPane#ASCIIPane(HexModel)}.
-   * <ul>
-   *   <li>Then return PreferredSize Size Size Size Size {@link Dimension#height} is forty.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link ASCIIPane#hexModelChanged(HexModelChangedEvent)}
+   */
+  @Test
+  void testHexModelChanged() {
+    // Arrange
+    HexModel model = mock(HexModel.class);
+    when(model.totalLine()).thenReturn(2);
+    doNothing().when(model).addHexModelChangeListener(Mockito.<HexModelChangeListener>any());
+    ASCIIPane asciiPane = new ASCIIPane(model);
+
+    // Act
+    asciiPane.hexModelChanged(new HexModelChangedEvent(1, 1));
+
+    // Assert that nothing has changed
+    verify(model).addHexModelChangeListener(isA(HexModelChangeListener.class));
+    verify(model).totalLine();
+  }
+
+  /**
+   * Method under test: {@link ASCIIPane#setSelected(int)}
+   */
+  @Test
+  void testSetSelected() {
+    // Arrange
+    HexModel model = mock(HexModel.class);
+    when(model.totalLine()).thenReturn(2);
+    doNothing().when(model).addHexModelChangeListener(Mockito.<HexModelChangeListener>any());
+
+    // Act
+    (new ASCIIPane(model)).setSelected(1);
+
+    // Assert
+    verify(model).addHexModelChangeListener(isA(HexModelChangeListener.class));
+    verify(model).totalLine();
+  }
+
+  /**
+   * Method under test: {@link ASCIIPane#setSelected(int)}
+   */
+  @Test
+  void testSetSelected2() {
+    // Arrange
+    HexModel model = mock(HexModel.class);
+    when(model.totalLine()).thenReturn(2);
+    doNothing().when(model).addHexModelChangeListener(Mockito.<HexModelChangeListener>any());
+
+    // Act
+    (new ASCIIPane(model)).setSelected(-1);
+
+    // Assert
+    verify(model).addHexModelChangeListener(isA(HexModelChangeListener.class));
+    verify(model).totalLine();
+  }
+
+  /**
    * Method under test: {@link ASCIIPane#ASCIIPane(HexModel)}
    */
   @Test
-  @DisplayName("Test new ASCIIPane(HexModel); then return PreferredSize Size Size Size Size height is forty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ASCIIPane.<init>(HexModel)"})
-  void testNewASCIIPane_thenReturnPreferredSizeSizeSizeSizeSizeHeightIsForty() throws UnsupportedEncodingException {
+  void testNewASCIIPane() throws UnsupportedEncodingException, MissingResourceException {
     // Arrange and Act
     ASCIIPane actualAsciiPane = new ASCIIPane(new HexModel("AXAXAXAX".getBytes("UTF-8")));
 
     // Assert
+    Rectangle boundsResult = actualAsciiPane.bounds();
+    Rectangle2D bounds2D = boundsResult.getBounds2D();
+    assertTrue(bounds2D instanceof Rectangle);
     ColorModel colorModel = actualAsciiPane.getColorModel();
+    ColorSpace colorSpace = colorModel.getColorSpace();
+    assertTrue(colorSpace instanceof ICC_ColorSpace);
+    assertTrue(((ICC_ColorSpace) colorSpace).getProfile() instanceof ICC_ProfileRGB);
+    Rectangle2D frame = boundsResult.getFrame();
+    assertTrue(frame instanceof Rectangle2D.Double);
     assertTrue(colorModel instanceof DirectColorModel);
+    Toolkit toolkit = actualAsciiPane.getToolkit();
+    PropertyChangeListener[] propertyChangeListeners = toolkit.getPropertyChangeListeners();
+    PropertyChangeListener propertyChangeListener = propertyChangeListeners[0];
+    assertTrue(propertyChangeListener instanceof PropertyChangeListenerProxy);
+    Locale locale = actualAsciiPane.getLocale();
+    assertEquals("", locale.getCountry());
+    assertEquals("", locale.getDisplayCountry());
+    assertEquals("", locale.getDisplayScript());
+    assertEquals("", locale.getDisplayVariant());
+    assertEquals("", locale.getISO3Country());
+    assertEquals("", locale.getScript());
+    assertEquals("", locale.getVariant());
+    assertEquals("ComponentUI", actualAsciiPane.getUIClassID());
+    Cursor cursor = actualAsciiPane.getCursor();
+    assertEquals("Default Cursor", cursor.getName());
+    assertEquals("English", locale.getDisplayLanguage());
+    assertEquals("English", locale.getDisplayName());
+    Font font = actualAsciiPane.getFont();
+    assertEquals("Monospaced", font.getFamily());
+    assertEquals("Monospaced.plain", font.getFontName());
+    assertEquals("Monospaced.plain", font.getPSName());
+    assertEquals("awt.font.desktophints", ((PropertyChangeListenerProxy) propertyChangeListener).getPropertyName());
+    assertEquals("en", locale.getLanguage());
+    assertEquals("eng", locale.getISO3Language());
+    assertEquals("monospaced", font.getName());
+    ActionMap actionMap = actualAsciiPane.getActionMap();
+    assertNull(actionMap.keys());
+    InputMap inputMap = actualAsciiPane.getInputMap();
+    assertNull(inputMap.keys());
+    assertNull(actualAsciiPane.getBackground());
+    assertNull(actualAsciiPane.getForeground());
+    assertNull(actualAsciiPane.getNextFocusableComponent());
+    assertNull(actualAsciiPane.getFocusCycleRootAncestor());
+    assertNull(actualAsciiPane.getParent());
+    assertNull(actualAsciiPane.getTopLevelAncestor());
+    assertNull(actualAsciiPane.getFocusTraversalPolicy());
+    assertNull(actualAsciiPane.getGraphics());
+    assertNull(actualAsciiPane.getGraphicsConfiguration());
+    assertNull(actualAsciiPane.getLayout());
+    assertNull(actualAsciiPane.getDropTarget());
+    assertNull(actualAsciiPane.getInputContext());
+    assertNull(actualAsciiPane.getInputMethodRequests());
+    assertNull(actualAsciiPane.getName());
+    assertNull(actualAsciiPane.getToolTipText());
+    assertNull(actualAsciiPane.getAccessibleContext());
+    assertNull(actionMap.getParent());
+    assertNull(inputMap.getParent());
+    assertNull(actualAsciiPane.getInputVerifier());
+    assertNull(actualAsciiPane.getComponentPopupMenu());
+    assertNull(actualAsciiPane.getRootPane());
+    assertNull(actualAsciiPane.getTransferHandler());
+    assertNull(actualAsciiPane.getBorder());
+    assertEquals(-16777216, ((DirectColorModel) colorModel).getAlphaMask());
+    assertEquals(0, actualAsciiPane.getComponentCount());
+    assertEquals(0, cursor.getType());
+    assertEquals(0, font.getMissingGlyphCode());
+    assertEquals(0, font.getStyle());
+    AffineTransform transform = font.getTransform();
+    assertEquals(0, transform.getType());
+    assertEquals(0, actionMap.size());
+    assertEquals(0, inputMap.size());
+    assertEquals(0, actualAsciiPane.getDebugGraphicsOptions());
+    assertEquals(0, actualAsciiPane.getHeight());
+    assertEquals(0, actualAsciiPane.getWidth());
+    assertEquals(0, actualAsciiPane.getX());
+    assertEquals(0, actualAsciiPane.getY());
+    assertEquals(0, actualAsciiPane.getComponentListeners().length);
+    assertEquals(0, actualAsciiPane.getFocusListeners().length);
+    assertEquals(0, actualAsciiPane.getHierarchyBoundsListeners().length);
+    assertEquals(0, actualAsciiPane.getHierarchyListeners().length);
+    assertEquals(0, actualAsciiPane.getInputMethodListeners().length);
+    assertEquals(0, actualAsciiPane.getKeyListeners().length);
+    assertEquals(0, actualAsciiPane.getMouseListeners().length);
+    assertEquals(0, actualAsciiPane.getMouseMotionListeners().length);
+    assertEquals(0, actualAsciiPane.getMouseWheelListeners().length);
+    assertEquals(0, actualAsciiPane.getPropertyChangeListeners().length);
+    assertEquals(0, actualAsciiPane.getComponents().length);
+    assertEquals(0, actualAsciiPane.getContainerListeners().length);
+    assertEquals(0, toolkit.getAWTEventListeners().length);
+    assertEquals(0, actualAsciiPane.getAncestorListeners().length);
+    assertEquals(0, actualAsciiPane.getRegisteredKeyStrokes().length);
+    assertEquals(0, actualAsciiPane.getVetoableChangeListeners().length);
+    Dimension minimumSize = actualAsciiPane.getMinimumSize();
+    assertEquals(0, minimumSize.height);
+    assertEquals(0, minimumSize.width);
+    Insets insets = actualAsciiPane.getInsets();
+    assertEquals(0, insets.bottom);
+    assertEquals(0, insets.left);
+    assertEquals(0, insets.right);
+    assertEquals(0, insets.top);
+    Point location = actualAsciiPane.getLocation();
+    assertEquals(0, location.x);
+    assertEquals(0, location.y);
+    assertEquals(0, boundsResult.height);
+    assertEquals(0, boundsResult.width);
+    assertEquals(0, boundsResult.x);
+    assertEquals(0, boundsResult.y);
+    assertEquals(0.0d, minimumSize.getHeight());
+    assertEquals(0.0d, minimumSize.getWidth());
+    assertEquals(0.0d, location.getX());
+    assertEquals(0.0d, location.getY());
+    assertEquals(0.0d, boundsResult.getHeight());
+    assertEquals(0.0d, boundsResult.getWidth());
+    assertEquals(0.0d, boundsResult.getX());
+    assertEquals(0.0d, boundsResult.getY());
+    assertEquals(0.0d, transform.getShearX());
+    assertEquals(0.0d, transform.getShearY());
+    assertEquals(0.0d, transform.getTranslateX());
+    assertEquals(0.0d, transform.getTranslateY());
+    assertEquals(0.0d, boundsResult.getCenterX());
+    assertEquals(0.0d, boundsResult.getCenterY());
+    assertEquals(0.0d, boundsResult.getMaxX());
+    assertEquals(0.0d, boundsResult.getMaxY());
+    assertEquals(0.0d, boundsResult.getMinX());
+    assertEquals(0.0d, boundsResult.getMinY());
+    assertEquals(0.0f, font.getItalicAngle());
+    assertEquals(0.5f, actualAsciiPane.getAlignmentX());
+    assertEquals(0.5f, actualAsciiPane.getAlignmentY());
+    assertEquals(1, propertyChangeListeners.length);
+    assertEquals(1.0d, transform.getDeterminant());
+    assertEquals(1.0d, transform.getScaleX());
+    assertEquals(1.0d, transform.getScaleY());
+    assertEquals(12, font.getSize());
+    assertEquals(12.0f, font.getSize2D());
+    assertEquals(16711680, ((DirectColorModel) colorModel).getRedMask());
+    assertEquals(22, font.getAvailableAttributes().length);
+    assertEquals(255, ((DirectColorModel) colorModel).getBlueMask());
     Dimension preferredSize = actualAsciiPane.getPreferredSize();
-    Dimension size = preferredSize.getSize();
-    Dimension size2 = size.getSize();
-    Dimension size3 = size2.getSize();
-    assertEquals(40, size3.getSize().height);
-    assertEquals(40, size3.height);
-    assertEquals(40, size2.height);
-    assertEquals(40, size.height);
+    assertEquals(270, preferredSize.width);
+    assertEquals(270.0d, preferredSize.getWidth());
+    assertEquals(3, colorSpace.getNumComponents());
+    assertEquals(3, colorModel.getNumColorComponents());
+    assertEquals(3, colorModel.getTransferType());
+    assertEquals(3, colorModel.getTransparency());
+    Dimension maximumSize = actualAsciiPane.getMaximumSize();
+    assertEquals(32767, maximumSize.height);
+    assertEquals(32767, maximumSize.width);
+    assertEquals(32767.0d, maximumSize.getHeight());
+    assertEquals(32767.0d, maximumSize.getWidth());
+    assertEquals(3377, font.getNumGlyphs());
+    assertEquals(4, colorModel.getNumComponents());
     assertEquals(40, preferredSize.height);
-    assertEquals(40.0d, size3.getHeight());
-    assertEquals(40.0d, size2.getHeight());
-    assertEquals(40.0d, size.getHeight());
     assertEquals(40.0d, preferredSize.getHeight());
+    assertEquals(5, colorSpace.getType());
+    assertEquals(65280, ((DirectColorModel) colorModel).getGreenMask());
+    assertEquals(8, font.getAttributes().size());
+    assertEquals(Component.BaselineResizeBehavior.OTHER, actualAsciiPane.getBaselineResizeBehavior());
+    assertFalse(actualAsciiPane.getIgnoreRepaint());
+    assertFalse(actualAsciiPane.hasFocus());
+    assertFalse(actualAsciiPane.isBackgroundSet());
+    assertFalse(actualAsciiPane.isCursorSet());
+    assertFalse(actualAsciiPane.isDisplayable());
+    assertFalse(actualAsciiPane.isFocusOwner());
+    assertFalse(actualAsciiPane.isForegroundSet());
+    assertFalse(actualAsciiPane.isLightweight());
+    assertFalse(actualAsciiPane.isMaximumSizeSet());
+    assertFalse(actualAsciiPane.isMinimumSizeSet());
+    assertFalse(actualAsciiPane.isShowing());
+    assertFalse(actualAsciiPane.isValid());
+    assertFalse(actualAsciiPane.isFocusCycleRoot());
+    assertFalse(actualAsciiPane.isFocusTraversalPolicyProvider());
+    assertFalse(actualAsciiPane.isFocusTraversalPolicySet());
+    assertFalse(font.hasLayoutAttributes());
+    assertFalse(font.hasUniformLineMetrics());
+    assertFalse(font.isBold());
+    assertFalse(font.isItalic());
+    assertFalse(font.isTransformed());
+    assertFalse(toolkit.isAlwaysOnTopSupported());
+    assertFalse(colorModel.isAlphaPremultiplied());
+    assertFalse(locale.hasExtensions());
+    assertFalse(actualAsciiPane.getAutoscrolls());
+    assertFalse(actualAsciiPane.getInheritsPopupMenu());
+    assertFalse(actualAsciiPane.isDoubleBuffered());
+    assertFalse(actualAsciiPane.isManagingFocus());
+    assertFalse(actualAsciiPane.isOpaque());
+    assertFalse(actualAsciiPane.isPaintingForPrint());
+    assertFalse(actualAsciiPane.isPaintingTile());
+    assertFalse(actualAsciiPane.isValidateRoot());
+    assertTrue(actualAsciiPane.getFocusTraversalKeysEnabled());
+    assertTrue(actualAsciiPane.isEnabled());
+    assertTrue(actualAsciiPane.isFocusable());
+    assertTrue(actualAsciiPane.isFontSet());
+    assertTrue(actualAsciiPane.isPreferredSizeSet());
+    assertTrue(actualAsciiPane.isVisible());
+    ComponentOrientation componentOrientation = actualAsciiPane.getComponentOrientation();
+    assertTrue(componentOrientation.isHorizontal());
+    assertTrue(componentOrientation.isLeftToRight());
+    assertTrue(font.isPlain());
+    assertTrue(boundsResult.isEmpty());
+    assertTrue(colorSpace.isCS_sRGB());
+    assertTrue(transform.isIdentity());
+    assertTrue(colorModel.hasAlpha());
+    Set<Character> extensionKeys = locale.getExtensionKeys();
+    assertTrue(extensionKeys.isEmpty());
+    assertTrue(actualAsciiPane.getVerifyInputWhenFocusTarget());
+    assertTrue(actualAsciiPane.isOptimizedDrawingEnabled());
+    assertTrue(actualAsciiPane.isRequestFocusEnabled());
+    assertEquals(boundsResult, actualAsciiPane.getBounds());
+    assertEquals(boundsResult, boundsResult.getBounds());
+    assertEquals(boundsResult, actualAsciiPane.getVisibleRect());
+    assertEquals(boundsResult, bounds2D);
+    assertEquals(boundsResult, frame);
+    assertEquals(location, location.getLocation());
+    assertEquals(location, boundsResult.getLocation());
+    assertEquals(maximumSize, maximumSize.getSize());
+    assertEquals(minimumSize, actualAsciiPane.getSize());
+    assertEquals(minimumSize, actualAsciiPane.size());
+    assertEquals(minimumSize, minimumSize.getSize());
+    assertEquals(minimumSize, boundsResult.getSize());
+    assertEquals(preferredSize, preferredSize.getSize());
+    assertEquals(Integer.SIZE, colorModel.getPixelSize());
+    assertSame(extensionKeys, locale.getUnicodeLocaleAttributes());
+    assertSame(extensionKeys, locale.getUnicodeLocaleKeys());
     assertArrayEquals(new int[]{16711680, 65280, 255, -16777216}, ((DirectColorModel) colorModel).getMasks());
     assertArrayEquals(new int[]{8, 8, 8, 8}, colorModel.getComponentSize());
   }
 
   /**
-   * Test {@link ASCIIPane#ASCIIPane(HexModel)}.
-   * <ul>
-   *   <li>Then return PreferredSize Size Size Size Size {@link Dimension#height} is twenty.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ASCIIPane#ASCIIPane(HexModel)}
    */
   @Test
-  @DisplayName("Test new ASCIIPane(HexModel); then return PreferredSize Size Size Size Size height is twenty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ASCIIPane.<init>(HexModel)"})
-  void testNewASCIIPane_thenReturnPreferredSizeSizeSizeSizeSizeHeightIsTwenty() {
+  void testNewASCIIPane2() throws MissingResourceException {
     // Arrange and Act
     ASCIIPane actualAsciiPane = new ASCIIPane(new HexModel(new byte[]{}));
 
     // Assert
+    Rectangle boundsResult = actualAsciiPane.bounds();
+    Rectangle2D bounds2D = boundsResult.getBounds2D();
+    assertTrue(bounds2D instanceof Rectangle);
     ColorModel colorModel = actualAsciiPane.getColorModel();
+    ColorSpace colorSpace = colorModel.getColorSpace();
+    assertTrue(colorSpace instanceof ICC_ColorSpace);
+    assertTrue(((ICC_ColorSpace) colorSpace).getProfile() instanceof ICC_ProfileRGB);
+    Rectangle2D frame = boundsResult.getFrame();
+    assertTrue(frame instanceof Rectangle2D.Double);
     assertTrue(colorModel instanceof DirectColorModel);
+    Toolkit toolkit = actualAsciiPane.getToolkit();
+    PropertyChangeListener[] propertyChangeListeners = toolkit.getPropertyChangeListeners();
+    PropertyChangeListener propertyChangeListener = propertyChangeListeners[0];
+    assertTrue(propertyChangeListener instanceof PropertyChangeListenerProxy);
+    Locale locale = actualAsciiPane.getLocale();
+    assertEquals("", locale.getCountry());
+    assertEquals("", locale.getDisplayCountry());
+    assertEquals("", locale.getDisplayScript());
+    assertEquals("", locale.getDisplayVariant());
+    assertEquals("", locale.getISO3Country());
+    assertEquals("", locale.getScript());
+    assertEquals("", locale.getVariant());
+    assertEquals("ComponentUI", actualAsciiPane.getUIClassID());
+    Cursor cursor = actualAsciiPane.getCursor();
+    assertEquals("Default Cursor", cursor.getName());
+    assertEquals("English", locale.getDisplayLanguage());
+    assertEquals("English", locale.getDisplayName());
+    Font font = actualAsciiPane.getFont();
+    assertEquals("Monospaced", font.getFamily());
+    assertEquals("Monospaced.plain", font.getFontName());
+    assertEquals("Monospaced.plain", font.getPSName());
+    assertEquals("awt.font.desktophints", ((PropertyChangeListenerProxy) propertyChangeListener).getPropertyName());
+    assertEquals("en", locale.getLanguage());
+    assertEquals("eng", locale.getISO3Language());
+    assertEquals("monospaced", font.getName());
+    ActionMap actionMap = actualAsciiPane.getActionMap();
+    assertNull(actionMap.keys());
+    InputMap inputMap = actualAsciiPane.getInputMap();
+    assertNull(inputMap.keys());
+    assertNull(actualAsciiPane.getBackground());
+    assertNull(actualAsciiPane.getForeground());
+    assertNull(actualAsciiPane.getNextFocusableComponent());
+    assertNull(actualAsciiPane.getFocusCycleRootAncestor());
+    assertNull(actualAsciiPane.getParent());
+    assertNull(actualAsciiPane.getTopLevelAncestor());
+    assertNull(actualAsciiPane.getFocusTraversalPolicy());
+    assertNull(actualAsciiPane.getGraphics());
+    assertNull(actualAsciiPane.getGraphicsConfiguration());
+    assertNull(actualAsciiPane.getLayout());
+    assertNull(actualAsciiPane.getDropTarget());
+    assertNull(actualAsciiPane.getInputContext());
+    assertNull(actualAsciiPane.getInputMethodRequests());
+    assertNull(actualAsciiPane.getName());
+    assertNull(actualAsciiPane.getToolTipText());
+    assertNull(actualAsciiPane.getAccessibleContext());
+    assertNull(actionMap.getParent());
+    assertNull(inputMap.getParent());
+    assertNull(actualAsciiPane.getInputVerifier());
+    assertNull(actualAsciiPane.getComponentPopupMenu());
+    assertNull(actualAsciiPane.getRootPane());
+    assertNull(actualAsciiPane.getTransferHandler());
+    assertNull(actualAsciiPane.getBorder());
+    assertEquals(-16777216, ((DirectColorModel) colorModel).getAlphaMask());
+    assertEquals(0, actualAsciiPane.getComponentCount());
+    assertEquals(0, cursor.getType());
+    assertEquals(0, font.getMissingGlyphCode());
+    assertEquals(0, font.getStyle());
+    AffineTransform transform = font.getTransform();
+    assertEquals(0, transform.getType());
+    assertEquals(0, actionMap.size());
+    assertEquals(0, inputMap.size());
+    assertEquals(0, actualAsciiPane.getDebugGraphicsOptions());
+    assertEquals(0, actualAsciiPane.getHeight());
+    assertEquals(0, actualAsciiPane.getWidth());
+    assertEquals(0, actualAsciiPane.getX());
+    assertEquals(0, actualAsciiPane.getY());
+    assertEquals(0, actualAsciiPane.getComponentListeners().length);
+    assertEquals(0, actualAsciiPane.getFocusListeners().length);
+    assertEquals(0, actualAsciiPane.getHierarchyBoundsListeners().length);
+    assertEquals(0, actualAsciiPane.getHierarchyListeners().length);
+    assertEquals(0, actualAsciiPane.getInputMethodListeners().length);
+    assertEquals(0, actualAsciiPane.getKeyListeners().length);
+    assertEquals(0, actualAsciiPane.getMouseListeners().length);
+    assertEquals(0, actualAsciiPane.getMouseMotionListeners().length);
+    assertEquals(0, actualAsciiPane.getMouseWheelListeners().length);
+    assertEquals(0, actualAsciiPane.getPropertyChangeListeners().length);
+    assertEquals(0, actualAsciiPane.getComponents().length);
+    assertEquals(0, actualAsciiPane.getContainerListeners().length);
+    assertEquals(0, toolkit.getAWTEventListeners().length);
+    assertEquals(0, actualAsciiPane.getAncestorListeners().length);
+    assertEquals(0, actualAsciiPane.getRegisteredKeyStrokes().length);
+    assertEquals(0, actualAsciiPane.getVetoableChangeListeners().length);
+    Dimension minimumSize = actualAsciiPane.getMinimumSize();
+    assertEquals(0, minimumSize.height);
+    assertEquals(0, minimumSize.width);
+    Insets insets = actualAsciiPane.getInsets();
+    assertEquals(0, insets.bottom);
+    assertEquals(0, insets.left);
+    assertEquals(0, insets.right);
+    assertEquals(0, insets.top);
+    Point location = actualAsciiPane.getLocation();
+    assertEquals(0, location.x);
+    assertEquals(0, location.y);
+    assertEquals(0, boundsResult.height);
+    assertEquals(0, boundsResult.width);
+    assertEquals(0, boundsResult.x);
+    assertEquals(0, boundsResult.y);
+    assertEquals(0.0d, minimumSize.getHeight());
+    assertEquals(0.0d, minimumSize.getWidth());
+    assertEquals(0.0d, location.getX());
+    assertEquals(0.0d, location.getY());
+    assertEquals(0.0d, boundsResult.getHeight());
+    assertEquals(0.0d, boundsResult.getWidth());
+    assertEquals(0.0d, boundsResult.getX());
+    assertEquals(0.0d, boundsResult.getY());
+    assertEquals(0.0d, transform.getShearX());
+    assertEquals(0.0d, transform.getShearY());
+    assertEquals(0.0d, transform.getTranslateX());
+    assertEquals(0.0d, transform.getTranslateY());
+    assertEquals(0.0d, boundsResult.getCenterX());
+    assertEquals(0.0d, boundsResult.getCenterY());
+    assertEquals(0.0d, boundsResult.getMaxX());
+    assertEquals(0.0d, boundsResult.getMaxY());
+    assertEquals(0.0d, boundsResult.getMinX());
+    assertEquals(0.0d, boundsResult.getMinY());
+    assertEquals(0.0f, font.getItalicAngle());
+    assertEquals(0.5f, actualAsciiPane.getAlignmentX());
+    assertEquals(0.5f, actualAsciiPane.getAlignmentY());
+    assertEquals(1, propertyChangeListeners.length);
+    assertEquals(1.0d, transform.getDeterminant());
+    assertEquals(1.0d, transform.getScaleX());
+    assertEquals(1.0d, transform.getScaleY());
+    assertEquals(12, font.getSize());
+    assertEquals(12.0f, font.getSize2D());
+    assertEquals(16711680, ((DirectColorModel) colorModel).getRedMask());
     Dimension preferredSize = actualAsciiPane.getPreferredSize();
-    Dimension size = preferredSize.getSize();
-    Dimension size2 = size.getSize();
-    Dimension size3 = size2.getSize();
-    assertEquals(20, size3.getSize().height);
-    assertEquals(20, size3.height);
-    assertEquals(20, size2.height);
-    assertEquals(20, size.height);
     assertEquals(20, preferredSize.height);
-    assertEquals(20.0d, size3.getHeight());
-    assertEquals(20.0d, size2.getHeight());
-    assertEquals(20.0d, size.getHeight());
     assertEquals(20.0d, preferredSize.getHeight());
+    assertEquals(22, font.getAvailableAttributes().length);
+    assertEquals(255, ((DirectColorModel) colorModel).getBlueMask());
+    assertEquals(270, preferredSize.width);
+    assertEquals(270.0d, preferredSize.getWidth());
+    assertEquals(3, colorSpace.getNumComponents());
+    assertEquals(3, colorModel.getNumColorComponents());
+    assertEquals(3, colorModel.getTransferType());
+    assertEquals(3, colorModel.getTransparency());
+    Dimension maximumSize = actualAsciiPane.getMaximumSize();
+    assertEquals(32767, maximumSize.height);
+    assertEquals(32767, maximumSize.width);
+    assertEquals(32767.0d, maximumSize.getHeight());
+    assertEquals(32767.0d, maximumSize.getWidth());
+    assertEquals(3377, font.getNumGlyphs());
+    assertEquals(4, colorModel.getNumComponents());
+    assertEquals(5, colorSpace.getType());
+    assertEquals(65280, ((DirectColorModel) colorModel).getGreenMask());
+    assertEquals(8, font.getAttributes().size());
+    assertEquals(Component.BaselineResizeBehavior.OTHER, actualAsciiPane.getBaselineResizeBehavior());
+    assertFalse(actualAsciiPane.getIgnoreRepaint());
+    assertFalse(actualAsciiPane.hasFocus());
+    assertFalse(actualAsciiPane.isBackgroundSet());
+    assertFalse(actualAsciiPane.isCursorSet());
+    assertFalse(actualAsciiPane.isDisplayable());
+    assertFalse(actualAsciiPane.isFocusOwner());
+    assertFalse(actualAsciiPane.isForegroundSet());
+    assertFalse(actualAsciiPane.isLightweight());
+    assertFalse(actualAsciiPane.isMaximumSizeSet());
+    assertFalse(actualAsciiPane.isMinimumSizeSet());
+    assertFalse(actualAsciiPane.isShowing());
+    assertFalse(actualAsciiPane.isValid());
+    assertFalse(actualAsciiPane.isFocusCycleRoot());
+    assertFalse(actualAsciiPane.isFocusTraversalPolicyProvider());
+    assertFalse(actualAsciiPane.isFocusTraversalPolicySet());
+    assertFalse(font.hasLayoutAttributes());
+    assertFalse(font.hasUniformLineMetrics());
+    assertFalse(font.isBold());
+    assertFalse(font.isItalic());
+    assertFalse(font.isTransformed());
+    assertFalse(toolkit.isAlwaysOnTopSupported());
+    assertFalse(colorModel.isAlphaPremultiplied());
+    assertFalse(locale.hasExtensions());
+    assertFalse(actualAsciiPane.getAutoscrolls());
+    assertFalse(actualAsciiPane.getInheritsPopupMenu());
+    assertFalse(actualAsciiPane.isDoubleBuffered());
+    assertFalse(actualAsciiPane.isManagingFocus());
+    assertFalse(actualAsciiPane.isOpaque());
+    assertFalse(actualAsciiPane.isPaintingForPrint());
+    assertFalse(actualAsciiPane.isPaintingTile());
+    assertFalse(actualAsciiPane.isValidateRoot());
+    assertTrue(actualAsciiPane.getFocusTraversalKeysEnabled());
+    assertTrue(actualAsciiPane.isEnabled());
+    assertTrue(actualAsciiPane.isFocusable());
+    assertTrue(actualAsciiPane.isFontSet());
+    assertTrue(actualAsciiPane.isPreferredSizeSet());
+    assertTrue(actualAsciiPane.isVisible());
+    ComponentOrientation componentOrientation = actualAsciiPane.getComponentOrientation();
+    assertTrue(componentOrientation.isHorizontal());
+    assertTrue(componentOrientation.isLeftToRight());
+    assertTrue(font.isPlain());
+    assertTrue(boundsResult.isEmpty());
+    assertTrue(colorSpace.isCS_sRGB());
+    assertTrue(transform.isIdentity());
+    assertTrue(colorModel.hasAlpha());
+    Set<Character> extensionKeys = locale.getExtensionKeys();
+    assertTrue(extensionKeys.isEmpty());
+    assertTrue(actualAsciiPane.getVerifyInputWhenFocusTarget());
+    assertTrue(actualAsciiPane.isOptimizedDrawingEnabled());
+    assertTrue(actualAsciiPane.isRequestFocusEnabled());
+    assertEquals(boundsResult, actualAsciiPane.getBounds());
+    assertEquals(boundsResult, boundsResult.getBounds());
+    assertEquals(boundsResult, actualAsciiPane.getVisibleRect());
+    assertEquals(boundsResult, bounds2D);
+    assertEquals(boundsResult, frame);
+    assertEquals(location, location.getLocation());
+    assertEquals(location, boundsResult.getLocation());
+    assertEquals(maximumSize, maximumSize.getSize());
+    assertEquals(minimumSize, actualAsciiPane.getSize());
+    assertEquals(minimumSize, actualAsciiPane.size());
+    assertEquals(minimumSize, minimumSize.getSize());
+    assertEquals(minimumSize, boundsResult.getSize());
+    assertEquals(preferredSize, preferredSize.getSize());
+    assertEquals(Integer.SIZE, colorModel.getPixelSize());
+    assertSame(extensionKeys, locale.getUnicodeLocaleAttributes());
+    assertSame(extensionKeys, locale.getUnicodeLocaleKeys());
+    assertArrayEquals(new int[]{16711680, 65280, 255, -16777216}, ((DirectColorModel) colorModel).getMasks());
+    assertArrayEquals(new int[]{8, 8, 8, 8}, colorModel.getComponentSize());
+  }
+
+  /**
+   * Method under test: {@link ASCIIPane#ASCIIPane(HexModel)}
+   */
+  @Test
+  void testNewASCIIPane3() throws UnsupportedEncodingException, MissingResourceException {
+    // Arrange
+    HexModel model = new HexModel("AXAXAXAX".getBytes("UTF-8"));
+    model.addHexModelChangeListener(mock(HexModelChangeListener.class));
+
+    // Act
+    ASCIIPane actualAsciiPane = new ASCIIPane(model);
+
+    // Assert
+    Rectangle boundsResult = actualAsciiPane.bounds();
+    Rectangle2D bounds2D = boundsResult.getBounds2D();
+    assertTrue(bounds2D instanceof Rectangle);
+    ColorModel colorModel = actualAsciiPane.getColorModel();
+    ColorSpace colorSpace = colorModel.getColorSpace();
+    assertTrue(colorSpace instanceof ICC_ColorSpace);
+    assertTrue(((ICC_ColorSpace) colorSpace).getProfile() instanceof ICC_ProfileRGB);
+    Rectangle2D frame = boundsResult.getFrame();
+    assertTrue(frame instanceof Rectangle2D.Double);
+    assertTrue(colorModel instanceof DirectColorModel);
+    Toolkit toolkit = actualAsciiPane.getToolkit();
+    PropertyChangeListener[] propertyChangeListeners = toolkit.getPropertyChangeListeners();
+    PropertyChangeListener propertyChangeListener = propertyChangeListeners[0];
+    assertTrue(propertyChangeListener instanceof PropertyChangeListenerProxy);
+    Locale locale = actualAsciiPane.getLocale();
+    assertEquals("", locale.getCountry());
+    assertEquals("", locale.getDisplayCountry());
+    assertEquals("", locale.getDisplayScript());
+    assertEquals("", locale.getDisplayVariant());
+    assertEquals("", locale.getISO3Country());
+    assertEquals("", locale.getScript());
+    assertEquals("", locale.getVariant());
+    assertEquals("ComponentUI", actualAsciiPane.getUIClassID());
+    Cursor cursor = actualAsciiPane.getCursor();
+    assertEquals("Default Cursor", cursor.getName());
+    assertEquals("English", locale.getDisplayLanguage());
+    assertEquals("English", locale.getDisplayName());
+    Font font = actualAsciiPane.getFont();
+    assertEquals("Monospaced", font.getFamily());
+    assertEquals("Monospaced.plain", font.getFontName());
+    assertEquals("Monospaced.plain", font.getPSName());
+    assertEquals("awt.font.desktophints", ((PropertyChangeListenerProxy) propertyChangeListener).getPropertyName());
+    assertEquals("en", locale.getLanguage());
+    assertEquals("eng", locale.getISO3Language());
+    assertEquals("monospaced", font.getName());
+    ActionMap actionMap = actualAsciiPane.getActionMap();
+    assertNull(actionMap.keys());
+    InputMap inputMap = actualAsciiPane.getInputMap();
+    assertNull(inputMap.keys());
+    assertNull(actualAsciiPane.getBackground());
+    assertNull(actualAsciiPane.getForeground());
+    assertNull(actualAsciiPane.getNextFocusableComponent());
+    assertNull(actualAsciiPane.getFocusCycleRootAncestor());
+    assertNull(actualAsciiPane.getParent());
+    assertNull(actualAsciiPane.getTopLevelAncestor());
+    assertNull(actualAsciiPane.getFocusTraversalPolicy());
+    assertNull(actualAsciiPane.getGraphics());
+    assertNull(actualAsciiPane.getGraphicsConfiguration());
+    assertNull(actualAsciiPane.getLayout());
+    assertNull(actualAsciiPane.getDropTarget());
+    assertNull(actualAsciiPane.getInputContext());
+    assertNull(actualAsciiPane.getInputMethodRequests());
+    assertNull(actualAsciiPane.getName());
+    assertNull(actualAsciiPane.getToolTipText());
+    assertNull(actualAsciiPane.getAccessibleContext());
+    assertNull(actionMap.getParent());
+    assertNull(inputMap.getParent());
+    assertNull(actualAsciiPane.getInputVerifier());
+    assertNull(actualAsciiPane.getComponentPopupMenu());
+    assertNull(actualAsciiPane.getRootPane());
+    assertNull(actualAsciiPane.getTransferHandler());
+    assertNull(actualAsciiPane.getBorder());
+    assertEquals(-16777216, ((DirectColorModel) colorModel).getAlphaMask());
+    assertEquals(0, actualAsciiPane.getComponentCount());
+    assertEquals(0, cursor.getType());
+    assertEquals(0, font.getMissingGlyphCode());
+    assertEquals(0, font.getStyle());
+    AffineTransform transform = font.getTransform();
+    assertEquals(0, transform.getType());
+    assertEquals(0, actionMap.size());
+    assertEquals(0, inputMap.size());
+    assertEquals(0, actualAsciiPane.getDebugGraphicsOptions());
+    assertEquals(0, actualAsciiPane.getHeight());
+    assertEquals(0, actualAsciiPane.getWidth());
+    assertEquals(0, actualAsciiPane.getX());
+    assertEquals(0, actualAsciiPane.getY());
+    assertEquals(0, actualAsciiPane.getComponentListeners().length);
+    assertEquals(0, actualAsciiPane.getFocusListeners().length);
+    assertEquals(0, actualAsciiPane.getHierarchyBoundsListeners().length);
+    assertEquals(0, actualAsciiPane.getHierarchyListeners().length);
+    assertEquals(0, actualAsciiPane.getInputMethodListeners().length);
+    assertEquals(0, actualAsciiPane.getKeyListeners().length);
+    assertEquals(0, actualAsciiPane.getMouseListeners().length);
+    assertEquals(0, actualAsciiPane.getMouseMotionListeners().length);
+    assertEquals(0, actualAsciiPane.getMouseWheelListeners().length);
+    assertEquals(0, actualAsciiPane.getPropertyChangeListeners().length);
+    assertEquals(0, actualAsciiPane.getComponents().length);
+    assertEquals(0, actualAsciiPane.getContainerListeners().length);
+    assertEquals(0, toolkit.getAWTEventListeners().length);
+    assertEquals(0, actualAsciiPane.getAncestorListeners().length);
+    assertEquals(0, actualAsciiPane.getRegisteredKeyStrokes().length);
+    assertEquals(0, actualAsciiPane.getVetoableChangeListeners().length);
+    Dimension minimumSize = actualAsciiPane.getMinimumSize();
+    assertEquals(0, minimumSize.height);
+    assertEquals(0, minimumSize.width);
+    Insets insets = actualAsciiPane.getInsets();
+    assertEquals(0, insets.bottom);
+    assertEquals(0, insets.left);
+    assertEquals(0, insets.right);
+    assertEquals(0, insets.top);
+    Point location = actualAsciiPane.getLocation();
+    assertEquals(0, location.x);
+    assertEquals(0, location.y);
+    assertEquals(0, boundsResult.height);
+    assertEquals(0, boundsResult.width);
+    assertEquals(0, boundsResult.x);
+    assertEquals(0, boundsResult.y);
+    assertEquals(0.0d, minimumSize.getHeight());
+    assertEquals(0.0d, minimumSize.getWidth());
+    assertEquals(0.0d, location.getX());
+    assertEquals(0.0d, location.getY());
+    assertEquals(0.0d, boundsResult.getHeight());
+    assertEquals(0.0d, boundsResult.getWidth());
+    assertEquals(0.0d, boundsResult.getX());
+    assertEquals(0.0d, boundsResult.getY());
+    assertEquals(0.0d, transform.getShearX());
+    assertEquals(0.0d, transform.getShearY());
+    assertEquals(0.0d, transform.getTranslateX());
+    assertEquals(0.0d, transform.getTranslateY());
+    assertEquals(0.0d, boundsResult.getCenterX());
+    assertEquals(0.0d, boundsResult.getCenterY());
+    assertEquals(0.0d, boundsResult.getMaxX());
+    assertEquals(0.0d, boundsResult.getMaxY());
+    assertEquals(0.0d, boundsResult.getMinX());
+    assertEquals(0.0d, boundsResult.getMinY());
+    assertEquals(0.0f, font.getItalicAngle());
+    assertEquals(0.5f, actualAsciiPane.getAlignmentX());
+    assertEquals(0.5f, actualAsciiPane.getAlignmentY());
+    assertEquals(1, propertyChangeListeners.length);
+    assertEquals(1.0d, transform.getDeterminant());
+    assertEquals(1.0d, transform.getScaleX());
+    assertEquals(1.0d, transform.getScaleY());
+    assertEquals(12, font.getSize());
+    assertEquals(12.0f, font.getSize2D());
+    assertEquals(16711680, ((DirectColorModel) colorModel).getRedMask());
+    assertEquals(22, font.getAvailableAttributes().length);
+    assertEquals(255, ((DirectColorModel) colorModel).getBlueMask());
+    Dimension preferredSize = actualAsciiPane.getPreferredSize();
+    assertEquals(270, preferredSize.width);
+    assertEquals(270.0d, preferredSize.getWidth());
+    assertEquals(3, colorSpace.getNumComponents());
+    assertEquals(3, colorModel.getNumColorComponents());
+    assertEquals(3, colorModel.getTransferType());
+    assertEquals(3, colorModel.getTransparency());
+    Dimension maximumSize = actualAsciiPane.getMaximumSize();
+    assertEquals(32767, maximumSize.height);
+    assertEquals(32767, maximumSize.width);
+    assertEquals(32767.0d, maximumSize.getHeight());
+    assertEquals(32767.0d, maximumSize.getWidth());
+    assertEquals(3377, font.getNumGlyphs());
+    assertEquals(4, colorModel.getNumComponents());
+    assertEquals(40, preferredSize.height);
+    assertEquals(40.0d, preferredSize.getHeight());
+    assertEquals(5, colorSpace.getType());
+    assertEquals(65280, ((DirectColorModel) colorModel).getGreenMask());
+    assertEquals(8, font.getAttributes().size());
+    assertEquals(Component.BaselineResizeBehavior.OTHER, actualAsciiPane.getBaselineResizeBehavior());
+    assertFalse(actualAsciiPane.getIgnoreRepaint());
+    assertFalse(actualAsciiPane.hasFocus());
+    assertFalse(actualAsciiPane.isBackgroundSet());
+    assertFalse(actualAsciiPane.isCursorSet());
+    assertFalse(actualAsciiPane.isDisplayable());
+    assertFalse(actualAsciiPane.isFocusOwner());
+    assertFalse(actualAsciiPane.isForegroundSet());
+    assertFalse(actualAsciiPane.isLightweight());
+    assertFalse(actualAsciiPane.isMaximumSizeSet());
+    assertFalse(actualAsciiPane.isMinimumSizeSet());
+    assertFalse(actualAsciiPane.isShowing());
+    assertFalse(actualAsciiPane.isValid());
+    assertFalse(actualAsciiPane.isFocusCycleRoot());
+    assertFalse(actualAsciiPane.isFocusTraversalPolicyProvider());
+    assertFalse(actualAsciiPane.isFocusTraversalPolicySet());
+    assertFalse(font.hasLayoutAttributes());
+    assertFalse(font.hasUniformLineMetrics());
+    assertFalse(font.isBold());
+    assertFalse(font.isItalic());
+    assertFalse(font.isTransformed());
+    assertFalse(toolkit.isAlwaysOnTopSupported());
+    assertFalse(colorModel.isAlphaPremultiplied());
+    assertFalse(locale.hasExtensions());
+    assertFalse(actualAsciiPane.getAutoscrolls());
+    assertFalse(actualAsciiPane.getInheritsPopupMenu());
+    assertFalse(actualAsciiPane.isDoubleBuffered());
+    assertFalse(actualAsciiPane.isManagingFocus());
+    assertFalse(actualAsciiPane.isOpaque());
+    assertFalse(actualAsciiPane.isPaintingForPrint());
+    assertFalse(actualAsciiPane.isPaintingTile());
+    assertFalse(actualAsciiPane.isValidateRoot());
+    assertTrue(actualAsciiPane.getFocusTraversalKeysEnabled());
+    assertTrue(actualAsciiPane.isEnabled());
+    assertTrue(actualAsciiPane.isFocusable());
+    assertTrue(actualAsciiPane.isFontSet());
+    assertTrue(actualAsciiPane.isPreferredSizeSet());
+    assertTrue(actualAsciiPane.isVisible());
+    ComponentOrientation componentOrientation = actualAsciiPane.getComponentOrientation();
+    assertTrue(componentOrientation.isHorizontal());
+    assertTrue(componentOrientation.isLeftToRight());
+    assertTrue(font.isPlain());
+    assertTrue(boundsResult.isEmpty());
+    assertTrue(colorSpace.isCS_sRGB());
+    assertTrue(transform.isIdentity());
+    assertTrue(colorModel.hasAlpha());
+    Set<Character> extensionKeys = locale.getExtensionKeys();
+    assertTrue(extensionKeys.isEmpty());
+    assertTrue(actualAsciiPane.getVerifyInputWhenFocusTarget());
+    assertTrue(actualAsciiPane.isOptimizedDrawingEnabled());
+    assertTrue(actualAsciiPane.isRequestFocusEnabled());
+    assertEquals(boundsResult, actualAsciiPane.getBounds());
+    assertEquals(boundsResult, boundsResult.getBounds());
+    assertEquals(boundsResult, actualAsciiPane.getVisibleRect());
+    assertEquals(boundsResult, bounds2D);
+    assertEquals(boundsResult, frame);
+    assertEquals(location, location.getLocation());
+    assertEquals(location, boundsResult.getLocation());
+    assertEquals(maximumSize, maximumSize.getSize());
+    assertEquals(minimumSize, actualAsciiPane.getSize());
+    assertEquals(minimumSize, actualAsciiPane.size());
+    assertEquals(minimumSize, minimumSize.getSize());
+    assertEquals(minimumSize, boundsResult.getSize());
+    assertEquals(preferredSize, preferredSize.getSize());
+    assertEquals(Integer.SIZE, colorModel.getPixelSize());
+    assertSame(extensionKeys, locale.getUnicodeLocaleAttributes());
+    assertSame(extensionKeys, locale.getUnicodeLocaleKeys());
     assertArrayEquals(new int[]{16711680, 65280, 255, -16777216}, ((DirectColorModel) colorModel).getMasks());
     assertArrayEquals(new int[]{8, 8, 8, 8}, colorModel.getComponentSize());
   }

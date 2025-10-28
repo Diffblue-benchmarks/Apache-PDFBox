@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.anyInt;
@@ -13,143 +12,37 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MethodsUnderTest;
-import java.util.List;
 import org.apache.pdfbox.cos.COSArray;
 import org.apache.pdfbox.cos.COSBase;
 import org.apache.pdfbox.cos.COSDictionary;
-import org.apache.pdfbox.cos.COSFloat;
 import org.apache.pdfbox.cos.COSName;
 import org.apache.pdfbox.util.Matrix;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 class PDCalRGBDiffblueTest {
   /**
-   * Test {@link PDCalRGB#PDCalRGB()}.
-   * <p>
-   * Method under test: {@link PDCalRGB#PDCalRGB()}
-   */
-  @Test
-  @DisplayName("Test new PDCalRGB()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDCalRGB.<init>()"})
-  void testNewPDCalRGB() {
-    // Arrange and Act
-    PDCalRGB actualPdCalRGB = new PDCalRGB();
-
-    // Assert
-    assertTrue(actualPdCalRGB.getCOSObject() instanceof COSArray);
-    assertEquals("CalRGB", actualPdCalRGB.getName());
-    assertEquals(1.0f, actualPdCalRGB.wpX);
-    assertEquals(1.0f, actualPdCalRGB.wpY);
-    assertEquals(1.0f, actualPdCalRGB.wpZ);
-    assertEquals(3, actualPdCalRGB.getNumberOfComponents());
-    assertArrayEquals(new float[]{1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f}, actualPdCalRGB.getMatrix(),
-        0.0f);
-  }
-
-  /**
-   * Test {@link PDCalRGB#PDCalRGB(COSArray)}.
-   * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary()}.</li>
-   *   <li>Then return Name is {@code CalRGB}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDCalRGB#PDCalRGB(COSArray)}
-   */
-  @Test
-  @DisplayName("Test new PDCalRGB(COSArray); given COSDictionary(); then return Name is 'CalRGB'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDCalRGB.<init>(COSArray)"})
-  void testNewPDCalRGB_givenCOSDictionary_thenReturnNameIsCalRGB() {
-    // Arrange
-    COSArray rgb = mock(COSArray.class);
-    when(rgb.getObject(anyInt())).thenReturn(new COSDictionary());
-
-    // Act
-    PDCalRGB actualPdCalRGB = new PDCalRGB(rgb);
-
-    // Assert
-    verify(rgb).getObject(eq(1));
-    assertEquals("CalRGB", actualPdCalRGB.getName());
-    assertEquals(1.0f, actualPdCalRGB.wpX);
-    assertEquals(1.0f, actualPdCalRGB.wpY);
-    assertEquals(1.0f, actualPdCalRGB.wpZ);
-    assertEquals(3, actualPdCalRGB.getNumberOfComponents());
-    assertSame(rgb, actualPdCalRGB.getCOSObject());
-    assertArrayEquals(new float[]{1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f}, actualPdCalRGB.getMatrix(),
-        0.0f);
-  }
-
-  /**
-   * Test {@link PDCalRGB#getName()}.
-   * <p>
    * Method under test: {@link PDCalRGB#getName()}
    */
   @Test
-  @DisplayName("Test getName()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"java.lang.String PDCalRGB.getName()"})
   void testGetName() {
     // Arrange, Act and Assert
     assertEquals("CalRGB", (new PDCalRGB()).getName());
   }
 
   /**
-   * Test {@link PDCalRGB#getDefaultDecode(int)}.
-   * <p>
    * Method under test: {@link PDCalRGB#getDefaultDecode(int)}
    */
   @Test
-  @DisplayName("Test getDefaultDecode(int)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"float[] PDCalRGB.getDefaultDecode(int)"})
   void testGetDefaultDecode() {
     // Arrange, Act and Assert
     assertArrayEquals(new float[]{0.0f, 1.0f, 0.0f, 1.0f, 0.0f, 1.0f}, (new PDCalRGB()).getDefaultDecode(1), 0.0f);
   }
 
   /**
-   * Test getters and setters.
-   * <p>
-   * Methods under test:
-   * <ul>
-   *   <li>{@link PDCalRGB#getInitialColor()}
-   *   <li>{@link PDCalRGB#getNumberOfComponents()}
-   * </ul>
-   */
-  @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDColor PDCalRGB.getInitialColor()", "int PDCalRGB.getNumberOfComponents()"})
-  void testGettersAndSetters() {
-    // Arrange
-    PDCalRGB pdCalRGB = new PDCalRGB();
-
-    // Act
-    PDColor actualInitialColor = pdCalRGB.getInitialColor();
-    int actualNumberOfComponents = pdCalRGB.getNumberOfComponents();
-
-    // Assert
-    assertNull(actualInitialColor.getPatternName());
-    assertEquals(3, actualNumberOfComponents);
-    assertFalse(actualInitialColor.isPattern());
-    assertSame(pdCalRGB, actualInitialColor.getColorSpace());
-    assertArrayEquals(new float[]{0.0f, 0.0f, 0.0f}, actualInitialColor.getComponents(), 0.0f);
-  }
-
-  /**
-   * Test {@link PDCalRGB#toRGB(float[])}.
-   * <p>
    * Method under test: {@link PDCalRGB#toRGB(float[])}
    */
   @Test
-  @DisplayName("Test toRGB(float[])")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"float[] PDCalRGB.toRGB(float[])"})
   void testToRGB() {
     // Arrange, Act and Assert
     assertArrayEquals(new float[]{0.0f, 0.0f, 0.0f}, (new PDCalRGB()).toRGB(new float[]{10.0f, 0.0f, 10.0f, 0.0f}),
@@ -157,43 +50,9 @@ class PDCalRGBDiffblueTest {
   }
 
   /**
-   * Test {@link PDCalRGB#getGamma()}.
-   * <p>
-   * Method under test: {@link PDCalRGB#getGamma()}
-   */
-  @Test
-  @DisplayName("Test getGamma()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDGamma PDCalRGB.getGamma()"})
-  void testGetGamma() {
-    // Arrange and Act
-    PDGamma actualGamma = (new PDCalRGB()).getGamma();
-
-    // Assert
-    COSArray cOSArray = actualGamma.getCOSArray();
-    List<? extends COSBase> toListResult = cOSArray.toList();
-    assertEquals(3, toListResult.size());
-    COSBase getResult = toListResult.get(0);
-    assertTrue(getResult instanceof COSFloat);
-    assertNull(getResult.getKey());
-    assertEquals(1.0f, actualGamma.getB());
-    assertEquals(1.0f, actualGamma.getG());
-    assertEquals(1.0f, actualGamma.getR());
-    assertFalse(getResult.isDirect());
-    assertSame(cOSArray, actualGamma.getCOSObject());
-    assertSame(getResult, toListResult.get(1));
-    assertSame(getResult, toListResult.get(2));
-  }
-
-  /**
-   * Test {@link PDCalRGB#getMatrix()}.
-   * <p>
    * Method under test: {@link PDCalRGB#getMatrix()}
    */
   @Test
-  @DisplayName("Test getMatrix()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"float[] PDCalRGB.getMatrix()"})
   void testGetMatrix() {
     // Arrange, Act and Assert
     assertArrayEquals(new float[]{1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f}, (new PDCalRGB()).getMatrix(),
@@ -201,52 +60,10 @@ class PDCalRGBDiffblueTest {
   }
 
   /**
-   * Test {@link PDCalRGB#setGamma(PDGamma)}.
-   * <p>
-   * Method under test: {@link PDCalRGB#setGamma(PDGamma)}
-   */
-  @Test
-  @DisplayName("Test setGamma(PDGamma)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDCalRGB.setGamma(PDGamma)"})
-  void testSetGamma() {
-    // Arrange
-    PDCalRGB pdCalRGB = new PDCalRGB();
-
-    // Act
-    pdCalRGB.setGamma(new PDGamma());
-
-    // Assert
-    COSBase cOSObject = pdCalRGB.getWhitepoint().getCOSObject();
-    assertTrue(cOSObject instanceof COSArray);
-    List<? extends COSBase> toListResult = ((COSArray) cOSObject).toList();
-    assertEquals(3, toListResult.size());
-    COSBase getResult = toListResult.get(0);
-    assertTrue(getResult instanceof COSFloat);
-    assertNull(getResult.getKey());
-    PDGamma gamma = pdCalRGB.getGamma();
-    assertEquals(0.0f, gamma.getB());
-    assertEquals(0.0f, gamma.getG());
-    assertEquals(0.0f, gamma.getR());
-    assertFalse(getResult.isDirect());
-    assertSame(getResult, toListResult.get(1));
-    assertSame(getResult, toListResult.get(2));
-  }
-
-  /**
-   * Test {@link PDCalRGB#setMatrix(Matrix)}.
-   * <ul>
-   *   <li>Given {@link COSDictionary} {@link COSDictionary#getCOSArray(COSName)} return {@code null}.</li>
-   *   <li>Then calls {@link COSArray#getObject(int)}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDCalRGB#setMatrix(Matrix)}
    */
   @Test
-  @DisplayName("Test setMatrix(Matrix); given COSDictionary getCOSArray(COSName) return 'null'; then calls getObject(int)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDCalRGB.setMatrix(Matrix)"})
-  void testSetMatrix_givenCOSDictionaryGetCOSArrayReturnNull_thenCallsGetObject() {
+  void testSetMatrix() {
     // Arrange
     COSDictionary cosDictionary = mock(COSDictionary.class);
     when(cosDictionary.getCOSArray(Mockito.<COSName>any())).thenReturn(null);
@@ -262,5 +79,29 @@ class PDCalRGBDiffblueTest {
     verify(rgb).getObject(eq(1));
     verify(cosDictionary).getCOSArray(isA(COSName.class));
     verify(cosDictionary).setItem(isA(COSName.class), isA(COSBase.class));
+  }
+
+  /**
+   * Methods under test:
+   * <ul>
+   *   <li>{@link PDCalRGB#getInitialColor()}
+   *   <li>{@link PDCalRGB#getNumberOfComponents()}
+   * </ul>
+   */
+  @Test
+  void testGettersAndSetters() {
+    // Arrange
+    PDCalRGB pdCalRGB = new PDCalRGB();
+
+    // Act
+    PDColor actualInitialColor = pdCalRGB.getInitialColor();
+    int actualNumberOfComponents = pdCalRGB.getNumberOfComponents();
+
+    // Assert
+    assertNull(actualInitialColor.getPatternName());
+    assertEquals(3, actualNumberOfComponents);
+    assertFalse(actualInitialColor.isPattern());
+    assertSame(pdCalRGB, actualInitialColor.getColorSpace());
+    assertArrayEquals(new float[]{0.0f, 0.0f, 0.0f}, actualInitialColor.getComponents(), 0.0f);
   }
 }

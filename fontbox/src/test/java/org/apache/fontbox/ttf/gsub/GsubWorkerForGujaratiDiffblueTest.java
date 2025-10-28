@@ -2,725 +2,502 @@ package org.apache.fontbox.ttf.gsub;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.ArgumentMatchers.isA;
+import static org.mockito.Mockito.anyInt;
+import static org.mockito.Mockito.atLeast;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.apache.fontbox.ttf.CmapLookup;
 import org.apache.fontbox.ttf.CmapSubtable;
+import org.apache.fontbox.ttf.GlyphSubstitutionTable;
+import org.apache.fontbox.ttf.SubstitutingCmapLookup;
 import org.apache.fontbox.ttf.model.GsubData;
 import org.apache.fontbox.ttf.model.Language;
 import org.apache.fontbox.ttf.model.MapBackedGsubData;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 class GsubWorkerForGujaratiDiffblueTest {
   /**
-   * Test {@link GsubWorkerForGujarati#GsubWorkerForGujarati(CmapLookup, GsubData)}.
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add minus two.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link GsubWorkerForGujarati#GsubWorkerForGujarati(CmapLookup, GsubData)}
-   */
-  @Test
-  @DisplayName("Test new GsubWorkerForGujarati(CmapLookup, GsubData); given ArrayList() add minus two")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void GsubWorkerForGujarati.<init>(CmapLookup, GsubData)"})
-  void testNewGsubWorkerForGujarati_givenArrayListAddMinusTwo() {
-    // Arrange
-    CmapSubtable cmapLookup = new CmapSubtable();
-
-    ArrayList<Integer> integerList = new ArrayList<>();
-    integerList.add(-2);
-    integerList.add(2);
-
-    HashMap<List<Integer>, List<Integer>> listListMap = new HashMap<>();
-    listListMap.put(integerList, new ArrayList<>());
-
-    HashMap<String, Map<List<Integer>, List<Integer>>> glyphSubstitutionMap = new HashMap<>();
-    glyphSubstitutionMap.put("rkrf", listListMap);
-
-    // Act
-    GsubWorkerForGujarati actualGsubWorkerForGujarati = new GsubWorkerForGujarati(cmapLookup,
-        new MapBackedGsubData(Language.BENGALI, "Active Script Name", glyphSubstitutionMap));
-
-    // Assert
-    assertTrue(actualGsubWorkerForGujarati.applyTransforms(new ArrayList<>()).isEmpty());
-  }
-
-  /**
-   * Test {@link GsubWorkerForGujarati#GsubWorkerForGujarati(CmapLookup, GsubData)}.
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add two.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link GsubWorkerForGujarati#GsubWorkerForGujarati(CmapLookup, GsubData)}
-   */
-  @Test
-  @DisplayName("Test new GsubWorkerForGujarati(CmapLookup, GsubData); given ArrayList() add two")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void GsubWorkerForGujarati.<init>(CmapLookup, GsubData)"})
-  void testNewGsubWorkerForGujarati_givenArrayListAddTwo() {
-    // Arrange
-    CmapSubtable cmapLookup = new CmapSubtable();
-
-    ArrayList<Integer> integerList = new ArrayList<>();
-    integerList.add(2);
-
-    HashMap<List<Integer>, List<Integer>> listListMap = new HashMap<>();
-    listListMap.put(integerList, new ArrayList<>());
-
-    HashMap<String, Map<List<Integer>, List<Integer>>> glyphSubstitutionMap = new HashMap<>();
-    glyphSubstitutionMap.put("rkrf", listListMap);
-
-    // Act
-    GsubWorkerForGujarati actualGsubWorkerForGujarati = new GsubWorkerForGujarati(cmapLookup,
-        new MapBackedGsubData(Language.BENGALI, "Active Script Name", glyphSubstitutionMap));
-
-    // Assert
-    assertTrue(actualGsubWorkerForGujarati.applyTransforms(new ArrayList<>()).isEmpty());
-  }
-
-  /**
-   * Test {@link GsubWorkerForGujarati#GsubWorkerForGujarati(CmapLookup, GsubData)}.
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add two.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link GsubWorkerForGujarati#GsubWorkerForGujarati(CmapLookup, GsubData)}
-   */
-  @Test
-  @DisplayName("Test new GsubWorkerForGujarati(CmapLookup, GsubData); given ArrayList() add two")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void GsubWorkerForGujarati.<init>(CmapLookup, GsubData)"})
-  void testNewGsubWorkerForGujarati_givenArrayListAddTwo2() {
-    // Arrange
-    CmapSubtable cmapLookup = new CmapSubtable();
-
-    ArrayList<Integer> integerList = new ArrayList<>();
-    integerList.add(2);
-
-    HashMap<List<Integer>, List<Integer>> listListMap = new HashMap<>();
-    ArrayList<Integer> integerList2 = new ArrayList<>();
-    listListMap.put(integerList2, new ArrayList<>());
-    listListMap.put(integerList, new ArrayList<>());
-
-    HashMap<String, Map<List<Integer>, List<Integer>>> glyphSubstitutionMap = new HashMap<>();
-    glyphSubstitutionMap.put("rkrf", listListMap);
-
-    // Act
-    GsubWorkerForGujarati actualGsubWorkerForGujarati = new GsubWorkerForGujarati(cmapLookup,
-        new MapBackedGsubData(Language.BENGALI, "Active Script Name", glyphSubstitutionMap));
-
-    // Assert
-    assertTrue(actualGsubWorkerForGujarati.applyTransforms(new ArrayList<>()).isEmpty());
-  }
-
-  /**
-   * Test {@link GsubWorkerForGujarati#GsubWorkerForGujarati(CmapLookup, GsubData)}.
-   * <ul>
-   *   <li>Given {@link HashMap#HashMap()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link GsubWorkerForGujarati#GsubWorkerForGujarati(CmapLookup, GsubData)}
-   */
-  @Test
-  @DisplayName("Test new GsubWorkerForGujarati(CmapLookup, GsubData); given HashMap()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void GsubWorkerForGujarati.<init>(CmapLookup, GsubData)"})
-  void testNewGsubWorkerForGujarati_givenHashMap() {
-    // Arrange
-    CmapSubtable cmapLookup = new CmapSubtable();
-
-    HashMap<String, Map<List<Integer>, List<Integer>>> glyphSubstitutionMap = new HashMap<>();
-    glyphSubstitutionMap.put("rkrf", new HashMap<>());
-
-    // Act
-    GsubWorkerForGujarati actualGsubWorkerForGujarati = new GsubWorkerForGujarati(cmapLookup,
-        new MapBackedGsubData(Language.BENGALI, "Active Script Name", glyphSubstitutionMap));
-
-    // Assert
-    assertTrue(actualGsubWorkerForGujarati.applyTransforms(new ArrayList<>()).isEmpty());
-  }
-
-  /**
-   * Test {@link GsubWorkerForGujarati#GsubWorkerForGujarati(CmapLookup, GsubData)}.
-   * <ul>
-   *   <li>Given {@code vatu}.</li>
-   *   <li>When {@link HashMap#HashMap()} {@code vatu} is {@link HashMap#HashMap()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link GsubWorkerForGujarati#GsubWorkerForGujarati(CmapLookup, GsubData)}
-   */
-  @Test
-  @DisplayName("Test new GsubWorkerForGujarati(CmapLookup, GsubData); given 'vatu'; when HashMap() 'vatu' is HashMap()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void GsubWorkerForGujarati.<init>(CmapLookup, GsubData)"})
-  void testNewGsubWorkerForGujarati_givenVatu_whenHashMapVatuIsHashMap() {
-    // Arrange
-    CmapSubtable cmapLookup = new CmapSubtable();
-
-    HashMap<String, Map<List<Integer>, List<Integer>>> glyphSubstitutionMap = new HashMap<>();
-    glyphSubstitutionMap.put("vatu", new HashMap<>());
-
-    // Act
-    GsubWorkerForGujarati actualGsubWorkerForGujarati = new GsubWorkerForGujarati(cmapLookup,
-        new MapBackedGsubData(Language.BENGALI, "Active Script Name", glyphSubstitutionMap));
-
-    // Assert
-    assertTrue(actualGsubWorkerForGujarati.applyTransforms(new ArrayList<>()).isEmpty());
-  }
-
-  /**
-   * Test {@link GsubWorkerForGujarati#GsubWorkerForGujarati(CmapLookup, GsubData)}.
-   * <ul>
-   *   <li>Given {@code vatu}.</li>
-   *   <li>When {@link HashMap#HashMap()} {@code vatu} is {@link HashMap#HashMap()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link GsubWorkerForGujarati#GsubWorkerForGujarati(CmapLookup, GsubData)}
-   */
-  @Test
-  @DisplayName("Test new GsubWorkerForGujarati(CmapLookup, GsubData); given 'vatu'; when HashMap() 'vatu' is HashMap()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void GsubWorkerForGujarati.<init>(CmapLookup, GsubData)"})
-  void testNewGsubWorkerForGujarati_givenVatu_whenHashMapVatuIsHashMap2() {
-    // Arrange
-    CmapSubtable cmapLookup = new CmapSubtable();
-
-    HashMap<List<Integer>, List<Integer>> listListMap = new HashMap<>();
-    ArrayList<Integer> integerList = new ArrayList<>();
-    listListMap.put(integerList, new ArrayList<>());
-
-    HashMap<String, Map<List<Integer>, List<Integer>>> glyphSubstitutionMap = new HashMap<>();
-    glyphSubstitutionMap.put("vatu", listListMap);
-
-    // Act
-    GsubWorkerForGujarati actualGsubWorkerForGujarati = new GsubWorkerForGujarati(cmapLookup,
-        new MapBackedGsubData(Language.BENGALI, "Active Script Name", glyphSubstitutionMap));
-
-    // Assert
-    assertTrue(actualGsubWorkerForGujarati.applyTransforms(new ArrayList<>()).isEmpty());
-  }
-
-  /**
-   * Test {@link GsubWorkerForGujarati#GsubWorkerForGujarati(CmapLookup, GsubData)}.
-   * <ul>
-   *   <li>Then return applyTransforms {@link ArrayList#ArrayList()} Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link GsubWorkerForGujarati#GsubWorkerForGujarati(CmapLookup, GsubData)}
-   */
-  @Test
-  @DisplayName("Test new GsubWorkerForGujarati(CmapLookup, GsubData); then return applyTransforms ArrayList() Empty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void GsubWorkerForGujarati.<init>(CmapLookup, GsubData)"})
-  void testNewGsubWorkerForGujarati_thenReturnApplyTransformsArrayListEmpty() {
-    // Arrange
-    CmapSubtable cmapLookup = new CmapSubtable();
-
-    // Act
-    GsubWorkerForGujarati actualGsubWorkerForGujarati = new GsubWorkerForGujarati(cmapLookup,
-        new MapBackedGsubData(Language.BENGALI, "Active Script Name", new HashMap<>()));
-
-    // Assert
-    assertTrue(actualGsubWorkerForGujarati.applyTransforms(new ArrayList<>()).isEmpty());
-  }
-
-  /**
-   * Test {@link GsubWorkerForGujarati#GsubWorkerForGujarati(CmapLookup, GsubData)}.
-   * <ul>
-   *   <li>Then return applyTransforms {@link ArrayList#ArrayList()} Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link GsubWorkerForGujarati#GsubWorkerForGujarati(CmapLookup, GsubData)}
-   */
-  @Test
-  @DisplayName("Test new GsubWorkerForGujarati(CmapLookup, GsubData); then return applyTransforms ArrayList() Empty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void GsubWorkerForGujarati.<init>(CmapLookup, GsubData)"})
-  void testNewGsubWorkerForGujarati_thenReturnApplyTransformsArrayListEmpty2() {
-    // Arrange
-    CmapSubtable cmapLookup = new CmapSubtable();
-
-    HashMap<List<Integer>, List<Integer>> listListMap = new HashMap<>();
-    ArrayList<Integer> integerList = new ArrayList<>();
-    listListMap.put(integerList, new ArrayList<>());
-
-    HashMap<String, Map<List<Integer>, List<Integer>>> glyphSubstitutionMap = new HashMap<>();
-    glyphSubstitutionMap.put("rkrf", listListMap);
-
-    // Act
-    GsubWorkerForGujarati actualGsubWorkerForGujarati = new GsubWorkerForGujarati(cmapLookup,
-        new MapBackedGsubData(Language.BENGALI, "Active Script Name", glyphSubstitutionMap));
-
-    // Assert
-    assertTrue(actualGsubWorkerForGujarati.applyTransforms(new ArrayList<>()).isEmpty());
-  }
-
-  /**
-   * Test {@link GsubWorkerForGujarati#GsubWorkerForGujarati(CmapLookup, GsubData)}.
-   * <ul>
-   *   <li>Then return applyTransforms {@link ArrayList#ArrayList()} is {@link ArrayList#ArrayList()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link GsubWorkerForGujarati#GsubWorkerForGujarati(CmapLookup, GsubData)}
-   */
-  @Test
-  @DisplayName("Test new GsubWorkerForGujarati(CmapLookup, GsubData); then return applyTransforms ArrayList() is ArrayList()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void GsubWorkerForGujarati.<init>(CmapLookup, GsubData)"})
-  void testNewGsubWorkerForGujarati_thenReturnApplyTransformsArrayListIsArrayList() {
-    // Arrange
-    CmapSubtable cmapLookup = new CmapSubtable();
-
-    ArrayList<Integer> integerList = new ArrayList<>();
-    integerList.add(2);
-
-    HashMap<List<Integer>, List<Integer>> listListMap = new HashMap<>();
-    listListMap.put(integerList, new ArrayList<>());
-
-    HashMap<String, Map<List<Integer>, List<Integer>>> glyphSubstitutionMap = new HashMap<>();
-    glyphSubstitutionMap.put("rkrf", listListMap);
-
-    // Act
-    GsubWorkerForGujarati actualGsubWorkerForGujarati = new GsubWorkerForGujarati(cmapLookup,
-        new MapBackedGsubData(Language.BENGALI, "Active Script Name", glyphSubstitutionMap));
-    ArrayList<Integer> originalGlyphIds = new ArrayList<>();
-    originalGlyphIds.add(1);
-
-    // Assert
-    assertEquals(originalGlyphIds, actualGsubWorkerForGujarati.applyTransforms(originalGlyphIds));
-  }
-
-  /**
-   * Test {@link GsubWorkerForGujarati#GsubWorkerForGujarati(CmapLookup, GsubData)}.
-   * <ul>
-   *   <li>Then return applyTransforms {@link ArrayList#ArrayList()} size is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link GsubWorkerForGujarati#GsubWorkerForGujarati(CmapLookup, GsubData)}
-   */
-  @Test
-  @DisplayName("Test new GsubWorkerForGujarati(CmapLookup, GsubData); then return applyTransforms ArrayList() size is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void GsubWorkerForGujarati.<init>(CmapLookup, GsubData)"})
-  void testNewGsubWorkerForGujarati_thenReturnApplyTransformsArrayListSizeIsOne() {
-    // Arrange
-    CmapSubtable cmapLookup = new CmapSubtable();
-
-    ArrayList<Integer> integerList = new ArrayList<>();
-    integerList.add(2);
-
-    HashMap<List<Integer>, List<Integer>> listListMap = new HashMap<>();
-    listListMap.put(integerList, new ArrayList<>());
-
-    HashMap<String, Map<List<Integer>, List<Integer>>> glyphSubstitutionMap = new HashMap<>();
-    glyphSubstitutionMap.put("rkrf", listListMap);
-
-    // Act
-    GsubWorkerForGujarati actualGsubWorkerForGujarati = new GsubWorkerForGujarati(cmapLookup,
-        new MapBackedGsubData(Language.BENGALI, "Active Script Name", glyphSubstitutionMap));
-    ArrayList<Integer> originalGlyphIds = new ArrayList<>();
-    originalGlyphIds.add(2);
-    originalGlyphIds.add(1);
-    List<Integer> actualApplyTransformsResult = actualGsubWorkerForGujarati.applyTransforms(originalGlyphIds);
-
-    // Assert
-    assertEquals(1, actualApplyTransformsResult.size());
-    assertEquals(1, actualApplyTransformsResult.get(0).intValue());
-  }
-
-  /**
-   * Test {@link GsubWorkerForGujarati#GsubWorkerForGujarati(CmapLookup, GsubData)}.
-   * <ul>
-   *   <li>Then return applyTransforms {@link ArrayList#ArrayList()} size is two.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link GsubWorkerForGujarati#GsubWorkerForGujarati(CmapLookup, GsubData)}
-   */
-  @Test
-  @DisplayName("Test new GsubWorkerForGujarati(CmapLookup, GsubData); then return applyTransforms ArrayList() size is two")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void GsubWorkerForGujarati.<init>(CmapLookup, GsubData)"})
-  void testNewGsubWorkerForGujarati_thenReturnApplyTransformsArrayListSizeIsTwo() {
-    // Arrange
-    CmapSubtable cmapLookup = new CmapSubtable();
-
-    ArrayList<Integer> integerList = new ArrayList<>();
-    integerList.add(2);
-
-    HashMap<List<Integer>, List<Integer>> listListMap = new HashMap<>();
-    listListMap.put(integerList, new ArrayList<>());
-
-    HashMap<String, Map<List<Integer>, List<Integer>>> glyphSubstitutionMap = new HashMap<>();
-    glyphSubstitutionMap.put("rkrf", listListMap);
-
-    // Act
-    GsubWorkerForGujarati actualGsubWorkerForGujarati = new GsubWorkerForGujarati(cmapLookup,
-        new MapBackedGsubData(Language.BENGALI, "Active Script Name", glyphSubstitutionMap));
-    ArrayList<Integer> originalGlyphIds = new ArrayList<>();
-    originalGlyphIds.add(1);
-    originalGlyphIds.add(2);
-    originalGlyphIds.add(1);
-    List<Integer> actualApplyTransformsResult = actualGsubWorkerForGujarati.applyTransforms(originalGlyphIds);
-
-    // Assert
-    assertEquals(2, actualApplyTransformsResult.size());
-    assertEquals(1, actualApplyTransformsResult.get(0).intValue());
-    assertEquals(1, actualApplyTransformsResult.get(1).intValue());
-  }
-
-  /**
-   * Test {@link GsubWorkerForGujarati#applyTransforms(List)}.
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add minus two.</li>
-   *   <li>When {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then return Empty.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link GsubWorkerForGujarati#applyTransforms(List)}
    */
   @Test
-  @DisplayName("Test applyTransforms(List); given ArrayList() add minus two; when ArrayList(); then return Empty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List GsubWorkerForGujarati.applyTransforms(List)"})
-  void testApplyTransforms_givenArrayListAddMinusTwo_whenArrayList_thenReturnEmpty() {
+  void testApplyTransforms() {
     // Arrange
-    ArrayList<Integer> integerList = new ArrayList<>();
-    integerList.add(-2);
-    integerList.add(2);
+    GlyphSubstitutionTable gsub = mock(GlyphSubstitutionTable.class);
+    when(gsub.getSubstitution(anyInt(), Mockito.<String[]>any(), Mockito.<List<String>>any())).thenReturn(1);
+    CmapSubtable cmap = new CmapSubtable();
+    SubstitutingCmapLookup cmapLookup = new SubstitutingCmapLookup(cmap, gsub, new ArrayList<>());
 
-    HashMap<List<Integer>, List<Integer>> listListMap = new HashMap<>();
-    listListMap.put(integerList, new ArrayList<>());
-
-    HashMap<String, Map<List<Integer>, List<Integer>>> glyphSubstitutionMap = new HashMap<>();
-    glyphSubstitutionMap.put("rkrf", listListMap);
-    MapBackedGsubData gsubData = new MapBackedGsubData(Language.BENGALI, "Active Script Name", glyphSubstitutionMap);
-
-    GsubWorkerForGujarati gsubWorkerForGujarati = new GsubWorkerForGujarati(new CmapSubtable(), gsubData);
-
-    // Act and Assert
-    assertTrue(gsubWorkerForGujarati.applyTransforms(new ArrayList<>()).isEmpty());
-  }
-
-  /**
-   * Test {@link GsubWorkerForGujarati#applyTransforms(List)}.
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add two.</li>
-   *   <li>When {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then return Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link GsubWorkerForGujarati#applyTransforms(List)}
-   */
-  @Test
-  @DisplayName("Test applyTransforms(List); given ArrayList() add two; when ArrayList(); then return Empty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List GsubWorkerForGujarati.applyTransforms(List)"})
-  void testApplyTransforms_givenArrayListAddTwo_whenArrayList_thenReturnEmpty() {
-    // Arrange
-    ArrayList<Integer> integerList = new ArrayList<>();
-    integerList.add(2);
-
-    HashMap<List<Integer>, List<Integer>> listListMap = new HashMap<>();
-    listListMap.put(integerList, new ArrayList<>());
-
-    HashMap<String, Map<List<Integer>, List<Integer>>> glyphSubstitutionMap = new HashMap<>();
-    glyphSubstitutionMap.put("rkrf", listListMap);
-    MapBackedGsubData gsubData = new MapBackedGsubData(Language.BENGALI, "Active Script Name", glyphSubstitutionMap);
-
-    GsubWorkerForGujarati gsubWorkerForGujarati = new GsubWorkerForGujarati(new CmapSubtable(), gsubData);
-
-    // Act and Assert
-    assertTrue(gsubWorkerForGujarati.applyTransforms(new ArrayList<>()).isEmpty());
-  }
-
-  /**
-   * Test {@link GsubWorkerForGujarati#applyTransforms(List)}.
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add two.</li>
-   *   <li>When {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then return Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link GsubWorkerForGujarati#applyTransforms(List)}
-   */
-  @Test
-  @DisplayName("Test applyTransforms(List); given ArrayList() add two; when ArrayList(); then return Empty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List GsubWorkerForGujarati.applyTransforms(List)"})
-  void testApplyTransforms_givenArrayListAddTwo_whenArrayList_thenReturnEmpty2() {
-    // Arrange
-    ArrayList<Integer> integerList = new ArrayList<>();
-    integerList.add(2);
-
-    HashMap<List<Integer>, List<Integer>> listListMap = new HashMap<>();
-    ArrayList<Integer> integerList2 = new ArrayList<>();
-    listListMap.put(integerList2, new ArrayList<>());
-    listListMap.put(integerList, new ArrayList<>());
-
-    HashMap<String, Map<List<Integer>, List<Integer>>> glyphSubstitutionMap = new HashMap<>();
-    glyphSubstitutionMap.put("rkrf", listListMap);
-    MapBackedGsubData gsubData = new MapBackedGsubData(Language.BENGALI, "Active Script Name", glyphSubstitutionMap);
-
-    GsubWorkerForGujarati gsubWorkerForGujarati = new GsubWorkerForGujarati(new CmapSubtable(), gsubData);
-
-    // Act and Assert
-    assertTrue(gsubWorkerForGujarati.applyTransforms(new ArrayList<>()).isEmpty());
-  }
-
-  /**
-   * Test {@link GsubWorkerForGujarati#applyTransforms(List)}.
-   * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@link ArrayList#ArrayList()} is {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then return Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link GsubWorkerForGujarati#applyTransforms(List)}
-   */
-  @Test
-  @DisplayName("Test applyTransforms(List); given HashMap() ArrayList() is ArrayList(); then return Empty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List GsubWorkerForGujarati.applyTransforms(List)"})
-  void testApplyTransforms_givenHashMapArrayListIsArrayList_thenReturnEmpty() {
-    // Arrange
-    HashMap<List<Integer>, List<Integer>> listListMap = new HashMap<>();
-    ArrayList<Integer> integerList = new ArrayList<>();
-    listListMap.put(integerList, new ArrayList<>());
-
-    HashMap<String, Map<List<Integer>, List<Integer>>> glyphSubstitutionMap = new HashMap<>();
-    glyphSubstitutionMap.put("rkrf", listListMap);
-    MapBackedGsubData gsubData = new MapBackedGsubData(Language.BENGALI, "Active Script Name", glyphSubstitutionMap);
-
-    GsubWorkerForGujarati gsubWorkerForGujarati = new GsubWorkerForGujarati(new CmapSubtable(), gsubData);
-
-    // Act and Assert
-    assertTrue(gsubWorkerForGujarati.applyTransforms(new ArrayList<>()).isEmpty());
-  }
-
-  /**
-   * Test {@link GsubWorkerForGujarati#applyTransforms(List)}.
-   * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@code rkrf} is {@link HashMap#HashMap()}.</li>
-   *   <li>When {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then return Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link GsubWorkerForGujarati#applyTransforms(List)}
-   */
-  @Test
-  @DisplayName("Test applyTransforms(List); given HashMap() 'rkrf' is HashMap(); when ArrayList(); then return Empty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List GsubWorkerForGujarati.applyTransforms(List)"})
-  void testApplyTransforms_givenHashMapRkrfIsHashMap_whenArrayList_thenReturnEmpty() {
-    // Arrange
-    HashMap<String, Map<List<Integer>, List<Integer>>> glyphSubstitutionMap = new HashMap<>();
-    glyphSubstitutionMap.put("rkrf", new HashMap<>());
-    MapBackedGsubData gsubData = new MapBackedGsubData(Language.BENGALI, "Active Script Name", glyphSubstitutionMap);
-
-    GsubWorkerForGujarati gsubWorkerForGujarati = new GsubWorkerForGujarati(new CmapSubtable(), gsubData);
-
-    // Act and Assert
-    assertTrue(gsubWorkerForGujarati.applyTransforms(new ArrayList<>()).isEmpty());
-  }
-
-  /**
-   * Test {@link GsubWorkerForGujarati#applyTransforms(List)}.
-   * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@code vatu} is {@link HashMap#HashMap()}.</li>
-   *   <li>When {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then return Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link GsubWorkerForGujarati#applyTransforms(List)}
-   */
-  @Test
-  @DisplayName("Test applyTransforms(List); given HashMap() 'vatu' is HashMap(); when ArrayList(); then return Empty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List GsubWorkerForGujarati.applyTransforms(List)"})
-  void testApplyTransforms_givenHashMapVatuIsHashMap_whenArrayList_thenReturnEmpty() {
-    // Arrange
-    HashMap<String, Map<List<Integer>, List<Integer>>> glyphSubstitutionMap = new HashMap<>();
-    glyphSubstitutionMap.put("vatu", new HashMap<>());
-    MapBackedGsubData gsubData = new MapBackedGsubData(Language.BENGALI, "Active Script Name", glyphSubstitutionMap);
-
-    GsubWorkerForGujarati gsubWorkerForGujarati = new GsubWorkerForGujarati(new CmapSubtable(), gsubData);
-
-    // Act and Assert
-    assertTrue(gsubWorkerForGujarati.applyTransforms(new ArrayList<>()).isEmpty());
-  }
-
-  /**
-   * Test {@link GsubWorkerForGujarati#applyTransforms(List)}.
-   * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@code vatu} is {@link HashMap#HashMap()}.</li>
-   *   <li>When {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then return Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link GsubWorkerForGujarati#applyTransforms(List)}
-   */
-  @Test
-  @DisplayName("Test applyTransforms(List); given HashMap() 'vatu' is HashMap(); when ArrayList(); then return Empty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List GsubWorkerForGujarati.applyTransforms(List)"})
-  void testApplyTransforms_givenHashMapVatuIsHashMap_whenArrayList_thenReturnEmpty2() {
-    // Arrange
-    HashMap<List<Integer>, List<Integer>> listListMap = new HashMap<>();
-    ArrayList<Integer> integerList = new ArrayList<>();
-    listListMap.put(integerList, new ArrayList<>());
-
-    HashMap<String, Map<List<Integer>, List<Integer>>> glyphSubstitutionMap = new HashMap<>();
-    glyphSubstitutionMap.put("vatu", listListMap);
-    MapBackedGsubData gsubData = new MapBackedGsubData(Language.BENGALI, "Active Script Name", glyphSubstitutionMap);
-
-    GsubWorkerForGujarati gsubWorkerForGujarati = new GsubWorkerForGujarati(new CmapSubtable(), gsubData);
-
-    // Act and Assert
-    assertTrue(gsubWorkerForGujarati.applyTransforms(new ArrayList<>()).isEmpty());
-  }
-
-  /**
-   * Test {@link GsubWorkerForGujarati#applyTransforms(List)}.
-   * <ul>
-   *   <li>Given one.</li>
-   *   <li>When {@link ArrayList#ArrayList()} add one.</li>
-   *   <li>Then return {@link ArrayList#ArrayList()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link GsubWorkerForGujarati#applyTransforms(List)}
-   */
-  @Test
-  @DisplayName("Test applyTransforms(List); given one; when ArrayList() add one; then return ArrayList()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List GsubWorkerForGujarati.applyTransforms(List)"})
-  void testApplyTransforms_givenOne_whenArrayListAddOne_thenReturnArrayList() {
-    // Arrange
-    ArrayList<Integer> integerList = new ArrayList<>();
-    integerList.add(2);
-
-    HashMap<List<Integer>, List<Integer>> listListMap = new HashMap<>();
-    listListMap.put(integerList, new ArrayList<>());
-
-    HashMap<String, Map<List<Integer>, List<Integer>>> glyphSubstitutionMap = new HashMap<>();
-    glyphSubstitutionMap.put("rkrf", listListMap);
-    MapBackedGsubData gsubData = new MapBackedGsubData(Language.BENGALI, "Active Script Name", glyphSubstitutionMap);
-
-    GsubWorkerForGujarati gsubWorkerForGujarati = new GsubWorkerForGujarati(new CmapSubtable(), gsubData);
-
-    ArrayList<Integer> originalGlyphIds = new ArrayList<>();
-    originalGlyphIds.add(1);
-
-    // Act and Assert
-    assertEquals(originalGlyphIds, gsubWorkerForGujarati.applyTransforms(originalGlyphIds));
-  }
-
-  /**
-   * Test {@link GsubWorkerForGujarati#applyTransforms(List)}.
-   * <ul>
-   *   <li>Given one.</li>
-   *   <li>When {@link ArrayList#ArrayList()} add one.</li>
-   *   <li>Then return size is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link GsubWorkerForGujarati#applyTransforms(List)}
-   */
-  @Test
-  @DisplayName("Test applyTransforms(List); given one; when ArrayList() add one; then return size is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List GsubWorkerForGujarati.applyTransforms(List)"})
-  void testApplyTransforms_givenOne_whenArrayListAddOne_thenReturnSizeIsOne() {
-    // Arrange
-    ArrayList<Integer> integerList = new ArrayList<>();
-    integerList.add(2);
-
-    HashMap<List<Integer>, List<Integer>> listListMap = new HashMap<>();
-    listListMap.put(integerList, new ArrayList<>());
-
-    HashMap<String, Map<List<Integer>, List<Integer>>> glyphSubstitutionMap = new HashMap<>();
-    glyphSubstitutionMap.put("rkrf", listListMap);
-    MapBackedGsubData gsubData = new MapBackedGsubData(Language.BENGALI, "Active Script Name", glyphSubstitutionMap);
-
-    GsubWorkerForGujarati gsubWorkerForGujarati = new GsubWorkerForGujarati(new CmapSubtable(), gsubData);
-
-    ArrayList<Integer> originalGlyphIds = new ArrayList<>();
-    originalGlyphIds.add(2);
-    originalGlyphIds.add(1);
-
-    // Act
-    List<Integer> actualApplyTransformsResult = gsubWorkerForGujarati.applyTransforms(originalGlyphIds);
-
-    // Assert
-    assertEquals(1, actualApplyTransformsResult.size());
-    assertEquals(1, actualApplyTransformsResult.get(0).intValue());
-  }
-
-  /**
-   * Test {@link GsubWorkerForGujarati#applyTransforms(List)}.
-   * <ul>
-   *   <li>Given one.</li>
-   *   <li>When {@link ArrayList#ArrayList()} add one.</li>
-   *   <li>Then return size is two.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link GsubWorkerForGujarati#applyTransforms(List)}
-   */
-  @Test
-  @DisplayName("Test applyTransforms(List); given one; when ArrayList() add one; then return size is two")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List GsubWorkerForGujarati.applyTransforms(List)"})
-  void testApplyTransforms_givenOne_whenArrayListAddOne_thenReturnSizeIsTwo() {
-    // Arrange
-    ArrayList<Integer> integerList = new ArrayList<>();
-    integerList.add(2);
-
-    HashMap<List<Integer>, List<Integer>> listListMap = new HashMap<>();
-    listListMap.put(integerList, new ArrayList<>());
-
-    HashMap<String, Map<List<Integer>, List<Integer>>> glyphSubstitutionMap = new HashMap<>();
-    glyphSubstitutionMap.put("rkrf", listListMap);
-    MapBackedGsubData gsubData = new MapBackedGsubData(Language.BENGALI, "Active Script Name", glyphSubstitutionMap);
-
-    GsubWorkerForGujarati gsubWorkerForGujarati = new GsubWorkerForGujarati(new CmapSubtable(), gsubData);
-
-    ArrayList<Integer> originalGlyphIds = new ArrayList<>();
-    originalGlyphIds.add(1);
-    originalGlyphIds.add(2);
-    originalGlyphIds.add(1);
-
-    // Act
-    List<Integer> actualApplyTransformsResult = gsubWorkerForGujarati.applyTransforms(originalGlyphIds);
-
-    // Assert
-    assertEquals(2, actualApplyTransformsResult.size());
-    assertEquals(1, actualApplyTransformsResult.get(0).intValue());
-    assertEquals(1, actualApplyTransformsResult.get(1).intValue());
-  }
-
-  /**
-   * Test {@link GsubWorkerForGujarati#applyTransforms(List)}.
-   * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then return Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link GsubWorkerForGujarati#applyTransforms(List)}
-   */
-  @Test
-  @DisplayName("Test applyTransforms(List); when ArrayList(); then return Empty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List GsubWorkerForGujarati.applyTransforms(List)"})
-  void testApplyTransforms_whenArrayList_thenReturnEmpty() {
-    // Arrange
-    CmapSubtable cmapLookup = new CmapSubtable();
     GsubWorkerForGujarati gsubWorkerForGujarati = new GsubWorkerForGujarati(cmapLookup,
         new MapBackedGsubData(Language.BENGALI, "Active Script Name", new HashMap<>()));
 
-    // Act and Assert
-    assertTrue(gsubWorkerForGujarati.applyTransforms(new ArrayList<>()).isEmpty());
+    // Act
+    List<Integer> actualApplyTransformsResult = gsubWorkerForGujarati.applyTransforms(new ArrayList<>());
+
+    // Assert
+    verify(gsub, atLeast(1)).getSubstitution(eq(0), isA(String[].class), isA(List.class));
+    assertTrue(actualApplyTransformsResult.isEmpty());
+  }
+
+  /**
+   * Method under test: {@link GsubWorkerForGujarati#applyTransforms(List)}
+   */
+  @Test
+  void testApplyTransforms2() {
+    // Arrange
+    GlyphSubstitutionTable gsub = mock(GlyphSubstitutionTable.class);
+    when(gsub.getSubstitution(anyInt(), Mockito.<String[]>any(), Mockito.<List<String>>any())).thenReturn(1);
+    CmapSubtable cmap = new CmapSubtable();
+    SubstitutingCmapLookup cmapLookup = new SubstitutingCmapLookup(cmap, gsub, new ArrayList<>());
+
+    HashMap<String, Map<List<Integer>, List<Integer>>> glyphSubstitutionMap = new HashMap<>();
+    glyphSubstitutionMap.put("rkrf", new HashMap<>());
+    GsubWorkerForGujarati gsubWorkerForGujarati = new GsubWorkerForGujarati(cmapLookup,
+        new MapBackedGsubData(Language.BENGALI, "Active Script Name", glyphSubstitutionMap));
+
+    // Act
+    List<Integer> actualApplyTransformsResult = gsubWorkerForGujarati.applyTransforms(new ArrayList<>());
+
+    // Assert
+    verify(gsub, atLeast(1)).getSubstitution(eq(0), isA(String[].class), isA(List.class));
+    assertTrue(actualApplyTransformsResult.isEmpty());
+  }
+
+  /**
+   * Method under test: {@link GsubWorkerForGujarati#applyTransforms(List)}
+   */
+  @Test
+  void testApplyTransforms3() {
+    // Arrange
+    GlyphSubstitutionTable gsub = mock(GlyphSubstitutionTable.class);
+    when(gsub.getSubstitution(anyInt(), Mockito.<String[]>any(), Mockito.<List<String>>any())).thenReturn(1);
+    CmapSubtable cmap = new CmapSubtable();
+    SubstitutingCmapLookup cmapLookup = new SubstitutingCmapLookup(cmap, gsub, new ArrayList<>());
+
+    HashMap<List<Integer>, List<Integer>> listListMap = new HashMap<>();
+    ArrayList<Integer> integerList = new ArrayList<>();
+    listListMap.put(integerList, new ArrayList<>());
+
+    HashMap<String, Map<List<Integer>, List<Integer>>> glyphSubstitutionMap = new HashMap<>();
+    glyphSubstitutionMap.put("rkrf", listListMap);
+    GsubWorkerForGujarati gsubWorkerForGujarati = new GsubWorkerForGujarati(cmapLookup,
+        new MapBackedGsubData(Language.BENGALI, "Active Script Name", glyphSubstitutionMap));
+
+    // Act
+    List<Integer> actualApplyTransformsResult = gsubWorkerForGujarati.applyTransforms(new ArrayList<>());
+
+    // Assert
+    verify(gsub, atLeast(1)).getSubstitution(eq(0), isA(String[].class), isA(List.class));
+    assertTrue(actualApplyTransformsResult.isEmpty());
+  }
+
+  /**
+   * Method under test: {@link GsubWorkerForGujarati#applyTransforms(List)}
+   */
+  @Test
+  void testApplyTransforms4() {
+    // Arrange
+    GlyphSubstitutionTable gsub = mock(GlyphSubstitutionTable.class);
+    when(gsub.getSubstitution(anyInt(), Mockito.<String[]>any(), Mockito.<List<String>>any())).thenReturn(1);
+    CmapSubtable cmap = new CmapSubtable();
+    SubstitutingCmapLookup cmapLookup = new SubstitutingCmapLookup(cmap, gsub, new ArrayList<>());
+
+    ArrayList<Integer> integerList = new ArrayList<>();
+    integerList.add(2);
+
+    HashMap<List<Integer>, List<Integer>> listListMap = new HashMap<>();
+    listListMap.put(integerList, new ArrayList<>());
+
+    HashMap<String, Map<List<Integer>, List<Integer>>> glyphSubstitutionMap = new HashMap<>();
+    glyphSubstitutionMap.put("rkrf", listListMap);
+    GsubWorkerForGujarati gsubWorkerForGujarati = new GsubWorkerForGujarati(cmapLookup,
+        new MapBackedGsubData(Language.BENGALI, "Active Script Name", glyphSubstitutionMap));
+
+    // Act
+    List<Integer> actualApplyTransformsResult = gsubWorkerForGujarati.applyTransforms(new ArrayList<>());
+
+    // Assert
+    verify(gsub, atLeast(1)).getSubstitution(eq(0), isA(String[].class), isA(List.class));
+    assertTrue(actualApplyTransformsResult.isEmpty());
+  }
+
+  /**
+   * Method under test: {@link GsubWorkerForGujarati#applyTransforms(List)}
+   */
+  @Test
+  void testApplyTransforms5() {
+    // Arrange
+    GlyphSubstitutionTable gsub = mock(GlyphSubstitutionTable.class);
+    when(gsub.getSubstitution(anyInt(), Mockito.<String[]>any(), Mockito.<List<String>>any())).thenReturn(1);
+    CmapSubtable cmap = new CmapSubtable();
+    SubstitutingCmapLookup cmapLookup = new SubstitutingCmapLookup(cmap, gsub, new ArrayList<>());
+
+    ArrayList<Integer> integerList = new ArrayList<>();
+    integerList.add(-2);
+    integerList.add(2);
+
+    HashMap<List<Integer>, List<Integer>> listListMap = new HashMap<>();
+    listListMap.put(integerList, new ArrayList<>());
+
+    HashMap<String, Map<List<Integer>, List<Integer>>> glyphSubstitutionMap = new HashMap<>();
+    glyphSubstitutionMap.put("rkrf", listListMap);
+    GsubWorkerForGujarati gsubWorkerForGujarati = new GsubWorkerForGujarati(cmapLookup,
+        new MapBackedGsubData(Language.BENGALI, "Active Script Name", glyphSubstitutionMap));
+
+    // Act
+    List<Integer> actualApplyTransformsResult = gsubWorkerForGujarati.applyTransforms(new ArrayList<>());
+
+    // Assert
+    verify(gsub, atLeast(1)).getSubstitution(eq(0), isA(String[].class), isA(List.class));
+    assertTrue(actualApplyTransformsResult.isEmpty());
+  }
+
+  /**
+   * Method under test: {@link GsubWorkerForGujarati#applyTransforms(List)}
+   */
+  @Test
+  void testApplyTransforms6() {
+    // Arrange
+    GlyphSubstitutionTable gsub = mock(GlyphSubstitutionTable.class);
+    when(gsub.getSubstitution(anyInt(), Mockito.<String[]>any(), Mockito.<List<String>>any())).thenReturn(1);
+    CmapSubtable cmap = new CmapSubtable();
+    SubstitutingCmapLookup cmapLookup = new SubstitutingCmapLookup(cmap, gsub, new ArrayList<>());
+
+    ArrayList<Integer> integerList = new ArrayList<>();
+    integerList.add(2);
+
+    HashMap<List<Integer>, List<Integer>> listListMap = new HashMap<>();
+    ArrayList<Integer> integerList2 = new ArrayList<>();
+    listListMap.put(integerList2, new ArrayList<>());
+    listListMap.put(integerList, new ArrayList<>());
+
+    HashMap<String, Map<List<Integer>, List<Integer>>> glyphSubstitutionMap = new HashMap<>();
+    glyphSubstitutionMap.put("rkrf", listListMap);
+    GsubWorkerForGujarati gsubWorkerForGujarati = new GsubWorkerForGujarati(cmapLookup,
+        new MapBackedGsubData(Language.BENGALI, "Active Script Name", glyphSubstitutionMap));
+
+    // Act
+    List<Integer> actualApplyTransformsResult = gsubWorkerForGujarati.applyTransforms(new ArrayList<>());
+
+    // Assert
+    verify(gsub, atLeast(1)).getSubstitution(eq(0), isA(String[].class), isA(List.class));
+    assertTrue(actualApplyTransformsResult.isEmpty());
+  }
+
+  /**
+   * Method under test: {@link GsubWorkerForGujarati#applyTransforms(List)}
+   */
+  @Test
+  void testApplyTransforms7() {
+    // Arrange
+    GlyphSubstitutionTable gsub = mock(GlyphSubstitutionTable.class);
+    when(gsub.getSubstitution(anyInt(), Mockito.<String[]>any(), Mockito.<List<String>>any())).thenReturn(1);
+    CmapSubtable cmap = new CmapSubtable();
+    SubstitutingCmapLookup cmapLookup = new SubstitutingCmapLookup(cmap, gsub, new ArrayList<>());
+
+    ArrayList<Integer> integerList = new ArrayList<>();
+    integerList.add(2);
+
+    HashMap<List<Integer>, List<Integer>> listListMap = new HashMap<>();
+    listListMap.put(integerList, new ArrayList<>());
+
+    HashMap<String, Map<List<Integer>, List<Integer>>> glyphSubstitutionMap = new HashMap<>();
+    glyphSubstitutionMap.put("rkrf", listListMap);
+    GsubWorkerForGujarati gsubWorkerForGujarati = new GsubWorkerForGujarati(cmapLookup,
+        new MapBackedGsubData(Language.BENGALI, "Active Script Name", glyphSubstitutionMap));
+
+    ArrayList<Integer> originalGlyphIds = new ArrayList<>();
+    originalGlyphIds.add(2);
+
+    // Act
+    List<Integer> actualApplyTransformsResult = gsubWorkerForGujarati.applyTransforms(originalGlyphIds);
+
+    // Assert
+    verify(gsub, atLeast(1)).getSubstitution(eq(0), isA(String[].class), isA(List.class));
+    assertTrue(actualApplyTransformsResult.isEmpty());
+  }
+
+  /**
+   * Method under test: {@link GsubWorkerForGujarati#applyTransforms(List)}
+   */
+  @Test
+  void testApplyTransforms8() {
+    // Arrange
+    GlyphSubstitutionTable gsub = mock(GlyphSubstitutionTable.class);
+    when(gsub.getSubstitution(anyInt(), Mockito.<String[]>any(), Mockito.<List<String>>any())).thenReturn(1);
+    CmapSubtable cmap = new CmapSubtable();
+    SubstitutingCmapLookup cmapLookup = new SubstitutingCmapLookup(cmap, gsub, new ArrayList<>());
+
+    ArrayList<Integer> integerList = new ArrayList<>();
+    integerList.add(2);
+
+    HashMap<List<Integer>, List<Integer>> listListMap = new HashMap<>();
+    listListMap.put(integerList, new ArrayList<>());
+
+    HashMap<String, Map<List<Integer>, List<Integer>>> glyphSubstitutionMap = new HashMap<>();
+    glyphSubstitutionMap.put("rkrf", listListMap);
+    GsubWorkerForGujarati gsubWorkerForGujarati = new GsubWorkerForGujarati(cmapLookup,
+        new MapBackedGsubData(Language.BENGALI, "Active Script Name", glyphSubstitutionMap));
+
+    ArrayList<Integer> originalGlyphIds = new ArrayList<>();
+    originalGlyphIds.add(-1);
+    originalGlyphIds.add(2);
+
+    // Act
+    List<Integer> actualApplyTransformsResult = gsubWorkerForGujarati.applyTransforms(originalGlyphIds);
+
+    // Assert
+    verify(gsub, atLeast(1)).getSubstitution(eq(0), isA(String[].class), isA(List.class));
+    assertEquals(1, actualApplyTransformsResult.size());
+    assertEquals(-1, actualApplyTransformsResult.get(0).intValue());
+  }
+
+  /**
+   * Method under test:
+   * {@link GsubWorkerForGujarati#GsubWorkerForGujarati(CmapLookup, GsubData)}
+   */
+  @Test
+  void testNewGsubWorkerForGujarati() {
+    // Arrange
+    GlyphSubstitutionTable gsub = mock(GlyphSubstitutionTable.class);
+    when(gsub.getSubstitution(anyInt(), Mockito.<String[]>any(), Mockito.<List<String>>any())).thenReturn(1);
+    CmapSubtable cmap = new CmapSubtable();
+    SubstitutingCmapLookup cmapLookup = new SubstitutingCmapLookup(cmap, gsub, new ArrayList<>());
+
+    // Act
+    GsubWorkerForGujarati actualGsubWorkerForGujarati = new GsubWorkerForGujarati(cmapLookup,
+        new MapBackedGsubData(Language.BENGALI, "Active Script Name", new HashMap<>()));
+    List<Integer> actualApplyTransformsResult = actualGsubWorkerForGujarati.applyTransforms(new ArrayList<>());
+
+    // Assert
+    verify(gsub, atLeast(1)).getSubstitution(eq(0), isA(String[].class), isA(List.class));
+    assertTrue(actualApplyTransformsResult.isEmpty());
+  }
+
+  /**
+   * Method under test:
+   * {@link GsubWorkerForGujarati#GsubWorkerForGujarati(CmapLookup, GsubData)}
+   */
+  @Test
+  void testNewGsubWorkerForGujarati2() {
+    // Arrange
+    GlyphSubstitutionTable gsub = mock(GlyphSubstitutionTable.class);
+    when(gsub.getSubstitution(anyInt(), Mockito.<String[]>any(), Mockito.<List<String>>any())).thenReturn(1);
+    CmapSubtable cmap = new CmapSubtable();
+    SubstitutingCmapLookup cmapLookup = new SubstitutingCmapLookup(cmap, gsub, new ArrayList<>());
+
+    HashMap<String, Map<List<Integer>, List<Integer>>> glyphSubstitutionMap = new HashMap<>();
+    glyphSubstitutionMap.put("rkrf", new HashMap<>());
+
+    // Act
+    GsubWorkerForGujarati actualGsubWorkerForGujarati = new GsubWorkerForGujarati(cmapLookup,
+        new MapBackedGsubData(Language.BENGALI, "Active Script Name", glyphSubstitutionMap));
+    List<Integer> actualApplyTransformsResult = actualGsubWorkerForGujarati.applyTransforms(new ArrayList<>());
+
+    // Assert
+    verify(gsub, atLeast(1)).getSubstitution(eq(0), isA(String[].class), isA(List.class));
+    assertTrue(actualApplyTransformsResult.isEmpty());
+  }
+
+  /**
+   * Method under test:
+   * {@link GsubWorkerForGujarati#GsubWorkerForGujarati(CmapLookup, GsubData)}
+   */
+  @Test
+  void testNewGsubWorkerForGujarati3() {
+    // Arrange
+    GlyphSubstitutionTable gsub = mock(GlyphSubstitutionTable.class);
+    when(gsub.getSubstitution(anyInt(), Mockito.<String[]>any(), Mockito.<List<String>>any())).thenReturn(1);
+    CmapSubtable cmap = new CmapSubtable();
+    SubstitutingCmapLookup cmapLookup = new SubstitutingCmapLookup(cmap, gsub, new ArrayList<>());
+
+    HashMap<List<Integer>, List<Integer>> listListMap = new HashMap<>();
+    ArrayList<Integer> integerList = new ArrayList<>();
+    listListMap.put(integerList, new ArrayList<>());
+
+    HashMap<String, Map<List<Integer>, List<Integer>>> glyphSubstitutionMap = new HashMap<>();
+    glyphSubstitutionMap.put("rkrf", listListMap);
+
+    // Act
+    GsubWorkerForGujarati actualGsubWorkerForGujarati = new GsubWorkerForGujarati(cmapLookup,
+        new MapBackedGsubData(Language.BENGALI, "Active Script Name", glyphSubstitutionMap));
+    List<Integer> actualApplyTransformsResult = actualGsubWorkerForGujarati.applyTransforms(new ArrayList<>());
+
+    // Assert
+    verify(gsub, atLeast(1)).getSubstitution(eq(0), isA(String[].class), isA(List.class));
+    assertTrue(actualApplyTransformsResult.isEmpty());
+  }
+
+  /**
+   * Method under test:
+   * {@link GsubWorkerForGujarati#GsubWorkerForGujarati(CmapLookup, GsubData)}
+   */
+  @Test
+  void testNewGsubWorkerForGujarati4() {
+    // Arrange
+    GlyphSubstitutionTable gsub = mock(GlyphSubstitutionTable.class);
+    when(gsub.getSubstitution(anyInt(), Mockito.<String[]>any(), Mockito.<List<String>>any())).thenReturn(1);
+    CmapSubtable cmap = new CmapSubtable();
+    SubstitutingCmapLookup cmapLookup = new SubstitutingCmapLookup(cmap, gsub, new ArrayList<>());
+
+    ArrayList<Integer> integerList = new ArrayList<>();
+    integerList.add(2);
+
+    HashMap<List<Integer>, List<Integer>> listListMap = new HashMap<>();
+    listListMap.put(integerList, new ArrayList<>());
+
+    HashMap<String, Map<List<Integer>, List<Integer>>> glyphSubstitutionMap = new HashMap<>();
+    glyphSubstitutionMap.put("rkrf", listListMap);
+
+    // Act
+    GsubWorkerForGujarati actualGsubWorkerForGujarati = new GsubWorkerForGujarati(cmapLookup,
+        new MapBackedGsubData(Language.BENGALI, "Active Script Name", glyphSubstitutionMap));
+    List<Integer> actualApplyTransformsResult = actualGsubWorkerForGujarati.applyTransforms(new ArrayList<>());
+
+    // Assert
+    verify(gsub, atLeast(1)).getSubstitution(eq(0), isA(String[].class), isA(List.class));
+    assertTrue(actualApplyTransformsResult.isEmpty());
+  }
+
+  /**
+   * Method under test:
+   * {@link GsubWorkerForGujarati#GsubWorkerForGujarati(CmapLookup, GsubData)}
+   */
+  @Test
+  void testNewGsubWorkerForGujarati5() {
+    // Arrange
+    GlyphSubstitutionTable gsub = mock(GlyphSubstitutionTable.class);
+    when(gsub.getSubstitution(anyInt(), Mockito.<String[]>any(), Mockito.<List<String>>any())).thenReturn(1);
+    CmapSubtable cmap = new CmapSubtable();
+    SubstitutingCmapLookup cmapLookup = new SubstitutingCmapLookup(cmap, gsub, new ArrayList<>());
+
+    ArrayList<Integer> integerList = new ArrayList<>();
+    integerList.add(-2);
+    integerList.add(2);
+
+    HashMap<List<Integer>, List<Integer>> listListMap = new HashMap<>();
+    listListMap.put(integerList, new ArrayList<>());
+
+    HashMap<String, Map<List<Integer>, List<Integer>>> glyphSubstitutionMap = new HashMap<>();
+    glyphSubstitutionMap.put("rkrf", listListMap);
+
+    // Act
+    GsubWorkerForGujarati actualGsubWorkerForGujarati = new GsubWorkerForGujarati(cmapLookup,
+        new MapBackedGsubData(Language.BENGALI, "Active Script Name", glyphSubstitutionMap));
+    List<Integer> actualApplyTransformsResult = actualGsubWorkerForGujarati.applyTransforms(new ArrayList<>());
+
+    // Assert
+    verify(gsub, atLeast(1)).getSubstitution(eq(0), isA(String[].class), isA(List.class));
+    assertTrue(actualApplyTransformsResult.isEmpty());
+  }
+
+  /**
+   * Method under test:
+   * {@link GsubWorkerForGujarati#GsubWorkerForGujarati(CmapLookup, GsubData)}
+   */
+  @Test
+  void testNewGsubWorkerForGujarati6() {
+    // Arrange
+    GlyphSubstitutionTable gsub = mock(GlyphSubstitutionTable.class);
+    when(gsub.getSubstitution(anyInt(), Mockito.<String[]>any(), Mockito.<List<String>>any())).thenReturn(1);
+    CmapSubtable cmap = new CmapSubtable();
+    SubstitutingCmapLookup cmapLookup = new SubstitutingCmapLookup(cmap, gsub, new ArrayList<>());
+
+    ArrayList<Integer> integerList = new ArrayList<>();
+    integerList.add(2);
+
+    HashMap<List<Integer>, List<Integer>> listListMap = new HashMap<>();
+    ArrayList<Integer> integerList2 = new ArrayList<>();
+    listListMap.put(integerList2, new ArrayList<>());
+    listListMap.put(integerList, new ArrayList<>());
+
+    HashMap<String, Map<List<Integer>, List<Integer>>> glyphSubstitutionMap = new HashMap<>();
+    glyphSubstitutionMap.put("rkrf", listListMap);
+
+    // Act
+    GsubWorkerForGujarati actualGsubWorkerForGujarati = new GsubWorkerForGujarati(cmapLookup,
+        new MapBackedGsubData(Language.BENGALI, "Active Script Name", glyphSubstitutionMap));
+    List<Integer> actualApplyTransformsResult = actualGsubWorkerForGujarati.applyTransforms(new ArrayList<>());
+
+    // Assert
+    verify(gsub, atLeast(1)).getSubstitution(eq(0), isA(String[].class), isA(List.class));
+    assertTrue(actualApplyTransformsResult.isEmpty());
+  }
+
+  /**
+   * Method under test:
+   * {@link GsubWorkerForGujarati#GsubWorkerForGujarati(CmapLookup, GsubData)}
+   */
+  @Test
+  void testNewGsubWorkerForGujarati7() {
+    // Arrange
+    GlyphSubstitutionTable gsub = mock(GlyphSubstitutionTable.class);
+    when(gsub.getSubstitution(anyInt(), Mockito.<String[]>any(), Mockito.<List<String>>any())).thenReturn(1);
+    CmapSubtable cmap = new CmapSubtable();
+    SubstitutingCmapLookup cmapLookup = new SubstitutingCmapLookup(cmap, gsub, new ArrayList<>());
+
+    ArrayList<Integer> integerList = new ArrayList<>();
+    integerList.add(2);
+
+    HashMap<List<Integer>, List<Integer>> listListMap = new HashMap<>();
+    listListMap.put(integerList, new ArrayList<>());
+
+    HashMap<String, Map<List<Integer>, List<Integer>>> glyphSubstitutionMap = new HashMap<>();
+    glyphSubstitutionMap.put("rkrf", listListMap);
+
+    // Act
+    GsubWorkerForGujarati actualGsubWorkerForGujarati = new GsubWorkerForGujarati(cmapLookup,
+        new MapBackedGsubData(Language.BENGALI, "Active Script Name", glyphSubstitutionMap));
+    ArrayList<Integer> originalGlyphIds = new ArrayList<>();
+    originalGlyphIds.add(-2);
+    List<Integer> actualApplyTransformsResult = actualGsubWorkerForGujarati.applyTransforms(originalGlyphIds);
+
+    // Assert
+    verify(gsub, atLeast(1)).getSubstitution(eq(0), isA(String[].class), isA(List.class));
+    assertEquals(1, actualApplyTransformsResult.size());
+    assertEquals(-2, actualApplyTransformsResult.get(0).intValue());
+  }
+
+  /**
+   * Method under test:
+   * {@link GsubWorkerForGujarati#GsubWorkerForGujarati(CmapLookup, GsubData)}
+   */
+  @Test
+  void testNewGsubWorkerForGujarati8() {
+    // Arrange
+    GlyphSubstitutionTable gsub = mock(GlyphSubstitutionTable.class);
+    when(gsub.getSubstitution(anyInt(), Mockito.<String[]>any(), Mockito.<List<String>>any())).thenReturn(1);
+    CmapSubtable cmap = new CmapSubtable();
+    SubstitutingCmapLookup cmapLookup = new SubstitutingCmapLookup(cmap, gsub, new ArrayList<>());
+
+    ArrayList<Integer> integerList = new ArrayList<>();
+    integerList.add(-1);
+
+    HashMap<List<Integer>, List<Integer>> listListMap = new HashMap<>();
+    listListMap.put(integerList, new ArrayList<>());
+
+    HashMap<String, Map<List<Integer>, List<Integer>>> glyphSubstitutionMap = new HashMap<>();
+    glyphSubstitutionMap.put("rkrf", listListMap);
+
+    // Act
+    GsubWorkerForGujarati actualGsubWorkerForGujarati = new GsubWorkerForGujarati(cmapLookup,
+        new MapBackedGsubData(Language.BENGALI, "Active Script Name", glyphSubstitutionMap));
+    ArrayList<Integer> originalGlyphIds = new ArrayList<>();
+    originalGlyphIds.add(-1);
+    originalGlyphIds.add(-1);
+    originalGlyphIds.add(2);
+    List<Integer> actualApplyTransformsResult = actualGsubWorkerForGujarati.applyTransforms(originalGlyphIds);
+
+    // Assert
+    verify(gsub, atLeast(1)).getSubstitution(eq(0), isA(String[].class), isA(List.class));
+    assertEquals(1, actualApplyTransformsResult.size());
+    assertEquals(2, actualApplyTransformsResult.get(0).intValue());
   }
 }

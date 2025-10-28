@@ -5,75 +5,18 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.cos.COSIncrement;
 import org.apache.pdfbox.cos.COSObjectKey;
 import org.apache.pdfbox.cos.COSUpdateState;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class PDFormFieldAdditionalActionsDiffblueTest {
   /**
-   * Test {@link PDFormFieldAdditionalActions#PDFormFieldAdditionalActions(COSDictionary)}.
-   * <p>
-   * Method under test: {@link PDFormFieldAdditionalActions#PDFormFieldAdditionalActions(COSDictionary)}
-   */
-  @Test
-  @DisplayName("Test new PDFormFieldAdditionalActions(COSDictionary)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFormFieldAdditionalActions.<init>(COSDictionary)"})
-  void testNewPDFormFieldAdditionalActions() {
-    // Arrange
-    COSDictionary a = new COSDictionary();
-
-    // Act and Assert
-    assertSame(a, (new PDFormFieldAdditionalActions(a)).getCOSObject());
-  }
-
-  /**
-   * Test {@link PDFormFieldAdditionalActions#PDFormFieldAdditionalActions()}.
-   * <p>
-   * Method under test: {@link PDFormFieldAdditionalActions#PDFormFieldAdditionalActions()}
-   */
-  @Test
-  @DisplayName("Test new PDFormFieldAdditionalActions()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFormFieldAdditionalActions.<init>()"})
-  void testNewPDFormFieldAdditionalActions2() {
-    // Arrange and Act
-    PDFormFieldAdditionalActions actualPdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
-
-    // Assert
-    COSDictionary cOSObject = actualPdFormFieldAdditionalActions.getCOSObject();
-    COSUpdateState updateState = cOSObject.getUpdateState();
-    assertNull(updateState.getOriginDocumentState());
-    assertNull(cOSObject.getKey());
-    assertNull(actualPdFormFieldAdditionalActions.getC());
-    assertNull(actualPdFormFieldAdditionalActions.getF());
-    assertNull(actualPdFormFieldAdditionalActions.getK());
-    assertNull(actualPdFormFieldAdditionalActions.getV());
-    assertEquals(0, cOSObject.size());
-    COSIncrement toIncrementResult = cOSObject.toIncrement();
-    assertFalse(toIncrementResult.iterator().hasNext());
-    assertFalse(cOSObject.isDirect());
-    assertFalse(cOSObject.isNeedToBeUpdated());
-    assertFalse(updateState.isUpdated());
-    assertTrue(cOSObject.getValues().isEmpty());
-    assertTrue(toIncrementResult.getObjects().isEmpty());
-  }
-
-  /**
-   * Test {@link PDFormFieldAdditionalActions#getCOSObject()}.
-   * <p>
    * Method under test: {@link PDFormFieldAdditionalActions#getCOSObject()}
    */
   @Test
-  @DisplayName("Test getCOSObject()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"COSDictionary PDFormFieldAdditionalActions.getCOSObject()"})
   void testGetCOSObject() {
     // Arrange and Act
     COSDictionary actualCOSObject = (new PDFormFieldAdditionalActions()).getCOSObject();
@@ -93,15 +36,54 @@ class PDFormFieldAdditionalActionsDiffblueTest {
   }
 
   /**
-   * Test {@link PDFormFieldAdditionalActions#getK()}.
-   * <p>
    * Method under test: {@link PDFormFieldAdditionalActions#getK()}
    */
   @Test
-  @DisplayName("Test getK()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDFormFieldAdditionalActions.getK()"})
   void testGetK() {
+    // Arrange, Act and Assert
+    assertNull((new PDFormFieldAdditionalActions()).getK());
+  }
+
+  /**
+   * Method under test: {@link PDFormFieldAdditionalActions#getK()}
+   */
+  @Test
+  void testGetK2() throws IOException {
+    // Arrange
+    PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
+    pdFormFieldAdditionalActions.setK(new PDActionEmbeddedGoTo());
+
+    // Act
+    PDAction actualK = pdFormFieldAdditionalActions.getK();
+
+    // Assert
+    assertTrue(actualK instanceof PDActionEmbeddedGoTo);
+    assertNull(actualK.getNext());
+    COSDictionary cOSObject = actualK.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertNull(((PDActionEmbeddedGoTo) actualK).getFile());
+    assertNull(((PDActionEmbeddedGoTo) actualK).getTargetDirectory());
+    assertNull(((PDActionEmbeddedGoTo) actualK).getDestination());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    assertEquals(OpenMode.USER_PREFERENCE, ((PDActionEmbeddedGoTo) actualK).getOpenInNewWindow());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertEquals(PDAction.TYPE, actualK.getType());
+    assertEquals(PDActionEmbeddedGoTo.SUB_TYPE, actualK.getSubType());
+  }
+
+  /**
+   * Method under test: {@link PDFormFieldAdditionalActions#getK()}
+   */
+  @Test
+  void testGetK3() {
     // Arrange
     PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
     pdFormFieldAdditionalActions.setK(new PDActionEmbeddedGoTo(new COSDictionary()));
@@ -111,18 +93,139 @@ class PDFormFieldAdditionalActionsDiffblueTest {
   }
 
   /**
-   * Test {@link PDFormFieldAdditionalActions#getK()}.
-   * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary()} Key is {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDFormFieldAdditionalActions#getK()}
    */
   @Test
-  @DisplayName("Test getK(); given COSDictionary() Key is COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDFormFieldAdditionalActions.getK()"})
-  void testGetK_givenCOSDictionaryKeyIsCOSObjectKeyWithNumIsOneAndGenIsOne() {
+  void testGetK4() throws IOException {
+    // Arrange
+    PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
+    pdFormFieldAdditionalActions.setK(new PDActionGoTo());
+
+    // Act
+    PDAction actualK = pdFormFieldAdditionalActions.getK();
+
+    // Assert
+    assertTrue(actualK instanceof PDActionGoTo);
+    assertNull(actualK.getNext());
+    COSDictionary cOSObject = actualK.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertNull(((PDActionGoTo) actualK).getDestination());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertEquals(PDAction.TYPE, actualK.getType());
+    assertEquals(PDActionGoTo.SUB_TYPE, actualK.getSubType());
+  }
+
+  /**
+   * Method under test: {@link PDFormFieldAdditionalActions#getK()}
+   */
+  @Test
+  void testGetK5() {
+    // Arrange
+    PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
+    pdFormFieldAdditionalActions.setK(new PDActionHide());
+
+    // Act
+    PDAction actualK = pdFormFieldAdditionalActions.getK();
+
+    // Assert
+    assertTrue(actualK instanceof PDActionHide);
+    assertNull(actualK.getNext());
+    assertNull(((PDActionHide) actualK).getT());
+    COSDictionary cOSObject = actualK.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertTrue(((PDActionHide) actualK).getH());
+    assertEquals(PDAction.TYPE, actualK.getType());
+    assertEquals(PDActionHide.SUB_TYPE, actualK.getSubType());
+  }
+
+  /**
+   * Method under test: {@link PDFormFieldAdditionalActions#getK()}
+   */
+  @Test
+  void testGetK6() throws IOException {
+    // Arrange
+    PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
+    pdFormFieldAdditionalActions.setK(new PDActionImportData());
+
+    // Act
+    PDAction actualK = pdFormFieldAdditionalActions.getK();
+
+    // Assert
+    assertTrue(actualK instanceof PDActionImportData);
+    assertNull(actualK.getNext());
+    COSDictionary cOSObject = actualK.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertNull(((PDActionImportData) actualK).getFile());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertEquals(PDAction.TYPE, actualK.getType());
+    assertEquals(PDActionImportData.SUB_TYPE, actualK.getSubType());
+  }
+
+  /**
+   * Method under test: {@link PDFormFieldAdditionalActions#getK()}
+   */
+  @Test
+  void testGetK7() {
+    // Arrange
+    PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
+    pdFormFieldAdditionalActions.setK(new PDActionJavaScript());
+
+    // Act
+    PDAction actualK = pdFormFieldAdditionalActions.getK();
+
+    // Assert
+    assertTrue(actualK instanceof PDActionJavaScript);
+    assertNull(((PDActionJavaScript) actualK).getAction());
+    assertNull(actualK.getNext());
+    COSDictionary cOSObject = actualK.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertEquals(PDAction.TYPE, actualK.getType());
+    assertEquals(PDActionJavaScript.SUB_TYPE, actualK.getSubType());
+  }
+
+  /**
+   * Method under test: {@link PDFormFieldAdditionalActions#getK()}
+   */
+  @Test
+  void testGetK8() {
     // Arrange
     COSDictionary a = new COSDictionary();
     a.setKey(new COSObjectKey(1L, 1));
@@ -136,18 +239,10 @@ class PDFormFieldAdditionalActionsDiffblueTest {
   }
 
   /**
-   * Test {@link PDFormFieldAdditionalActions#getK()}.
-   * <ul>
-   *   <li>Given {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo(COSDictionary)} with a is {@link COSDictionary#COSDictionary()} SubType is {@code foo}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDFormFieldAdditionalActions#getK()}
    */
   @Test
-  @DisplayName("Test getK(); given PDActionEmbeddedGoTo(COSDictionary) with a is COSDictionary() SubType is 'foo'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDFormFieldAdditionalActions.getK()"})
-  void testGetK_givenPDActionEmbeddedGoToWithAIsCOSDictionarySubTypeIsFoo() {
+  void testGetK9() {
     // Arrange
     PDActionEmbeddedGoTo k = new PDActionEmbeddedGoTo(new COSDictionary());
     k.setSubType("foo");
@@ -160,231 +255,10 @@ class PDFormFieldAdditionalActionsDiffblueTest {
   }
 
   /**
-   * Test {@link PDFormFieldAdditionalActions#getK()}.
-   * <ul>
-   *   <li>Given {@link PDFormFieldAdditionalActions#PDFormFieldAdditionalActions()} K is {@link PDActionGoTo#PDActionGoTo()}.</li>
-   *   <li>Then return {@link PDActionGoTo}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDFormFieldAdditionalActions#getK()}
    */
   @Test
-  @DisplayName("Test getK(); given PDFormFieldAdditionalActions() K is PDActionGoTo(); then return PDActionGoTo")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDFormFieldAdditionalActions.getK()"})
-  void testGetK_givenPDFormFieldAdditionalActionsKIsPDActionGoTo_thenReturnPDActionGoTo() throws IOException {
-    // Arrange
-    PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
-    pdFormFieldAdditionalActions.setK(new PDActionGoTo());
-
-    // Act
-    PDAction actualK = pdFormFieldAdditionalActions.getK();
-
-    // Assert
-    assertTrue(actualK instanceof PDActionGoTo);
-    assertNull(actualK.getNext());
-    COSDictionary cOSObject = actualK.getCOSObject();
-    assertNull(cOSObject.getKey());
-    assertNull(((PDActionGoTo) actualK).getDestination());
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    assertFalse(cOSObject.isDirect());
-    assertFalse(cOSObject.isNeedToBeUpdated());
-    assertEquals(PDAction.TYPE, actualK.getType());
-    assertEquals(PDActionGoTo.SUB_TYPE, actualK.getSubType());
-  }
-
-  /**
-   * Test {@link PDFormFieldAdditionalActions#getK()}.
-   * <ul>
-   *   <li>Given {@link PDFormFieldAdditionalActions#PDFormFieldAdditionalActions()} K is {@link PDActionHide#PDActionHide()}.</li>
-   *   <li>Then return {@link PDActionHide}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDFormFieldAdditionalActions#getK()}
-   */
-  @Test
-  @DisplayName("Test getK(); given PDFormFieldAdditionalActions() K is PDActionHide(); then return PDActionHide")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDFormFieldAdditionalActions.getK()"})
-  void testGetK_givenPDFormFieldAdditionalActionsKIsPDActionHide_thenReturnPDActionHide() {
-    // Arrange
-    PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
-    pdFormFieldAdditionalActions.setK(new PDActionHide());
-
-    // Act
-    PDAction actualK = pdFormFieldAdditionalActions.getK();
-
-    // Assert
-    assertTrue(actualK instanceof PDActionHide);
-    assertNull(((PDActionHide) actualK).getT());
-    assertTrue(((PDActionHide) actualK).getH());
-    assertEquals(PDActionHide.SUB_TYPE, actualK.getSubType());
-  }
-
-  /**
-   * Test {@link PDFormFieldAdditionalActions#getK()}.
-   * <ul>
-   *   <li>Given {@link PDFormFieldAdditionalActions#PDFormFieldAdditionalActions()} K is {@link PDActionURI#PDActionURI()}.</li>
-   *   <li>Then return {@link PDActionURI}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDFormFieldAdditionalActions#getK()}
-   */
-  @Test
-  @DisplayName("Test getK(); given PDFormFieldAdditionalActions() K is PDActionURI(); then return PDActionURI")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDFormFieldAdditionalActions.getK()"})
-  void testGetK_givenPDFormFieldAdditionalActionsKIsPDActionURI_thenReturnPDActionURI() {
-    // Arrange
-    PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
-    pdFormFieldAdditionalActions.setK(new PDActionURI());
-
-    // Act
-    PDAction actualK = pdFormFieldAdditionalActions.getK();
-
-    // Assert
-    assertTrue(actualK instanceof PDActionURI);
-    assertNull(((PDActionURI) actualK).getURI());
-    assertNull(actualK.getNext());
-    COSDictionary cOSObject = actualK.getCOSObject();
-    assertNull(cOSObject.getKey());
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    assertFalse(cOSObject.isDirect());
-    assertFalse(cOSObject.isNeedToBeUpdated());
-    assertEquals(PDAction.TYPE, actualK.getType());
-    assertEquals(PDActionURI.SUB_TYPE, actualK.getSubType());
-  }
-
-  /**
-   * Test {@link PDFormFieldAdditionalActions#getK()}.
-   * <ul>
-   *   <li>Given {@link PDFormFieldAdditionalActions#PDFormFieldAdditionalActions()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDFormFieldAdditionalActions#getK()}
-   */
-  @Test
-  @DisplayName("Test getK(); given PDFormFieldAdditionalActions(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDFormFieldAdditionalActions.getK()"})
-  void testGetK_givenPDFormFieldAdditionalActions_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull((new PDFormFieldAdditionalActions()).getK());
-  }
-
-  /**
-   * Test {@link PDFormFieldAdditionalActions#getK()}.
-   * <ul>
-   *   <li>Then return {@link PDActionEmbeddedGoTo}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDFormFieldAdditionalActions#getK()}
-   */
-  @Test
-  @DisplayName("Test getK(); then return PDActionEmbeddedGoTo")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDFormFieldAdditionalActions.getK()"})
-  void testGetK_thenReturnPDActionEmbeddedGoTo() throws IOException {
-    // Arrange
-    PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
-    pdFormFieldAdditionalActions.setK(new PDActionEmbeddedGoTo());
-
-    // Act
-    PDAction actualK = pdFormFieldAdditionalActions.getK();
-
-    // Assert
-    assertTrue(actualK instanceof PDActionEmbeddedGoTo);
-    assertNull(((PDActionEmbeddedGoTo) actualK).getFile());
-    assertNull(((PDActionEmbeddedGoTo) actualK).getTargetDirectory());
-    assertNull(((PDActionEmbeddedGoTo) actualK).getDestination());
-    assertEquals(OpenMode.USER_PREFERENCE, ((PDActionEmbeddedGoTo) actualK).getOpenInNewWindow());
-    assertEquals(PDActionEmbeddedGoTo.SUB_TYPE, actualK.getSubType());
-  }
-
-  /**
-   * Test {@link PDFormFieldAdditionalActions#getK()}.
-   * <ul>
-   *   <li>Then return {@link PDActionImportData}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDFormFieldAdditionalActions#getK()}
-   */
-  @Test
-  @DisplayName("Test getK(); then return PDActionImportData")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDFormFieldAdditionalActions.getK()"})
-  void testGetK_thenReturnPDActionImportData() throws IOException {
-    // Arrange
-    PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
-    pdFormFieldAdditionalActions.setK(new PDActionImportData());
-
-    // Act
-    PDAction actualK = pdFormFieldAdditionalActions.getK();
-
-    // Assert
-    assertTrue(actualK instanceof PDActionImportData);
-    assertNull(actualK.getNext());
-    COSDictionary cOSObject = actualK.getCOSObject();
-    assertNull(cOSObject.getKey());
-    assertNull(((PDActionImportData) actualK).getFile());
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    assertFalse(cOSObject.isDirect());
-    assertFalse(cOSObject.isNeedToBeUpdated());
-    assertEquals(PDAction.TYPE, actualK.getType());
-    assertEquals(PDActionImportData.SUB_TYPE, actualK.getSubType());
-  }
-
-  /**
-   * Test {@link PDFormFieldAdditionalActions#getK()}.
-   * <ul>
-   *   <li>Then return {@link PDActionJavaScript}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDFormFieldAdditionalActions#getK()}
-   */
-  @Test
-  @DisplayName("Test getK(); then return PDActionJavaScript")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDFormFieldAdditionalActions.getK()"})
-  void testGetK_thenReturnPDActionJavaScript() {
-    // Arrange
-    PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
-    pdFormFieldAdditionalActions.setK(new PDActionJavaScript());
-
-    // Act
-    PDAction actualK = pdFormFieldAdditionalActions.getK();
-
-    // Assert
-    assertTrue(actualK instanceof PDActionJavaScript);
-    assertNull(((PDActionJavaScript) actualK).getAction());
-    assertNull(actualK.getNext());
-    COSDictionary cOSObject = actualK.getCOSObject();
-    assertNull(cOSObject.getKey());
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    assertFalse(cOSObject.isDirect());
-    assertFalse(cOSObject.isNeedToBeUpdated());
-    assertEquals(PDAction.TYPE, actualK.getType());
-    assertEquals(PDActionJavaScript.SUB_TYPE, actualK.getSubType());
-  }
-
-  /**
-   * Test {@link PDFormFieldAdditionalActions#getK()}.
-   * <ul>
-   *   <li>Then return {@link PDActionLaunch}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDFormFieldAdditionalActions#getK()}
-   */
-  @Test
-  @DisplayName("Test getK(); then return PDActionLaunch")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDFormFieldAdditionalActions.getK()"})
-  void testGetK_thenReturnPDActionLaunch() throws IOException {
+  void testGetK10() throws IOException {
     // Arrange
     PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
     pdFormFieldAdditionalActions.setK(new PDActionLaunch());
@@ -398,25 +272,31 @@ class PDFormFieldAdditionalActionsDiffblueTest {
     assertNull(((PDActionLaunch) actualK).getF());
     assertNull(((PDActionLaunch) actualK).getO());
     assertNull(((PDActionLaunch) actualK).getP());
+    assertNull(actualK.getNext());
+    COSDictionary cOSObject = actualK.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
     assertNull(((PDActionLaunch) actualK).getFile());
     assertNull(((PDActionLaunch) actualK).getWinLaunchParams());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
     assertEquals(OpenMode.USER_PREFERENCE, ((PDActionLaunch) actualK).getOpenInNewWindow());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertEquals(PDAction.TYPE, actualK.getType());
     assertEquals(PDActionLaunch.SUB_TYPE, actualK.getSubType());
   }
 
   /**
-   * Test {@link PDFormFieldAdditionalActions#getK()}.
-   * <ul>
-   *   <li>Then return {@link PDActionMovie}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDFormFieldAdditionalActions#getK()}
    */
   @Test
-  @DisplayName("Test getK(); then return PDActionMovie")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDFormFieldAdditionalActions.getK()"})
-  void testGetK_thenReturnPDActionMovie() {
+  void testGetK11() {
     // Arrange
     PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
     pdFormFieldAdditionalActions.setK(new PDActionMovie());
@@ -426,29 +306,28 @@ class PDFormFieldAdditionalActionsDiffblueTest {
 
     // Assert
     assertTrue(actualK instanceof PDActionMovie);
+    assertNull(actualK.getNext());
     COSDictionary cOSObject = actualK.getCOSObject();
     COSUpdateState updateState = cOSObject.getUpdateState();
     assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
     COSIncrement toIncrementResult = cOSObject.toIncrement();
     assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
     assertFalse(updateState.isUpdated());
     assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertEquals(PDAction.TYPE, actualK.getType());
     assertEquals(PDActionMovie.SUB_TYPE, actualK.getSubType());
   }
 
   /**
-   * Test {@link PDFormFieldAdditionalActions#getK()}.
-   * <ul>
-   *   <li>Then return {@link PDActionNamed}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDFormFieldAdditionalActions#getK()}
    */
   @Test
-  @DisplayName("Test getK(); then return PDActionNamed")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDFormFieldAdditionalActions.getK()"})
-  void testGetK_thenReturnPDActionNamed() {
+  void testGetK12() {
     // Arrange
     PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
     pdFormFieldAdditionalActions.setK(new PDActionNamed());
@@ -461,28 +340,26 @@ class PDFormFieldAdditionalActionsDiffblueTest {
     assertNull(((PDActionNamed) actualK).getN());
     assertNull(actualK.getNext());
     COSDictionary cOSObject = actualK.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
     assertNull(cOSObject.getKey());
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
     assertFalse(cOSObject.isDirect());
     assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
     assertEquals(PDAction.TYPE, actualK.getType());
     assertEquals(PDActionNamed.SUB_TYPE, actualK.getSubType());
   }
 
   /**
-   * Test {@link PDFormFieldAdditionalActions#getK()}.
-   * <ul>
-   *   <li>Then return {@link PDActionRemoteGoTo}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDFormFieldAdditionalActions#getK()}
    */
   @Test
-  @DisplayName("Test getK(); then return PDActionRemoteGoTo")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDFormFieldAdditionalActions.getK()"})
-  void testGetK_thenReturnPDActionRemoteGoTo() throws IOException {
+  void testGetK13() throws IOException {
     // Arrange
     PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
     pdFormFieldAdditionalActions.setK(new PDActionRemoteGoTo());
@@ -492,25 +369,31 @@ class PDFormFieldAdditionalActionsDiffblueTest {
 
     // Assert
     assertTrue(actualK instanceof PDActionRemoteGoTo);
+    assertNull(actualK.getNext());
     assertNull(((PDActionRemoteGoTo) actualK).getD());
+    COSDictionary cOSObject = actualK.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
     assertNull(((PDActionRemoteGoTo) actualK).getFile());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
     assertEquals(OpenMode.USER_PREFERENCE, ((PDActionRemoteGoTo) actualK).getOpenInNewWindow());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertEquals(PDAction.TYPE, actualK.getType());
     assertEquals(PDActionRemoteGoTo.SUB_TYPE, actualK.getSubType());
   }
 
   /**
-   * Test {@link PDFormFieldAdditionalActions#getK()}.
-   * <ul>
-   *   <li>Then return {@link PDActionResetForm}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDFormFieldAdditionalActions#getK()}
    */
   @Test
-  @DisplayName("Test getK(); then return PDActionResetForm")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDFormFieldAdditionalActions.getK()"})
-  void testGetK_thenReturnPDActionResetForm() {
+  void testGetK14() {
     // Arrange
     PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
     pdFormFieldAdditionalActions.setK(new PDActionResetForm());
@@ -520,24 +403,30 @@ class PDFormFieldAdditionalActionsDiffblueTest {
 
     // Assert
     assertTrue(actualK instanceof PDActionResetForm);
+    assertNull(actualK.getNext());
     assertNull(((PDActionResetForm) actualK).getFields());
+    COSDictionary cOSObject = actualK.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
     assertEquals(0, ((PDActionResetForm) actualK).getFlags());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertEquals(PDAction.TYPE, actualK.getType());
     assertEquals(PDActionResetForm.SUB_TYPE, actualK.getSubType());
   }
 
   /**
-   * Test {@link PDFormFieldAdditionalActions#getK()}.
-   * <ul>
-   *   <li>Then return {@link PDActionSound}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDFormFieldAdditionalActions#getK()}
    */
   @Test
-  @DisplayName("Test getK(); then return PDActionSound")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDFormFieldAdditionalActions.getK()"})
-  void testGetK_thenReturnPDActionSound() {
+  void testGetK15() {
     // Arrange
     PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
     pdFormFieldAdditionalActions.setK(new PDActionSound());
@@ -547,27 +436,33 @@ class PDFormFieldAdditionalActionsDiffblueTest {
 
     // Assert
     assertTrue(actualK instanceof PDActionSound);
+    assertNull(actualK.getNext());
+    COSDictionary cOSObject = actualK.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
     assertNull(((PDActionSound) actualK).getSound());
     assertEquals(1.0f, ((PDActionSound) actualK).getVolume());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
     assertFalse(((PDActionSound) actualK).getMix());
     assertFalse(((PDActionSound) actualK).getRepeat());
     assertFalse(((PDActionSound) actualK).getSynchronous());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertEquals(PDAction.TYPE, actualK.getType());
     assertEquals(PDActionSound.SUB_TYPE, actualK.getSubType());
   }
 
   /**
-   * Test {@link PDFormFieldAdditionalActions#getK()}.
-   * <ul>
-   *   <li>Then return {@link PDActionSubmitForm}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDFormFieldAdditionalActions#getK()}
    */
   @Test
-  @DisplayName("Test getK(); then return PDActionSubmitForm")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDFormFieldAdditionalActions.getK()"})
-  void testGetK_thenReturnPDActionSubmitForm() throws IOException {
+  void testGetK16() throws IOException {
     // Arrange
     PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
     pdFormFieldAdditionalActions.setK(new PDActionSubmitForm());
@@ -577,25 +472,31 @@ class PDFormFieldAdditionalActionsDiffblueTest {
 
     // Assert
     assertTrue(actualK instanceof PDActionSubmitForm);
+    assertNull(actualK.getNext());
     assertNull(((PDActionSubmitForm) actualK).getFields());
+    COSDictionary cOSObject = actualK.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
     assertNull(((PDActionSubmitForm) actualK).getFile());
     assertEquals(0, ((PDActionSubmitForm) actualK).getFlags());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertEquals(PDAction.TYPE, actualK.getType());
     assertEquals(PDActionSubmitForm.SUB_TYPE, actualK.getSubType());
   }
 
   /**
-   * Test {@link PDFormFieldAdditionalActions#getK()}.
-   * <ul>
-   *   <li>Then return {@link PDActionThread}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDFormFieldAdditionalActions#getK()}
    */
   @Test
-  @DisplayName("Test getK(); then return PDActionThread")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDFormFieldAdditionalActions.getK()"})
-  void testGetK_thenReturnPDActionThread() throws IOException {
+  void testGetK17() throws IOException {
     // Arrange
     PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
     pdFormFieldAdditionalActions.setK(new PDActionThread());
@@ -605,25 +506,63 @@ class PDFormFieldAdditionalActionsDiffblueTest {
 
     // Assert
     assertTrue(actualK instanceof PDActionThread);
+    assertNull(actualK.getNext());
     assertNull(((PDActionThread) actualK).getB());
     assertNull(((PDActionThread) actualK).getD());
+    COSDictionary cOSObject = actualK.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
     assertNull(((PDActionThread) actualK).getFile());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertEquals(PDAction.TYPE, actualK.getType());
     assertEquals(PDActionThread.SUB_TYPE, actualK.getSubType());
   }
 
   /**
-   * Test {@link PDFormFieldAdditionalActions#setK(PDAction)}.
-   * <ul>
-   *   <li>Then {@link PDFormFieldAdditionalActions#PDFormFieldAdditionalActions()} K {@link PDActionEmbeddedGoTo}.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PDFormFieldAdditionalActions#getK()}
+   */
+  @Test
+  void testGetK18() {
+    // Arrange
+    PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
+    pdFormFieldAdditionalActions.setK(new PDActionURI());
+
+    // Act
+    PDAction actualK = pdFormFieldAdditionalActions.getK();
+
+    // Assert
+    assertTrue(actualK instanceof PDActionURI);
+    assertNull(((PDActionURI) actualK).getURI());
+    assertNull(actualK.getNext());
+    COSDictionary cOSObject = actualK.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertEquals(PDAction.TYPE, actualK.getType());
+    assertEquals(PDActionURI.SUB_TYPE, actualK.getSubType());
+  }
+
+  /**
    * Method under test: {@link PDFormFieldAdditionalActions#setK(PDAction)}
    */
   @Test
-  @DisplayName("Test setK(PDAction); then PDFormFieldAdditionalActions() K PDActionEmbeddedGoTo")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFormFieldAdditionalActions.setK(PDAction)"})
-  void testSetK_thenPDFormFieldAdditionalActionsKPDActionEmbeddedGoTo() throws IOException {
+  void testSetK() throws IOException {
     // Arrange
     PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
 
@@ -646,40 +585,54 @@ class PDFormFieldAdditionalActionsDiffblueTest {
   }
 
   /**
-   * Test {@link PDFormFieldAdditionalActions#setK(PDAction)}.
-   * <ul>
-   *   <li>Then {@link PDFormFieldAdditionalActions#PDFormFieldAdditionalActions(COSDictionary)} with a is {@link COSDictionary#COSDictionary()} COSObject size is zero.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDFormFieldAdditionalActions#setK(PDAction)}
-   */
-  @Test
-  @DisplayName("Test setK(PDAction); then PDFormFieldAdditionalActions(COSDictionary) with a is COSDictionary() COSObject size is zero")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFormFieldAdditionalActions.setK(PDAction)"})
-  void testSetK_thenPDFormFieldAdditionalActionsWithAIsCOSDictionaryCOSObjectSizeIsZero() {
-    // Arrange
-    PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions(new COSDictionary());
-
-    // Act
-    pdFormFieldAdditionalActions.setK(null);
-
-    // Assert that nothing has changed
-    COSDictionary cOSObject = pdFormFieldAdditionalActions.getCOSObject();
-    assertEquals(0, cOSObject.size());
-    assertTrue(cOSObject.getValues().isEmpty());
-  }
-
-  /**
-   * Test {@link PDFormFieldAdditionalActions#getF()}.
-   * <p>
    * Method under test: {@link PDFormFieldAdditionalActions#getF()}
    */
   @Test
-  @DisplayName("Test getF()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDFormFieldAdditionalActions.getF()"})
   void testGetF() {
+    // Arrange, Act and Assert
+    assertNull((new PDFormFieldAdditionalActions()).getF());
+  }
+
+  /**
+   * Method under test: {@link PDFormFieldAdditionalActions#getF()}
+   */
+  @Test
+  void testGetF2() throws IOException {
+    // Arrange
+    PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
+    pdFormFieldAdditionalActions.setF(new PDActionEmbeddedGoTo());
+
+    // Act
+    PDAction actualF = pdFormFieldAdditionalActions.getF();
+
+    // Assert
+    assertTrue(actualF instanceof PDActionEmbeddedGoTo);
+    assertNull(actualF.getNext());
+    COSDictionary cOSObject = actualF.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertNull(((PDActionEmbeddedGoTo) actualF).getFile());
+    assertNull(((PDActionEmbeddedGoTo) actualF).getTargetDirectory());
+    assertNull(((PDActionEmbeddedGoTo) actualF).getDestination());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    assertEquals(OpenMode.USER_PREFERENCE, ((PDActionEmbeddedGoTo) actualF).getOpenInNewWindow());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertEquals(PDAction.TYPE, actualF.getType());
+    assertEquals(PDActionEmbeddedGoTo.SUB_TYPE, actualF.getSubType());
+  }
+
+  /**
+   * Method under test: {@link PDFormFieldAdditionalActions#getF()}
+   */
+  @Test
+  void testGetF3() {
     // Arrange
     PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
     pdFormFieldAdditionalActions.setF(new PDActionEmbeddedGoTo(new COSDictionary()));
@@ -689,18 +642,139 @@ class PDFormFieldAdditionalActionsDiffblueTest {
   }
 
   /**
-   * Test {@link PDFormFieldAdditionalActions#getF()}.
-   * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary()} Key is {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDFormFieldAdditionalActions#getF()}
    */
   @Test
-  @DisplayName("Test getF(); given COSDictionary() Key is COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDFormFieldAdditionalActions.getF()"})
-  void testGetF_givenCOSDictionaryKeyIsCOSObjectKeyWithNumIsOneAndGenIsOne() {
+  void testGetF4() throws IOException {
+    // Arrange
+    PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
+    pdFormFieldAdditionalActions.setF(new PDActionGoTo());
+
+    // Act
+    PDAction actualF = pdFormFieldAdditionalActions.getF();
+
+    // Assert
+    assertTrue(actualF instanceof PDActionGoTo);
+    assertNull(actualF.getNext());
+    COSDictionary cOSObject = actualF.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertNull(((PDActionGoTo) actualF).getDestination());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertEquals(PDAction.TYPE, actualF.getType());
+    assertEquals(PDActionGoTo.SUB_TYPE, actualF.getSubType());
+  }
+
+  /**
+   * Method under test: {@link PDFormFieldAdditionalActions#getF()}
+   */
+  @Test
+  void testGetF5() {
+    // Arrange
+    PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
+    pdFormFieldAdditionalActions.setF(new PDActionHide());
+
+    // Act
+    PDAction actualF = pdFormFieldAdditionalActions.getF();
+
+    // Assert
+    assertTrue(actualF instanceof PDActionHide);
+    assertNull(actualF.getNext());
+    assertNull(((PDActionHide) actualF).getT());
+    COSDictionary cOSObject = actualF.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertTrue(((PDActionHide) actualF).getH());
+    assertEquals(PDAction.TYPE, actualF.getType());
+    assertEquals(PDActionHide.SUB_TYPE, actualF.getSubType());
+  }
+
+  /**
+   * Method under test: {@link PDFormFieldAdditionalActions#getF()}
+   */
+  @Test
+  void testGetF6() throws IOException {
+    // Arrange
+    PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
+    pdFormFieldAdditionalActions.setF(new PDActionImportData());
+
+    // Act
+    PDAction actualF = pdFormFieldAdditionalActions.getF();
+
+    // Assert
+    assertTrue(actualF instanceof PDActionImportData);
+    assertNull(actualF.getNext());
+    COSDictionary cOSObject = actualF.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertNull(((PDActionImportData) actualF).getFile());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertEquals(PDAction.TYPE, actualF.getType());
+    assertEquals(PDActionImportData.SUB_TYPE, actualF.getSubType());
+  }
+
+  /**
+   * Method under test: {@link PDFormFieldAdditionalActions#getF()}
+   */
+  @Test
+  void testGetF7() {
+    // Arrange
+    PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
+    pdFormFieldAdditionalActions.setF(new PDActionJavaScript());
+
+    // Act
+    PDAction actualF = pdFormFieldAdditionalActions.getF();
+
+    // Assert
+    assertTrue(actualF instanceof PDActionJavaScript);
+    assertNull(((PDActionJavaScript) actualF).getAction());
+    assertNull(actualF.getNext());
+    COSDictionary cOSObject = actualF.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertEquals(PDAction.TYPE, actualF.getType());
+    assertEquals(PDActionJavaScript.SUB_TYPE, actualF.getSubType());
+  }
+
+  /**
+   * Method under test: {@link PDFormFieldAdditionalActions#getF()}
+   */
+  @Test
+  void testGetF8() {
     // Arrange
     COSDictionary a = new COSDictionary();
     a.setKey(new COSObjectKey(1L, 1));
@@ -714,18 +788,10 @@ class PDFormFieldAdditionalActionsDiffblueTest {
   }
 
   /**
-   * Test {@link PDFormFieldAdditionalActions#getF()}.
-   * <ul>
-   *   <li>Given {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo(COSDictionary)} with a is {@link COSDictionary#COSDictionary()} SubType is {@code foo}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDFormFieldAdditionalActions#getF()}
    */
   @Test
-  @DisplayName("Test getF(); given PDActionEmbeddedGoTo(COSDictionary) with a is COSDictionary() SubType is 'foo'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDFormFieldAdditionalActions.getF()"})
-  void testGetF_givenPDActionEmbeddedGoToWithAIsCOSDictionarySubTypeIsFoo() {
+  void testGetF9() {
     // Arrange
     PDActionEmbeddedGoTo f = new PDActionEmbeddedGoTo(new COSDictionary());
     f.setSubType("foo");
@@ -738,231 +804,10 @@ class PDFormFieldAdditionalActionsDiffblueTest {
   }
 
   /**
-   * Test {@link PDFormFieldAdditionalActions#getF()}.
-   * <ul>
-   *   <li>Given {@link PDFormFieldAdditionalActions#PDFormFieldAdditionalActions()} F is {@link PDActionGoTo#PDActionGoTo()}.</li>
-   *   <li>Then return {@link PDActionGoTo}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDFormFieldAdditionalActions#getF()}
    */
   @Test
-  @DisplayName("Test getF(); given PDFormFieldAdditionalActions() F is PDActionGoTo(); then return PDActionGoTo")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDFormFieldAdditionalActions.getF()"})
-  void testGetF_givenPDFormFieldAdditionalActionsFIsPDActionGoTo_thenReturnPDActionGoTo() throws IOException {
-    // Arrange
-    PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
-    pdFormFieldAdditionalActions.setF(new PDActionGoTo());
-
-    // Act
-    PDAction actualF = pdFormFieldAdditionalActions.getF();
-
-    // Assert
-    assertTrue(actualF instanceof PDActionGoTo);
-    assertNull(actualF.getNext());
-    COSDictionary cOSObject = actualF.getCOSObject();
-    assertNull(cOSObject.getKey());
-    assertNull(((PDActionGoTo) actualF).getDestination());
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    assertFalse(cOSObject.isDirect());
-    assertFalse(cOSObject.isNeedToBeUpdated());
-    assertEquals(PDAction.TYPE, actualF.getType());
-    assertEquals(PDActionGoTo.SUB_TYPE, actualF.getSubType());
-  }
-
-  /**
-   * Test {@link PDFormFieldAdditionalActions#getF()}.
-   * <ul>
-   *   <li>Given {@link PDFormFieldAdditionalActions#PDFormFieldAdditionalActions()} F is {@link PDActionHide#PDActionHide()}.</li>
-   *   <li>Then return {@link PDActionHide}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDFormFieldAdditionalActions#getF()}
-   */
-  @Test
-  @DisplayName("Test getF(); given PDFormFieldAdditionalActions() F is PDActionHide(); then return PDActionHide")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDFormFieldAdditionalActions.getF()"})
-  void testGetF_givenPDFormFieldAdditionalActionsFIsPDActionHide_thenReturnPDActionHide() {
-    // Arrange
-    PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
-    pdFormFieldAdditionalActions.setF(new PDActionHide());
-
-    // Act
-    PDAction actualF = pdFormFieldAdditionalActions.getF();
-
-    // Assert
-    assertTrue(actualF instanceof PDActionHide);
-    assertNull(((PDActionHide) actualF).getT());
-    assertTrue(((PDActionHide) actualF).getH());
-    assertEquals(PDActionHide.SUB_TYPE, actualF.getSubType());
-  }
-
-  /**
-   * Test {@link PDFormFieldAdditionalActions#getF()}.
-   * <ul>
-   *   <li>Given {@link PDFormFieldAdditionalActions#PDFormFieldAdditionalActions()} F is {@link PDActionURI#PDActionURI()}.</li>
-   *   <li>Then return {@link PDActionURI}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDFormFieldAdditionalActions#getF()}
-   */
-  @Test
-  @DisplayName("Test getF(); given PDFormFieldAdditionalActions() F is PDActionURI(); then return PDActionURI")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDFormFieldAdditionalActions.getF()"})
-  void testGetF_givenPDFormFieldAdditionalActionsFIsPDActionURI_thenReturnPDActionURI() {
-    // Arrange
-    PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
-    pdFormFieldAdditionalActions.setF(new PDActionURI());
-
-    // Act
-    PDAction actualF = pdFormFieldAdditionalActions.getF();
-
-    // Assert
-    assertTrue(actualF instanceof PDActionURI);
-    assertNull(((PDActionURI) actualF).getURI());
-    assertNull(actualF.getNext());
-    COSDictionary cOSObject = actualF.getCOSObject();
-    assertNull(cOSObject.getKey());
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    assertFalse(cOSObject.isDirect());
-    assertFalse(cOSObject.isNeedToBeUpdated());
-    assertEquals(PDAction.TYPE, actualF.getType());
-    assertEquals(PDActionURI.SUB_TYPE, actualF.getSubType());
-  }
-
-  /**
-   * Test {@link PDFormFieldAdditionalActions#getF()}.
-   * <ul>
-   *   <li>Given {@link PDFormFieldAdditionalActions#PDFormFieldAdditionalActions()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDFormFieldAdditionalActions#getF()}
-   */
-  @Test
-  @DisplayName("Test getF(); given PDFormFieldAdditionalActions(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDFormFieldAdditionalActions.getF()"})
-  void testGetF_givenPDFormFieldAdditionalActions_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull((new PDFormFieldAdditionalActions()).getF());
-  }
-
-  /**
-   * Test {@link PDFormFieldAdditionalActions#getF()}.
-   * <ul>
-   *   <li>Then return {@link PDActionEmbeddedGoTo}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDFormFieldAdditionalActions#getF()}
-   */
-  @Test
-  @DisplayName("Test getF(); then return PDActionEmbeddedGoTo")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDFormFieldAdditionalActions.getF()"})
-  void testGetF_thenReturnPDActionEmbeddedGoTo() throws IOException {
-    // Arrange
-    PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
-    pdFormFieldAdditionalActions.setF(new PDActionEmbeddedGoTo());
-
-    // Act
-    PDAction actualF = pdFormFieldAdditionalActions.getF();
-
-    // Assert
-    assertTrue(actualF instanceof PDActionEmbeddedGoTo);
-    assertNull(((PDActionEmbeddedGoTo) actualF).getFile());
-    assertNull(((PDActionEmbeddedGoTo) actualF).getTargetDirectory());
-    assertNull(((PDActionEmbeddedGoTo) actualF).getDestination());
-    assertEquals(OpenMode.USER_PREFERENCE, ((PDActionEmbeddedGoTo) actualF).getOpenInNewWindow());
-    assertEquals(PDActionEmbeddedGoTo.SUB_TYPE, actualF.getSubType());
-  }
-
-  /**
-   * Test {@link PDFormFieldAdditionalActions#getF()}.
-   * <ul>
-   *   <li>Then return {@link PDActionImportData}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDFormFieldAdditionalActions#getF()}
-   */
-  @Test
-  @DisplayName("Test getF(); then return PDActionImportData")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDFormFieldAdditionalActions.getF()"})
-  void testGetF_thenReturnPDActionImportData() throws IOException {
-    // Arrange
-    PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
-    pdFormFieldAdditionalActions.setF(new PDActionImportData());
-
-    // Act
-    PDAction actualF = pdFormFieldAdditionalActions.getF();
-
-    // Assert
-    assertTrue(actualF instanceof PDActionImportData);
-    assertNull(actualF.getNext());
-    COSDictionary cOSObject = actualF.getCOSObject();
-    assertNull(cOSObject.getKey());
-    assertNull(((PDActionImportData) actualF).getFile());
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    assertFalse(cOSObject.isDirect());
-    assertFalse(cOSObject.isNeedToBeUpdated());
-    assertEquals(PDAction.TYPE, actualF.getType());
-    assertEquals(PDActionImportData.SUB_TYPE, actualF.getSubType());
-  }
-
-  /**
-   * Test {@link PDFormFieldAdditionalActions#getF()}.
-   * <ul>
-   *   <li>Then return {@link PDActionJavaScript}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDFormFieldAdditionalActions#getF()}
-   */
-  @Test
-  @DisplayName("Test getF(); then return PDActionJavaScript")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDFormFieldAdditionalActions.getF()"})
-  void testGetF_thenReturnPDActionJavaScript() {
-    // Arrange
-    PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
-    pdFormFieldAdditionalActions.setF(new PDActionJavaScript());
-
-    // Act
-    PDAction actualF = pdFormFieldAdditionalActions.getF();
-
-    // Assert
-    assertTrue(actualF instanceof PDActionJavaScript);
-    assertNull(((PDActionJavaScript) actualF).getAction());
-    assertNull(actualF.getNext());
-    COSDictionary cOSObject = actualF.getCOSObject();
-    assertNull(cOSObject.getKey());
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    assertFalse(cOSObject.isDirect());
-    assertFalse(cOSObject.isNeedToBeUpdated());
-    assertEquals(PDAction.TYPE, actualF.getType());
-    assertEquals(PDActionJavaScript.SUB_TYPE, actualF.getSubType());
-  }
-
-  /**
-   * Test {@link PDFormFieldAdditionalActions#getF()}.
-   * <ul>
-   *   <li>Then return {@link PDActionLaunch}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDFormFieldAdditionalActions#getF()}
-   */
-  @Test
-  @DisplayName("Test getF(); then return PDActionLaunch")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDFormFieldAdditionalActions.getF()"})
-  void testGetF_thenReturnPDActionLaunch() throws IOException {
+  void testGetF10() throws IOException {
     // Arrange
     PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
     pdFormFieldAdditionalActions.setF(new PDActionLaunch());
@@ -976,25 +821,31 @@ class PDFormFieldAdditionalActionsDiffblueTest {
     assertNull(((PDActionLaunch) actualF).getF());
     assertNull(((PDActionLaunch) actualF).getO());
     assertNull(((PDActionLaunch) actualF).getP());
+    assertNull(actualF.getNext());
+    COSDictionary cOSObject = actualF.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
     assertNull(((PDActionLaunch) actualF).getFile());
     assertNull(((PDActionLaunch) actualF).getWinLaunchParams());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
     assertEquals(OpenMode.USER_PREFERENCE, ((PDActionLaunch) actualF).getOpenInNewWindow());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertEquals(PDAction.TYPE, actualF.getType());
     assertEquals(PDActionLaunch.SUB_TYPE, actualF.getSubType());
   }
 
   /**
-   * Test {@link PDFormFieldAdditionalActions#getF()}.
-   * <ul>
-   *   <li>Then return {@link PDActionMovie}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDFormFieldAdditionalActions#getF()}
    */
   @Test
-  @DisplayName("Test getF(); then return PDActionMovie")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDFormFieldAdditionalActions.getF()"})
-  void testGetF_thenReturnPDActionMovie() {
+  void testGetF11() {
     // Arrange
     PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
     pdFormFieldAdditionalActions.setF(new PDActionMovie());
@@ -1004,29 +855,28 @@ class PDFormFieldAdditionalActionsDiffblueTest {
 
     // Assert
     assertTrue(actualF instanceof PDActionMovie);
+    assertNull(actualF.getNext());
     COSDictionary cOSObject = actualF.getCOSObject();
     COSUpdateState updateState = cOSObject.getUpdateState();
     assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
     COSIncrement toIncrementResult = cOSObject.toIncrement();
     assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
     assertFalse(updateState.isUpdated());
     assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertEquals(PDAction.TYPE, actualF.getType());
     assertEquals(PDActionMovie.SUB_TYPE, actualF.getSubType());
   }
 
   /**
-   * Test {@link PDFormFieldAdditionalActions#getF()}.
-   * <ul>
-   *   <li>Then return {@link PDActionNamed}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDFormFieldAdditionalActions#getF()}
    */
   @Test
-  @DisplayName("Test getF(); then return PDActionNamed")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDFormFieldAdditionalActions.getF()"})
-  void testGetF_thenReturnPDActionNamed() {
+  void testGetF12() {
     // Arrange
     PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
     pdFormFieldAdditionalActions.setF(new PDActionNamed());
@@ -1039,28 +889,26 @@ class PDFormFieldAdditionalActionsDiffblueTest {
     assertNull(((PDActionNamed) actualF).getN());
     assertNull(actualF.getNext());
     COSDictionary cOSObject = actualF.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
     assertNull(cOSObject.getKey());
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
     assertFalse(cOSObject.isDirect());
     assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
     assertEquals(PDAction.TYPE, actualF.getType());
     assertEquals(PDActionNamed.SUB_TYPE, actualF.getSubType());
   }
 
   /**
-   * Test {@link PDFormFieldAdditionalActions#getF()}.
-   * <ul>
-   *   <li>Then return {@link PDActionRemoteGoTo}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDFormFieldAdditionalActions#getF()}
    */
   @Test
-  @DisplayName("Test getF(); then return PDActionRemoteGoTo")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDFormFieldAdditionalActions.getF()"})
-  void testGetF_thenReturnPDActionRemoteGoTo() throws IOException {
+  void testGetF13() throws IOException {
     // Arrange
     PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
     pdFormFieldAdditionalActions.setF(new PDActionRemoteGoTo());
@@ -1070,25 +918,31 @@ class PDFormFieldAdditionalActionsDiffblueTest {
 
     // Assert
     assertTrue(actualF instanceof PDActionRemoteGoTo);
+    assertNull(actualF.getNext());
     assertNull(((PDActionRemoteGoTo) actualF).getD());
+    COSDictionary cOSObject = actualF.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
     assertNull(((PDActionRemoteGoTo) actualF).getFile());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
     assertEquals(OpenMode.USER_PREFERENCE, ((PDActionRemoteGoTo) actualF).getOpenInNewWindow());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertEquals(PDAction.TYPE, actualF.getType());
     assertEquals(PDActionRemoteGoTo.SUB_TYPE, actualF.getSubType());
   }
 
   /**
-   * Test {@link PDFormFieldAdditionalActions#getF()}.
-   * <ul>
-   *   <li>Then return {@link PDActionResetForm}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDFormFieldAdditionalActions#getF()}
    */
   @Test
-  @DisplayName("Test getF(); then return PDActionResetForm")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDFormFieldAdditionalActions.getF()"})
-  void testGetF_thenReturnPDActionResetForm() {
+  void testGetF14() {
     // Arrange
     PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
     pdFormFieldAdditionalActions.setF(new PDActionResetForm());
@@ -1098,24 +952,30 @@ class PDFormFieldAdditionalActionsDiffblueTest {
 
     // Assert
     assertTrue(actualF instanceof PDActionResetForm);
+    assertNull(actualF.getNext());
     assertNull(((PDActionResetForm) actualF).getFields());
+    COSDictionary cOSObject = actualF.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
     assertEquals(0, ((PDActionResetForm) actualF).getFlags());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertEquals(PDAction.TYPE, actualF.getType());
     assertEquals(PDActionResetForm.SUB_TYPE, actualF.getSubType());
   }
 
   /**
-   * Test {@link PDFormFieldAdditionalActions#getF()}.
-   * <ul>
-   *   <li>Then return {@link PDActionSound}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDFormFieldAdditionalActions#getF()}
    */
   @Test
-  @DisplayName("Test getF(); then return PDActionSound")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDFormFieldAdditionalActions.getF()"})
-  void testGetF_thenReturnPDActionSound() {
+  void testGetF15() {
     // Arrange
     PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
     pdFormFieldAdditionalActions.setF(new PDActionSound());
@@ -1125,27 +985,33 @@ class PDFormFieldAdditionalActionsDiffblueTest {
 
     // Assert
     assertTrue(actualF instanceof PDActionSound);
+    assertNull(actualF.getNext());
+    COSDictionary cOSObject = actualF.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
     assertNull(((PDActionSound) actualF).getSound());
     assertEquals(1.0f, ((PDActionSound) actualF).getVolume());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
     assertFalse(((PDActionSound) actualF).getMix());
     assertFalse(((PDActionSound) actualF).getRepeat());
     assertFalse(((PDActionSound) actualF).getSynchronous());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertEquals(PDAction.TYPE, actualF.getType());
     assertEquals(PDActionSound.SUB_TYPE, actualF.getSubType());
   }
 
   /**
-   * Test {@link PDFormFieldAdditionalActions#getF()}.
-   * <ul>
-   *   <li>Then return {@link PDActionSubmitForm}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDFormFieldAdditionalActions#getF()}
    */
   @Test
-  @DisplayName("Test getF(); then return PDActionSubmitForm")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDFormFieldAdditionalActions.getF()"})
-  void testGetF_thenReturnPDActionSubmitForm() throws IOException {
+  void testGetF16() throws IOException {
     // Arrange
     PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
     pdFormFieldAdditionalActions.setF(new PDActionSubmitForm());
@@ -1155,25 +1021,31 @@ class PDFormFieldAdditionalActionsDiffblueTest {
 
     // Assert
     assertTrue(actualF instanceof PDActionSubmitForm);
+    assertNull(actualF.getNext());
     assertNull(((PDActionSubmitForm) actualF).getFields());
+    COSDictionary cOSObject = actualF.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
     assertNull(((PDActionSubmitForm) actualF).getFile());
     assertEquals(0, ((PDActionSubmitForm) actualF).getFlags());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertEquals(PDAction.TYPE, actualF.getType());
     assertEquals(PDActionSubmitForm.SUB_TYPE, actualF.getSubType());
   }
 
   /**
-   * Test {@link PDFormFieldAdditionalActions#getF()}.
-   * <ul>
-   *   <li>Then return {@link PDActionThread}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDFormFieldAdditionalActions#getF()}
    */
   @Test
-  @DisplayName("Test getF(); then return PDActionThread")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDFormFieldAdditionalActions.getF()"})
-  void testGetF_thenReturnPDActionThread() throws IOException {
+  void testGetF17() throws IOException {
     // Arrange
     PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
     pdFormFieldAdditionalActions.setF(new PDActionThread());
@@ -1183,25 +1055,63 @@ class PDFormFieldAdditionalActionsDiffblueTest {
 
     // Assert
     assertTrue(actualF instanceof PDActionThread);
+    assertNull(actualF.getNext());
     assertNull(((PDActionThread) actualF).getB());
     assertNull(((PDActionThread) actualF).getD());
+    COSDictionary cOSObject = actualF.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
     assertNull(((PDActionThread) actualF).getFile());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertEquals(PDAction.TYPE, actualF.getType());
     assertEquals(PDActionThread.SUB_TYPE, actualF.getSubType());
   }
 
   /**
-   * Test {@link PDFormFieldAdditionalActions#setF(PDAction)}.
-   * <ul>
-   *   <li>Then {@link PDFormFieldAdditionalActions#PDFormFieldAdditionalActions()} F {@link PDActionEmbeddedGoTo}.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PDFormFieldAdditionalActions#getF()}
+   */
+  @Test
+  void testGetF18() {
+    // Arrange
+    PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
+    pdFormFieldAdditionalActions.setF(new PDActionURI());
+
+    // Act
+    PDAction actualF = pdFormFieldAdditionalActions.getF();
+
+    // Assert
+    assertTrue(actualF instanceof PDActionURI);
+    assertNull(((PDActionURI) actualF).getURI());
+    assertNull(actualF.getNext());
+    COSDictionary cOSObject = actualF.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertEquals(PDAction.TYPE, actualF.getType());
+    assertEquals(PDActionURI.SUB_TYPE, actualF.getSubType());
+  }
+
+  /**
    * Method under test: {@link PDFormFieldAdditionalActions#setF(PDAction)}
    */
   @Test
-  @DisplayName("Test setF(PDAction); then PDFormFieldAdditionalActions() F PDActionEmbeddedGoTo")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFormFieldAdditionalActions.setF(PDAction)"})
-  void testSetF_thenPDFormFieldAdditionalActionsFPDActionEmbeddedGoTo() throws IOException {
+  void testSetF() throws IOException {
     // Arrange
     PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
 
@@ -1224,40 +1134,54 @@ class PDFormFieldAdditionalActionsDiffblueTest {
   }
 
   /**
-   * Test {@link PDFormFieldAdditionalActions#setF(PDAction)}.
-   * <ul>
-   *   <li>Then {@link PDFormFieldAdditionalActions#PDFormFieldAdditionalActions(COSDictionary)} with a is {@link COSDictionary#COSDictionary()} COSObject size is zero.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDFormFieldAdditionalActions#setF(PDAction)}
-   */
-  @Test
-  @DisplayName("Test setF(PDAction); then PDFormFieldAdditionalActions(COSDictionary) with a is COSDictionary() COSObject size is zero")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFormFieldAdditionalActions.setF(PDAction)"})
-  void testSetF_thenPDFormFieldAdditionalActionsWithAIsCOSDictionaryCOSObjectSizeIsZero() {
-    // Arrange
-    PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions(new COSDictionary());
-
-    // Act
-    pdFormFieldAdditionalActions.setF(null);
-
-    // Assert that nothing has changed
-    COSDictionary cOSObject = pdFormFieldAdditionalActions.getCOSObject();
-    assertEquals(0, cOSObject.size());
-    assertTrue(cOSObject.getValues().isEmpty());
-  }
-
-  /**
-   * Test {@link PDFormFieldAdditionalActions#getV()}.
-   * <p>
    * Method under test: {@link PDFormFieldAdditionalActions#getV()}
    */
   @Test
-  @DisplayName("Test getV()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDFormFieldAdditionalActions.getV()"})
   void testGetV() {
+    // Arrange, Act and Assert
+    assertNull((new PDFormFieldAdditionalActions()).getV());
+  }
+
+  /**
+   * Method under test: {@link PDFormFieldAdditionalActions#getV()}
+   */
+  @Test
+  void testGetV2() throws IOException {
+    // Arrange
+    PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
+    pdFormFieldAdditionalActions.setV(new PDActionEmbeddedGoTo());
+
+    // Act
+    PDAction actualV = pdFormFieldAdditionalActions.getV();
+
+    // Assert
+    assertTrue(actualV instanceof PDActionEmbeddedGoTo);
+    assertNull(actualV.getNext());
+    COSDictionary cOSObject = actualV.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertNull(((PDActionEmbeddedGoTo) actualV).getFile());
+    assertNull(((PDActionEmbeddedGoTo) actualV).getTargetDirectory());
+    assertNull(((PDActionEmbeddedGoTo) actualV).getDestination());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    assertEquals(OpenMode.USER_PREFERENCE, ((PDActionEmbeddedGoTo) actualV).getOpenInNewWindow());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertEquals(PDAction.TYPE, actualV.getType());
+    assertEquals(PDActionEmbeddedGoTo.SUB_TYPE, actualV.getSubType());
+  }
+
+  /**
+   * Method under test: {@link PDFormFieldAdditionalActions#getV()}
+   */
+  @Test
+  void testGetV3() {
     // Arrange
     PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
     pdFormFieldAdditionalActions.setV(new PDActionEmbeddedGoTo(new COSDictionary()));
@@ -1267,18 +1191,139 @@ class PDFormFieldAdditionalActionsDiffblueTest {
   }
 
   /**
-   * Test {@link PDFormFieldAdditionalActions#getV()}.
-   * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary()} Key is {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDFormFieldAdditionalActions#getV()}
    */
   @Test
-  @DisplayName("Test getV(); given COSDictionary() Key is COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDFormFieldAdditionalActions.getV()"})
-  void testGetV_givenCOSDictionaryKeyIsCOSObjectKeyWithNumIsOneAndGenIsOne() {
+  void testGetV4() throws IOException {
+    // Arrange
+    PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
+    pdFormFieldAdditionalActions.setV(new PDActionGoTo());
+
+    // Act
+    PDAction actualV = pdFormFieldAdditionalActions.getV();
+
+    // Assert
+    assertTrue(actualV instanceof PDActionGoTo);
+    assertNull(actualV.getNext());
+    COSDictionary cOSObject = actualV.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertNull(((PDActionGoTo) actualV).getDestination());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertEquals(PDAction.TYPE, actualV.getType());
+    assertEquals(PDActionGoTo.SUB_TYPE, actualV.getSubType());
+  }
+
+  /**
+   * Method under test: {@link PDFormFieldAdditionalActions#getV()}
+   */
+  @Test
+  void testGetV5() {
+    // Arrange
+    PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
+    pdFormFieldAdditionalActions.setV(new PDActionHide());
+
+    // Act
+    PDAction actualV = pdFormFieldAdditionalActions.getV();
+
+    // Assert
+    assertTrue(actualV instanceof PDActionHide);
+    assertNull(actualV.getNext());
+    assertNull(((PDActionHide) actualV).getT());
+    COSDictionary cOSObject = actualV.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertTrue(((PDActionHide) actualV).getH());
+    assertEquals(PDAction.TYPE, actualV.getType());
+    assertEquals(PDActionHide.SUB_TYPE, actualV.getSubType());
+  }
+
+  /**
+   * Method under test: {@link PDFormFieldAdditionalActions#getV()}
+   */
+  @Test
+  void testGetV6() throws IOException {
+    // Arrange
+    PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
+    pdFormFieldAdditionalActions.setV(new PDActionImportData());
+
+    // Act
+    PDAction actualV = pdFormFieldAdditionalActions.getV();
+
+    // Assert
+    assertTrue(actualV instanceof PDActionImportData);
+    assertNull(actualV.getNext());
+    COSDictionary cOSObject = actualV.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertNull(((PDActionImportData) actualV).getFile());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertEquals(PDAction.TYPE, actualV.getType());
+    assertEquals(PDActionImportData.SUB_TYPE, actualV.getSubType());
+  }
+
+  /**
+   * Method under test: {@link PDFormFieldAdditionalActions#getV()}
+   */
+  @Test
+  void testGetV7() {
+    // Arrange
+    PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
+    pdFormFieldAdditionalActions.setV(new PDActionJavaScript());
+
+    // Act
+    PDAction actualV = pdFormFieldAdditionalActions.getV();
+
+    // Assert
+    assertTrue(actualV instanceof PDActionJavaScript);
+    assertNull(((PDActionJavaScript) actualV).getAction());
+    assertNull(actualV.getNext());
+    COSDictionary cOSObject = actualV.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertEquals(PDAction.TYPE, actualV.getType());
+    assertEquals(PDActionJavaScript.SUB_TYPE, actualV.getSubType());
+  }
+
+  /**
+   * Method under test: {@link PDFormFieldAdditionalActions#getV()}
+   */
+  @Test
+  void testGetV8() {
     // Arrange
     COSDictionary a = new COSDictionary();
     a.setKey(new COSObjectKey(1L, 1));
@@ -1292,18 +1337,10 @@ class PDFormFieldAdditionalActionsDiffblueTest {
   }
 
   /**
-   * Test {@link PDFormFieldAdditionalActions#getV()}.
-   * <ul>
-   *   <li>Given {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo(COSDictionary)} with a is {@link COSDictionary#COSDictionary()} SubType is {@code foo}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDFormFieldAdditionalActions#getV()}
    */
   @Test
-  @DisplayName("Test getV(); given PDActionEmbeddedGoTo(COSDictionary) with a is COSDictionary() SubType is 'foo'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDFormFieldAdditionalActions.getV()"})
-  void testGetV_givenPDActionEmbeddedGoToWithAIsCOSDictionarySubTypeIsFoo() {
+  void testGetV9() {
     // Arrange
     PDActionEmbeddedGoTo v = new PDActionEmbeddedGoTo(new COSDictionary());
     v.setSubType("foo");
@@ -1316,231 +1353,10 @@ class PDFormFieldAdditionalActionsDiffblueTest {
   }
 
   /**
-   * Test {@link PDFormFieldAdditionalActions#getV()}.
-   * <ul>
-   *   <li>Given {@link PDFormFieldAdditionalActions#PDFormFieldAdditionalActions()} V is {@link PDActionGoTo#PDActionGoTo()}.</li>
-   *   <li>Then return {@link PDActionGoTo}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDFormFieldAdditionalActions#getV()}
    */
   @Test
-  @DisplayName("Test getV(); given PDFormFieldAdditionalActions() V is PDActionGoTo(); then return PDActionGoTo")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDFormFieldAdditionalActions.getV()"})
-  void testGetV_givenPDFormFieldAdditionalActionsVIsPDActionGoTo_thenReturnPDActionGoTo() throws IOException {
-    // Arrange
-    PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
-    pdFormFieldAdditionalActions.setV(new PDActionGoTo());
-
-    // Act
-    PDAction actualV = pdFormFieldAdditionalActions.getV();
-
-    // Assert
-    assertTrue(actualV instanceof PDActionGoTo);
-    assertNull(actualV.getNext());
-    COSDictionary cOSObject = actualV.getCOSObject();
-    assertNull(cOSObject.getKey());
-    assertNull(((PDActionGoTo) actualV).getDestination());
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    assertFalse(cOSObject.isDirect());
-    assertFalse(cOSObject.isNeedToBeUpdated());
-    assertEquals(PDAction.TYPE, actualV.getType());
-    assertEquals(PDActionGoTo.SUB_TYPE, actualV.getSubType());
-  }
-
-  /**
-   * Test {@link PDFormFieldAdditionalActions#getV()}.
-   * <ul>
-   *   <li>Given {@link PDFormFieldAdditionalActions#PDFormFieldAdditionalActions()} V is {@link PDActionHide#PDActionHide()}.</li>
-   *   <li>Then return {@link PDActionHide}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDFormFieldAdditionalActions#getV()}
-   */
-  @Test
-  @DisplayName("Test getV(); given PDFormFieldAdditionalActions() V is PDActionHide(); then return PDActionHide")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDFormFieldAdditionalActions.getV()"})
-  void testGetV_givenPDFormFieldAdditionalActionsVIsPDActionHide_thenReturnPDActionHide() {
-    // Arrange
-    PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
-    pdFormFieldAdditionalActions.setV(new PDActionHide());
-
-    // Act
-    PDAction actualV = pdFormFieldAdditionalActions.getV();
-
-    // Assert
-    assertTrue(actualV instanceof PDActionHide);
-    assertNull(((PDActionHide) actualV).getT());
-    assertTrue(((PDActionHide) actualV).getH());
-    assertEquals(PDActionHide.SUB_TYPE, actualV.getSubType());
-  }
-
-  /**
-   * Test {@link PDFormFieldAdditionalActions#getV()}.
-   * <ul>
-   *   <li>Given {@link PDFormFieldAdditionalActions#PDFormFieldAdditionalActions()} V is {@link PDActionURI#PDActionURI()}.</li>
-   *   <li>Then return {@link PDActionURI}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDFormFieldAdditionalActions#getV()}
-   */
-  @Test
-  @DisplayName("Test getV(); given PDFormFieldAdditionalActions() V is PDActionURI(); then return PDActionURI")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDFormFieldAdditionalActions.getV()"})
-  void testGetV_givenPDFormFieldAdditionalActionsVIsPDActionURI_thenReturnPDActionURI() {
-    // Arrange
-    PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
-    pdFormFieldAdditionalActions.setV(new PDActionURI());
-
-    // Act
-    PDAction actualV = pdFormFieldAdditionalActions.getV();
-
-    // Assert
-    assertTrue(actualV instanceof PDActionURI);
-    assertNull(((PDActionURI) actualV).getURI());
-    assertNull(actualV.getNext());
-    COSDictionary cOSObject = actualV.getCOSObject();
-    assertNull(cOSObject.getKey());
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    assertFalse(cOSObject.isDirect());
-    assertFalse(cOSObject.isNeedToBeUpdated());
-    assertEquals(PDAction.TYPE, actualV.getType());
-    assertEquals(PDActionURI.SUB_TYPE, actualV.getSubType());
-  }
-
-  /**
-   * Test {@link PDFormFieldAdditionalActions#getV()}.
-   * <ul>
-   *   <li>Given {@link PDFormFieldAdditionalActions#PDFormFieldAdditionalActions()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDFormFieldAdditionalActions#getV()}
-   */
-  @Test
-  @DisplayName("Test getV(); given PDFormFieldAdditionalActions(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDFormFieldAdditionalActions.getV()"})
-  void testGetV_givenPDFormFieldAdditionalActions_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull((new PDFormFieldAdditionalActions()).getV());
-  }
-
-  /**
-   * Test {@link PDFormFieldAdditionalActions#getV()}.
-   * <ul>
-   *   <li>Then return {@link PDActionEmbeddedGoTo}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDFormFieldAdditionalActions#getV()}
-   */
-  @Test
-  @DisplayName("Test getV(); then return PDActionEmbeddedGoTo")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDFormFieldAdditionalActions.getV()"})
-  void testGetV_thenReturnPDActionEmbeddedGoTo() throws IOException {
-    // Arrange
-    PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
-    pdFormFieldAdditionalActions.setV(new PDActionEmbeddedGoTo());
-
-    // Act
-    PDAction actualV = pdFormFieldAdditionalActions.getV();
-
-    // Assert
-    assertTrue(actualV instanceof PDActionEmbeddedGoTo);
-    assertNull(((PDActionEmbeddedGoTo) actualV).getFile());
-    assertNull(((PDActionEmbeddedGoTo) actualV).getTargetDirectory());
-    assertNull(((PDActionEmbeddedGoTo) actualV).getDestination());
-    assertEquals(OpenMode.USER_PREFERENCE, ((PDActionEmbeddedGoTo) actualV).getOpenInNewWindow());
-    assertEquals(PDActionEmbeddedGoTo.SUB_TYPE, actualV.getSubType());
-  }
-
-  /**
-   * Test {@link PDFormFieldAdditionalActions#getV()}.
-   * <ul>
-   *   <li>Then return {@link PDActionImportData}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDFormFieldAdditionalActions#getV()}
-   */
-  @Test
-  @DisplayName("Test getV(); then return PDActionImportData")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDFormFieldAdditionalActions.getV()"})
-  void testGetV_thenReturnPDActionImportData() throws IOException {
-    // Arrange
-    PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
-    pdFormFieldAdditionalActions.setV(new PDActionImportData());
-
-    // Act
-    PDAction actualV = pdFormFieldAdditionalActions.getV();
-
-    // Assert
-    assertTrue(actualV instanceof PDActionImportData);
-    assertNull(actualV.getNext());
-    COSDictionary cOSObject = actualV.getCOSObject();
-    assertNull(cOSObject.getKey());
-    assertNull(((PDActionImportData) actualV).getFile());
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    assertFalse(cOSObject.isDirect());
-    assertFalse(cOSObject.isNeedToBeUpdated());
-    assertEquals(PDAction.TYPE, actualV.getType());
-    assertEquals(PDActionImportData.SUB_TYPE, actualV.getSubType());
-  }
-
-  /**
-   * Test {@link PDFormFieldAdditionalActions#getV()}.
-   * <ul>
-   *   <li>Then return {@link PDActionJavaScript}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDFormFieldAdditionalActions#getV()}
-   */
-  @Test
-  @DisplayName("Test getV(); then return PDActionJavaScript")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDFormFieldAdditionalActions.getV()"})
-  void testGetV_thenReturnPDActionJavaScript() {
-    // Arrange
-    PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
-    pdFormFieldAdditionalActions.setV(new PDActionJavaScript());
-
-    // Act
-    PDAction actualV = pdFormFieldAdditionalActions.getV();
-
-    // Assert
-    assertTrue(actualV instanceof PDActionJavaScript);
-    assertNull(((PDActionJavaScript) actualV).getAction());
-    assertNull(actualV.getNext());
-    COSDictionary cOSObject = actualV.getCOSObject();
-    assertNull(cOSObject.getKey());
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    assertFalse(cOSObject.isDirect());
-    assertFalse(cOSObject.isNeedToBeUpdated());
-    assertEquals(PDAction.TYPE, actualV.getType());
-    assertEquals(PDActionJavaScript.SUB_TYPE, actualV.getSubType());
-  }
-
-  /**
-   * Test {@link PDFormFieldAdditionalActions#getV()}.
-   * <ul>
-   *   <li>Then return {@link PDActionLaunch}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDFormFieldAdditionalActions#getV()}
-   */
-  @Test
-  @DisplayName("Test getV(); then return PDActionLaunch")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDFormFieldAdditionalActions.getV()"})
-  void testGetV_thenReturnPDActionLaunch() throws IOException {
+  void testGetV10() throws IOException {
     // Arrange
     PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
     pdFormFieldAdditionalActions.setV(new PDActionLaunch());
@@ -1554,25 +1370,31 @@ class PDFormFieldAdditionalActionsDiffblueTest {
     assertNull(((PDActionLaunch) actualV).getF());
     assertNull(((PDActionLaunch) actualV).getO());
     assertNull(((PDActionLaunch) actualV).getP());
+    assertNull(actualV.getNext());
+    COSDictionary cOSObject = actualV.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
     assertNull(((PDActionLaunch) actualV).getFile());
     assertNull(((PDActionLaunch) actualV).getWinLaunchParams());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
     assertEquals(OpenMode.USER_PREFERENCE, ((PDActionLaunch) actualV).getOpenInNewWindow());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertEquals(PDAction.TYPE, actualV.getType());
     assertEquals(PDActionLaunch.SUB_TYPE, actualV.getSubType());
   }
 
   /**
-   * Test {@link PDFormFieldAdditionalActions#getV()}.
-   * <ul>
-   *   <li>Then return {@link PDActionMovie}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDFormFieldAdditionalActions#getV()}
    */
   @Test
-  @DisplayName("Test getV(); then return PDActionMovie")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDFormFieldAdditionalActions.getV()"})
-  void testGetV_thenReturnPDActionMovie() {
+  void testGetV11() {
     // Arrange
     PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
     pdFormFieldAdditionalActions.setV(new PDActionMovie());
@@ -1582,29 +1404,28 @@ class PDFormFieldAdditionalActionsDiffblueTest {
 
     // Assert
     assertTrue(actualV instanceof PDActionMovie);
+    assertNull(actualV.getNext());
     COSDictionary cOSObject = actualV.getCOSObject();
     COSUpdateState updateState = cOSObject.getUpdateState();
     assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
     COSIncrement toIncrementResult = cOSObject.toIncrement();
     assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
     assertFalse(updateState.isUpdated());
     assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertEquals(PDAction.TYPE, actualV.getType());
     assertEquals(PDActionMovie.SUB_TYPE, actualV.getSubType());
   }
 
   /**
-   * Test {@link PDFormFieldAdditionalActions#getV()}.
-   * <ul>
-   *   <li>Then return {@link PDActionNamed}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDFormFieldAdditionalActions#getV()}
    */
   @Test
-  @DisplayName("Test getV(); then return PDActionNamed")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDFormFieldAdditionalActions.getV()"})
-  void testGetV_thenReturnPDActionNamed() {
+  void testGetV12() {
     // Arrange
     PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
     pdFormFieldAdditionalActions.setV(new PDActionNamed());
@@ -1617,28 +1438,26 @@ class PDFormFieldAdditionalActionsDiffblueTest {
     assertNull(((PDActionNamed) actualV).getN());
     assertNull(actualV.getNext());
     COSDictionary cOSObject = actualV.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
     assertNull(cOSObject.getKey());
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
     assertFalse(cOSObject.isDirect());
     assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
     assertEquals(PDAction.TYPE, actualV.getType());
     assertEquals(PDActionNamed.SUB_TYPE, actualV.getSubType());
   }
 
   /**
-   * Test {@link PDFormFieldAdditionalActions#getV()}.
-   * <ul>
-   *   <li>Then return {@link PDActionRemoteGoTo}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDFormFieldAdditionalActions#getV()}
    */
   @Test
-  @DisplayName("Test getV(); then return PDActionRemoteGoTo")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDFormFieldAdditionalActions.getV()"})
-  void testGetV_thenReturnPDActionRemoteGoTo() throws IOException {
+  void testGetV13() throws IOException {
     // Arrange
     PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
     pdFormFieldAdditionalActions.setV(new PDActionRemoteGoTo());
@@ -1648,25 +1467,31 @@ class PDFormFieldAdditionalActionsDiffblueTest {
 
     // Assert
     assertTrue(actualV instanceof PDActionRemoteGoTo);
+    assertNull(actualV.getNext());
     assertNull(((PDActionRemoteGoTo) actualV).getD());
+    COSDictionary cOSObject = actualV.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
     assertNull(((PDActionRemoteGoTo) actualV).getFile());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
     assertEquals(OpenMode.USER_PREFERENCE, ((PDActionRemoteGoTo) actualV).getOpenInNewWindow());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertEquals(PDAction.TYPE, actualV.getType());
     assertEquals(PDActionRemoteGoTo.SUB_TYPE, actualV.getSubType());
   }
 
   /**
-   * Test {@link PDFormFieldAdditionalActions#getV()}.
-   * <ul>
-   *   <li>Then return {@link PDActionResetForm}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDFormFieldAdditionalActions#getV()}
    */
   @Test
-  @DisplayName("Test getV(); then return PDActionResetForm")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDFormFieldAdditionalActions.getV()"})
-  void testGetV_thenReturnPDActionResetForm() {
+  void testGetV14() {
     // Arrange
     PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
     pdFormFieldAdditionalActions.setV(new PDActionResetForm());
@@ -1676,24 +1501,30 @@ class PDFormFieldAdditionalActionsDiffblueTest {
 
     // Assert
     assertTrue(actualV instanceof PDActionResetForm);
+    assertNull(actualV.getNext());
     assertNull(((PDActionResetForm) actualV).getFields());
+    COSDictionary cOSObject = actualV.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
     assertEquals(0, ((PDActionResetForm) actualV).getFlags());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertEquals(PDAction.TYPE, actualV.getType());
     assertEquals(PDActionResetForm.SUB_TYPE, actualV.getSubType());
   }
 
   /**
-   * Test {@link PDFormFieldAdditionalActions#getV()}.
-   * <ul>
-   *   <li>Then return {@link PDActionSound}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDFormFieldAdditionalActions#getV()}
    */
   @Test
-  @DisplayName("Test getV(); then return PDActionSound")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDFormFieldAdditionalActions.getV()"})
-  void testGetV_thenReturnPDActionSound() {
+  void testGetV15() {
     // Arrange
     PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
     pdFormFieldAdditionalActions.setV(new PDActionSound());
@@ -1703,27 +1534,33 @@ class PDFormFieldAdditionalActionsDiffblueTest {
 
     // Assert
     assertTrue(actualV instanceof PDActionSound);
+    assertNull(actualV.getNext());
+    COSDictionary cOSObject = actualV.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
     assertNull(((PDActionSound) actualV).getSound());
     assertEquals(1.0f, ((PDActionSound) actualV).getVolume());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
     assertFalse(((PDActionSound) actualV).getMix());
     assertFalse(((PDActionSound) actualV).getRepeat());
     assertFalse(((PDActionSound) actualV).getSynchronous());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertEquals(PDAction.TYPE, actualV.getType());
     assertEquals(PDActionSound.SUB_TYPE, actualV.getSubType());
   }
 
   /**
-   * Test {@link PDFormFieldAdditionalActions#getV()}.
-   * <ul>
-   *   <li>Then return {@link PDActionSubmitForm}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDFormFieldAdditionalActions#getV()}
    */
   @Test
-  @DisplayName("Test getV(); then return PDActionSubmitForm")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDFormFieldAdditionalActions.getV()"})
-  void testGetV_thenReturnPDActionSubmitForm() throws IOException {
+  void testGetV16() throws IOException {
     // Arrange
     PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
     pdFormFieldAdditionalActions.setV(new PDActionSubmitForm());
@@ -1733,25 +1570,31 @@ class PDFormFieldAdditionalActionsDiffblueTest {
 
     // Assert
     assertTrue(actualV instanceof PDActionSubmitForm);
+    assertNull(actualV.getNext());
     assertNull(((PDActionSubmitForm) actualV).getFields());
+    COSDictionary cOSObject = actualV.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
     assertNull(((PDActionSubmitForm) actualV).getFile());
     assertEquals(0, ((PDActionSubmitForm) actualV).getFlags());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertEquals(PDAction.TYPE, actualV.getType());
     assertEquals(PDActionSubmitForm.SUB_TYPE, actualV.getSubType());
   }
 
   /**
-   * Test {@link PDFormFieldAdditionalActions#getV()}.
-   * <ul>
-   *   <li>Then return {@link PDActionThread}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDFormFieldAdditionalActions#getV()}
    */
   @Test
-  @DisplayName("Test getV(); then return PDActionThread")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDFormFieldAdditionalActions.getV()"})
-  void testGetV_thenReturnPDActionThread() throws IOException {
+  void testGetV17() throws IOException {
     // Arrange
     PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
     pdFormFieldAdditionalActions.setV(new PDActionThread());
@@ -1761,25 +1604,63 @@ class PDFormFieldAdditionalActionsDiffblueTest {
 
     // Assert
     assertTrue(actualV instanceof PDActionThread);
+    assertNull(actualV.getNext());
     assertNull(((PDActionThread) actualV).getB());
     assertNull(((PDActionThread) actualV).getD());
+    COSDictionary cOSObject = actualV.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
     assertNull(((PDActionThread) actualV).getFile());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertEquals(PDAction.TYPE, actualV.getType());
     assertEquals(PDActionThread.SUB_TYPE, actualV.getSubType());
   }
 
   /**
-   * Test {@link PDFormFieldAdditionalActions#setV(PDAction)}.
-   * <ul>
-   *   <li>Then {@link PDFormFieldAdditionalActions#PDFormFieldAdditionalActions()} V {@link PDActionEmbeddedGoTo}.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PDFormFieldAdditionalActions#getV()}
+   */
+  @Test
+  void testGetV18() {
+    // Arrange
+    PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
+    pdFormFieldAdditionalActions.setV(new PDActionURI());
+
+    // Act
+    PDAction actualV = pdFormFieldAdditionalActions.getV();
+
+    // Assert
+    assertTrue(actualV instanceof PDActionURI);
+    assertNull(((PDActionURI) actualV).getURI());
+    assertNull(actualV.getNext());
+    COSDictionary cOSObject = actualV.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertEquals(PDAction.TYPE, actualV.getType());
+    assertEquals(PDActionURI.SUB_TYPE, actualV.getSubType());
+  }
+
+  /**
    * Method under test: {@link PDFormFieldAdditionalActions#setV(PDAction)}
    */
   @Test
-  @DisplayName("Test setV(PDAction); then PDFormFieldAdditionalActions() V PDActionEmbeddedGoTo")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFormFieldAdditionalActions.setV(PDAction)"})
-  void testSetV_thenPDFormFieldAdditionalActionsVPDActionEmbeddedGoTo() throws IOException {
+  void testSetV() throws IOException {
     // Arrange
     PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
 
@@ -1802,40 +1683,54 @@ class PDFormFieldAdditionalActionsDiffblueTest {
   }
 
   /**
-   * Test {@link PDFormFieldAdditionalActions#setV(PDAction)}.
-   * <ul>
-   *   <li>Then {@link PDFormFieldAdditionalActions#PDFormFieldAdditionalActions(COSDictionary)} with a is {@link COSDictionary#COSDictionary()} COSObject size is zero.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDFormFieldAdditionalActions#setV(PDAction)}
-   */
-  @Test
-  @DisplayName("Test setV(PDAction); then PDFormFieldAdditionalActions(COSDictionary) with a is COSDictionary() COSObject size is zero")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFormFieldAdditionalActions.setV(PDAction)"})
-  void testSetV_thenPDFormFieldAdditionalActionsWithAIsCOSDictionaryCOSObjectSizeIsZero() {
-    // Arrange
-    PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions(new COSDictionary());
-
-    // Act
-    pdFormFieldAdditionalActions.setV(null);
-
-    // Assert that nothing has changed
-    COSDictionary cOSObject = pdFormFieldAdditionalActions.getCOSObject();
-    assertEquals(0, cOSObject.size());
-    assertTrue(cOSObject.getValues().isEmpty());
-  }
-
-  /**
-   * Test {@link PDFormFieldAdditionalActions#getC()}.
-   * <p>
    * Method under test: {@link PDFormFieldAdditionalActions#getC()}
    */
   @Test
-  @DisplayName("Test getC()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDFormFieldAdditionalActions.getC()"})
   void testGetC() {
+    // Arrange, Act and Assert
+    assertNull((new PDFormFieldAdditionalActions()).getC());
+  }
+
+  /**
+   * Method under test: {@link PDFormFieldAdditionalActions#getC()}
+   */
+  @Test
+  void testGetC2() throws IOException {
+    // Arrange
+    PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
+    pdFormFieldAdditionalActions.setC(new PDActionEmbeddedGoTo());
+
+    // Act
+    PDAction actualC = pdFormFieldAdditionalActions.getC();
+
+    // Assert
+    assertTrue(actualC instanceof PDActionEmbeddedGoTo);
+    assertNull(actualC.getNext());
+    COSDictionary cOSObject = actualC.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertNull(((PDActionEmbeddedGoTo) actualC).getFile());
+    assertNull(((PDActionEmbeddedGoTo) actualC).getTargetDirectory());
+    assertNull(((PDActionEmbeddedGoTo) actualC).getDestination());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    assertEquals(OpenMode.USER_PREFERENCE, ((PDActionEmbeddedGoTo) actualC).getOpenInNewWindow());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertEquals(PDAction.TYPE, actualC.getType());
+    assertEquals(PDActionEmbeddedGoTo.SUB_TYPE, actualC.getSubType());
+  }
+
+  /**
+   * Method under test: {@link PDFormFieldAdditionalActions#getC()}
+   */
+  @Test
+  void testGetC3() {
     // Arrange
     PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
     pdFormFieldAdditionalActions.setC(new PDActionEmbeddedGoTo(new COSDictionary()));
@@ -1845,18 +1740,139 @@ class PDFormFieldAdditionalActionsDiffblueTest {
   }
 
   /**
-   * Test {@link PDFormFieldAdditionalActions#getC()}.
-   * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary()} Key is {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDFormFieldAdditionalActions#getC()}
    */
   @Test
-  @DisplayName("Test getC(); given COSDictionary() Key is COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDFormFieldAdditionalActions.getC()"})
-  void testGetC_givenCOSDictionaryKeyIsCOSObjectKeyWithNumIsOneAndGenIsOne() {
+  void testGetC4() throws IOException {
+    // Arrange
+    PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
+    pdFormFieldAdditionalActions.setC(new PDActionGoTo());
+
+    // Act
+    PDAction actualC = pdFormFieldAdditionalActions.getC();
+
+    // Assert
+    assertTrue(actualC instanceof PDActionGoTo);
+    assertNull(actualC.getNext());
+    COSDictionary cOSObject = actualC.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertNull(((PDActionGoTo) actualC).getDestination());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertEquals(PDAction.TYPE, actualC.getType());
+    assertEquals(PDActionGoTo.SUB_TYPE, actualC.getSubType());
+  }
+
+  /**
+   * Method under test: {@link PDFormFieldAdditionalActions#getC()}
+   */
+  @Test
+  void testGetC5() {
+    // Arrange
+    PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
+    pdFormFieldAdditionalActions.setC(new PDActionHide());
+
+    // Act
+    PDAction actualC = pdFormFieldAdditionalActions.getC();
+
+    // Assert
+    assertTrue(actualC instanceof PDActionHide);
+    assertNull(actualC.getNext());
+    assertNull(((PDActionHide) actualC).getT());
+    COSDictionary cOSObject = actualC.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertTrue(((PDActionHide) actualC).getH());
+    assertEquals(PDAction.TYPE, actualC.getType());
+    assertEquals(PDActionHide.SUB_TYPE, actualC.getSubType());
+  }
+
+  /**
+   * Method under test: {@link PDFormFieldAdditionalActions#getC()}
+   */
+  @Test
+  void testGetC6() throws IOException {
+    // Arrange
+    PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
+    pdFormFieldAdditionalActions.setC(new PDActionImportData());
+
+    // Act
+    PDAction actualC = pdFormFieldAdditionalActions.getC();
+
+    // Assert
+    assertTrue(actualC instanceof PDActionImportData);
+    assertNull(actualC.getNext());
+    COSDictionary cOSObject = actualC.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertNull(((PDActionImportData) actualC).getFile());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertEquals(PDAction.TYPE, actualC.getType());
+    assertEquals(PDActionImportData.SUB_TYPE, actualC.getSubType());
+  }
+
+  /**
+   * Method under test: {@link PDFormFieldAdditionalActions#getC()}
+   */
+  @Test
+  void testGetC7() {
+    // Arrange
+    PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
+    pdFormFieldAdditionalActions.setC(new PDActionJavaScript());
+
+    // Act
+    PDAction actualC = pdFormFieldAdditionalActions.getC();
+
+    // Assert
+    assertTrue(actualC instanceof PDActionJavaScript);
+    assertNull(((PDActionJavaScript) actualC).getAction());
+    assertNull(actualC.getNext());
+    COSDictionary cOSObject = actualC.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertEquals(PDAction.TYPE, actualC.getType());
+    assertEquals(PDActionJavaScript.SUB_TYPE, actualC.getSubType());
+  }
+
+  /**
+   * Method under test: {@link PDFormFieldAdditionalActions#getC()}
+   */
+  @Test
+  void testGetC8() {
     // Arrange
     COSDictionary a = new COSDictionary();
     a.setKey(new COSObjectKey(1L, 1));
@@ -1870,18 +1886,10 @@ class PDFormFieldAdditionalActionsDiffblueTest {
   }
 
   /**
-   * Test {@link PDFormFieldAdditionalActions#getC()}.
-   * <ul>
-   *   <li>Given {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo(COSDictionary)} with a is {@link COSDictionary#COSDictionary()} SubType is {@code foo}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDFormFieldAdditionalActions#getC()}
    */
   @Test
-  @DisplayName("Test getC(); given PDActionEmbeddedGoTo(COSDictionary) with a is COSDictionary() SubType is 'foo'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDFormFieldAdditionalActions.getC()"})
-  void testGetC_givenPDActionEmbeddedGoToWithAIsCOSDictionarySubTypeIsFoo() {
+  void testGetC9() {
     // Arrange
     PDActionEmbeddedGoTo c = new PDActionEmbeddedGoTo(new COSDictionary());
     c.setSubType("foo");
@@ -1894,231 +1902,10 @@ class PDFormFieldAdditionalActionsDiffblueTest {
   }
 
   /**
-   * Test {@link PDFormFieldAdditionalActions#getC()}.
-   * <ul>
-   *   <li>Given {@link PDFormFieldAdditionalActions#PDFormFieldAdditionalActions()} C is {@link PDActionGoTo#PDActionGoTo()}.</li>
-   *   <li>Then return {@link PDActionGoTo}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDFormFieldAdditionalActions#getC()}
    */
   @Test
-  @DisplayName("Test getC(); given PDFormFieldAdditionalActions() C is PDActionGoTo(); then return PDActionGoTo")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDFormFieldAdditionalActions.getC()"})
-  void testGetC_givenPDFormFieldAdditionalActionsCIsPDActionGoTo_thenReturnPDActionGoTo() throws IOException {
-    // Arrange
-    PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
-    pdFormFieldAdditionalActions.setC(new PDActionGoTo());
-
-    // Act
-    PDAction actualC = pdFormFieldAdditionalActions.getC();
-
-    // Assert
-    assertTrue(actualC instanceof PDActionGoTo);
-    assertNull(actualC.getNext());
-    COSDictionary cOSObject = actualC.getCOSObject();
-    assertNull(cOSObject.getKey());
-    assertNull(((PDActionGoTo) actualC).getDestination());
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    assertFalse(cOSObject.isDirect());
-    assertFalse(cOSObject.isNeedToBeUpdated());
-    assertEquals(PDAction.TYPE, actualC.getType());
-    assertEquals(PDActionGoTo.SUB_TYPE, actualC.getSubType());
-  }
-
-  /**
-   * Test {@link PDFormFieldAdditionalActions#getC()}.
-   * <ul>
-   *   <li>Given {@link PDFormFieldAdditionalActions#PDFormFieldAdditionalActions()} C is {@link PDActionHide#PDActionHide()}.</li>
-   *   <li>Then return {@link PDActionHide}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDFormFieldAdditionalActions#getC()}
-   */
-  @Test
-  @DisplayName("Test getC(); given PDFormFieldAdditionalActions() C is PDActionHide(); then return PDActionHide")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDFormFieldAdditionalActions.getC()"})
-  void testGetC_givenPDFormFieldAdditionalActionsCIsPDActionHide_thenReturnPDActionHide() {
-    // Arrange
-    PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
-    pdFormFieldAdditionalActions.setC(new PDActionHide());
-
-    // Act
-    PDAction actualC = pdFormFieldAdditionalActions.getC();
-
-    // Assert
-    assertTrue(actualC instanceof PDActionHide);
-    assertNull(((PDActionHide) actualC).getT());
-    assertTrue(((PDActionHide) actualC).getH());
-    assertEquals(PDActionHide.SUB_TYPE, actualC.getSubType());
-  }
-
-  /**
-   * Test {@link PDFormFieldAdditionalActions#getC()}.
-   * <ul>
-   *   <li>Given {@link PDFormFieldAdditionalActions#PDFormFieldAdditionalActions()} C is {@link PDActionURI#PDActionURI()}.</li>
-   *   <li>Then return {@link PDActionURI}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDFormFieldAdditionalActions#getC()}
-   */
-  @Test
-  @DisplayName("Test getC(); given PDFormFieldAdditionalActions() C is PDActionURI(); then return PDActionURI")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDFormFieldAdditionalActions.getC()"})
-  void testGetC_givenPDFormFieldAdditionalActionsCIsPDActionURI_thenReturnPDActionURI() {
-    // Arrange
-    PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
-    pdFormFieldAdditionalActions.setC(new PDActionURI());
-
-    // Act
-    PDAction actualC = pdFormFieldAdditionalActions.getC();
-
-    // Assert
-    assertTrue(actualC instanceof PDActionURI);
-    assertNull(((PDActionURI) actualC).getURI());
-    assertNull(actualC.getNext());
-    COSDictionary cOSObject = actualC.getCOSObject();
-    assertNull(cOSObject.getKey());
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    assertFalse(cOSObject.isDirect());
-    assertFalse(cOSObject.isNeedToBeUpdated());
-    assertEquals(PDAction.TYPE, actualC.getType());
-    assertEquals(PDActionURI.SUB_TYPE, actualC.getSubType());
-  }
-
-  /**
-   * Test {@link PDFormFieldAdditionalActions#getC()}.
-   * <ul>
-   *   <li>Given {@link PDFormFieldAdditionalActions#PDFormFieldAdditionalActions()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDFormFieldAdditionalActions#getC()}
-   */
-  @Test
-  @DisplayName("Test getC(); given PDFormFieldAdditionalActions(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDFormFieldAdditionalActions.getC()"})
-  void testGetC_givenPDFormFieldAdditionalActions_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull((new PDFormFieldAdditionalActions()).getC());
-  }
-
-  /**
-   * Test {@link PDFormFieldAdditionalActions#getC()}.
-   * <ul>
-   *   <li>Then return {@link PDActionEmbeddedGoTo}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDFormFieldAdditionalActions#getC()}
-   */
-  @Test
-  @DisplayName("Test getC(); then return PDActionEmbeddedGoTo")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDFormFieldAdditionalActions.getC()"})
-  void testGetC_thenReturnPDActionEmbeddedGoTo() throws IOException {
-    // Arrange
-    PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
-    pdFormFieldAdditionalActions.setC(new PDActionEmbeddedGoTo());
-
-    // Act
-    PDAction actualC = pdFormFieldAdditionalActions.getC();
-
-    // Assert
-    assertTrue(actualC instanceof PDActionEmbeddedGoTo);
-    assertNull(((PDActionEmbeddedGoTo) actualC).getFile());
-    assertNull(((PDActionEmbeddedGoTo) actualC).getTargetDirectory());
-    assertNull(((PDActionEmbeddedGoTo) actualC).getDestination());
-    assertEquals(OpenMode.USER_PREFERENCE, ((PDActionEmbeddedGoTo) actualC).getOpenInNewWindow());
-    assertEquals(PDActionEmbeddedGoTo.SUB_TYPE, actualC.getSubType());
-  }
-
-  /**
-   * Test {@link PDFormFieldAdditionalActions#getC()}.
-   * <ul>
-   *   <li>Then return {@link PDActionImportData}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDFormFieldAdditionalActions#getC()}
-   */
-  @Test
-  @DisplayName("Test getC(); then return PDActionImportData")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDFormFieldAdditionalActions.getC()"})
-  void testGetC_thenReturnPDActionImportData() throws IOException {
-    // Arrange
-    PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
-    pdFormFieldAdditionalActions.setC(new PDActionImportData());
-
-    // Act
-    PDAction actualC = pdFormFieldAdditionalActions.getC();
-
-    // Assert
-    assertTrue(actualC instanceof PDActionImportData);
-    assertNull(actualC.getNext());
-    COSDictionary cOSObject = actualC.getCOSObject();
-    assertNull(cOSObject.getKey());
-    assertNull(((PDActionImportData) actualC).getFile());
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    assertFalse(cOSObject.isDirect());
-    assertFalse(cOSObject.isNeedToBeUpdated());
-    assertEquals(PDAction.TYPE, actualC.getType());
-    assertEquals(PDActionImportData.SUB_TYPE, actualC.getSubType());
-  }
-
-  /**
-   * Test {@link PDFormFieldAdditionalActions#getC()}.
-   * <ul>
-   *   <li>Then return {@link PDActionJavaScript}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDFormFieldAdditionalActions#getC()}
-   */
-  @Test
-  @DisplayName("Test getC(); then return PDActionJavaScript")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDFormFieldAdditionalActions.getC()"})
-  void testGetC_thenReturnPDActionJavaScript() {
-    // Arrange
-    PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
-    pdFormFieldAdditionalActions.setC(new PDActionJavaScript());
-
-    // Act
-    PDAction actualC = pdFormFieldAdditionalActions.getC();
-
-    // Assert
-    assertTrue(actualC instanceof PDActionJavaScript);
-    assertNull(((PDActionJavaScript) actualC).getAction());
-    assertNull(actualC.getNext());
-    COSDictionary cOSObject = actualC.getCOSObject();
-    assertNull(cOSObject.getKey());
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    assertFalse(cOSObject.isDirect());
-    assertFalse(cOSObject.isNeedToBeUpdated());
-    assertEquals(PDAction.TYPE, actualC.getType());
-    assertEquals(PDActionJavaScript.SUB_TYPE, actualC.getSubType());
-  }
-
-  /**
-   * Test {@link PDFormFieldAdditionalActions#getC()}.
-   * <ul>
-   *   <li>Then return {@link PDActionLaunch}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDFormFieldAdditionalActions#getC()}
-   */
-  @Test
-  @DisplayName("Test getC(); then return PDActionLaunch")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDFormFieldAdditionalActions.getC()"})
-  void testGetC_thenReturnPDActionLaunch() throws IOException {
+  void testGetC10() throws IOException {
     // Arrange
     PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
     pdFormFieldAdditionalActions.setC(new PDActionLaunch());
@@ -2132,25 +1919,31 @@ class PDFormFieldAdditionalActionsDiffblueTest {
     assertNull(((PDActionLaunch) actualC).getF());
     assertNull(((PDActionLaunch) actualC).getO());
     assertNull(((PDActionLaunch) actualC).getP());
+    assertNull(actualC.getNext());
+    COSDictionary cOSObject = actualC.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
     assertNull(((PDActionLaunch) actualC).getFile());
     assertNull(((PDActionLaunch) actualC).getWinLaunchParams());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
     assertEquals(OpenMode.USER_PREFERENCE, ((PDActionLaunch) actualC).getOpenInNewWindow());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertEquals(PDAction.TYPE, actualC.getType());
     assertEquals(PDActionLaunch.SUB_TYPE, actualC.getSubType());
   }
 
   /**
-   * Test {@link PDFormFieldAdditionalActions#getC()}.
-   * <ul>
-   *   <li>Then return {@link PDActionMovie}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDFormFieldAdditionalActions#getC()}
    */
   @Test
-  @DisplayName("Test getC(); then return PDActionMovie")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDFormFieldAdditionalActions.getC()"})
-  void testGetC_thenReturnPDActionMovie() {
+  void testGetC11() {
     // Arrange
     PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
     pdFormFieldAdditionalActions.setC(new PDActionMovie());
@@ -2160,29 +1953,28 @@ class PDFormFieldAdditionalActionsDiffblueTest {
 
     // Assert
     assertTrue(actualC instanceof PDActionMovie);
+    assertNull(actualC.getNext());
     COSDictionary cOSObject = actualC.getCOSObject();
     COSUpdateState updateState = cOSObject.getUpdateState();
     assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
     COSIncrement toIncrementResult = cOSObject.toIncrement();
     assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
     assertFalse(updateState.isUpdated());
     assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertEquals(PDAction.TYPE, actualC.getType());
     assertEquals(PDActionMovie.SUB_TYPE, actualC.getSubType());
   }
 
   /**
-   * Test {@link PDFormFieldAdditionalActions#getC()}.
-   * <ul>
-   *   <li>Then return {@link PDActionNamed}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDFormFieldAdditionalActions#getC()}
    */
   @Test
-  @DisplayName("Test getC(); then return PDActionNamed")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDFormFieldAdditionalActions.getC()"})
-  void testGetC_thenReturnPDActionNamed() {
+  void testGetC12() {
     // Arrange
     PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
     pdFormFieldAdditionalActions.setC(new PDActionNamed());
@@ -2195,28 +1987,26 @@ class PDFormFieldAdditionalActionsDiffblueTest {
     assertNull(((PDActionNamed) actualC).getN());
     assertNull(actualC.getNext());
     COSDictionary cOSObject = actualC.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
     assertNull(cOSObject.getKey());
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
     assertFalse(cOSObject.isDirect());
     assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
     assertEquals(PDAction.TYPE, actualC.getType());
     assertEquals(PDActionNamed.SUB_TYPE, actualC.getSubType());
   }
 
   /**
-   * Test {@link PDFormFieldAdditionalActions#getC()}.
-   * <ul>
-   *   <li>Then return {@link PDActionRemoteGoTo}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDFormFieldAdditionalActions#getC()}
    */
   @Test
-  @DisplayName("Test getC(); then return PDActionRemoteGoTo")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDFormFieldAdditionalActions.getC()"})
-  void testGetC_thenReturnPDActionRemoteGoTo() throws IOException {
+  void testGetC13() throws IOException {
     // Arrange
     PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
     pdFormFieldAdditionalActions.setC(new PDActionRemoteGoTo());
@@ -2226,25 +2016,31 @@ class PDFormFieldAdditionalActionsDiffblueTest {
 
     // Assert
     assertTrue(actualC instanceof PDActionRemoteGoTo);
+    assertNull(actualC.getNext());
     assertNull(((PDActionRemoteGoTo) actualC).getD());
+    COSDictionary cOSObject = actualC.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
     assertNull(((PDActionRemoteGoTo) actualC).getFile());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
     assertEquals(OpenMode.USER_PREFERENCE, ((PDActionRemoteGoTo) actualC).getOpenInNewWindow());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertEquals(PDAction.TYPE, actualC.getType());
     assertEquals(PDActionRemoteGoTo.SUB_TYPE, actualC.getSubType());
   }
 
   /**
-   * Test {@link PDFormFieldAdditionalActions#getC()}.
-   * <ul>
-   *   <li>Then return {@link PDActionResetForm}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDFormFieldAdditionalActions#getC()}
    */
   @Test
-  @DisplayName("Test getC(); then return PDActionResetForm")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDFormFieldAdditionalActions.getC()"})
-  void testGetC_thenReturnPDActionResetForm() {
+  void testGetC14() {
     // Arrange
     PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
     pdFormFieldAdditionalActions.setC(new PDActionResetForm());
@@ -2254,24 +2050,30 @@ class PDFormFieldAdditionalActionsDiffblueTest {
 
     // Assert
     assertTrue(actualC instanceof PDActionResetForm);
+    assertNull(actualC.getNext());
     assertNull(((PDActionResetForm) actualC).getFields());
+    COSDictionary cOSObject = actualC.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
     assertEquals(0, ((PDActionResetForm) actualC).getFlags());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertEquals(PDAction.TYPE, actualC.getType());
     assertEquals(PDActionResetForm.SUB_TYPE, actualC.getSubType());
   }
 
   /**
-   * Test {@link PDFormFieldAdditionalActions#getC()}.
-   * <ul>
-   *   <li>Then return {@link PDActionSound}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDFormFieldAdditionalActions#getC()}
    */
   @Test
-  @DisplayName("Test getC(); then return PDActionSound")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDFormFieldAdditionalActions.getC()"})
-  void testGetC_thenReturnPDActionSound() {
+  void testGetC15() {
     // Arrange
     PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
     pdFormFieldAdditionalActions.setC(new PDActionSound());
@@ -2281,27 +2083,33 @@ class PDFormFieldAdditionalActionsDiffblueTest {
 
     // Assert
     assertTrue(actualC instanceof PDActionSound);
+    assertNull(actualC.getNext());
+    COSDictionary cOSObject = actualC.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
     assertNull(((PDActionSound) actualC).getSound());
     assertEquals(1.0f, ((PDActionSound) actualC).getVolume());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
     assertFalse(((PDActionSound) actualC).getMix());
     assertFalse(((PDActionSound) actualC).getRepeat());
     assertFalse(((PDActionSound) actualC).getSynchronous());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertEquals(PDAction.TYPE, actualC.getType());
     assertEquals(PDActionSound.SUB_TYPE, actualC.getSubType());
   }
 
   /**
-   * Test {@link PDFormFieldAdditionalActions#getC()}.
-   * <ul>
-   *   <li>Then return {@link PDActionSubmitForm}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDFormFieldAdditionalActions#getC()}
    */
   @Test
-  @DisplayName("Test getC(); then return PDActionSubmitForm")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDFormFieldAdditionalActions.getC()"})
-  void testGetC_thenReturnPDActionSubmitForm() throws IOException {
+  void testGetC16() throws IOException {
     // Arrange
     PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
     pdFormFieldAdditionalActions.setC(new PDActionSubmitForm());
@@ -2311,25 +2119,31 @@ class PDFormFieldAdditionalActionsDiffblueTest {
 
     // Assert
     assertTrue(actualC instanceof PDActionSubmitForm);
+    assertNull(actualC.getNext());
     assertNull(((PDActionSubmitForm) actualC).getFields());
+    COSDictionary cOSObject = actualC.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
     assertNull(((PDActionSubmitForm) actualC).getFile());
     assertEquals(0, ((PDActionSubmitForm) actualC).getFlags());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertEquals(PDAction.TYPE, actualC.getType());
     assertEquals(PDActionSubmitForm.SUB_TYPE, actualC.getSubType());
   }
 
   /**
-   * Test {@link PDFormFieldAdditionalActions#getC()}.
-   * <ul>
-   *   <li>Then return {@link PDActionThread}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDFormFieldAdditionalActions#getC()}
    */
   @Test
-  @DisplayName("Test getC(); then return PDActionThread")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAction PDFormFieldAdditionalActions.getC()"})
-  void testGetC_thenReturnPDActionThread() throws IOException {
+  void testGetC17() throws IOException {
     // Arrange
     PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
     pdFormFieldAdditionalActions.setC(new PDActionThread());
@@ -2339,25 +2153,63 @@ class PDFormFieldAdditionalActionsDiffblueTest {
 
     // Assert
     assertTrue(actualC instanceof PDActionThread);
+    assertNull(actualC.getNext());
     assertNull(((PDActionThread) actualC).getB());
     assertNull(((PDActionThread) actualC).getD());
+    COSDictionary cOSObject = actualC.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
     assertNull(((PDActionThread) actualC).getFile());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertEquals(PDAction.TYPE, actualC.getType());
     assertEquals(PDActionThread.SUB_TYPE, actualC.getSubType());
   }
 
   /**
-   * Test {@link PDFormFieldAdditionalActions#setC(PDAction)}.
-   * <ul>
-   *   <li>Then {@link PDFormFieldAdditionalActions#PDFormFieldAdditionalActions()} C {@link PDActionEmbeddedGoTo}.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PDFormFieldAdditionalActions#getC()}
+   */
+  @Test
+  void testGetC18() {
+    // Arrange
+    PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
+    pdFormFieldAdditionalActions.setC(new PDActionURI());
+
+    // Act
+    PDAction actualC = pdFormFieldAdditionalActions.getC();
+
+    // Assert
+    assertTrue(actualC instanceof PDActionURI);
+    assertNull(((PDActionURI) actualC).getURI());
+    assertNull(actualC.getNext());
+    COSDictionary cOSObject = actualC.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertEquals(PDAction.TYPE, actualC.getType());
+    assertEquals(PDActionURI.SUB_TYPE, actualC.getSubType());
+  }
+
+  /**
    * Method under test: {@link PDFormFieldAdditionalActions#setC(PDAction)}
    */
   @Test
-  @DisplayName("Test setC(PDAction); then PDFormFieldAdditionalActions() C PDActionEmbeddedGoTo")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFormFieldAdditionalActions.setC(PDAction)"})
-  void testSetC_thenPDFormFieldAdditionalActionsCPDActionEmbeddedGoTo() throws IOException {
+  void testSetC() throws IOException {
     // Arrange
     PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
 
@@ -2380,27 +2232,43 @@ class PDFormFieldAdditionalActionsDiffblueTest {
   }
 
   /**
-   * Test {@link PDFormFieldAdditionalActions#setC(PDAction)}.
-   * <ul>
-   *   <li>Then {@link PDFormFieldAdditionalActions#PDFormFieldAdditionalActions(COSDictionary)} with a is {@link COSDictionary#COSDictionary()} COSObject size is zero.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDFormFieldAdditionalActions#setC(PDAction)}
+   * Method under test:
+   * {@link PDFormFieldAdditionalActions#PDFormFieldAdditionalActions(COSDictionary)}
    */
   @Test
-  @DisplayName("Test setC(PDAction); then PDFormFieldAdditionalActions(COSDictionary) with a is COSDictionary() COSObject size is zero")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFormFieldAdditionalActions.setC(PDAction)"})
-  void testSetC_thenPDFormFieldAdditionalActionsWithAIsCOSDictionaryCOSObjectSizeIsZero() {
+  void testNewPDFormFieldAdditionalActions() {
     // Arrange
-    PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions(new COSDictionary());
+    COSDictionary a = new COSDictionary();
 
-    // Act
-    pdFormFieldAdditionalActions.setC(null);
+    // Act and Assert
+    assertSame(a, (new PDFormFieldAdditionalActions(a)).getCOSObject());
+  }
 
-    // Assert that nothing has changed
-    COSDictionary cOSObject = pdFormFieldAdditionalActions.getCOSObject();
+  /**
+   * Method under test:
+   * {@link PDFormFieldAdditionalActions#PDFormFieldAdditionalActions()}
+   */
+  @Test
+  void testNewPDFormFieldAdditionalActions2() {
+    // Arrange and Act
+    PDFormFieldAdditionalActions actualPdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
+
+    // Assert
+    COSDictionary cOSObject = actualPdFormFieldAdditionalActions.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertNull(actualPdFormFieldAdditionalActions.getC());
+    assertNull(actualPdFormFieldAdditionalActions.getF());
+    assertNull(actualPdFormFieldAdditionalActions.getK());
+    assertNull(actualPdFormFieldAdditionalActions.getV());
     assertEquals(0, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
     assertTrue(cOSObject.getValues().isEmpty());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
   }
 }

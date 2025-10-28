@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import org.apache.pdfbox.cos.COSBase;
 import org.apache.pdfbox.cos.COSDictionary;
@@ -17,68 +16,23 @@ import org.apache.pdfbox.cos.COSUpdateState;
 import org.apache.pdfbox.pdmodel.common.filespecification.PDComplexFileSpecification;
 import org.apache.pdfbox.pdmodel.common.filespecification.PDFileSpecification;
 import org.apache.pdfbox.pdmodel.common.filespecification.PDSimpleFileSpecification;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class PDActionLaunchDiffblueTest {
   /**
-   * Test {@link PDActionLaunch#PDActionLaunch(COSDictionary)}.
-   * <p>
-   * Method under test: {@link PDActionLaunch#PDActionLaunch(COSDictionary)}
-   */
-  @Test
-  @DisplayName("Test new PDActionLaunch(COSDictionary)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDActionLaunch.<init>(COSDictionary)"})
-  void testNewPDActionLaunch() {
-    // Arrange
-    COSDictionary a = new COSDictionary();
-
-    // Act and Assert
-    assertSame(a, (new PDActionLaunch(a)).getCOSObject());
-  }
-
-  /**
-   * Test {@link PDActionLaunch#PDActionLaunch()}.
-   * <p>
-   * Method under test: {@link PDActionLaunch#PDActionLaunch()}
-   */
-  @Test
-  @DisplayName("Test new PDActionLaunch()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDActionLaunch.<init>()"})
-  void testNewPDActionLaunch2() throws IOException {
-    // Arrange and Act
-    PDActionLaunch actualPdActionLaunch = new PDActionLaunch();
-
-    // Assert
-    assertNull(actualPdActionLaunch.getD());
-    assertNull(actualPdActionLaunch.getF());
-    assertNull(actualPdActionLaunch.getO());
-    assertNull(actualPdActionLaunch.getP());
-    assertNull(actualPdActionLaunch.getNext());
-    assertNull(actualPdActionLaunch.getFile());
-    assertNull(actualPdActionLaunch.getWinLaunchParams());
-    assertEquals(OpenMode.USER_PREFERENCE, actualPdActionLaunch.getOpenInNewWindow());
-    assertEquals(PDAction.TYPE, actualPdActionLaunch.getType());
-    assertEquals(PDActionLaunch.SUB_TYPE, actualPdActionLaunch.getSubType());
-  }
-
-  /**
-   * Test {@link PDActionLaunch#getFile()}.
-   * <ul>
-   *   <li>Given {@link PDActionLaunch#PDActionLaunch()} F is {@code foo}.</li>
-   *   <li>Then COSObject return {@link COSString}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDActionLaunch#getFile()}
    */
   @Test
-  @DisplayName("Test getFile(); given PDActionLaunch() F is 'foo'; then COSObject return COSString")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDFileSpecification PDActionLaunch.getFile()"})
-  void testGetFile_givenPDActionLaunchFIsFoo_thenCOSObjectReturnCOSString() throws IOException {
+  void testGetFile() throws IOException {
+    // Arrange, Act and Assert
+    assertNull((new PDActionLaunch()).getFile());
+  }
+
+  /**
+   * Method under test: {@link PDActionLaunch#getFile()}
+   */
+  @Test
+  void testGetFile2() throws IOException {
     // Arrange
     PDActionLaunch pdActionLaunch = new PDActionLaunch();
     pdActionLaunch.setF("foo");
@@ -102,62 +56,10 @@ class PDActionLaunchDiffblueTest {
   }
 
   /**
-   * Test {@link PDActionLaunch#getFile()}.
-   * <ul>
-   *   <li>Given {@link PDActionLaunch#PDActionLaunch()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDActionLaunch#getFile()}
-   */
-  @Test
-  @DisplayName("Test getFile(); given PDActionLaunch(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDFileSpecification PDActionLaunch.getFile()"})
-  void testGetFile_givenPDActionLaunch_thenReturnNull() throws IOException {
-    // Arrange, Act and Assert
-    assertNull((new PDActionLaunch()).getFile());
-  }
-
-  /**
-   * Test {@link PDActionLaunch#setFile(PDFileSpecification)}.
-   * <ul>
-   *   <li>Given {@link PDActionLaunch#PDActionLaunch()}.</li>
-   *   <li>When {@code null}.</li>
-   *   <li>Then {@link PDActionLaunch#PDActionLaunch()} F is {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDActionLaunch#setFile(PDFileSpecification)}
    */
   @Test
-  @DisplayName("Test setFile(PDFileSpecification); given PDActionLaunch(); when 'null'; then PDActionLaunch() F is 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDActionLaunch.setFile(PDFileSpecification)"})
-  void testSetFile_givenPDActionLaunch_whenNull_thenPDActionLaunchFIsNull() throws IOException {
-    // Arrange
-    PDActionLaunch pdActionLaunch = new PDActionLaunch();
-
-    // Act
-    pdActionLaunch.setFile(null);
-
-    // Assert that nothing has changed
-    assertNull(pdActionLaunch.getF());
-    assertNull(pdActionLaunch.getFile());
-  }
-
-  /**
-   * Test {@link PDActionLaunch#setFile(PDFileSpecification)}.
-   * <ul>
-   *   <li>Then {@link PDActionLaunch#PDActionLaunch()} File {@link PDComplexFileSpecification}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDActionLaunch#setFile(PDFileSpecification)}
-   */
-  @Test
-  @DisplayName("Test setFile(PDFileSpecification); then PDActionLaunch() File PDComplexFileSpecification")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDActionLaunch.setFile(PDFileSpecification)"})
-  void testSetFile_thenPDActionLaunchFilePDComplexFileSpecification() throws IOException {
+  void testSetFile() throws IOException {
     // Arrange
     PDActionLaunch pdActionLaunch = new PDActionLaunch();
 
@@ -174,27 +76,23 @@ class PDActionLaunchDiffblueTest {
     assertNull(((PDComplexFileSpecification) file).getFileUnix());
     assertNull(((PDComplexFileSpecification) file).getFilename());
     assertNull(file.getFile());
+    assertNull(pdActionLaunch.getF());
     assertNull(((PDComplexFileSpecification) file).getEmbeddedFile());
     assertNull(((PDComplexFileSpecification) file).getEmbeddedFileDos());
     assertNull(((PDComplexFileSpecification) file).getEmbeddedFileMac());
     assertNull(((PDComplexFileSpecification) file).getEmbeddedFileUnicode());
     assertNull(((PDComplexFileSpecification) file).getEmbeddedFileUnix());
+    COSDictionary cOSObject = pdActionLaunch.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
     assertFalse(((PDComplexFileSpecification) file).isVolatile());
   }
 
   /**
-   * Test {@link PDActionLaunch#setFile(PDFileSpecification)}.
-   * <ul>
-   *   <li>Then {@link PDActionLaunch#PDActionLaunch()} File {@link PDSimpleFileSpecification}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDActionLaunch#setFile(PDFileSpecification)}
    */
   @Test
-  @DisplayName("Test setFile(PDFileSpecification); then PDActionLaunch() File PDSimpleFileSpecification")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDActionLaunch.setFile(PDFileSpecification)"})
-  void testSetFile_thenPDActionLaunchFilePDSimpleFileSpecification() throws IOException {
+  void testSetFile2() throws IOException {
     // Arrange
     PDActionLaunch pdActionLaunch = new PDActionLaunch();
 
@@ -206,64 +104,44 @@ class PDActionLaunchDiffblueTest {
     assertTrue(file instanceof PDSimpleFileSpecification);
     assertEquals("", file.getFile());
     assertEquals("", pdActionLaunch.getF());
+    COSDictionary cOSObject = pdActionLaunch.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
   }
 
   /**
-   * Test {@link PDActionLaunch#getWinLaunchParams()}.
-   * <ul>
-   *   <li>Given {@link PDActionLaunch#PDActionLaunch()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PDActionLaunch#setFile(PDFileSpecification)}
+   */
+  @Test
+  void testSetFile3() throws IOException {
+    // Arrange
+    PDActionLaunch pdActionLaunch = new PDActionLaunch();
+
+    // Act
+    pdActionLaunch.setFile(null);
+
+    // Assert
+    assertNull(pdActionLaunch.getF());
+    assertNull(pdActionLaunch.getFile());
+    COSDictionary cOSObject = pdActionLaunch.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+  }
+
+  /**
    * Method under test: {@link PDActionLaunch#getWinLaunchParams()}
    */
   @Test
-  @DisplayName("Test getWinLaunchParams(); given PDActionLaunch(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDWindowsLaunchParams PDActionLaunch.getWinLaunchParams()"})
-  void testGetWinLaunchParams_givenPDActionLaunch_thenReturnNull() {
+  void testGetWinLaunchParams() {
     // Arrange, Act and Assert
     assertNull((new PDActionLaunch()).getWinLaunchParams());
   }
 
   /**
-   * Test {@link PDActionLaunch#getWinLaunchParams()}.
-   * <ul>
-   *   <li>Then return COSObject is {@link COSDictionary#COSDictionary()}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDActionLaunch#getWinLaunchParams()}
    */
   @Test
-  @DisplayName("Test getWinLaunchParams(); then return COSObject is COSDictionary()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDWindowsLaunchParams PDActionLaunch.getWinLaunchParams()"})
-  void testGetWinLaunchParams_thenReturnCOSObjectIsCOSDictionary() {
-    // Arrange
-    COSDictionary p = new COSDictionary();
-    p.setKey(new COSObjectKey(1L, 1));
-    PDWindowsLaunchParams win = new PDWindowsLaunchParams(p);
-
-    PDActionLaunch pdActionLaunch = new PDActionLaunch();
-    pdActionLaunch.setWinLaunchParams(win);
-
-    // Act and Assert
-    assertSame(p, pdActionLaunch.getWinLaunchParams().getCOSObject());
-  }
-
-  /**
-   * Test {@link PDActionLaunch#getWinLaunchParams()}.
-   * <ul>
-   *   <li>Then return Directory is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDActionLaunch#getWinLaunchParams()}
-   */
-  @Test
-  @DisplayName("Test getWinLaunchParams(); then return Directory is 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDWindowsLaunchParams PDActionLaunch.getWinLaunchParams()"})
-  void testGetWinLaunchParams_thenReturnDirectoryIsNull() {
+  void testGetWinLaunchParams2() {
     // Arrange
     PDActionLaunch pdActionLaunch = new PDActionLaunch();
     pdActionLaunch.setWinLaunchParams(new PDWindowsLaunchParams());
@@ -291,26 +169,40 @@ class PDActionLaunchDiffblueTest {
   }
 
   /**
-   * Test {@link PDActionLaunch#setWinLaunchParams(PDWindowsLaunchParams)}.
-   * <ul>
-   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDActionLaunch#setWinLaunchParams(PDWindowsLaunchParams)}
+   * Method under test: {@link PDActionLaunch#getWinLaunchParams()}
    */
   @Test
-  @DisplayName("Test setWinLaunchParams(PDWindowsLaunchParams); given COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDActionLaunch.setWinLaunchParams(PDWindowsLaunchParams)"})
-  void testSetWinLaunchParams_givenCOSObjectKeyWithNumIsOneAndGenIsOne() {
+  void testGetWinLaunchParams3() {
+    // Arrange
+    COSDictionary p = new COSDictionary();
+    p.setKey(new COSObjectKey(1L, 1));
+    PDWindowsLaunchParams win = new PDWindowsLaunchParams(p);
+
+    PDActionLaunch pdActionLaunch = new PDActionLaunch();
+    pdActionLaunch.setWinLaunchParams(win);
+
+    // Act
+    PDWindowsLaunchParams actualWinLaunchParams = pdActionLaunch.getWinLaunchParams();
+
+    // Assert
+    assertNull(actualWinLaunchParams.getDirectory());
+    assertNull(actualWinLaunchParams.getExecuteParam());
+    assertNull(actualWinLaunchParams.getFilename());
+    assertEquals(PDWindowsLaunchParams.OPERATION_OPEN, actualWinLaunchParams.getOperation());
+    assertSame(p, actualWinLaunchParams.getCOSObject());
+  }
+
+  /**
+   * Method under test:
+   * {@link PDActionLaunch#setWinLaunchParams(PDWindowsLaunchParams)}
+   */
+  @Test
+  void testSetWinLaunchParams() {
     // Arrange
     PDActionLaunch pdActionLaunch = new PDActionLaunch();
 
-    COSDictionary p = new COSDictionary();
-    p.setKey(new COSObjectKey(1L, 1));
-
     // Act
-    pdActionLaunch.setWinLaunchParams(new PDWindowsLaunchParams(p));
+    pdActionLaunch.setWinLaunchParams(new PDWindowsLaunchParams());
 
     // Assert
     PDWindowsLaunchParams winLaunchParams = pdActionLaunch.getWinLaunchParams();
@@ -321,23 +213,33 @@ class PDActionLaunchDiffblueTest {
     assertEquals(3, cOSObject.getValues().size());
     assertEquals(3, cOSObject.size());
     assertEquals(PDWindowsLaunchParams.OPERATION_OPEN, winLaunchParams.getOperation());
-    assertSame(p, winLaunchParams.getCOSObject());
   }
 
   /**
-   * Test {@link PDActionLaunch#setWinLaunchParams(PDWindowsLaunchParams)}.
-   * <ul>
-   *   <li>Given {@code true}.</li>
-   *   <li>When {@link COSDictionary#COSDictionary()} Direct is {@code true}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDActionLaunch#setWinLaunchParams(PDWindowsLaunchParams)}
+   * Method under test:
+   * {@link PDActionLaunch#setWinLaunchParams(PDWindowsLaunchParams)}
    */
   @Test
-  @DisplayName("Test setWinLaunchParams(PDWindowsLaunchParams); given 'true'; when COSDictionary() Direct is 'true'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDActionLaunch.setWinLaunchParams(PDWindowsLaunchParams)"})
-  void testSetWinLaunchParams_givenTrue_whenCOSDictionaryDirectIsTrue() {
+  void testSetWinLaunchParams2() {
+    // Arrange
+    PDActionLaunch pdActionLaunch = new PDActionLaunch();
+
+    // Act
+    pdActionLaunch.setWinLaunchParams(null);
+
+    // Assert
+    assertNull(pdActionLaunch.getWinLaunchParams());
+    COSDictionary cOSObject = pdActionLaunch.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+  }
+
+  /**
+   * Method under test:
+   * {@link PDActionLaunch#setWinLaunchParams(PDWindowsLaunchParams)}
+   */
+  @Test
+  void testSetWinLaunchParams3() {
     // Arrange
     PDActionLaunch pdActionLaunch = new PDActionLaunch();
 
@@ -360,49 +262,19 @@ class PDActionLaunchDiffblueTest {
   }
 
   /**
-   * Test {@link PDActionLaunch#setWinLaunchParams(PDWindowsLaunchParams)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then {@link PDActionLaunch#PDActionLaunch()} COSObject Values size is two.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDActionLaunch#setWinLaunchParams(PDWindowsLaunchParams)}
+   * Method under test:
+   * {@link PDActionLaunch#setWinLaunchParams(PDWindowsLaunchParams)}
    */
   @Test
-  @DisplayName("Test setWinLaunchParams(PDWindowsLaunchParams); when 'null'; then PDActionLaunch() COSObject Values size is two")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDActionLaunch.setWinLaunchParams(PDWindowsLaunchParams)"})
-  void testSetWinLaunchParams_whenNull_thenPDActionLaunchCOSObjectValuesSizeIsTwo() {
+  void testSetWinLaunchParams4() {
     // Arrange
     PDActionLaunch pdActionLaunch = new PDActionLaunch();
 
-    // Act
-    pdActionLaunch.setWinLaunchParams(null);
-
-    // Assert that nothing has changed
-    COSDictionary cOSObject = pdActionLaunch.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-  }
-
-  /**
-   * Test {@link PDActionLaunch#setWinLaunchParams(PDWindowsLaunchParams)}.
-   * <ul>
-   *   <li>When {@link PDWindowsLaunchParams#PDWindowsLaunchParams()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDActionLaunch#setWinLaunchParams(PDWindowsLaunchParams)}
-   */
-  @Test
-  @DisplayName("Test setWinLaunchParams(PDWindowsLaunchParams); when PDWindowsLaunchParams()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDActionLaunch.setWinLaunchParams(PDWindowsLaunchParams)"})
-  void testSetWinLaunchParams_whenPDWindowsLaunchParams() {
-    // Arrange
-    PDActionLaunch pdActionLaunch = new PDActionLaunch();
+    COSDictionary p = new COSDictionary();
+    p.setKey(new COSObjectKey(1L, 1));
 
     // Act
-    pdActionLaunch.setWinLaunchParams(new PDWindowsLaunchParams());
+    pdActionLaunch.setWinLaunchParams(new PDWindowsLaunchParams(p));
 
     // Assert
     PDWindowsLaunchParams winLaunchParams = pdActionLaunch.getWinLaunchParams();
@@ -413,44 +285,23 @@ class PDActionLaunchDiffblueTest {
     assertEquals(3, cOSObject.getValues().size());
     assertEquals(3, cOSObject.size());
     assertEquals(PDWindowsLaunchParams.OPERATION_OPEN, winLaunchParams.getOperation());
+    assertSame(p, winLaunchParams.getCOSObject());
   }
 
   /**
-   * Test {@link PDActionLaunch#getF()}.
-   * <ul>
-   *   <li>Given {@link PDActionLaunch#PDActionLaunch()} F is empty string.</li>
-   *   <li>Then return empty string.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDActionLaunch#getF()}
    */
   @Test
-  @DisplayName("Test getF(); given PDActionLaunch() F is empty string; then return empty string")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDActionLaunch.getF()"})
-  void testGetF_givenPDActionLaunchFIsEmptyString_thenReturnEmptyString() {
-    // Arrange
-    PDActionLaunch pdActionLaunch = new PDActionLaunch();
-    pdActionLaunch.setF("");
-
-    // Act and Assert
-    assertEquals("", pdActionLaunch.getF());
+  void testGetF() {
+    // Arrange, Act and Assert
+    assertNull((new PDActionLaunch()).getF());
   }
 
   /**
-   * Test {@link PDActionLaunch#getF()}.
-   * <ul>
-   *   <li>Given {@link PDActionLaunch#PDActionLaunch()} F is {@code foo}.</li>
-   *   <li>Then return {@code foo}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDActionLaunch#getF()}
    */
   @Test
-  @DisplayName("Test getF(); given PDActionLaunch() F is 'foo'; then return 'foo'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDActionLaunch.getF()"})
-  void testGetF_givenPDActionLaunchFIsFoo_thenReturnFoo() {
+  void testGetF2() {
     // Arrange
     PDActionLaunch pdActionLaunch = new PDActionLaunch();
     pdActionLaunch.setF("foo");
@@ -460,37 +311,23 @@ class PDActionLaunchDiffblueTest {
   }
 
   /**
-   * Test {@link PDActionLaunch#getF()}.
-   * <ul>
-   *   <li>Given {@link PDActionLaunch#PDActionLaunch()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDActionLaunch#getF()}
    */
   @Test
-  @DisplayName("Test getF(); given PDActionLaunch(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDActionLaunch.getF()"})
-  void testGetF_givenPDActionLaunch_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull((new PDActionLaunch()).getF());
+  void testGetF3() {
+    // Arrange
+    PDActionLaunch pdActionLaunch = new PDActionLaunch();
+    pdActionLaunch.setF("");
+
+    // Act and Assert
+    assertEquals("", pdActionLaunch.getF());
   }
 
   /**
-   * Test {@link PDActionLaunch#setF(String)}.
-   * <ul>
-   *   <li>Given {@link PDActionLaunch#PDActionLaunch()}.</li>
-   *   <li>Then {@link PDActionLaunch#PDActionLaunch()} File COSObject {@link COSString}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDActionLaunch#setF(String)}
    */
   @Test
-  @DisplayName("Test setF(String); given PDActionLaunch(); then PDActionLaunch() File COSObject COSString")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDActionLaunch.setF(String)"})
-  void testSetF_givenPDActionLaunch_thenPDActionLaunchFileCOSObjectCOSString() throws IOException {
+  void testSetF() throws IOException {
     // Arrange
     PDActionLaunch pdActionLaunch = new PDActionLaunch();
 
@@ -518,19 +355,32 @@ class PDActionLaunchDiffblueTest {
   }
 
   /**
-   * Test {@link PDActionLaunch#getD()}.
-   * <ul>
-   *   <li>Given {@link PDActionLaunch#PDActionLaunch()} D is empty string.</li>
-   *   <li>Then return empty string.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDActionLaunch#getD()}
    */
   @Test
-  @DisplayName("Test getD(); given PDActionLaunch() D is empty string; then return empty string")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDActionLaunch.getD()"})
-  void testGetD_givenPDActionLaunchDIsEmptyString_thenReturnEmptyString() {
+  void testGetD() {
+    // Arrange, Act and Assert
+    assertNull((new PDActionLaunch()).getD());
+  }
+
+  /**
+   * Method under test: {@link PDActionLaunch#getD()}
+   */
+  @Test
+  void testGetD2() {
+    // Arrange
+    PDActionLaunch pdActionLaunch = new PDActionLaunch();
+    pdActionLaunch.setD("foo");
+
+    // Act and Assert
+    assertEquals("foo", pdActionLaunch.getD());
+  }
+
+  /**
+   * Method under test: {@link PDActionLaunch#getD()}
+   */
+  @Test
+  void testGetD3() {
     // Arrange
     PDActionLaunch pdActionLaunch = new PDActionLaunch();
     pdActionLaunch.setD("");
@@ -540,59 +390,10 @@ class PDActionLaunchDiffblueTest {
   }
 
   /**
-   * Test {@link PDActionLaunch#getD()}.
-   * <ul>
-   *   <li>Given {@link PDActionLaunch#PDActionLaunch()} D is {@code foo}.</li>
-   *   <li>Then return {@code foo}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDActionLaunch#getD()}
-   */
-  @Test
-  @DisplayName("Test getD(); given PDActionLaunch() D is 'foo'; then return 'foo'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDActionLaunch.getD()"})
-  void testGetD_givenPDActionLaunchDIsFoo_thenReturnFoo() {
-    // Arrange
-    PDActionLaunch pdActionLaunch = new PDActionLaunch();
-    pdActionLaunch.setD("foo");
-
-    // Act and Assert
-    assertEquals("foo", pdActionLaunch.getD());
-  }
-
-  /**
-   * Test {@link PDActionLaunch#getD()}.
-   * <ul>
-   *   <li>Given {@link PDActionLaunch#PDActionLaunch()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDActionLaunch#getD()}
-   */
-  @Test
-  @DisplayName("Test getD(); given PDActionLaunch(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDActionLaunch.getD()"})
-  void testGetD_givenPDActionLaunch_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull((new PDActionLaunch()).getD());
-  }
-
-  /**
-   * Test {@link PDActionLaunch#setD(String)}.
-   * <ul>
-   *   <li>Given {@link PDActionLaunch#PDActionLaunch()}.</li>
-   *   <li>Then {@link PDActionLaunch#PDActionLaunch()} D is {@code foo}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDActionLaunch#setD(String)}
    */
   @Test
-  @DisplayName("Test setD(String); given PDActionLaunch(); then PDActionLaunch() D is 'foo'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDActionLaunch.setD(String)"})
-  void testSetD_givenPDActionLaunch_thenPDActionLaunchDIsFoo() {
+  void testSetD() {
     // Arrange
     PDActionLaunch pdActionLaunch = new PDActionLaunch();
 
@@ -607,19 +408,32 @@ class PDActionLaunchDiffblueTest {
   }
 
   /**
-   * Test {@link PDActionLaunch#getO()}.
-   * <ul>
-   *   <li>Given {@link PDActionLaunch#PDActionLaunch()} O is empty string.</li>
-   *   <li>Then return empty string.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDActionLaunch#getO()}
    */
   @Test
-  @DisplayName("Test getO(); given PDActionLaunch() O is empty string; then return empty string")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDActionLaunch.getO()"})
-  void testGetO_givenPDActionLaunchOIsEmptyString_thenReturnEmptyString() {
+  void testGetO() {
+    // Arrange, Act and Assert
+    assertNull((new PDActionLaunch()).getO());
+  }
+
+  /**
+   * Method under test: {@link PDActionLaunch#getO()}
+   */
+  @Test
+  void testGetO2() {
+    // Arrange
+    PDActionLaunch pdActionLaunch = new PDActionLaunch();
+    pdActionLaunch.setO("foo");
+
+    // Act and Assert
+    assertEquals("foo", pdActionLaunch.getO());
+  }
+
+  /**
+   * Method under test: {@link PDActionLaunch#getO()}
+   */
+  @Test
+  void testGetO3() {
     // Arrange
     PDActionLaunch pdActionLaunch = new PDActionLaunch();
     pdActionLaunch.setO("");
@@ -629,59 +443,10 @@ class PDActionLaunchDiffblueTest {
   }
 
   /**
-   * Test {@link PDActionLaunch#getO()}.
-   * <ul>
-   *   <li>Given {@link PDActionLaunch#PDActionLaunch()} O is {@code foo}.</li>
-   *   <li>Then return {@code foo}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDActionLaunch#getO()}
-   */
-  @Test
-  @DisplayName("Test getO(); given PDActionLaunch() O is 'foo'; then return 'foo'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDActionLaunch.getO()"})
-  void testGetO_givenPDActionLaunchOIsFoo_thenReturnFoo() {
-    // Arrange
-    PDActionLaunch pdActionLaunch = new PDActionLaunch();
-    pdActionLaunch.setO("foo");
-
-    // Act and Assert
-    assertEquals("foo", pdActionLaunch.getO());
-  }
-
-  /**
-   * Test {@link PDActionLaunch#getO()}.
-   * <ul>
-   *   <li>Given {@link PDActionLaunch#PDActionLaunch()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDActionLaunch#getO()}
-   */
-  @Test
-  @DisplayName("Test getO(); given PDActionLaunch(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDActionLaunch.getO()"})
-  void testGetO_givenPDActionLaunch_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull((new PDActionLaunch()).getO());
-  }
-
-  /**
-   * Test {@link PDActionLaunch#setO(String)}.
-   * <ul>
-   *   <li>Given {@link PDActionLaunch#PDActionLaunch()}.</li>
-   *   <li>Then {@link PDActionLaunch#PDActionLaunch()} O is {@code foo}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDActionLaunch#setO(String)}
    */
   @Test
-  @DisplayName("Test setO(String); given PDActionLaunch(); then PDActionLaunch() O is 'foo'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDActionLaunch.setO(String)"})
-  void testSetO_givenPDActionLaunch_thenPDActionLaunchOIsFoo() {
+  void testSetO() {
     // Arrange
     PDActionLaunch pdActionLaunch = new PDActionLaunch();
 
@@ -696,19 +461,32 @@ class PDActionLaunchDiffblueTest {
   }
 
   /**
-   * Test {@link PDActionLaunch#getP()}.
-   * <ul>
-   *   <li>Given {@link PDActionLaunch#PDActionLaunch()} P is empty string.</li>
-   *   <li>Then return empty string.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDActionLaunch#getP()}
    */
   @Test
-  @DisplayName("Test getP(); given PDActionLaunch() P is empty string; then return empty string")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDActionLaunch.getP()"})
-  void testGetP_givenPDActionLaunchPIsEmptyString_thenReturnEmptyString() {
+  void testGetP() {
+    // Arrange, Act and Assert
+    assertNull((new PDActionLaunch()).getP());
+  }
+
+  /**
+   * Method under test: {@link PDActionLaunch#getP()}
+   */
+  @Test
+  void testGetP2() {
+    // Arrange
+    PDActionLaunch pdActionLaunch = new PDActionLaunch();
+    pdActionLaunch.setP("foo");
+
+    // Act and Assert
+    assertEquals("foo", pdActionLaunch.getP());
+  }
+
+  /**
+   * Method under test: {@link PDActionLaunch#getP()}
+   */
+  @Test
+  void testGetP3() {
     // Arrange
     PDActionLaunch pdActionLaunch = new PDActionLaunch();
     pdActionLaunch.setP("");
@@ -718,59 +496,10 @@ class PDActionLaunchDiffblueTest {
   }
 
   /**
-   * Test {@link PDActionLaunch#getP()}.
-   * <ul>
-   *   <li>Given {@link PDActionLaunch#PDActionLaunch()} P is {@code foo}.</li>
-   *   <li>Then return {@code foo}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDActionLaunch#getP()}
-   */
-  @Test
-  @DisplayName("Test getP(); given PDActionLaunch() P is 'foo'; then return 'foo'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDActionLaunch.getP()"})
-  void testGetP_givenPDActionLaunchPIsFoo_thenReturnFoo() {
-    // Arrange
-    PDActionLaunch pdActionLaunch = new PDActionLaunch();
-    pdActionLaunch.setP("foo");
-
-    // Act and Assert
-    assertEquals("foo", pdActionLaunch.getP());
-  }
-
-  /**
-   * Test {@link PDActionLaunch#getP()}.
-   * <ul>
-   *   <li>Given {@link PDActionLaunch#PDActionLaunch()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDActionLaunch#getP()}
-   */
-  @Test
-  @DisplayName("Test getP(); given PDActionLaunch(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDActionLaunch.getP()"})
-  void testGetP_givenPDActionLaunch_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull((new PDActionLaunch()).getP());
-  }
-
-  /**
-   * Test {@link PDActionLaunch#setP(String)}.
-   * <ul>
-   *   <li>Given {@link PDActionLaunch#PDActionLaunch()}.</li>
-   *   <li>Then {@link PDActionLaunch#PDActionLaunch()} P is {@code foo}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDActionLaunch#setP(String)}
    */
   @Test
-  @DisplayName("Test setP(String); given PDActionLaunch(); then PDActionLaunch() P is 'foo'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDActionLaunch.setP(String)"})
-  void testSetP_givenPDActionLaunch_thenPDActionLaunchPIsFoo() {
+  void testSetP() {
     // Arrange
     PDActionLaunch pdActionLaunch = new PDActionLaunch();
 
@@ -785,43 +514,26 @@ class PDActionLaunchDiffblueTest {
   }
 
   /**
-   * Test {@link PDActionLaunch#getOpenInNewWindow()}.
-   * <ul>
-   *   <li>Given {@link PDActionLaunch#PDActionLaunch()}.</li>
-   *   <li>Then return {@code USER_PREFERENCE}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDActionLaunch#getOpenInNewWindow()}
    */
   @Test
-  @DisplayName("Test getOpenInNewWindow(); given PDActionLaunch(); then return 'USER_PREFERENCE'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"OpenMode PDActionLaunch.getOpenInNewWindow()"})
-  void testGetOpenInNewWindow_givenPDActionLaunch_thenReturnUserPreference() {
+  void testGetOpenInNewWindow() {
     // Arrange, Act and Assert
     assertEquals(OpenMode.USER_PREFERENCE, (new PDActionLaunch()).getOpenInNewWindow());
   }
 
   /**
-   * Test {@link PDActionLaunch#setOpenInNewWindow(OpenMode)}.
-   * <ul>
-   *   <li>Then {@link PDActionLaunch#PDActionLaunch()} COSObject Values size is two.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDActionLaunch#setOpenInNewWindow(OpenMode)}
    */
   @Test
-  @DisplayName("Test setOpenInNewWindow(OpenMode); then PDActionLaunch() COSObject Values size is two")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDActionLaunch.setOpenInNewWindow(OpenMode)"})
-  void testSetOpenInNewWindow_thenPDActionLaunchCOSObjectValuesSizeIsTwo() {
+  void testSetOpenInNewWindow() {
     // Arrange
     PDActionLaunch pdActionLaunch = new PDActionLaunch();
 
     // Act
     pdActionLaunch.setOpenInNewWindow(OpenMode.USER_PREFERENCE);
 
-    // Assert that nothing has changed
+    // Assert
     COSDictionary cOSObject = pdActionLaunch.getCOSObject();
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
@@ -829,18 +541,28 @@ class PDActionLaunchDiffblueTest {
   }
 
   /**
-   * Test {@link PDActionLaunch#setOpenInNewWindow(OpenMode)}.
-   * <ul>
-   *   <li>Then {@link PDActionLaunch#PDActionLaunch()} OpenInNewWindow is {@code NEW_WINDOW}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDActionLaunch#setOpenInNewWindow(OpenMode)}
    */
   @Test
-  @DisplayName("Test setOpenInNewWindow(OpenMode); then PDActionLaunch() OpenInNewWindow is 'NEW_WINDOW'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDActionLaunch.setOpenInNewWindow(OpenMode)"})
-  void testSetOpenInNewWindow_thenPDActionLaunchOpenInNewWindowIsNewWindow() {
+  void testSetOpenInNewWindow2() {
+    // Arrange
+    PDActionLaunch pdActionLaunch = new PDActionLaunch();
+
+    // Act
+    pdActionLaunch.setOpenInNewWindow(OpenMode.SAME_WINDOW);
+
+    // Assert
+    COSDictionary cOSObject = pdActionLaunch.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
+    assertEquals(OpenMode.SAME_WINDOW, pdActionLaunch.getOpenInNewWindow());
+  }
+
+  /**
+   * Method under test: {@link PDActionLaunch#setOpenInNewWindow(OpenMode)}
+   */
+  @Test
+  void testSetOpenInNewWindow3() {
     // Arrange
     PDActionLaunch pdActionLaunch = new PDActionLaunch();
 
@@ -855,28 +577,47 @@ class PDActionLaunchDiffblueTest {
   }
 
   /**
-   * Test {@link PDActionLaunch#setOpenInNewWindow(OpenMode)}.
-   * <ul>
-   *   <li>Then {@link PDActionLaunch#PDActionLaunch()} OpenInNewWindow is {@code SAME_WINDOW}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDActionLaunch#setOpenInNewWindow(OpenMode)}
+   * Method under test: {@link PDActionLaunch#PDActionLaunch(COSDictionary)}
    */
   @Test
-  @DisplayName("Test setOpenInNewWindow(OpenMode); then PDActionLaunch() OpenInNewWindow is 'SAME_WINDOW'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDActionLaunch.setOpenInNewWindow(OpenMode)"})
-  void testSetOpenInNewWindow_thenPDActionLaunchOpenInNewWindowIsSameWindow() {
+  void testNewPDActionLaunch() {
     // Arrange
-    PDActionLaunch pdActionLaunch = new PDActionLaunch();
+    COSDictionary a = new COSDictionary();
 
-    // Act
-    pdActionLaunch.setOpenInNewWindow(OpenMode.SAME_WINDOW);
+    // Act and Assert
+    assertSame(a, (new PDActionLaunch(a)).getCOSObject());
+  }
+
+  /**
+   * Method under test: {@link PDActionLaunch#PDActionLaunch()}
+   */
+  @Test
+  void testNewPDActionLaunch2() throws IOException {
+    // Arrange and Act
+    PDActionLaunch actualPdActionLaunch = new PDActionLaunch();
 
     // Assert
-    COSDictionary cOSObject = pdActionLaunch.getCOSObject();
-    assertEquals(3, cOSObject.getValues().size());
-    assertEquals(3, cOSObject.size());
-    assertEquals(OpenMode.SAME_WINDOW, pdActionLaunch.getOpenInNewWindow());
+    assertNull(actualPdActionLaunch.getD());
+    assertNull(actualPdActionLaunch.getF());
+    assertNull(actualPdActionLaunch.getO());
+    assertNull(actualPdActionLaunch.getP());
+    assertNull(actualPdActionLaunch.getNext());
+    COSDictionary cOSObject = actualPdActionLaunch.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertNull(actualPdActionLaunch.getFile());
+    assertNull(actualPdActionLaunch.getWinLaunchParams());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    assertEquals(OpenMode.USER_PREFERENCE, actualPdActionLaunch.getOpenInNewWindow());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertEquals(PDAction.TYPE, actualPdActionLaunch.getType());
+    assertEquals(PDActionLaunch.SUB_TYPE, actualPdActionLaunch.getSubType());
   }
 }

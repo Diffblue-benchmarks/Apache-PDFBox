@@ -3,19 +3,19 @@
     "reportVersion" : "2.6"
   },
   "run" : {
-    "version" : "2025.02.02-08b2a5a-licensed",
-    "creationTimestamp" : "2025-10-21T16:22:54.192235Z",
+    "version" : "2024.10.01-2ee2e3d-licensed",
+    "creationTimestamp" : "2025-10-27T14:24:43.941029Z",
     "command" : "dcover create --exclude-modules org.apache.pdfbox:pdfbox-parent,org.apache.pdfbox:pdfbox-app,org.apache.pdfbox:debugger-app --coverage-reports --upload http://localhost:8080 --project-name Apache-PDFBox --name with-diffblue-tests",
-    "totalTime" : 1902.601,
-    "environmentDetectionTime" : 1.748,
-    "indexingTime" : 0.3,
-    "entryPointsTime" : 1.745,
-    "generationTime" : 8035.193,
-    "timeToFirstTest" : 7446.296,
-    "timeToLastTest" : 8294.773,
-    "indexQueryTime" : 4.609,
-    "verificationTime" : 127.585,
-    "validationTime" : 36.455
+    "totalTime" : 6084.863,
+    "environmentDetectionTime" : 1.696,
+    "indexingTime" : 0.327,
+    "entryPointsTime" : 1.693,
+    "generationTime" : 5608.343,
+    "timeToFirstTest" : 89.772,
+    "timeToLastTest" : 743.392,
+    "indexQueryTime" : 4.471,
+    "verificationTime" : 174.359,
+    "validationTime" : 35.521
   },
   "codes" : {
     "R000" : "Success",
@@ -40,9 +40,9 @@
   "summary" : {
     "classesCount" : 75,
     "methodsCount" : 805,
-    "cumulativeDiffblueTestCount" : 2075,
+    "cumulativeDiffblueTestCount" : 1838,
     "cumulativeManualTestCount" : 809,
-    "completeTestCount" : 2085,
+    "completeTestCount" : 2107,
     "incompleteTestCount" : 0,
     "skeletonTestCount" : 0,
     "totalPhysicalLineCount" : 7105,
@@ -59,10 +59,10 @@
       "T020" : 1
     },
     "perMethodOutcome" : {
-      "R000" : 682,
+      "R000" : 680,
       "R002" : 4,
-      "R004" : 12,
-      "R013" : 22,
+      "R004" : 11,
+      "R013" : 25,
       "R081" : 1,
       "T003" : 47,
       "T004" : 4,
@@ -71,11 +71,11 @@
       "T012" : 17
     },
     "perTestOutcome" : {
-      "R000" : 2085
+      "R000" : 2107
     },
     "perTestValidation" : {
-      "V000" : 2075,
-      "V003" : 10
+      "V000" : 2096,
+      "V003" : 11
     },
     "warnings" : {
       "W001" : 3
@@ -103,7 +103,7 @@
     },
     "org.apache.xmpbox.XMPMetadata" : {
       "methodsCount" : 38,
-      "completeTestCount" : 50,
+      "completeTestCount" : 53,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 31,
@@ -111,12 +111,11 @@
         "T002" : 1
       },
       "perMethodOutcome" : {
-        "R000" : 35,
-        "R004" : 1,
+        "R000" : 36,
         "R013" : 2
       },
       "perTestOutcome" : {
-        "R000" : 50
+        "R000" : 53
       }
     },
     "org.apache.xmpbox.XmpConstants" : {
@@ -290,24 +289,24 @@
     },
     "org.apache.xmpbox.schema.XMPSchema" : {
       "methodsCount" : 59,
-      "completeTestCount" : 174,
+      "completeTestCount" : 162,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 54,
         "T003" : 5
       },
       "perMethodOutcome" : {
-        "R000" : 45,
-        "R013" : 9,
+        "R000" : 41,
+        "R013" : 13,
         "T003" : 5
       },
       "perTestOutcome" : {
-        "R000" : 174
+        "R000" : 162
       }
     },
     "org.apache.xmpbox.schema.XMPSchemaFactory" : {
       "methodsCount" : 5,
-      "completeTestCount" : 3,
+      "completeTestCount" : 4,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 2,
@@ -318,7 +317,7 @@
         "R000" : 5
       },
       "perTestOutcome" : {
-        "R000" : 3
+        "R000" : 4
       }
     },
     "org.apache.xmpbox.schema.XMPageTextSchema" : {
@@ -351,20 +350,19 @@
     },
     "org.apache.xmpbox.type.AbstractComplexProperty" : {
       "methodsCount" : 11,
-      "completeTestCount" : 14,
+      "completeTestCount" : 15,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 10,
         "T010" : 1
       },
       "perMethodOutcome" : {
-        "R000" : 8,
+        "R000" : 9,
         "R004" : 1,
-        "R013" : 1,
         "T010" : 1
       },
       "perTestOutcome" : {
-        "R000" : 14
+        "R000" : 15
       }
     },
     "org.apache.xmpbox.type.AbstractField" : {
@@ -833,7 +831,7 @@
     },
     "org.apache.xmpbox.type.PropertiesDescription" : {
       "methodsCount" : 4,
-      "completeTestCount" : 4,
+      "completeTestCount" : 5,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 3,
@@ -843,7 +841,7 @@
         "R000" : 4
       },
       "perTestOutcome" : {
-        "R000" : 4
+        "R000" : 5
       }
     },
     "org.apache.xmpbox.type.PropertyType" : {
@@ -969,7 +967,7 @@
     },
     "org.apache.xmpbox.type.TypeMapping" : {
       "methodsCount" : 39,
-      "completeTestCount" : 53,
+      "completeTestCount" : 81,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 36,
@@ -985,7 +983,7 @@
         "T012" : 1
       },
       "perTestOutcome" : {
-        "R000" : 53
+        "R000" : 81
       },
       "warnings" : {
         "W001" : 3
@@ -1469,10 +1467,13 @@
       ]
     },
     "org.apache.xmpbox.XMPMetadata.clearSchemas:()V" : {
-      "completeTestCount" : 0,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R004",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
       "lineNumbers" : [
         576,
         577
@@ -1554,12 +1555,12 @@
       ]
     },
     "org.apache.xmpbox.XMPMetadata.createAndAddPDFAExtensionSchemaWithNS:(Ljava/util/Map;)Lorg/apache/xmpbox/schema/PDFAExtensionSchema;" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 1
+        "R000" : 2
       },
       "lineNumbers" : [
         315,
@@ -6481,13 +6482,10 @@
       ]
     },
     "org.apache.xmpbox.schema.XMPSchema.addBagValue:(Ljava/lang/String;Lorg/apache/xmpbox/type/AbstractField;)V" : {
-      "completeTestCount" : 4,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 4
-      },
+      "perMethodOutcome" : "R013",
       "lineNumbers" : [
         808,
         809,
@@ -6572,13 +6570,10 @@
       ]
     },
     "org.apache.xmpbox.schema.XMPSchema.addUnqualifiedSequenceValue:(Ljava/lang/String;Lorg/apache/xmpbox/type/AbstractField;)V" : {
-      "completeTestCount" : 4,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 4
-      },
+      "perMethodOutcome" : "R013",
       "lineNumbers" : [
         831,
         832,
@@ -7034,12 +7029,12 @@
       ]
     },
     "org.apache.xmpbox.schema.XMPSchema.removeUnqualifiedBagValue:(Ljava/lang/String;Ljava/lang/String;)V" : {
-      "completeTestCount" : 3,
+      "completeTestCount" : 4,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 3
+        "R000" : 4
       },
       "lineNumbers" : [
         656,
@@ -7047,12 +7042,12 @@
       ]
     },
     "org.apache.xmpbox.schema.XMPSchema.removeUnqualifiedSequenceDateValue:(Ljava/lang/String;Ljava/util/Calendar;)V" : {
-      "completeTestCount" : 4,
+      "completeTestCount" : 5,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 4
+        "R000" : 5
       },
       "lineNumbers" : [
         872,
@@ -7069,13 +7064,10 @@
       ]
     },
     "org.apache.xmpbox.schema.XMPSchema.removeUnqualifiedSequenceValue:(Ljava/lang/String;Ljava/lang/String;)V" : {
-      "completeTestCount" : 3,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 3
-      },
+      "perMethodOutcome" : "R013",
       "lineNumbers" : [
         728,
         729
@@ -7092,13 +7084,10 @@
       ]
     },
     "org.apache.xmpbox.schema.XMPSchema.reorganizeAltOrder:(Lorg/apache/xmpbox/type/ComplexPropertyContainer;)V" : {
-      "completeTestCount" : 3,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 3
-      },
+      "perMethodOutcome" : "R013",
       "lineNumbers" : [
         956,
         957,
@@ -7403,12 +7392,12 @@
       ]
     },
     "org.apache.xmpbox.schema.XMPSchemaFactory.createXMPSchema:(Lorg/apache/xmpbox/XMPMetadata;Ljava/lang/String;)Lorg/apache/xmpbox/schema/XMPSchema;" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 1
+        "R000" : 2
       },
       "lineNumbers" : [
         100,
@@ -7540,10 +7529,13 @@
       ]
     },
     "org.apache.xmpbox.type.AbstractComplexProperty.addProperty:(Lorg/apache/xmpbox/type/AbstractField;)V" : {
-      "completeTestCount" : 0,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R013",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
       "lineNumbers" : [
         73,
         75,
@@ -9309,12 +9301,12 @@
       ]
     },
     "org.apache.xmpbox.type.PropertiesDescription.getPropertiesName:()Ljava/util/List;" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 1
+        "R000" : 2
       },
       "lineNumbers" : [
         58
@@ -10353,132 +10345,132 @@
       ]
     },
     "org.apache.xmpbox.type.TypeMapping.createAgentName:(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lorg/apache/xmpbox/type/AgentNameType;" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 1
+        "R000" : 2
       },
       "lineNumbers" : [
         413
       ]
     },
     "org.apache.xmpbox.type.TypeMapping.createArrayProperty:(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lorg/apache/xmpbox/type/Cardinality;)Lorg/apache/xmpbox/type/ArrayProperty;" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 1
+        "R000" : 2
       },
       "lineNumbers" : [
         423
       ]
     },
     "org.apache.xmpbox.type.TypeMapping.createBoolean:(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Z)Lorg/apache/xmpbox/type/BooleanType;" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 1
+        "R000" : 2
       },
       "lineNumbers" : [
         343
       ]
     },
     "org.apache.xmpbox.type.TypeMapping.createChoice:(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lorg/apache/xmpbox/type/ChoiceType;" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 1
+        "R000" : 2
       },
       "lineNumbers" : [
         408
       ]
     },
     "org.apache.xmpbox.type.TypeMapping.createDate:(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/Calendar;)Lorg/apache/xmpbox/type/DateType;" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 1
+        "R000" : 2
       },
       "lineNumbers" : [
         348
       ]
     },
     "org.apache.xmpbox.type.TypeMapping.createGUID:(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lorg/apache/xmpbox/type/GUIDType;" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 1
+        "R000" : 2
       },
       "lineNumbers" : [
         403
       ]
     },
     "org.apache.xmpbox.type.TypeMapping.createInteger:(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;I)Lorg/apache/xmpbox/type/IntegerType;" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 1
+        "R000" : 2
       },
       "lineNumbers" : [
         353
       ]
     },
     "org.apache.xmpbox.type.TypeMapping.createLocale:(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lorg/apache/xmpbox/type/LocaleType;" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 1
+        "R000" : 2
       },
       "lineNumbers" : [
         398
       ]
     },
     "org.apache.xmpbox.type.TypeMapping.createMIMEType:(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lorg/apache/xmpbox/type/MIMEType;" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 1
+        "R000" : 2
       },
       "lineNumbers" : [
         393
       ]
     },
     "org.apache.xmpbox.type.TypeMapping.createPart:(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lorg/apache/xmpbox/type/PartType;" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 1
+        "R000" : 2
       },
       "lineNumbers" : [
         388
       ]
     },
     "org.apache.xmpbox.type.TypeMapping.createProperName:(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lorg/apache/xmpbox/type/ProperNameType;" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 1
+        "R000" : 2
       },
       "lineNumbers" : [
         368
@@ -10494,84 +10486,84 @@
       ]
     },
     "org.apache.xmpbox.type.TypeMapping.createReal:(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;F)Lorg/apache/xmpbox/type/RealType;" : {
-      "completeTestCount" : 1,
-      "incompleteTestCount" : 0,
-      "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 1
-      },
-      "lineNumbers" : [
-        358
-      ]
-    },
-    "org.apache.xmpbox.type.TypeMapping.createRenditionClass:(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lorg/apache/xmpbox/type/RenditionClassType;" : {
-      "completeTestCount" : 1,
-      "incompleteTestCount" : 0,
-      "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 1
-      },
-      "lineNumbers" : [
-        383
-      ]
-    },
-    "org.apache.xmpbox.type.TypeMapping.createText:(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lorg/apache/xmpbox/type/TextType;" : {
-      "completeTestCount" : 1,
-      "incompleteTestCount" : 0,
-      "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 1
-      },
-      "lineNumbers" : [
-        363
-      ]
-    },
-    "org.apache.xmpbox.type.TypeMapping.createURI:(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lorg/apache/xmpbox/type/URIType;" : {
-      "completeTestCount" : 1,
-      "incompleteTestCount" : 0,
-      "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 1
-      },
-      "lineNumbers" : [
-        373
-      ]
-    },
-    "org.apache.xmpbox.type.TypeMapping.createURL:(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lorg/apache/xmpbox/type/URLType;" : {
-      "completeTestCount" : 1,
-      "incompleteTestCount" : 0,
-      "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 1
-      },
-      "lineNumbers" : [
-        378
-      ]
-    },
-    "org.apache.xmpbox.type.TypeMapping.createXPath:(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lorg/apache/xmpbox/type/XPathType;" : {
-      "completeTestCount" : 1,
-      "incompleteTestCount" : 0,
-      "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 1
-      },
-      "lineNumbers" : [
-        418
-      ]
-    },
-    "org.apache.xmpbox.type.TypeMapping.getAssociatedSchemaObject:(Lorg/apache/xmpbox/XMPMetadata;Ljava/lang/String;Ljava/lang/String;)Lorg/apache/xmpbox/schema/XMPSchema;" : {
       "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
         "R000" : 2
+      },
+      "lineNumbers" : [
+        358
+      ]
+    },
+    "org.apache.xmpbox.type.TypeMapping.createRenditionClass:(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lorg/apache/xmpbox/type/RenditionClassType;" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        383
+      ]
+    },
+    "org.apache.xmpbox.type.TypeMapping.createText:(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lorg/apache/xmpbox/type/TextType;" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        363
+      ]
+    },
+    "org.apache.xmpbox.type.TypeMapping.createURI:(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lorg/apache/xmpbox/type/URIType;" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        373
+      ]
+    },
+    "org.apache.xmpbox.type.TypeMapping.createURL:(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lorg/apache/xmpbox/type/URLType;" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        378
+      ]
+    },
+    "org.apache.xmpbox.type.TypeMapping.createXPath:(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lorg/apache/xmpbox/type/XPathType;" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        418
+      ]
+    },
+    "org.apache.xmpbox.type.TypeMapping.getAssociatedSchemaObject:(Lorg/apache/xmpbox/XMPMetadata;Ljava/lang/String;Ljava/lang/String;)Lorg/apache/xmpbox/schema/XMPSchema;" : {
+      "completeTestCount" : 3,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 3
       },
       "lineNumbers" : [
         240,
@@ -10582,12 +10574,12 @@
       ]
     },
     "org.apache.xmpbox.type.TypeMapping.getDefinedDescriptionByNamespace:(Ljava/lang/String;)Lorg/apache/xmpbox/type/PropertiesDescription;" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 1
+        "R000" : 2
       },
       "lineNumbers" : [
         125,
@@ -10595,12 +10587,12 @@
       ]
     },
     "org.apache.xmpbox.type.TypeMapping.getSchemaFactory:(Ljava/lang/String;)Lorg/apache/xmpbox/schema/XMPSchemaFactory;" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 1
+        "R000" : 2
       },
       "lineNumbers" : [
         254
@@ -10628,12 +10620,12 @@
       ]
     },
     "org.apache.xmpbox.type.TypeMapping.getStructuredPropMapping:(Lorg/apache/xmpbox/type/Types;)Lorg/apache/xmpbox/type/PropertiesDescription;" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 1
+        "R000" : 2
       },
       "lineNumbers" : [
         221
@@ -10675,12 +10667,12 @@
       ]
     },
     "org.apache.xmpbox.type.TypeMapping.initializePropMapping:(Ljava/lang/Class;)Lorg/apache/xmpbox/type/PropertiesDescription;" : {
-      "completeTestCount" : 3,
+      "completeTestCount" : 4,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 3
+        "R000" : 4
       },
       "lineNumbers" : [
         317,
@@ -10700,12 +10692,12 @@
       ]
     },
     "org.apache.xmpbox.type.TypeMapping.instanciateDefinedType:(Ljava/lang/String;Ljava/lang/String;)Lorg/apache/xmpbox/type/AbstractStructuredType;" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 1
+        "R000" : 2
       },
       "lineNumbers" : [
         151
@@ -10761,60 +10753,60 @@
       ]
     },
     "org.apache.xmpbox.type.TypeMapping.isDefinedNamespace:(Ljava/lang/String;)Z" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 1
+        "R000" : 2
       },
       "lineNumbers" : [
         271
       ]
     },
     "org.apache.xmpbox.type.TypeMapping.isDefinedSchema:(Ljava/lang/String;)Z" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 1
+        "R000" : 2
       },
       "lineNumbers" : [
         266
       ]
     },
     "org.apache.xmpbox.type.TypeMapping.isDefinedType:(Ljava/lang/String;)Z" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 1
+        "R000" : 2
       },
       "lineNumbers" : [
         203
       ]
     },
     "org.apache.xmpbox.type.TypeMapping.isDefinedTypeNamespace:(Ljava/lang/String;)Z" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 1
+        "R000" : 2
       },
       "lineNumbers" : [
         198
       ]
     },
     "org.apache.xmpbox.type.TypeMapping.isStructuredTypeNamespace:(Ljava/lang/String;)Z" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 1
+        "R000" : 2
       },
       "lineNumbers" : [
         193

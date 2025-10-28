@@ -2,7 +2,6 @@ package org.apache.xmpbox.xml;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -12,7 +11,6 @@ import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
@@ -26,8 +24,6 @@ import org.apache.xmpbox.type.AbstractField;
 import org.apache.xmpbox.type.AgentNameType;
 import org.apache.xmpbox.type.ArrayProperty;
 import org.apache.xmpbox.type.Cardinality;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.w3c.dom.DOMException;
@@ -38,19 +34,11 @@ import org.w3c.dom.ProcessingInstruction;
 
 class XmpSerializerDiffblueTest {
   /**
-   * Test {@link XmpSerializer#serialize(XMPMetadata, OutputStream, boolean)}.
-   * <ul>
-   *   <li>When createXMPMetadata.</li>
-   *   <li>Then array length is one hundred ninety-one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link XmpSerializer#serialize(XMPMetadata, OutputStream, boolean)}
+   * Method under test:
+   * {@link XmpSerializer#serialize(XMPMetadata, OutputStream, boolean)}
    */
   @Test
-  @DisplayName("Test serialize(XMPMetadata, OutputStream, boolean); when createXMPMetadata; then array length is one hundred ninety-one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void XmpSerializer.serialize(XMPMetadata, OutputStream, boolean)"})
-  void testSerialize_whenCreateXMPMetadata_thenArrayLengthIsOneHundredNinetyOne() throws TransformerException {
+  void testSerialize() throws TransformerException {
     // Arrange
     XmpSerializer xmpSerializer = new XmpSerializer();
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -59,24 +47,67 @@ class XmpSerializerDiffblueTest {
     // Act
     xmpSerializer.serialize(metadata, os, true);
 
-    // Assert
-    assertEquals(191, os.toByteArray().length);
+    // Assert that nothing has changed
+    byte[] toByteArrayResult = os.toByteArray();
+    assertEquals((byte) -17, toByteArrayResult[17]);
+    assertEquals((byte) -65, toByteArrayResult[19]);
+    assertEquals((byte) -69, toByteArrayResult[18]);
+    assertEquals(191, toByteArrayResult.length);
+    assertEquals(' ', toByteArrayResult[180]);
+    assertEquals(' ', toByteArrayResult[21]);
+    assertEquals(' ', toByteArrayResult[9]);
+    assertEquals('<', toByteArrayResult[0]);
+    assertEquals('<', toByteArrayResult[171]);
+    assertEquals('=', toByteArrayResult[15]);
+    assertEquals('=', toByteArrayResult[184]);
+    assertEquals('=', toByteArrayResult[24]);
+    assertEquals('>', toByteArrayResult[170]);
+    assertEquals('>', toByteArrayResult[189]);
+    assertEquals('?', toByteArrayResult[1]);
+    assertEquals('?', toByteArrayResult[172]);
+    assertEquals('?', toByteArrayResult[188]);
+    assertEquals('"', toByteArrayResult[185]);
+    assertEquals('"', toByteArrayResult[187]);
+    assertEquals('"', toByteArrayResult[20]);
+    assertEquals('"', toByteArrayResult[Short.SIZE]);
+    assertEquals('\n', toByteArrayResult[190]);
+    assertEquals('a', toByteArrayResult[169]);
+    assertEquals('a', toByteArrayResult[175]);
+    assertEquals('a', toByteArrayResult[4]);
+    assertEquals('b', toByteArrayResult[10]);
+    assertEquals('c', toByteArrayResult[176]);
+    assertEquals('c', toByteArrayResult[5]);
+    assertEquals('d', toByteArrayResult[183]);
+    assertEquals('d', toByteArrayResult[23]);
+    assertEquals('e', toByteArrayResult[11]);
+    assertEquals('e', toByteArrayResult[167]);
+    assertEquals('e', toByteArrayResult[178]);
+    assertEquals('e', toByteArrayResult[181]);
+    assertEquals('e', toByteArrayResult[7]);
+    assertEquals('g', toByteArrayResult[12]);
+    assertEquals('i', toByteArrayResult[13]);
+    assertEquals('i', toByteArrayResult[22]);
+    assertEquals('k', toByteArrayResult[177]);
+    assertEquals('k', toByteArrayResult[6]);
+    assertEquals('m', toByteArrayResult[166]);
+    assertEquals('n', toByteArrayResult[14]);
+    assertEquals('n', toByteArrayResult[182]);
+    assertEquals('p', toByteArrayResult[174]);
+    assertEquals('p', toByteArrayResult[3]);
+    assertEquals('t', toByteArrayResult[168]);
+    assertEquals('t', toByteArrayResult[179]);
+    assertEquals('t', toByteArrayResult[8]);
+    assertEquals('w', toByteArrayResult[186]);
+    assertEquals('x', toByteArrayResult[173]);
+    assertEquals('x', toByteArrayResult[2]);
   }
 
   /**
-   * Test {@link XmpSerializer#serialize(XMPMetadata, OutputStream, boolean)}.
-   * <ul>
-   *   <li>When {@code false}.</li>
-   *   <li>Then array length is one hundred nineteen.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link XmpSerializer#serialize(XMPMetadata, OutputStream, boolean)}
+   * Method under test:
+   * {@link XmpSerializer#serialize(XMPMetadata, OutputStream, boolean)}
    */
   @Test
-  @DisplayName("Test serialize(XMPMetadata, OutputStream, boolean); when 'false'; then array length is one hundred nineteen")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void XmpSerializer.serialize(XMPMetadata, OutputStream, boolean)"})
-  void testSerialize_whenFalse_thenArrayLengthIsOneHundredNineteen() throws TransformerException {
+  void testSerialize2() throws TransformerException {
     // Arrange
     XmpSerializer xmpSerializer = new XmpSerializer();
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -85,23 +116,66 @@ class XmpSerializerDiffblueTest {
     // Act
     xmpSerializer.serialize(metadata, os, false);
 
-    // Assert
-    assertEquals(119, os.toByteArray().length);
+    // Assert that nothing has changed
+    byte[] toByteArrayResult = os.toByteArray();
+    assertEquals(119, toByteArrayResult.length);
+    assertEquals(' ', toByteArrayResult[10]);
+    assertEquals('#', toByteArrayResult[101]);
+    assertEquals('-', toByteArrayResult[98]);
+    assertEquals('/', toByteArrayResult[103]);
+    assertEquals('/', toByteArrayResult[107]);
+    assertEquals(':', toByteArrayResult[109]);
+    assertEquals(':', toByteArrayResult[2]);
+    assertEquals(':', toByteArrayResult[Short.SIZE]);
+    assertEquals('<', toByteArrayResult[0]);
+    assertEquals('<', toByteArrayResult[106]);
+    assertEquals('=', toByteArrayResult[18]);
+    assertEquals('>', toByteArrayResult[104]);
+    assertEquals('>', toByteArrayResult[117]);
+    assertEquals('"', toByteArrayResult[102]);
+    assertEquals('"', toByteArrayResult[19]);
+    assertEquals('\n', toByteArrayResult[105]);
+    assertEquals('\n', toByteArrayResult[118]);
+    assertEquals('a', toByteArrayResult[116]);
+    assertEquals('a', toByteArrayResult[20]);
+    assertEquals('a', toByteArrayResult[9]);
+    assertEquals('a', toByteArrayResult[96]);
+    assertEquals('b', toByteArrayResult[23]);
+    assertEquals('d', toByteArrayResult[21]);
+    assertEquals('e', toByteArrayResult[114]);
+    assertEquals('e', toByteArrayResult[24]);
+    assertEquals('e', toByteArrayResult[7]);
+    assertEquals('l', toByteArrayResult[13]);
+    assertEquals('m', toByteArrayResult[111]);
+    assertEquals('m', toByteArrayResult[113]);
+    assertEquals('m', toByteArrayResult[12]);
+    assertEquals('m', toByteArrayResult[4]);
+    assertEquals('m', toByteArrayResult[6]);
+    assertEquals('n', toByteArrayResult[14]);
+    assertEquals('n', toByteArrayResult[94]);
+    assertEquals('n', toByteArrayResult[99]);
+    assertEquals('o', toByteArrayResult[22]);
+    assertEquals('p', toByteArrayResult[112]);
+    assertEquals('p', toByteArrayResult[5]);
+    assertEquals('s', toByteArrayResult[100]);
+    assertEquals('s', toByteArrayResult[15]);
+    assertEquals('t', toByteArrayResult[115]);
+    assertEquals('t', toByteArrayResult[8]);
+    assertEquals('t', toByteArrayResult[95]);
+    assertEquals('x', toByteArrayResult[1]);
+    assertEquals('x', toByteArrayResult[108]);
+    assertEquals('x', toByteArrayResult[11]);
+    assertEquals('x', toByteArrayResult[110]);
+    assertEquals('x', toByteArrayResult[17]);
+    assertEquals('x', toByteArrayResult[3]);
+    assertEquals('x', toByteArrayResult[97]);
   }
 
   /**
-   * Test {@link XmpSerializer#serializeSchema(Document, XMPSchema)}.
-   * <ul>
-   *   <li>Then return {@link IIOMetadataNode#IIOMetadataNode(String)} with {@code foo}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link XmpSerializer#serializeSchema(Document, XMPSchema)}
    */
   @Test
-  @DisplayName("Test serializeSchema(Document, XMPSchema); then return IIOMetadataNode(String) with 'foo'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Element XmpSerializer.serializeSchema(Document, XMPSchema)"})
-  void testSerializeSchema_thenReturnIIOMetadataNodeWithFoo() throws DOMException {
+  void testSerializeSchema() throws DOMException {
     // Arrange
     XmpSerializer xmpSerializer = new XmpSerializer();
     Document doc = mock(Document.class);
@@ -118,18 +192,10 @@ class XmpSerializerDiffblueTest {
   }
 
   /**
-   * Test {@link XmpSerializer#serializeSchema(Document, XMPSchema)}.
-   * <ul>
-   *   <li>Then throw {@link RuntimeException}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link XmpSerializer#serializeSchema(Document, XMPSchema)}
    */
   @Test
-  @DisplayName("Test serializeSchema(Document, XMPSchema); then throw RuntimeException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Element XmpSerializer.serializeSchema(Document, XMPSchema)"})
-  void testSerializeSchema_thenThrowRuntimeException() throws DOMException {
+  void testSerializeSchema2() throws DOMException {
     // Arrange
     XmpSerializer xmpSerializer = new XmpSerializer();
     Document doc = mock(Document.class);
@@ -147,15 +213,162 @@ class XmpSerializerDiffblueTest {
   }
 
   /**
-   * Test {@link XmpSerializer#serializeFields(Document, Element, List, String, String, boolean)}.
-   * <p>
-   * Method under test: {@link XmpSerializer#serializeFields(Document, Element, List, String, String, boolean)}
+   * Method under test:
+   * {@link XmpSerializer#serializeFields(Document, Element, List, String, String, boolean)}
    */
   @Test
-  @DisplayName("Test serializeFields(Document, Element, List, String, String, boolean)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void XmpSerializer.serializeFields(Document, Element, List, String, String, boolean)"})
-  void testSerializeFields() throws DOMException {
+  void testSerializeFields() {
+    // Arrange
+    XmpSerializer xmpSerializer = new XmpSerializer();
+    Document doc = mock(Document.class);
+    IIOMetadataNode parent = new IIOMetadataNode("foo");
+
+    // Act
+    xmpSerializer.serializeFields(doc, parent, new ArrayList<>(), "Resource NS", "Prefix", true);
+
+    // Assert that nothing has changed
+    assertEquals(0, parent.getLength());
+    assertFalse(parent.hasChildNodes());
+  }
+
+  /**
+   * Method under test:
+   * {@link XmpSerializer#serializeFields(Document, Element, List, String, String, boolean)}
+   */
+  @Test
+  void testSerializeFields2() throws DOMException {
+    // Arrange
+    XmpSerializer xmpSerializer = new XmpSerializer();
+    Document doc = mock(Document.class);
+    IIOMetadataNode iioMetadataNode = new IIOMetadataNode("foo");
+    when(doc.createElement(Mockito.<String>any())).thenReturn(iioMetadataNode);
+    IIOMetadataNode parent = new IIOMetadataNode("foo");
+
+    ArrayList<AbstractField> fields = new ArrayList<>();
+    fields.add(new AdobePDFSchema(XMPMetadata.createXMPMetadata()));
+
+    // Act
+    xmpSerializer.serializeFields(doc, parent, fields, "Resource NS", null, false);
+
+    // Assert that nothing has changed
+    verify(doc).createElement(eq("rdf:li"));
+    assertEquals(1, parent.getLength());
+    assertTrue(parent.hasChildNodes());
+    assertSame(iioMetadataNode, parent.getFirstChild());
+    assertSame(iioMetadataNode, parent.getLastChild());
+  }
+
+  /**
+   * Method under test:
+   * {@link XmpSerializer#serializeFields(Document, Element, List, String, String, boolean)}
+   */
+  @Test
+  void testSerializeFields3() throws DOMException {
+    // Arrange
+    XmpSerializer xmpSerializer = new XmpSerializer();
+    Document doc = mock(Document.class);
+    IIOMetadataNode iioMetadataNode = new IIOMetadataNode("foo");
+    when(doc.createElement(Mockito.<String>any())).thenReturn(iioMetadataNode);
+    IIOMetadataNode parent = new IIOMetadataNode("foo");
+
+    ArrayList<AbstractField> fields = new ArrayList<>();
+    fields.add(new ArrayProperty(XMPMetadata.createXMPMetadata(), "rdf:li", "rdf:li", "rdf:li", Cardinality.Simple));
+
+    // Act
+    xmpSerializer.serializeFields(doc, parent, fields, "Resource NS", null, false);
+
+    // Assert that nothing has changed
+    verify(doc, atLeast(1)).createElement(Mockito.<String>any());
+    assertEquals(1, parent.getLength());
+    assertTrue(parent.hasChildNodes());
+    assertSame(iioMetadataNode, parent.getFirstChild());
+    assertSame(iioMetadataNode, parent.getLastChild());
+  }
+
+  /**
+   * Method under test:
+   * {@link XmpSerializer#serializeFields(Document, Element, List, String, String, boolean)}
+   */
+  @Test
+  void testSerializeFields4() throws DOMException {
+    // Arrange
+    XmpSerializer xmpSerializer = new XmpSerializer();
+    Document doc = mock(Document.class);
+    IIOMetadataNode iioMetadataNode = new IIOMetadataNode("foo");
+    when(doc.createElement(Mockito.<String>any())).thenReturn(iioMetadataNode);
+    IIOMetadataNode parent = new IIOMetadataNode("foo");
+
+    AdobePDFSchema adobePDFSchema = new AdobePDFSchema(XMPMetadata.createXMPMetadata());
+    adobePDFSchema.addProperty(new AdobePDFSchema(XMPMetadata.createXMPMetadata()));
+
+    ArrayList<AbstractField> fields = new ArrayList<>();
+    fields.add(adobePDFSchema);
+
+    // Act
+    xmpSerializer.serializeFields(doc, parent, fields, "Resource NS", null, false);
+
+    // Assert that nothing has changed
+    verify(doc, atLeast(1)).createElement(Mockito.<String>any());
+    assertEquals(1, parent.getLength());
+    assertTrue(parent.hasChildNodes());
+    assertSame(iioMetadataNode, parent.getFirstChild());
+    assertSame(iioMetadataNode, parent.getLastChild());
+  }
+
+  /**
+   * Method under test:
+   * {@link XmpSerializer#serializeFields(Document, Element, List, String, String, boolean)}
+   */
+  @Test
+  void testSerializeFields5() throws DOMException {
+    // Arrange
+    XmpSerializer xmpSerializer = new XmpSerializer();
+    Document doc = mock(Document.class);
+    IIOMetadataNode iioMetadataNode = new IIOMetadataNode("foo");
+    when(doc.createElement(Mockito.<String>any())).thenReturn(iioMetadataNode);
+    IIOMetadataNode parent = new IIOMetadataNode("foo");
+
+    ArrayList<AbstractField> fields = new ArrayList<>();
+    fields.add(new AdobePDFSchema(XMPMetadata.createXMPMetadata()));
+
+    // Act
+    xmpSerializer.serializeFields(doc, parent, fields, "Resource NS", "", false);
+
+    // Assert that nothing has changed
+    verify(doc).createElement(eq("rdf:li"));
+    assertEquals(1, parent.getLength());
+    assertTrue(parent.hasChildNodes());
+    assertSame(iioMetadataNode, parent.getFirstChild());
+    assertSame(iioMetadataNode, parent.getLastChild());
+  }
+
+  /**
+   * Method under test:
+   * {@link XmpSerializer#serializeFields(Document, Element, List, String, String, boolean)}
+   */
+  @Test
+  void testSerializeFields6() throws DOMException {
+    // Arrange
+    XmpSerializer xmpSerializer = new XmpSerializer();
+    Document doc = mock(Document.class);
+    when(doc.createElement(Mockito.<String>any())).thenThrow(new RuntimeException("rdf:li"));
+    IIOMetadataNode parent = new IIOMetadataNode("foo");
+
+    ArrayList<AbstractField> fields = new ArrayList<>();
+    fields.add(new AdobePDFSchema(XMPMetadata.createXMPMetadata()));
+
+    // Act and Assert
+    assertThrows(RuntimeException.class,
+        () -> xmpSerializer.serializeFields(doc, parent, fields, "Resource NS", null, false));
+    verify(doc).createElement(eq("rdf:li"));
+  }
+
+  /**
+   * Method under test:
+   * {@link XmpSerializer#serializeFields(Document, Element, List, String, String, boolean)}
+   */
+  @Test
+  void testSerializeFields7() throws DOMException {
     // Arrange
     XmpSerializer xmpSerializer = new XmpSerializer();
     Document doc = mock(Document.class);
@@ -172,15 +385,11 @@ class XmpSerializerDiffblueTest {
   }
 
   /**
-   * Test {@link XmpSerializer#serializeFields(Document, Element, List, String, String, boolean)}.
-   * <p>
-   * Method under test: {@link XmpSerializer#serializeFields(Document, Element, List, String, String, boolean)}
+   * Method under test:
+   * {@link XmpSerializer#serializeFields(Document, Element, List, String, String, boolean)}
    */
   @Test
-  @DisplayName("Test serializeFields(Document, Element, List, String, String, boolean)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void XmpSerializer.serializeFields(Document, Element, List, String, String, boolean)"})
-  void testSerializeFields2() throws DOMException {
+  void testSerializeFields8() throws DOMException {
     // Arrange
     XmpSerializer xmpSerializer = new XmpSerializer();
     Document doc = mock(Document.class);
@@ -197,15 +406,32 @@ class XmpSerializerDiffblueTest {
   }
 
   /**
-   * Test {@link XmpSerializer#serializeFields(Document, Element, List, String, String, boolean)}.
-   * <p>
-   * Method under test: {@link XmpSerializer#serializeFields(Document, Element, List, String, String, boolean)}
+   * Method under test:
+   * {@link XmpSerializer#serializeFields(Document, Element, List, String, String, boolean)}
    */
   @Test
-  @DisplayName("Test serializeFields(Document, Element, List, String, String, boolean)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void XmpSerializer.serializeFields(Document, Element, List, String, String, boolean)"})
-  void testSerializeFields3() throws DOMException {
+  void testSerializeFields9() throws DOMException {
+    // Arrange
+    XmpSerializer xmpSerializer = new XmpSerializer();
+    Document doc = mock(Document.class);
+    when(doc.createElement(Mockito.<String>any())).thenThrow(new RuntimeException("rdf:li"));
+    IIOMetadataNode parent = new IIOMetadataNode("foo");
+
+    ArrayList<AbstractField> fields = new ArrayList<>();
+    fields.add(new AdobePDFSchema(XMPMetadata.createXMPMetadata()));
+
+    // Act and Assert
+    assertThrows(RuntimeException.class,
+        () -> xmpSerializer.serializeFields(doc, parent, fields, "Resource NS", null, true));
+    verify(doc).createElement(eq("Resource NS:null"));
+  }
+
+  /**
+   * Method under test:
+   * {@link XmpSerializer#serializeFields(Document, Element, List, String, String, boolean)}
+   */
+  @Test
+  void testSerializeFields10() throws DOMException {
     // Arrange
     XmpSerializer xmpSerializer = new XmpSerializer();
     Document doc = mock(Document.class);
@@ -223,283 +449,20 @@ class XmpSerializerDiffblueTest {
     // Act
     xmpSerializer.serializeFields(doc, parent, fields, "Resource NS", null, false);
 
-    // Assert
-    verify(doc, atLeast(1)).createElement(Mockito.<String>any());
-    Node firstChild = parent.getFirstChild();
-    assertTrue(firstChild instanceof IIOMetadataNode);
-    assertEquals(1, ((IIOMetadataNode) firstChild).getLength());
-    assertTrue(firstChild.hasChildNodes());
-    assertSame(iioMetadataNode, firstChild.getFirstChild());
-    assertSame(iioMetadataNode, firstChild.getLastChild());
-  }
-
-  /**
-   * Test {@link XmpSerializer#serializeFields(Document, Element, List, String, String, boolean)}.
-   * <ul>
-   *   <li>Given {@link RuntimeException#RuntimeException(String)} with {@code rdf:li}.</li>
-   *   <li>Then throw {@link RuntimeException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link XmpSerializer#serializeFields(Document, Element, List, String, String, boolean)}
-   */
-  @Test
-  @DisplayName("Test serializeFields(Document, Element, List, String, String, boolean); given RuntimeException(String) with 'rdf:li'; then throw RuntimeException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void XmpSerializer.serializeFields(Document, Element, List, String, String, boolean)"})
-  void testSerializeFields_givenRuntimeExceptionWithRdfLi_thenThrowRuntimeException() throws DOMException {
-    // Arrange
-    XmpSerializer xmpSerializer = new XmpSerializer();
-    Document doc = mock(Document.class);
-    when(doc.createElement(Mockito.<String>any())).thenThrow(new RuntimeException("rdf:li"));
-    IIOMetadataNode parent = new IIOMetadataNode("foo");
-
-    ArrayList<AbstractField> fields = new ArrayList<>();
-    fields.add(new AdobePDFSchema(XMPMetadata.createXMPMetadata()));
-
-    // Act and Assert
-    assertThrows(RuntimeException.class,
-        () -> xmpSerializer.serializeFields(doc, parent, fields, "Resource NS", null, false));
-    verify(doc).createElement(eq("rdf:li"));
-  }
-
-  /**
-   * Test {@link XmpSerializer#serializeFields(Document, Element, List, String, String, boolean)}.
-   * <ul>
-   *   <li>Then {@link IIOMetadataNode#IIOMetadataNode(String)} with {@code foo} FirstChild FirstChild is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link XmpSerializer#serializeFields(Document, Element, List, String, String, boolean)}
-   */
-  @Test
-  @DisplayName("Test serializeFields(Document, Element, List, String, String, boolean); then IIOMetadataNode(String) with 'foo' FirstChild FirstChild is 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void XmpSerializer.serializeFields(Document, Element, List, String, String, boolean)"})
-  void testSerializeFields_thenIIOMetadataNodeWithFooFirstChildFirstChildIsNull() throws DOMException {
-    // Arrange
-    XmpSerializer xmpSerializer = new XmpSerializer();
-    Document doc = mock(Document.class);
-    when(doc.createElement(Mockito.<String>any())).thenReturn(new IIOMetadataNode("foo"));
-    IIOMetadataNode parent = new IIOMetadataNode("foo");
-
-    ArrayList<AbstractField> fields = new ArrayList<>();
-    fields.add(new AdobePDFSchema(XMPMetadata.createXMPMetadata()));
-
-    // Act
-    xmpSerializer.serializeFields(doc, parent, fields, "Resource NS", null, false);
-
-    // Assert
-    verify(doc).createElement(eq("rdf:li"));
-    Node firstChild = parent.getFirstChild();
-    assertTrue(firstChild instanceof IIOMetadataNode);
-    assertNull(firstChild.getFirstChild());
-    assertNull(firstChild.getLastChild());
-    assertEquals(0, ((IIOMetadataNode) firstChild).getLength());
-    assertFalse(firstChild.hasChildNodes());
-  }
-
-  /**
-   * Test {@link XmpSerializer#serializeFields(Document, Element, List, String, String, boolean)}.
-   * <ul>
-   *   <li>Then {@link IIOMetadataNode#IIOMetadataNode(String)} with {@code foo} FirstChild Length is two.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link XmpSerializer#serializeFields(Document, Element, List, String, String, boolean)}
-   */
-  @Test
-  @DisplayName("Test serializeFields(Document, Element, List, String, String, boolean); then IIOMetadataNode(String) with 'foo' FirstChild Length is two")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void XmpSerializer.serializeFields(Document, Element, List, String, String, boolean)"})
-  void testSerializeFields_thenIIOMetadataNodeWithFooFirstChildLengthIsTwo() throws DOMException {
-    // Arrange
-    XmpSerializer xmpSerializer = new XmpSerializer();
-    Document doc = mock(Document.class);
-    IIOMetadataNode iioMetadataNode = new IIOMetadataNode("foo");
-    when(doc.createElement(Mockito.<String>any())).thenReturn(iioMetadataNode);
-    IIOMetadataNode parent = new IIOMetadataNode("foo");
-
-    AdobePDFSchema adobePDFSchema = new AdobePDFSchema(XMPMetadata.createXMPMetadata());
-    adobePDFSchema.addProperty(new AdobePDFSchema(XMPMetadata.createXMPMetadata()));
-
-    ArrayList<AbstractField> fields = new ArrayList<>();
-    fields.add(adobePDFSchema);
-
-    // Act
-    xmpSerializer.serializeFields(doc, parent, fields, "Resource NS", null, false);
-
-    // Assert
-    verify(doc, atLeast(1)).createElement(Mockito.<String>any());
-    Node firstChild = parent.getFirstChild();
-    assertTrue(firstChild instanceof IIOMetadataNode);
-    assertEquals(2, ((IIOMetadataNode) firstChild).getLength());
-    assertTrue(firstChild.hasChildNodes());
-    assertSame(iioMetadataNode, firstChild.getFirstChild());
-    assertSame(iioMetadataNode, firstChild.getLastChild());
-    assertSame(iioMetadataNode, firstChild.getPreviousSibling());
-  }
-
-  /**
-   * Test {@link XmpSerializer#serializeFields(Document, Element, List, String, String, boolean)}.
-   * <ul>
-   *   <li>Then not {@link IIOMetadataNode#IIOMetadataNode(String)} with {@code foo} FirstChild hasAttributes.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link XmpSerializer#serializeFields(Document, Element, List, String, String, boolean)}
-   */
-  @Test
-  @DisplayName("Test serializeFields(Document, Element, List, String, String, boolean); then not IIOMetadataNode(String) with 'foo' FirstChild hasAttributes")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void XmpSerializer.serializeFields(Document, Element, List, String, String, boolean)"})
-  void testSerializeFields_thenNotIIOMetadataNodeWithFooFirstChildHasAttributes() throws DOMException {
-    // Arrange
-    XmpSerializer xmpSerializer = new XmpSerializer();
-    Document doc = mock(Document.class);
-    IIOMetadataNode iioMetadataNode = new IIOMetadataNode("foo");
-    when(doc.createElement(Mockito.<String>any())).thenReturn(iioMetadataNode);
-    IIOMetadataNode parent = new IIOMetadataNode("foo");
-
-    ArrayList<AbstractField> fields = new ArrayList<>();
-    fields.add(new ArrayProperty(XMPMetadata.createXMPMetadata(), "rdf:li", "rdf:li", "rdf:li", Cardinality.Simple));
-
-    // Act
-    xmpSerializer.serializeFields(doc, parent, fields, "Resource NS", null, false);
-
-    // Assert
-    verify(doc, atLeast(1)).createElement(Mockito.<String>any());
-    Node firstChild = parent.getFirstChild();
-    assertTrue(firstChild instanceof IIOMetadataNode);
-    assertEquals(1, ((IIOMetadataNode) firstChild).getLength());
-    assertFalse(firstChild.hasAttributes());
-    assertTrue(firstChild.hasChildNodes());
-    assertSame(iioMetadataNode, firstChild.getFirstChild());
-    assertSame(iioMetadataNode, firstChild.getLastChild());
-  }
-
-  /**
-   * Test {@link XmpSerializer#serializeFields(Document, Element, List, String, String, boolean)}.
-   * <ul>
-   *   <li>When {@link Document}.</li>
-   *   <li>Then {@link IIOMetadataNode#IIOMetadataNode(String)} with {@code foo} FirstChild is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link XmpSerializer#serializeFields(Document, Element, List, String, String, boolean)}
-   */
-  @Test
-  @DisplayName("Test serializeFields(Document, Element, List, String, String, boolean); when Document; then IIOMetadataNode(String) with 'foo' FirstChild is 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void XmpSerializer.serializeFields(Document, Element, List, String, String, boolean)"})
-  void testSerializeFields_whenDocument_thenIIOMetadataNodeWithFooFirstChildIsNull() {
-    // Arrange
-    XmpSerializer xmpSerializer = new XmpSerializer();
-    Document doc = mock(Document.class);
-    IIOMetadataNode parent = new IIOMetadataNode("foo");
-
-    // Act
-    xmpSerializer.serializeFields(doc, parent, new ArrayList<>(), "Resource NS", "Prefix", true);
-
     // Assert that nothing has changed
-    assertNull(parent.getFirstChild());
+    verify(doc, atLeast(1)).createElement(Mockito.<String>any());
+    assertEquals(1, parent.getLength());
+    assertTrue(parent.hasChildNodes());
+    assertSame(iioMetadataNode, parent.getFirstChild());
+    assertSame(iioMetadataNode, parent.getLastChild());
   }
 
   /**
-   * Test {@link XmpSerializer#serializeFields(Document, Element, List, String, String, boolean)}.
-   * <ul>
-   *   <li>When empty string.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link XmpSerializer#serializeFields(Document, Element, List, String, String, boolean)}
+   * Method under test:
+   * {@link XmpSerializer#createRdfElement(Document, XMPMetadata, boolean)}
    */
   @Test
-  @DisplayName("Test serializeFields(Document, Element, List, String, String, boolean); when empty string")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void XmpSerializer.serializeFields(Document, Element, List, String, String, boolean)"})
-  void testSerializeFields_whenEmptyString() throws DOMException {
-    // Arrange
-    XmpSerializer xmpSerializer = new XmpSerializer();
-    Document doc = mock(Document.class);
-    when(doc.createElement(Mockito.<String>any())).thenReturn(new IIOMetadataNode("foo"));
-    IIOMetadataNode parent = new IIOMetadataNode("foo");
-
-    ArrayList<AbstractField> fields = new ArrayList<>();
-    fields.add(new AdobePDFSchema(XMPMetadata.createXMPMetadata()));
-
-    // Act
-    xmpSerializer.serializeFields(doc, parent, fields, "Resource NS", "", false);
-
-    // Assert
-    verify(doc).createElement(eq("rdf:li"));
-    Node firstChild = parent.getFirstChild();
-    assertTrue(firstChild instanceof IIOMetadataNode);
-    assertNull(firstChild.getFirstChild());
-    assertNull(firstChild.getLastChild());
-    assertEquals(0, ((IIOMetadataNode) firstChild).getLength());
-    assertFalse(firstChild.hasChildNodes());
-  }
-
-  /**
-   * Test {@link XmpSerializer#serializeFields(Document, Element, List, String, String, boolean)}.
-   * <ul>
-   *   <li>When {@code true}.</li>
-   *   <li>Then throw {@link RuntimeException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link XmpSerializer#serializeFields(Document, Element, List, String, String, boolean)}
-   */
-  @Test
-  @DisplayName("Test serializeFields(Document, Element, List, String, String, boolean); when 'true'; then throw RuntimeException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void XmpSerializer.serializeFields(Document, Element, List, String, String, boolean)"})
-  void testSerializeFields_whenTrue_thenThrowRuntimeException() throws DOMException {
-    // Arrange
-    XmpSerializer xmpSerializer = new XmpSerializer();
-    Document doc = mock(Document.class);
-    when(doc.createElement(Mockito.<String>any())).thenThrow(new RuntimeException("rdf:li"));
-    IIOMetadataNode parent = new IIOMetadataNode("foo");
-
-    ArrayList<AbstractField> fields = new ArrayList<>();
-    fields.add(new AdobePDFSchema(XMPMetadata.createXMPMetadata()));
-
-    // Act and Assert
-    assertThrows(RuntimeException.class,
-        () -> xmpSerializer.serializeFields(doc, parent, fields, "Resource NS", null, true));
-    verify(doc).createElement(eq("Resource NS:null"));
-  }
-
-  /**
-   * Test {@link XmpSerializer#createRdfElement(Document, XMPMetadata, boolean)}.
-   * <p>
-   * Method under test: {@link XmpSerializer#createRdfElement(Document, XMPMetadata, boolean)}
-   */
-  @Test
-  @DisplayName("Test createRdfElement(Document, XMPMetadata, boolean)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Element XmpSerializer.createRdfElement(Document, XMPMetadata, boolean)"})
   void testCreateRdfElement() throws DOMException {
-    // Arrange
-    XmpSerializer xmpSerializer = new XmpSerializer();
-    Document doc = mock(Document.class);
-    when(doc.createProcessingInstruction(Mockito.<String>any(), Mockito.<String>any()))
-        .thenThrow(new RuntimeException("xpacket"));
-
-    // Act and Assert
-    assertThrows(RuntimeException.class,
-        () -> xmpSerializer.createRdfElement(doc, XMPMetadata.createXMPMetadata(), true));
-    verify(doc).createProcessingInstruction(eq("xpacket"), eq("begin=\"﻿\" id=\"W5M0MpCehiHzreSzNTczkc9d\""));
-  }
-
-  /**
-   * Test {@link XmpSerializer#createRdfElement(Document, XMPMetadata, boolean)}.
-   * <ul>
-   *   <li>Given {@link ProcessingInstruction}.</li>
-   *   <li>Then return {@link IIOMetadataNode#IIOMetadataNode(String)} with {@code foo}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link XmpSerializer#createRdfElement(Document, XMPMetadata, boolean)}
-   */
-  @Test
-  @DisplayName("Test createRdfElement(Document, XMPMetadata, boolean); given ProcessingInstruction; then return IIOMetadataNode(String) with 'foo'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Element XmpSerializer.createRdfElement(Document, XMPMetadata, boolean)"})
-  void testCreateRdfElement_givenProcessingInstruction_thenReturnIIOMetadataNodeWithFoo() throws DOMException {
     // Arrange
     XmpSerializer xmpSerializer = new XmpSerializer();
     Document doc = mock(Document.class);
@@ -520,96 +483,11 @@ class XmpSerializerDiffblueTest {
   }
 
   /**
-   * Test {@link XmpSerializer#createRdfElement(Document, XMPMetadata, boolean)}.
-   * <ul>
-   *   <li>When {@link Document} {@link Node#appendChild(Node)} throw {@link RuntimeException#RuntimeException(String)} with {@code xpacket}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link XmpSerializer#createRdfElement(Document, XMPMetadata, boolean)}
+   * Method under test:
+   * {@link XmpSerializer#createRdfElement(Document, XMPMetadata, boolean)}
    */
   @Test
-  @DisplayName("Test createRdfElement(Document, XMPMetadata, boolean); when Document appendChild(Node) throw RuntimeException(String) with 'xpacket'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Element XmpSerializer.createRdfElement(Document, XMPMetadata, boolean)"})
-  void testCreateRdfElement_whenDocumentAppendChildThrowRuntimeExceptionWithXpacket() throws DOMException {
-    // Arrange
-    XmpSerializer xmpSerializer = new XmpSerializer();
-    Document doc = mock(Document.class);
-    when(doc.appendChild(Mockito.<Node>any())).thenThrow(new RuntimeException("xpacket"));
-    when(doc.createElementNS(Mockito.<String>any(), Mockito.<String>any())).thenReturn(new IIOMetadataNode("foo"));
-
-    // Act and Assert
-    assertThrows(RuntimeException.class,
-        () -> xmpSerializer.createRdfElement(doc, XMPMetadata.createXMPMetadata(), false));
-    verify(doc).createElementNS(eq("adobe:ns:meta/"), eq("x:xmpmeta"));
-    verify(doc).appendChild(isA(Node.class));
-  }
-
-  /**
-   * Test {@link XmpSerializer#createRdfElement(Document, XMPMetadata, boolean)}.
-   * <ul>
-   *   <li>When {@link Document} {@link Node#appendChild(Node)} throw {@link RuntimeException#RuntimeException(String)} with {@code xpacket}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link XmpSerializer#createRdfElement(Document, XMPMetadata, boolean)}
-   */
-  @Test
-  @DisplayName("Test createRdfElement(Document, XMPMetadata, boolean); when Document appendChild(Node) throw RuntimeException(String) with 'xpacket'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Element XmpSerializer.createRdfElement(Document, XMPMetadata, boolean)"})
-  void testCreateRdfElement_whenDocumentAppendChildThrowRuntimeExceptionWithXpacket2() throws DOMException {
-    // Arrange
-    XmpSerializer xmpSerializer = new XmpSerializer();
-    Document doc = mock(Document.class);
-    when(doc.createProcessingInstruction(Mockito.<String>any(), Mockito.<String>any()))
-        .thenReturn(mock(ProcessingInstruction.class));
-    when(doc.appendChild(Mockito.<Node>any())).thenThrow(new RuntimeException("xpacket"));
-
-    // Act and Assert
-    assertThrows(RuntimeException.class,
-        () -> xmpSerializer.createRdfElement(doc, XMPMetadata.createXMPMetadata(), true));
-    verify(doc).createProcessingInstruction(eq("xpacket"), eq("begin=\"﻿\" id=\"W5M0MpCehiHzreSzNTczkc9d\""));
-    verify(doc).appendChild(isA(Node.class));
-  }
-
-  /**
-   * Test {@link XmpSerializer#createRdfElement(Document, XMPMetadata, boolean)}.
-   * <ul>
-   *   <li>When {@link Document} {@link Document#createElementNS(String, String)} throw {@link RuntimeException#RuntimeException(String)} with {@code xpacket}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link XmpSerializer#createRdfElement(Document, XMPMetadata, boolean)}
-   */
-  @Test
-  @DisplayName("Test createRdfElement(Document, XMPMetadata, boolean); when Document createElementNS(String, String) throw RuntimeException(String) with 'xpacket'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Element XmpSerializer.createRdfElement(Document, XMPMetadata, boolean)"})
-  void testCreateRdfElement_whenDocumentCreateElementNSThrowRuntimeExceptionWithXpacket() throws DOMException {
-    // Arrange
-    XmpSerializer xmpSerializer = new XmpSerializer();
-    Document doc = mock(Document.class);
-    when(doc.createElementNS(Mockito.<String>any(), Mockito.<String>any())).thenThrow(new RuntimeException("xpacket"));
-
-    // Act and Assert
-    assertThrows(RuntimeException.class,
-        () -> xmpSerializer.createRdfElement(doc, XMPMetadata.createXMPMetadata(), false));
-    verify(doc).createElementNS(eq("adobe:ns:meta/"), eq("x:xmpmeta"));
-  }
-
-  /**
-   * Test {@link XmpSerializer#createRdfElement(Document, XMPMetadata, boolean)}.
-   * <ul>
-   *   <li>When {@code false}.</li>
-   *   <li>Then return {@link IIOMetadataNode#IIOMetadataNode(String)} with {@code foo}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link XmpSerializer#createRdfElement(Document, XMPMetadata, boolean)}
-   */
-  @Test
-  @DisplayName("Test createRdfElement(Document, XMPMetadata, boolean); when 'false'; then return IIOMetadataNode(String) with 'foo'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Element XmpSerializer.createRdfElement(Document, XMPMetadata, boolean)"})
-  void testCreateRdfElement_whenFalse_thenReturnIIOMetadataNodeWithFoo() throws DOMException {
+  void testCreateRdfElement2() throws DOMException {
     // Arrange
     XmpSerializer xmpSerializer = new XmpSerializer();
     Document doc = mock(Document.class);
@@ -624,5 +502,79 @@ class XmpSerializerDiffblueTest {
     verify(doc, atLeast(1)).createElementNS(Mockito.<String>any(), Mockito.<String>any());
     verify(doc).appendChild(isA(Node.class));
     assertSame(iioMetadataNode, actualCreateRdfElementResult);
+  }
+
+  /**
+   * Method under test:
+   * {@link XmpSerializer#createRdfElement(Document, XMPMetadata, boolean)}
+   */
+  @Test
+  void testCreateRdfElement3() throws DOMException {
+    // Arrange
+    XmpSerializer xmpSerializer = new XmpSerializer();
+    Document doc = mock(Document.class);
+    when(doc.createProcessingInstruction(Mockito.<String>any(), Mockito.<String>any()))
+        .thenThrow(new RuntimeException("xpacket"));
+
+    // Act and Assert
+    assertThrows(RuntimeException.class,
+        () -> xmpSerializer.createRdfElement(doc, XMPMetadata.createXMPMetadata(), true));
+    verify(doc).createProcessingInstruction(eq("xpacket"), eq("begin=\"﻿\" id=\"W5M0MpCehiHzreSzNTczkc9d\""));
+  }
+
+  /**
+   * Method under test:
+   * {@link XmpSerializer#createRdfElement(Document, XMPMetadata, boolean)}
+   */
+  @Test
+  void testCreateRdfElement4() throws DOMException {
+    // Arrange
+    XmpSerializer xmpSerializer = new XmpSerializer();
+    Document doc = mock(Document.class);
+    when(doc.createElementNS(Mockito.<String>any(), Mockito.<String>any())).thenThrow(new RuntimeException("xpacket"));
+
+    // Act and Assert
+    assertThrows(RuntimeException.class,
+        () -> xmpSerializer.createRdfElement(doc, XMPMetadata.createXMPMetadata(), false));
+    verify(doc).createElementNS(eq("adobe:ns:meta/"), eq("x:xmpmeta"));
+  }
+
+  /**
+   * Method under test:
+   * {@link XmpSerializer#createRdfElement(Document, XMPMetadata, boolean)}
+   */
+  @Test
+  void testCreateRdfElement5() throws DOMException {
+    // Arrange
+    XmpSerializer xmpSerializer = new XmpSerializer();
+    Document doc = mock(Document.class);
+    when(doc.appendChild(Mockito.<Node>any())).thenThrow(new RuntimeException("xpacket"));
+    when(doc.createElementNS(Mockito.<String>any(), Mockito.<String>any())).thenReturn(new IIOMetadataNode("foo"));
+
+    // Act and Assert
+    assertThrows(RuntimeException.class,
+        () -> xmpSerializer.createRdfElement(doc, XMPMetadata.createXMPMetadata(), false));
+    verify(doc).createElementNS(eq("adobe:ns:meta/"), eq("x:xmpmeta"));
+    verify(doc).appendChild(isA(Node.class));
+  }
+
+  /**
+   * Method under test:
+   * {@link XmpSerializer#createRdfElement(Document, XMPMetadata, boolean)}
+   */
+  @Test
+  void testCreateRdfElement6() throws DOMException {
+    // Arrange
+    XmpSerializer xmpSerializer = new XmpSerializer();
+    Document doc = mock(Document.class);
+    when(doc.createProcessingInstruction(Mockito.<String>any(), Mockito.<String>any()))
+        .thenReturn(mock(ProcessingInstruction.class));
+    when(doc.appendChild(Mockito.<Node>any())).thenThrow(new RuntimeException("xpacket"));
+
+    // Act and Assert
+    assertThrows(RuntimeException.class,
+        () -> xmpSerializer.createRdfElement(doc, XMPMetadata.createXMPMetadata(), true));
+    verify(doc).createProcessingInstruction(eq("xpacket"), eq("begin=\"﻿\" id=\"W5M0MpCehiHzreSzNTczkc9d\""));
+    verify(doc).appendChild(isA(Node.class));
   }
 }

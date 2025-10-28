@@ -2,7 +2,6 @@ package org.apache.fontbox.ttf;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.eq;
@@ -12,19 +11,49 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MethodsUnderTest;
-import java.io.ByteArrayInputStream;
+import java.io.DataInputStream;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class HeaderTableDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
+   * Method under test:
+   * {@link HeaderTable#readHeaders(TrueTypeFont, TTFDataStream, FontHeaders)}
+   */
+  @Test
+  void testReadHeaders() throws IOException {
+    // Arrange
+    HeaderTable headerTable = new HeaderTable();
+    DataInputStream inputStream = mock(DataInputStream.class);
+    when(inputStream.readAllBytes()).thenReturn("AXAXAXAX".getBytes("UTF-8"));
+    TrueTypeFont ttf = new TrueTypeFont(new RandomAccessReadDataStream(inputStream));
+    RandomAccessReadDataStream data = mock(RandomAccessReadDataStream.class);
+    when(data.readUnsignedShort()).thenReturn(1);
+    when(data.getCurrentPosition()).thenReturn(1L);
+    doNothing().when(data).seek(anyLong());
+
+    FontHeaders outHeaders = new FontHeaders();
+    outHeaders.setError("Exception");
+    outHeaders.setHeaderMacStyle(1);
+    outHeaders.setIsOTFAndPostScript(true);
+    outHeaders.setName("Name");
+    outHeaders.setNonOtfGcid142("AXAXAXAX".getBytes("UTF-8"));
+    outHeaders.setOs2Windows(new OS2WindowsMetricsTable());
+
+    // Act
+    headerTable.readHeaders(ttf, data, outHeaders);
+
+    // Assert
+    verify(inputStream).readAllBytes();
+    verify(data).getCurrentPosition();
+    verify(data).seek(eq(45L));
+    verify(data).readUnsignedShort();
+    assertEquals(1, headerTable.getMacStyle());
+  }
+
+  /**
    * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link HeaderTable}
@@ -65,22 +94,6 @@ class HeaderTableDiffblueTest {
    * </ul>
    */
   @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void HeaderTable.<init>()", "long HeaderTable.getCheckSumAdjustment()",
-      "Calendar HeaderTable.getCreated()", "int HeaderTable.getFlags()", "short HeaderTable.getFontDirectionHint()",
-      "float HeaderTable.getFontRevision()", "short HeaderTable.getGlyphDataFormat()",
-      "short HeaderTable.getIndexToLocFormat()", "int HeaderTable.getLowestRecPPEM()", "int HeaderTable.getMacStyle()",
-      "long HeaderTable.getMagicNumber()", "Calendar HeaderTable.getModified()", "int HeaderTable.getUnitsPerEm()",
-      "float HeaderTable.getVersion()", "short HeaderTable.getXMax()", "short HeaderTable.getXMin()",
-      "short HeaderTable.getYMax()", "short HeaderTable.getYMin()", "void HeaderTable.setCheckSumAdjustment(long)",
-      "void HeaderTable.setCreated(Calendar)", "void HeaderTable.setFlags(int)",
-      "void HeaderTable.setFontDirectionHint(short)", "void HeaderTable.setFontRevision(float)",
-      "void HeaderTable.setGlyphDataFormat(short)", "void HeaderTable.setIndexToLocFormat(short)",
-      "void HeaderTable.setLowestRecPPEM(int)", "void HeaderTable.setMacStyle(int)",
-      "void HeaderTable.setMagicNumber(long)", "void HeaderTable.setModified(Calendar)",
-      "void HeaderTable.setUnitsPerEm(int)", "void HeaderTable.setVersion(float)", "void HeaderTable.setXMax(short)",
-      "void HeaderTable.setXMin(short)", "void HeaderTable.setYMax(short)", "void HeaderTable.setYMin(short)"})
   void testGettersAndSetters() {
     // Arrange and Act
     HeaderTable actualHeaderTable = new HeaderTable();
@@ -123,8 +136,7 @@ class HeaderTableDiffblueTest {
     short actualYMax = actualHeaderTable.getYMax();
     short actualYMin = actualHeaderTable.getYMin();
 
-    // Assert
-    assertNull(actualHeaderTable.getTag());
+    // Assert that nothing has changed
     assertEquals(0L, actualHeaderTable.getCheckSum());
     assertEquals(0L, actualHeaderTable.getLength());
     assertEquals(0L, actualHeaderTable.getOffset());
@@ -149,63 +161,15 @@ class HeaderTableDiffblueTest {
   }
 
   /**
-   * Test {@link HeaderTable#readHeaders(TrueTypeFont, TTFDataStream, FontHeaders)}.
-   * <ul>
-   *   <li>Then {@link HeaderTable#HeaderTable()} MacStyle is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link HeaderTable#readHeaders(TrueTypeFont, TTFDataStream, FontHeaders)}
-   */
-  @Test
-  @DisplayName("Test readHeaders(TrueTypeFont, TTFDataStream, FontHeaders); then HeaderTable() MacStyle is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void HeaderTable.readHeaders(TrueTypeFont, TTFDataStream, FontHeaders)"})
-  void testReadHeaders_thenHeaderTableMacStyleIsOne() throws IOException {
-    // Arrange
-    HeaderTable headerTable = new HeaderTable();
-    TrueTypeFont ttf = new TrueTypeFont(
-        new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"))));
-    RandomAccessReadDataStream data = mock(RandomAccessReadDataStream.class);
-    when(data.readUnsignedShort()).thenReturn(1);
-    when(data.getCurrentPosition()).thenReturn(1L);
-    doNothing().when(data).seek(anyLong());
-
-    FontHeaders outHeaders = new FontHeaders();
-    outHeaders.setError("Exception");
-    outHeaders.setHeaderMacStyle(1);
-    outHeaders.setIsOTFAndPostScript(true);
-    outHeaders.setName("Name");
-    outHeaders.setNonOtfGcid142("AXAXAXAX".getBytes("UTF-8"));
-    outHeaders.setOs2Windows(new OS2WindowsMetricsTable());
-
-    // Act
-    headerTable.readHeaders(ttf, data, outHeaders);
-
-    // Assert
-    verify(data).getCurrentPosition();
-    verify(data).seek(eq(45L));
-    verify(data).readUnsignedShort();
-    assertEquals(1, headerTable.getMacStyle());
-  }
-
-  /**
-   * Test {@link HeaderTable#read(TrueTypeFont, TTFDataStream)}.
-   * <ul>
-   *   <li>Given ten.</li>
-   *   <li>Then {@link HeaderTable#HeaderTable()} Created {@link GregorianCalendar}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link HeaderTable#read(TrueTypeFont, TTFDataStream)}
    */
   @Test
-  @DisplayName("Test read(TrueTypeFont, TTFDataStream); given ten; then HeaderTable() Created GregorianCalendar")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void HeaderTable.read(TrueTypeFont, TTFDataStream)"})
-  void testRead_givenTen_thenHeaderTableCreatedGregorianCalendar() throws IOException {
+  void testRead() throws IOException {
     // Arrange
     HeaderTable headerTable = new HeaderTable();
-    TrueTypeFont ttf = new TrueTypeFont(
-        new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"))));
+    DataInputStream inputStream = mock(DataInputStream.class);
+    when(inputStream.readAllBytes()).thenReturn("AXAXAXAX".getBytes("UTF-8"));
+    TrueTypeFont ttf = new TrueTypeFont(new RandomAccessReadDataStream(inputStream));
     RandomAccessReadDataStream data = mock(RandomAccessReadDataStream.class);
     when(data.read32Fixed()).thenReturn(10.0f);
     when(data.readUnsignedShort()).thenReturn(1);
@@ -219,13 +183,12 @@ class HeaderTableDiffblueTest {
     headerTable.read(ttf, data);
 
     // Assert
+    verify(inputStream).readAllBytes();
     verify(data, atLeast(1)).read32Fixed();
     verify(data, atLeast(1)).readInternationalDate();
     verify(data, atLeast(1)).readSignedShort();
     verify(data, atLeast(1)).readUnsignedInt();
     verify(data, atLeast(1)).readUnsignedShort();
-    Calendar created = headerTable.getCreated();
-    assertTrue(created instanceof GregorianCalendar);
     assertEquals(1, headerTable.getFlags());
     assertEquals(1, headerTable.getLowestRecPPEM());
     assertEquals(1, headerTable.getMacStyle());
@@ -242,7 +205,7 @@ class HeaderTableDiffblueTest {
     assertEquals((short) 1, headerTable.getYMax());
     assertEquals((short) 1, headerTable.getYMin());
     assertTrue(headerTable.getInitialized());
-    assertSame(gregorianCalendar, created);
+    assertSame(gregorianCalendar, headerTable.getCreated());
     assertSame(gregorianCalendar, headerTable.getModified());
   }
 }

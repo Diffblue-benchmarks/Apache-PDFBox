@@ -5,80 +5,59 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import org.apache.pdfbox.cos.COSBase;
 import org.apache.pdfbox.cos.COSDictionary;
+import org.apache.pdfbox.cos.COSIncrement;
+import org.apache.pdfbox.cos.COSUpdateState;
 import org.apache.pdfbox.pdmodel.common.PDNameTreeNode;
 import org.apache.pdfbox.pdmodel.common.filespecification.PDComplexFileSpecification;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class PDEmbeddedFilesNameTreeNodeDiffblueTest {
   /**
-   * Test {@link PDEmbeddedFilesNameTreeNode#PDEmbeddedFilesNameTreeNode(COSDictionary)}.
-   * <p>
-   * Method under test: {@link PDEmbeddedFilesNameTreeNode#PDEmbeddedFilesNameTreeNode(COSDictionary)}
+   * Method under test:
+   * {@link PDEmbeddedFilesNameTreeNode#convertCOSToPD(COSBase)}
    */
   @Test
-  @DisplayName("Test new PDEmbeddedFilesNameTreeNode(COSDictionary)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDEmbeddedFilesNameTreeNode.<init>(COSDictionary)"})
-  void testNewPDEmbeddedFilesNameTreeNode() {
-    // Arrange
-    COSDictionary dic = new COSDictionary();
-
-    // Act
-    PDEmbeddedFilesNameTreeNode actualPdEmbeddedFilesNameTreeNode = new PDEmbeddedFilesNameTreeNode(dic);
-
-    // Assert
-    assertNull(actualPdEmbeddedFilesNameTreeNode.getParent());
-    assertSame(dic, actualPdEmbeddedFilesNameTreeNode.getCOSObject());
-  }
-
-  /**
-   * Test {@link PDEmbeddedFilesNameTreeNode#PDEmbeddedFilesNameTreeNode()}.
-   * <p>
-   * Method under test: {@link PDEmbeddedFilesNameTreeNode#PDEmbeddedFilesNameTreeNode()}
-   */
-  @Test
-  @DisplayName("Test new PDEmbeddedFilesNameTreeNode()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDEmbeddedFilesNameTreeNode.<init>()"})
-  void testNewPDEmbeddedFilesNameTreeNode2() throws IOException {
+  void testConvertCOSToPD() throws IOException {
     // Arrange and Act
-    PDEmbeddedFilesNameTreeNode actualPdEmbeddedFilesNameTreeNode = new PDEmbeddedFilesNameTreeNode();
+    PDComplexFileSpecification actualConvertCOSToPDResult = (new PDEmbeddedFilesNameTreeNode()).convertCOSToPD(null);
 
     // Assert
-    assertNull(actualPdEmbeddedFilesNameTreeNode.getLowerLimit());
-    assertNull(actualPdEmbeddedFilesNameTreeNode.getUpperLimit());
-    assertNull(actualPdEmbeddedFilesNameTreeNode.getKids());
-    assertNull(actualPdEmbeddedFilesNameTreeNode.getNames());
-    COSDictionary cOSObject = actualPdEmbeddedFilesNameTreeNode.getCOSObject();
+    assertNull(actualConvertCOSToPDResult.getFile());
+    assertNull(actualConvertCOSToPDResult.getFileDescription());
+    assertNull(actualConvertCOSToPDResult.getFileDos());
+    assertNull(actualConvertCOSToPDResult.getFileMac());
+    assertNull(actualConvertCOSToPDResult.getFileUnicode());
+    assertNull(actualConvertCOSToPDResult.getFileUnix());
+    assertNull(actualConvertCOSToPDResult.getFilename());
+    COSDictionary cOSObject = actualConvertCOSToPDResult.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
     assertNull(cOSObject.getKey());
-    assertNull(actualPdEmbeddedFilesNameTreeNode.getParent());
-    assertEquals(0, cOSObject.size());
+    assertNull(actualConvertCOSToPDResult.getEmbeddedFile());
+    assertNull(actualConvertCOSToPDResult.getEmbeddedFileDos());
+    assertNull(actualConvertCOSToPDResult.getEmbeddedFileMac());
+    assertNull(actualConvertCOSToPDResult.getEmbeddedFileUnicode());
+    assertNull(actualConvertCOSToPDResult.getEmbeddedFileUnix());
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
     assertFalse(cOSObject.isDirect());
     assertFalse(cOSObject.isNeedToBeUpdated());
-    assertTrue(cOSObject.getValues().isEmpty());
-    assertTrue(actualPdEmbeddedFilesNameTreeNode.isRootNode());
+    assertFalse(updateState.isUpdated());
+    assertFalse(actualConvertCOSToPDResult.isVolatile());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
   }
 
   /**
-   * Test {@link PDEmbeddedFilesNameTreeNode#convertCOSToPD(COSBase)}.
-   * <ul>
-   *   <li>When {@link COSDictionary#COSDictionary()}.</li>
-   *   <li>Then return COSObject is {@link COSDictionary#COSDictionary()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDEmbeddedFilesNameTreeNode#convertCOSToPD(COSBase)}
+   * Method under test:
+   * {@link PDEmbeddedFilesNameTreeNode#convertCOSToPD(COSBase)}
    */
   @Test
-  @DisplayName("Test convertCOSToPD(COSBase); when COSDictionary(); then return COSObject is COSDictionary()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDComplexFileSpecification PDEmbeddedFilesNameTreeNode.convertCOSToPD(COSBase)"})
-  void testConvertCOSToPD_whenCOSDictionary_thenReturnCOSObjectIsCOSDictionary() throws IOException {
+  void testConvertCOSToPD2() throws IOException {
     // Arrange
     PDEmbeddedFilesNameTreeNode pdEmbeddedFilesNameTreeNode = new PDEmbeddedFilesNameTreeNode();
     COSDictionary base = new COSDictionary();
@@ -104,46 +83,10 @@ class PDEmbeddedFilesNameTreeNodeDiffblueTest {
   }
 
   /**
-   * Test {@link PDEmbeddedFilesNameTreeNode#convertCOSToPD(COSBase)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDEmbeddedFilesNameTreeNode#convertCOSToPD(COSBase)}
+   * Method under test:
+   * {@link PDEmbeddedFilesNameTreeNode#createChildNode(COSDictionary)}
    */
   @Test
-  @DisplayName("Test convertCOSToPD(COSBase); when 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDComplexFileSpecification PDEmbeddedFilesNameTreeNode.convertCOSToPD(COSBase)"})
-  void testConvertCOSToPD_whenNull() throws IOException {
-    // Arrange and Act
-    PDComplexFileSpecification actualConvertCOSToPDResult = (new PDEmbeddedFilesNameTreeNode()).convertCOSToPD(null);
-
-    // Assert
-    assertNull(actualConvertCOSToPDResult.getFile());
-    assertNull(actualConvertCOSToPDResult.getFileDescription());
-    assertNull(actualConvertCOSToPDResult.getFileDos());
-    assertNull(actualConvertCOSToPDResult.getFileMac());
-    assertNull(actualConvertCOSToPDResult.getFileUnicode());
-    assertNull(actualConvertCOSToPDResult.getFileUnix());
-    assertNull(actualConvertCOSToPDResult.getFilename());
-    assertNull(actualConvertCOSToPDResult.getEmbeddedFile());
-    assertNull(actualConvertCOSToPDResult.getEmbeddedFileDos());
-    assertNull(actualConvertCOSToPDResult.getEmbeddedFileMac());
-    assertNull(actualConvertCOSToPDResult.getEmbeddedFileUnicode());
-    assertNull(actualConvertCOSToPDResult.getEmbeddedFileUnix());
-    assertFalse(actualConvertCOSToPDResult.isVolatile());
-  }
-
-  /**
-   * Test {@link PDEmbeddedFilesNameTreeNode#createChildNode(COSDictionary)}.
-   * <p>
-   * Method under test: {@link PDEmbeddedFilesNameTreeNode#createChildNode(COSDictionary)}
-   */
-  @Test
-  @DisplayName("Test createChildNode(COSDictionary)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDNameTreeNode PDEmbeddedFilesNameTreeNode.createChildNode(COSDictionary)"})
   void testCreateChildNode() throws IOException {
     // Arrange
     PDEmbeddedFilesNameTreeNode pdEmbeddedFilesNameTreeNode = new PDEmbeddedFilesNameTreeNode();
@@ -162,5 +105,52 @@ class PDEmbeddedFilesNameTreeNodeDiffblueTest {
     assertNull(actualCreateChildNodeResult.getParent());
     assertTrue(actualCreateChildNodeResult.isRootNode());
     assertSame(dic, actualCreateChildNodeResult.getCOSObject());
+  }
+
+  /**
+   * Method under test:
+   * {@link PDEmbeddedFilesNameTreeNode#PDEmbeddedFilesNameTreeNode(COSDictionary)}
+   */
+  @Test
+  void testNewPDEmbeddedFilesNameTreeNode() {
+    // Arrange
+    COSDictionary dic = new COSDictionary();
+
+    // Act
+    PDEmbeddedFilesNameTreeNode actualPdEmbeddedFilesNameTreeNode = new PDEmbeddedFilesNameTreeNode(dic);
+
+    // Assert
+    assertNull(actualPdEmbeddedFilesNameTreeNode.getParent());
+    assertSame(dic, actualPdEmbeddedFilesNameTreeNode.getCOSObject());
+  }
+
+  /**
+   * Method under test:
+   * {@link PDEmbeddedFilesNameTreeNode#PDEmbeddedFilesNameTreeNode()}
+   */
+  @Test
+  void testNewPDEmbeddedFilesNameTreeNode2() throws IOException {
+    // Arrange and Act
+    PDEmbeddedFilesNameTreeNode actualPdEmbeddedFilesNameTreeNode = new PDEmbeddedFilesNameTreeNode();
+
+    // Assert
+    assertNull(actualPdEmbeddedFilesNameTreeNode.getLowerLimit());
+    assertNull(actualPdEmbeddedFilesNameTreeNode.getUpperLimit());
+    assertNull(actualPdEmbeddedFilesNameTreeNode.getKids());
+    assertNull(actualPdEmbeddedFilesNameTreeNode.getNames());
+    COSDictionary cOSObject = actualPdEmbeddedFilesNameTreeNode.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertNull(actualPdEmbeddedFilesNameTreeNode.getParent());
+    assertEquals(0, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(cOSObject.getValues().isEmpty());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertTrue(actualPdEmbeddedFilesNameTreeNode.isRootNode());
   }
 }

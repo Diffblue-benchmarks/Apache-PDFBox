@@ -2,22 +2,13 @@ package org.apache.pdfbox.pdfwriter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class COSStandardOutputStreamDiffblueTest {
   /**
-   * Test getters and setters.
-   * <ul>
-   *   <li>When {@link ByteArrayOutputStream#ByteArrayOutputStream(int)} with one.</li>
-   *   <li>Then return Pos is zero.</li>
-   * </ul>
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link COSStandardOutputStream#COSStandardOutputStream(OutputStream)}
@@ -27,65 +18,22 @@ class COSStandardOutputStreamDiffblueTest {
    * </ul>
    */
   @Test
-  @DisplayName("Test getters and setters; when ByteArrayOutputStream(int) with one; then return Pos is zero")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void COSStandardOutputStream.<init>(OutputStream)",
-      "void COSStandardOutputStream.<init>(OutputStream, long)", "long COSStandardOutputStream.getPos()",
-      "boolean COSStandardOutputStream.isOnNewLine()", "void COSStandardOutputStream.setOnNewLine(boolean)"})
-  void testGettersAndSetters_whenByteArrayOutputStreamWithOne_thenReturnPosIsZero() {
+  void testGettersAndSetters() {
     // Arrange and Act
     COSStandardOutputStream actualCosStandardOutputStream = new COSStandardOutputStream(new ByteArrayOutputStream(1));
     actualCosStandardOutputStream.setOnNewLine(true);
     long actualPos = actualCosStandardOutputStream.getPos();
 
-    // Assert
+    // Assert that nothing has changed
     assertEquals(0L, actualPos);
     assertTrue(actualCosStandardOutputStream.isOnNewLine());
   }
 
   /**
-   * Test getters and setters.
-   * <ul>
-   *   <li>When one.</li>
-   *   <li>Then return Pos is one.</li>
-   * </ul>
-   * <p>
-   * Methods under test:
-   * <ul>
-   *   <li>{@link COSStandardOutputStream#COSStandardOutputStream(OutputStream, long)}
-   *   <li>{@link COSStandardOutputStream#setOnNewLine(boolean)}
-   *   <li>{@link COSStandardOutputStream#getPos()}
-   *   <li>{@link COSStandardOutputStream#isOnNewLine()}
-   * </ul>
-   */
-  @Test
-  @DisplayName("Test getters and setters; when one; then return Pos is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void COSStandardOutputStream.<init>(OutputStream)",
-      "void COSStandardOutputStream.<init>(OutputStream, long)", "long COSStandardOutputStream.getPos()",
-      "boolean COSStandardOutputStream.isOnNewLine()", "void COSStandardOutputStream.setOnNewLine(boolean)"})
-  void testGettersAndSetters_whenOne_thenReturnPosIsOne() {
-    // Arrange and Act
-    COSStandardOutputStream actualCosStandardOutputStream = new COSStandardOutputStream(new ByteArrayOutputStream(1),
-        1L);
-    actualCosStandardOutputStream.setOnNewLine(true);
-    long actualPos = actualCosStandardOutputStream.getPos();
-
-    // Assert
-    assertEquals(1L, actualPos);
-    assertTrue(actualCosStandardOutputStream.isOnNewLine());
-  }
-
-  /**
-   * Test {@link COSStandardOutputStream#write(int)} with {@code b}.
-   * <p>
    * Method under test: {@link COSStandardOutputStream#write(int)}
    */
   @Test
-  @DisplayName("Test write(int) with 'b'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void COSStandardOutputStream.write(int)"})
-  void testWriteWithB() throws IOException {
+  void testWrite() throws IOException {
     // Arrange
     COSStandardOutputStream cosStandardOutputStream = new COSStandardOutputStream(new ByteArrayOutputStream(1), 1L);
 
@@ -97,15 +45,10 @@ class COSStandardOutputStreamDiffblueTest {
   }
 
   /**
-   * Test {@link COSStandardOutputStream#write(int)} with {@code b}.
-   * <p>
    * Method under test: {@link COSStandardOutputStream#write(int)}
    */
   @Test
-  @DisplayName("Test write(int) with 'b'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void COSStandardOutputStream.write(int)"})
-  void testWriteWithB2() throws IOException {
+  void testWrite2() throws IOException {
     // Arrange
     COSStandardOutputStream cosStandardOutputStream = new COSStandardOutputStream(
         new COSStandardOutputStream(new ByteArrayOutputStream(1), 1L), 1L);
@@ -118,15 +61,10 @@ class COSStandardOutputStreamDiffblueTest {
   }
 
   /**
-   * Test {@link COSStandardOutputStream#write(byte[], int, int)} with {@code b}, {@code off}, {@code len}.
-   * <p>
    * Method under test: {@link COSStandardOutputStream#write(byte[], int, int)}
    */
   @Test
-  @DisplayName("Test write(byte[], int, int) with 'b', 'off', 'len'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void COSStandardOutputStream.write(byte[], int, int)"})
-  void testWriteWithBOffLen() throws IOException {
+  void testWrite3() throws IOException {
     // Arrange
     COSStandardOutputStream cosStandardOutputStream = new COSStandardOutputStream(new ByteArrayOutputStream(1), 1L);
 
@@ -138,14 +76,9 @@ class COSStandardOutputStreamDiffblueTest {
   }
 
   /**
-   * Test {@link COSStandardOutputStream#writeCRLF()}.
-   * <p>
    * Method under test: {@link COSStandardOutputStream#writeCRLF()}
    */
   @Test
-  @DisplayName("Test writeCRLF()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void COSStandardOutputStream.writeCRLF()"})
   void testWriteCRLF() throws IOException {
     // Arrange
     COSStandardOutputStream cosStandardOutputStream = new COSStandardOutputStream(new ByteArrayOutputStream(1), 1L);
@@ -158,14 +91,9 @@ class COSStandardOutputStreamDiffblueTest {
   }
 
   /**
-   * Test {@link COSStandardOutputStream#writeEOL()}.
-   * <p>
    * Method under test: {@link COSStandardOutputStream#writeEOL()}
    */
   @Test
-  @DisplayName("Test writeEOL()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void COSStandardOutputStream.writeEOL()"})
   void testWriteEOL() throws IOException {
     // Arrange
     COSStandardOutputStream cosStandardOutputStream = new COSStandardOutputStream(new ByteArrayOutputStream(1), 1L);
@@ -179,14 +107,9 @@ class COSStandardOutputStreamDiffblueTest {
   }
 
   /**
-   * Test {@link COSStandardOutputStream#writeEOL()}.
-   * <p>
    * Method under test: {@link COSStandardOutputStream#writeEOL()}
    */
   @Test
-  @DisplayName("Test writeEOL()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void COSStandardOutputStream.writeEOL()"})
   void testWriteEOL2() throws IOException {
     // Arrange
     COSStandardOutputStream cosStandardOutputStream = new COSStandardOutputStream(new ByteArrayOutputStream(1), 1L);
@@ -201,14 +124,9 @@ class COSStandardOutputStreamDiffblueTest {
   }
 
   /**
-   * Test {@link COSStandardOutputStream#writeEOL()}.
-   * <p>
    * Method under test: {@link COSStandardOutputStream#writeEOL()}
    */
   @Test
-  @DisplayName("Test writeEOL()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void COSStandardOutputStream.writeEOL()"})
   void testWriteEOL3() throws IOException {
     // Arrange
     COSStandardOutputStream cosStandardOutputStream = new COSStandardOutputStream(
@@ -223,14 +141,9 @@ class COSStandardOutputStreamDiffblueTest {
   }
 
   /**
-   * Test {@link COSStandardOutputStream#writeLF()}.
-   * <p>
    * Method under test: {@link COSStandardOutputStream#writeLF()}
    */
   @Test
-  @DisplayName("Test writeLF()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void COSStandardOutputStream.writeLF()"})
   void testWriteLF() throws IOException {
     // Arrange
     COSStandardOutputStream cosStandardOutputStream = new COSStandardOutputStream(new ByteArrayOutputStream(1), 1L);
@@ -243,14 +156,9 @@ class COSStandardOutputStreamDiffblueTest {
   }
 
   /**
-   * Test {@link COSStandardOutputStream#writeLF()}.
-   * <p>
    * Method under test: {@link COSStandardOutputStream#writeLF()}
    */
   @Test
-  @DisplayName("Test writeLF()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void COSStandardOutputStream.writeLF()"})
   void testWriteLF2() throws IOException {
     // Arrange
     COSStandardOutputStream cosStandardOutputStream = new COSStandardOutputStream(
@@ -261,5 +169,28 @@ class COSStandardOutputStreamDiffblueTest {
 
     // Assert
     assertEquals(2L, cosStandardOutputStream.getPos());
+  }
+
+  /**
+   * Methods under test:
+   * <ul>
+   *   <li>
+   * {@link COSStandardOutputStream#COSStandardOutputStream(OutputStream, long)}
+   *   <li>{@link COSStandardOutputStream#setOnNewLine(boolean)}
+   *   <li>{@link COSStandardOutputStream#getPos()}
+   *   <li>{@link COSStandardOutputStream#isOnNewLine()}
+   * </ul>
+   */
+  @Test
+  void testGettersAndSetters2() {
+    // Arrange and Act
+    COSStandardOutputStream actualCosStandardOutputStream = new COSStandardOutputStream(new ByteArrayOutputStream(1),
+        1L);
+    actualCosStandardOutputStream.setOnNewLine(true);
+    long actualPos = actualCosStandardOutputStream.getPos();
+
+    // Assert that nothing has changed
+    assertEquals(1L, actualPos);
+    assertTrue(actualCosStandardOutputStream.isOnNewLine());
   }
 }

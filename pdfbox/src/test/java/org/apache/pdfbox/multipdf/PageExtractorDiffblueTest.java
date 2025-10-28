@@ -1,17 +1,18 @@
 package org.apache.pdfbox.multipdf;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import java.io.IOException;
+import org.apache.pdfbox.io.RandomAccessStreamCache;
+import org.apache.pdfbox.io.RandomAccessStreamCacheImpl;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class PageExtractorDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link PageExtractor#PageExtractor(PDDocument, int, int)}
@@ -22,10 +23,6 @@ class PageExtractorDiffblueTest {
    * </ul>
    */
   @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PageExtractor.<init>(PDDocument, int, int)", "int PageExtractor.getEndPage()",
-      "int PageExtractor.getStartPage()", "void PageExtractor.setEndPage(int)", "void PageExtractor.setStartPage(int)"})
   void testGettersAndSetters() {
     // Arrange and Act
     PageExtractor actualPageExtractor = new PageExtractor(new PDDocument(), 1, 3);
@@ -33,56 +30,62 @@ class PageExtractorDiffblueTest {
     actualPageExtractor.setStartPage(1);
     int actualEndPage = actualPageExtractor.getEndPage();
 
-    // Assert
+    // Assert that nothing has changed
     assertEquals(1, actualPageExtractor.getStartPage());
     assertEquals(3, actualEndPage);
   }
 
   /**
-   * Test {@link PageExtractor#PageExtractor(PDDocument)}.
-   * <ul>
-   *   <li>Given {@link PDPage#PDPage()}.</li>
-   *   <li>Then return EndPage is one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PageExtractor#PageExtractor(PDDocument)}
    */
   @Test
-  @DisplayName("Test new PageExtractor(PDDocument); given PDPage(); then return EndPage is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PageExtractor.<init>(PDDocument)"})
-  void testNewPageExtractor_givenPDPage_thenReturnEndPageIsOne() {
+  void testNewPageExtractor() {
+    // Arrange and Act
+    PageExtractor actualPageExtractor = new PageExtractor(new PDDocument());
+
+    // Assert
+    assertEquals(0, actualPageExtractor.getEndPage());
+    assertEquals(1, actualPageExtractor.getStartPage());
+  }
+
+  /**
+   * Method under test: {@link PageExtractor#PageExtractor(PDDocument)}
+   */
+  @Test
+  void testNewPageExtractor2() throws IOException {
     // Arrange
-    PDDocument sourceDocument = new PDDocument();
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+
+    // Act
+    PageExtractor actualPageExtractor = new PageExtractor(new PDDocument(streamCacheCreateFunction));
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertEquals(0, actualPageExtractor.getEndPage());
+    assertEquals(1, actualPageExtractor.getStartPage());
+  }
+
+  /**
+   * Method under test: {@link PageExtractor#PageExtractor(PDDocument)}
+   */
+  @Test
+  void testNewPageExtractor3() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+
+    PDDocument sourceDocument = new PDDocument(streamCacheCreateFunction);
     sourceDocument.addPage(new PDPage());
 
     // Act
     PageExtractor actualPageExtractor = new PageExtractor(sourceDocument);
 
     // Assert
+    verify(streamCacheCreateFunction).create();
     assertEquals(1, actualPageExtractor.getEndPage());
-    assertEquals(1, actualPageExtractor.getStartPage());
-  }
-
-  /**
-   * Test {@link PageExtractor#PageExtractor(PDDocument)}.
-   * <ul>
-   *   <li>When {@link PDDocument#PDDocument()}.</li>
-   *   <li>Then return EndPage is zero.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PageExtractor#PageExtractor(PDDocument)}
-   */
-  @Test
-  @DisplayName("Test new PageExtractor(PDDocument); when PDDocument(); then return EndPage is zero")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PageExtractor.<init>(PDDocument)"})
-  void testNewPageExtractor_whenPDDocument_thenReturnEndPageIsZero() {
-    // Arrange and Act
-    PageExtractor actualPageExtractor = new PageExtractor(new PDDocument());
-
-    // Assert
-    assertEquals(0, actualPageExtractor.getEndPage());
     assertEquals(1, actualPageExtractor.getStartPage());
   }
 }

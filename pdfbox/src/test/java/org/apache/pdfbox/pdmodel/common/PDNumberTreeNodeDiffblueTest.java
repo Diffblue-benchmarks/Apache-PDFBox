@@ -9,7 +9,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,73 +21,13 @@ import org.apache.pdfbox.cos.COSIncrement;
 import org.apache.pdfbox.cos.COSObject;
 import org.apache.pdfbox.cos.COSObjectKey;
 import org.apache.pdfbox.cos.COSUpdateState;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class PDNumberTreeNodeDiffblueTest {
   /**
-   * Test {@link PDNumberTreeNode#PDNumberTreeNode(COSDictionary, Class)}.
-   * <p>
-   * Method under test: {@link PDNumberTreeNode#PDNumberTreeNode(COSDictionary, Class)}
-   */
-  @Test
-  @DisplayName("Test new PDNumberTreeNode(COSDictionary, Class)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDNumberTreeNode.<init>(COSDictionary, Class)"})
-  void testNewPDNumberTreeNode() {
-    // Arrange
-    COSDictionary dict = new COSDictionary();
-    Class<COSObjectable> valueClass = COSObjectable.class;
-
-    // Act and Assert
-    assertSame(dict, (new PDNumberTreeNode(dict, valueClass)).getCOSObject());
-  }
-
-  /**
-   * Test {@link PDNumberTreeNode#PDNumberTreeNode(Class)}.
-   * <p>
-   * Method under test: {@link PDNumberTreeNode#PDNumberTreeNode(Class)}
-   */
-  @Test
-  @DisplayName("Test new PDNumberTreeNode(Class)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDNumberTreeNode.<init>(Class)"})
-  void testNewPDNumberTreeNode2() throws IOException {
-    // Arrange
-    Class<COSObjectable> valueClass = COSObjectable.class;
-
-    // Act
-    PDNumberTreeNode actualPdNumberTreeNode = new PDNumberTreeNode(valueClass);
-
-    // Assert
-    assertNull(actualPdNumberTreeNode.getLowerLimit());
-    assertNull(actualPdNumberTreeNode.getUpperLimit());
-    assertNull(actualPdNumberTreeNode.getKids());
-    assertNull(actualPdNumberTreeNode.getNumbers());
-    COSDictionary cOSObject = actualPdNumberTreeNode.getCOSObject();
-    COSUpdateState updateState = cOSObject.getUpdateState();
-    assertNull(updateState.getOriginDocumentState());
-    assertNull(cOSObject.getKey());
-    assertEquals(0, cOSObject.size());
-    COSIncrement toIncrementResult = cOSObject.toIncrement();
-    assertFalse(toIncrementResult.iterator().hasNext());
-    assertFalse(cOSObject.isDirect());
-    assertFalse(cOSObject.isNeedToBeUpdated());
-    assertFalse(updateState.isUpdated());
-    assertTrue(cOSObject.getValues().isEmpty());
-    assertTrue(toIncrementResult.getObjects().isEmpty());
-  }
-
-  /**
-   * Test {@link PDNumberTreeNode#getCOSObject()}.
-   * <p>
    * Method under test: {@link PDNumberTreeNode#getCOSObject()}
    */
   @Test
-  @DisplayName("Test getCOSObject()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"COSDictionary PDNumberTreeNode.getCOSObject()"})
   void testGetCOSObject() {
     // Arrange
     Class<COSObjectable> valueClass = COSObjectable.class;
@@ -111,19 +50,44 @@ class PDNumberTreeNodeDiffblueTest {
   }
 
   /**
-   * Test {@link PDNumberTreeNode#getKids()}.
-   * <ul>
-   *   <li>Given {@link PDNumberTreeNode#PDNumberTreeNode(Class)} with valueClass is {@link COSObjectable}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PDNumberTreeNode#getCOSObject()}
+   */
+  @Test
+  void testGetCOSObject2() {
+    // Arrange
+    COSObjectable cosObjectable = mock(COSObjectable.class);
+    when(cosObjectable.getCOSObject()).thenReturn(COSBoolean.FALSE);
+
+    HashMap<Integer, COSObjectable> numbers = new HashMap<>();
+    numbers.put(1, cosObjectable);
+    Class<COSObjectable> valueClass = COSObjectable.class;
+
+    PDNumberTreeNode pdNumberTreeNode = new PDNumberTreeNode(valueClass);
+    pdNumberTreeNode.setNumbers(numbers);
+
+    // Act
+    COSDictionary actualCOSObject = pdNumberTreeNode.getCOSObject();
+
+    // Assert
+    verify(cosObjectable).getCOSObject();
+    COSUpdateState updateState = actualCOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(actualCOSObject.getKey());
+    assertEquals(2, actualCOSObject.getValues().size());
+    assertEquals(2, actualCOSObject.size());
+    COSIncrement toIncrementResult = actualCOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(actualCOSObject.isDirect());
+    assertFalse(actualCOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+  }
+
+  /**
    * Method under test: {@link PDNumberTreeNode#getKids()}
    */
   @Test
-  @DisplayName("Test getKids(); given PDNumberTreeNode(Class) with valueClass is COSObjectable; then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List PDNumberTreeNode.getKids()"})
-  void testGetKids_givenPDNumberTreeNodeWithValueClassIsCOSObjectable_thenReturnNull() {
+  void testGetKids() {
     // Arrange
     Class<COSObjectable> valueClass = COSObjectable.class;
 
@@ -132,18 +96,10 @@ class PDNumberTreeNodeDiffblueTest {
   }
 
   /**
-   * Test {@link PDNumberTreeNode#getKids()}.
-   * <ul>
-   *   <li>Then return size is one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDNumberTreeNode#getKids()}
    */
   @Test
-  @DisplayName("Test getKids(); then return size is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List PDNumberTreeNode.getKids()"})
-  void testGetKids_thenReturnSizeIsOne() throws IOException {
+  void testGetKids2() throws IOException {
     // Arrange
     ArrayList<PDNumberTreeNode> kids = new ArrayList<>();
     Class<COSObjectable> valueClass = COSObjectable.class;
@@ -177,202 +133,34 @@ class PDNumberTreeNodeDiffblueTest {
   }
 
   /**
-   * Test {@link PDNumberTreeNode#setKids(List)}.
-   * <p>
-   * Method under test: {@link PDNumberTreeNode#setKids(List)}
+   * Method under test: {@link PDNumberTreeNode#getKids()}
    */
   @Test
-  @DisplayName("Test setKids(List)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDNumberTreeNode.setKids(List)"})
-  void testSetKids() throws IOException {
+  void testGetKids3() {
     // Arrange
-    Class<COSObjectable> valueClass = COSObjectable.class;
-    PDNumberTreeNode pdNumberTreeNode = new PDNumberTreeNode(valueClass);
-
-    ArrayList<PDNumberTreeNode> kids = new ArrayList<>();
-    Class<COSObjectable> valueClass2 = COSObjectable.class;
-    kids.add(new PDNumberTreeNode(valueClass2));
-
-    // Act
-    pdNumberTreeNode.setKids(kids);
-
-    // Assert
-    List<PDNumberTreeNode> kids2 = pdNumberTreeNode.getKids();
-    assertEquals(1, kids2.size());
-    PDNumberTreeNode getResult = kids2.get(0);
-    assertNull(getResult.getLowerLimit());
-    assertNull(getResult.getUpperLimit());
-    assertNull(getResult.getNumbers());
-    COSDictionary cOSObject = pdNumberTreeNode.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-  }
-
-  /**
-   * Test {@link PDNumberTreeNode#setKids(List)}.
-   * <p>
-   * Method under test: {@link PDNumberTreeNode#setKids(List)}
-   */
-  @Test
-  @DisplayName("Test setKids(List)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDNumberTreeNode.setKids(List)"})
-  void testSetKids2() throws IOException {
-    // Arrange
-    Class<COSObjectable> valueClass = COSObjectable.class;
-
-    PDNumberTreeNode pdNumberTreeNode = new PDNumberTreeNode(valueClass);
-    pdNumberTreeNode.setNumbers(new HashMap<>());
-
-    ArrayList<PDNumberTreeNode> kids = new ArrayList<>();
-    Class<COSObjectable> valueClass2 = COSObjectable.class;
-    kids.add(new PDNumberTreeNode(valueClass2));
-
-    // Act
-    pdNumberTreeNode.setKids(kids);
-
-    // Assert
-    List<PDNumberTreeNode> kids2 = pdNumberTreeNode.getKids();
-    assertEquals(1, kids2.size());
-    PDNumberTreeNode getResult = kids2.get(0);
-    assertNull(getResult.getLowerLimit());
-    assertNull(getResult.getUpperLimit());
-    assertNull(getResult.getNumbers());
-    COSDictionary cOSObject = pdNumberTreeNode.getCOSObject();
-    assertEquals(3, cOSObject.getValues().size());
-    assertEquals(3, cOSObject.size());
-  }
-
-  /**
-   * Test {@link PDNumberTreeNode#setKids(List)}.
-   * <p>
-   * Method under test: {@link PDNumberTreeNode#setKids(List)}
-   */
-  @Test
-  @DisplayName("Test setKids(List)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDNumberTreeNode.setKids(List)"})
-  void testSetKids3() throws IOException {
-    // Arrange
-    Class<COSObjectable> valueClass = COSObjectable.class;
-    PDNumberTreeNode pdNumberTreeNode = new PDNumberTreeNode(valueClass);
-    Class<COSObjectable> valueClass2 = COSObjectable.class;
-
-    PDNumberTreeNode pdNumberTreeNode2 = new PDNumberTreeNode(valueClass2);
-    pdNumberTreeNode2.setNumbers(new HashMap<>());
-
-    ArrayList<PDNumberTreeNode> kids = new ArrayList<>();
-    kids.add(pdNumberTreeNode2);
-
-    // Act
-    pdNumberTreeNode.setKids(kids);
-
-    // Assert
-    List<PDNumberTreeNode> kids2 = pdNumberTreeNode.getKids();
-    assertEquals(1, kids2.size());
-    PDNumberTreeNode getResult = kids2.get(0);
-    assertNull(getResult.getLowerLimit());
-    assertNull(getResult.getUpperLimit());
-    COSDictionary cOSObject = pdNumberTreeNode.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    assertTrue(getResult.getNumbers().isEmpty());
-  }
-
-  /**
-   * Test {@link PDNumberTreeNode#setKids(List)}.
-   * <p>
-   * Method under test: {@link PDNumberTreeNode#setKids(List)}
-   */
-  @Test
-  @DisplayName("Test setKids(List)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDNumberTreeNode.setKids(List)"})
-  void testSetKids4() {
-    // Arrange
-    Class<COSObjectable> valueClass = COSObjectable.class;
-    PDNumberTreeNode pdNumberTreeNode = new PDNumberTreeNode(valueClass);
     COSObjectable cosObjectable = mock(COSObjectable.class);
     when(cosObjectable.getCOSObject()).thenReturn(COSBoolean.FALSE);
 
     HashMap<Integer, COSObjectable> numbers = new HashMap<>();
     numbers.put(1, cosObjectable);
-    Class<COSObjectable> valueClass2 = COSObjectable.class;
-
-    PDNumberTreeNode pdNumberTreeNode2 = new PDNumberTreeNode(valueClass2);
-    pdNumberTreeNode2.setNumbers(numbers);
-
-    ArrayList<PDNumberTreeNode> kids = new ArrayList<>();
-    kids.add(pdNumberTreeNode2);
-
-    // Act
-    pdNumberTreeNode.setKids(kids);
-
-    // Assert
-    verify(cosObjectable).getCOSObject();
-    assertEquals(1, pdNumberTreeNode.getLowerLimit().intValue());
-    List<PDNumberTreeNode> kids2 = pdNumberTreeNode.getKids();
-    assertEquals(1, kids2.size());
-    PDNumberTreeNode getResult = kids2.get(0);
-    assertEquals(1, getResult.getLowerLimit().intValue());
-    assertEquals(1, pdNumberTreeNode.getUpperLimit().intValue());
-    assertEquals(1, getResult.getUpperLimit().intValue());
-  }
-
-  /**
-   * Test {@link PDNumberTreeNode#setKids(List)}.
-   * <p>
-   * Method under test: {@link PDNumberTreeNode#setKids(List)}
-   */
-  @Test
-  @DisplayName("Test setKids(List)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDNumberTreeNode.setKids(List)"})
-  void testSetKids5() {
-    // Arrange
     Class<COSObjectable> valueClass = COSObjectable.class;
+
     PDNumberTreeNode pdNumberTreeNode = new PDNumberTreeNode(valueClass);
-    COSObjectable cosObjectable = mock(COSObjectable.class);
-    when(cosObjectable.getCOSObject()).thenReturn(COSBoolean.FALSE);
-
-    HashMap<Integer, COSObjectable> numbers = new HashMap<>();
-    numbers.put(Integer.MIN_VALUE, cosObjectable);
-    Class<COSObjectable> valueClass2 = COSObjectable.class;
-
-    PDNumberTreeNode pdNumberTreeNode2 = new PDNumberTreeNode(valueClass2);
-    pdNumberTreeNode2.setNumbers(numbers);
-
-    ArrayList<PDNumberTreeNode> kids = new ArrayList<>();
-    kids.add(pdNumberTreeNode2);
+    pdNumberTreeNode.setNumbers(numbers);
 
     // Act
-    pdNumberTreeNode.setKids(kids);
+    List<PDNumberTreeNode> actualKids = pdNumberTreeNode.getKids();
 
     // Assert
     verify(cosObjectable).getCOSObject();
-    List<PDNumberTreeNode> kids2 = pdNumberTreeNode.getKids();
-    assertEquals(1, kids2.size());
-    assertEquals(Integer.MIN_VALUE, pdNumberTreeNode.getLowerLimit().intValue());
-    PDNumberTreeNode getResult = kids2.get(0);
-    assertEquals(Integer.MIN_VALUE, getResult.getLowerLimit().intValue());
-    assertEquals(Integer.MIN_VALUE, pdNumberTreeNode.getUpperLimit().intValue());
-    assertEquals(Integer.MIN_VALUE, getResult.getUpperLimit().intValue());
+    assertNull(actualKids);
   }
 
   /**
-   * Test {@link PDNumberTreeNode#setKids(List)}.
-   * <ul>
-   *   <li>Then {@link PDNumberTreeNode#PDNumberTreeNode(Class)} with valueClass is {@link COSObjectable} COSObject size is zero.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDNumberTreeNode#setKids(List)}
    */
   @Test
-  @DisplayName("Test setKids(List); then PDNumberTreeNode(Class) with valueClass is COSObjectable COSObject size is zero")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDNumberTreeNode.setKids(List)"})
-  void testSetKids_thenPDNumberTreeNodeWithValueClassIsCOSObjectableCOSObjectSizeIsZero() {
+  void testSetKids() {
     // Arrange
     Class<COSObjectable> valueClass = COSObjectable.class;
     PDNumberTreeNode pdNumberTreeNode = new PDNumberTreeNode(valueClass);
@@ -380,25 +168,51 @@ class PDNumberTreeNodeDiffblueTest {
     // Act
     pdNumberTreeNode.setKids(new ArrayList<>());
 
-    // Assert that nothing has changed
+    // Assert
+    assertNull(pdNumberTreeNode.getLowerLimit());
+    assertNull(pdNumberTreeNode.getUpperLimit());
+    assertNull(pdNumberTreeNode.getKids());
     COSDictionary cOSObject = pdNumberTreeNode.getCOSObject();
     assertEquals(0, cOSObject.size());
     assertTrue(cOSObject.getValues().isEmpty());
   }
 
   /**
-   * Test {@link PDNumberTreeNode#setKids(List)}.
-   * <ul>
-   *   <li>Then {@link PDNumberTreeNode#PDNumberTreeNode(Class)} with valueClass is {@link COSObjectable} Kids size is two.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDNumberTreeNode#setKids(List)}
    */
   @Test
-  @DisplayName("Test setKids(List); then PDNumberTreeNode(Class) with valueClass is COSObjectable Kids size is two")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDNumberTreeNode.setKids(List)"})
-  void testSetKids_thenPDNumberTreeNodeWithValueClassIsCOSObjectableKidsSizeIsTwo() throws IOException {
+  void testSetKids2() throws IOException {
+    // Arrange
+    Class<COSObjectable> valueClass = COSObjectable.class;
+    PDNumberTreeNode pdNumberTreeNode = new PDNumberTreeNode(valueClass);
+
+    ArrayList<PDNumberTreeNode> kids = new ArrayList<>();
+    Class<COSObjectable> valueClass2 = COSObjectable.class;
+    kids.add(new PDNumberTreeNode(valueClass2));
+
+    // Act
+    pdNumberTreeNode.setKids(kids);
+
+    // Assert
+    assertNull(pdNumberTreeNode.getLowerLimit());
+    List<PDNumberTreeNode> kids2 = pdNumberTreeNode.getKids();
+    assertEquals(1, kids2.size());
+    PDNumberTreeNode getResult = kids2.get(0);
+    assertNull(getResult.getLowerLimit());
+    assertNull(pdNumberTreeNode.getUpperLimit());
+    assertNull(getResult.getUpperLimit());
+    assertNull(getResult.getKids());
+    assertNull(getResult.getNumbers());
+    COSDictionary cOSObject = pdNumberTreeNode.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+  }
+
+  /**
+   * Method under test: {@link PDNumberTreeNode#setKids(List)}
+   */
+  @Test
+  void testSetKids3() throws IOException {
     // Arrange
     Class<COSObjectable> valueClass = COSObjectable.class;
     PDNumberTreeNode pdNumberTreeNode = new PDNumberTreeNode(valueClass);
@@ -413,28 +227,30 @@ class PDNumberTreeNodeDiffblueTest {
     pdNumberTreeNode.setKids(kids);
 
     // Assert
+    assertNull(pdNumberTreeNode.getLowerLimit());
     List<PDNumberTreeNode> kids2 = pdNumberTreeNode.getKids();
     assertEquals(2, kids2.size());
-    PDNumberTreeNode getResult = kids2.get(1);
+    PDNumberTreeNode getResult = kids2.get(0);
     assertNull(getResult.getLowerLimit());
+    PDNumberTreeNode getResult2 = kids2.get(1);
+    assertNull(getResult2.getLowerLimit());
+    assertNull(pdNumberTreeNode.getUpperLimit());
     assertNull(getResult.getUpperLimit());
+    assertNull(getResult2.getUpperLimit());
     assertNull(getResult.getKids());
+    assertNull(getResult2.getKids());
     assertNull(getResult.getNumbers());
+    assertNull(getResult2.getNumbers());
+    COSDictionary cOSObject = pdNumberTreeNode.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
   }
 
   /**
-   * Test {@link PDNumberTreeNode#setKids(List)}.
-   * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDNumberTreeNode#setKids(List)}
    */
   @Test
-  @DisplayName("Test setKids(List); when ArrayList()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDNumberTreeNode.setKids(List)"})
-  void testSetKids_whenArrayList() {
+  void testSetKids4() {
     // Arrange
     Class<COSObjectable> valueClass = COSObjectable.class;
 
@@ -451,19 +267,261 @@ class PDNumberTreeNodeDiffblueTest {
   }
 
   /**
-   * Test {@link PDNumberTreeNode#getValue(Integer)}.
-   * <ul>
-   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
-   *   <li>Then throw {@link IOException}.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PDNumberTreeNode#setKids(List)}
+   */
+  @Test
+  void testSetKids5() {
+    // Arrange
+    COSObjectable cosObjectable = mock(COSObjectable.class);
+    when(cosObjectable.getCOSObject()).thenReturn(COSBoolean.FALSE);
+
+    HashMap<Integer, COSObjectable> numbers = new HashMap<>();
+    numbers.put(1, cosObjectable);
+    Class<COSObjectable> valueClass = COSObjectable.class;
+
+    PDNumberTreeNode pdNumberTreeNode = new PDNumberTreeNode(valueClass);
+    pdNumberTreeNode.setNumbers(numbers);
+
+    // Act
+    pdNumberTreeNode.setKids(new ArrayList<>());
+
+    // Assert that nothing has changed
+    verify(cosObjectable).getCOSObject();
+    assertEquals(1, pdNumberTreeNode.getLowerLimit().intValue());
+    assertEquals(1, pdNumberTreeNode.getUpperLimit().intValue());
+    COSDictionary cOSObject = pdNumberTreeNode.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+  }
+
+  /**
+   * Method under test: {@link PDNumberTreeNode#setKids(List)}
+   */
+  @Test
+  void testSetKids6() throws IOException {
+    // Arrange
+    COSObjectable cosObjectable = mock(COSObjectable.class);
+    when(cosObjectable.getCOSObject()).thenReturn(COSBoolean.FALSE);
+
+    HashMap<Integer, COSObjectable> numbers = new HashMap<>();
+    numbers.put(1, cosObjectable);
+    Class<COSObjectable> valueClass = COSObjectable.class;
+
+    PDNumberTreeNode pdNumberTreeNode = new PDNumberTreeNode(valueClass);
+    pdNumberTreeNode.setNumbers(numbers);
+
+    ArrayList<PDNumberTreeNode> kids = new ArrayList<>();
+    Class<COSObjectable> valueClass2 = COSObjectable.class;
+    kids.add(new PDNumberTreeNode(valueClass2));
+
+    // Act
+    pdNumberTreeNode.setKids(kids);
+
+    // Assert
+    verify(cosObjectable).getCOSObject();
+    assertNull(pdNumberTreeNode.getLowerLimit());
+    List<PDNumberTreeNode> kids2 = pdNumberTreeNode.getKids();
+    assertEquals(1, kids2.size());
+    PDNumberTreeNode getResult = kids2.get(0);
+    assertNull(getResult.getLowerLimit());
+    assertNull(pdNumberTreeNode.getUpperLimit());
+    assertNull(getResult.getUpperLimit());
+    assertNull(getResult.getKids());
+    assertNull(getResult.getNumbers());
+    COSDictionary cOSObject = pdNumberTreeNode.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
+  }
+
+  /**
+   * Method under test: {@link PDNumberTreeNode#setKids(List)}
+   */
+  @Test
+  void testSetKids7() throws IOException {
+    // Arrange
+    COSObjectable cosObjectable = mock(COSObjectable.class);
+    when(cosObjectable.getCOSObject()).thenReturn(COSBoolean.FALSE);
+
+    HashMap<Integer, COSObjectable> numbers = new HashMap<>();
+    numbers.put(1, cosObjectable);
+    Class<COSObjectable> valueClass = COSObjectable.class;
+
+    PDNumberTreeNode pdNumberTreeNode = new PDNumberTreeNode(valueClass);
+    pdNumberTreeNode.setNumbers(numbers);
+    Class<COSObjectable> valueClass2 = COSObjectable.class;
+
+    PDNumberTreeNode pdNumberTreeNode2 = new PDNumberTreeNode(valueClass2);
+    pdNumberTreeNode2.setNumbers(new HashMap<>());
+
+    ArrayList<PDNumberTreeNode> kids = new ArrayList<>();
+    kids.add(pdNumberTreeNode2);
+
+    // Act
+    pdNumberTreeNode.setKids(kids);
+
+    // Assert
+    verify(cosObjectable).getCOSObject();
+    assertNull(pdNumberTreeNode.getLowerLimit());
+    List<PDNumberTreeNode> kids2 = pdNumberTreeNode.getKids();
+    assertEquals(1, kids2.size());
+    PDNumberTreeNode getResult = kids2.get(0);
+    assertNull(getResult.getLowerLimit());
+    assertNull(pdNumberTreeNode.getUpperLimit());
+    assertNull(getResult.getUpperLimit());
+    assertNull(getResult.getKids());
+    COSDictionary cOSObject = pdNumberTreeNode.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
+    assertTrue(getResult.getNumbers().isEmpty());
+  }
+
+  /**
+   * Method under test: {@link PDNumberTreeNode#setKids(List)}
+   */
+  @Test
+  void testSetKids8() {
+    // Arrange
+    COSObjectable cosObjectable = mock(COSObjectable.class);
+    when(cosObjectable.getCOSObject()).thenReturn(COSBoolean.FALSE);
+
+    HashMap<Integer, COSObjectable> numbers = new HashMap<>();
+    numbers.put(1, cosObjectable);
+    Class<COSObjectable> valueClass = COSObjectable.class;
+
+    PDNumberTreeNode pdNumberTreeNode = new PDNumberTreeNode(valueClass);
+    pdNumberTreeNode.setNumbers(numbers);
+    COSObjectable cosObjectable2 = mock(COSObjectable.class);
+    when(cosObjectable2.getCOSObject()).thenReturn(COSBoolean.FALSE);
+
+    HashMap<Integer, COSObjectable> numbers2 = new HashMap<>();
+    numbers2.put(1, cosObjectable2);
+    Class<COSObjectable> valueClass2 = COSObjectable.class;
+
+    PDNumberTreeNode pdNumberTreeNode2 = new PDNumberTreeNode(valueClass2);
+    pdNumberTreeNode2.setNumbers(numbers2);
+
+    ArrayList<PDNumberTreeNode> kids = new ArrayList<>();
+    kids.add(pdNumberTreeNode2);
+
+    // Act
+    pdNumberTreeNode.setKids(kids);
+
+    // Assert
+    verify(cosObjectable).getCOSObject();
+    verify(cosObjectable2).getCOSObject();
+    List<PDNumberTreeNode> kids2 = pdNumberTreeNode.getKids();
+    assertEquals(1, kids2.size());
+    PDNumberTreeNode getResult = kids2.get(0);
+    assertNull(getResult.getKids());
+    assertEquals(1, pdNumberTreeNode.getLowerLimit().intValue());
+    assertEquals(1, getResult.getLowerLimit().intValue());
+    assertEquals(1, pdNumberTreeNode.getUpperLimit().intValue());
+    assertEquals(1, getResult.getUpperLimit().intValue());
+    COSDictionary cOSObject = pdNumberTreeNode.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
+  }
+
+  /**
+   * Method under test: {@link PDNumberTreeNode#setKids(List)}
+   */
+  @Test
+  void testSetKids9() {
+    // Arrange
+    COSObjectable cosObjectable = mock(COSObjectable.class);
+    when(cosObjectable.getCOSObject()).thenReturn(COSBoolean.FALSE);
+
+    HashMap<Integer, COSObjectable> numbers = new HashMap<>();
+    numbers.put(1, cosObjectable);
+    Class<COSObjectable> valueClass = COSObjectable.class;
+
+    PDNumberTreeNode pdNumberTreeNode = new PDNumberTreeNode(valueClass);
+    pdNumberTreeNode.setNumbers(numbers);
+    COSObjectable cosObjectable2 = mock(COSObjectable.class);
+    when(cosObjectable2.getCOSObject()).thenReturn(COSBoolean.FALSE);
+
+    HashMap<Integer, COSObjectable> numbers2 = new HashMap<>();
+    numbers2.put(Integer.MIN_VALUE, cosObjectable2);
+    Class<COSObjectable> valueClass2 = COSObjectable.class;
+
+    PDNumberTreeNode pdNumberTreeNode2 = new PDNumberTreeNode(valueClass2);
+    pdNumberTreeNode2.setNumbers(numbers2);
+
+    ArrayList<PDNumberTreeNode> kids = new ArrayList<>();
+    kids.add(pdNumberTreeNode2);
+
+    // Act
+    pdNumberTreeNode.setKids(kids);
+
+    // Assert
+    verify(cosObjectable).getCOSObject();
+    verify(cosObjectable2).getCOSObject();
+    List<PDNumberTreeNode> kids2 = pdNumberTreeNode.getKids();
+    assertEquals(1, kids2.size());
+    PDNumberTreeNode getResult = kids2.get(0);
+    assertNull(getResult.getKids());
+    COSDictionary cOSObject = pdNumberTreeNode.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
+    assertEquals(Integer.MIN_VALUE, pdNumberTreeNode.getLowerLimit().intValue());
+    assertEquals(Integer.MIN_VALUE, getResult.getLowerLimit().intValue());
+    assertEquals(Integer.MIN_VALUE, pdNumberTreeNode.getUpperLimit().intValue());
+    assertEquals(Integer.MIN_VALUE, getResult.getUpperLimit().intValue());
+  }
+
+  /**
    * Method under test: {@link PDNumberTreeNode#getValue(Integer)}
    */
   @Test
-  @DisplayName("Test getValue(Integer); given COSObjectKey(long, int) with num is one and gen is one; then throw IOException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Object PDNumberTreeNode.getValue(Integer)"})
-  void testGetValue_givenCOSObjectKeyWithNumIsOneAndGenIsOne_thenThrowIOException() throws IOException {
+  void testGetValue() throws IOException {
+    // Arrange
+    Class<COSObjectable> valueClass = COSObjectable.class;
+
+    // Act and Assert
+    assertNull((new PDNumberTreeNode(valueClass)).getValue(1));
+  }
+
+  /**
+   * Method under test: {@link PDNumberTreeNode#getValue(Integer)}
+   */
+  @Test
+  void testGetValue2() throws IOException {
+    // Arrange
+    Class<COSObjectable> valueClass = COSObjectable.class;
+
+    PDNumberTreeNode pdNumberTreeNode = new PDNumberTreeNode(valueClass);
+    pdNumberTreeNode.setNumbers(new HashMap<>());
+
+    // Act and Assert
+    assertNull(pdNumberTreeNode.getValue(1));
+  }
+
+  /**
+   * Method under test: {@link PDNumberTreeNode#getValue(Integer)}
+   */
+  @Test
+  void testGetValue3() throws IOException {
+    // Arrange
+    COSObjectable cosObjectable = mock(COSObjectable.class);
+    when(cosObjectable.getCOSObject()).thenReturn(COSBoolean.FALSE);
+
+    HashMap<Integer, COSObjectable> numbers = new HashMap<>();
+    numbers.put(1, cosObjectable);
+    Class<COSObjectable> valueClass = COSObjectable.class;
+
+    PDNumberTreeNode pdNumberTreeNode = new PDNumberTreeNode(valueClass);
+    pdNumberTreeNode.setNumbers(numbers);
+
+    // Act and Assert
+    assertThrows(IOException.class, () -> pdNumberTreeNode.getValue(1));
+    verify(cosObjectable).getCOSObject();
+  }
+
+  /**
+   * Method under test: {@link PDNumberTreeNode#getValue(Integer)}
+   */
+  @Test
+  void testGetValue4() throws IOException {
     // Arrange
     COSObjectable cosObjectable = mock(COSObjectable.class);
     when(cosObjectable.getCOSObject()).thenReturn(new COSObject(COSBoolean.FALSE, new COSObjectKey(1L, 1)));
@@ -481,49 +539,10 @@ class PDNumberTreeNodeDiffblueTest {
   }
 
   /**
-   * Test {@link PDNumberTreeNode#getValue(Integer)}.
-   * <ul>
-   *   <li>Given {@link COSObjectable} {@link COSObjectable#getCOSObject()} return {@link COSBoolean#FALSE}.</li>
-   *   <li>Then throw {@link IOException}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDNumberTreeNode#getValue(Integer)}
    */
   @Test
-  @DisplayName("Test getValue(Integer); given COSObjectable getCOSObject() return FALSE; then throw IOException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Object PDNumberTreeNode.getValue(Integer)"})
-  void testGetValue_givenCOSObjectableGetCOSObjectReturnFalse_thenThrowIOException() throws IOException {
-    // Arrange
-    COSObjectable cosObjectable = mock(COSObjectable.class);
-    when(cosObjectable.getCOSObject()).thenReturn(COSBoolean.FALSE);
-
-    HashMap<Integer, COSObjectable> numbers = new HashMap<>();
-    numbers.put(1, cosObjectable);
-    Class<COSObjectable> valueClass = COSObjectable.class;
-
-    PDNumberTreeNode pdNumberTreeNode = new PDNumberTreeNode(valueClass);
-    pdNumberTreeNode.setNumbers(numbers);
-
-    // Act and Assert
-    assertThrows(IOException.class, () -> pdNumberTreeNode.getValue(1));
-    verify(cosObjectable).getCOSObject();
-  }
-
-  /**
-   * Test {@link PDNumberTreeNode#getValue(Integer)}.
-   * <ul>
-   *   <li>Given {@link COSObjectable} {@link COSObjectable#getCOSObject()} return {@code null}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDNumberTreeNode#getValue(Integer)}
-   */
-  @Test
-  @DisplayName("Test getValue(Integer); given COSObjectable getCOSObject() return 'null'; then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Object PDNumberTreeNode.getValue(Integer)"})
-  void testGetValue_givenCOSObjectableGetCOSObjectReturnNull_thenReturnNull() throws IOException {
+  void testGetValue5() throws IOException {
     // Arrange
     COSObjectable cosObjectable = mock(COSObjectable.class);
     when(cosObjectable.getCOSObject()).thenReturn(null);
@@ -544,39 +563,10 @@ class PDNumberTreeNodeDiffblueTest {
   }
 
   /**
-   * Test {@link PDNumberTreeNode#getValue(Integer)}.
-   * <ul>
-   *   <li>Given {@link PDNumberTreeNode#PDNumberTreeNode(Class)} with valueClass is {@link COSObjectable}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDNumberTreeNode#getValue(Integer)}
    */
   @Test
-  @DisplayName("Test getValue(Integer); given PDNumberTreeNode(Class) with valueClass is COSObjectable; then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Object PDNumberTreeNode.getValue(Integer)"})
-  void testGetValue_givenPDNumberTreeNodeWithValueClassIsCOSObjectable_thenReturnNull() throws IOException {
-    // Arrange
-    Class<COSObjectable> valueClass = COSObjectable.class;
-
-    // Act and Assert
-    assertNull((new PDNumberTreeNode(valueClass)).getValue(1));
-  }
-
-  /**
-   * Test {@link PDNumberTreeNode#getValue(Integer)}.
-   * <ul>
-   *   <li>Then return {@link COSDictionary}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDNumberTreeNode#getValue(Integer)}
-   */
-  @Test
-  @DisplayName("Test getValue(Integer); then return COSDictionary")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Object PDNumberTreeNode.getValue(Integer)"})
-  void testGetValue_thenReturnCOSDictionary() throws IOException {
+  void testGetValue6() throws IOException {
     // Arrange
     COSObjectable cosObjectable = mock(COSObjectable.class);
     when(cosObjectable.getCOSObject()).thenReturn(new COSDictionary());
@@ -608,18 +598,22 @@ class PDNumberTreeNodeDiffblueTest {
   }
 
   /**
-   * Test {@link PDNumberTreeNode#getValue(Integer)}.
-   * <ul>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDNumberTreeNode#getValue(Integer)}
+   * Method under test: {@link PDNumberTreeNode#getNumbers()}
    */
   @Test
-  @DisplayName("Test getValue(Integer); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Object PDNumberTreeNode.getValue(Integer)"})
-  void testGetValue_thenReturnNull() throws IOException {
+  void testGetNumbers() throws IOException {
+    // Arrange
+    Class<COSObjectable> valueClass = COSObjectable.class;
+
+    // Act and Assert
+    assertNull((new PDNumberTreeNode(valueClass)).getNumbers());
+  }
+
+  /**
+   * Method under test: {@link PDNumberTreeNode#getNumbers()}
+   */
+  @Test
+  void testGetNumbers2() throws IOException {
     // Arrange
     Class<COSObjectable> valueClass = COSObjectable.class;
 
@@ -627,53 +621,14 @@ class PDNumberTreeNodeDiffblueTest {
     pdNumberTreeNode.setNumbers(new HashMap<>());
 
     // Act and Assert
-    assertNull(pdNumberTreeNode.getValue(1));
+    assertTrue(pdNumberTreeNode.getNumbers().isEmpty());
   }
 
   /**
-   * Test {@link PDNumberTreeNode#getNumbers()}.
-   * <ul>
-   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
-   *   <li>Then throw {@link IOException}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDNumberTreeNode#getNumbers()}
    */
   @Test
-  @DisplayName("Test getNumbers(); given COSObjectKey(long, int) with num is one and gen is one; then throw IOException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Map PDNumberTreeNode.getNumbers()"})
-  void testGetNumbers_givenCOSObjectKeyWithNumIsOneAndGenIsOne_thenThrowIOException() throws IOException {
-    // Arrange
-    COSObjectable cosObjectable = mock(COSObjectable.class);
-    when(cosObjectable.getCOSObject()).thenReturn(new COSObject(COSBoolean.FALSE, new COSObjectKey(1L, 1)));
-
-    HashMap<Integer, COSObjectable> numbers = new HashMap<>();
-    numbers.put(1, cosObjectable);
-    Class<COSObjectable> valueClass = COSObjectable.class;
-
-    PDNumberTreeNode pdNumberTreeNode = new PDNumberTreeNode(valueClass);
-    pdNumberTreeNode.setNumbers(numbers);
-
-    // Act and Assert
-    assertThrows(IOException.class, () -> pdNumberTreeNode.getNumbers());
-    verify(cosObjectable).getCOSObject();
-  }
-
-  /**
-   * Test {@link PDNumberTreeNode#getNumbers()}.
-   * <ul>
-   *   <li>Given {@link COSObjectable} {@link COSObjectable#getCOSObject()} return {@link COSBoolean#FALSE}.</li>
-   *   <li>Then throw {@link IOException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDNumberTreeNode#getNumbers()}
-   */
-  @Test
-  @DisplayName("Test getNumbers(); given COSObjectable getCOSObject() return FALSE; then throw IOException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Map PDNumberTreeNode.getNumbers()"})
-  void testGetNumbers_givenCOSObjectableGetCOSObjectReturnFalse_thenThrowIOException() throws IOException {
+  void testGetNumbers3() throws IOException {
     // Arrange
     COSObjectable cosObjectable = mock(COSObjectable.class);
     when(cosObjectable.getCOSObject()).thenReturn(COSBoolean.FALSE);
@@ -691,19 +646,31 @@ class PDNumberTreeNodeDiffblueTest {
   }
 
   /**
-   * Test {@link PDNumberTreeNode#getNumbers()}.
-   * <ul>
-   *   <li>Given {@link COSObjectable} {@link COSObjectable#getCOSObject()} return {@code null}.</li>
-   *   <li>Then return one is {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDNumberTreeNode#getNumbers()}
    */
   @Test
-  @DisplayName("Test getNumbers(); given COSObjectable getCOSObject() return 'null'; then return one is 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Map PDNumberTreeNode.getNumbers()"})
-  void testGetNumbers_givenCOSObjectableGetCOSObjectReturnNull_thenReturnOneIsNull() throws IOException {
+  void testGetNumbers4() throws IOException {
+    // Arrange
+    COSObjectable cosObjectable = mock(COSObjectable.class);
+    when(cosObjectable.getCOSObject()).thenReturn(new COSObject(COSBoolean.FALSE, new COSObjectKey(1L, 1)));
+
+    HashMap<Integer, COSObjectable> numbers = new HashMap<>();
+    numbers.put(1, cosObjectable);
+    Class<COSObjectable> valueClass = COSObjectable.class;
+
+    PDNumberTreeNode pdNumberTreeNode = new PDNumberTreeNode(valueClass);
+    pdNumberTreeNode.setNumbers(numbers);
+
+    // Act and Assert
+    assertThrows(IOException.class, () -> pdNumberTreeNode.getNumbers());
+    verify(cosObjectable).getCOSObject();
+  }
+
+  /**
+   * Method under test: {@link PDNumberTreeNode#getNumbers()}
+   */
+  @Test
+  void testGetNumbers5() throws IOException {
     // Arrange
     COSObjectable cosObjectable = mock(COSObjectable.class);
     when(cosObjectable.getCOSObject()).thenReturn(null);
@@ -725,39 +692,10 @@ class PDNumberTreeNodeDiffblueTest {
   }
 
   /**
-   * Test {@link PDNumberTreeNode#getNumbers()}.
-   * <ul>
-   *   <li>Given {@link PDNumberTreeNode#PDNumberTreeNode(Class)} with valueClass is {@link COSObjectable}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDNumberTreeNode#getNumbers()}
    */
   @Test
-  @DisplayName("Test getNumbers(); given PDNumberTreeNode(Class) with valueClass is COSObjectable; then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Map PDNumberTreeNode.getNumbers()"})
-  void testGetNumbers_givenPDNumberTreeNodeWithValueClassIsCOSObjectable_thenReturnNull() throws IOException {
-    // Arrange
-    Class<COSObjectable> valueClass = COSObjectable.class;
-
-    // Act and Assert
-    assertNull((new PDNumberTreeNode(valueClass)).getNumbers());
-  }
-
-  /**
-   * Test {@link PDNumberTreeNode#getNumbers()}.
-   * <ul>
-   *   <li>Then one return {@link COSDictionary}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDNumberTreeNode#getNumbers()}
-   */
-  @Test
-  @DisplayName("Test getNumbers(); then one return COSDictionary")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Map PDNumberTreeNode.getNumbers()"})
-  void testGetNumbers_thenOneReturnCOSDictionary() throws IOException {
+  void testGetNumbers6() throws IOException {
     // Arrange
     COSObjectable cosObjectable = mock(COSObjectable.class);
     when(cosObjectable.getCOSObject()).thenReturn(new COSDictionary());
@@ -791,37 +729,9 @@ class PDNumberTreeNodeDiffblueTest {
   }
 
   /**
-   * Test {@link PDNumberTreeNode#getNumbers()}.
-   * <ul>
-   *   <li>Then return Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDNumberTreeNode#getNumbers()}
-   */
-  @Test
-  @DisplayName("Test getNumbers(); then return Empty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Map PDNumberTreeNode.getNumbers()"})
-  void testGetNumbers_thenReturnEmpty() throws IOException {
-    // Arrange
-    Class<COSObjectable> valueClass = COSObjectable.class;
-
-    PDNumberTreeNode pdNumberTreeNode = new PDNumberTreeNode(valueClass);
-    pdNumberTreeNode.setNumbers(new HashMap<>());
-
-    // Act and Assert
-    assertTrue(pdNumberTreeNode.getNumbers().isEmpty());
-  }
-
-  /**
-   * Test {@link PDNumberTreeNode#createChildNode(COSDictionary)}.
-   * <p>
    * Method under test: {@link PDNumberTreeNode#createChildNode(COSDictionary)}
    */
   @Test
-  @DisplayName("Test createChildNode(COSDictionary)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDNumberTreeNode PDNumberTreeNode.createChildNode(COSDictionary)"})
   void testCreateChildNode() throws IOException {
     // Arrange
     Class<COSObjectable> valueClass = COSObjectable.class;
@@ -840,15 +750,57 @@ class PDNumberTreeNodeDiffblueTest {
   }
 
   /**
-   * Test {@link PDNumberTreeNode#setNumbers(Map)}.
-   * <p>
    * Method under test: {@link PDNumberTreeNode#setNumbers(Map)}
    */
   @Test
-  @DisplayName("Test setNumbers(Map)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDNumberTreeNode.setNumbers(Map)"})
-  void testSetNumbers() {
+  void testSetNumbers() throws IOException {
+    // Arrange
+    Class<COSObjectable> valueClass = COSObjectable.class;
+    PDNumberTreeNode pdNumberTreeNode = new PDNumberTreeNode(valueClass);
+
+    // Act
+    pdNumberTreeNode.setNumbers(new HashMap<>());
+
+    // Assert
+    assertNull(pdNumberTreeNode.getLowerLimit());
+    assertNull(pdNumberTreeNode.getUpperLimit());
+    COSDictionary cOSObject = pdNumberTreeNode.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    assertTrue(pdNumberTreeNode.getNumbers().isEmpty());
+  }
+
+  /**
+   * Method under test: {@link PDNumberTreeNode#setNumbers(Map)}
+   */
+  @Test
+  void testSetNumbers2() {
+    // Arrange
+    Class<COSObjectable> valueClass = COSObjectable.class;
+    PDNumberTreeNode pdNumberTreeNode = new PDNumberTreeNode(valueClass);
+    COSObjectable cosObjectable = mock(COSObjectable.class);
+    when(cosObjectable.getCOSObject()).thenReturn(COSBoolean.FALSE);
+
+    HashMap<Integer, COSObjectable> numbers = new HashMap<>();
+    numbers.put(1, cosObjectable);
+
+    // Act
+    pdNumberTreeNode.setNumbers(numbers);
+
+    // Assert
+    verify(cosObjectable).getCOSObject();
+    assertEquals(1, pdNumberTreeNode.getLowerLimit().intValue());
+    assertEquals(1, pdNumberTreeNode.getUpperLimit().intValue());
+    COSDictionary cOSObject = pdNumberTreeNode.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+  }
+
+  /**
+   * Method under test: {@link PDNumberTreeNode#setNumbers(Map)}
+   */
+  @Test
+  void testSetNumbers3() {
     // Arrange
     Class<COSObjectable> valueClass = COSObjectable.class;
     PDNumberTreeNode pdNumberTreeNode = new PDNumberTreeNode(valueClass);
@@ -871,18 +823,88 @@ class PDNumberTreeNodeDiffblueTest {
   }
 
   /**
-   * Test {@link PDNumberTreeNode#setNumbers(Map)}.
-   * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary()} Key is {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDNumberTreeNode#setNumbers(Map)}
    */
   @Test
-  @DisplayName("Test setNumbers(Map); given COSDictionary() Key is COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDNumberTreeNode.setNumbers(Map)"})
-  void testSetNumbers_givenCOSDictionaryKeyIsCOSObjectKeyWithNumIsOneAndGenIsOne() {
+  void testSetNumbers4() {
+    // Arrange
+    Class<COSObjectable> valueClass = COSObjectable.class;
+    PDNumberTreeNode pdNumberTreeNode = new PDNumberTreeNode(valueClass);
+    COSObjectable cosObjectable = mock(COSObjectable.class);
+    when(cosObjectable.getCOSObject()).thenReturn(new COSDictionary());
+
+    HashMap<Integer, COSObjectable> numbers = new HashMap<>();
+    numbers.put(1, cosObjectable);
+
+    // Act
+    pdNumberTreeNode.setNumbers(numbers);
+
+    // Assert
+    verify(cosObjectable).getCOSObject();
+    assertEquals(1, pdNumberTreeNode.getLowerLimit().intValue());
+    assertEquals(1, pdNumberTreeNode.getUpperLimit().intValue());
+    COSDictionary cOSObject = pdNumberTreeNode.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+  }
+
+  /**
+   * Method under test: {@link PDNumberTreeNode#setNumbers(Map)}
+   */
+  @Test
+  void testSetNumbers5() {
+    // Arrange
+    Class<COSObjectable> valueClass = COSObjectable.class;
+    PDNumberTreeNode pdNumberTreeNode = new PDNumberTreeNode(valueClass);
+    COSObjectable cosObjectable = mock(COSObjectable.class);
+    when(cosObjectable.getCOSObject()).thenReturn(new COSArray());
+
+    HashMap<Integer, COSObjectable> numbers = new HashMap<>();
+    numbers.put(1, cosObjectable);
+
+    // Act
+    pdNumberTreeNode.setNumbers(numbers);
+
+    // Assert
+    verify(cosObjectable).getCOSObject();
+    assertEquals(1, pdNumberTreeNode.getLowerLimit().intValue());
+    assertEquals(1, pdNumberTreeNode.getUpperLimit().intValue());
+    COSDictionary cOSObject = pdNumberTreeNode.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+  }
+
+  /**
+   * Method under test: {@link PDNumberTreeNode#setNumbers(Map)}
+   */
+  @Test
+  void testSetNumbers6() {
+    // Arrange
+    Class<COSObjectable> valueClass = COSObjectable.class;
+    PDNumberTreeNode pdNumberTreeNode = new PDNumberTreeNode(valueClass);
+    COSObjectable cosObjectable = mock(COSObjectable.class);
+    when(cosObjectable.getCOSObject()).thenReturn(new COSObject(COSBoolean.FALSE, new COSObjectKey(1L, 1)));
+
+    HashMap<Integer, COSObjectable> numbers = new HashMap<>();
+    numbers.put(1, cosObjectable);
+
+    // Act
+    pdNumberTreeNode.setNumbers(numbers);
+
+    // Assert
+    verify(cosObjectable).getCOSObject();
+    assertEquals(1, pdNumberTreeNode.getLowerLimit().intValue());
+    assertEquals(1, pdNumberTreeNode.getUpperLimit().intValue());
+    COSDictionary cOSObject = pdNumberTreeNode.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+  }
+
+  /**
+   * Method under test: {@link PDNumberTreeNode#setNumbers(Map)}
+   */
+  @Test
+  void testSetNumbers7() {
     // Arrange
     Class<COSObjectable> valueClass = COSObjectable.class;
     PDNumberTreeNode pdNumberTreeNode = new PDNumberTreeNode(valueClass);
@@ -908,183 +930,10 @@ class PDNumberTreeNodeDiffblueTest {
   }
 
   /**
-   * Test {@link PDNumberTreeNode#setNumbers(Map)}.
-   * <ul>
-   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDNumberTreeNode#setNumbers(Map)}
-   */
-  @Test
-  @DisplayName("Test setNumbers(Map); given COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDNumberTreeNode.setNumbers(Map)"})
-  void testSetNumbers_givenCOSObjectKeyWithNumIsOneAndGenIsOne() {
-    // Arrange
-    Class<COSObjectable> valueClass = COSObjectable.class;
-    PDNumberTreeNode pdNumberTreeNode = new PDNumberTreeNode(valueClass);
-    COSObjectable cosObjectable = mock(COSObjectable.class);
-    when(cosObjectable.getCOSObject()).thenReturn(new COSObject(COSBoolean.FALSE, new COSObjectKey(1L, 1)));
-
-    HashMap<Integer, COSObjectable> numbers = new HashMap<>();
-    numbers.put(1, cosObjectable);
-
-    // Act
-    pdNumberTreeNode.setNumbers(numbers);
-
-    // Assert
-    verify(cosObjectable).getCOSObject();
-    assertEquals(1, pdNumberTreeNode.getLowerLimit().intValue());
-    assertEquals(1, pdNumberTreeNode.getUpperLimit().intValue());
-    COSDictionary cOSObject = pdNumberTreeNode.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-  }
-
-  /**
-   * Test {@link PDNumberTreeNode#setNumbers(Map)}.
-   * <ul>
-   *   <li>Given {@link COSObjectable} {@link COSObjectable#getCOSObject()} return {@link COSArray#COSArray()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDNumberTreeNode#setNumbers(Map)}
-   */
-  @Test
-  @DisplayName("Test setNumbers(Map); given COSObjectable getCOSObject() return COSArray()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDNumberTreeNode.setNumbers(Map)"})
-  void testSetNumbers_givenCOSObjectableGetCOSObjectReturnCOSArray() {
-    // Arrange
-    Class<COSObjectable> valueClass = COSObjectable.class;
-    PDNumberTreeNode pdNumberTreeNode = new PDNumberTreeNode(valueClass);
-    COSObjectable cosObjectable = mock(COSObjectable.class);
-    when(cosObjectable.getCOSObject()).thenReturn(new COSArray());
-
-    HashMap<Integer, COSObjectable> numbers = new HashMap<>();
-    numbers.put(1, cosObjectable);
-
-    // Act
-    pdNumberTreeNode.setNumbers(numbers);
-
-    // Assert
-    verify(cosObjectable).getCOSObject();
-    assertEquals(1, pdNumberTreeNode.getLowerLimit().intValue());
-    assertEquals(1, pdNumberTreeNode.getUpperLimit().intValue());
-    COSDictionary cOSObject = pdNumberTreeNode.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-  }
-
-  /**
-   * Test {@link PDNumberTreeNode#setNumbers(Map)}.
-   * <ul>
-   *   <li>Given {@link COSObjectable} {@link COSObjectable#getCOSObject()} return {@link COSDictionary#COSDictionary()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDNumberTreeNode#setNumbers(Map)}
-   */
-  @Test
-  @DisplayName("Test setNumbers(Map); given COSObjectable getCOSObject() return COSDictionary()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDNumberTreeNode.setNumbers(Map)"})
-  void testSetNumbers_givenCOSObjectableGetCOSObjectReturnCOSDictionary() {
-    // Arrange
-    Class<COSObjectable> valueClass = COSObjectable.class;
-    PDNumberTreeNode pdNumberTreeNode = new PDNumberTreeNode(valueClass);
-    COSObjectable cosObjectable = mock(COSObjectable.class);
-    when(cosObjectable.getCOSObject()).thenReturn(new COSDictionary());
-
-    HashMap<Integer, COSObjectable> numbers = new HashMap<>();
-    numbers.put(1, cosObjectable);
-
-    // Act
-    pdNumberTreeNode.setNumbers(numbers);
-
-    // Assert
-    verify(cosObjectable).getCOSObject();
-    assertEquals(1, pdNumberTreeNode.getLowerLimit().intValue());
-    assertEquals(1, pdNumberTreeNode.getUpperLimit().intValue());
-    COSDictionary cOSObject = pdNumberTreeNode.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-  }
-
-  /**
-   * Test {@link PDNumberTreeNode#setNumbers(Map)}.
-   * <ul>
-   *   <li>Given {@link COSObjectable} {@link COSObjectable#getCOSObject()} return {@link COSBoolean#FALSE}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDNumberTreeNode#setNumbers(Map)}
-   */
-  @Test
-  @DisplayName("Test setNumbers(Map); given COSObjectable getCOSObject() return FALSE")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDNumberTreeNode.setNumbers(Map)"})
-  void testSetNumbers_givenCOSObjectableGetCOSObjectReturnFalse() {
-    // Arrange
-    Class<COSObjectable> valueClass = COSObjectable.class;
-    PDNumberTreeNode pdNumberTreeNode = new PDNumberTreeNode(valueClass);
-    COSObjectable cosObjectable = mock(COSObjectable.class);
-    when(cosObjectable.getCOSObject()).thenReturn(COSBoolean.FALSE);
-
-    HashMap<Integer, COSObjectable> numbers = new HashMap<>();
-    numbers.put(1, cosObjectable);
-
-    // Act
-    pdNumberTreeNode.setNumbers(numbers);
-
-    // Assert
-    verify(cosObjectable).getCOSObject();
-    assertEquals(1, pdNumberTreeNode.getLowerLimit().intValue());
-    assertEquals(1, pdNumberTreeNode.getUpperLimit().intValue());
-    COSDictionary cOSObject = pdNumberTreeNode.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-  }
-
-  /**
-   * Test {@link PDNumberTreeNode#setNumbers(Map)}.
-   * <ul>
-   *   <li>Then {@link PDNumberTreeNode#PDNumberTreeNode(Class)} with valueClass is {@link COSObjectable} LowerLimit is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDNumberTreeNode#setNumbers(Map)}
-   */
-  @Test
-  @DisplayName("Test setNumbers(Map); then PDNumberTreeNode(Class) with valueClass is COSObjectable LowerLimit is 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDNumberTreeNode.setNumbers(Map)"})
-  void testSetNumbers_thenPDNumberTreeNodeWithValueClassIsCOSObjectableLowerLimitIsNull() throws IOException {
-    // Arrange
-    Class<COSObjectable> valueClass = COSObjectable.class;
-    PDNumberTreeNode pdNumberTreeNode = new PDNumberTreeNode(valueClass);
-
-    // Act
-    pdNumberTreeNode.setNumbers(new HashMap<>());
-
-    // Assert
-    assertNull(pdNumberTreeNode.getLowerLimit());
-    assertNull(pdNumberTreeNode.getUpperLimit());
-    COSDictionary cOSObject = pdNumberTreeNode.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    assertTrue(pdNumberTreeNode.getNumbers().isEmpty());
-  }
-
-  /**
-   * Test {@link PDNumberTreeNode#getUpperLimit()}.
-   * <ul>
-   *   <li>Given {@link PDNumberTreeNode#PDNumberTreeNode(Class)} with valueClass is {@link COSObjectable}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDNumberTreeNode#getUpperLimit()}
    */
   @Test
-  @DisplayName("Test getUpperLimit(); given PDNumberTreeNode(Class) with valueClass is COSObjectable")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Integer PDNumberTreeNode.getUpperLimit()"})
-  void testGetUpperLimit_givenPDNumberTreeNodeWithValueClassIsCOSObjectable() {
+  void testGetUpperLimit() {
     // Arrange
     Class<COSObjectable> valueClass = COSObjectable.class;
 
@@ -1093,18 +942,25 @@ class PDNumberTreeNodeDiffblueTest {
   }
 
   /**
-   * Test {@link PDNumberTreeNode#getUpperLimit()}.
-   * <ul>
-   *   <li>Then return intValue is one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDNumberTreeNode#getUpperLimit()}
    */
   @Test
-  @DisplayName("Test getUpperLimit(); then return intValue is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Integer PDNumberTreeNode.getUpperLimit()"})
-  void testGetUpperLimit_thenReturnIntValueIsOne() {
+  void testGetUpperLimit2() {
+    // Arrange
+    Class<COSObjectable> valueClass = COSObjectable.class;
+
+    PDNumberTreeNode pdNumberTreeNode = new PDNumberTreeNode(valueClass);
+    pdNumberTreeNode.setNumbers(new HashMap<>());
+
+    // Act and Assert
+    assertNull(pdNumberTreeNode.getUpperLimit());
+  }
+
+  /**
+   * Method under test: {@link PDNumberTreeNode#getUpperLimit()}
+   */
+  @Test
+  void testGetUpperLimit3() {
     // Arrange
     COSObjectable cosObjectable = mock(COSObjectable.class);
     when(cosObjectable.getCOSObject()).thenReturn(COSBoolean.FALSE);
@@ -1125,41 +981,10 @@ class PDNumberTreeNodeDiffblueTest {
   }
 
   /**
-   * Test {@link PDNumberTreeNode#getUpperLimit()}.
-   * <ul>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDNumberTreeNode#getUpperLimit()}
-   */
-  @Test
-  @DisplayName("Test getUpperLimit(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Integer PDNumberTreeNode.getUpperLimit()"})
-  void testGetUpperLimit_thenReturnNull() {
-    // Arrange
-    Class<COSObjectable> valueClass = COSObjectable.class;
-
-    PDNumberTreeNode pdNumberTreeNode = new PDNumberTreeNode(valueClass);
-    pdNumberTreeNode.setNumbers(new HashMap<>());
-
-    // Act and Assert
-    assertNull(pdNumberTreeNode.getUpperLimit());
-  }
-
-  /**
-   * Test {@link PDNumberTreeNode#getLowerLimit()}.
-   * <ul>
-   *   <li>Given {@link PDNumberTreeNode#PDNumberTreeNode(Class)} with valueClass is {@link COSObjectable}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDNumberTreeNode#getLowerLimit()}
    */
   @Test
-  @DisplayName("Test getLowerLimit(); given PDNumberTreeNode(Class) with valueClass is COSObjectable")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Integer PDNumberTreeNode.getLowerLimit()"})
-  void testGetLowerLimit_givenPDNumberTreeNodeWithValueClassIsCOSObjectable() {
+  void testGetLowerLimit() {
     // Arrange
     Class<COSObjectable> valueClass = COSObjectable.class;
 
@@ -1168,18 +993,25 @@ class PDNumberTreeNodeDiffblueTest {
   }
 
   /**
-   * Test {@link PDNumberTreeNode#getLowerLimit()}.
-   * <ul>
-   *   <li>Then return intValue is one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDNumberTreeNode#getLowerLimit()}
    */
   @Test
-  @DisplayName("Test getLowerLimit(); then return intValue is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Integer PDNumberTreeNode.getLowerLimit()"})
-  void testGetLowerLimit_thenReturnIntValueIsOne() {
+  void testGetLowerLimit2() {
+    // Arrange
+    Class<COSObjectable> valueClass = COSObjectable.class;
+
+    PDNumberTreeNode pdNumberTreeNode = new PDNumberTreeNode(valueClass);
+    pdNumberTreeNode.setNumbers(new HashMap<>());
+
+    // Act and Assert
+    assertNull(pdNumberTreeNode.getLowerLimit());
+  }
+
+  /**
+   * Method under test: {@link PDNumberTreeNode#getLowerLimit()}
+   */
+  @Test
+  void testGetLowerLimit3() {
     // Arrange
     COSObjectable cosObjectable = mock(COSObjectable.class);
     when(cosObjectable.getCOSObject()).thenReturn(COSBoolean.FALSE);
@@ -1200,25 +1032,46 @@ class PDNumberTreeNodeDiffblueTest {
   }
 
   /**
-   * Test {@link PDNumberTreeNode#getLowerLimit()}.
-   * <ul>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDNumberTreeNode#getLowerLimit()}
+   * Method under test:
+   * {@link PDNumberTreeNode#PDNumberTreeNode(COSDictionary, Class)}
    */
   @Test
-  @DisplayName("Test getLowerLimit(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Integer PDNumberTreeNode.getLowerLimit()"})
-  void testGetLowerLimit_thenReturnNull() {
+  void testNewPDNumberTreeNode() {
+    // Arrange
+    COSDictionary dict = new COSDictionary();
+    Class<COSObjectable> valueClass = COSObjectable.class;
+
+    // Act and Assert
+    assertSame(dict, (new PDNumberTreeNode(dict, valueClass)).getCOSObject());
+  }
+
+  /**
+   * Method under test: {@link PDNumberTreeNode#PDNumberTreeNode(Class)}
+   */
+  @Test
+  void testNewPDNumberTreeNode2() throws IOException {
     // Arrange
     Class<COSObjectable> valueClass = COSObjectable.class;
 
-    PDNumberTreeNode pdNumberTreeNode = new PDNumberTreeNode(valueClass);
-    pdNumberTreeNode.setNumbers(new HashMap<>());
+    // Act
+    PDNumberTreeNode actualPdNumberTreeNode = new PDNumberTreeNode(valueClass);
 
-    // Act and Assert
-    assertNull(pdNumberTreeNode.getLowerLimit());
+    // Assert
+    assertNull(actualPdNumberTreeNode.getLowerLimit());
+    assertNull(actualPdNumberTreeNode.getUpperLimit());
+    assertNull(actualPdNumberTreeNode.getKids());
+    assertNull(actualPdNumberTreeNode.getNumbers());
+    COSDictionary cOSObject = actualPdNumberTreeNode.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertEquals(0, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(cOSObject.getValues().isEmpty());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
   }
 }

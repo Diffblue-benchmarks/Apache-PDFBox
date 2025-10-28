@@ -4,22 +4,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import java.util.List;
 import org.apache.xmpbox.XMPMetadata;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class OECFTypeDiffblueTest {
   /**
-   * Test {@link OECFType#OECFType(XMPMetadata)}.
-   * <p>
    * Method under test: {@link OECFType#OECFType(XMPMetadata)}
    */
   @Test
-  @DisplayName("Test new OECFType(XMPMetadata)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void OECFType.<init>(XMPMetadata)"})
   void testNewOECFType() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
@@ -32,9 +25,11 @@ class OECFTypeDiffblueTest {
     assertEquals("exif", actualOecfType.getPrefix());
     assertEquals("http://ns.adobe.com/exif/1.0/", actualOecfType.getNamespace());
     assertNull(actualOecfType.getPropertyName());
-    assertTrue(actualOecfType.getAllProperties().isEmpty());
+    List<AbstractField> allProperties = actualOecfType.getAllProperties();
+    assertTrue(allProperties.isEmpty());
     assertTrue(actualOecfType.getAllAttributes().isEmpty());
     assertTrue(actualOecfType.getAllNamespacesWithPrefix().isEmpty());
+    assertSame(allProperties, actualOecfType.getContainer().getAllProperties());
     assertSame(metadata, actualOecfType.getMetadata());
   }
 }

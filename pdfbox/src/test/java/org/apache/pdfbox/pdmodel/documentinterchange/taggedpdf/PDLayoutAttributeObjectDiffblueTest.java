@@ -5,141 +5,36 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import org.apache.pdfbox.cos.COSArray;
+import org.apache.pdfbox.cos.COSBase;
+import org.apache.pdfbox.cos.COSBoolean;
 import org.apache.pdfbox.cos.COSDictionary;
-import org.apache.pdfbox.cos.COSObjectKey;
+import org.apache.pdfbox.cos.COSIncrement;
 import org.apache.pdfbox.cos.COSStream;
+import org.apache.pdfbox.cos.COSUpdateState;
+import org.apache.pdfbox.pdmodel.common.COSObjectable;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.graphics.color.PDGamma;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class PDLayoutAttributeObjectDiffblueTest {
   /**
-   * Test {@link PDLayoutAttributeObject#PDLayoutAttributeObject(COSDictionary)}.
-   * <p>
-   * Method under test: {@link PDLayoutAttributeObject#PDLayoutAttributeObject(COSDictionary)}
-   */
-  @Test
-  @DisplayName("Test new PDLayoutAttributeObject(COSDictionary)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDLayoutAttributeObject.<init>(COSDictionary)"})
-  void testNewPDLayoutAttributeObject() {
-    // Arrange
-    COSDictionary dictionary = new COSDictionary();
-
-    // Act and Assert
-    assertSame(dictionary, (new PDLayoutAttributeObject(dictionary)).getCOSObject());
-  }
-
-  /**
-   * Test {@link PDLayoutAttributeObject#PDLayoutAttributeObject()}.
-   * <p>
-   * Method under test: {@link PDLayoutAttributeObject#PDLayoutAttributeObject()}
-   */
-  @Test
-  @DisplayName("Test new PDLayoutAttributeObject()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDLayoutAttributeObject.<init>()"})
-  void testNewPDLayoutAttributeObject2() {
-    // Arrange and Act
-    PDLayoutAttributeObject actualPdLayoutAttributeObject = new PDLayoutAttributeObject();
-
-    // Assert
-    assertNull(actualPdLayoutAttributeObject.getBorderColors());
-    assertNull(actualPdLayoutAttributeObject.getBorderThickness());
-    assertNull(actualPdLayoutAttributeObject.getColumnGap());
-    assertNull(actualPdLayoutAttributeObject.getColumnWidths());
-    assertNull(actualPdLayoutAttributeObject.getBBox());
-    assertNull(actualPdLayoutAttributeObject.getBackgroundColor());
-    assertNull(actualPdLayoutAttributeObject.getColor());
-    assertNull(actualPdLayoutAttributeObject.getTextDecorationColor());
-    assertEquals(-1.0f, actualPdLayoutAttributeObject.getTextDecorationThickness());
-    assertEquals(0.0f, ((Float) actualPdLayoutAttributeObject.getPadding()).floatValue());
-    assertEquals(0.0f, ((Float) actualPdLayoutAttributeObject.getTPadding()).floatValue());
-    assertEquals(0.0f, actualPdLayoutAttributeObject.getBaselineShift());
-    assertEquals(0.0f, actualPdLayoutAttributeObject.getEndIndent());
-    assertEquals(0.0f, actualPdLayoutAttributeObject.getSpaceAfter());
-    assertEquals(0.0f, actualPdLayoutAttributeObject.getSpaceBefore());
-    assertEquals(0.0f, actualPdLayoutAttributeObject.getStartIndent());
-    assertEquals(0.0f, actualPdLayoutAttributeObject.getTextIndent());
-    assertEquals(1, actualPdLayoutAttributeObject.getColumnCount());
-    assertTrue(actualPdLayoutAttributeObject.isEmpty());
-    assertEquals(PDLayoutAttributeObject.BLOCK_ALIGN_BEFORE, actualPdLayoutAttributeObject.getBlockAlign());
-    assertEquals(PDLayoutAttributeObject.BLOCK_ALIGN_BEFORE, actualPdLayoutAttributeObject.getRubyPosition());
-    assertEquals(PDLayoutAttributeObject.BORDER_STYLE_NONE, actualPdLayoutAttributeObject.getTextDecorationType());
-    assertEquals(PDLayoutAttributeObject.BORDER_STYLE_NONE, actualPdLayoutAttributeObject.getBorderStyle());
-    assertEquals(PDLayoutAttributeObject.BORDER_STYLE_NONE, actualPdLayoutAttributeObject.getTBorderStyle());
-    assertEquals(PDLayoutAttributeObject.GLYPH_ORIENTATION_VERTICAL_AUTO,
-        actualPdLayoutAttributeObject.getGlyphOrientationVertical());
-    assertEquals(PDLayoutAttributeObject.GLYPH_ORIENTATION_VERTICAL_AUTO, actualPdLayoutAttributeObject.getHeight());
-    assertEquals(PDLayoutAttributeObject.GLYPH_ORIENTATION_VERTICAL_AUTO, actualPdLayoutAttributeObject.getWidth());
-    assertEquals(PDLayoutAttributeObject.INLINE_ALIGN_START, actualPdLayoutAttributeObject.getInlineAlign());
-    assertEquals(PDLayoutAttributeObject.INLINE_ALIGN_START, actualPdLayoutAttributeObject.getTextAlign());
-    assertEquals(PDLayoutAttributeObject.LINE_HEIGHT_NORMAL, actualPdLayoutAttributeObject.getLineHeight());
-    assertEquals(PDLayoutAttributeObject.OWNER_LAYOUT, actualPdLayoutAttributeObject.getOwner());
-    assertEquals(PDLayoutAttributeObject.PLACEMENT_INLINE, actualPdLayoutAttributeObject.getPlacement());
-    assertEquals(PDLayoutAttributeObject.RUBY_ALIGN_DISTRIBUTE, actualPdLayoutAttributeObject.getRubyAlign());
-    assertEquals(PDLayoutAttributeObject.WRITING_MODE_LRTB, actualPdLayoutAttributeObject.getWritingMode());
-  }
-
-  /**
-   * Test {@link PDLayoutAttributeObject#getPlacement()}.
-   * <ul>
-   *   <li>Given {@link PDLayoutAttributeObject#PDLayoutAttributeObject()}.</li>
-   *   <li>Then return {@link PDLayoutAttributeObject#PLACEMENT_INLINE}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDLayoutAttributeObject#getPlacement()}
    */
   @Test
-  @DisplayName("Test getPlacement(); given PDLayoutAttributeObject(); then return PLACEMENT_INLINE")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDLayoutAttributeObject.getPlacement()"})
-  void testGetPlacement_givenPDLayoutAttributeObject_thenReturnPlacement_inline() {
+  void testGetPlacement() {
     // Arrange, Act and Assert
     assertEquals(PDLayoutAttributeObject.PLACEMENT_INLINE, (new PDLayoutAttributeObject()).getPlacement());
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#setPlacement(String)}.
-   * <p>
    * Method under test: {@link PDLayoutAttributeObject#setPlacement(String)}
    */
   @Test
-  @DisplayName("Test setPlacement(String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDLayoutAttributeObject.setPlacement(String)"})
   void testSetPlacement() {
-    // Arrange
-    PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
-
-    // Act
-    pdLayoutAttributeObject.setPlacement(PDLayoutAttributeObject.GLYPH_ORIENTATION_VERTICAL_AUTO);
-
-    // Assert
-    COSDictionary cOSObject = pdLayoutAttributeObject.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    assertFalse(pdLayoutAttributeObject.isEmpty());
-    assertEquals(PDLayoutAttributeObject.GLYPH_ORIENTATION_VERTICAL_AUTO, pdLayoutAttributeObject.getPlacement());
-  }
-
-  /**
-   * Test {@link PDLayoutAttributeObject#setPlacement(String)}.
-   * <ul>
-   *   <li>Then {@link PDLayoutAttributeObject#PDLayoutAttributeObject()} Placement is {@code Placement}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDLayoutAttributeObject#setPlacement(String)}
-   */
-  @Test
-  @DisplayName("Test setPlacement(String); then PDLayoutAttributeObject() Placement is 'Placement'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDLayoutAttributeObject.setPlacement(String)"})
-  void testSetPlacement_thenPDLayoutAttributeObjectPlacementIsPlacement() {
     // Arrange
     PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
 
@@ -155,36 +50,38 @@ class PDLayoutAttributeObjectDiffblueTest {
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#getWritingMode()}.
-   * <ul>
-   *   <li>Given {@link PDLayoutAttributeObject#PDLayoutAttributeObject()}.</li>
-   *   <li>Then return {@link PDLayoutAttributeObject#WRITING_MODE_LRTB}.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PDLayoutAttributeObject#setPlacement(String)}
+   */
+  @Test
+  void testSetPlacement2() {
+    // Arrange
+    PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
+
+    // Act
+    pdLayoutAttributeObject.setPlacement(PDLayoutAttributeObject.GLYPH_ORIENTATION_VERTICAL_AUTO);
+
+    // Assert
+    COSDictionary cOSObject = pdLayoutAttributeObject.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    assertFalse(pdLayoutAttributeObject.isEmpty());
+    assertEquals(PDLayoutAttributeObject.GLYPH_ORIENTATION_VERTICAL_AUTO, pdLayoutAttributeObject.getPlacement());
+  }
+
+  /**
    * Method under test: {@link PDLayoutAttributeObject#getWritingMode()}
    */
   @Test
-  @DisplayName("Test getWritingMode(); given PDLayoutAttributeObject(); then return WRITING_MODE_LRTB")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDLayoutAttributeObject.getWritingMode()"})
-  void testGetWritingMode_givenPDLayoutAttributeObject_thenReturnWriting_mode_lrtb() {
+  void testGetWritingMode() {
     // Arrange, Act and Assert
     assertEquals(PDLayoutAttributeObject.WRITING_MODE_LRTB, (new PDLayoutAttributeObject()).getWritingMode());
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#setWritingMode(String)}.
-   * <ul>
-   *   <li>Then {@link PDLayoutAttributeObject#PDLayoutAttributeObject()} WritingMode is {@code Writing Mode}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDLayoutAttributeObject#setWritingMode(String)}
    */
   @Test
-  @DisplayName("Test setWritingMode(String); then PDLayoutAttributeObject() WritingMode is 'Writing Mode'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDLayoutAttributeObject.setWritingMode(String)"})
-  void testSetWritingMode_thenPDLayoutAttributeObjectWritingModeIsWritingMode() {
+  void testSetWritingMode() {
     // Arrange
     PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
 
@@ -200,77 +97,21 @@ class PDLayoutAttributeObjectDiffblueTest {
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#getBackgroundColor()}.
-   * <p>
    * Method under test: {@link PDLayoutAttributeObject#getBackgroundColor()}
    */
   @Test
-  @DisplayName("Test getBackgroundColor()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDGamma PDLayoutAttributeObject.getBackgroundColor()"})
   void testGetBackgroundColor() {
     // Arrange, Act and Assert
-    assertNull((new PDExportFormatAttributeObject("OwnerColSpan42")).getBackgroundColor());
-  }
-
-  /**
-   * Test {@link PDLayoutAttributeObject#getBackgroundColor()}.
-   * <ul>
-   *   <li>Given {@link PDLayoutAttributeObject#PDLayoutAttributeObject()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDLayoutAttributeObject#getBackgroundColor()}
-   */
-  @Test
-  @DisplayName("Test getBackgroundColor(); given PDLayoutAttributeObject(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDGamma PDLayoutAttributeObject.getBackgroundColor()"})
-  void testGetBackgroundColor_givenPDLayoutAttributeObject_thenReturnNull() {
-    // Arrange, Act and Assert
     assertNull((new PDLayoutAttributeObject()).getBackgroundColor());
+    assertNull((new PDExportFormatAttributeObject("42HeadersSummary")).getBackgroundColor());
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#setBackgroundColor(PDGamma)}.
-   * <p>
-   * Method under test: {@link PDLayoutAttributeObject#setBackgroundColor(PDGamma)}
+   * Method under test:
+   * {@link PDLayoutAttributeObject#setBackgroundColor(PDGamma)}
    */
   @Test
-  @DisplayName("Test setBackgroundColor(PDGamma)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDLayoutAttributeObject.setBackgroundColor(PDGamma)"})
   void testSetBackgroundColor() {
-    // Arrange
-    PDExportFormatAttributeObject pdExportFormatAttributeObject = new PDExportFormatAttributeObject("Owner42Scope");
-
-    // Act
-    pdExportFormatAttributeObject.setBackgroundColor(new PDGamma());
-
-    // Assert
-    PDGamma backgroundColor = pdExportFormatAttributeObject.getBackgroundColor();
-    assertEquals(0.0f, backgroundColor.getB());
-    assertEquals(0.0f, backgroundColor.getG());
-    assertEquals(0.0f, backgroundColor.getR());
-    COSDictionary cOSObject = pdExportFormatAttributeObject.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    assertFalse(pdExportFormatAttributeObject.isEmpty());
-  }
-
-  /**
-   * Test {@link PDLayoutAttributeObject#setBackgroundColor(PDGamma)}.
-   * <ul>
-   *   <li>Then {@link PDLayoutAttributeObject#PDLayoutAttributeObject()} BackgroundColor B is zero.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDLayoutAttributeObject#setBackgroundColor(PDGamma)}
-   */
-  @Test
-  @DisplayName("Test setBackgroundColor(PDGamma); then PDLayoutAttributeObject() BackgroundColor B is zero")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDLayoutAttributeObject.setBackgroundColor(PDGamma)"})
-  void testSetBackgroundColor_thenPDLayoutAttributeObjectBackgroundColorBIsZero() {
     // Arrange
     PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
 
@@ -289,25 +130,19 @@ class PDLayoutAttributeObjectDiffblueTest {
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#setBackgroundColor(PDGamma)}.
-   * <ul>
-   *   <li>Then {@link PDLayoutAttributeObject#PDLayoutAttributeObject()} COSObject Values size is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDLayoutAttributeObject#setBackgroundColor(PDGamma)}
+   * Method under test:
+   * {@link PDLayoutAttributeObject#setBackgroundColor(PDGamma)}
    */
   @Test
-  @DisplayName("Test setBackgroundColor(PDGamma); then PDLayoutAttributeObject() COSObject Values size is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDLayoutAttributeObject.setBackgroundColor(PDGamma)"})
-  void testSetBackgroundColor_thenPDLayoutAttributeObjectCOSObjectValuesSizeIsOne() {
+  void testSetBackgroundColor2() {
     // Arrange
     PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
 
     // Act
     pdLayoutAttributeObject.setBackgroundColor(null);
 
-    // Assert that nothing has changed
+    // Assert
+    assertNull(pdLayoutAttributeObject.getBackgroundColor());
     COSDictionary cOSObject = pdLayoutAttributeObject.getCOSObject();
     assertEquals(1, cOSObject.getValues().size());
     assertEquals(1, cOSObject.size());
@@ -315,65 +150,49 @@ class PDLayoutAttributeObjectDiffblueTest {
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#getBorderColors()}.
-   * <ul>
-   *   <li>Given {@link PDLayoutAttributeObject#PDLayoutAttributeObject()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
+   * Method under test:
+   * {@link PDLayoutAttributeObject#setBackgroundColor(PDGamma)}
+   */
+  @Test
+  void testSetBackgroundColor3() {
+    // Arrange
+    PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
+    COSObjectable object = mock(COSObjectable.class);
+    when(object.getCOSObject()).thenReturn(COSBoolean.FALSE);
+
+    COSArray array = new COSArray();
+    array.add(object);
+
+    // Act
+    pdLayoutAttributeObject.setBackgroundColor(new PDGamma(array));
+
+    // Assert
+    verify(object).getCOSObject();
+    COSDictionary cOSObject = pdLayoutAttributeObject.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    assertFalse(pdLayoutAttributeObject.isEmpty());
+    PDGamma backgroundColor = pdLayoutAttributeObject.getBackgroundColor();
+    assertSame(array, backgroundColor.getCOSArray());
+    assertSame(array, backgroundColor.getCOSObject());
+  }
+
+  /**
    * Method under test: {@link PDLayoutAttributeObject#getBorderColors()}
    */
   @Test
-  @DisplayName("Test getBorderColors(); given PDLayoutAttributeObject(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Object PDLayoutAttributeObject.getBorderColors()"})
-  void testGetBorderColors_givenPDLayoutAttributeObject_thenReturnNull() {
+  void testGetBorderColors() {
     // Arrange, Act and Assert
     assertNull((new PDLayoutAttributeObject()).getBorderColors());
+    assertNull((new PDLayoutAttributeObject(new COSDictionary())).getBorderColors());
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#setAllBorderColors(PDGamma)}.
-   * <p>
-   * Method under test: {@link PDLayoutAttributeObject#setAllBorderColors(PDGamma)}
+   * Method under test:
+   * {@link PDLayoutAttributeObject#setAllBorderColors(PDGamma)}
    */
   @Test
-  @DisplayName("Test setAllBorderColors(PDGamma)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDLayoutAttributeObject.setAllBorderColors(PDGamma)"})
   void testSetAllBorderColors() {
-    // Arrange
-    PDExportFormatAttributeObject pdExportFormatAttributeObject = new PDExportFormatAttributeObject(
-        "OwnerRowSpanRowSpan");
-
-    // Act
-    pdExportFormatAttributeObject.setAllBorderColors(new PDGamma());
-
-    // Assert
-    Object borderColors = pdExportFormatAttributeObject.getBorderColors();
-    assertTrue(borderColors instanceof PDGamma);
-    assertEquals(0.0f, ((PDGamma) borderColors).getB());
-    assertEquals(0.0f, ((PDGamma) borderColors).getG());
-    assertEquals(0.0f, ((PDGamma) borderColors).getR());
-    COSDictionary cOSObject = pdExportFormatAttributeObject.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    assertFalse(pdExportFormatAttributeObject.isEmpty());
-  }
-
-  /**
-   * Test {@link PDLayoutAttributeObject#setAllBorderColors(PDGamma)}.
-   * <ul>
-   *   <li>Then {@link PDLayoutAttributeObject#PDLayoutAttributeObject()} BorderColors {@link PDGamma}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDLayoutAttributeObject#setAllBorderColors(PDGamma)}
-   */
-  @Test
-  @DisplayName("Test setAllBorderColors(PDGamma); then PDLayoutAttributeObject() BorderColors PDGamma")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDLayoutAttributeObject.setAllBorderColors(PDGamma)"})
-  void testSetAllBorderColors_thenPDLayoutAttributeObjectBorderColorsPDGamma() {
     // Arrange
     PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
 
@@ -393,25 +212,19 @@ class PDLayoutAttributeObjectDiffblueTest {
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#setAllBorderColors(PDGamma)}.
-   * <ul>
-   *   <li>Then {@link PDLayoutAttributeObject#PDLayoutAttributeObject()} COSObject Values size is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDLayoutAttributeObject#setAllBorderColors(PDGamma)}
+   * Method under test:
+   * {@link PDLayoutAttributeObject#setAllBorderColors(PDGamma)}
    */
   @Test
-  @DisplayName("Test setAllBorderColors(PDGamma); then PDLayoutAttributeObject() COSObject Values size is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDLayoutAttributeObject.setAllBorderColors(PDGamma)"})
-  void testSetAllBorderColors_thenPDLayoutAttributeObjectCOSObjectValuesSizeIsOne() {
+  void testSetAllBorderColors2() {
     // Arrange
     PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
 
     // Act
     pdLayoutAttributeObject.setAllBorderColors(null);
 
-    // Assert that nothing has changed
+    // Assert
+    assertNull(pdLayoutAttributeObject.getBorderColors());
     COSDictionary cOSObject = pdLayoutAttributeObject.getCOSObject();
     assertEquals(1, cOSObject.getValues().size());
     assertEquals(1, cOSObject.size());
@@ -419,48 +232,37 @@ class PDLayoutAttributeObjectDiffblueTest {
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#setBorderColors(PDFourColours)}.
-   * <p>
-   * Method under test: {@link PDLayoutAttributeObject#setBorderColors(PDFourColours)}
+   * Method under test:
+   * {@link PDLayoutAttributeObject#setAllBorderColors(PDGamma)}
    */
   @Test
-  @DisplayName("Test setBorderColors(PDFourColours)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDLayoutAttributeObject.setBorderColors(PDFourColours)"})
-  void testSetBorderColors() {
+  void testSetAllBorderColors3() {
     // Arrange
-    PDExportFormatAttributeObject pdExportFormatAttributeObject = new PDExportFormatAttributeObject(
-        "ColSpanHeadersColSpan");
+    PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
+    COSObjectable object = mock(COSObjectable.class);
+    when(object.getCOSObject()).thenReturn(COSBoolean.FALSE);
+
+    COSArray array = new COSArray();
+    array.add(object);
 
     // Act
-    pdExportFormatAttributeObject.setBorderColors(new PDFourColours());
+    pdLayoutAttributeObject.setAllBorderColors(new PDGamma(array));
 
     // Assert
-    Object borderColors = pdExportFormatAttributeObject.getBorderColors();
-    assertTrue(borderColors instanceof PDFourColours);
-    assertNull(((PDFourColours) borderColors).getAfterColour());
-    assertNull(((PDFourColours) borderColors).getBeforeColour());
-    assertNull(((PDFourColours) borderColors).getEndColour());
-    assertNull(((PDFourColours) borderColors).getStartColour());
-    COSDictionary cOSObject = pdExportFormatAttributeObject.getCOSObject();
+    verify(object).getCOSObject();
+    assertNull(pdLayoutAttributeObject.getBorderColors());
+    COSDictionary cOSObject = pdLayoutAttributeObject.getCOSObject();
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
-    assertFalse(pdExportFormatAttributeObject.isEmpty());
+    assertFalse(pdLayoutAttributeObject.isEmpty());
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#setBorderColors(PDFourColours)}.
-   * <ul>
-   *   <li>Then {@link PDLayoutAttributeObject#PDLayoutAttributeObject()} BorderColors {@link PDFourColours}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDLayoutAttributeObject#setBorderColors(PDFourColours)}
+   * Method under test:
+   * {@link PDLayoutAttributeObject#setBorderColors(PDFourColours)}
    */
   @Test
-  @DisplayName("Test setBorderColors(PDFourColours); then PDLayoutAttributeObject() BorderColors PDFourColours")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDLayoutAttributeObject.setBorderColors(PDFourColours)"})
-  void testSetBorderColors_thenPDLayoutAttributeObjectBorderColorsPDFourColours() {
+  void testSetBorderColors() {
     // Arrange
     PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
 
@@ -481,26 +283,19 @@ class PDLayoutAttributeObjectDiffblueTest {
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#setBorderColors(PDFourColours)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then {@link PDLayoutAttributeObject#PDLayoutAttributeObject()} COSObject Values size is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDLayoutAttributeObject#setBorderColors(PDFourColours)}
+   * Method under test:
+   * {@link PDLayoutAttributeObject#setBorderColors(PDFourColours)}
    */
   @Test
-  @DisplayName("Test setBorderColors(PDFourColours); when 'null'; then PDLayoutAttributeObject() COSObject Values size is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDLayoutAttributeObject.setBorderColors(PDFourColours)"})
-  void testSetBorderColors_whenNull_thenPDLayoutAttributeObjectCOSObjectValuesSizeIsOne() {
+  void testSetBorderColors2() {
     // Arrange
     PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
 
     // Act
     pdLayoutAttributeObject.setBorderColors(null);
 
-    // Assert that nothing has changed
+    // Assert
+    assertNull(pdLayoutAttributeObject.getBorderColors());
     COSDictionary cOSObject = pdLayoutAttributeObject.getCOSObject();
     assertEquals(1, cOSObject.getValues().size());
     assertEquals(1, cOSObject.size());
@@ -508,54 +303,45 @@ class PDLayoutAttributeObjectDiffblueTest {
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#getBorderStyle()}.
-   * <ul>
-   *   <li>Given {@link PDExportFormatAttributeObject#PDExportFormatAttributeObject(String)} with owner is {@code 42ColSpan}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDLayoutAttributeObject#getBorderStyle()}
+   * Method under test:
+   * {@link PDLayoutAttributeObject#setBorderColors(PDFourColours)}
    */
   @Test
-  @DisplayName("Test getBorderStyle(); given PDExportFormatAttributeObject(String) with owner is '42ColSpan'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Object PDLayoutAttributeObject.getBorderStyle()"})
-  void testGetBorderStyle_givenPDExportFormatAttributeObjectWithOwnerIs42ColSpan() {
-    // Arrange, Act and Assert
-    assertEquals(PDLayoutAttributeObject.BORDER_STYLE_NONE,
-        (new PDExportFormatAttributeObject("42ColSpan")).getBorderStyle());
+  void testSetBorderColors3() {
+    // Arrange
+    PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
+    COSObjectable object = mock(COSObjectable.class);
+    when(object.getCOSObject()).thenReturn(COSBoolean.FALSE);
+
+    COSArray array = new COSArray();
+    array.add(object);
+
+    // Act
+    pdLayoutAttributeObject.setBorderColors(new PDFourColours(array));
+
+    // Assert
+    verify(object).getCOSObject();
+    assertNull(pdLayoutAttributeObject.getBorderColors());
+    COSDictionary cOSObject = pdLayoutAttributeObject.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    assertFalse(pdLayoutAttributeObject.isEmpty());
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#getBorderStyle()}.
-   * <ul>
-   *   <li>Given {@link PDLayoutAttributeObject#PDLayoutAttributeObject()}.</li>
-   *   <li>Then return {@link PDLayoutAttributeObject#BORDER_STYLE_NONE}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDLayoutAttributeObject#getBorderStyle()}
    */
   @Test
-  @DisplayName("Test getBorderStyle(); given PDLayoutAttributeObject(); then return BORDER_STYLE_NONE")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Object PDLayoutAttributeObject.getBorderStyle()"})
-  void testGetBorderStyle_givenPDLayoutAttributeObject_thenReturnBorder_style_none() {
+  void testGetBorderStyle() {
     // Arrange, Act and Assert
     assertEquals(PDLayoutAttributeObject.BORDER_STYLE_NONE, (new PDLayoutAttributeObject()).getBorderStyle());
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#setAllBorderStyles(String)}.
-   * <ul>
-   *   <li>Then {@link PDLayoutAttributeObject#PDLayoutAttributeObject()} BorderStyle is {@code Border Style}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDLayoutAttributeObject#setAllBorderStyles(String)}
    */
   @Test
-  @DisplayName("Test setAllBorderStyles(String); then PDLayoutAttributeObject() BorderStyle is 'Border Style'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDLayoutAttributeObject.setAllBorderStyles(String)"})
-  void testSetAllBorderStyles_thenPDLayoutAttributeObjectBorderStyleIsBorderStyle() {
+  void testSetAllBorderStyles() {
     // Arrange
     PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
 
@@ -571,33 +357,21 @@ class PDLayoutAttributeObjectDiffblueTest {
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#getBorderThickness()}.
-   * <ul>
-   *   <li>Given {@link PDLayoutAttributeObject#PDLayoutAttributeObject()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDLayoutAttributeObject#getBorderThickness()}
    */
   @Test
-  @DisplayName("Test getBorderThickness(); given PDLayoutAttributeObject(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Object PDLayoutAttributeObject.getBorderThickness()"})
-  void testGetBorderThickness_givenPDLayoutAttributeObject_thenReturnNull() {
+  void testGetBorderThickness() {
     // Arrange, Act and Assert
     assertNull((new PDLayoutAttributeObject()).getBorderThickness());
+    assertNull((new PDExportFormatAttributeObject("42ColSpanColSpan")).getBorderThickness());
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#setAllBorderThicknesses(float)} with {@code float}.
-   * <p>
-   * Method under test: {@link PDLayoutAttributeObject#setAllBorderThicknesses(float)}
+   * Method under test:
+   * {@link PDLayoutAttributeObject#setAllBorderThicknesses(float)}
    */
   @Test
-  @DisplayName("Test setAllBorderThicknesses(float) with 'float'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDLayoutAttributeObject.setAllBorderThicknesses(float)"})
-  void testSetAllBorderThicknessesWithFloat() {
+  void testSetAllBorderThicknesses() {
     // Arrange
     PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
 
@@ -613,15 +387,31 @@ class PDLayoutAttributeObjectDiffblueTest {
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#setAllBorderThicknesses(int)} with {@code int}.
-   * <p>
-   * Method under test: {@link PDLayoutAttributeObject#setAllBorderThicknesses(int)}
+   * Method under test:
+   * {@link PDLayoutAttributeObject#setAllBorderThicknesses(float)}
    */
   @Test
-  @DisplayName("Test setAllBorderThicknesses(int) with 'int'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDLayoutAttributeObject.setAllBorderThicknesses(int)"})
-  void testSetAllBorderThicknessesWithInt() {
+  void testSetAllBorderThicknesses2() {
+    // Arrange
+    PDExportFormatAttributeObject pdExportFormatAttributeObject = new PDExportFormatAttributeObject("42OwnerRowSpan");
+
+    // Act
+    pdExportFormatAttributeObject.setAllBorderThicknesses(10.0f);
+
+    // Assert
+    assertEquals(10.0f, ((Float) pdExportFormatAttributeObject.getBorderThickness()).floatValue());
+    COSDictionary cOSObject = pdExportFormatAttributeObject.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    assertFalse(pdExportFormatAttributeObject.isEmpty());
+  }
+
+  /**
+   * Method under test:
+   * {@link PDLayoutAttributeObject#setAllBorderThicknesses(int)}
+   */
+  @Test
+  void testSetAllBorderThicknesses3() {
     // Arrange
     PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
 
@@ -637,15 +427,11 @@ class PDLayoutAttributeObjectDiffblueTest {
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#setAllBorderThicknesses(int)} with {@code int}.
-   * <p>
-   * Method under test: {@link PDLayoutAttributeObject#setAllBorderThicknesses(int)}
+   * Method under test:
+   * {@link PDLayoutAttributeObject#setAllBorderThicknesses(int)}
    */
   @Test
-  @DisplayName("Test setAllBorderThicknesses(int) with 'int'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDLayoutAttributeObject.setAllBorderThicknesses(int)"})
-  void testSetAllBorderThicknessesWithInt2() {
+  void testSetAllBorderThicknesses4() {
     // Arrange
     PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
 
@@ -661,53 +447,21 @@ class PDLayoutAttributeObjectDiffblueTest {
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#getPadding()}.
-   * <ul>
-   *   <li>Given {@link PDExportFormatAttributeObject#PDExportFormatAttributeObject(String)} with owner is {@code SummaryColSpan}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDLayoutAttributeObject#getPadding()}
    */
   @Test
-  @DisplayName("Test getPadding(); given PDExportFormatAttributeObject(String) with owner is 'SummaryColSpan'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Object PDLayoutAttributeObject.getPadding()"})
-  void testGetPadding_givenPDExportFormatAttributeObjectWithOwnerIsSummaryColSpan() {
-    // Arrange, Act and Assert
-    assertEquals(0.0f, ((Float) (new PDExportFormatAttributeObject("SummaryColSpan")).getPadding()).floatValue());
-  }
-
-  /**
-   * Test {@link PDLayoutAttributeObject#getPadding()}.
-   * <ul>
-   *   <li>Given {@link PDLayoutAttributeObject#PDLayoutAttributeObject()}.</li>
-   *   <li>Then return floatValue is zero.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDLayoutAttributeObject#getPadding()}
-   */
-  @Test
-  @DisplayName("Test getPadding(); given PDLayoutAttributeObject(); then return floatValue is zero")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Object PDLayoutAttributeObject.getPadding()"})
-  void testGetPadding_givenPDLayoutAttributeObject_thenReturnFloatValueIsZero() {
+  void testGetPadding() {
     // Arrange, Act and Assert
     assertEquals(0.0f, ((Float) (new PDLayoutAttributeObject()).getPadding()).floatValue());
+    assertEquals(0.0f,
+        ((Float) (new PDExportFormatAttributeObject("ColSpanListNumberingHeaders")).getPadding()).floatValue());
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#setAllPaddings(float)} with {@code float}.
-   * <ul>
-   *   <li>Then {@link PDLayoutAttributeObject#PDLayoutAttributeObject()} Padding floatValue is ten.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDLayoutAttributeObject#setAllPaddings(float)}
    */
   @Test
-  @DisplayName("Test setAllPaddings(float) with 'float'; then PDLayoutAttributeObject() Padding floatValue is ten")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDLayoutAttributeObject.setAllPaddings(float)"})
-  void testSetAllPaddingsWithFloat_thenPDLayoutAttributeObjectPaddingFloatValueIsTen() {
+  void testSetAllPaddings() {
     // Arrange
     PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
 
@@ -723,42 +477,10 @@ class PDLayoutAttributeObjectDiffblueTest {
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#setAllPaddings(int)} with {@code int}.
-   * <p>
    * Method under test: {@link PDLayoutAttributeObject#setAllPaddings(int)}
    */
   @Test
-  @DisplayName("Test setAllPaddings(int) with 'int'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDLayoutAttributeObject.setAllPaddings(int)"})
-  void testSetAllPaddingsWithInt() {
-    // Arrange
-    PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
-
-    // Act
-    pdLayoutAttributeObject.setAllPaddings(Integer.MIN_VALUE);
-
-    // Assert
-    assertEquals(-2.14748365E9f, ((Float) pdLayoutAttributeObject.getPadding()).floatValue());
-    COSDictionary cOSObject = pdLayoutAttributeObject.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    assertFalse(pdLayoutAttributeObject.isEmpty());
-  }
-
-  /**
-   * Test {@link PDLayoutAttributeObject#setAllPaddings(int)} with {@code int}.
-   * <ul>
-   *   <li>Then {@link PDLayoutAttributeObject#PDLayoutAttributeObject()} Padding floatValue is two.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDLayoutAttributeObject#setAllPaddings(int)}
-   */
-  @Test
-  @DisplayName("Test setAllPaddings(int) with 'int'; then PDLayoutAttributeObject() Padding floatValue is two")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDLayoutAttributeObject.setAllPaddings(int)"})
-  void testSetAllPaddingsWithInt_thenPDLayoutAttributeObjectPaddingFloatValueIsTwo() {
+  void testSetAllPaddings2() {
     // Arrange
     PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
 
@@ -774,62 +496,38 @@ class PDLayoutAttributeObjectDiffblueTest {
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#getColor()}.
-   * <ul>
-   *   <li>Given {@link PDLayoutAttributeObject#PDLayoutAttributeObject()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PDLayoutAttributeObject#setAllPaddings(int)}
+   */
+  @Test
+  void testSetAllPaddings3() {
+    // Arrange
+    PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
+
+    // Act
+    pdLayoutAttributeObject.setAllPaddings(Integer.MIN_VALUE);
+
+    // Assert
+    assertEquals(-2.14748365E9f, ((Float) pdLayoutAttributeObject.getPadding()).floatValue());
+    COSDictionary cOSObject = pdLayoutAttributeObject.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    assertFalse(pdLayoutAttributeObject.isEmpty());
+  }
+
+  /**
    * Method under test: {@link PDLayoutAttributeObject#getColor()}
    */
   @Test
-  @DisplayName("Test getColor(); given PDLayoutAttributeObject(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDGamma PDLayoutAttributeObject.getColor()"})
-  void testGetColor_givenPDLayoutAttributeObject_thenReturnNull() {
+  void testGetColor() {
     // Arrange, Act and Assert
     assertNull((new PDLayoutAttributeObject()).getColor());
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#setColor(PDGamma)} with {@code color}.
-   * <ul>
-   *   <li>Then {@link PDLayoutAttributeObject#PDLayoutAttributeObject()} COSObject Values size is one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDLayoutAttributeObject#setColor(PDGamma)}
    */
   @Test
-  @DisplayName("Test setColor(PDGamma) with 'color'; then PDLayoutAttributeObject() COSObject Values size is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDLayoutAttributeObject.setColor(PDGamma)"})
-  void testSetColorWithColor_thenPDLayoutAttributeObjectCOSObjectValuesSizeIsOne() {
-    // Arrange
-    PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
-
-    // Act
-    pdLayoutAttributeObject.setColor(null);
-
-    // Assert that nothing has changed
-    COSDictionary cOSObject = pdLayoutAttributeObject.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-    assertTrue(pdLayoutAttributeObject.isEmpty());
-  }
-
-  /**
-   * Test {@link PDLayoutAttributeObject#setColor(PDGamma)} with {@code color}.
-   * <ul>
-   *   <li>Then {@link PDLayoutAttributeObject#PDLayoutAttributeObject()} Color B is zero.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDLayoutAttributeObject#setColor(PDGamma)}
-   */
-  @Test
-  @DisplayName("Test setColor(PDGamma) with 'color'; then PDLayoutAttributeObject() Color B is zero")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDLayoutAttributeObject.setColor(PDGamma)"})
-  void testSetColorWithColor_thenPDLayoutAttributeObjectColorBIsZero() {
+  void testSetColor() {
     // Arrange
     PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
 
@@ -848,60 +546,66 @@ class PDLayoutAttributeObjectDiffblueTest {
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#getSpaceBefore()}.
-   * <ul>
-   *   <li>Given {@link PDLayoutAttributeObject#PDLayoutAttributeObject()}.</li>
-   *   <li>Then return zero.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PDLayoutAttributeObject#setColor(PDGamma)}
+   */
+  @Test
+  void testSetColor2() {
+    // Arrange
+    PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
+
+    // Act
+    pdLayoutAttributeObject.setColor(null);
+
+    // Assert
+    assertNull(pdLayoutAttributeObject.getColor());
+    COSDictionary cOSObject = pdLayoutAttributeObject.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+    assertTrue(pdLayoutAttributeObject.isEmpty());
+  }
+
+  /**
+   * Method under test: {@link PDLayoutAttributeObject#setColor(PDGamma)}
+   */
+  @Test
+  void testSetColor3() {
+    // Arrange
+    PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
+    COSObjectable object = mock(COSObjectable.class);
+    when(object.getCOSObject()).thenReturn(COSBoolean.FALSE);
+
+    COSArray array = new COSArray();
+    array.add(object);
+
+    // Act
+    pdLayoutAttributeObject.setColor(new PDGamma(array));
+
+    // Assert
+    verify(object).getCOSObject();
+    COSDictionary cOSObject = pdLayoutAttributeObject.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    assertFalse(pdLayoutAttributeObject.isEmpty());
+    PDGamma color = pdLayoutAttributeObject.getColor();
+    assertSame(array, color.getCOSArray());
+    assertSame(array, color.getCOSObject());
+  }
+
+  /**
    * Method under test: {@link PDLayoutAttributeObject#getSpaceBefore()}
    */
   @Test
-  @DisplayName("Test getSpaceBefore(); given PDLayoutAttributeObject(); then return zero")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"float PDLayoutAttributeObject.getSpaceBefore()"})
-  void testGetSpaceBefore_givenPDLayoutAttributeObject_thenReturnZero() {
+  void testGetSpaceBefore() {
     // Arrange, Act and Assert
     assertEquals(0.0f, (new PDLayoutAttributeObject()).getSpaceBefore());
+    assertEquals(0.0f, (new PDExportFormatAttributeObject(new COSStream())).getSpaceBefore());
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#setSpaceBefore(float)} with {@code float}.
-   * <p>
    * Method under test: {@link PDLayoutAttributeObject#setSpaceBefore(float)}
    */
   @Test
-  @DisplayName("Test setSpaceBefore(float) with 'float'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDLayoutAttributeObject.setSpaceBefore(float)"})
-  void testSetSpaceBeforeWithFloat() {
-    // Arrange
-    PDExportFormatAttributeObject pdExportFormatAttributeObject = new PDExportFormatAttributeObject("ColSpanScope42");
-
-    // Act
-    pdExportFormatAttributeObject.setSpaceBefore(10.0f);
-
-    // Assert
-    assertEquals(10.0f, pdExportFormatAttributeObject.getSpaceBefore());
-    COSDictionary cOSObject = pdExportFormatAttributeObject.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    assertFalse(pdExportFormatAttributeObject.isEmpty());
-  }
-
-  /**
-   * Test {@link PDLayoutAttributeObject#setSpaceBefore(float)} with {@code float}.
-   * <ul>
-   *   <li>Then {@link PDLayoutAttributeObject#PDLayoutAttributeObject()} SpaceBefore is ten.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDLayoutAttributeObject#setSpaceBefore(float)}
-   */
-  @Test
-  @DisplayName("Test setSpaceBefore(float) with 'float'; then PDLayoutAttributeObject() SpaceBefore is ten")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDLayoutAttributeObject.setSpaceBefore(float)"})
-  void testSetSpaceBeforeWithFloat_thenPDLayoutAttributeObjectSpaceBeforeIsTen() {
+  void testSetSpaceBefore() {
     // Arrange
     PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
 
@@ -917,45 +621,30 @@ class PDLayoutAttributeObjectDiffblueTest {
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#setSpaceBefore(int)} with {@code int}.
-   * <ul>
-   *   <li>Then {@link PDLayoutAttributeObject#PDLayoutAttributeObject()} SpaceBefore is {@code -2.14748365E9}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDLayoutAttributeObject#setSpaceBefore(int)}
+   * Method under test: {@link PDLayoutAttributeObject#setSpaceBefore(float)}
    */
   @Test
-  @DisplayName("Test setSpaceBefore(int) with 'int'; then PDLayoutAttributeObject() SpaceBefore is '-2.14748365E9'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDLayoutAttributeObject.setSpaceBefore(int)"})
-  void testSetSpaceBeforeWithInt_thenPDLayoutAttributeObjectSpaceBeforeIs214748365e9() {
+  void testSetSpaceBefore2() {
     // Arrange
-    PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
+    PDExportFormatAttributeObject pdExportFormatAttributeObject = new PDExportFormatAttributeObject(
+        "HeadersHeadersHeaders");
 
     // Act
-    pdLayoutAttributeObject.setSpaceBefore(Integer.MIN_VALUE);
+    pdExportFormatAttributeObject.setSpaceBefore(10.0f);
 
     // Assert
-    assertEquals(-2.14748365E9f, pdLayoutAttributeObject.getSpaceBefore());
-    COSDictionary cOSObject = pdLayoutAttributeObject.getCOSObject();
+    assertEquals(10.0f, pdExportFormatAttributeObject.getSpaceBefore());
+    COSDictionary cOSObject = pdExportFormatAttributeObject.getCOSObject();
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
-    assertFalse(pdLayoutAttributeObject.isEmpty());
+    assertFalse(pdExportFormatAttributeObject.isEmpty());
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#setSpaceBefore(int)} with {@code int}.
-   * <ul>
-   *   <li>Then {@link PDLayoutAttributeObject#PDLayoutAttributeObject()} SpaceBefore is one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDLayoutAttributeObject#setSpaceBefore(int)}
    */
   @Test
-  @DisplayName("Test setSpaceBefore(int) with 'int'; then PDLayoutAttributeObject() SpaceBefore is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDLayoutAttributeObject.setSpaceBefore(int)"})
-  void testSetSpaceBeforeWithInt_thenPDLayoutAttributeObjectSpaceBeforeIsOne() {
+  void testSetSpaceBefore3() {
     // Arrange
     PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
 
@@ -971,53 +660,38 @@ class PDLayoutAttributeObjectDiffblueTest {
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#getSpaceAfter()}.
-   * <ul>
-   *   <li>Given {@link PDExportFormatAttributeObject#PDExportFormatAttributeObject(String)} with owner is {@code HeadersColSpan}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDLayoutAttributeObject#getSpaceAfter()}
+   * Method under test: {@link PDLayoutAttributeObject#setSpaceBefore(int)}
    */
   @Test
-  @DisplayName("Test getSpaceAfter(); given PDExportFormatAttributeObject(String) with owner is 'HeadersColSpan'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"float PDLayoutAttributeObject.getSpaceAfter()"})
-  void testGetSpaceAfter_givenPDExportFormatAttributeObjectWithOwnerIsHeadersColSpan() {
-    // Arrange, Act and Assert
-    assertEquals(0.0f, (new PDExportFormatAttributeObject("HeadersColSpan")).getSpaceAfter());
+  void testSetSpaceBefore4() {
+    // Arrange
+    PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
+
+    // Act
+    pdLayoutAttributeObject.setSpaceBefore(Integer.MIN_VALUE);
+
+    // Assert
+    assertEquals(-2.14748365E9f, pdLayoutAttributeObject.getSpaceBefore());
+    COSDictionary cOSObject = pdLayoutAttributeObject.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    assertFalse(pdLayoutAttributeObject.isEmpty());
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#getSpaceAfter()}.
-   * <ul>
-   *   <li>Given {@link PDLayoutAttributeObject#PDLayoutAttributeObject()}.</li>
-   *   <li>Then return zero.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDLayoutAttributeObject#getSpaceAfter()}
    */
   @Test
-  @DisplayName("Test getSpaceAfter(); given PDLayoutAttributeObject(); then return zero")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"float PDLayoutAttributeObject.getSpaceAfter()"})
-  void testGetSpaceAfter_givenPDLayoutAttributeObject_thenReturnZero() {
+  void testGetSpaceAfter() {
     // Arrange, Act and Assert
     assertEquals(0.0f, (new PDLayoutAttributeObject()).getSpaceAfter());
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#setSpaceAfter(float)} with {@code float}.
-   * <ul>
-   *   <li>Then {@link PDLayoutAttributeObject#PDLayoutAttributeObject()} SpaceAfter is ten.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDLayoutAttributeObject#setSpaceAfter(float)}
    */
   @Test
-  @DisplayName("Test setSpaceAfter(float) with 'float'; then PDLayoutAttributeObject() SpaceAfter is ten")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDLayoutAttributeObject.setSpaceAfter(float)"})
-  void testSetSpaceAfterWithFloat_thenPDLayoutAttributeObjectSpaceAfterIsTen() {
+  void testSetSpaceAfter() {
     // Arrange
     PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
 
@@ -1033,45 +707,10 @@ class PDLayoutAttributeObjectDiffblueTest {
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#setSpaceAfter(int)} with {@code int}.
-   * <ul>
-   *   <li>Then {@link PDLayoutAttributeObject#PDLayoutAttributeObject()} SpaceAfter is {@code -2.14748365E9}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDLayoutAttributeObject#setSpaceAfter(int)}
    */
   @Test
-  @DisplayName("Test setSpaceAfter(int) with 'int'; then PDLayoutAttributeObject() SpaceAfter is '-2.14748365E9'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDLayoutAttributeObject.setSpaceAfter(int)"})
-  void testSetSpaceAfterWithInt_thenPDLayoutAttributeObjectSpaceAfterIs214748365e9() {
-    // Arrange
-    PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
-
-    // Act
-    pdLayoutAttributeObject.setSpaceAfter(Integer.MIN_VALUE);
-
-    // Assert
-    assertEquals(-2.14748365E9f, pdLayoutAttributeObject.getSpaceAfter());
-    COSDictionary cOSObject = pdLayoutAttributeObject.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    assertFalse(pdLayoutAttributeObject.isEmpty());
-  }
-
-  /**
-   * Test {@link PDLayoutAttributeObject#setSpaceAfter(int)} with {@code int}.
-   * <ul>
-   *   <li>Then {@link PDLayoutAttributeObject#PDLayoutAttributeObject()} SpaceAfter is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDLayoutAttributeObject#setSpaceAfter(int)}
-   */
-  @Test
-  @DisplayName("Test setSpaceAfter(int) with 'int'; then PDLayoutAttributeObject() SpaceAfter is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDLayoutAttributeObject.setSpaceAfter(int)"})
-  void testSetSpaceAfterWithInt_thenPDLayoutAttributeObjectSpaceAfterIsOne() {
+  void testSetSpaceAfter2() {
     // Arrange
     PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
 
@@ -1087,78 +726,38 @@ class PDLayoutAttributeObjectDiffblueTest {
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#getStartIndent()}.
-   * <ul>
-   *   <li>Given {@link PDLayoutAttributeObject#PDLayoutAttributeObject(COSDictionary)} with dictionary is {@link COSDictionary#COSDictionary()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDLayoutAttributeObject#getStartIndent()}
+   * Method under test: {@link PDLayoutAttributeObject#setSpaceAfter(int)}
    */
   @Test
-  @DisplayName("Test getStartIndent(); given PDLayoutAttributeObject(COSDictionary) with dictionary is COSDictionary()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"float PDLayoutAttributeObject.getStartIndent()"})
-  void testGetStartIndent_givenPDLayoutAttributeObjectWithDictionaryIsCOSDictionary() {
-    // Arrange, Act and Assert
-    assertEquals(0.0f, (new PDLayoutAttributeObject(new COSDictionary())).getStartIndent());
+  void testSetSpaceAfter3() {
+    // Arrange
+    PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
+
+    // Act
+    pdLayoutAttributeObject.setSpaceAfter(Integer.MIN_VALUE);
+
+    // Assert
+    assertEquals(-2.14748365E9f, pdLayoutAttributeObject.getSpaceAfter());
+    COSDictionary cOSObject = pdLayoutAttributeObject.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    assertFalse(pdLayoutAttributeObject.isEmpty());
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#getStartIndent()}.
-   * <ul>
-   *   <li>Given {@link PDLayoutAttributeObject#PDLayoutAttributeObject()}.</li>
-   *   <li>Then return zero.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDLayoutAttributeObject#getStartIndent()}
    */
   @Test
-  @DisplayName("Test getStartIndent(); given PDLayoutAttributeObject(); then return zero")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"float PDLayoutAttributeObject.getStartIndent()"})
-  void testGetStartIndent_givenPDLayoutAttributeObject_thenReturnZero() {
+  void testGetStartIndent() {
     // Arrange, Act and Assert
     assertEquals(0.0f, (new PDLayoutAttributeObject()).getStartIndent());
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#setStartIndent(float)} with {@code float}.
-   * <p>
    * Method under test: {@link PDLayoutAttributeObject#setStartIndent(float)}
    */
   @Test
-  @DisplayName("Test setStartIndent(float) with 'float'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDLayoutAttributeObject.setStartIndent(float)"})
-  void testSetStartIndentWithFloat() {
-    // Arrange
-    PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject(new COSStream());
-
-    // Act
-    pdLayoutAttributeObject.setStartIndent(Float.NaN);
-
-    // Assert
-    COSDictionary cOSObject = pdLayoutAttributeObject.getCOSObject();
-    assertTrue(cOSObject instanceof COSStream);
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    assertFalse(pdLayoutAttributeObject.isEmpty());
-    assertEquals(Float.NaN, pdLayoutAttributeObject.getStartIndent());
-  }
-
-  /**
-   * Test {@link PDLayoutAttributeObject#setStartIndent(float)} with {@code float}.
-   * <ul>
-   *   <li>Then {@link PDLayoutAttributeObject#PDLayoutAttributeObject()} StartIndent is ten.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDLayoutAttributeObject#setStartIndent(float)}
-   */
-  @Test
-  @DisplayName("Test setStartIndent(float) with 'float'; then PDLayoutAttributeObject() StartIndent is ten")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDLayoutAttributeObject.setStartIndent(float)"})
-  void testSetStartIndentWithFloat_thenPDLayoutAttributeObjectStartIndentIsTen() {
+  void testSetStartIndent() {
     // Arrange
     PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
 
@@ -1174,45 +773,10 @@ class PDLayoutAttributeObjectDiffblueTest {
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#setStartIndent(int)} with {@code int}.
-   * <ul>
-   *   <li>Then {@link PDLayoutAttributeObject#PDLayoutAttributeObject()} StartIndent is {@code -2.14748365E9}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDLayoutAttributeObject#setStartIndent(int)}
    */
   @Test
-  @DisplayName("Test setStartIndent(int) with 'int'; then PDLayoutAttributeObject() StartIndent is '-2.14748365E9'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDLayoutAttributeObject.setStartIndent(int)"})
-  void testSetStartIndentWithInt_thenPDLayoutAttributeObjectStartIndentIs214748365e9() {
-    // Arrange
-    PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
-
-    // Act
-    pdLayoutAttributeObject.setStartIndent(Integer.MIN_VALUE);
-
-    // Assert
-    assertEquals(-2.14748365E9f, pdLayoutAttributeObject.getStartIndent());
-    COSDictionary cOSObject = pdLayoutAttributeObject.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    assertFalse(pdLayoutAttributeObject.isEmpty());
-  }
-
-  /**
-   * Test {@link PDLayoutAttributeObject#setStartIndent(int)} with {@code int}.
-   * <ul>
-   *   <li>Then {@link PDLayoutAttributeObject#PDLayoutAttributeObject()} StartIndent is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDLayoutAttributeObject#setStartIndent(int)}
-   */
-  @Test
-  @DisplayName("Test setStartIndent(int) with 'int'; then PDLayoutAttributeObject() StartIndent is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDLayoutAttributeObject.setStartIndent(int)"})
-  void testSetStartIndentWithInt_thenPDLayoutAttributeObjectStartIndentIsOne() {
+  void testSetStartIndent2() {
     // Arrange
     PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
 
@@ -1228,36 +792,39 @@ class PDLayoutAttributeObjectDiffblueTest {
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#getEndIndent()}.
-   * <ul>
-   *   <li>Given {@link PDLayoutAttributeObject#PDLayoutAttributeObject()}.</li>
-   *   <li>Then return zero.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDLayoutAttributeObject#getEndIndent()}
+   * Method under test: {@link PDLayoutAttributeObject#setStartIndent(int)}
    */
   @Test
-  @DisplayName("Test getEndIndent(); given PDLayoutAttributeObject(); then return zero")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"float PDLayoutAttributeObject.getEndIndent()"})
-  void testGetEndIndent_givenPDLayoutAttributeObject_thenReturnZero() {
-    // Arrange, Act and Assert
-    assertEquals(0.0f, (new PDLayoutAttributeObject()).getEndIndent());
+  void testSetStartIndent3() {
+    // Arrange
+    PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
+
+    // Act
+    pdLayoutAttributeObject.setStartIndent(Integer.MIN_VALUE);
+
+    // Assert
+    assertEquals(-2.14748365E9f, pdLayoutAttributeObject.getStartIndent());
+    COSDictionary cOSObject = pdLayoutAttributeObject.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    assertFalse(pdLayoutAttributeObject.isEmpty());
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#setEndIndent(float)} with {@code float}.
-   * <ul>
-   *   <li>Then {@link PDLayoutAttributeObject#PDLayoutAttributeObject()} EndIndent is ten.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PDLayoutAttributeObject#getEndIndent()}
+   */
+  @Test
+  void testGetEndIndent() {
+    // Arrange, Act and Assert
+    assertEquals(0.0f, (new PDLayoutAttributeObject()).getEndIndent());
+    assertEquals(0.0f, (new PDExportFormatAttributeObject("42SummaryOwner")).getEndIndent());
+  }
+
+  /**
    * Method under test: {@link PDLayoutAttributeObject#setEndIndent(float)}
    */
   @Test
-  @DisplayName("Test setEndIndent(float) with 'float'; then PDLayoutAttributeObject() EndIndent is ten")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDLayoutAttributeObject.setEndIndent(float)"})
-  void testSetEndIndentWithFloat_thenPDLayoutAttributeObjectEndIndentIsTen() {
+  void testSetEndIndent() {
     // Arrange
     PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
 
@@ -1273,45 +840,10 @@ class PDLayoutAttributeObjectDiffblueTest {
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#setEndIndent(int)} with {@code int}.
-   * <ul>
-   *   <li>Then {@link PDLayoutAttributeObject#PDLayoutAttributeObject()} EndIndent is {@code -2.14748365E9}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDLayoutAttributeObject#setEndIndent(int)}
    */
   @Test
-  @DisplayName("Test setEndIndent(int) with 'int'; then PDLayoutAttributeObject() EndIndent is '-2.14748365E9'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDLayoutAttributeObject.setEndIndent(int)"})
-  void testSetEndIndentWithInt_thenPDLayoutAttributeObjectEndIndentIs214748365e9() {
-    // Arrange
-    PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
-
-    // Act
-    pdLayoutAttributeObject.setEndIndent(Integer.MIN_VALUE);
-
-    // Assert
-    assertEquals(-2.14748365E9f, pdLayoutAttributeObject.getEndIndent());
-    COSDictionary cOSObject = pdLayoutAttributeObject.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    assertFalse(pdLayoutAttributeObject.isEmpty());
-  }
-
-  /**
-   * Test {@link PDLayoutAttributeObject#setEndIndent(int)} with {@code int}.
-   * <ul>
-   *   <li>Then {@link PDLayoutAttributeObject#PDLayoutAttributeObject()} EndIndent is three.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDLayoutAttributeObject#setEndIndent(int)}
-   */
-  @Test
-  @DisplayName("Test setEndIndent(int) with 'int'; then PDLayoutAttributeObject() EndIndent is three")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDLayoutAttributeObject.setEndIndent(int)"})
-  void testSetEndIndentWithInt_thenPDLayoutAttributeObjectEndIndentIsThree() {
+  void testSetEndIndent2() {
     // Arrange
     PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
 
@@ -1327,78 +859,38 @@ class PDLayoutAttributeObjectDiffblueTest {
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#getTextIndent()}.
-   * <ul>
-   *   <li>Given {@link PDExportFormatAttributeObject#PDExportFormatAttributeObject(String)} with owner is {@code OwnerHeadersScope}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDLayoutAttributeObject#getTextIndent()}
+   * Method under test: {@link PDLayoutAttributeObject#setEndIndent(int)}
    */
   @Test
-  @DisplayName("Test getTextIndent(); given PDExportFormatAttributeObject(String) with owner is 'OwnerHeadersScope'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"float PDLayoutAttributeObject.getTextIndent()"})
-  void testGetTextIndent_givenPDExportFormatAttributeObjectWithOwnerIsOwnerHeadersScope() {
-    // Arrange, Act and Assert
-    assertEquals(0.0f, (new PDExportFormatAttributeObject("OwnerHeadersScope")).getTextIndent());
+  void testSetEndIndent3() {
+    // Arrange
+    PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
+
+    // Act
+    pdLayoutAttributeObject.setEndIndent(Integer.MIN_VALUE);
+
+    // Assert
+    assertEquals(-2.14748365E9f, pdLayoutAttributeObject.getEndIndent());
+    COSDictionary cOSObject = pdLayoutAttributeObject.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    assertFalse(pdLayoutAttributeObject.isEmpty());
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#getTextIndent()}.
-   * <ul>
-   *   <li>Given {@link PDLayoutAttributeObject#PDLayoutAttributeObject()}.</li>
-   *   <li>Then return zero.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDLayoutAttributeObject#getTextIndent()}
    */
   @Test
-  @DisplayName("Test getTextIndent(); given PDLayoutAttributeObject(); then return zero")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"float PDLayoutAttributeObject.getTextIndent()"})
-  void testGetTextIndent_givenPDLayoutAttributeObject_thenReturnZero() {
+  void testGetTextIndent() {
     // Arrange, Act and Assert
     assertEquals(0.0f, (new PDLayoutAttributeObject()).getTextIndent());
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#setTextIndent(float)} with {@code float}.
-   * <p>
    * Method under test: {@link PDLayoutAttributeObject#setTextIndent(float)}
    */
   @Test
-  @DisplayName("Test setTextIndent(float) with 'float'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDLayoutAttributeObject.setTextIndent(float)"})
-  void testSetTextIndentWithFloat() {
-    // Arrange
-    PDExportFormatAttributeObject pdExportFormatAttributeObject = new PDExportFormatAttributeObject(
-        "HeadersColSpanColSpan");
-
-    // Act
-    pdExportFormatAttributeObject.setTextIndent(10.0f);
-
-    // Assert
-    assertEquals(10.0f, pdExportFormatAttributeObject.getTextIndent());
-    COSDictionary cOSObject = pdExportFormatAttributeObject.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    assertFalse(pdExportFormatAttributeObject.isEmpty());
-  }
-
-  /**
-   * Test {@link PDLayoutAttributeObject#setTextIndent(float)} with {@code float}.
-   * <ul>
-   *   <li>Then {@link PDLayoutAttributeObject#PDLayoutAttributeObject()} TextIndent is ten.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDLayoutAttributeObject#setTextIndent(float)}
-   */
-  @Test
-  @DisplayName("Test setTextIndent(float) with 'float'; then PDLayoutAttributeObject() TextIndent is ten")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDLayoutAttributeObject.setTextIndent(float)"})
-  void testSetTextIndentWithFloat_thenPDLayoutAttributeObjectTextIndentIsTen() {
+  void testSetTextIndent() {
     // Arrange
     PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
 
@@ -1414,45 +906,10 @@ class PDLayoutAttributeObjectDiffblueTest {
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#setTextIndent(int)} with {@code int}.
-   * <ul>
-   *   <li>Then {@link PDLayoutAttributeObject#PDLayoutAttributeObject()} TextIndent is {@code -2.14748365E9}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDLayoutAttributeObject#setTextIndent(int)}
    */
   @Test
-  @DisplayName("Test setTextIndent(int) with 'int'; then PDLayoutAttributeObject() TextIndent is '-2.14748365E9'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDLayoutAttributeObject.setTextIndent(int)"})
-  void testSetTextIndentWithInt_thenPDLayoutAttributeObjectTextIndentIs214748365e9() {
-    // Arrange
-    PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
-
-    // Act
-    pdLayoutAttributeObject.setTextIndent(Integer.MIN_VALUE);
-
-    // Assert
-    assertEquals(-2.14748365E9f, pdLayoutAttributeObject.getTextIndent());
-    COSDictionary cOSObject = pdLayoutAttributeObject.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    assertFalse(pdLayoutAttributeObject.isEmpty());
-  }
-
-  /**
-   * Test {@link PDLayoutAttributeObject#setTextIndent(int)} with {@code int}.
-   * <ul>
-   *   <li>Then {@link PDLayoutAttributeObject#PDLayoutAttributeObject()} TextIndent is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDLayoutAttributeObject#setTextIndent(int)}
-   */
-  @Test
-  @DisplayName("Test setTextIndent(int) with 'int'; then PDLayoutAttributeObject() TextIndent is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDLayoutAttributeObject.setTextIndent(int)"})
-  void testSetTextIndentWithInt_thenPDLayoutAttributeObjectTextIndentIsOne() {
+  void testSetTextIndent2() {
     // Arrange
     PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
 
@@ -1468,36 +925,40 @@ class PDLayoutAttributeObjectDiffblueTest {
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#getTextAlign()}.
-   * <ul>
-   *   <li>Given {@link PDLayoutAttributeObject#PDLayoutAttributeObject()}.</li>
-   *   <li>Then return {@link PDLayoutAttributeObject#INLINE_ALIGN_START}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDLayoutAttributeObject#getTextAlign()}
+   * Method under test: {@link PDLayoutAttributeObject#setTextIndent(int)}
    */
   @Test
-  @DisplayName("Test getTextAlign(); given PDLayoutAttributeObject(); then return INLINE_ALIGN_START")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDLayoutAttributeObject.getTextAlign()"})
-  void testGetTextAlign_givenPDLayoutAttributeObject_thenReturnInline_align_start() {
-    // Arrange, Act and Assert
-    assertEquals(PDLayoutAttributeObject.INLINE_ALIGN_START, (new PDLayoutAttributeObject()).getTextAlign());
+  void testSetTextIndent3() {
+    // Arrange
+    PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
+
+    // Act
+    pdLayoutAttributeObject.setTextIndent(Integer.MIN_VALUE);
+
+    // Assert
+    assertEquals(-2.14748365E9f, pdLayoutAttributeObject.getTextIndent());
+    COSDictionary cOSObject = pdLayoutAttributeObject.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    assertFalse(pdLayoutAttributeObject.isEmpty());
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#setTextAlign(String)}.
-   * <ul>
-   *   <li>Then {@link PDLayoutAttributeObject#PDLayoutAttributeObject()} TextAlign is {@code Text Indent}.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PDLayoutAttributeObject#getTextAlign()}
+   */
+  @Test
+  void testGetTextAlign() {
+    // Arrange, Act and Assert
+    assertEquals(PDLayoutAttributeObject.INLINE_ALIGN_START, (new PDLayoutAttributeObject()).getTextAlign());
+    assertEquals(PDLayoutAttributeObject.INLINE_ALIGN_START,
+        (new PDExportFormatAttributeObject("ColSpan42Summary")).getTextAlign());
+  }
+
+  /**
    * Method under test: {@link PDLayoutAttributeObject#setTextAlign(String)}
    */
   @Test
-  @DisplayName("Test setTextAlign(String); then PDLayoutAttributeObject() TextAlign is 'Text Indent'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDLayoutAttributeObject.setTextAlign(String)"})
-  void testSetTextAlign_thenPDLayoutAttributeObjectTextAlignIsTextIndent() {
+  void testSetTextAlign() {
     // Arrange
     PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
 
@@ -1513,36 +974,19 @@ class PDLayoutAttributeObjectDiffblueTest {
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#getBBox()}.
-   * <ul>
-   *   <li>Given {@link PDLayoutAttributeObject#PDLayoutAttributeObject()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDLayoutAttributeObject#getBBox()}
    */
   @Test
-  @DisplayName("Test getBBox(); given PDLayoutAttributeObject(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDRectangle PDLayoutAttributeObject.getBBox()"})
-  void testGetBBox_givenPDLayoutAttributeObject_thenReturnNull() {
+  void testGetBBox() {
     // Arrange, Act and Assert
     assertNull((new PDLayoutAttributeObject()).getBBox());
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#setBBox(PDRectangle)}.
-   * <ul>
-   *   <li>Then {@link PDLayoutAttributeObject#PDLayoutAttributeObject()} BBox LowerLeftX is zero.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDLayoutAttributeObject#setBBox(PDRectangle)}
    */
   @Test
-  @DisplayName("Test setBBox(PDRectangle); then PDLayoutAttributeObject() BBox LowerLeftX is zero")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDLayoutAttributeObject.setBBox(PDRectangle)"})
-  void testSetBBox_thenPDLayoutAttributeObjectBBoxLowerLeftXIsZero() {
+  void testSetBBox() {
     // Arrange
     PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
 
@@ -1566,26 +1010,18 @@ class PDLayoutAttributeObjectDiffblueTest {
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#setBBox(PDRectangle)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then {@link PDLayoutAttributeObject#PDLayoutAttributeObject()} COSObject Values size is one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDLayoutAttributeObject#setBBox(PDRectangle)}
    */
   @Test
-  @DisplayName("Test setBBox(PDRectangle); when 'null'; then PDLayoutAttributeObject() COSObject Values size is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDLayoutAttributeObject.setBBox(PDRectangle)"})
-  void testSetBBox_whenNull_thenPDLayoutAttributeObjectCOSObjectValuesSizeIsOne() {
+  void testSetBBox2() {
     // Arrange
     PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
 
     // Act
     pdLayoutAttributeObject.setBBox(null);
 
-    // Assert that nothing has changed
+    // Assert
+    assertNull(pdLayoutAttributeObject.getBBox());
     COSDictionary cOSObject = pdLayoutAttributeObject.getCOSObject();
     assertEquals(1, cOSObject.getValues().size());
     assertEquals(1, cOSObject.size());
@@ -1593,35 +1029,19 @@ class PDLayoutAttributeObjectDiffblueTest {
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#getWidth()}.
-   * <ul>
-   *   <li>Then return {@link PDLayoutAttributeObject#GLYPH_ORIENTATION_VERTICAL_AUTO}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDLayoutAttributeObject#getWidth()}
    */
   @Test
-  @DisplayName("Test getWidth(); then return GLYPH_ORIENTATION_VERTICAL_AUTO")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Object PDLayoutAttributeObject.getWidth()"})
-  void testGetWidth_thenReturnGlyph_orientation_vertical_auto() {
+  void testGetWidth() {
     // Arrange, Act and Assert
     assertEquals(PDLayoutAttributeObject.GLYPH_ORIENTATION_VERTICAL_AUTO, (new PDLayoutAttributeObject()).getWidth());
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#setWidthAuto()}.
-   * <ul>
-   *   <li>Then {@link PDLayoutAttributeObject#PDLayoutAttributeObject()} COSObject Values size is two.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDLayoutAttributeObject#setWidthAuto()}
    */
   @Test
-  @DisplayName("Test setWidthAuto(); then PDLayoutAttributeObject() COSObject Values size is two")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDLayoutAttributeObject.setWidthAuto()"})
-  void testSetWidthAuto_thenPDLayoutAttributeObjectCOSObjectValuesSizeIsTwo() {
+  void testSetWidthAuto() {
     // Arrange
     PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
 
@@ -1636,18 +1056,10 @@ class PDLayoutAttributeObjectDiffblueTest {
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#setWidth(float)} with {@code float}.
-   * <ul>
-   *   <li>Then {@link PDLayoutAttributeObject#PDLayoutAttributeObject()} Width floatValue is ten.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDLayoutAttributeObject#setWidth(float)}
    */
   @Test
-  @DisplayName("Test setWidth(float) with 'float'; then PDLayoutAttributeObject() Width floatValue is ten")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDLayoutAttributeObject.setWidth(float)"})
-  void testSetWidthWithFloat_thenPDLayoutAttributeObjectWidthFloatValueIsTen() {
+  void testSetWidth() {
     // Arrange
     PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
 
@@ -1663,45 +1075,10 @@ class PDLayoutAttributeObjectDiffblueTest {
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#setWidth(int)} with {@code int}.
-   * <ul>
-   *   <li>Then {@link PDLayoutAttributeObject#PDLayoutAttributeObject()} Width floatValue is {@code -2.14748365E9}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDLayoutAttributeObject#setWidth(int)}
    */
   @Test
-  @DisplayName("Test setWidth(int) with 'int'; then PDLayoutAttributeObject() Width floatValue is '-2.14748365E9'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDLayoutAttributeObject.setWidth(int)"})
-  void testSetWidthWithInt_thenPDLayoutAttributeObjectWidthFloatValueIs214748365e9() {
-    // Arrange
-    PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
-
-    // Act
-    pdLayoutAttributeObject.setWidth(Integer.MIN_VALUE);
-
-    // Assert
-    assertEquals(-2.14748365E9f, ((Float) pdLayoutAttributeObject.getWidth()).floatValue());
-    COSDictionary cOSObject = pdLayoutAttributeObject.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    assertFalse(pdLayoutAttributeObject.isEmpty());
-  }
-
-  /**
-   * Test {@link PDLayoutAttributeObject#setWidth(int)} with {@code int}.
-   * <ul>
-   *   <li>Then {@link PDLayoutAttributeObject#PDLayoutAttributeObject()} Width floatValue is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDLayoutAttributeObject#setWidth(int)}
-   */
-  @Test
-  @DisplayName("Test setWidth(int) with 'int'; then PDLayoutAttributeObject() Width floatValue is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDLayoutAttributeObject.setWidth(int)"})
-  void testSetWidthWithInt_thenPDLayoutAttributeObjectWidthFloatValueIsOne() {
+  void testSetWidth2() {
     // Arrange
     PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
 
@@ -1717,35 +1094,38 @@ class PDLayoutAttributeObjectDiffblueTest {
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#getHeight()}.
-   * <ul>
-   *   <li>Then return {@link PDLayoutAttributeObject#GLYPH_ORIENTATION_VERTICAL_AUTO}.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PDLayoutAttributeObject#setWidth(int)}
+   */
+  @Test
+  void testSetWidth3() {
+    // Arrange
+    PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
+
+    // Act
+    pdLayoutAttributeObject.setWidth(Integer.MIN_VALUE);
+
+    // Assert
+    assertEquals(-2.14748365E9f, ((Float) pdLayoutAttributeObject.getWidth()).floatValue());
+    COSDictionary cOSObject = pdLayoutAttributeObject.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    assertFalse(pdLayoutAttributeObject.isEmpty());
+  }
+
+  /**
    * Method under test: {@link PDLayoutAttributeObject#getHeight()}
    */
   @Test
-  @DisplayName("Test getHeight(); then return GLYPH_ORIENTATION_VERTICAL_AUTO")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Object PDLayoutAttributeObject.getHeight()"})
-  void testGetHeight_thenReturnGlyph_orientation_vertical_auto() {
+  void testGetHeight() {
     // Arrange, Act and Assert
     assertEquals(PDLayoutAttributeObject.GLYPH_ORIENTATION_VERTICAL_AUTO, (new PDLayoutAttributeObject()).getHeight());
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#setHeightAuto()}.
-   * <ul>
-   *   <li>Then {@link PDLayoutAttributeObject#PDLayoutAttributeObject()} COSObject Values size is two.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDLayoutAttributeObject#setHeightAuto()}
    */
   @Test
-  @DisplayName("Test setHeightAuto(); then PDLayoutAttributeObject() COSObject Values size is two")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDLayoutAttributeObject.setHeightAuto()"})
-  void testSetHeightAuto_thenPDLayoutAttributeObjectCOSObjectValuesSizeIsTwo() {
+  void testSetHeightAuto() {
     // Arrange
     PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
 
@@ -1760,18 +1140,10 @@ class PDLayoutAttributeObjectDiffblueTest {
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#setHeight(float)} with {@code float}.
-   * <ul>
-   *   <li>Then {@link PDLayoutAttributeObject#PDLayoutAttributeObject()} Height floatValue is ten.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDLayoutAttributeObject#setHeight(float)}
    */
   @Test
-  @DisplayName("Test setHeight(float) with 'float'; then PDLayoutAttributeObject() Height floatValue is ten")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDLayoutAttributeObject.setHeight(float)"})
-  void testSetHeightWithFloat_thenPDLayoutAttributeObjectHeightFloatValueIsTen() {
+  void testSetHeight() {
     // Arrange
     PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
 
@@ -1787,45 +1159,10 @@ class PDLayoutAttributeObjectDiffblueTest {
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#setHeight(int)} with {@code int}.
-   * <ul>
-   *   <li>Then {@link PDLayoutAttributeObject#PDLayoutAttributeObject()} Height floatValue is {@code -2.14748365E9}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDLayoutAttributeObject#setHeight(int)}
    */
   @Test
-  @DisplayName("Test setHeight(int) with 'int'; then PDLayoutAttributeObject() Height floatValue is '-2.14748365E9'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDLayoutAttributeObject.setHeight(int)"})
-  void testSetHeightWithInt_thenPDLayoutAttributeObjectHeightFloatValueIs214748365e9() {
-    // Arrange
-    PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
-
-    // Act
-    pdLayoutAttributeObject.setHeight(Integer.MIN_VALUE);
-
-    // Assert
-    assertEquals(-2.14748365E9f, ((Float) pdLayoutAttributeObject.getHeight()).floatValue());
-    COSDictionary cOSObject = pdLayoutAttributeObject.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    assertFalse(pdLayoutAttributeObject.isEmpty());
-  }
-
-  /**
-   * Test {@link PDLayoutAttributeObject#setHeight(int)} with {@code int}.
-   * <ul>
-   *   <li>Then {@link PDLayoutAttributeObject#PDLayoutAttributeObject()} Height floatValue is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDLayoutAttributeObject#setHeight(int)}
-   */
-  @Test
-  @DisplayName("Test setHeight(int) with 'int'; then PDLayoutAttributeObject() Height floatValue is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDLayoutAttributeObject.setHeight(int)"})
-  void testSetHeightWithInt_thenPDLayoutAttributeObjectHeightFloatValueIsOne() {
+  void testSetHeight2() {
     // Arrange
     PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
 
@@ -1841,54 +1178,38 @@ class PDLayoutAttributeObjectDiffblueTest {
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#getBlockAlign()}.
-   * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary(COSDictionary)} with dict is {@link COSDictionary#COSDictionary()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDLayoutAttributeObject#getBlockAlign()}
+   * Method under test: {@link PDLayoutAttributeObject#setHeight(int)}
    */
   @Test
-  @DisplayName("Test getBlockAlign(); given COSDictionary(COSDictionary) with dict is COSDictionary()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDLayoutAttributeObject.getBlockAlign()"})
-  void testGetBlockAlign_givenCOSDictionaryWithDictIsCOSDictionary() {
-    // Arrange, Act and Assert
-    assertEquals(PDLayoutAttributeObject.BLOCK_ALIGN_BEFORE,
-        (new PDLayoutAttributeObject(new COSDictionary(new COSDictionary()))).getBlockAlign());
+  void testSetHeight3() {
+    // Arrange
+    PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
+
+    // Act
+    pdLayoutAttributeObject.setHeight(Integer.MIN_VALUE);
+
+    // Assert
+    assertEquals(-2.14748365E9f, ((Float) pdLayoutAttributeObject.getHeight()).floatValue());
+    COSDictionary cOSObject = pdLayoutAttributeObject.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    assertFalse(pdLayoutAttributeObject.isEmpty());
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#getBlockAlign()}.
-   * <ul>
-   *   <li>Given {@link PDLayoutAttributeObject#PDLayoutAttributeObject()}.</li>
-   *   <li>Then return {@link PDLayoutAttributeObject#BLOCK_ALIGN_BEFORE}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDLayoutAttributeObject#getBlockAlign()}
    */
   @Test
-  @DisplayName("Test getBlockAlign(); given PDLayoutAttributeObject(); then return BLOCK_ALIGN_BEFORE")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDLayoutAttributeObject.getBlockAlign()"})
-  void testGetBlockAlign_givenPDLayoutAttributeObject_thenReturnBlock_align_before() {
+  void testGetBlockAlign() {
     // Arrange, Act and Assert
     assertEquals(PDLayoutAttributeObject.BLOCK_ALIGN_BEFORE, (new PDLayoutAttributeObject()).getBlockAlign());
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#setBlockAlign(String)}.
-   * <ul>
-   *   <li>Then {@link PDLayoutAttributeObject#PDLayoutAttributeObject()} BlockAlign is {@code Block Align}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDLayoutAttributeObject#setBlockAlign(String)}
    */
   @Test
-  @DisplayName("Test setBlockAlign(String); then PDLayoutAttributeObject() BlockAlign is 'Block Align'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDLayoutAttributeObject.setBlockAlign(String)"})
-  void testSetBlockAlign_thenPDLayoutAttributeObjectBlockAlignIsBlockAlign() {
+  void testSetBlockAlign() {
     // Arrange
     PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
 
@@ -1904,36 +1225,19 @@ class PDLayoutAttributeObjectDiffblueTest {
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#getInlineAlign()}.
-   * <ul>
-   *   <li>Given {@link PDLayoutAttributeObject#PDLayoutAttributeObject()}.</li>
-   *   <li>Then return {@link PDLayoutAttributeObject#INLINE_ALIGN_START}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDLayoutAttributeObject#getInlineAlign()}
    */
   @Test
-  @DisplayName("Test getInlineAlign(); given PDLayoutAttributeObject(); then return INLINE_ALIGN_START")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDLayoutAttributeObject.getInlineAlign()"})
-  void testGetInlineAlign_givenPDLayoutAttributeObject_thenReturnInline_align_start() {
+  void testGetInlineAlign() {
     // Arrange, Act and Assert
     assertEquals(PDLayoutAttributeObject.INLINE_ALIGN_START, (new PDLayoutAttributeObject()).getInlineAlign());
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#setInlineAlign(String)}.
-   * <ul>
-   *   <li>Then {@link PDLayoutAttributeObject#PDLayoutAttributeObject()} InlineAlign is {@code Inline Align}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDLayoutAttributeObject#setInlineAlign(String)}
    */
   @Test
-  @DisplayName("Test setInlineAlign(String); then PDLayoutAttributeObject() InlineAlign is 'Inline Align'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDLayoutAttributeObject.setInlineAlign(String)"})
-  void testSetInlineAlign_thenPDLayoutAttributeObjectInlineAlignIsInlineAlign() {
+  void testSetInlineAlign() {
     // Arrange
     PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
 
@@ -1949,36 +1253,22 @@ class PDLayoutAttributeObjectDiffblueTest {
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#getTBorderStyle()}.
-   * <ul>
-   *   <li>Given {@link PDLayoutAttributeObject#PDLayoutAttributeObject()}.</li>
-   *   <li>Then return {@link PDLayoutAttributeObject#BORDER_STYLE_NONE}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDLayoutAttributeObject#getTBorderStyle()}
    */
   @Test
-  @DisplayName("Test getTBorderStyle(); given PDLayoutAttributeObject(); then return BORDER_STYLE_NONE")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Object PDLayoutAttributeObject.getTBorderStyle()"})
-  void testGetTBorderStyle_givenPDLayoutAttributeObject_thenReturnBorder_style_none() {
+  void testGetTBorderStyle() {
     // Arrange, Act and Assert
     assertEquals(PDLayoutAttributeObject.BORDER_STYLE_NONE, (new PDLayoutAttributeObject()).getTBorderStyle());
+    assertEquals(PDLayoutAttributeObject.BORDER_STYLE_NONE,
+        (new PDExportFormatAttributeObject("SummaryHeaders")).getTBorderStyle());
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#setAllTBorderStyles(String)}.
-   * <ul>
-   *   <li>Then {@link PDLayoutAttributeObject#PDLayoutAttributeObject()} TBorderStyle is {@code T Border Style}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDLayoutAttributeObject#setAllTBorderStyles(String)}
+   * Method under test:
+   * {@link PDLayoutAttributeObject#setAllTBorderStyles(String)}
    */
   @Test
-  @DisplayName("Test setAllTBorderStyles(String); then PDLayoutAttributeObject() TBorderStyle is 'T Border Style'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDLayoutAttributeObject.setAllTBorderStyles(String)"})
-  void testSetAllTBorderStyles_thenPDLayoutAttributeObjectTBorderStyleIsTBorderStyle() {
+  void testSetAllTBorderStyles() {
     // Arrange
     PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
 
@@ -1994,53 +1284,19 @@ class PDLayoutAttributeObjectDiffblueTest {
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#getTPadding()}.
-   * <ul>
-   *   <li>Given {@link PDExportFormatAttributeObject#PDExportFormatAttributeObject(String)} with owner is {@code ColSpanRowSpan}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDLayoutAttributeObject#getTPadding()}
    */
   @Test
-  @DisplayName("Test getTPadding(); given PDExportFormatAttributeObject(String) with owner is 'ColSpanRowSpan'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Object PDLayoutAttributeObject.getTPadding()"})
-  void testGetTPadding_givenPDExportFormatAttributeObjectWithOwnerIsColSpanRowSpan() {
-    // Arrange, Act and Assert
-    assertEquals(0.0f, ((Float) (new PDExportFormatAttributeObject("ColSpanRowSpan")).getTPadding()).floatValue());
-  }
-
-  /**
-   * Test {@link PDLayoutAttributeObject#getTPadding()}.
-   * <ul>
-   *   <li>Given {@link PDLayoutAttributeObject#PDLayoutAttributeObject()}.</li>
-   *   <li>Then return floatValue is zero.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDLayoutAttributeObject#getTPadding()}
-   */
-  @Test
-  @DisplayName("Test getTPadding(); given PDLayoutAttributeObject(); then return floatValue is zero")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Object PDLayoutAttributeObject.getTPadding()"})
-  void testGetTPadding_givenPDLayoutAttributeObject_thenReturnFloatValueIsZero() {
+  void testGetTPadding() {
     // Arrange, Act and Assert
     assertEquals(0.0f, ((Float) (new PDLayoutAttributeObject()).getTPadding()).floatValue());
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#setAllTPaddings(float)} with {@code float}.
-   * <ul>
-   *   <li>Then {@link PDLayoutAttributeObject#PDLayoutAttributeObject()} TPadding floatValue is ten.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDLayoutAttributeObject#setAllTPaddings(float)}
    */
   @Test
-  @DisplayName("Test setAllTPaddings(float) with 'float'; then PDLayoutAttributeObject() TPadding floatValue is ten")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDLayoutAttributeObject.setAllTPaddings(float)"})
-  void testSetAllTPaddingsWithFloat_thenPDLayoutAttributeObjectTPaddingFloatValueIsTen() {
+  void testSetAllTPaddings() {
     // Arrange
     PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
 
@@ -2056,42 +1312,10 @@ class PDLayoutAttributeObjectDiffblueTest {
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#setAllTPaddings(int)} with {@code int}.
-   * <p>
    * Method under test: {@link PDLayoutAttributeObject#setAllTPaddings(int)}
    */
   @Test
-  @DisplayName("Test setAllTPaddings(int) with 'int'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDLayoutAttributeObject.setAllTPaddings(int)"})
-  void testSetAllTPaddingsWithInt() {
-    // Arrange
-    PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
-
-    // Act
-    pdLayoutAttributeObject.setAllTPaddings(Integer.MIN_VALUE);
-
-    // Assert
-    assertEquals(-2.14748365E9f, ((Float) pdLayoutAttributeObject.getTPadding()).floatValue());
-    COSDictionary cOSObject = pdLayoutAttributeObject.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    assertFalse(pdLayoutAttributeObject.isEmpty());
-  }
-
-  /**
-   * Test {@link PDLayoutAttributeObject#setAllTPaddings(int)} with {@code int}.
-   * <ul>
-   *   <li>Then {@link PDLayoutAttributeObject#PDLayoutAttributeObject()} TPadding floatValue is two.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDLayoutAttributeObject#setAllTPaddings(int)}
-   */
-  @Test
-  @DisplayName("Test setAllTPaddings(int) with 'int'; then PDLayoutAttributeObject() TPadding floatValue is two")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDLayoutAttributeObject.setAllTPaddings(int)"})
-  void testSetAllTPaddingsWithInt_thenPDLayoutAttributeObjectTPaddingFloatValueIsTwo() {
+  void testSetAllTPaddings2() {
     // Arrange
     PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
 
@@ -2107,36 +1331,38 @@ class PDLayoutAttributeObjectDiffblueTest {
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#getBaselineShift()}.
-   * <ul>
-   *   <li>Given {@link PDLayoutAttributeObject#PDLayoutAttributeObject()}.</li>
-   *   <li>Then return zero.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PDLayoutAttributeObject#setAllTPaddings(int)}
+   */
+  @Test
+  void testSetAllTPaddings3() {
+    // Arrange
+    PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
+
+    // Act
+    pdLayoutAttributeObject.setAllTPaddings(Integer.MIN_VALUE);
+
+    // Assert
+    assertEquals(-2.14748365E9f, ((Float) pdLayoutAttributeObject.getTPadding()).floatValue());
+    COSDictionary cOSObject = pdLayoutAttributeObject.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    assertFalse(pdLayoutAttributeObject.isEmpty());
+  }
+
+  /**
    * Method under test: {@link PDLayoutAttributeObject#getBaselineShift()}
    */
   @Test
-  @DisplayName("Test getBaselineShift(); given PDLayoutAttributeObject(); then return zero")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"float PDLayoutAttributeObject.getBaselineShift()"})
-  void testGetBaselineShift_givenPDLayoutAttributeObject_thenReturnZero() {
+  void testGetBaselineShift() {
     // Arrange, Act and Assert
     assertEquals(0.0f, (new PDLayoutAttributeObject()).getBaselineShift());
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#setBaselineShift(float)} with {@code float}.
-   * <ul>
-   *   <li>Then {@link PDLayoutAttributeObject#PDLayoutAttributeObject()} BaselineShift is ten.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDLayoutAttributeObject#setBaselineShift(float)}
    */
   @Test
-  @DisplayName("Test setBaselineShift(float) with 'float'; then PDLayoutAttributeObject() BaselineShift is ten")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDLayoutAttributeObject.setBaselineShift(float)"})
-  void testSetBaselineShiftWithFloat_thenPDLayoutAttributeObjectBaselineShiftIsTen() {
+  void testSetBaselineShift() {
     // Arrange
     PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
 
@@ -2152,42 +1378,10 @@ class PDLayoutAttributeObjectDiffblueTest {
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#setBaselineShift(int)} with {@code int}.
-   * <p>
    * Method under test: {@link PDLayoutAttributeObject#setBaselineShift(int)}
    */
   @Test
-  @DisplayName("Test setBaselineShift(int) with 'int'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDLayoutAttributeObject.setBaselineShift(int)"})
-  void testSetBaselineShiftWithInt() {
-    // Arrange
-    PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
-
-    // Act
-    pdLayoutAttributeObject.setBaselineShift(Integer.MIN_VALUE);
-
-    // Assert
-    assertEquals(-2.14748365E9f, pdLayoutAttributeObject.getBaselineShift());
-    COSDictionary cOSObject = pdLayoutAttributeObject.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    assertFalse(pdLayoutAttributeObject.isEmpty());
-  }
-
-  /**
-   * Test {@link PDLayoutAttributeObject#setBaselineShift(int)} with {@code int}.
-   * <ul>
-   *   <li>Then {@link PDLayoutAttributeObject#PDLayoutAttributeObject()} BaselineShift is two.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDLayoutAttributeObject#setBaselineShift(int)}
-   */
-  @Test
-  @DisplayName("Test setBaselineShift(int) with 'int'; then PDLayoutAttributeObject() BaselineShift is two")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDLayoutAttributeObject.setBaselineShift(int)"})
-  void testSetBaselineShiftWithInt_thenPDLayoutAttributeObjectBaselineShiftIsTwo() {
+  void testSetBaselineShift2() {
     // Arrange
     PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
 
@@ -2203,58 +1397,38 @@ class PDLayoutAttributeObjectDiffblueTest {
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#getLineHeight()}.
-   * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary()} Key is {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDLayoutAttributeObject#getLineHeight()}
+   * Method under test: {@link PDLayoutAttributeObject#setBaselineShift(int)}
    */
   @Test
-  @DisplayName("Test getLineHeight(); given COSDictionary() Key is COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Object PDLayoutAttributeObject.getLineHeight()"})
-  void testGetLineHeight_givenCOSDictionaryKeyIsCOSObjectKeyWithNumIsOneAndGenIsOne() {
+  void testSetBaselineShift3() {
     // Arrange
-    COSDictionary dictionary = new COSDictionary();
-    dictionary.setKey(new COSObjectKey(1L, 1));
+    PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
 
-    // Act and Assert
-    assertEquals(PDLayoutAttributeObject.LINE_HEIGHT_NORMAL,
-        (new PDExportFormatAttributeObject(dictionary)).getLineHeight());
+    // Act
+    pdLayoutAttributeObject.setBaselineShift(Integer.MIN_VALUE);
+
+    // Assert
+    assertEquals(-2.14748365E9f, pdLayoutAttributeObject.getBaselineShift());
+    COSDictionary cOSObject = pdLayoutAttributeObject.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    assertFalse(pdLayoutAttributeObject.isEmpty());
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#getLineHeight()}.
-   * <ul>
-   *   <li>Given {@link PDLayoutAttributeObject#PDLayoutAttributeObject()}.</li>
-   *   <li>Then return {@link PDLayoutAttributeObject#LINE_HEIGHT_NORMAL}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDLayoutAttributeObject#getLineHeight()}
    */
   @Test
-  @DisplayName("Test getLineHeight(); given PDLayoutAttributeObject(); then return LINE_HEIGHT_NORMAL")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Object PDLayoutAttributeObject.getLineHeight()"})
-  void testGetLineHeight_givenPDLayoutAttributeObject_thenReturnLine_height_normal() {
+  void testGetLineHeight() {
     // Arrange, Act and Assert
     assertEquals(PDLayoutAttributeObject.LINE_HEIGHT_NORMAL, (new PDLayoutAttributeObject()).getLineHeight());
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#setLineHeightNormal()}.
-   * <ul>
-   *   <li>Then {@link PDLayoutAttributeObject#PDLayoutAttributeObject()} COSObject Values size is two.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDLayoutAttributeObject#setLineHeightNormal()}
    */
   @Test
-  @DisplayName("Test setLineHeightNormal(); then PDLayoutAttributeObject() COSObject Values size is two")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDLayoutAttributeObject.setLineHeightNormal()"})
-  void testSetLineHeightNormal_thenPDLayoutAttributeObjectCOSObjectValuesSizeIsTwo() {
+  void testSetLineHeightNormal() {
     // Arrange
     PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
 
@@ -2269,18 +1443,10 @@ class PDLayoutAttributeObjectDiffblueTest {
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#setLineHeightAuto()}.
-   * <ul>
-   *   <li>Then {@link PDLayoutAttributeObject#PDLayoutAttributeObject()} COSObject Values size is two.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDLayoutAttributeObject#setLineHeightAuto()}
    */
   @Test
-  @DisplayName("Test setLineHeightAuto(); then PDLayoutAttributeObject() COSObject Values size is two")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDLayoutAttributeObject.setLineHeightAuto()"})
-  void testSetLineHeightAuto_thenPDLayoutAttributeObjectCOSObjectValuesSizeIsTwo() {
+  void testSetLineHeightAuto() {
     // Arrange
     PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
 
@@ -2296,42 +1462,10 @@ class PDLayoutAttributeObjectDiffblueTest {
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#setLineHeight(float)} with {@code float}.
-   * <p>
    * Method under test: {@link PDLayoutAttributeObject#setLineHeight(float)}
    */
   @Test
-  @DisplayName("Test setLineHeight(float) with 'float'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDLayoutAttributeObject.setLineHeight(float)"})
-  void testSetLineHeightWithFloat() {
-    // Arrange
-    PDExportFormatAttributeObject pdExportFormatAttributeObject = new PDExportFormatAttributeObject("HeadersColSpan42");
-
-    // Act
-    pdExportFormatAttributeObject.setLineHeight(10.0f);
-
-    // Assert
-    assertEquals(10.0f, ((Float) pdExportFormatAttributeObject.getLineHeight()).floatValue());
-    COSDictionary cOSObject = pdExportFormatAttributeObject.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    assertFalse(pdExportFormatAttributeObject.isEmpty());
-  }
-
-  /**
-   * Test {@link PDLayoutAttributeObject#setLineHeight(float)} with {@code float}.
-   * <ul>
-   *   <li>Then {@link PDLayoutAttributeObject#PDLayoutAttributeObject()} LineHeight floatValue is ten.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDLayoutAttributeObject#setLineHeight(float)}
-   */
-  @Test
-  @DisplayName("Test setLineHeight(float) with 'float'; then PDLayoutAttributeObject() LineHeight floatValue is ten")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDLayoutAttributeObject.setLineHeight(float)"})
-  void testSetLineHeightWithFloat_thenPDLayoutAttributeObjectLineHeightFloatValueIsTen() {
+  void testSetLineHeight() {
     // Arrange
     PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
 
@@ -2347,42 +1481,10 @@ class PDLayoutAttributeObjectDiffblueTest {
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#setLineHeight(int)} with {@code int}.
-   * <p>
    * Method under test: {@link PDLayoutAttributeObject#setLineHeight(int)}
    */
   @Test
-  @DisplayName("Test setLineHeight(int) with 'int'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDLayoutAttributeObject.setLineHeight(int)"})
-  void testSetLineHeightWithInt() {
-    // Arrange
-    PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
-
-    // Act
-    pdLayoutAttributeObject.setLineHeight(Integer.MIN_VALUE);
-
-    // Assert
-    assertEquals(-2.14748365E9f, ((Float) pdLayoutAttributeObject.getLineHeight()).floatValue());
-    COSDictionary cOSObject = pdLayoutAttributeObject.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    assertFalse(pdLayoutAttributeObject.isEmpty());
-  }
-
-  /**
-   * Test {@link PDLayoutAttributeObject#setLineHeight(int)} with {@code int}.
-   * <ul>
-   *   <li>Then {@link PDLayoutAttributeObject#PDLayoutAttributeObject()} LineHeight floatValue is two.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDLayoutAttributeObject#setLineHeight(int)}
-   */
-  @Test
-  @DisplayName("Test setLineHeight(int) with 'int'; then PDLayoutAttributeObject() LineHeight floatValue is two")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDLayoutAttributeObject.setLineHeight(int)"})
-  void testSetLineHeightWithInt_thenPDLayoutAttributeObjectLineHeightFloatValueIsTwo() {
+  void testSetLineHeight2() {
     // Arrange
     PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
 
@@ -2398,89 +1500,39 @@ class PDLayoutAttributeObjectDiffblueTest {
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#getTextDecorationColor()}.
-   * <ul>
-   *   <li>Given {@link PDLayoutAttributeObject#PDLayoutAttributeObject()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PDLayoutAttributeObject#setLineHeight(int)}
+   */
+  @Test
+  void testSetLineHeight3() {
+    // Arrange
+    PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
+
+    // Act
+    pdLayoutAttributeObject.setLineHeight(Integer.MIN_VALUE);
+
+    // Assert
+    assertEquals(-2.14748365E9f, ((Float) pdLayoutAttributeObject.getLineHeight()).floatValue());
+    COSDictionary cOSObject = pdLayoutAttributeObject.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    assertFalse(pdLayoutAttributeObject.isEmpty());
+  }
+
+  /**
    * Method under test: {@link PDLayoutAttributeObject#getTextDecorationColor()}
    */
   @Test
-  @DisplayName("Test getTextDecorationColor(); given PDLayoutAttributeObject(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDGamma PDLayoutAttributeObject.getTextDecorationColor()"})
-  void testGetTextDecorationColor_givenPDLayoutAttributeObject_thenReturnNull() {
+  void testGetTextDecorationColor() {
     // Arrange, Act and Assert
     assertNull((new PDLayoutAttributeObject()).getTextDecorationColor());
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#setTextDecorationColor(PDGamma)}.
-   * <p>
-   * Method under test: {@link PDLayoutAttributeObject#setTextDecorationColor(PDGamma)}
+   * Method under test:
+   * {@link PDLayoutAttributeObject#setTextDecorationColor(PDGamma)}
    */
   @Test
-  @DisplayName("Test setTextDecorationColor(PDGamma)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDLayoutAttributeObject.setTextDecorationColor(PDGamma)"})
   void testSetTextDecorationColor() {
-    // Arrange
-    PDExportFormatAttributeObject pdExportFormatAttributeObject = new PDExportFormatAttributeObject("Scope");
-
-    // Act
-    pdExportFormatAttributeObject.setTextDecorationColor(new PDGamma());
-
-    // Assert
-    PDGamma textDecorationColor = pdExportFormatAttributeObject.getTextDecorationColor();
-    assertEquals(0.0f, textDecorationColor.getB());
-    assertEquals(0.0f, textDecorationColor.getG());
-    assertEquals(0.0f, textDecorationColor.getR());
-    COSDictionary cOSObject = pdExportFormatAttributeObject.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    assertFalse(pdExportFormatAttributeObject.isEmpty());
-  }
-
-  /**
-   * Test {@link PDLayoutAttributeObject#setTextDecorationColor(PDGamma)}.
-   * <ul>
-   *   <li>Then {@link PDLayoutAttributeObject#PDLayoutAttributeObject()} COSObject Values size is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDLayoutAttributeObject#setTextDecorationColor(PDGamma)}
-   */
-  @Test
-  @DisplayName("Test setTextDecorationColor(PDGamma); then PDLayoutAttributeObject() COSObject Values size is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDLayoutAttributeObject.setTextDecorationColor(PDGamma)"})
-  void testSetTextDecorationColor_thenPDLayoutAttributeObjectCOSObjectValuesSizeIsOne() {
-    // Arrange
-    PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
-
-    // Act
-    pdLayoutAttributeObject.setTextDecorationColor(null);
-
-    // Assert that nothing has changed
-    COSDictionary cOSObject = pdLayoutAttributeObject.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-    assertTrue(pdLayoutAttributeObject.isEmpty());
-  }
-
-  /**
-   * Test {@link PDLayoutAttributeObject#setTextDecorationColor(PDGamma)}.
-   * <ul>
-   *   <li>Then {@link PDLayoutAttributeObject#PDLayoutAttributeObject()} TextDecorationColor B is zero.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDLayoutAttributeObject#setTextDecorationColor(PDGamma)}
-   */
-  @Test
-  @DisplayName("Test setTextDecorationColor(PDGamma); then PDLayoutAttributeObject() TextDecorationColor B is zero")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDLayoutAttributeObject.setTextDecorationColor(PDGamma)"})
-  void testSetTextDecorationColor_thenPDLayoutAttributeObjectTextDecorationColorBIsZero() {
     // Arrange
     PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
 
@@ -2499,47 +1551,70 @@ class PDLayoutAttributeObjectDiffblueTest {
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#getTextDecorationThickness()}.
-   * <p>
-   * Method under test: {@link PDLayoutAttributeObject#getTextDecorationThickness()}
+   * Method under test:
+   * {@link PDLayoutAttributeObject#setTextDecorationColor(PDGamma)}
    */
   @Test
-  @DisplayName("Test getTextDecorationThickness()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"float PDLayoutAttributeObject.getTextDecorationThickness()"})
+  void testSetTextDecorationColor2() {
+    // Arrange
+    PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
+
+    // Act
+    pdLayoutAttributeObject.setTextDecorationColor(null);
+
+    // Assert
+    assertNull(pdLayoutAttributeObject.getTextDecorationColor());
+    COSDictionary cOSObject = pdLayoutAttributeObject.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+    assertTrue(pdLayoutAttributeObject.isEmpty());
+  }
+
+  /**
+   * Method under test:
+   * {@link PDLayoutAttributeObject#setTextDecorationColor(PDGamma)}
+   */
+  @Test
+  void testSetTextDecorationColor3() {
+    // Arrange
+    PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
+    COSObjectable object = mock(COSObjectable.class);
+    when(object.getCOSObject()).thenReturn(COSBoolean.FALSE);
+
+    COSArray array = new COSArray();
+    array.add(object);
+
+    // Act
+    pdLayoutAttributeObject.setTextDecorationColor(new PDGamma(array));
+
+    // Assert
+    verify(object).getCOSObject();
+    COSDictionary cOSObject = pdLayoutAttributeObject.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    assertFalse(pdLayoutAttributeObject.isEmpty());
+    PDGamma textDecorationColor = pdLayoutAttributeObject.getTextDecorationColor();
+    assertSame(array, textDecorationColor.getCOSArray());
+    assertSame(array, textDecorationColor.getCOSObject());
+  }
+
+  /**
+   * Method under test:
+   * {@link PDLayoutAttributeObject#getTextDecorationThickness()}
+   */
+  @Test
   void testGetTextDecorationThickness() {
     // Arrange, Act and Assert
-    assertEquals(-1.0f, (new PDExportFormatAttributeObject("42ListNumbering42")).getTextDecorationThickness());
-  }
-
-  /**
-   * Test {@link PDLayoutAttributeObject#getTextDecorationThickness()}.
-   * <ul>
-   *   <li>Given {@link PDLayoutAttributeObject#PDLayoutAttributeObject()}.</li>
-   *   <li>Then return minus one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDLayoutAttributeObject#getTextDecorationThickness()}
-   */
-  @Test
-  @DisplayName("Test getTextDecorationThickness(); given PDLayoutAttributeObject(); then return minus one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"float PDLayoutAttributeObject.getTextDecorationThickness()"})
-  void testGetTextDecorationThickness_givenPDLayoutAttributeObject_thenReturnMinusOne() {
-    // Arrange, Act and Assert
     assertEquals(-1.0f, (new PDLayoutAttributeObject()).getTextDecorationThickness());
+    assertEquals(-1.0f, (new PDExportFormatAttributeObject("HeadersOwnerScope")).getTextDecorationThickness());
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#setTextDecorationThickness(float)} with {@code float}.
-   * <p>
-   * Method under test: {@link PDLayoutAttributeObject#setTextDecorationThickness(float)}
+   * Method under test:
+   * {@link PDLayoutAttributeObject#setTextDecorationThickness(float)}
    */
   @Test
-  @DisplayName("Test setTextDecorationThickness(float) with 'float'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDLayoutAttributeObject.setTextDecorationThickness(float)"})
-  void testSetTextDecorationThicknessWithFloat() {
+  void testSetTextDecorationThickness() {
     // Arrange
     PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
 
@@ -2555,15 +1630,11 @@ class PDLayoutAttributeObjectDiffblueTest {
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#setTextDecorationThickness(int)} with {@code int}.
-   * <p>
-   * Method under test: {@link PDLayoutAttributeObject#setTextDecorationThickness(int)}
+   * Method under test:
+   * {@link PDLayoutAttributeObject#setTextDecorationThickness(int)}
    */
   @Test
-  @DisplayName("Test setTextDecorationThickness(int) with 'int'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDLayoutAttributeObject.setTextDecorationThickness(int)"})
-  void testSetTextDecorationThicknessWithInt() {
+  void testSetTextDecorationThickness2() {
     // Arrange
     PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
 
@@ -2579,15 +1650,11 @@ class PDLayoutAttributeObjectDiffblueTest {
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#setTextDecorationThickness(int)} with {@code int}.
-   * <p>
-   * Method under test: {@link PDLayoutAttributeObject#setTextDecorationThickness(int)}
+   * Method under test:
+   * {@link PDLayoutAttributeObject#setTextDecorationThickness(int)}
    */
   @Test
-  @DisplayName("Test setTextDecorationThickness(int) with 'int'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDLayoutAttributeObject.setTextDecorationThickness(int)"})
-  void testSetTextDecorationThicknessWithInt2() {
+  void testSetTextDecorationThickness3() {
     // Arrange
     PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
 
@@ -2603,31 +1670,19 @@ class PDLayoutAttributeObjectDiffblueTest {
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#getTextDecorationType()}.
-   * <ul>
-   *   <li>Then return {@link PDLayoutAttributeObject#BORDER_STYLE_NONE}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDLayoutAttributeObject#getTextDecorationType()}
    */
   @Test
-  @DisplayName("Test getTextDecorationType(); then return BORDER_STYLE_NONE")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDLayoutAttributeObject.getTextDecorationType()"})
-  void testGetTextDecorationType_thenReturnBorder_style_none() {
+  void testGetTextDecorationType() {
     // Arrange, Act and Assert
     assertEquals(PDLayoutAttributeObject.BORDER_STYLE_NONE, (new PDLayoutAttributeObject()).getTextDecorationType());
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#setTextDecorationType(String)}.
-   * <p>
-   * Method under test: {@link PDLayoutAttributeObject#setTextDecorationType(String)}
+   * Method under test:
+   * {@link PDLayoutAttributeObject#setTextDecorationType(String)}
    */
   @Test
-  @DisplayName("Test setTextDecorationType(String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDLayoutAttributeObject.setTextDecorationType(String)"})
   void testSetTextDecorationType() {
     // Arrange
     PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
@@ -2644,54 +1699,21 @@ class PDLayoutAttributeObjectDiffblueTest {
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#getRubyAlign()}.
-   * <ul>
-   *   <li>Given {@link PDLayoutAttributeObject#PDLayoutAttributeObject(COSDictionary)} with dictionary is {@link COSDictionary#COSDictionary()}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDLayoutAttributeObject#getRubyAlign()}
    */
   @Test
-  @DisplayName("Test getRubyAlign(); given PDLayoutAttributeObject(COSDictionary) with dictionary is COSDictionary()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDLayoutAttributeObject.getRubyAlign()"})
-  void testGetRubyAlign_givenPDLayoutAttributeObjectWithDictionaryIsCOSDictionary() {
-    // Arrange, Act and Assert
-    assertEquals(PDLayoutAttributeObject.RUBY_ALIGN_DISTRIBUTE,
-        (new PDLayoutAttributeObject(new COSDictionary())).getRubyAlign());
-  }
-
-  /**
-   * Test {@link PDLayoutAttributeObject#getRubyAlign()}.
-   * <ul>
-   *   <li>Given {@link PDLayoutAttributeObject#PDLayoutAttributeObject()}.</li>
-   *   <li>Then return {@link PDLayoutAttributeObject#RUBY_ALIGN_DISTRIBUTE}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDLayoutAttributeObject#getRubyAlign()}
-   */
-  @Test
-  @DisplayName("Test getRubyAlign(); given PDLayoutAttributeObject(); then return RUBY_ALIGN_DISTRIBUTE")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDLayoutAttributeObject.getRubyAlign()"})
-  void testGetRubyAlign_givenPDLayoutAttributeObject_thenReturnRuby_align_distribute() {
+  void testGetRubyAlign() {
     // Arrange, Act and Assert
     assertEquals(PDLayoutAttributeObject.RUBY_ALIGN_DISTRIBUTE, (new PDLayoutAttributeObject()).getRubyAlign());
+    assertEquals(PDLayoutAttributeObject.RUBY_ALIGN_DISTRIBUTE,
+        (new PDExportFormatAttributeObject("Headers42Owner")).getRubyAlign());
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#setRubyAlign(String)}.
-   * <ul>
-   *   <li>Then {@link PDLayoutAttributeObject#PDLayoutAttributeObject()} RubyAlign is {@code Ruby Align}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDLayoutAttributeObject#setRubyAlign(String)}
    */
   @Test
-  @DisplayName("Test setRubyAlign(String); then PDLayoutAttributeObject() RubyAlign is 'Ruby Align'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDLayoutAttributeObject.setRubyAlign(String)"})
-  void testSetRubyAlign_thenPDLayoutAttributeObjectRubyAlignIsRubyAlign() {
+  void testSetRubyAlign() {
     // Arrange
     PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
 
@@ -2707,36 +1729,19 @@ class PDLayoutAttributeObjectDiffblueTest {
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#getRubyPosition()}.
-   * <ul>
-   *   <li>Given {@link PDLayoutAttributeObject#PDLayoutAttributeObject()}.</li>
-   *   <li>Then return {@link PDLayoutAttributeObject#BLOCK_ALIGN_BEFORE}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDLayoutAttributeObject#getRubyPosition()}
    */
   @Test
-  @DisplayName("Test getRubyPosition(); given PDLayoutAttributeObject(); then return BLOCK_ALIGN_BEFORE")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDLayoutAttributeObject.getRubyPosition()"})
-  void testGetRubyPosition_givenPDLayoutAttributeObject_thenReturnBlock_align_before() {
+  void testGetRubyPosition() {
     // Arrange, Act and Assert
     assertEquals(PDLayoutAttributeObject.BLOCK_ALIGN_BEFORE, (new PDLayoutAttributeObject()).getRubyPosition());
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#setRubyPosition(String)}.
-   * <ul>
-   *   <li>Then {@link PDLayoutAttributeObject#PDLayoutAttributeObject()} RubyPosition is {@code Ruby Position}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDLayoutAttributeObject#setRubyPosition(String)}
    */
   @Test
-  @DisplayName("Test setRubyPosition(String); then PDLayoutAttributeObject() RubyPosition is 'Ruby Position'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDLayoutAttributeObject.setRubyPosition(String)"})
-  void testSetRubyPosition_thenPDLayoutAttributeObjectRubyPositionIsRubyPosition() {
+  void testSetRubyPosition() {
     // Arrange
     PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
 
@@ -2752,51 +1757,21 @@ class PDLayoutAttributeObjectDiffblueTest {
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#getGlyphOrientationVertical()}.
-   * <p>
-   * Method under test: {@link PDLayoutAttributeObject#getGlyphOrientationVertical()}
+   * Method under test:
+   * {@link PDLayoutAttributeObject#getGlyphOrientationVertical()}
    */
   @Test
-  @DisplayName("Test getGlyphOrientationVertical()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDLayoutAttributeObject.getGlyphOrientationVertical()"})
   void testGetGlyphOrientationVertical() {
-    // Arrange
-    COSDictionary dictionary = new COSDictionary();
-    dictionary.setKey(new COSObjectKey(1L, 1));
-
-    // Act and Assert
-    assertEquals(PDLayoutAttributeObject.GLYPH_ORIENTATION_VERTICAL_AUTO,
-        (new PDExportFormatAttributeObject(dictionary)).getGlyphOrientationVertical());
-  }
-
-  /**
-   * Test {@link PDLayoutAttributeObject#getGlyphOrientationVertical()}.
-   * <ul>
-   *   <li>Given {@link PDLayoutAttributeObject#PDLayoutAttributeObject()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDLayoutAttributeObject#getGlyphOrientationVertical()}
-   */
-  @Test
-  @DisplayName("Test getGlyphOrientationVertical(); given PDLayoutAttributeObject()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDLayoutAttributeObject.getGlyphOrientationVertical()"})
-  void testGetGlyphOrientationVertical_givenPDLayoutAttributeObject() {
     // Arrange, Act and Assert
     assertEquals(PDLayoutAttributeObject.GLYPH_ORIENTATION_VERTICAL_AUTO,
         (new PDLayoutAttributeObject()).getGlyphOrientationVertical());
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#setGlyphOrientationVertical(String)}.
-   * <p>
-   * Method under test: {@link PDLayoutAttributeObject#setGlyphOrientationVertical(String)}
+   * Method under test:
+   * {@link PDLayoutAttributeObject#setGlyphOrientationVertical(String)}
    */
   @Test
-  @DisplayName("Test setGlyphOrientationVertical(String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDLayoutAttributeObject.setGlyphOrientationVertical(String)"})
   void testSetGlyphOrientationVertical() {
     // Arrange
     PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
@@ -2813,80 +1788,19 @@ class PDLayoutAttributeObjectDiffblueTest {
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#getColumnCount()}.
-   * <ul>
-   *   <li>Given {@link PDExportFormatAttributeObject#PDExportFormatAttributeObject(String)} with owner is {@code 42ScopeColSpan}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDLayoutAttributeObject#getColumnCount()}
    */
   @Test
-  @DisplayName("Test getColumnCount(); given PDExportFormatAttributeObject(String) with owner is '42ScopeColSpan'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"int PDLayoutAttributeObject.getColumnCount()"})
-  void testGetColumnCount_givenPDExportFormatAttributeObjectWithOwnerIs42ScopeColSpan() {
-    // Arrange, Act and Assert
-    assertEquals(1, (new PDExportFormatAttributeObject("42ScopeColSpan")).getColumnCount());
-  }
-
-  /**
-   * Test {@link PDLayoutAttributeObject#getColumnCount()}.
-   * <ul>
-   *   <li>Given {@link PDLayoutAttributeObject#PDLayoutAttributeObject()}.</li>
-   *   <li>Then return one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDLayoutAttributeObject#getColumnCount()}
-   */
-  @Test
-  @DisplayName("Test getColumnCount(); given PDLayoutAttributeObject(); then return one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"int PDLayoutAttributeObject.getColumnCount()"})
-  void testGetColumnCount_givenPDLayoutAttributeObject_thenReturnOne() {
+  void testGetColumnCount() {
     // Arrange, Act and Assert
     assertEquals(1, (new PDLayoutAttributeObject()).getColumnCount());
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#setColumnCount(int)}.
-   * <ul>
-   *   <li>Then {@link PDLayoutAttributeObject#PDLayoutAttributeObject()} ColumnCount is {@link Integer#MIN_VALUE}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDLayoutAttributeObject#setColumnCount(int)}
    */
   @Test
-  @DisplayName("Test setColumnCount(int); then PDLayoutAttributeObject() ColumnCount is MIN_VALUE")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDLayoutAttributeObject.setColumnCount(int)"})
-  void testSetColumnCount_thenPDLayoutAttributeObjectColumnCountIsMin_value() {
-    // Arrange
-    PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
-
-    // Act
-    pdLayoutAttributeObject.setColumnCount(Integer.MIN_VALUE);
-
-    // Assert
-    COSDictionary cOSObject = pdLayoutAttributeObject.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    assertFalse(pdLayoutAttributeObject.isEmpty());
-    assertEquals(Integer.MIN_VALUE, pdLayoutAttributeObject.getColumnCount());
-  }
-
-  /**
-   * Test {@link PDLayoutAttributeObject#setColumnCount(int)}.
-   * <ul>
-   *   <li>Then {@link PDLayoutAttributeObject#PDLayoutAttributeObject()} ColumnCount is three.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDLayoutAttributeObject#setColumnCount(int)}
-   */
-  @Test
-  @DisplayName("Test setColumnCount(int); then PDLayoutAttributeObject() ColumnCount is three")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDLayoutAttributeObject.setColumnCount(int)"})
-  void testSetColumnCount_thenPDLayoutAttributeObjectColumnCountIsThree() {
+  void testSetColumnCount() {
     // Arrange
     PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
 
@@ -2902,36 +1816,39 @@ class PDLayoutAttributeObjectDiffblueTest {
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#getColumnGap()}.
-   * <ul>
-   *   <li>Given {@link PDLayoutAttributeObject#PDLayoutAttributeObject()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDLayoutAttributeObject#getColumnGap()}
+   * Method under test: {@link PDLayoutAttributeObject#setColumnCount(int)}
    */
   @Test
-  @DisplayName("Test getColumnGap(); given PDLayoutAttributeObject(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Object PDLayoutAttributeObject.getColumnGap()"})
-  void testGetColumnGap_givenPDLayoutAttributeObject_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull((new PDLayoutAttributeObject()).getColumnGap());
+  void testSetColumnCount2() {
+    // Arrange
+    PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
+
+    // Act
+    pdLayoutAttributeObject.setColumnCount(Integer.MIN_VALUE);
+
+    // Assert
+    COSDictionary cOSObject = pdLayoutAttributeObject.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    assertFalse(pdLayoutAttributeObject.isEmpty());
+    assertEquals(Integer.MIN_VALUE, pdLayoutAttributeObject.getColumnCount());
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#setColumnGap(float)} with {@code float}.
-   * <ul>
-   *   <li>Then {@link PDLayoutAttributeObject#PDLayoutAttributeObject()} ColumnGap floatValue is ten.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PDLayoutAttributeObject#getColumnGap()}
+   */
+  @Test
+  void testGetColumnGap() {
+    // Arrange, Act and Assert
+    assertNull((new PDLayoutAttributeObject()).getColumnGap());
+    assertNull((new PDLayoutAttributeObject(new COSDictionary())).getColumnGap());
+  }
+
+  /**
    * Method under test: {@link PDLayoutAttributeObject#setColumnGap(float)}
    */
   @Test
-  @DisplayName("Test setColumnGap(float) with 'float'; then PDLayoutAttributeObject() ColumnGap floatValue is ten")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDLayoutAttributeObject.setColumnGap(float)"})
-  void testSetColumnGapWithFloat_thenPDLayoutAttributeObjectColumnGapFloatValueIsTen() {
+  void testSetColumnGap() {
     // Arrange
     PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
 
@@ -2947,42 +1864,29 @@ class PDLayoutAttributeObjectDiffblueTest {
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#setColumnGap(int)} with {@code int}.
-   * <p>
-   * Method under test: {@link PDLayoutAttributeObject#setColumnGap(int)}
+   * Method under test: {@link PDLayoutAttributeObject#setColumnGap(float)}
    */
   @Test
-  @DisplayName("Test setColumnGap(int) with 'int'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDLayoutAttributeObject.setColumnGap(int)"})
-  void testSetColumnGapWithInt() {
+  void testSetColumnGap2() {
     // Arrange
-    PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
+    PDExportFormatAttributeObject pdExportFormatAttributeObject = new PDExportFormatAttributeObject("42OwnerRowSpan");
 
     // Act
-    pdLayoutAttributeObject.setColumnGap(Integer.MIN_VALUE);
+    pdExportFormatAttributeObject.setColumnGap(10.0f);
 
     // Assert
-    assertEquals(-2.14748365E9f, ((Float) pdLayoutAttributeObject.getColumnGap()).floatValue());
-    COSDictionary cOSObject = pdLayoutAttributeObject.getCOSObject();
+    assertEquals(10.0f, ((Float) pdExportFormatAttributeObject.getColumnGap()).floatValue());
+    COSDictionary cOSObject = pdExportFormatAttributeObject.getCOSObject();
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
-    assertFalse(pdLayoutAttributeObject.isEmpty());
+    assertFalse(pdExportFormatAttributeObject.isEmpty());
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#setColumnGap(int)} with {@code int}.
-   * <ul>
-   *   <li>Then {@link PDLayoutAttributeObject#PDLayoutAttributeObject()} ColumnGap floatValue is one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDLayoutAttributeObject#setColumnGap(int)}
    */
   @Test
-  @DisplayName("Test setColumnGap(int) with 'int'; then PDLayoutAttributeObject() ColumnGap floatValue is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDLayoutAttributeObject.setColumnGap(int)"})
-  void testSetColumnGapWithInt_thenPDLayoutAttributeObjectColumnGapFloatValueIsOne() {
+  void testSetColumnGap3() {
     // Arrange
     PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
 
@@ -2998,50 +1902,38 @@ class PDLayoutAttributeObjectDiffblueTest {
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#getColumnWidths()}.
-   * <ul>
-   *   <li>Given {@link PDExportFormatAttributeObject#PDExportFormatAttributeObject(String)} with owner is {@code OwnerScopeOwner}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDLayoutAttributeObject#getColumnWidths()}
+   * Method under test: {@link PDLayoutAttributeObject#setColumnGap(int)}
    */
   @Test
-  @DisplayName("Test getColumnWidths(); given PDExportFormatAttributeObject(String) with owner is 'OwnerScopeOwner'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Object PDLayoutAttributeObject.getColumnWidths()"})
-  void testGetColumnWidths_givenPDExportFormatAttributeObjectWithOwnerIsOwnerScopeOwner() {
-    // Arrange, Act and Assert
-    assertNull((new PDExportFormatAttributeObject("OwnerScopeOwner")).getColumnWidths());
+  void testSetColumnGap4() {
+    // Arrange
+    PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
+
+    // Act
+    pdLayoutAttributeObject.setColumnGap(Integer.MIN_VALUE);
+
+    // Assert
+    assertEquals(-2.14748365E9f, ((Float) pdLayoutAttributeObject.getColumnGap()).floatValue());
+    COSDictionary cOSObject = pdLayoutAttributeObject.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    assertFalse(pdLayoutAttributeObject.isEmpty());
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#getColumnWidths()}.
-   * <ul>
-   *   <li>Given {@link PDLayoutAttributeObject#PDLayoutAttributeObject()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDLayoutAttributeObject#getColumnWidths()}
    */
   @Test
-  @DisplayName("Test getColumnWidths(); given PDLayoutAttributeObject(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Object PDLayoutAttributeObject.getColumnWidths()"})
-  void testGetColumnWidths_givenPDLayoutAttributeObject_thenReturnNull() {
+  void testGetColumnWidths() {
     // Arrange, Act and Assert
     assertNull((new PDLayoutAttributeObject()).getColumnWidths());
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#setAllColumnWidths(float)} with {@code float}.
-   * <p>
    * Method under test: {@link PDLayoutAttributeObject#setAllColumnWidths(float)}
    */
   @Test
-  @DisplayName("Test setAllColumnWidths(float) with 'float'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDLayoutAttributeObject.setAllColumnWidths(float)"})
-  void testSetAllColumnWidthsWithFloat() {
+  void testSetAllColumnWidths() {
     // Arrange
     PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
 
@@ -3057,39 +1949,10 @@ class PDLayoutAttributeObjectDiffblueTest {
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#setAllColumnWidths(float)} with {@code float}.
-   * <p>
-   * Method under test: {@link PDLayoutAttributeObject#setAllColumnWidths(float)}
-   */
-  @Test
-  @DisplayName("Test setAllColumnWidths(float) with 'float'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDLayoutAttributeObject.setAllColumnWidths(float)"})
-  void testSetAllColumnWidthsWithFloat2() {
-    // Arrange
-    PDExportFormatAttributeObject pdExportFormatAttributeObject = new PDExportFormatAttributeObject("42RowSpanOwner");
-
-    // Act
-    pdExportFormatAttributeObject.setAllColumnWidths(10.0f);
-
-    // Assert
-    assertEquals(10.0f, ((Float) pdExportFormatAttributeObject.getColumnWidths()).floatValue());
-    COSDictionary cOSObject = pdExportFormatAttributeObject.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    assertFalse(pdExportFormatAttributeObject.isEmpty());
-  }
-
-  /**
-   * Test {@link PDLayoutAttributeObject#setAllColumnWidths(int)} with {@code int}.
-   * <p>
    * Method under test: {@link PDLayoutAttributeObject#setAllColumnWidths(int)}
    */
   @Test
-  @DisplayName("Test setAllColumnWidths(int) with 'int'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDLayoutAttributeObject.setAllColumnWidths(int)"})
-  void testSetAllColumnWidthsWithInt() {
+  void testSetAllColumnWidths2() {
     // Arrange
     PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
 
@@ -3105,15 +1968,10 @@ class PDLayoutAttributeObjectDiffblueTest {
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#setAllColumnWidths(int)} with {@code int}.
-   * <p>
    * Method under test: {@link PDLayoutAttributeObject#setAllColumnWidths(int)}
    */
   @Test
-  @DisplayName("Test setAllColumnWidths(int) with 'int'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDLayoutAttributeObject.setAllColumnWidths(int)"})
-  void testSetAllColumnWidthsWithInt2() {
+  void testSetAllColumnWidths3() {
     // Arrange
     PDLayoutAttributeObject pdLayoutAttributeObject = new PDLayoutAttributeObject();
 
@@ -3129,55 +1987,84 @@ class PDLayoutAttributeObjectDiffblueTest {
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#toString()}.
-   * <ul>
-   *   <li>Given {@link PDExportFormatAttributeObject#PDExportFormatAttributeObject(String)} with {@code Owner}.</li>
-   *   <li>Then return {@code O=Owner}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDLayoutAttributeObject#toString()}
    */
   @Test
-  @DisplayName("Test toString(); given PDExportFormatAttributeObject(String) with 'Owner'; then return 'O=Owner'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDLayoutAttributeObject.toString()"})
-  void testToString_givenPDExportFormatAttributeObjectWithOwner_thenReturnOOwner() {
+  void testToString() {
     // Arrange, Act and Assert
+    assertEquals("O=Layout", (new PDLayoutAttributeObject()).toString());
+    assertEquals("O=null", (new PDLayoutAttributeObject(new COSDictionary())).toString());
     assertEquals("O=Owner", (new PDExportFormatAttributeObject("Owner")).toString());
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#toString()}.
-   * <ul>
-   *   <li>Given {@link PDLayoutAttributeObject#PDLayoutAttributeObject()}.</li>
-   *   <li>Then return {@code O=Layout}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDLayoutAttributeObject#toString()}
+   * Method under test:
+   * {@link PDLayoutAttributeObject#PDLayoutAttributeObject(COSDictionary)}
    */
   @Test
-  @DisplayName("Test toString(); given PDLayoutAttributeObject(); then return 'O=Layout'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDLayoutAttributeObject.toString()"})
-  void testToString_givenPDLayoutAttributeObject_thenReturnOLayout() {
-    // Arrange, Act and Assert
-    assertEquals("O=Layout", (new PDLayoutAttributeObject()).toString());
+  void testNewPDLayoutAttributeObject() {
+    // Arrange
+    COSDictionary dictionary = new COSDictionary();
+
+    // Act and Assert
+    assertSame(dictionary, (new PDLayoutAttributeObject(dictionary)).getCOSObject());
   }
 
   /**
-   * Test {@link PDLayoutAttributeObject#toString()}.
-   * <ul>
-   *   <li>Then return {@code O=null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDLayoutAttributeObject#toString()}
+   * Method under test: {@link PDLayoutAttributeObject#PDLayoutAttributeObject()}
    */
   @Test
-  @DisplayName("Test toString(); then return 'O=null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDLayoutAttributeObject.toString()"})
-  void testToString_thenReturnONull() {
-    // Arrange, Act and Assert
-    assertEquals("O=null", (new PDLayoutAttributeObject(new COSDictionary())).toString());
+  void testNewPDLayoutAttributeObject2() {
+    // Arrange and Act
+    PDLayoutAttributeObject actualPdLayoutAttributeObject = new PDLayoutAttributeObject();
+
+    // Assert
+    assertNull(actualPdLayoutAttributeObject.getBorderColors());
+    assertNull(actualPdLayoutAttributeObject.getBorderThickness());
+    assertNull(actualPdLayoutAttributeObject.getColumnGap());
+    assertNull(actualPdLayoutAttributeObject.getColumnWidths());
+    COSDictionary cOSObject = actualPdLayoutAttributeObject.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertNull(actualPdLayoutAttributeObject.getBBox());
+    assertNull(actualPdLayoutAttributeObject.getBackgroundColor());
+    assertNull(actualPdLayoutAttributeObject.getColor());
+    assertNull(actualPdLayoutAttributeObject.getTextDecorationColor());
+    assertEquals(-1.0f, actualPdLayoutAttributeObject.getTextDecorationThickness());
+    assertEquals(0.0f, ((Float) actualPdLayoutAttributeObject.getPadding()).floatValue());
+    assertEquals(0.0f, ((Float) actualPdLayoutAttributeObject.getTPadding()).floatValue());
+    assertEquals(0.0f, actualPdLayoutAttributeObject.getBaselineShift());
+    assertEquals(0.0f, actualPdLayoutAttributeObject.getEndIndent());
+    assertEquals(0.0f, actualPdLayoutAttributeObject.getSpaceAfter());
+    assertEquals(0.0f, actualPdLayoutAttributeObject.getSpaceBefore());
+    assertEquals(0.0f, actualPdLayoutAttributeObject.getStartIndent());
+    assertEquals(0.0f, actualPdLayoutAttributeObject.getTextIndent());
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+    assertEquals(1, actualPdLayoutAttributeObject.getColumnCount());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertTrue(actualPdLayoutAttributeObject.isEmpty());
+    assertEquals(PDLayoutAttributeObject.BLOCK_ALIGN_BEFORE, actualPdLayoutAttributeObject.getBlockAlign());
+    assertEquals(PDLayoutAttributeObject.BLOCK_ALIGN_BEFORE, actualPdLayoutAttributeObject.getRubyPosition());
+    assertEquals(PDLayoutAttributeObject.BORDER_STYLE_NONE, actualPdLayoutAttributeObject.getTextDecorationType());
+    assertEquals(PDLayoutAttributeObject.BORDER_STYLE_NONE, actualPdLayoutAttributeObject.getBorderStyle());
+    assertEquals(PDLayoutAttributeObject.BORDER_STYLE_NONE, actualPdLayoutAttributeObject.getTBorderStyle());
+    assertEquals(PDLayoutAttributeObject.GLYPH_ORIENTATION_VERTICAL_AUTO,
+        actualPdLayoutAttributeObject.getGlyphOrientationVertical());
+    assertEquals(PDLayoutAttributeObject.GLYPH_ORIENTATION_VERTICAL_AUTO, actualPdLayoutAttributeObject.getHeight());
+    assertEquals(PDLayoutAttributeObject.GLYPH_ORIENTATION_VERTICAL_AUTO, actualPdLayoutAttributeObject.getWidth());
+    assertEquals(PDLayoutAttributeObject.INLINE_ALIGN_START, actualPdLayoutAttributeObject.getInlineAlign());
+    assertEquals(PDLayoutAttributeObject.INLINE_ALIGN_START, actualPdLayoutAttributeObject.getTextAlign());
+    assertEquals(PDLayoutAttributeObject.LINE_HEIGHT_NORMAL, actualPdLayoutAttributeObject.getLineHeight());
+    assertEquals(PDLayoutAttributeObject.OWNER_LAYOUT, actualPdLayoutAttributeObject.getOwner());
+    assertEquals(PDLayoutAttributeObject.PLACEMENT_INLINE, actualPdLayoutAttributeObject.getPlacement());
+    assertEquals(PDLayoutAttributeObject.RUBY_ALIGN_DISTRIBUTE, actualPdLayoutAttributeObject.getRubyAlign());
+    assertEquals(PDLayoutAttributeObject.WRITING_MODE_LRTB, actualPdLayoutAttributeObject.getWritingMode());
   }
 }

@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,63 +16,13 @@ import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.cos.COSIncrement;
 import org.apache.pdfbox.cos.COSName;
 import org.apache.pdfbox.cos.COSUpdateState;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class PDSignatureDiffblueTest {
   /**
-   * Test {@link PDSignature#PDSignature(COSDictionary)}.
-   * <p>
-   * Method under test: {@link PDSignature#PDSignature(COSDictionary)}
-   */
-  @Test
-  @DisplayName("Test new PDSignature(COSDictionary)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDSignature.<init>(COSDictionary)"})
-  void testNewPDSignature() {
-    // Arrange
-    COSDictionary dict = new COSDictionary();
-
-    // Act and Assert
-    assertSame(dict, (new PDSignature(dict)).getCOSObject());
-  }
-
-  /**
-   * Test {@link PDSignature#PDSignature()}.
-   * <p>
-   * Method under test: {@link PDSignature#PDSignature()}
-   */
-  @Test
-  @DisplayName("Test new PDSignature()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDSignature.<init>()"})
-  void testNewPDSignature2() {
-    // Arrange and Act
-    PDSignature actualPdSignature = new PDSignature();
-
-    // Assert
-    assertNull(actualPdSignature.getContactInfo());
-    assertNull(actualPdSignature.getFilter());
-    assertNull(actualPdSignature.getLocation());
-    assertNull(actualPdSignature.getName());
-    assertNull(actualPdSignature.getReason());
-    assertNull(actualPdSignature.getSubFilter());
-    assertNull(actualPdSignature.getSignDate());
-    assertNull(actualPdSignature.getPropBuild());
-    assertArrayEquals(new byte[]{}, actualPdSignature.getContents());
-    assertArrayEquals(new int[]{}, actualPdSignature.getByteRange());
-  }
-
-  /**
-   * Test {@link PDSignature#getCOSObject()}.
-   * <p>
    * Method under test: {@link PDSignature#getCOSObject()}
    */
   @Test
-  @DisplayName("Test getCOSObject()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"COSDictionary PDSignature.getCOSObject()"})
   void testGetCOSObject() {
     // Arrange and Act
     COSDictionary actualCOSObject = (new PDSignature()).getCOSObject();
@@ -93,46 +42,27 @@ class PDSignatureDiffblueTest {
   }
 
   /**
-   * Test {@link PDSignature#setType(COSName)}.
-   * <ul>
-   *   <li>Given {@link PDSignature#PDSignature()}.</li>
-   *   <li>Then {@link PDSignature#PDSignature()} COSObject Values size is one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDSignature#setType(COSName)}
    */
   @Test
-  @DisplayName("Test setType(COSName); given PDSignature(); then PDSignature() COSObject Values size is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDSignature.setType(COSName)"})
-  void testSetType_givenPDSignature_thenPDSignatureCOSObjectValuesSizeIsOne() {
+  void testSetType() {
     // Arrange
     PDSignature pdSignature = new PDSignature();
 
     // Act
     pdSignature.setType(PDSignature.FILTER_ADOBE_PPKLITE);
 
-    // Assert that nothing has changed
+    // Assert
     COSDictionary cOSObject = pdSignature.getCOSObject();
     assertEquals(1, cOSObject.getValues().size());
     assertEquals(1, cOSObject.size());
   }
 
   /**
-   * Test {@link PDSignature#setType(COSName)}.
-   * <ul>
-   *   <li>Given {@link PDSignature#PDSignature()}.</li>
-   *   <li>When {@code null}.</li>
-   *   <li>Then {@link PDSignature#PDSignature()} COSObject size is zero.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDSignature#setType(COSName)}
    */
   @Test
-  @DisplayName("Test setType(COSName); given PDSignature(); when 'null'; then PDSignature() COSObject size is zero")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDSignature.setType(COSName)"})
-  void testSetType_givenPDSignature_whenNull_thenPDSignatureCOSObjectSizeIsZero() {
+  void testSetType2() {
     // Arrange
     PDSignature pdSignature = new PDSignature();
 
@@ -146,19 +76,10 @@ class PDSignatureDiffblueTest {
   }
 
   /**
-   * Test {@link PDSignature#setFilter(COSName)}.
-   * <ul>
-   *   <li>Given {@link PDSignature#PDSignature()}.</li>
-   *   <li>Then {@link PDSignature#PDSignature()} Filter is {@code Adobe.PPKLite}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDSignature#setFilter(COSName)}
    */
   @Test
-  @DisplayName("Test setFilter(COSName); given PDSignature(); then PDSignature() Filter is 'Adobe.PPKLite'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDSignature.setFilter(COSName)"})
-  void testSetFilter_givenPDSignature_thenPDSignatureFilterIsAdobePPKLite() {
+  void testSetFilter() {
     // Arrange
     PDSignature pdSignature = new PDSignature();
 
@@ -173,46 +94,28 @@ class PDSignatureDiffblueTest {
   }
 
   /**
-   * Test {@link PDSignature#setFilter(COSName)}.
-   * <ul>
-   *   <li>Given {@link PDSignature#PDSignature()}.</li>
-   *   <li>When {@code null}.</li>
-   *   <li>Then {@link PDSignature#PDSignature()} COSObject Values size is one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDSignature#setFilter(COSName)}
    */
   @Test
-  @DisplayName("Test setFilter(COSName); given PDSignature(); when 'null'; then PDSignature() COSObject Values size is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDSignature.setFilter(COSName)"})
-  void testSetFilter_givenPDSignature_whenNull_thenPDSignatureCOSObjectValuesSizeIsOne() {
+  void testSetFilter2() {
     // Arrange
     PDSignature pdSignature = new PDSignature();
 
     // Act
     pdSignature.setFilter(null);
 
-    // Assert that nothing has changed
+    // Assert
+    assertNull(pdSignature.getFilter());
     COSDictionary cOSObject = pdSignature.getCOSObject();
     assertEquals(1, cOSObject.getValues().size());
     assertEquals(1, cOSObject.size());
   }
 
   /**
-   * Test {@link PDSignature#setSubFilter(COSName)}.
-   * <ul>
-   *   <li>Given {@link PDSignature#PDSignature()}.</li>
-   *   <li>Then {@link PDSignature#PDSignature()} SubFilter is {@code Adobe.PPKLite}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDSignature#setSubFilter(COSName)}
    */
   @Test
-  @DisplayName("Test setSubFilter(COSName); given PDSignature(); then PDSignature() SubFilter is 'Adobe.PPKLite'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDSignature.setSubFilter(COSName)"})
-  void testSetSubFilter_givenPDSignature_thenPDSignatureSubFilterIsAdobePPKLite() {
+  void testSetSubFilter() {
     // Arrange
     PDSignature pdSignature = new PDSignature();
 
@@ -227,45 +130,28 @@ class PDSignatureDiffblueTest {
   }
 
   /**
-   * Test {@link PDSignature#setSubFilter(COSName)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then {@link PDSignature#PDSignature()} COSObject Values size is one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDSignature#setSubFilter(COSName)}
    */
   @Test
-  @DisplayName("Test setSubFilter(COSName); when 'null'; then PDSignature() COSObject Values size is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDSignature.setSubFilter(COSName)"})
-  void testSetSubFilter_whenNull_thenPDSignatureCOSObjectValuesSizeIsOne() {
+  void testSetSubFilter2() {
     // Arrange
     PDSignature pdSignature = new PDSignature();
 
     // Act
     pdSignature.setSubFilter(null);
 
-    // Assert that nothing has changed
+    // Assert
+    assertNull(pdSignature.getSubFilter());
     COSDictionary cOSObject = pdSignature.getCOSObject();
     assertEquals(1, cOSObject.getValues().size());
     assertEquals(1, cOSObject.size());
   }
 
   /**
-   * Test {@link PDSignature#setName(String)}.
-   * <ul>
-   *   <li>Given {@link PDSignature#PDSignature()}.</li>
-   *   <li>Then {@link PDSignature#PDSignature()} Name is {@code Name}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDSignature#setName(String)}
    */
   @Test
-  @DisplayName("Test setName(String); given PDSignature(); then PDSignature() Name is 'Name'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDSignature.setName(String)"})
-  void testSetName_givenPDSignature_thenPDSignatureNameIsName() {
+  void testSetName() {
     // Arrange
     PDSignature pdSignature = new PDSignature();
 
@@ -280,19 +166,10 @@ class PDSignatureDiffblueTest {
   }
 
   /**
-   * Test {@link PDSignature#setLocation(String)}.
-   * <ul>
-   *   <li>Given {@link PDSignature#PDSignature()}.</li>
-   *   <li>Then {@link PDSignature#PDSignature()} Location is {@code Location}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDSignature#setLocation(String)}
    */
   @Test
-  @DisplayName("Test setLocation(String); given PDSignature(); then PDSignature() Location is 'Location'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDSignature.setLocation(String)"})
-  void testSetLocation_givenPDSignature_thenPDSignatureLocationIsLocation() {
+  void testSetLocation() {
     // Arrange
     PDSignature pdSignature = new PDSignature();
 
@@ -307,19 +184,10 @@ class PDSignatureDiffblueTest {
   }
 
   /**
-   * Test {@link PDSignature#setReason(String)}.
-   * <ul>
-   *   <li>Given {@link PDSignature#PDSignature()}.</li>
-   *   <li>Then {@link PDSignature#PDSignature()} Reason is {@code Just cause}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDSignature#setReason(String)}
    */
   @Test
-  @DisplayName("Test setReason(String); given PDSignature(); then PDSignature() Reason is 'Just cause'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDSignature.setReason(String)"})
-  void testSetReason_givenPDSignature_thenPDSignatureReasonIsJustCause() {
+  void testSetReason() {
     // Arrange
     PDSignature pdSignature = new PDSignature();
 
@@ -334,19 +202,10 @@ class PDSignatureDiffblueTest {
   }
 
   /**
-   * Test {@link PDSignature#setContactInfo(String)}.
-   * <ul>
-   *   <li>Given {@link PDSignature#PDSignature()}.</li>
-   *   <li>Then {@link PDSignature#PDSignature()} ContactInfo is {@code Contact Info}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDSignature#setContactInfo(String)}
    */
   @Test
-  @DisplayName("Test setContactInfo(String); given PDSignature(); then PDSignature() ContactInfo is 'Contact Info'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDSignature.setContactInfo(String)"})
-  void testSetContactInfo_givenPDSignature_thenPDSignatureContactInfoIsContactInfo() {
+  void testSetContactInfo() {
     // Arrange
     PDSignature pdSignature = new PDSignature();
 
@@ -361,19 +220,10 @@ class PDSignatureDiffblueTest {
   }
 
   /**
-   * Test {@link PDSignature#setSignDate(Calendar)}.
-   * <ul>
-   *   <li>Given {@link PDSignature#PDSignature()}.</li>
-   *   <li>Then {@link PDSignature#PDSignature()} SignDate {@link GregorianCalendar}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDSignature#setSignDate(Calendar)}
    */
   @Test
-  @DisplayName("Test setSignDate(Calendar); given PDSignature(); then PDSignature() SignDate GregorianCalendar")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDSignature.setSignDate(Calendar)"})
-  void testSetSignDate_givenPDSignature_thenPDSignatureSignDateGregorianCalendar() {
+  void testSetSignDate() {
     // Arrange
     PDSignature pdSignature = new PDSignature();
 
@@ -384,6 +234,7 @@ class PDSignatureDiffblueTest {
     Calendar signDate = pdSignature.getSignDate();
     assertTrue(signDate instanceof GregorianCalendar);
     assertEquals("gregory", signDate.getCalendarType());
+    assertEquals(0, signDate.getTimeZone().getDSTSavings());
     assertEquals(1, signDate.getFirstDayOfWeek());
     assertEquals(1, signDate.getMinimalDaysInFirstWeek());
     assertEquals(1, signDate.getWeekYear());
@@ -396,62 +247,37 @@ class PDSignatureDiffblueTest {
   }
 
   /**
-   * Test {@link PDSignature#setSignDate(Calendar)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then {@link PDSignature#PDSignature()} COSObject Values size is one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDSignature#setSignDate(Calendar)}
    */
   @Test
-  @DisplayName("Test setSignDate(Calendar); when 'null'; then PDSignature() COSObject Values size is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDSignature.setSignDate(Calendar)"})
-  void testSetSignDate_whenNull_thenPDSignatureCOSObjectValuesSizeIsOne() {
+  void testSetSignDate2() {
     // Arrange
     PDSignature pdSignature = new PDSignature();
 
     // Act
     pdSignature.setSignDate(null);
 
-    // Assert that nothing has changed
+    // Assert
+    assertNull(pdSignature.getSignDate());
     COSDictionary cOSObject = pdSignature.getCOSObject();
     assertEquals(1, cOSObject.getValues().size());
     assertEquals(1, cOSObject.size());
   }
 
   /**
-   * Test {@link PDSignature#getFilter()}.
-   * <ul>
-   *   <li>Given {@link PDSignature#PDSignature()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDSignature#getFilter()}
    */
   @Test
-  @DisplayName("Test getFilter(); given PDSignature(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDSignature.getFilter()"})
-  void testGetFilter_givenPDSignature_thenReturnNull() {
+  void testGetFilter() {
     // Arrange, Act and Assert
     assertNull((new PDSignature()).getFilter());
   }
 
   /**
-   * Test {@link PDSignature#getFilter()}.
-   * <ul>
-   *   <li>Then return {@code Adobe.PPKLite}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDSignature#getFilter()}
    */
   @Test
-  @DisplayName("Test getFilter(); then return 'Adobe.PPKLite'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDSignature.getFilter()"})
-  void testGetFilter_thenReturnAdobePPKLite() {
+  void testGetFilter2() {
     // Arrange
     PDSignature pdSignature = new PDSignature();
     pdSignature.setFilter(PDSignature.FILTER_ADOBE_PPKLITE);
@@ -461,36 +287,19 @@ class PDSignatureDiffblueTest {
   }
 
   /**
-   * Test {@link PDSignature#getSubFilter()}.
-   * <ul>
-   *   <li>Given {@link PDSignature#PDSignature()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDSignature#getSubFilter()}
    */
   @Test
-  @DisplayName("Test getSubFilter(); given PDSignature(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDSignature.getSubFilter()"})
-  void testGetSubFilter_givenPDSignature_thenReturnNull() {
+  void testGetSubFilter() {
     // Arrange, Act and Assert
     assertNull((new PDSignature()).getSubFilter());
   }
 
   /**
-   * Test {@link PDSignature#getSubFilter()}.
-   * <ul>
-   *   <li>Then return {@code Adobe.PPKLite}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDSignature#getSubFilter()}
    */
   @Test
-  @DisplayName("Test getSubFilter(); then return 'Adobe.PPKLite'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDSignature.getSubFilter()"})
-  void testGetSubFilter_thenReturnAdobePPKLite() {
+  void testGetSubFilter2() {
     // Arrange
     PDSignature pdSignature = new PDSignature();
     pdSignature.setSubFilter(PDSignature.FILTER_ADOBE_PPKLITE);
@@ -500,41 +309,19 @@ class PDSignatureDiffblueTest {
   }
 
   /**
-   * Test {@link PDSignature#getName()}.
-   * <ul>
-   *   <li>Given {@link PDSignature#PDSignature()} Name is empty string.</li>
-   *   <li>Then return empty string.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDSignature#getName()}
    */
   @Test
-  @DisplayName("Test getName(); given PDSignature() Name is empty string; then return empty string")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDSignature.getName()"})
-  void testGetName_givenPDSignatureNameIsEmptyString_thenReturnEmptyString() {
-    // Arrange
-    PDSignature pdSignature = new PDSignature();
-    pdSignature.setName("");
-
-    // Act and Assert
-    assertEquals("", pdSignature.getName());
+  void testGetName() {
+    // Arrange, Act and Assert
+    assertNull((new PDSignature()).getName());
   }
 
   /**
-   * Test {@link PDSignature#getName()}.
-   * <ul>
-   *   <li>Given {@link PDSignature#PDSignature()} Name is {@code Name}.</li>
-   *   <li>Then return {@code Name}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDSignature#getName()}
    */
   @Test
-  @DisplayName("Test getName(); given PDSignature() Name is 'Name'; then return 'Name'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDSignature.getName()"})
-  void testGetName_givenPDSignatureNameIsName_thenReturnName() {
+  void testGetName2() {
     // Arrange
     PDSignature pdSignature = new PDSignature();
     pdSignature.setName("Name");
@@ -544,59 +331,32 @@ class PDSignatureDiffblueTest {
   }
 
   /**
-   * Test {@link PDSignature#getName()}.
-   * <ul>
-   *   <li>Given {@link PDSignature#PDSignature()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDSignature#getName()}
    */
   @Test
-  @DisplayName("Test getName(); given PDSignature(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDSignature.getName()"})
-  void testGetName_givenPDSignature_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull((new PDSignature()).getName());
-  }
-
-  /**
-   * Test {@link PDSignature#getLocation()}.
-   * <ul>
-   *   <li>Given {@link PDSignature#PDSignature()} Location is empty string.</li>
-   *   <li>Then return empty string.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDSignature#getLocation()}
-   */
-  @Test
-  @DisplayName("Test getLocation(); given PDSignature() Location is empty string; then return empty string")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDSignature.getLocation()"})
-  void testGetLocation_givenPDSignatureLocationIsEmptyString_thenReturnEmptyString() {
+  void testGetName3() {
     // Arrange
     PDSignature pdSignature = new PDSignature();
-    pdSignature.setLocation("");
+    pdSignature.setName("");
 
     // Act and Assert
-    assertEquals("", pdSignature.getLocation());
+    assertEquals("", pdSignature.getName());
   }
 
   /**
-   * Test {@link PDSignature#getLocation()}.
-   * <ul>
-   *   <li>Given {@link PDSignature#PDSignature()} Location is {@code Location}.</li>
-   *   <li>Then return {@code Location}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDSignature#getLocation()}
    */
   @Test
-  @DisplayName("Test getLocation(); given PDSignature() Location is 'Location'; then return 'Location'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDSignature.getLocation()"})
-  void testGetLocation_givenPDSignatureLocationIsLocation_thenReturnLocation() {
+  void testGetLocation() {
+    // Arrange, Act and Assert
+    assertNull((new PDSignature()).getLocation());
+  }
+
+  /**
+   * Method under test: {@link PDSignature#getLocation()}
+   */
+  @Test
+  void testGetLocation2() {
     // Arrange
     PDSignature pdSignature = new PDSignature();
     pdSignature.setLocation("Location");
@@ -606,59 +366,32 @@ class PDSignatureDiffblueTest {
   }
 
   /**
-   * Test {@link PDSignature#getLocation()}.
-   * <ul>
-   *   <li>Given {@link PDSignature#PDSignature()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDSignature#getLocation()}
    */
   @Test
-  @DisplayName("Test getLocation(); given PDSignature(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDSignature.getLocation()"})
-  void testGetLocation_givenPDSignature_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull((new PDSignature()).getLocation());
-  }
-
-  /**
-   * Test {@link PDSignature#getReason()}.
-   * <ul>
-   *   <li>Given {@link PDSignature#PDSignature()} Reason is empty string.</li>
-   *   <li>Then return empty string.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDSignature#getReason()}
-   */
-  @Test
-  @DisplayName("Test getReason(); given PDSignature() Reason is empty string; then return empty string")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDSignature.getReason()"})
-  void testGetReason_givenPDSignatureReasonIsEmptyString_thenReturnEmptyString() {
+  void testGetLocation3() {
     // Arrange
     PDSignature pdSignature = new PDSignature();
-    pdSignature.setReason("");
+    pdSignature.setLocation("");
 
     // Act and Assert
-    assertEquals("", pdSignature.getReason());
+    assertEquals("", pdSignature.getLocation());
   }
 
   /**
-   * Test {@link PDSignature#getReason()}.
-   * <ul>
-   *   <li>Given {@link PDSignature#PDSignature()} Reason is {@code Just cause}.</li>
-   *   <li>Then return {@code Just cause}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDSignature#getReason()}
    */
   @Test
-  @DisplayName("Test getReason(); given PDSignature() Reason is 'Just cause'; then return 'Just cause'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDSignature.getReason()"})
-  void testGetReason_givenPDSignatureReasonIsJustCause_thenReturnJustCause() {
+  void testGetReason() {
+    // Arrange, Act and Assert
+    assertNull((new PDSignature()).getReason());
+  }
+
+  /**
+   * Method under test: {@link PDSignature#getReason()}
+   */
+  @Test
+  void testGetReason2() {
     // Arrange
     PDSignature pdSignature = new PDSignature();
     pdSignature.setReason("Just cause");
@@ -668,54 +401,32 @@ class PDSignatureDiffblueTest {
   }
 
   /**
-   * Test {@link PDSignature#getReason()}.
-   * <ul>
-   *   <li>Given {@link PDSignature#PDSignature()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDSignature#getReason()}
    */
   @Test
-  @DisplayName("Test getReason(); given PDSignature(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDSignature.getReason()"})
-  void testGetReason_givenPDSignature_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull((new PDSignature()).getReason());
+  void testGetReason3() {
+    // Arrange
+    PDSignature pdSignature = new PDSignature();
+    pdSignature.setReason("");
+
+    // Act and Assert
+    assertEquals("", pdSignature.getReason());
   }
 
   /**
-   * Test {@link PDSignature#getContactInfo()}.
-   * <ul>
-   *   <li>Given {@link PDSignature#PDSignature()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDSignature#getContactInfo()}
    */
   @Test
-  @DisplayName("Test getContactInfo(); given PDSignature(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDSignature.getContactInfo()"})
-  void testGetContactInfo_givenPDSignature_thenReturnNull() {
+  void testGetContactInfo() {
     // Arrange, Act and Assert
     assertNull((new PDSignature()).getContactInfo());
   }
 
   /**
-   * Test {@link PDSignature#getContactInfo()}.
-   * <ul>
-   *   <li>Then return {@code Contact Info}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDSignature#getContactInfo()}
    */
   @Test
-  @DisplayName("Test getContactInfo(); then return 'Contact Info'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDSignature.getContactInfo()"})
-  void testGetContactInfo_thenReturnContactInfo() {
+  void testGetContactInfo2() {
     // Arrange
     PDSignature pdSignature = new PDSignature();
     pdSignature.setContactInfo("Contact Info");
@@ -725,18 +436,10 @@ class PDSignatureDiffblueTest {
   }
 
   /**
-   * Test {@link PDSignature#getContactInfo()}.
-   * <ul>
-   *   <li>Then return empty string.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDSignature#getContactInfo()}
    */
   @Test
-  @DisplayName("Test getContactInfo(); then return empty string")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDSignature.getContactInfo()"})
-  void testGetContactInfo_thenReturnEmptyString() {
+  void testGetContactInfo3() {
     // Arrange
     PDSignature pdSignature = new PDSignature();
     pdSignature.setContactInfo("");
@@ -746,54 +449,19 @@ class PDSignatureDiffblueTest {
   }
 
   /**
-   * Test {@link PDSignature#getSignDate()}.
-   * <p>
    * Method under test: {@link PDSignature#getSignDate()}
    */
   @Test
-  @DisplayName("Test getSignDate()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Calendar PDSignature.getSignDate()"})
   void testGetSignDate() {
-    // Arrange
-    PDSignature pdSignature = new PDSignature();
-    pdSignature.setSignDate(new GregorianCalendar(Integer.MIN_VALUE, 1, 1));
-
-    // Act and Assert
-    assertNull(pdSignature.getSignDate());
-  }
-
-  /**
-   * Test {@link PDSignature#getSignDate()}.
-   * <ul>
-   *   <li>Given {@link PDSignature#PDSignature()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDSignature#getSignDate()}
-   */
-  @Test
-  @DisplayName("Test getSignDate(); given PDSignature(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Calendar PDSignature.getSignDate()"})
-  void testGetSignDate_givenPDSignature_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull((new PDSignature()).getSignDate());
   }
 
   /**
-   * Test {@link PDSignature#getSignDate()}.
-   * <ul>
-   *   <li>Then return {@link GregorianCalendar}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDSignature#getSignDate()}
    */
   @Test
-  @DisplayName("Test getSignDate(); then return GregorianCalendar")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Calendar PDSignature.getSignDate()"})
-  void testGetSignDate_thenReturnGregorianCalendar() {
+  void testGetSignDate2() {
     // Arrange
     PDSignature pdSignature = new PDSignature();
     pdSignature.setSignDate(new GregorianCalendar(1, 1, 1));
@@ -804,6 +472,7 @@ class PDSignatureDiffblueTest {
     // Assert
     assertTrue(actualSignDate instanceof GregorianCalendar);
     assertEquals("gregory", actualSignDate.getCalendarType());
+    assertEquals(0, actualSignDate.getTimeZone().getDSTSavings());
     assertEquals(1, actualSignDate.getFirstDayOfWeek());
     assertEquals(1, actualSignDate.getMinimalDaysInFirstWeek());
     assertEquals(1, actualSignDate.getWeekYear());
@@ -813,70 +482,23 @@ class PDSignatureDiffblueTest {
   }
 
   /**
-   * Test {@link PDSignature#setByteRange(int[])}.
-   * <ul>
-   *   <li>Then {@link PDSignature#PDSignature()} ByteRange is array of {@code int} with {@code 1024} and minus one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDSignature#setByteRange(int[])}
+   * Method under test: {@link PDSignature#getSignDate()}
    */
   @Test
-  @DisplayName("Test setByteRange(int[]); then PDSignature() ByteRange is array of int with '1024' and minus one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDSignature.setByteRange(int[])"})
-  void testSetByteRange_thenPDSignatureByteRangeIsArrayOfIntWith1024AndMinusOne() {
+  void testGetSignDate3() {
     // Arrange
     PDSignature pdSignature = new PDSignature();
+    pdSignature.setSignDate(new GregorianCalendar(Integer.MIN_VALUE, 1, 1));
 
-    // Act
-    pdSignature.setByteRange(new int[]{1024, -1, 1, -1});
-
-    // Assert
-    COSDictionary cOSObject = pdSignature.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    assertArrayEquals(new int[]{1024, -1, 1, -1}, pdSignature.getByteRange());
+    // Act and Assert
+    assertNull(pdSignature.getSignDate());
   }
 
   /**
-   * Test {@link PDSignature#setByteRange(int[])}.
-   * <ul>
-   *   <li>Then {@link PDSignature#PDSignature()} ByteRange is array of {@code int} with {@link Integer#MIN_VALUE} and minus one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDSignature#setByteRange(int[])}
    */
   @Test
-  @DisplayName("Test setByteRange(int[]); then PDSignature() ByteRange is array of int with MIN_VALUE and minus one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDSignature.setByteRange(int[])"})
-  void testSetByteRange_thenPDSignatureByteRangeIsArrayOfIntWithMin_valueAndMinusOne() {
-    // Arrange
-    PDSignature pdSignature = new PDSignature();
-
-    // Act
-    pdSignature.setByteRange(new int[]{Integer.MIN_VALUE, -1, 1, -1});
-
-    // Assert
-    COSDictionary cOSObject = pdSignature.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    assertArrayEquals(new int[]{Integer.MIN_VALUE, -1, 1, -1}, pdSignature.getByteRange());
-  }
-
-  /**
-   * Test {@link PDSignature#setByteRange(int[])}.
-   * <ul>
-   *   <li>Then {@link PDSignature#PDSignature()} ByteRange is array of {@code int} with one and minus one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDSignature#setByteRange(int[])}
-   */
-  @Test
-  @DisplayName("Test setByteRange(int[]); then PDSignature() ByteRange is array of int with one and minus one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDSignature.setByteRange(int[])"})
-  void testSetByteRange_thenPDSignatureByteRangeIsArrayOfIntWithOneAndMinusOne() {
+  void testSetByteRange() {
     // Arrange
     PDSignature pdSignature = new PDSignature();
 
@@ -891,19 +513,28 @@ class PDSignatureDiffblueTest {
   }
 
   /**
-   * Test {@link PDSignature#setByteRange(int[])}.
-   * <ul>
-   *   <li>When empty array of {@code int}.</li>
-   *   <li>Then {@link PDSignature#PDSignature()} COSObject Values size is one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDSignature#setByteRange(int[])}
    */
   @Test
-  @DisplayName("Test setByteRange(int[]); when empty array of int; then PDSignature() COSObject Values size is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDSignature.setByteRange(int[])"})
-  void testSetByteRange_whenEmptyArrayOfInt_thenPDSignatureCOSObjectValuesSizeIsOne() {
+  void testSetByteRange2() {
+    // Arrange
+    PDSignature pdSignature = new PDSignature();
+
+    // Act
+    pdSignature.setByteRange(new int[]{Integer.MIN_VALUE, -1, 1, -1});
+
+    // Assert
+    COSDictionary cOSObject = pdSignature.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    assertArrayEquals(new int[]{Integer.MIN_VALUE, -1, 1, -1}, pdSignature.getByteRange());
+  }
+
+  /**
+   * Method under test: {@link PDSignature#setByteRange(int[])}
+   */
+  @Test
+  void testSetByteRange3() {
     // Arrange
     PDSignature pdSignature = new PDSignature();
 
@@ -911,43 +542,44 @@ class PDSignatureDiffblueTest {
     pdSignature.setByteRange(new int[]{});
 
     // Assert that nothing has changed
+    assertEquals(0, pdSignature.getByteRange().length);
     COSDictionary cOSObject = pdSignature.getCOSObject();
     assertEquals(1, cOSObject.getValues().size());
     assertEquals(1, cOSObject.size());
-    assertArrayEquals(new int[]{}, pdSignature.getByteRange());
   }
 
   /**
-   * Test {@link PDSignature#getByteRange()}.
-   * <ul>
-   *   <li>Given {@link PDSignature#PDSignature()}.</li>
-   *   <li>Then return empty array of {@code int}.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PDSignature#setByteRange(int[])}
+   */
+  @Test
+  void testSetByteRange4() {
+    // Arrange
+    PDSignature pdSignature = new PDSignature();
+
+    // Act
+    pdSignature.setByteRange(new int[]{1024, -1, 1, -1});
+
+    // Assert
+    COSDictionary cOSObject = pdSignature.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    assertArrayEquals(new int[]{1024, -1, 1, -1}, pdSignature.getByteRange());
+  }
+
+  /**
    * Method under test: {@link PDSignature#getByteRange()}
    */
   @Test
-  @DisplayName("Test getByteRange(); given PDSignature(); then return empty array of int")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"int[] PDSignature.getByteRange()"})
-  void testGetByteRange_givenPDSignature_thenReturnEmptyArrayOfInt() {
+  void testGetByteRange() {
     // Arrange, Act and Assert
-    assertArrayEquals(new int[]{}, (new PDSignature()).getByteRange());
+    assertEquals(0, (new PDSignature()).getByteRange().length);
   }
 
   /**
-   * Test {@link PDSignature#getByteRange()}.
-   * <ul>
-   *   <li>Then return array of {@code int} with one and zero.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDSignature#getByteRange()}
    */
   @Test
-  @DisplayName("Test getByteRange(); then return array of int with one and zero")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"int[] PDSignature.getByteRange()"})
-  void testGetByteRange_thenReturnArrayOfIntWithOneAndZero() {
+  void testGetByteRange2() {
     // Arrange
     PDSignature pdSignature = new PDSignature();
     pdSignature.setByteRange(new int[]{1, 0, 1, 0});
@@ -957,146 +589,35 @@ class PDSignatureDiffblueTest {
   }
 
   /**
-   * Test {@link PDSignature#getContents(byte[])} with {@code byte[]}.
-   * <ul>
-   *   <li>Then return array of {@code byte} with minus ninety-six.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDSignature#getContents(byte[])}
+   * Method under test: {@link PDSignature#getContents()}
    */
   @Test
-  @DisplayName("Test getContents(byte[]) with 'byte[]'; then return array of byte with minus ninety-six")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"byte[] PDSignature.getContents(byte[])"})
-  void testGetContentsWithByte_thenReturnArrayOfByteWithMinusNinetySix() throws IOException {
-    // Arrange
-    PDSignature pdSignature = new PDSignature();
-    pdSignature.setByteRange(new int[]{1, 0, 4, 0});
-
-    // Act and Assert
-    assertArrayEquals(new byte[]{-96}, pdSignature.getContents("AXAXAXAX".getBytes("UTF-8")));
+  void testGetContents() {
+    // Arrange, Act and Assert
+    assertEquals(0, (new PDSignature()).getContents().length);
   }
 
   /**
-   * Test {@link PDSignature#getContents(byte[])} with {@code byte[]}.
-   * <ul>
-   *   <li>When {@code AX(XAXAX} Bytes is {@code UTF-8}.</li>
-   *   <li>Then return empty array of {@code byte}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDSignature#getContents(byte[])}
+   * Method under test: {@link PDSignature#getContents()}
    */
   @Test
-  @DisplayName("Test getContents(byte[]) with 'byte[]'; when 'AX(XAXAX' Bytes is 'UTF-8'; then return empty array of byte")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"byte[] PDSignature.getContents(byte[])"})
-  void testGetContentsWithByte_whenAxXaxaxBytesIsUtf8_thenReturnEmptyArrayOfByte() throws IOException {
+  void testGetContents2() throws UnsupportedEncodingException {
     // Arrange
     PDSignature pdSignature = new PDSignature();
-    pdSignature.setByteRange(new int[]{1, 0, 4, 0});
+    pdSignature.setContents("AXAXAXAX".getBytes("UTF-8"));
 
-    // Act and Assert
-    assertArrayEquals(new byte[]{}, pdSignature.getContents("AX(XAXAX".getBytes("UTF-8")));
+    // Act
+    byte[] actualContents = pdSignature.getContents();
+
+    // Assert
+    assertArrayEquals("AXAXAXAX".getBytes("UTF-8"), actualContents);
   }
 
   /**
-   * Test {@link PDSignature#getContents(byte[])} with {@code byte[]}.
-   * <ul>
-   *   <li>When {@code AX)XAXAX} Bytes is {@code UTF-8}.</li>
-   *   <li>Then return empty array of {@code byte}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDSignature#getContents(byte[])}
-   */
-  @Test
-  @DisplayName("Test getContents(byte[]) with 'byte[]'; when 'AX)XAXAX' Bytes is 'UTF-8'; then return empty array of byte")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"byte[] PDSignature.getContents(byte[])"})
-  void testGetContentsWithByte_whenAxXaxaxBytesIsUtf8_thenReturnEmptyArrayOfByte2() throws IOException {
-    // Arrange
-    PDSignature pdSignature = new PDSignature();
-    pdSignature.setByteRange(new int[]{1, 0, 4, 0});
-
-    // Act and Assert
-    assertArrayEquals(new byte[]{}, pdSignature.getContents("AX)XAXAX".getBytes("UTF-8")));
-  }
-
-  /**
-   * Test {@link PDSignature#getContents(byte[])} with {@code byte[]}.
-   * <ul>
-   *   <li>When {@code AX<XAXAX} Bytes is {@code UTF-8}.</li>
-   *   <li>Then return empty array of {@code byte}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDSignature#getContents(byte[])}
-   */
-  @Test
-  @DisplayName("Test getContents(byte[]) with 'byte[]'; when 'AX<XAXAX' Bytes is 'UTF-8'; then return empty array of byte")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"byte[] PDSignature.getContents(byte[])"})
-  void testGetContentsWithByte_whenAxXaxaxBytesIsUtf8_thenReturnEmptyArrayOfByte3() throws IOException {
-    // Arrange
-    PDSignature pdSignature = new PDSignature();
-    pdSignature.setByteRange(new int[]{1, 0, 4, 0});
-
-    // Act and Assert
-    assertArrayEquals(new byte[]{}, pdSignature.getContents("AX<XAXAX".getBytes("UTF-8")));
-  }
-
-  /**
-   * Test {@link PDSignature#getContents(byte[])} with {@code byte[]}.
-   * <ul>
-   *   <li>When {@code AX>XAXAX} Bytes is {@code UTF-8}.</li>
-   *   <li>Then return empty array of {@code byte}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDSignature#getContents(byte[])}
-   */
-  @Test
-  @DisplayName("Test getContents(byte[]) with 'byte[]'; when 'AX>XAXAX' Bytes is 'UTF-8'; then return empty array of byte")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"byte[] PDSignature.getContents(byte[])"})
-  void testGetContentsWithByte_whenAxXaxaxBytesIsUtf8_thenReturnEmptyArrayOfByte4() throws IOException {
-    // Arrange
-    PDSignature pdSignature = new PDSignature();
-    pdSignature.setByteRange(new int[]{1, 0, 4, 0});
-
-    // Act and Assert
-    assertArrayEquals(new byte[]{}, pdSignature.getContents("AX>XAXAX".getBytes("UTF-8")));
-  }
-
-  /**
-   * Test {@link PDSignature#getContents(byte[])} with {@code byte[]}.
-   * <ul>
-   *   <li>When {@code AXAXAXAX} Bytes is {@code UTF-8}.</li>
-   *   <li>Then return empty array of {@code byte}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDSignature#getContents(byte[])}
-   */
-  @Test
-  @DisplayName("Test getContents(byte[]) with 'byte[]'; when 'AXAXAXAX' Bytes is 'UTF-8'; then return empty array of byte")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"byte[] PDSignature.getContents(byte[])"})
-  void testGetContentsWithByte_whenAxaxaxaxBytesIsUtf8_thenReturnEmptyArrayOfByte() throws IOException {
-    // Arrange
-    PDSignature pdSignature = new PDSignature();
-    pdSignature.setByteRange(new int[]{1, 0, 1, 0});
-
-    // Act and Assert
-    assertArrayEquals(new byte[]{}, pdSignature.getContents("AXAXAXAX".getBytes("UTF-8")));
-  }
-
-  /**
-   * Test {@link PDSignature#getContents(InputStream)} with {@code InputStream}.
-   * <p>
    * Method under test: {@link PDSignature#getContents(InputStream)}
    */
   @Test
-  @DisplayName("Test getContents(InputStream) with 'InputStream'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"byte[] PDSignature.getContents(InputStream)"})
-  void testGetContentsWithInputStream() throws IOException {
+  void testGetContents3() throws IOException {
     // Arrange
     PDSignature pdSignature = new PDSignature();
     pdSignature.setByteRange(new int[]{-1, 0, 1, 0});
@@ -1113,61 +634,88 @@ class PDSignatureDiffblueTest {
   }
 
   /**
-   * Test {@link PDSignature#getContents()}.
-   * <ul>
-   *   <li>Given {@link PDSignature#PDSignature()}.</li>
-   *   <li>Then return empty array of {@code byte}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDSignature#getContents()}
+   * Method under test: {@link PDSignature#getContents(byte[])}
    */
   @Test
-  @DisplayName("Test getContents(); given PDSignature(); then return empty array of byte")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"byte[] PDSignature.getContents()"})
-  void testGetContents_givenPDSignature_thenReturnEmptyArrayOfByte() {
-    // Arrange, Act and Assert
-    assertArrayEquals(new byte[]{}, (new PDSignature()).getContents());
-  }
-
-  /**
-   * Test {@link PDSignature#getContents()}.
-   * <ul>
-   *   <li>Then return {@code AXAXAXAX} Bytes is {@code UTF-8}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDSignature#getContents()}
-   */
-  @Test
-  @DisplayName("Test getContents(); then return 'AXAXAXAX' Bytes is 'UTF-8'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"byte[] PDSignature.getContents()"})
-  void testGetContents_thenReturnAxaxaxaxBytesIsUtf8() throws UnsupportedEncodingException {
+  void testGetContents4() throws IOException {
     // Arrange
     PDSignature pdSignature = new PDSignature();
-    pdSignature.setContents("AXAXAXAX".getBytes("UTF-8"));
+    pdSignature.setByteRange(new int[]{1, 0, 1, 0});
 
-    // Act
-    byte[] actualContents = pdSignature.getContents();
-
-    // Assert
-    assertArrayEquals("AXAXAXAX".getBytes("UTF-8"), actualContents);
+    // Act and Assert
+    assertEquals(0, pdSignature.getContents("AXAXAXAX".getBytes("UTF-8")).length);
   }
 
   /**
-   * Test {@link PDSignature#setContents(byte[])}.
-   * <ul>
-   *   <li>Given {@link PDSignature#PDSignature()}.</li>
-   *   <li>Then {@link PDSignature#PDSignature()} COSObject Values size is two.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PDSignature#getContents(byte[])}
+   */
+  @Test
+  void testGetContents5() throws IOException {
+    // Arrange
+    PDSignature pdSignature = new PDSignature();
+    pdSignature.setByteRange(new int[]{1, 0, 4, 0});
+
+    // Act and Assert
+    assertArrayEquals(new byte[]{-96}, pdSignature.getContents("AXAXAXAX".getBytes("UTF-8")));
+  }
+
+  /**
+   * Method under test: {@link PDSignature#getContents(byte[])}
+   */
+  @Test
+  void testGetContents6() throws IOException {
+    // Arrange
+    PDSignature pdSignature = new PDSignature();
+    pdSignature.setByteRange(new int[]{1, 0, 4, 0});
+
+    // Act and Assert
+    assertEquals(0, pdSignature.getContents("AX(XAXAX".getBytes("UTF-8")).length);
+  }
+
+  /**
+   * Method under test: {@link PDSignature#getContents(byte[])}
+   */
+  @Test
+  void testGetContents7() throws IOException {
+    // Arrange
+    PDSignature pdSignature = new PDSignature();
+    pdSignature.setByteRange(new int[]{1, 0, 4, 0});
+
+    // Act and Assert
+    assertEquals(0, pdSignature.getContents("AX)XAXAX".getBytes("UTF-8")).length);
+  }
+
+  /**
+   * Method under test: {@link PDSignature#getContents(byte[])}
+   */
+  @Test
+  void testGetContents8() throws IOException {
+    // Arrange
+    PDSignature pdSignature = new PDSignature();
+    pdSignature.setByteRange(new int[]{1, 0, 4, 0});
+
+    // Act and Assert
+    assertEquals(0, pdSignature.getContents("AX<XAXAX".getBytes("UTF-8")).length);
+  }
+
+  /**
+   * Method under test: {@link PDSignature#getContents(byte[])}
+   */
+  @Test
+  void testGetContents9() throws IOException {
+    // Arrange
+    PDSignature pdSignature = new PDSignature();
+    pdSignature.setByteRange(new int[]{1, 0, 4, 0});
+
+    // Act and Assert
+    assertEquals(0, pdSignature.getContents("AX>XAXAX".getBytes("UTF-8")).length);
+  }
+
+  /**
    * Method under test: {@link PDSignature#setContents(byte[])}
    */
   @Test
-  @DisplayName("Test setContents(byte[]); given PDSignature(); then PDSignature() COSObject Values size is two")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDSignature.setContents(byte[])"})
-  void testSetContents_givenPDSignature_thenPDSignatureCOSObjectValuesSizeIsTwo() throws UnsupportedEncodingException {
+  void testSetContents() throws UnsupportedEncodingException {
     // Arrange
     PDSignature pdSignature = new PDSignature();
 
@@ -1183,84 +731,26 @@ class PDSignatureDiffblueTest {
   }
 
   /**
-   * Test {@link PDSignature#getSignedContent(byte[])} with {@code byte[]}.
-   * <ul>
-   *   <li>Given {@link PDSignature#PDSignature()}.</li>
-   *   <li>Then return empty array of {@code byte}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDSignature#getSignedContent(byte[])}
-   */
-  @Test
-  @DisplayName("Test getSignedContent(byte[]) with 'byte[]'; given PDSignature(); then return empty array of byte")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"byte[] PDSignature.getSignedContent(byte[])"})
-  void testGetSignedContentWithByte_givenPDSignature_thenReturnEmptyArrayOfByte() throws IOException {
-    // Arrange
-    PDSignature pdSignature = new PDSignature();
-
-    // Act and Assert
-    assertArrayEquals(new byte[]{}, pdSignature.getSignedContent("AXAXAXAX".getBytes("UTF-8")));
-  }
-
-  /**
-   * Test {@link PDSignature#getSignedContent(byte[])} with {@code byte[]}.
-   * <ul>
-   *   <li>Then return {@code AXAXAXAX} Bytes is {@code UTF-8}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDSignature#getSignedContent(byte[])}
-   */
-  @Test
-  @DisplayName("Test getSignedContent(byte[]) with 'byte[]'; then return 'AXAXAXAX' Bytes is 'UTF-8'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"byte[] PDSignature.getSignedContent(byte[])"})
-  void testGetSignedContentWithByte_thenReturnAxaxaxaxBytesIsUtf8() throws IOException {
-    // Arrange
-    PDSignature pdSignature = new PDSignature();
-    pdSignature.setByteRange(new int[]{Integer.MIN_VALUE, -1, 2, -1});
-
-    // Act
-    byte[] actualSignedContent = pdSignature.getSignedContent("AXAXAXAX".getBytes("UTF-8"));
-
-    // Assert
-    assertArrayEquals("AXAXAXAX".getBytes("UTF-8"), actualSignedContent);
-  }
-
-  /**
-   * Test {@link PDSignature#getSignedContent(InputStream)} with {@code InputStream}.
-   * <p>
    * Method under test: {@link PDSignature#getSignedContent(InputStream)}
    */
   @Test
-  @DisplayName("Test getSignedContent(InputStream) with 'InputStream'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"byte[] PDSignature.getSignedContent(InputStream)"})
-  void testGetSignedContentWithInputStream() throws IOException {
+  void testGetSignedContent() throws IOException {
     // Arrange
     PDSignature pdSignature = new PDSignature();
     ByteArrayInputStream pdfFile = new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"));
 
-    // Act
-    byte[] actualSignedContent = pdSignature.getSignedContent(pdfFile);
-
-    // Assert
+    // Act and Assert
+    assertEquals(0, pdSignature.getSignedContent(pdfFile).length);
     byte[] byteArray = new byte[8];
     assertEquals(8, pdfFile.read(byteArray));
     assertArrayEquals("AXAXAXAX".getBytes("UTF-8"), byteArray);
-    assertArrayEquals(new byte[]{}, actualSignedContent);
   }
 
   /**
-   * Test {@link PDSignature#getSignedContent(InputStream)} with {@code InputStream}.
-   * <p>
    * Method under test: {@link PDSignature#getSignedContent(InputStream)}
    */
   @Test
-  @DisplayName("Test getSignedContent(InputStream) with 'InputStream'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"byte[] PDSignature.getSignedContent(InputStream)"})
-  void testGetSignedContentWithInputStream2() throws IOException {
+  void testGetSignedContent2() throws IOException {
     // Arrange
     PDSignature pdSignature = new PDSignature();
     pdSignature.setByteRange(new int[]{Integer.MIN_VALUE, -1, 2, -1});
@@ -1275,36 +765,47 @@ class PDSignatureDiffblueTest {
   }
 
   /**
-   * Test {@link PDSignature#getPropBuild()}.
-   * <ul>
-   *   <li>Given {@link PDSignature#PDSignature()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PDSignature#getSignedContent(byte[])}
+   */
+  @Test
+  void testGetSignedContent3() throws IOException {
+    // Arrange
+    PDSignature pdSignature = new PDSignature();
+
+    // Act and Assert
+    assertEquals(0, pdSignature.getSignedContent("AXAXAXAX".getBytes("UTF-8")).length);
+  }
+
+  /**
+   * Method under test: {@link PDSignature#getSignedContent(byte[])}
+   */
+  @Test
+  void testGetSignedContent4() throws IOException {
+    // Arrange
+    PDSignature pdSignature = new PDSignature();
+    pdSignature.setByteRange(new int[]{Integer.MIN_VALUE, -1, 2, -1});
+
+    // Act
+    byte[] actualSignedContent = pdSignature.getSignedContent("AXAXAXAX".getBytes("UTF-8"));
+
+    // Assert
+    assertArrayEquals("AXAXAXAX".getBytes("UTF-8"), actualSignedContent);
+  }
+
+  /**
    * Method under test: {@link PDSignature#getPropBuild()}
    */
   @Test
-  @DisplayName("Test getPropBuild(); given PDSignature(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDPropBuild PDSignature.getPropBuild()"})
-  void testGetPropBuild_givenPDSignature_thenReturnNull() {
+  void testGetPropBuild() {
     // Arrange, Act and Assert
     assertNull((new PDSignature()).getPropBuild());
   }
 
   /**
-   * Test {@link PDSignature#getPropBuild()}.
-   * <ul>
-   *   <li>Then return COSObject UpdateState OriginDocumentState is {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDSignature#getPropBuild()}
    */
   @Test
-  @DisplayName("Test getPropBuild(); then return COSObject UpdateState OriginDocumentState is 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDPropBuild PDSignature.getPropBuild()"})
-  void testGetPropBuild_thenReturnCOSObjectUpdateStateOriginDocumentStateIsNull() {
+  void testGetPropBuild2() {
     // Arrange
     PDSignature pdSignature = new PDSignature();
     pdSignature.setPropBuild(new PDPropBuild());
@@ -1331,19 +832,10 @@ class PDSignatureDiffblueTest {
   }
 
   /**
-   * Test {@link PDSignature#setPropBuild(PDPropBuild)}.
-   * <ul>
-   *   <li>Given {@link PDSignature#PDSignature()}.</li>
-   *   <li>Then {@link PDSignature#PDSignature()} PropBuild App is {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDSignature#setPropBuild(PDPropBuild)}
    */
   @Test
-  @DisplayName("Test setPropBuild(PDPropBuild); given PDSignature(); then PDSignature() PropBuild App is 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDSignature.setPropBuild(PDPropBuild)"})
-  void testSetPropBuild_givenPDSignature_thenPDSignaturePropBuildAppIsNull() {
+  void testSetPropBuild() {
     // Arrange
     PDSignature pdSignature = new PDSignature();
 
@@ -1361,28 +853,65 @@ class PDSignatureDiffblueTest {
   }
 
   /**
-   * Test {@link PDSignature#setPropBuild(PDPropBuild)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then {@link PDSignature#PDSignature()} COSObject Values size is one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDSignature#setPropBuild(PDPropBuild)}
    */
   @Test
-  @DisplayName("Test setPropBuild(PDPropBuild); when 'null'; then PDSignature() COSObject Values size is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDSignature.setPropBuild(PDPropBuild)"})
-  void testSetPropBuild_whenNull_thenPDSignatureCOSObjectValuesSizeIsOne() {
+  void testSetPropBuild2() {
     // Arrange
     PDSignature pdSignature = new PDSignature();
 
     // Act
     pdSignature.setPropBuild(null);
 
-    // Assert that nothing has changed
+    // Assert
+    assertNull(pdSignature.getPropBuild());
     COSDictionary cOSObject = pdSignature.getCOSObject();
     assertEquals(1, cOSObject.getValues().size());
     assertEquals(1, cOSObject.size());
+  }
+
+  /**
+   * Method under test: {@link PDSignature#PDSignature(COSDictionary)}
+   */
+  @Test
+  void testNewPDSignature() {
+    // Arrange
+    COSDictionary dict = new COSDictionary();
+
+    // Act and Assert
+    assertSame(dict, (new PDSignature(dict)).getCOSObject());
+  }
+
+  /**
+   * Method under test: {@link PDSignature#PDSignature()}
+   */
+  @Test
+  void testNewPDSignature2() {
+    // Arrange and Act
+    PDSignature actualPdSignature = new PDSignature();
+
+    // Assert
+    assertNull(actualPdSignature.getContactInfo());
+    assertNull(actualPdSignature.getFilter());
+    assertNull(actualPdSignature.getLocation());
+    assertNull(actualPdSignature.getName());
+    assertNull(actualPdSignature.getReason());
+    assertNull(actualPdSignature.getSubFilter());
+    assertNull(actualPdSignature.getSignDate());
+    COSDictionary cOSObject = actualPdSignature.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertNull(actualPdSignature.getPropBuild());
+    assertEquals(0, actualPdSignature.getByteRange().length);
+    assertEquals(0, actualPdSignature.getContents().length);
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
   }
 }

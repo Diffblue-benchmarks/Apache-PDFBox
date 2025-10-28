@@ -1,106 +1,64 @@
 package org.apache.pdfbox.pdfparser.xref;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import com.diffblue.cover.annotations.MethodsUnderTest;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import java.io.IOException;
+import org.apache.pdfbox.cos.COSDocument;
+import org.apache.pdfbox.cos.COSObjectKey;
+import org.apache.pdfbox.io.RandomAccessStreamCache;
+import org.apache.pdfbox.io.RandomAccessStreamCacheImpl;
 import org.junit.jupiter.api.Test;
 
 class AbstractXReferenceDiffblueTest {
   /**
-   * Test {@link AbstractXReference#getType()}.
-   * <p>
    * Method under test: {@link AbstractXReference#getType()}
    */
   @Test
-  @DisplayName("Test getType()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"XReferenceType AbstractXReference.getType()"})
   void testGetType() {
     // Arrange, Act and Assert
     assertEquals(XReferenceType.FREE, FreeXReference.NULL_ENTRY.getType());
   }
 
   /**
-   * Test {@link AbstractXReference#getFirstColumnValue()}.
-   * <p>
    * Method under test: {@link AbstractXReference#getFirstColumnValue()}
    */
   @Test
-  @DisplayName("Test getFirstColumnValue()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"long AbstractXReference.getFirstColumnValue()"})
   void testGetFirstColumnValue() {
     // Arrange, Act and Assert
     assertEquals(0L, FreeXReference.NULL_ENTRY.getFirstColumnValue());
   }
 
   /**
-   * Test {@link AbstractXReference#compareTo(XReferenceEntry)} with {@code XReferenceEntry}.
-   * <p>
    * Method under test: {@link AbstractXReference#compareTo(XReferenceEntry)}
    */
   @Test
-  @DisplayName("Test compareTo(XReferenceEntry) with 'XReferenceEntry'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"int AbstractXReference.compareTo(XReferenceEntry)"})
-  void testCompareToWithXReferenceEntry() {
+  void testCompareTo() {
     // Arrange, Act and Assert
+    assertEquals(0, FreeXReference.NULL_ENTRY.compareTo(FreeXReference.NULL_ENTRY));
+    assertEquals(1, FreeXReference.NULL_ENTRY.compareTo(null));
+    assertEquals(-1, (new FreeXReference(null, 1L)).compareTo(FreeXReference.NULL_ENTRY));
     assertEquals(1, FreeXReference.NULL_ENTRY.compareTo(new FreeXReference(null, 1L)));
   }
 
   /**
-   * Test {@link AbstractXReference#compareTo(XReferenceEntry)} with {@code XReferenceEntry}.
-   * <ul>
-   *   <li>Given {@link FreeXReference#NULL_ENTRY}.</li>
-   *   <li>When {@link FreeXReference#NULL_ENTRY}.</li>
-   *   <li>Then return zero.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link AbstractXReference#compareTo(XReferenceEntry)}
    */
   @Test
-  @DisplayName("Test compareTo(XReferenceEntry) with 'XReferenceEntry'; given NULL_ENTRY; when NULL_ENTRY; then return zero")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"int AbstractXReference.compareTo(XReferenceEntry)"})
-  void testCompareToWithXReferenceEntry_givenNull_entry_whenNull_entry_thenReturnZero() {
-    // Arrange, Act and Assert
-    assertEquals(0, FreeXReference.NULL_ENTRY.compareTo(FreeXReference.NULL_ENTRY));
-  }
+  void testCompareTo2() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    COSDocument object = new COSDocument(streamCacheCreateFunction);
 
-  /**
-   * Test {@link AbstractXReference#compareTo(XReferenceEntry)} with {@code XReferenceEntry}.
-   * <ul>
-   *   <li>Given {@link FreeXReference#NULL_ENTRY}.</li>
-   *   <li>When {@code null}.</li>
-   *   <li>Then return one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link AbstractXReference#compareTo(XReferenceEntry)}
-   */
-  @Test
-  @DisplayName("Test compareTo(XReferenceEntry) with 'XReferenceEntry'; given NULL_ENTRY; when 'null'; then return one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"int AbstractXReference.compareTo(XReferenceEntry)"})
-  void testCompareToWithXReferenceEntry_givenNull_entry_whenNull_thenReturnOne() {
-    // Arrange, Act and Assert
-    assertEquals(1, FreeXReference.NULL_ENTRY.compareTo(null));
-  }
+    // Act
+    int actualCompareToResult = FreeXReference.NULL_ENTRY
+        .compareTo(new NormalXReference(1L, new COSObjectKey(1L, 1), object));
 
-  /**
-   * Test {@link AbstractXReference#compareTo(XReferenceEntry)} with {@code XReferenceEntry}.
-   * <ul>
-   *   <li>Then return minus one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link AbstractXReference#compareTo(XReferenceEntry)}
-   */
-  @Test
-  @DisplayName("Test compareTo(XReferenceEntry) with 'XReferenceEntry'; then return minus one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"int AbstractXReference.compareTo(XReferenceEntry)"})
-  void testCompareToWithXReferenceEntry_thenReturnMinusOne() {
-    // Arrange, Act and Assert
-    assertEquals(-1, (new FreeXReference(null, 1L)).compareTo(FreeXReference.NULL_ENTRY));
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertEquals(-1, actualCompareToResult);
   }
 }

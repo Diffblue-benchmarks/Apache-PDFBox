@@ -3,7 +3,9 @@ package org.apache.pdfbox.debugger.treestatus;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import javax.swing.tree.TreePath;
 import org.apache.pdfbox.cos.COSArray;
 import org.apache.pdfbox.cos.COSDictionary;
@@ -13,26 +15,40 @@ import org.apache.pdfbox.debugger.ui.ArrayEntry;
 import org.apache.pdfbox.debugger.ui.MapEntry;
 import org.apache.pdfbox.debugger.ui.PageEntry;
 import org.apache.pdfbox.debugger.ui.XrefEntry;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
+import org.apache.pdfbox.pdmodel.common.COSObjectable;
 import org.junit.jupiter.api.Test;
 
 class TreeStatusDiffblueTest {
   /**
-   * Test {@link TreeStatus#getStringForPath(TreePath)}.
-   * <ul>
-   *   <li>Given one.</li>
-   *   <li>When {@link ArrayEntry} (default constructor) Index is one.</li>
-   *   <li>Then return {@code [1]}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link TreeStatus#getStringForPath(TreePath)}
    */
   @Test
-  @DisplayName("Test getStringForPath(TreePath); given one; when ArrayEntry (default constructor) Index is one; then return '[1]'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String TreeStatus.getStringForPath(TreePath)"})
-  void testGetStringForPath_givenOne_whenArrayEntryIndexIsOne_thenReturn1() {
+  void testGetStringForPath() {
+    // Arrange
+    TreeStatus treeStatus = new TreeStatus("Root Node");
+
+    // Act and Assert
+    assertEquals("", treeStatus.getStringForPath(new TreePath(new Object[]{"42"})));
+  }
+
+  /**
+   * Method under test: {@link TreeStatus#getStringForPath(TreePath)}
+   */
+  @Test
+  void testGetStringForPath2() {
+    // Arrange
+    TreeStatus treeStatus = new TreeStatus("Root Node");
+
+    // Act and Assert
+    assertThrows(IllegalArgumentException.class,
+        () -> treeStatus.getStringForPath(new TreePath(new Object[]{"42", "42"})));
+  }
+
+  /**
+   * Method under test: {@link TreeStatus#getStringForPath(TreePath)}
+   */
+  @Test
+  void testGetStringForPath3() {
     // Arrange
     TreeStatus treeStatus = new TreeStatus("Root Node");
 
@@ -46,18 +62,23 @@ class TreeStatusDiffblueTest {
   }
 
   /**
-   * Test {@link TreeStatus#getStringForPath(TreePath)}.
-   * <ul>
-   *   <li>Then return {@code CRT/Offset: 1 [1 1 R]}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link TreeStatus#getStringForPath(TreePath)}
    */
   @Test
-  @DisplayName("Test getStringForPath(TreePath); then return 'CRT/Offset: 1 [1 1 R]'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String TreeStatus.getStringForPath(TreePath)"})
-  void testGetStringForPath_thenReturnCrtOffset111R() {
+  void testGetStringForPath4() {
+    // Arrange
+    TreeStatus treeStatus = new TreeStatus("Root Node");
+
+    // Act and Assert
+    assertEquals("Root/Pages", treeStatus
+        .getStringForPath(new TreePath(new Object[]{"42", new PageEntry(new COSDictionary(), 10, "Page Label")})));
+  }
+
+  /**
+   * Method under test: {@link TreeStatus#getStringForPath(TreePath)}
+   */
+  @Test
+  void testGetStringForPath5() {
     // Arrange
     TreeStatus treeStatus = new TreeStatus("Root Node");
     COSObjectKey key = new COSObjectKey(1L, 1);
@@ -70,193 +91,22 @@ class TreeStatusDiffblueTest {
   }
 
   /**
-   * Test {@link TreeStatus#getStringForPath(TreePath)}.
-   * <ul>
-   *   <li>Then return {@code Root/Pages}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link TreeStatus#getStringForPath(TreePath)}
-   */
-  @Test
-  @DisplayName("Test getStringForPath(TreePath); then return 'Root/Pages'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String TreeStatus.getStringForPath(TreePath)"})
-  void testGetStringForPath_thenReturnRootPages() {
-    // Arrange
-    TreeStatus treeStatus = new TreeStatus("Root Node");
-
-    // Act and Assert
-    assertEquals("Root/Pages", treeStatus
-        .getStringForPath(new TreePath(new Object[]{"42", new PageEntry(new COSDictionary(), 10, "Page Label")})));
-  }
-
-  /**
-   * Test {@link TreeStatus#getStringForPath(TreePath)}.
-   * <ul>
-   *   <li>Then throw {@link IllegalArgumentException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link TreeStatus#getStringForPath(TreePath)}
-   */
-  @Test
-  @DisplayName("Test getStringForPath(TreePath); then throw IllegalArgumentException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String TreeStatus.getStringForPath(TreePath)"})
-  void testGetStringForPath_thenThrowIllegalArgumentException() {
-    // Arrange
-    TreeStatus treeStatus = new TreeStatus("Root Node");
-
-    // Act and Assert
-    assertThrows(IllegalArgumentException.class,
-        () -> treeStatus.getStringForPath(new TreePath(new Object[]{"42", "42"})));
-  }
-
-  /**
-   * Test {@link TreeStatus#getStringForPath(TreePath)}.
-   * <ul>
-   *   <li>When {@link TreePath#TreePath(Object[])} with array of {@link Object} with {@code 42}.</li>
-   *   <li>Then return empty string.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link TreeStatus#getStringForPath(TreePath)}
-   */
-  @Test
-  @DisplayName("Test getStringForPath(TreePath); when TreePath(Object[]) with array of Object with '42'; then return empty string")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String TreeStatus.getStringForPath(TreePath)"})
-  void testGetStringForPath_whenTreePathWithArrayOfObjectWith42_thenReturnEmptyString() {
-    // Arrange
-    TreeStatus treeStatus = new TreeStatus("Root Node");
-
-    // Act and Assert
-    assertEquals("", treeStatus.getStringForPath(new TreePath(new Object[]{"42"})));
-  }
-
-  /**
-   * Test {@link TreeStatus#getPathForString(String)}.
-   * <p>
    * Method under test: {@link TreeStatus#getPathForString(String)}
    */
   @Test
-  @DisplayName("Test getPathForString(String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"TreePath TreeStatus.getPathForString(String)"})
   void testGetPathForString() {
     // Arrange, Act and Assert
-    assertNull((new TreeStatus(new XrefEntry(1, new COSObjectKey(1L, 1), 1L, null))).getPathForString("Status String"));
-  }
-
-  /**
-   * Test {@link TreeStatus#getPathForString(String)}.
-   * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary(COSDictionary)} with dict is {@link COSDictionary#COSDictionary()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link TreeStatus#getPathForString(String)}
-   */
-  @Test
-  @DisplayName("Test getPathForString(String); given COSDictionary(COSDictionary) with dict is COSDictionary(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"TreePath TreeStatus.getPathForString(String)"})
-  void testGetPathForString_givenCOSDictionaryWithDictIsCOSDictionary_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull((new TreeStatus(new COSDictionary(new COSDictionary()))).getPathForString("Status String"));
-  }
-
-  /**
-   * Test {@link TreeStatus#getPathForString(String)}.
-   * <ul>
-   *   <li>Given {@link MapEntry} (default constructor) Item is {@link COSArray#COSArray()}.</li>
-   *   <li>When {@code 42}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link TreeStatus#getPathForString(String)}
-   */
-  @Test
-  @DisplayName("Test getPathForString(String); given MapEntry (default constructor) Item is COSArray(); when '42'; then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"TreePath TreeStatus.getPathForString(String)"})
-  void testGetPathForString_givenMapEntryItemIsCOSArray_when42_thenReturnNull() {
-    // Arrange
-    MapEntry mapEntry = new MapEntry();
-    mapEntry.setItem(new COSArray());
-    mapEntry.setValue(new COSArray());
-
-    // Act and Assert
-    assertNull((new TreeStatus(mapEntry)).getPathForString("42"));
-  }
-
-  /**
-   * Test {@link TreeStatus#getPathForString(String)}.
-   * <ul>
-   *   <li>Given {@link TreeStatus#TreeStatus(Object)} with rootNode is {@link COSDictionary#COSDictionary()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link TreeStatus#getPathForString(String)}
-   */
-  @Test
-  @DisplayName("Test getPathForString(String); given TreeStatus(Object) with rootNode is COSDictionary(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"TreePath TreeStatus.getPathForString(String)"})
-  void testGetPathForString_givenTreeStatusWithRootNodeIsCOSDictionary_thenReturnNull() {
-    // Arrange, Act and Assert
+    assertNull((new TreeStatus("Root Node")).getPathForString("Status String"));
     assertNull((new TreeStatus(new COSDictionary())).getPathForString("Status String"));
-  }
-
-  /**
-   * Test {@link TreeStatus#getPathForString(String)}.
-   * <ul>
-   *   <li>Given {@link TreeStatus#TreeStatus(Object)} with {@code Root Node}.</li>
-   *   <li>When {@code [}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link TreeStatus#getPathForString(String)}
-   */
-  @Test
-  @DisplayName("Test getPathForString(String); given TreeStatus(Object) with 'Root Node'; when '['")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"TreePath TreeStatus.getPathForString(String)"})
-  void testGetPathForString_givenTreeStatusWithRootNode_whenLeftSquareBracket() {
-    // Arrange, Act and Assert
+    assertNull((new TreeStatus(new COSDictionary(new COSDictionary()))).getPathForString("Status String"));
     assertNull((new TreeStatus("Root Node")).getPathForString("["));
   }
 
   /**
-   * Test {@link TreeStatus#getPathForString(String)}.
-   * <ul>
-   *   <li>Given {@link TreeStatus#TreeStatus(Object)} with {@code Root Node}.</li>
-   *   <li>When {@code Status String}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link TreeStatus#getPathForString(String)}
    */
   @Test
-  @DisplayName("Test getPathForString(String); given TreeStatus(Object) with 'Root Node'; when 'Status String'; then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"TreePath TreeStatus.getPathForString(String)"})
-  void testGetPathForString_givenTreeStatusWithRootNode_whenStatusString_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull((new TreeStatus("Root Node")).getPathForString("Status String"));
-  }
-
-  /**
-   * Test {@link TreeStatus#getPathForString(String)}.
-   * <ul>
-   *   <li>When {@code /}.</li>
-   *   <li>Then return LastPathComponent is {@code Root Node}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link TreeStatus#getPathForString(String)}
-   */
-  @Test
-  @DisplayName("Test getPathForString(String); when '/'; then return LastPathComponent is 'Root Node'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"TreePath TreeStatus.getPathForString(String)"})
-  void testGetPathForString_whenSlash_thenReturnLastPathComponentIsRootNode() {
+  void testGetPathForString2() {
     // Arrange and Act
     TreePath actualPathForString = (new TreeStatus("Root Node")).getPathForString("/");
 
@@ -267,5 +117,29 @@ class TreeStatusDiffblueTest {
     assertNull(actualPathForString.getParentPath());
     assertEquals(1, actualPathForString.getPathCount());
     assertEquals(1, path.length);
+  }
+
+  /**
+   * Method under test: {@link TreeStatus#getPathForString(String)}
+   */
+  @Test
+  void testGetPathForString3() {
+    // Arrange
+    COSObjectable object = mock(COSObjectable.class);
+    when(object.getCOSObject()).thenReturn(new COSArray());
+
+    COSArray val = new COSArray();
+    val.add(object);
+
+    MapEntry mapEntry = new MapEntry();
+    mapEntry.setItem(val);
+    mapEntry.setValue(new COSArray());
+
+    // Act
+    TreePath actualPathForString = (new TreeStatus(mapEntry)).getPathForString("42");
+
+    // Assert
+    verify(object).getCOSObject();
+    assertNull(actualPathForString);
   }
 }

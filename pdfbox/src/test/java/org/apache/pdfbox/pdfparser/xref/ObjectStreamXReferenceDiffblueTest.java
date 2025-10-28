@@ -2,49 +2,88 @@ package org.apache.pdfbox.pdfparser.xref;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import java.io.IOException;
 import org.apache.pdfbox.cos.COSBase;
 import org.apache.pdfbox.cos.COSBoolean;
+import org.apache.pdfbox.cos.COSDocument;
 import org.apache.pdfbox.cos.COSObjectKey;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
+import org.apache.pdfbox.io.RandomAccessStreamCache;
+import org.apache.pdfbox.io.RandomAccessStreamCacheImpl;
 import org.junit.jupiter.api.Test;
 
 class ObjectStreamXReferenceDiffblueTest {
   /**
-   * Test {@link ObjectStreamXReference#ObjectStreamXReference(int, COSObjectKey, COSBase, COSObjectKey)}.
-   * <p>
-   * Method under test: {@link ObjectStreamXReference#ObjectStreamXReference(int, COSObjectKey, COSBase, COSObjectKey)}
+   * Method under test: {@link ObjectStreamXReference#getSecondColumnValue()}
    */
   @Test
-  @DisplayName("Test new ObjectStreamXReference(int, COSObjectKey, COSBase, COSObjectKey)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ObjectStreamXReference.<init>(int, COSObjectKey, COSBase, COSObjectKey)"})
-  void testNewObjectStreamXReference() {
+  void testGetSecondColumnValue() {
     // Arrange
     COSObjectKey key = new COSObjectKey(1L, 1);
 
-    COSBoolean object = COSBoolean.FALSE;
-    COSObjectKey parentKey = new COSObjectKey(1L, 1);
-
-    // Act
-    ObjectStreamXReference actualObjectStreamXReference = new ObjectStreamXReference(1, key, object, parentKey);
-
-    // Assert
-    assertEquals(1, actualObjectStreamXReference.getObjectStreamIndex());
-    assertEquals(1L, actualObjectStreamXReference.getSecondColumnValue());
-    assertEquals(1L, actualObjectStreamXReference.getThirdColumnValue());
-    assertEquals(2L, actualObjectStreamXReference.getFirstColumnValue());
-    assertEquals(XReferenceType.OBJECT_STREAM_ENTRY, actualObjectStreamXReference.getType());
-    assertSame(parentKey, actualObjectStreamXReference.getParentKey());
-    assertSame(key, actualObjectStreamXReference.getReferencedKey());
-    COSBoolean expectedObject = object.FALSE;
-    assertSame(expectedObject, actualObjectStreamXReference.getObject());
+    // Act and Assert
+    assertEquals(1L,
+        (new ObjectStreamXReference(1, key, COSBoolean.FALSE, new COSObjectKey(1L, 1))).getSecondColumnValue());
   }
 
   /**
-   * Test getters and setters.
-   * <p>
+   * Method under test: {@link ObjectStreamXReference#getSecondColumnValue()}
+   */
+  @Test
+  void testGetSecondColumnValue2() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    COSDocument object = new COSDocument(streamCacheCreateFunction);
+    COSObjectKey key = new COSObjectKey(1L, 1);
+
+    // Act
+    long actualSecondColumnValue = (new ObjectStreamXReference(1, key, object, new COSObjectKey(1L, 1)))
+        .getSecondColumnValue();
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertEquals(1L, actualSecondColumnValue);
+  }
+
+  /**
+   * Method under test: {@link ObjectStreamXReference#getThirdColumnValue()}
+   */
+  @Test
+  void testGetThirdColumnValue() {
+    // Arrange
+    COSObjectKey key = new COSObjectKey(1L, 1);
+
+    // Act and Assert
+    assertEquals(1L,
+        (new ObjectStreamXReference(1, key, COSBoolean.FALSE, new COSObjectKey(1L, 1))).getThirdColumnValue());
+  }
+
+  /**
+   * Method under test: {@link ObjectStreamXReference#getThirdColumnValue()}
+   */
+  @Test
+  void testGetThirdColumnValue2() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    COSDocument object = new COSDocument(streamCacheCreateFunction);
+    COSObjectKey key = new COSObjectKey(1L, 1);
+
+    // Act
+    long actualThirdColumnValue = (new ObjectStreamXReference(1, key, object, new COSObjectKey(1L, 1)))
+        .getThirdColumnValue();
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertEquals(1L, actualThirdColumnValue);
+  }
+
+  /**
    * Methods under test:
    * <ul>
    *   <li>{@link ObjectStreamXReference#toString()}
@@ -55,11 +94,6 @@ class ObjectStreamXReferenceDiffblueTest {
    * </ul>
    */
   @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"COSBase ObjectStreamXReference.getObject()", "int ObjectStreamXReference.getObjectStreamIndex()",
-      "COSObjectKey ObjectStreamXReference.getParentKey()", "COSObjectKey ObjectStreamXReference.getReferencedKey()",
-      "String ObjectStreamXReference.toString()"})
   void testGettersAndSetters() {
     // Arrange
     COSObjectKey key = new COSObjectKey(1L, 1);
@@ -83,41 +117,59 @@ class ObjectStreamXReferenceDiffblueTest {
   }
 
   /**
-   * Test {@link ObjectStreamXReference#getSecondColumnValue()}.
-   * <ul>
-   *   <li>Then return one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ObjectStreamXReference#getSecondColumnValue()}
+   * Method under test:
+   * {@link ObjectStreamXReference#ObjectStreamXReference(int, COSObjectKey, COSBase, COSObjectKey)}
    */
   @Test
-  @DisplayName("Test getSecondColumnValue(); then return one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"long ObjectStreamXReference.getSecondColumnValue()"})
-  void testGetSecondColumnValue_thenReturnOne() {
+  void testNewObjectStreamXReference() {
     // Arrange
     COSObjectKey key = new COSObjectKey(1L, 1);
 
-    // Act and Assert
-    assertEquals(1L,
-        (new ObjectStreamXReference(1, key, COSBoolean.FALSE, new COSObjectKey(1L, 1))).getSecondColumnValue());
+    COSBoolean object = COSBoolean.FALSE;
+    COSObjectKey parentKey = new COSObjectKey(1L, 1);
+
+    // Act
+    ObjectStreamXReference actualObjectStreamXReference = new ObjectStreamXReference(1, key, object, parentKey);
+
+    // Assert
+    assertEquals(1, actualObjectStreamXReference.getObjectStreamIndex());
+    assertEquals(1L, actualObjectStreamXReference.getSecondColumnValue());
+    assertEquals(1L, actualObjectStreamXReference.getThirdColumnValue());
+    assertEquals(2L, actualObjectStreamXReference.getFirstColumnValue());
+    assertEquals(XReferenceType.OBJECT_STREAM_ENTRY, actualObjectStreamXReference.getType());
+    assertSame(parentKey, actualObjectStreamXReference.getParentKey());
+    assertSame(key, actualObjectStreamXReference.getReferencedKey());
+    COSBoolean expectedObject = object.FALSE;
+    assertSame(expectedObject, actualObjectStreamXReference.getObject());
   }
 
   /**
-   * Test {@link ObjectStreamXReference#getThirdColumnValue()}.
-   * <p>
-   * Method under test: {@link ObjectStreamXReference#getThirdColumnValue()}
+   * Method under test:
+   * {@link ObjectStreamXReference#ObjectStreamXReference(int, COSObjectKey, COSBase, COSObjectKey)}
    */
   @Test
-  @DisplayName("Test getThirdColumnValue()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"long ObjectStreamXReference.getThirdColumnValue()"})
-  void testGetThirdColumnValue() {
+  void testNewObjectStreamXReference2() throws IOException {
     // Arrange
     COSObjectKey key = new COSObjectKey(1L, 1);
 
-    // Act and Assert
-    assertEquals(1L,
-        (new ObjectStreamXReference(1, key, COSBoolean.FALSE, new COSObjectKey(1L, 1))).getThirdColumnValue());
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    COSDocument object = new COSDocument(streamCacheCreateFunction);
+    COSObjectKey parentKey = new COSObjectKey(1L, 1);
+
+    // Act
+    ObjectStreamXReference actualObjectStreamXReference = new ObjectStreamXReference(1, key, object, parentKey);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertEquals(1, actualObjectStreamXReference.getObjectStreamIndex());
+    assertEquals(1L, actualObjectStreamXReference.getSecondColumnValue());
+    assertEquals(1L, actualObjectStreamXReference.getThirdColumnValue());
+    assertEquals(2L, actualObjectStreamXReference.getFirstColumnValue());
+    assertEquals(XReferenceType.OBJECT_STREAM_ENTRY, actualObjectStreamXReference.getType());
+    assertSame(object, actualObjectStreamXReference.getObject());
+    assertSame(parentKey, actualObjectStreamXReference.getParentKey());
+    assertSame(key, actualObjectStreamXReference.getReferencedKey());
   }
 }

@@ -5,17 +5,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class DataInputByteArrayDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link DataInputByteArray#DataInputByteArray(byte[])}
@@ -23,234 +18,67 @@ class DataInputByteArrayDiffblueTest {
    * </ul>
    */
   @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void DataInputByteArray.<init>(byte[])", "int DataInputByteArray.getPosition()"})
   void testGettersAndSetters() throws UnsupportedEncodingException {
     // Arrange, Act and Assert
     assertEquals(0, (new DataInputByteArray("AXAXAXAX".getBytes("UTF-8"))).getPosition());
   }
 
   /**
-   * Test {@link DataInputByteArray#hasRemaining()}.
-   * <ul>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link DataInputByteArray#hasRemaining()}
    */
   @Test
-  @DisplayName("Test hasRemaining(); then return 'false'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean DataInputByteArray.hasRemaining()"})
-  void testHasRemaining_thenReturnFalse() throws IOException {
+  void testHasRemaining() throws IOException {
     // Arrange, Act and Assert
+    assertTrue((new DataInputByteArray("AXAXAXAX".getBytes("UTF-8"))).hasRemaining());
     assertFalse((new DataInputByteArray(new byte[]{})).hasRemaining());
   }
 
   /**
-   * Test {@link DataInputByteArray#hasRemaining()}.
-   * <ul>
-   *   <li>Then return {@code true}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DataInputByteArray#hasRemaining()}
-   */
-  @Test
-  @DisplayName("Test hasRemaining(); then return 'true'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean DataInputByteArray.hasRemaining()"})
-  void testHasRemaining_thenReturnTrue() throws IOException {
-    // Arrange, Act and Assert
-    assertTrue((new DataInputByteArray("AXAXAXAX".getBytes("UTF-8"))).hasRemaining());
-  }
-
-  /**
-   * Test {@link DataInputByteArray#setPosition(int)}.
-   * <ul>
-   *   <li>Given {@link DataInputByteArray#DataInputByteArray(byte[])} with buffer is empty array of {@code byte}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link DataInputByteArray#setPosition(int)}
    */
   @Test
-  @DisplayName("Test setPosition(int); given DataInputByteArray(byte[]) with buffer is empty array of byte")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void DataInputByteArray.setPosition(int)"})
-  void testSetPosition_givenDataInputByteArrayWithBufferIsEmptyArrayOfByte() throws IOException {
+  void testSetPosition() throws IOException {
     // Arrange, Act and Assert
+    assertThrows(IOException.class, () -> (new DataInputByteArray("AXAXAXAX".getBytes("UTF-8"))).setPosition(-1));
     assertThrows(IOException.class, () -> (new DataInputByteArray(new byte[]{})).setPosition(1));
   }
 
   /**
-   * Test {@link DataInputByteArray#setPosition(int)}.
-   * <ul>
-   *   <li>When minus one.</li>
-   *   <li>Then throw {@link IOException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DataInputByteArray#setPosition(int)}
-   */
-  @Test
-  @DisplayName("Test setPosition(int); when minus one; then throw IOException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void DataInputByteArray.setPosition(int)"})
-  void testSetPosition_whenMinusOne_thenThrowIOException() throws IOException {
-    // Arrange, Act and Assert
-    assertThrows(IOException.class, () -> (new DataInputByteArray("AXAXAXAX".getBytes("UTF-8"))).setPosition(-1));
-  }
-
-  /**
-   * Test {@link DataInputByteArray#readByte()}.
-   * <ul>
-   *   <li>Given {@link DataInputByteArray#DataInputByteArray(byte[])} with buffer is {@code AXAXAXAX} Bytes is {@code UTF-8}.</li>
-   *   <li>Then return {@code A}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link DataInputByteArray#readByte()}
    */
   @Test
-  @DisplayName("Test readByte(); given DataInputByteArray(byte[]) with buffer is 'AXAXAXAX' Bytes is 'UTF-8'; then return 'A'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"byte DataInputByteArray.readByte()"})
-  void testReadByte_givenDataInputByteArrayWithBufferIsAxaxaxaxBytesIsUtf8_thenReturnA() throws IOException {
+  void testReadByte() throws IOException {
     // Arrange, Act and Assert
     assertEquals('A', (new DataInputByteArray("AXAXAXAX".getBytes("UTF-8"))).readByte());
-  }
-
-  /**
-   * Test {@link DataInputByteArray#readByte()}.
-   * <ul>
-   *   <li>Then throw {@link IOException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DataInputByteArray#readByte()}
-   */
-  @Test
-  @DisplayName("Test readByte(); then throw IOException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"byte DataInputByteArray.readByte()"})
-  void testReadByte_thenThrowIOException() throws IOException {
-    // Arrange, Act and Assert
     assertThrows(IOException.class, () -> (new DataInputByteArray(new byte[]{})).readByte());
   }
 
   /**
-   * Test {@link DataInputByteArray#readUnsignedByte()}.
-   * <ul>
-   *   <li>Then return sixty-five.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link DataInputByteArray#readUnsignedByte()}
    */
   @Test
-  @DisplayName("Test readUnsignedByte(); then return sixty-five")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"int DataInputByteArray.readUnsignedByte()"})
-  void testReadUnsignedByte_thenReturnSixtyFive() throws IOException {
+  void testReadUnsignedByte() throws IOException {
     // Arrange, Act and Assert
     assertEquals(65, (new DataInputByteArray("AXAXAXAX".getBytes("UTF-8"))).readUnsignedByte());
-  }
-
-  /**
-   * Test {@link DataInputByteArray#readUnsignedByte()}.
-   * <ul>
-   *   <li>Then throw {@link IOException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DataInputByteArray#readUnsignedByte()}
-   */
-  @Test
-  @DisplayName("Test readUnsignedByte(); then throw IOException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"int DataInputByteArray.readUnsignedByte()"})
-  void testReadUnsignedByte_thenThrowIOException() throws IOException {
-    // Arrange, Act and Assert
     assertThrows(IOException.class, () -> (new DataInputByteArray(new byte[]{})).readUnsignedByte());
   }
 
   /**
-   * Test {@link DataInputByteArray#peekUnsignedByte(int)}.
-   * <ul>
-   *   <li>Given {@link DataInputByteArray#DataInputByteArray(byte[])} with buffer is empty array of {@code byte}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link DataInputByteArray#peekUnsignedByte(int)}
    */
   @Test
-  @DisplayName("Test peekUnsignedByte(int); given DataInputByteArray(byte[]) with buffer is empty array of byte")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"int DataInputByteArray.peekUnsignedByte(int)"})
-  void testPeekUnsignedByte_givenDataInputByteArrayWithBufferIsEmptyArrayOfByte() throws IOException {
+  void testPeekUnsignedByte() throws IOException {
     // Arrange, Act and Assert
+    assertEquals(65, (new DataInputByteArray("AXAXAXAX".getBytes("UTF-8"))).peekUnsignedByte(2));
+    assertThrows(IOException.class, () -> (new DataInputByteArray("AXAXAXAX".getBytes("UTF-8"))).peekUnsignedByte(-1));
     assertThrows(IOException.class, () -> (new DataInputByteArray(new byte[]{})).peekUnsignedByte(2));
   }
 
   /**
-   * Test {@link DataInputByteArray#peekUnsignedByte(int)}.
-   * <ul>
-   *   <li>Then return sixty-five.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DataInputByteArray#peekUnsignedByte(int)}
-   */
-  @Test
-  @DisplayName("Test peekUnsignedByte(int); then return sixty-five")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"int DataInputByteArray.peekUnsignedByte(int)"})
-  void testPeekUnsignedByte_thenReturnSixtyFive() throws IOException {
-    // Arrange, Act and Assert
-    assertEquals(65, (new DataInputByteArray("AXAXAXAX".getBytes("UTF-8"))).peekUnsignedByte(2));
-  }
-
-  /**
-   * Test {@link DataInputByteArray#peekUnsignedByte(int)}.
-   * <ul>
-   *   <li>When minus one.</li>
-   *   <li>Then throw {@link IOException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DataInputByteArray#peekUnsignedByte(int)}
-   */
-  @Test
-  @DisplayName("Test peekUnsignedByte(int); when minus one; then throw IOException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"int DataInputByteArray.peekUnsignedByte(int)"})
-  void testPeekUnsignedByte_whenMinusOne_thenThrowIOException() throws IOException {
-    // Arrange, Act and Assert
-    assertThrows(IOException.class, () -> (new DataInputByteArray("AXAXAXAX".getBytes("UTF-8"))).peekUnsignedByte(-1));
-  }
-
-  /**
-   * Test {@link DataInputByteArray#readBytes(int)}.
-   * <ul>
-   *   <li>Given {@link DataInputByteArray#DataInputByteArray(byte[])} with buffer is empty array of {@code byte}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link DataInputByteArray#readBytes(int)}
    */
   @Test
-  @DisplayName("Test readBytes(int); given DataInputByteArray(byte[]) with buffer is empty array of byte")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"byte[] DataInputByteArray.readBytes(int)"})
-  void testReadBytes_givenDataInputByteArrayWithBufferIsEmptyArrayOfByte() throws IOException {
-    // Arrange, Act and Assert
-    assertThrows(IOException.class, () -> (new DataInputByteArray(new byte[]{})).readBytes(3));
-  }
-
-  /**
-   * Test {@link DataInputByteArray#readBytes(int)}.
-   * <ul>
-   *   <li>Then return {@code AXA} Bytes is {@code UTF-8}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DataInputByteArray#readBytes(int)}
-   */
-  @Test
-  @DisplayName("Test readBytes(int); then return 'AXA' Bytes is 'UTF-8'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"byte[] DataInputByteArray.readBytes(int)"})
-  void testReadBytes_thenReturnAxaBytesIsUtf8() throws IOException {
+  void testReadBytes() throws IOException {
     // Arrange and Act
     byte[] actualReadBytesResult = (new DataInputByteArray("AXAXAXAX".getBytes("UTF-8"))).readBytes(3);
 
@@ -259,32 +87,27 @@ class DataInputByteArrayDiffblueTest {
   }
 
   /**
-   * Test {@link DataInputByteArray#readBytes(int)}.
-   * <ul>
-   *   <li>When minus one.</li>
-   *   <li>Then throw {@link IOException}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link DataInputByteArray#readBytes(int)}
    */
   @Test
-  @DisplayName("Test readBytes(int); when minus one; then throw IOException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"byte[] DataInputByteArray.readBytes(int)"})
-  void testReadBytes_whenMinusOne_thenThrowIOException() throws IOException {
+  void testReadBytes2() throws IOException {
     // Arrange, Act and Assert
     assertThrows(IOException.class, () -> (new DataInputByteArray("AXAXAXAX".getBytes("UTF-8"))).readBytes(-1));
   }
 
   /**
-   * Test {@link DataInputByteArray#length()}.
-   * <p>
+   * Method under test: {@link DataInputByteArray#readBytes(int)}
+   */
+  @Test
+  void testReadBytes3() throws IOException {
+    // Arrange, Act and Assert
+    assertThrows(IOException.class, () -> (new DataInputByteArray(new byte[]{})).readBytes(3));
+  }
+
+  /**
    * Method under test: {@link DataInputByteArray#length()}
    */
   @Test
-  @DisplayName("Test length()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"int DataInputByteArray.length()"})
   void testLength() throws IOException {
     // Arrange, Act and Assert
     assertEquals(8, (new DataInputByteArray("AXAXAXAX".getBytes("UTF-8"))).length());

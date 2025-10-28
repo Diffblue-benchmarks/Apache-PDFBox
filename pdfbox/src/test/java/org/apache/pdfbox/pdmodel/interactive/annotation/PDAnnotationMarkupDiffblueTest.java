@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -16,143 +15,22 @@ import org.apache.pdfbox.cos.COSBase;
 import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.cos.COSObjectKey;
 import org.apache.pdfbox.pdmodel.graphics.PDLineDashPattern;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class PDAnnotationMarkupDiffblueTest {
   /**
-   * Test {@link PDAnnotationMarkup#PDAnnotationMarkup()}.
-   * <p>
-   * Method under test: {@link PDAnnotationMarkup#PDAnnotationMarkup()}
-   */
-  @Test
-  @DisplayName("Test new PDAnnotationMarkup()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAnnotationMarkup.<init>()"})
-  void testNewPDAnnotationMarkup() throws IOException {
-    // Arrange and Act
-    PDAnnotationMarkup actualPdAnnotationMarkup = new PDAnnotationMarkup();
-
-    // Assert
-    assertNull(actualPdAnnotationMarkup.getAnnotationName());
-    assertNull(actualPdAnnotationMarkup.getContents());
-    assertNull(actualPdAnnotationMarkup.getModifiedDate());
-    assertNull(actualPdAnnotationMarkup.getSubtype());
-    assertNull(actualPdAnnotationMarkup.getIntent());
-    assertNull(actualPdAnnotationMarkup.getRichContents());
-    assertNull(actualPdAnnotationMarkup.getSubject());
-    assertNull(actualPdAnnotationMarkup.getTitlePopup());
-    assertNull(actualPdAnnotationMarkup.getCreationDate());
-    assertNull(actualPdAnnotationMarkup.getAppearanceState());
-    assertNull(actualPdAnnotationMarkup.getPage());
-    assertNull(actualPdAnnotationMarkup.getRectangle());
-    assertNull(actualPdAnnotationMarkup.getOptionalContent());
-    assertNull(actualPdAnnotationMarkup.getColor());
-    assertNull(actualPdAnnotationMarkup.getInReplyTo());
-    assertNull(actualPdAnnotationMarkup.getPopup());
-    assertNull(actualPdAnnotationMarkup.getAppearance());
-    assertNull(actualPdAnnotationMarkup.getNormalAppearanceStream());
-    assertNull(actualPdAnnotationMarkup.getBorderStyle());
-    assertNull(actualPdAnnotationMarkup.getExternalData());
-    assertEquals(-1, actualPdAnnotationMarkup.getStructParent());
-    assertEquals(0, actualPdAnnotationMarkup.getAnnotationFlags());
-    assertEquals(1.0f, actualPdAnnotationMarkup.getConstantOpacity());
-    assertFalse(actualPdAnnotationMarkup.isHidden());
-    assertFalse(actualPdAnnotationMarkup.isInvisible());
-    assertFalse(actualPdAnnotationMarkup.isLocked());
-    assertFalse(actualPdAnnotationMarkup.isLockedContents());
-    assertFalse(actualPdAnnotationMarkup.isNoRotate());
-    assertFalse(actualPdAnnotationMarkup.isNoView());
-    assertFalse(actualPdAnnotationMarkup.isNoZoom());
-    assertFalse(actualPdAnnotationMarkup.isPrinted());
-    assertFalse(actualPdAnnotationMarkup.isReadOnly());
-    assertFalse(actualPdAnnotationMarkup.isToggleNoView());
-    assertEquals(PDAnnotationMarkup.RT_REPLY, actualPdAnnotationMarkup.getReplyType());
-  }
-
-  /**
-   * Test {@link PDAnnotationMarkup#PDAnnotationMarkup(COSDictionary)}.
-   * <ul>
-   *   <li>When {@link COSDictionary#COSDictionary()}.</li>
-   *   <li>Then return AnnotationName is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAnnotationMarkup#PDAnnotationMarkup(COSDictionary)}
-   */
-  @Test
-  @DisplayName("Test new PDAnnotationMarkup(COSDictionary); when COSDictionary(); then return AnnotationName is 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAnnotationMarkup.<init>(COSDictionary)"})
-  void testNewPDAnnotationMarkup_whenCOSDictionary_thenReturnAnnotationNameIsNull() throws IOException {
-    // Arrange
-    COSDictionary dict = new COSDictionary();
-
-    // Act
-    PDAnnotationMarkup actualPdAnnotationMarkup = new PDAnnotationMarkup(dict);
-
-    // Assert
-    assertNull(actualPdAnnotationMarkup.getAnnotationName());
-    assertNull(actualPdAnnotationMarkup.getContents());
-    assertNull(actualPdAnnotationMarkup.getModifiedDate());
-    assertNull(actualPdAnnotationMarkup.getSubtype());
-    assertNull(actualPdAnnotationMarkup.getIntent());
-    assertNull(actualPdAnnotationMarkup.getRichContents());
-    assertNull(actualPdAnnotationMarkup.getSubject());
-    assertNull(actualPdAnnotationMarkup.getTitlePopup());
-    assertNull(actualPdAnnotationMarkup.getCreationDate());
-    assertNull(actualPdAnnotationMarkup.getAppearanceState());
-    assertNull(actualPdAnnotationMarkup.getPage());
-    assertNull(actualPdAnnotationMarkup.getRectangle());
-    assertNull(actualPdAnnotationMarkup.getOptionalContent());
-    assertNull(actualPdAnnotationMarkup.getColor());
-    assertNull(actualPdAnnotationMarkup.getInReplyTo());
-    assertNull(actualPdAnnotationMarkup.getPopup());
-    assertNull(actualPdAnnotationMarkup.getAppearance());
-    assertNull(actualPdAnnotationMarkup.getNormalAppearanceStream());
-    assertNull(actualPdAnnotationMarkup.getBorderStyle());
-    assertNull(actualPdAnnotationMarkup.getExternalData());
-    assertEquals(-1, actualPdAnnotationMarkup.getStructParent());
-    assertEquals(0, actualPdAnnotationMarkup.getAnnotationFlags());
-    assertEquals(1, dict.size());
-    assertEquals(1.0f, actualPdAnnotationMarkup.getConstantOpacity());
-    assertFalse(actualPdAnnotationMarkup.isHidden());
-    assertFalse(actualPdAnnotationMarkup.isInvisible());
-    assertFalse(actualPdAnnotationMarkup.isLocked());
-    assertFalse(actualPdAnnotationMarkup.isLockedContents());
-    assertFalse(actualPdAnnotationMarkup.isNoRotate());
-    assertFalse(actualPdAnnotationMarkup.isNoView());
-    assertFalse(actualPdAnnotationMarkup.isNoZoom());
-    assertFalse(actualPdAnnotationMarkup.isPrinted());
-    assertFalse(actualPdAnnotationMarkup.isReadOnly());
-    assertFalse(actualPdAnnotationMarkup.isToggleNoView());
-    assertEquals(PDAnnotationMarkup.RT_REPLY, actualPdAnnotationMarkup.getReplyType());
-    assertSame(dict, actualPdAnnotationMarkup.getCOSObject());
-  }
-
-  /**
-   * Test {@link PDAnnotationMarkup#getTitlePopup()}.
-   * <p>
    * Method under test: {@link PDAnnotationMarkup#getTitlePopup()}
    */
   @Test
-  @DisplayName("Test getTitlePopup()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDAnnotationMarkup.getTitlePopup()"})
   void testGetTitlePopup() {
     // Arrange, Act and Assert
     assertNull((new PDAnnotationMarkup()).getTitlePopup());
   }
 
   /**
-   * Test {@link PDAnnotationMarkup#setTitlePopup(String)}.
-   * <p>
    * Method under test: {@link PDAnnotationMarkup#setTitlePopup(String)}
    */
   @Test
-  @DisplayName("Test setTitlePopup(String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAnnotationMarkup.setTitlePopup(String)"})
   void testSetTitlePopup() {
     // Arrange
     PDAnnotationMarkup pdAnnotationMarkup = new PDAnnotationMarkup();
@@ -168,60 +46,56 @@ class PDAnnotationMarkupDiffblueTest {
   }
 
   /**
-   * Test {@link PDAnnotationMarkup#getPopup()}.
-   * <p>
    * Method under test: {@link PDAnnotationMarkup#getPopup()}
    */
   @Test
-  @DisplayName("Test getPopup()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAnnotationPopup PDAnnotationMarkup.getPopup()"})
   void testGetPopup() {
     // Arrange, Act and Assert
     assertNull((new PDAnnotationMarkup()).getPopup());
   }
 
   /**
-   * Test {@link PDAnnotationMarkup#setPopup(PDAnnotationPopup)}.
-   * <ul>
-   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDAnnotationMarkup#setPopup(PDAnnotationPopup)}
    */
   @Test
-  @DisplayName("Test setPopup(PDAnnotationPopup); given COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAnnotationMarkup.setPopup(PDAnnotationPopup)"})
-  void testSetPopup_givenCOSObjectKeyWithNumIsOneAndGenIsOne() {
+  void testSetPopup() {
     // Arrange
     PDAnnotationMarkup pdAnnotationMarkup = new PDAnnotationMarkup();
-
-    COSDictionary field = new COSDictionary();
-    field.setKey(new COSObjectKey(1L, 1));
-    PDAnnotationPopup popup = new PDAnnotationPopup(field);
+    PDAnnotationPopup popup = new PDAnnotationPopup();
 
     // Act
     pdAnnotationMarkup.setPopup(popup);
 
     // Assert
+    COSDictionary cOSObject = pdAnnotationMarkup.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
     assertEquals(popup, pdAnnotationMarkup.getPopup());
   }
 
   /**
-   * Test {@link PDAnnotationMarkup#setPopup(PDAnnotationPopup)}.
-   * <ul>
-   *   <li>Given {@code true}.</li>
-   *   <li>When {@link COSDictionary#COSDictionary()} Direct is {@code true}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDAnnotationMarkup#setPopup(PDAnnotationPopup)}
    */
   @Test
-  @DisplayName("Test setPopup(PDAnnotationPopup); given 'true'; when COSDictionary() Direct is 'true'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAnnotationMarkup.setPopup(PDAnnotationPopup)"})
-  void testSetPopup_givenTrue_whenCOSDictionaryDirectIsTrue() {
+  void testSetPopup2() {
+    // Arrange
+    PDAnnotationMarkup pdAnnotationMarkup = new PDAnnotationMarkup();
+
+    // Act
+    pdAnnotationMarkup.setPopup(null);
+
+    // Assert
+    assertNull(pdAnnotationMarkup.getPopup());
+    COSDictionary cOSObject = pdAnnotationMarkup.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+  }
+
+  /**
+   * Method under test: {@link PDAnnotationMarkup#setPopup(PDAnnotationPopup)}
+   */
+  @Test
+  void testSetPopup3() {
     // Arrange
     PDAnnotationMarkup pdAnnotationMarkup = new PDAnnotationMarkup();
 
@@ -233,80 +107,47 @@ class PDAnnotationMarkupDiffblueTest {
     pdAnnotationMarkup.setPopup(popup);
 
     // Assert
+    COSDictionary cOSObject = pdAnnotationMarkup.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
     assertEquals(popup, pdAnnotationMarkup.getPopup());
   }
 
   /**
-   * Test {@link PDAnnotationMarkup#setPopup(PDAnnotationPopup)}.
-   * <ul>
-   *   <li>Then {@link PDAnnotationMarkup#PDAnnotationMarkup()} Popup is {@link PDAnnotationPopup#PDAnnotationPopup()}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDAnnotationMarkup#setPopup(PDAnnotationPopup)}
    */
   @Test
-  @DisplayName("Test setPopup(PDAnnotationPopup); then PDAnnotationMarkup() Popup is PDAnnotationPopup()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAnnotationMarkup.setPopup(PDAnnotationPopup)"})
-  void testSetPopup_thenPDAnnotationMarkupPopupIsPDAnnotationPopup() {
+  void testSetPopup4() {
     // Arrange
     PDAnnotationMarkup pdAnnotationMarkup = new PDAnnotationMarkup();
-    PDAnnotationPopup popup = new PDAnnotationPopup();
+
+    COSDictionary field = new COSDictionary();
+    field.setKey(new COSObjectKey(1L, 1));
+    PDAnnotationPopup popup = new PDAnnotationPopup(field);
 
     // Act
     pdAnnotationMarkup.setPopup(popup);
 
     // Assert
+    COSDictionary cOSObject = pdAnnotationMarkup.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
     assertEquals(popup, pdAnnotationMarkup.getPopup());
   }
 
   /**
-   * Test {@link PDAnnotationMarkup#setPopup(PDAnnotationPopup)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then {@link PDAnnotationMarkup#PDAnnotationMarkup()} Popup is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAnnotationMarkup#setPopup(PDAnnotationPopup)}
-   */
-  @Test
-  @DisplayName("Test setPopup(PDAnnotationPopup); when 'null'; then PDAnnotationMarkup() Popup is 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAnnotationMarkup.setPopup(PDAnnotationPopup)"})
-  void testSetPopup_whenNull_thenPDAnnotationMarkupPopupIsNull() {
-    // Arrange
-    PDAnnotationMarkup pdAnnotationMarkup = new PDAnnotationMarkup();
-
-    // Act
-    pdAnnotationMarkup.setPopup(null);
-
-    // Assert that nothing has changed
-    assertNull(pdAnnotationMarkup.getPopup());
-  }
-
-  /**
-   * Test {@link PDAnnotationMarkup#getConstantOpacity()}.
-   * <p>
    * Method under test: {@link PDAnnotationMarkup#getConstantOpacity()}
    */
   @Test
-  @DisplayName("Test getConstantOpacity()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"float PDAnnotationMarkup.getConstantOpacity()"})
   void testGetConstantOpacity() {
     // Arrange, Act and Assert
     assertEquals(1.0f, (new PDAnnotationMarkup()).getConstantOpacity());
   }
 
   /**
-   * Test {@link PDAnnotationMarkup#setConstantOpacity(float)}.
-   * <p>
    * Method under test: {@link PDAnnotationMarkup#setConstantOpacity(float)}
    */
   @Test
-  @DisplayName("Test setConstantOpacity(float)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAnnotationMarkup.setConstantOpacity(float)"})
   void testSetConstantOpacity() {
     // Arrange
     PDAnnotationMarkup pdAnnotationMarkup = new PDAnnotationMarkup();
@@ -322,28 +163,18 @@ class PDAnnotationMarkupDiffblueTest {
   }
 
   /**
-   * Test {@link PDAnnotationMarkup#getRichContents()}.
-   * <p>
    * Method under test: {@link PDAnnotationMarkup#getRichContents()}
    */
   @Test
-  @DisplayName("Test getRichContents()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDAnnotationMarkup.getRichContents()"})
   void testGetRichContents() {
     // Arrange, Act and Assert
     assertNull((new PDAnnotationMarkup()).getRichContents());
   }
 
   /**
-   * Test {@link PDAnnotationMarkup#setRichContents(String)}.
-   * <p>
    * Method under test: {@link PDAnnotationMarkup#setRichContents(String)}
    */
   @Test
-  @DisplayName("Test setRichContents(String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAnnotationMarkup.setRichContents(String)"})
   void testSetRichContents() {
     // Arrange
     PDAnnotationMarkup pdAnnotationMarkup = new PDAnnotationMarkup();
@@ -359,63 +190,19 @@ class PDAnnotationMarkupDiffblueTest {
   }
 
   /**
-   * Test {@link PDAnnotationMarkup#getCreationDate()}.
-   * <p>
    * Method under test: {@link PDAnnotationMarkup#getCreationDate()}
    */
   @Test
-  @DisplayName("Test getCreationDate()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Calendar PDAnnotationMarkup.getCreationDate()"})
   void testGetCreationDate() {
     // Arrange, Act and Assert
     assertNull((new PDAnnotationMarkup()).getCreationDate());
   }
 
   /**
-   * Test {@link PDAnnotationMarkup#setCreationDate(Calendar)}.
-   * <p>
    * Method under test: {@link PDAnnotationMarkup#setCreationDate(Calendar)}
    */
   @Test
-  @DisplayName("Test setCreationDate(Calendar)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAnnotationMarkup.setCreationDate(Calendar)"})
   void testSetCreationDate() {
-    // Arrange
-    PDAnnotationMarkup pdAnnotationMarkup = new PDAnnotationMarkup(new COSDictionary());
-
-    // Act
-    pdAnnotationMarkup.setCreationDate(new GregorianCalendar(1, 1, 1));
-
-    // Assert
-    Calendar creationDate = pdAnnotationMarkup.getCreationDate();
-    assertTrue(creationDate instanceof GregorianCalendar);
-    assertEquals("gregory", creationDate.getCalendarType());
-    assertEquals(1, creationDate.getFirstDayOfWeek());
-    assertEquals(1, creationDate.getMinimalDaysInFirstWeek());
-    assertEquals(1, creationDate.getWeekYear());
-    COSDictionary cOSObject = pdAnnotationMarkup.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    assertEquals(53, creationDate.getWeeksInWeekYear());
-    assertFalse(creationDate.isLenient());
-    assertTrue(creationDate.isWeekDateSupported());
-  }
-
-  /**
-   * Test {@link PDAnnotationMarkup#setCreationDate(Calendar)}.
-   * <ul>
-   *   <li>Then {@link PDAnnotationMarkup#PDAnnotationMarkup()} CreationDate {@link GregorianCalendar}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAnnotationMarkup#setCreationDate(Calendar)}
-   */
-  @Test
-  @DisplayName("Test setCreationDate(Calendar); then PDAnnotationMarkup() CreationDate GregorianCalendar")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAnnotationMarkup.setCreationDate(Calendar)"})
-  void testSetCreationDate_thenPDAnnotationMarkupCreationDateGregorianCalendar() {
     // Arrange
     PDAnnotationMarkup pdAnnotationMarkup = new PDAnnotationMarkup();
 
@@ -426,6 +213,7 @@ class PDAnnotationMarkupDiffblueTest {
     Calendar creationDate = pdAnnotationMarkup.getCreationDate();
     assertTrue(creationDate instanceof GregorianCalendar);
     assertEquals("gregory", creationDate.getCalendarType());
+    assertEquals(0, creationDate.getTimeZone().getDSTSavings());
     assertEquals(1, creationDate.getFirstDayOfWeek());
     assertEquals(1, creationDate.getMinimalDaysInFirstWeek());
     assertEquals(1, creationDate.getWeekYear());
@@ -438,58 +226,63 @@ class PDAnnotationMarkupDiffblueTest {
   }
 
   /**
-   * Test {@link PDAnnotationMarkup#setCreationDate(Calendar)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then {@link PDAnnotationMarkup#PDAnnotationMarkup()} COSObject Values size is one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDAnnotationMarkup#setCreationDate(Calendar)}
    */
   @Test
-  @DisplayName("Test setCreationDate(Calendar); when 'null'; then PDAnnotationMarkup() COSObject Values size is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAnnotationMarkup.setCreationDate(Calendar)"})
-  void testSetCreationDate_whenNull_thenPDAnnotationMarkupCOSObjectValuesSizeIsOne() {
+  void testSetCreationDate2() {
+    // Arrange
+    COSDictionary dict = new COSDictionary();
+    PDAnnotationMarkup pdAnnotationMarkup = new PDAnnotationMarkup(dict);
+
+    // Act
+    pdAnnotationMarkup.setCreationDate(new GregorianCalendar(1, 1, 1));
+
+    // Assert
+    Calendar creationDate = pdAnnotationMarkup.getCreationDate();
+    assertTrue(creationDate instanceof GregorianCalendar);
+    assertEquals("gregory", creationDate.getCalendarType());
+    assertEquals(0, creationDate.getTimeZone().getDSTSavings());
+    assertEquals(1, creationDate.getFirstDayOfWeek());
+    assertEquals(1, creationDate.getMinimalDaysInFirstWeek());
+    assertEquals(1, creationDate.getWeekYear());
+    assertEquals(53, creationDate.getWeeksInWeekYear());
+    assertFalse(creationDate.isLenient());
+    assertTrue(creationDate.isWeekDateSupported());
+    assertSame(dict, pdAnnotationMarkup.getCOSObject());
+  }
+
+  /**
+   * Method under test: {@link PDAnnotationMarkup#setCreationDate(Calendar)}
+   */
+  @Test
+  void testSetCreationDate3() {
     // Arrange
     PDAnnotationMarkup pdAnnotationMarkup = new PDAnnotationMarkup();
 
     // Act
     pdAnnotationMarkup.setCreationDate(null);
 
-    // Assert that nothing has changed
+    // Assert
+    assertNull(pdAnnotationMarkup.getCreationDate());
     COSDictionary cOSObject = pdAnnotationMarkup.getCOSObject();
     assertEquals(1, cOSObject.getValues().size());
     assertEquals(1, cOSObject.size());
   }
 
   /**
-   * Test {@link PDAnnotationMarkup#getInReplyTo()}.
-   * <p>
    * Method under test: {@link PDAnnotationMarkup#getInReplyTo()}
    */
   @Test
-  @DisplayName("Test getInReplyTo()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAnnotation PDAnnotationMarkup.getInReplyTo()"})
   void testGetInReplyTo() throws IOException {
     // Arrange, Act and Assert
     assertNull((new PDAnnotationMarkup()).getInReplyTo());
   }
 
   /**
-   * Test {@link PDAnnotationMarkup#setInReplyTo(PDAnnotation)}.
-   * <ul>
-   *   <li>Then {@link PDAnnotationMarkup#PDAnnotationMarkup()} InReplyTo {@link PDAnnotationCaret}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDAnnotationMarkup#setInReplyTo(PDAnnotation)}
    */
   @Test
-  @DisplayName("Test setInReplyTo(PDAnnotation); then PDAnnotationMarkup() InReplyTo PDAnnotationCaret")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAnnotationMarkup.setInReplyTo(PDAnnotation)"})
-  void testSetInReplyTo_thenPDAnnotationMarkupInReplyToPDAnnotationCaret() throws IOException {
+  void testSetInReplyTo() throws IOException {
     // Arrange
     PDAnnotationMarkup pdAnnotationMarkup = new PDAnnotationMarkup();
     PDAnnotationCaret irt = new PDAnnotationCaret();
@@ -500,55 +293,25 @@ class PDAnnotationMarkupDiffblueTest {
     // Assert
     PDAnnotation inReplyTo = pdAnnotationMarkup.getInReplyTo();
     assertTrue(inReplyTo instanceof PDAnnotationCaret);
+    COSDictionary cOSObject = pdAnnotationMarkup.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
     assertEquals(irt, inReplyTo);
   }
 
   /**
-   * Test {@link PDAnnotationMarkup#setInReplyTo(PDAnnotation)}.
-   * <ul>
-   *   <li>Then {@link PDAnnotationMarkup#PDAnnotationMarkup(COSDictionary)} with dict is {@link COSDictionary#COSDictionary()} InReplyTo is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAnnotationMarkup#setInReplyTo(PDAnnotation)}
-   */
-  @Test
-  @DisplayName("Test setInReplyTo(PDAnnotation); then PDAnnotationMarkup(COSDictionary) with dict is COSDictionary() InReplyTo is 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAnnotationMarkup.setInReplyTo(PDAnnotation)"})
-  void testSetInReplyTo_thenPDAnnotationMarkupWithDictIsCOSDictionaryInReplyToIsNull() throws IOException {
-    // Arrange
-    PDAnnotationMarkup pdAnnotationMarkup = new PDAnnotationMarkup(new COSDictionary());
-
-    // Act
-    pdAnnotationMarkup.setInReplyTo(null);
-
-    // Assert that nothing has changed
-    assertNull(pdAnnotationMarkup.getInReplyTo());
-  }
-
-  /**
-   * Test {@link PDAnnotationMarkup#getSubject()}.
-   * <p>
    * Method under test: {@link PDAnnotationMarkup#getSubject()}
    */
   @Test
-  @DisplayName("Test getSubject()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDAnnotationMarkup.getSubject()"})
   void testGetSubject() {
     // Arrange, Act and Assert
     assertNull((new PDAnnotationMarkup()).getSubject());
   }
 
   /**
-   * Test {@link PDAnnotationMarkup#setSubject(String)}.
-   * <p>
    * Method under test: {@link PDAnnotationMarkup#setSubject(String)}
    */
   @Test
-  @DisplayName("Test setSubject(String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAnnotationMarkup.setSubject(String)"})
   void testSetSubject() {
     // Arrange
     PDAnnotationMarkup pdAnnotationMarkup = new PDAnnotationMarkup();
@@ -564,33 +327,19 @@ class PDAnnotationMarkupDiffblueTest {
   }
 
   /**
-   * Test {@link PDAnnotationMarkup#getReplyType()}.
-   * <p>
    * Method under test: {@link PDAnnotationMarkup#getReplyType()}
    */
   @Test
-  @DisplayName("Test getReplyType()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDAnnotationMarkup.getReplyType()"})
   void testGetReplyType() {
     // Arrange, Act and Assert
     assertEquals(PDAnnotationMarkup.RT_REPLY, (new PDAnnotationMarkup()).getReplyType());
   }
 
   /**
-   * Test {@link PDAnnotationMarkup#setReplyType(String)}.
-   * <ul>
-   *   <li>Given {@link PDAnnotationMarkup#PDAnnotationMarkup()}.</li>
-   *   <li>Then {@link PDAnnotationMarkup#PDAnnotationMarkup()} ReplyType is {@code Rt}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDAnnotationMarkup#setReplyType(String)}
    */
   @Test
-  @DisplayName("Test setReplyType(String); given PDAnnotationMarkup(); then PDAnnotationMarkup() ReplyType is 'Rt'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAnnotationMarkup.setReplyType(String)"})
-  void testSetReplyType_givenPDAnnotationMarkup_thenPDAnnotationMarkupReplyTypeIsRt() {
+  void testSetReplyType() {
     // Arrange
     PDAnnotationMarkup pdAnnotationMarkup = new PDAnnotationMarkup();
 
@@ -605,59 +354,36 @@ class PDAnnotationMarkupDiffblueTest {
   }
 
   /**
-   * Test {@link PDAnnotationMarkup#setReplyType(String)}.
-   * <ul>
-   *   <li>Then {@link PDAnnotationMarkup#PDAnnotationMarkup(COSDictionary)} with dict is {@link COSDictionary#COSDictionary()} ReplyType is {@code Rt}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDAnnotationMarkup#setReplyType(String)}
    */
   @Test
-  @DisplayName("Test setReplyType(String); then PDAnnotationMarkup(COSDictionary) with dict is COSDictionary() ReplyType is 'Rt'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAnnotationMarkup.setReplyType(String)"})
-  void testSetReplyType_thenPDAnnotationMarkupWithDictIsCOSDictionaryReplyTypeIsRt() {
+  void testSetReplyType2() {
     // Arrange
-    PDAnnotationMarkup pdAnnotationMarkup = new PDAnnotationMarkup(new COSDictionary());
+    COSDictionary dict = new COSDictionary();
+    PDAnnotationMarkup pdAnnotationMarkup = new PDAnnotationMarkup(dict);
 
     // Act
     pdAnnotationMarkup.setReplyType("Rt");
 
     // Assert
     assertEquals("Rt", pdAnnotationMarkup.getReplyType());
-    COSDictionary cOSObject = pdAnnotationMarkup.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
+    assertSame(dict, pdAnnotationMarkup.getCOSObject());
   }
 
   /**
-   * Test {@link PDAnnotationMarkup#getIntent()}.
-   * <p>
    * Method under test: {@link PDAnnotationMarkup#getIntent()}
    */
   @Test
-  @DisplayName("Test getIntent()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDAnnotationMarkup.getIntent()"})
   void testGetIntent() {
     // Arrange, Act and Assert
     assertNull((new PDAnnotationMarkup()).getIntent());
   }
 
   /**
-   * Test {@link PDAnnotationMarkup#setIntent(String)}.
-   * <ul>
-   *   <li>Given {@link PDAnnotationMarkup#PDAnnotationMarkup()}.</li>
-   *   <li>Then {@link PDAnnotationMarkup#PDAnnotationMarkup()} Intent is {@code It}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDAnnotationMarkup#setIntent(String)}
    */
   @Test
-  @DisplayName("Test setIntent(String); given PDAnnotationMarkup(); then PDAnnotationMarkup() Intent is 'It'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAnnotationMarkup.setIntent(String)"})
-  void testSetIntent_givenPDAnnotationMarkup_thenPDAnnotationMarkupIntentIsIt() {
+  void testSetIntent() {
     // Arrange
     PDAnnotationMarkup pdAnnotationMarkup = new PDAnnotationMarkup();
 
@@ -672,66 +398,42 @@ class PDAnnotationMarkupDiffblueTest {
   }
 
   /**
-   * Test {@link PDAnnotationMarkup#setIntent(String)}.
-   * <ul>
-   *   <li>Then {@link PDAnnotationMarkup#PDAnnotationMarkup(COSDictionary)} with dict is {@link COSDictionary#COSDictionary()} Intent is {@code It}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDAnnotationMarkup#setIntent(String)}
    */
   @Test
-  @DisplayName("Test setIntent(String); then PDAnnotationMarkup(COSDictionary) with dict is COSDictionary() Intent is 'It'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAnnotationMarkup.setIntent(String)"})
-  void testSetIntent_thenPDAnnotationMarkupWithDictIsCOSDictionaryIntentIsIt() {
+  void testSetIntent2() {
     // Arrange
-    PDAnnotationMarkup pdAnnotationMarkup = new PDAnnotationMarkup(new COSDictionary());
+    COSDictionary dict = new COSDictionary();
+    PDAnnotationMarkup pdAnnotationMarkup = new PDAnnotationMarkup(dict);
 
     // Act
     pdAnnotationMarkup.setIntent("It");
 
     // Assert
     assertEquals("It", pdAnnotationMarkup.getIntent());
-    COSDictionary cOSObject = pdAnnotationMarkup.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
+    assertSame(dict, pdAnnotationMarkup.getCOSObject());
   }
 
   /**
-   * Test {@link PDAnnotationMarkup#getExternalData()}.
-   * <p>
    * Method under test: {@link PDAnnotationMarkup#getExternalData()}
    */
   @Test
-  @DisplayName("Test getExternalData()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDExternalDataDictionary PDAnnotationMarkup.getExternalData()"})
   void testGetExternalData() {
     // Arrange, Act and Assert
     assertNull((new PDAnnotationMarkup()).getExternalData());
   }
 
   /**
-   * Test {@link PDAnnotationMarkup#setExternalData(PDExternalDataDictionary)}.
-   * <ul>
-   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAnnotationMarkup#setExternalData(PDExternalDataDictionary)}
+   * Method under test:
+   * {@link PDAnnotationMarkup#setExternalData(PDExternalDataDictionary)}
    */
   @Test
-  @DisplayName("Test setExternalData(PDExternalDataDictionary); given COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAnnotationMarkup.setExternalData(PDExternalDataDictionary)"})
-  void testSetExternalData_givenCOSObjectKeyWithNumIsOneAndGenIsOne() {
+  void testSetExternalData() {
     // Arrange
     PDAnnotationMarkup pdAnnotationMarkup = new PDAnnotationMarkup();
 
-    COSDictionary dictionary = new COSDictionary();
-    dictionary.setKey(new COSObjectKey(1L, 1));
-
     // Act
-    pdAnnotationMarkup.setExternalData(new PDExternalDataDictionary(dictionary));
+    pdAnnotationMarkup.setExternalData(new PDExternalDataDictionary());
 
     // Assert
     PDExternalDataDictionary externalData = pdAnnotationMarkup.getExternalData();
@@ -740,23 +442,33 @@ class PDAnnotationMarkupDiffblueTest {
     COSDictionary cOSObject = pdAnnotationMarkup.getCOSObject();
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
-    assertSame(dictionary, externalData.getCOSObject());
   }
 
   /**
-   * Test {@link PDAnnotationMarkup#setExternalData(PDExternalDataDictionary)}.
-   * <ul>
-   *   <li>Given {@code true}.</li>
-   *   <li>When {@link COSDictionary#COSDictionary()} Direct is {@code true}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAnnotationMarkup#setExternalData(PDExternalDataDictionary)}
+   * Method under test:
+   * {@link PDAnnotationMarkup#setExternalData(PDExternalDataDictionary)}
    */
   @Test
-  @DisplayName("Test setExternalData(PDExternalDataDictionary); given 'true'; when COSDictionary() Direct is 'true'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAnnotationMarkup.setExternalData(PDExternalDataDictionary)"})
-  void testSetExternalData_givenTrue_whenCOSDictionaryDirectIsTrue() {
+  void testSetExternalData2() {
+    // Arrange
+    PDAnnotationMarkup pdAnnotationMarkup = new PDAnnotationMarkup();
+
+    // Act
+    pdAnnotationMarkup.setExternalData(null);
+
+    // Assert
+    assertNull(pdAnnotationMarkup.getExternalData());
+    COSDictionary cOSObject = pdAnnotationMarkup.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+  }
+
+  /**
+   * Method under test:
+   * {@link PDAnnotationMarkup#setExternalData(PDExternalDataDictionary)}
+   */
+  @Test
+  void testSetExternalData3() {
     // Arrange
     PDAnnotationMarkup pdAnnotationMarkup = new PDAnnotationMarkup();
 
@@ -777,49 +489,19 @@ class PDAnnotationMarkupDiffblueTest {
   }
 
   /**
-   * Test {@link PDAnnotationMarkup#setExternalData(PDExternalDataDictionary)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then {@link PDAnnotationMarkup#PDAnnotationMarkup()} COSObject Values size is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAnnotationMarkup#setExternalData(PDExternalDataDictionary)}
+   * Method under test:
+   * {@link PDAnnotationMarkup#setExternalData(PDExternalDataDictionary)}
    */
   @Test
-  @DisplayName("Test setExternalData(PDExternalDataDictionary); when 'null'; then PDAnnotationMarkup() COSObject Values size is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAnnotationMarkup.setExternalData(PDExternalDataDictionary)"})
-  void testSetExternalData_whenNull_thenPDAnnotationMarkupCOSObjectValuesSizeIsOne() {
+  void testSetExternalData4() {
     // Arrange
     PDAnnotationMarkup pdAnnotationMarkup = new PDAnnotationMarkup();
 
-    // Act
-    pdAnnotationMarkup.setExternalData(null);
-
-    // Assert that nothing has changed
-    COSDictionary cOSObject = pdAnnotationMarkup.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-  }
-
-  /**
-   * Test {@link PDAnnotationMarkup#setExternalData(PDExternalDataDictionary)}.
-   * <ul>
-   *   <li>When {@link PDExternalDataDictionary#PDExternalDataDictionary()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAnnotationMarkup#setExternalData(PDExternalDataDictionary)}
-   */
-  @Test
-  @DisplayName("Test setExternalData(PDExternalDataDictionary); when PDExternalDataDictionary()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAnnotationMarkup.setExternalData(PDExternalDataDictionary)"})
-  void testSetExternalData_whenPDExternalDataDictionary() {
-    // Arrange
-    PDAnnotationMarkup pdAnnotationMarkup = new PDAnnotationMarkup();
+    COSDictionary dictionary = new COSDictionary();
+    dictionary.setKey(new COSObjectKey(1L, 1));
 
     // Act
-    pdAnnotationMarkup.setExternalData(new PDExternalDataDictionary());
+    pdAnnotationMarkup.setExternalData(new PDExternalDataDictionary(dictionary));
 
     // Assert
     PDExternalDataDictionary externalData = pdAnnotationMarkup.getExternalData();
@@ -828,26 +510,20 @@ class PDAnnotationMarkupDiffblueTest {
     COSDictionary cOSObject = pdAnnotationMarkup.getCOSObject();
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
+    assertSame(dictionary, externalData.getCOSObject());
   }
 
   /**
-   * Test {@link PDAnnotationMarkup#setBorderStyle(PDBorderStyleDictionary)}.
-   * <p>
-   * Method under test: {@link PDAnnotationMarkup#setBorderStyle(PDBorderStyleDictionary)}
+   * Method under test:
+   * {@link PDAnnotationMarkup#setBorderStyle(PDBorderStyleDictionary)}
    */
   @Test
-  @DisplayName("Test setBorderStyle(PDBorderStyleDictionary)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAnnotationMarkup.setBorderStyle(PDBorderStyleDictionary)"})
   void testSetBorderStyle() {
     // Arrange
-    PDAnnotationMarkup pdAnnotationMarkup = new PDAnnotationMarkup(new COSDictionary());
-
-    COSDictionary dict = new COSDictionary();
-    dict.setKey(new COSObjectKey(1L, 1));
+    PDAnnotationMarkup pdAnnotationMarkup = new PDAnnotationMarkup();
 
     // Act
-    pdAnnotationMarkup.setBorderStyle(new PDBorderStyleDictionary(dict));
+    pdAnnotationMarkup.setBorderStyle(new PDBorderStyleDictionary());
 
     // Assert
     PDBorderStyleDictionary borderStyle = pdAnnotationMarkup.getBorderStyle();
@@ -857,24 +533,40 @@ class PDAnnotationMarkupDiffblueTest {
     assertEquals(2, toListResult.size());
     assertTrue(toListResult.get(0) instanceof COSArray);
     assertTrue(cOSObject instanceof COSArray);
-    assertSame(dict, borderStyle.getCOSObject());
+    assertEquals(0, dashStyle.getPhase());
+    assertEquals(1.0f, borderStyle.getWidth());
+    COSDictionary cOSObject2 = pdAnnotationMarkup.getCOSObject();
+    assertEquals(2, cOSObject2.getValues().size());
+    assertEquals(2, cOSObject2.size());
+    assertEquals(PDBorderEffectDictionary.STYLE_SOLID, borderStyle.getStyle());
     assertArrayEquals(new float[]{3.0f}, dashStyle.getDashArray(), 0.0f);
   }
 
   /**
-   * Test {@link PDAnnotationMarkup#setBorderStyle(PDBorderStyleDictionary)}.
-   * <ul>
-   *   <li>Given {@code true}.</li>
-   *   <li>When {@link COSDictionary#COSDictionary()} Direct is {@code true}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAnnotationMarkup#setBorderStyle(PDBorderStyleDictionary)}
+   * Method under test:
+   * {@link PDAnnotationMarkup#setBorderStyle(PDBorderStyleDictionary)}
    */
   @Test
-  @DisplayName("Test setBorderStyle(PDBorderStyleDictionary); given 'true'; when COSDictionary() Direct is 'true'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAnnotationMarkup.setBorderStyle(PDBorderStyleDictionary)"})
-  void testSetBorderStyle_givenTrue_whenCOSDictionaryDirectIsTrue() {
+  void testSetBorderStyle2() {
+    // Arrange
+    PDAnnotationMarkup pdAnnotationMarkup = new PDAnnotationMarkup();
+
+    // Act
+    pdAnnotationMarkup.setBorderStyle(null);
+
+    // Assert
+    assertNull(pdAnnotationMarkup.getBorderStyle());
+    COSDictionary cOSObject = pdAnnotationMarkup.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+  }
+
+  /**
+   * Method under test:
+   * {@link PDAnnotationMarkup#setBorderStyle(PDBorderStyleDictionary)}
+   */
+  @Test
+  void testSetBorderStyle3() {
     // Arrange
     PDAnnotationMarkup pdAnnotationMarkup = new PDAnnotationMarkup();
 
@@ -892,23 +584,22 @@ class PDAnnotationMarkupDiffblueTest {
     assertEquals(2, toListResult.size());
     assertTrue(toListResult.get(0) instanceof COSArray);
     assertTrue(cOSObject instanceof COSArray);
+    assertEquals(0, dashStyle.getPhase());
+    assertEquals(1.0f, borderStyle.getWidth());
+    COSDictionary cOSObject2 = pdAnnotationMarkup.getCOSObject();
+    assertEquals(2, cOSObject2.getValues().size());
+    assertEquals(2, cOSObject2.size());
+    assertEquals(PDBorderEffectDictionary.STYLE_SOLID, borderStyle.getStyle());
     assertSame(dict, borderStyle.getCOSObject());
     assertArrayEquals(new float[]{3.0f}, dashStyle.getDashArray(), 0.0f);
   }
 
   /**
-   * Test {@link PDAnnotationMarkup#setBorderStyle(PDBorderStyleDictionary)}.
-   * <ul>
-   *   <li>Then {@link PDAnnotationMarkup#PDAnnotationMarkup()} BorderStyle COSObject is {@link COSDictionary#COSDictionary()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAnnotationMarkup#setBorderStyle(PDBorderStyleDictionary)}
+   * Method under test:
+   * {@link PDAnnotationMarkup#setBorderStyle(PDBorderStyleDictionary)}
    */
   @Test
-  @DisplayName("Test setBorderStyle(PDBorderStyleDictionary); then PDAnnotationMarkup() BorderStyle COSObject is COSDictionary()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAnnotationMarkup.setBorderStyle(PDBorderStyleDictionary)"})
-  void testSetBorderStyle_thenPDAnnotationMarkupBorderStyleCOSObjectIsCOSDictionary() {
+  void testSetBorderStyle4() {
     // Arrange
     PDAnnotationMarkup pdAnnotationMarkup = new PDAnnotationMarkup();
 
@@ -926,48 +617,52 @@ class PDAnnotationMarkupDiffblueTest {
     assertEquals(2, toListResult.size());
     assertTrue(toListResult.get(0) instanceof COSArray);
     assertTrue(cOSObject instanceof COSArray);
+    assertEquals(0, dashStyle.getPhase());
+    assertEquals(1.0f, borderStyle.getWidth());
+    COSDictionary cOSObject2 = pdAnnotationMarkup.getCOSObject();
+    assertEquals(2, cOSObject2.getValues().size());
+    assertEquals(2, cOSObject2.size());
+    assertEquals(PDBorderEffectDictionary.STYLE_SOLID, borderStyle.getStyle());
     assertSame(dict, borderStyle.getCOSObject());
     assertArrayEquals(new float[]{3.0f}, dashStyle.getDashArray(), 0.0f);
   }
 
   /**
-   * Test {@link PDAnnotationMarkup#setBorderStyle(PDBorderStyleDictionary)}.
-   * <ul>
-   *   <li>When {@link PDBorderStyleDictionary#PDBorderStyleDictionary()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAnnotationMarkup#setBorderStyle(PDBorderStyleDictionary)}
+   * Method under test:
+   * {@link PDAnnotationMarkup#setBorderStyle(PDBorderStyleDictionary)}
    */
   @Test
-  @DisplayName("Test setBorderStyle(PDBorderStyleDictionary); when PDBorderStyleDictionary()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAnnotationMarkup.setBorderStyle(PDBorderStyleDictionary)"})
-  void testSetBorderStyle_whenPDBorderStyleDictionary() {
+  void testSetBorderStyle5() {
     // Arrange
-    PDAnnotationMarkup pdAnnotationMarkup = new PDAnnotationMarkup();
+    COSDictionary dict = new COSDictionary();
+    PDAnnotationMarkup pdAnnotationMarkup = new PDAnnotationMarkup(dict);
+
+    COSDictionary dict2 = new COSDictionary();
+    dict2.setKey(new COSObjectKey(1L, 1));
 
     // Act
-    pdAnnotationMarkup.setBorderStyle(new PDBorderStyleDictionary());
+    pdAnnotationMarkup.setBorderStyle(new PDBorderStyleDictionary(dict2));
 
     // Assert
-    PDLineDashPattern dashStyle = pdAnnotationMarkup.getBorderStyle().getDashStyle();
+    PDBorderStyleDictionary borderStyle = pdAnnotationMarkup.getBorderStyle();
+    PDLineDashPattern dashStyle = borderStyle.getDashStyle();
     COSBase cOSObject = dashStyle.getCOSObject();
     List<? extends COSBase> toListResult = ((COSArray) cOSObject).toList();
     assertEquals(2, toListResult.size());
     assertTrue(toListResult.get(0) instanceof COSArray);
     assertTrue(cOSObject instanceof COSArray);
+    assertEquals(0, dashStyle.getPhase());
+    assertEquals(1.0f, borderStyle.getWidth());
+    assertEquals(PDBorderEffectDictionary.STYLE_SOLID, borderStyle.getStyle());
+    assertSame(dict, pdAnnotationMarkup.getCOSObject());
+    assertSame(dict2, borderStyle.getCOSObject());
     assertArrayEquals(new float[]{3.0f}, dashStyle.getDashArray(), 0.0f);
   }
 
   /**
-   * Test {@link PDAnnotationMarkup#getBorderStyle()}.
-   * <p>
    * Method under test: {@link PDAnnotationMarkup#getBorderStyle()}
    */
   @Test
-  @DisplayName("Test getBorderStyle()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDBorderStyleDictionary PDAnnotationMarkup.getBorderStyle()"})
   void testGetBorderStyle() {
     // Arrange, Act and Assert
     assertNull((new PDAnnotationMarkup()).getBorderStyle());

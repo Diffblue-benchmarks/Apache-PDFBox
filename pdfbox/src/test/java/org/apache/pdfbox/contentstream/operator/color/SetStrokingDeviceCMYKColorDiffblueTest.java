@@ -1,6 +1,5 @@
 package org.apache.pdfbox.contentstream.operator.color;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.mockito.ArgumentMatchers.isA;
@@ -8,7 +7,6 @@ import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,40 +27,28 @@ import org.apache.pdfbox.pdmodel.graphics.color.PDPattern;
 import org.apache.pdfbox.pdmodel.graphics.state.PDGraphicsState;
 import org.apache.pdfbox.rendering.PageDrawer;
 import org.apache.pdfbox.text.PDFMarkedContentExtractor;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 class SetStrokingDeviceCMYKColorDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
-   *   <li>{@link SetStrokingDeviceCMYKColor#SetStrokingDeviceCMYKColor(PDFStreamEngine)}
+   *   <li>
+   * {@link SetStrokingDeviceCMYKColor#SetStrokingDeviceCMYKColor(PDFStreamEngine)}
    *   <li>{@link SetStrokingDeviceCMYKColor#getName()}
    * </ul>
    */
   @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void SetStrokingDeviceCMYKColor.<init>(PDFStreamEngine)",
-      "java.lang.String SetStrokingDeviceCMYKColor.getName()"})
   void testGettersAndSetters() {
     // Arrange, Act and Assert
     assertEquals("K", (new SetStrokingDeviceCMYKColor(new PDFMarkedContentExtractor())).getName());
   }
 
   /**
-   * Test {@link SetStrokingDeviceCMYKColor#process(Operator, List)}.
-   * <p>
    * Method under test: {@link SetStrokingDeviceCMYKColor#process(Operator, List)}
    */
   @Test
-  @DisplayName("Test process(Operator, List)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void SetStrokingDeviceCMYKColor.process(Operator, List)"})
   void testProcess() throws IOException {
     // Arrange
     COSDictionary cosDictionary = mock(COSDictionary.class);
@@ -90,21 +76,16 @@ class SetStrokingDeviceCMYKColorDiffblueTest {
     verify(resourceDictionary).getCOSDictionary(isA(COSName.class));
     verify(cosDictionary).getItem(isA(COSName.class));
     verify(resourceCache).getColorSpace(isA(COSObject.class));
-    assertSame(pdPattern, setStrokingDeviceCMYKColor.getColorSpace());
     PDColor color = setStrokingDeviceCMYKColor.getColor();
+    assertEquals(0, color.getComponents().length);
+    assertSame(pdPattern, setStrokingDeviceCMYKColor.getColorSpace());
     assertSame(pdPattern, color.getColorSpace());
-    assertArrayEquals(new float[]{}, color.getComponents(), 0.0f);
   }
 
   /**
-   * Test {@link SetStrokingDeviceCMYKColor#process(Operator, List)}.
-   * <p>
    * Method under test: {@link SetStrokingDeviceCMYKColor#process(Operator, List)}
    */
   @Test
-  @DisplayName("Test process(Operator, List)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void SetStrokingDeviceCMYKColor.process(Operator, List)"})
   void testProcess2() throws IOException {
     // Arrange
     COSDictionary cosDictionary = mock(COSDictionary.class);

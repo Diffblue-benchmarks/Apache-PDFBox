@@ -5,19 +5,41 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.cos.COSIncrement;
 import org.apache.pdfbox.cos.COSUpdateState;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class PDDeviceNProcessDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
+   * Method under test: {@link PDDeviceNProcess#getColorSpace()}
+   */
+  @Test
+  void testGetColorSpace() throws IOException {
+    // Arrange, Act and Assert
+    assertNull((new PDDeviceNProcess()).getColorSpace());
+  }
+
+  /**
+   * Method under test: {@link PDDeviceNProcess#getComponents()}
+   */
+  @Test
+  void testGetComponents() {
+    // Arrange, Act and Assert
+    assertTrue((new PDDeviceNProcess()).getComponents().isEmpty());
+  }
+
+  /**
+   * Method under test: {@link PDDeviceNProcess#toString()}
+   */
+  @Test
+  void testToString() {
+    // Arrange, Act and Assert
+    assertEquals("Process{null}", (new PDDeviceNProcess()).toString());
+  }
+
+  /**
    * Methods under test:
    * <ul>
    *   <li>{@link PDDeviceNProcess#PDDeviceNProcess(COSDictionary)}
@@ -25,10 +47,6 @@ class PDDeviceNProcessDiffblueTest {
    * </ul>
    */
   @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDDeviceNProcess.<init>(COSDictionary)",
-      "COSDictionary PDDeviceNProcess.getCOSDictionary()"})
   void testGettersAndSetters() {
     // Arrange
     COSDictionary attributes = new COSDictionary();
@@ -38,14 +56,9 @@ class PDDeviceNProcessDiffblueTest {
   }
 
   /**
-   * Test {@link PDDeviceNProcess#PDDeviceNProcess()}.
-   * <p>
    * Method under test: {@link PDDeviceNProcess#PDDeviceNProcess()}
    */
   @Test
-  @DisplayName("Test new PDDeviceNProcess()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDDeviceNProcess.<init>()"})
   void testNewPDDeviceNProcess() throws IOException {
     // Arrange and Act
     PDDeviceNProcess actualPdDeviceNProcess = new PDDeviceNProcess();
@@ -65,59 +78,5 @@ class PDDeviceNProcessDiffblueTest {
     assertTrue(cOSDictionary.getValues().isEmpty());
     assertTrue(actualPdDeviceNProcess.getComponents().isEmpty());
     assertTrue(toIncrementResult.getObjects().isEmpty());
-  }
-
-  /**
-   * Test {@link PDDeviceNProcess#getColorSpace()}.
-   * <ul>
-   *   <li>Given {@link PDDeviceNProcess#PDDeviceNProcess()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDDeviceNProcess#getColorSpace()}
-   */
-  @Test
-  @DisplayName("Test getColorSpace(); given PDDeviceNProcess(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"org.apache.pdfbox.pdmodel.graphics.color.PDColorSpace PDDeviceNProcess.getColorSpace()"})
-  void testGetColorSpace_givenPDDeviceNProcess_thenReturnNull() throws IOException {
-    // Arrange, Act and Assert
-    assertNull((new PDDeviceNProcess()).getColorSpace());
-  }
-
-  /**
-   * Test {@link PDDeviceNProcess#getComponents()}.
-   * <ul>
-   *   <li>Given {@link PDDeviceNProcess#PDDeviceNProcess()}.</li>
-   *   <li>Then return Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDDeviceNProcess#getComponents()}
-   */
-  @Test
-  @DisplayName("Test getComponents(); given PDDeviceNProcess(); then return Empty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"java.util.List PDDeviceNProcess.getComponents()"})
-  void testGetComponents_givenPDDeviceNProcess_thenReturnEmpty() {
-    // Arrange, Act and Assert
-    assertTrue((new PDDeviceNProcess()).getComponents().isEmpty());
-  }
-
-  /**
-   * Test {@link PDDeviceNProcess#toString()}.
-   * <ul>
-   *   <li>Given {@link PDDeviceNProcess#PDDeviceNProcess()}.</li>
-   *   <li>Then return {@code Process{null}}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDDeviceNProcess#toString()}
-   */
-  @Test
-  @DisplayName("Test toString(); given PDDeviceNProcess(); then return 'Process{null}'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"java.lang.String PDDeviceNProcess.toString()"})
-  void testToString_givenPDDeviceNProcess_thenReturnProcessNull() {
-    // Arrange, Act and Assert
-    assertEquals("Process{null}", (new PDDeviceNProcess()).toString());
   }
 }

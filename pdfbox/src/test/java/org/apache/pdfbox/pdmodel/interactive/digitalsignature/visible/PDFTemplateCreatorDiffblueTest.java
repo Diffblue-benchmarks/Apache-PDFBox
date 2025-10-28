@@ -1,66 +1,14 @@
 package org.apache.pdfbox.pdmodel.interactive.digitalsignature.visible;
 
 import static org.junit.jupiter.api.Assertions.assertNull;
-import com.diffblue.cover.annotations.MethodsUnderTest;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class PDFTemplateCreatorDiffblueTest {
   /**
-   * Test {@link PDFTemplateCreator#PDFTemplateCreator(PDFTemplateBuilder)}.
-   * <p>
-   * Method under test: {@link PDFTemplateCreator#PDFTemplateCreator(PDFTemplateBuilder)}
-   */
-  @Test
-  @DisplayName("Test new PDFTemplateCreator(PDFTemplateBuilder)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFTemplateCreator.<init>(PDFTemplateBuilder)"})
-  void testNewPDFTemplateCreator() {
-    // Arrange, Act and Assert
-    PDFTemplateStructure pdfStructure = (new PDFTemplateCreator(new PDVisibleSigBuilder())).getPdfStructure();
-    assertNull(pdfStructure.getAffineTransform());
-    assertNull(pdfStructure.getAcroFormFields());
-    assertNull(pdfStructure.getProcSet());
-    assertNull(pdfStructure.getAcroFormDictionary());
-    assertNull(pdfStructure.getWidgetDictionary());
-    assertNull(pdfStructure.getVisualSignature());
-    assertNull(pdfStructure.getImageFormName());
-    assertNull(pdfStructure.getImageName());
-    assertNull(pdfStructure.getInnerFormName());
-    assertNull(pdfStructure.getTemplate());
-    assertNull(pdfStructure.getPage());
-    assertNull(pdfStructure.getHolderFormResources());
-    assertNull(pdfStructure.getImageFormResources());
-    assertNull(pdfStructure.getInnerFormResources());
-    assertNull(pdfStructure.getFormatterRectangle());
-    assertNull(pdfStructure.getSignatureRectangle());
-    assertNull(pdfStructure.getHolderFormStream());
-    assertNull(pdfStructure.getImageFormStream());
-    assertNull(pdfStructure.getInnerFormStream());
-    assertNull(pdfStructure.getHolderForm());
-    assertNull(pdfStructure.getImageForm());
-    assertNull(pdfStructure.getInnerForm());
-    assertNull(pdfStructure.getImage());
-    assertNull(pdfStructure.getAppearanceDictionary());
-    assertNull(pdfStructure.getPdSignature());
-    assertNull(pdfStructure.getAcroForm());
-    assertNull(pdfStructure.getSignatureField());
-  }
-
-  /**
-   * Test {@link PDFTemplateCreator#getPdfStructure()}.
-   * <ul>
-   *   <li>Then return AffineTransform is {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDFTemplateCreator#getPdfStructure()}
    */
   @Test
-  @DisplayName("Test getPdfStructure(); then return AffineTransform is 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDFTemplateStructure PDFTemplateCreator.getPdfStructure()"})
-  void testGetPdfStructure_thenReturnAffineTransformIsNull() {
+  void testGetPdfStructure() {
     // Arrange and Act
     PDFTemplateStructure actualPdfStructure = (new PDFTemplateCreator(new PDVisibleSigBuilder())).getPdfStructure();
 
@@ -92,5 +40,42 @@ class PDFTemplateCreatorDiffblueTest {
     assertNull(actualPdfStructure.getPdSignature());
     assertNull(actualPdfStructure.getAcroForm());
     assertNull(actualPdfStructure.getSignatureField());
+  }
+
+  /**
+   * Method under test:
+   * {@link PDFTemplateCreator#PDFTemplateCreator(PDFTemplateBuilder)}
+   */
+  @Test
+  void testNewPDFTemplateCreator() {
+    // Arrange, Act and Assert
+    PDFTemplateStructure pdfStructure = (new PDFTemplateCreator(new PDVisibleSigBuilder())).getPdfStructure();
+    assertNull(pdfStructure.getAffineTransform());
+    assertNull(pdfStructure.getAcroFormFields());
+    assertNull(pdfStructure.getProcSet());
+    assertNull(pdfStructure.getAcroFormDictionary());
+    assertNull(pdfStructure.getWidgetDictionary());
+    assertNull(pdfStructure.getVisualSignature());
+    assertNull(pdfStructure.getImageFormName());
+    assertNull(pdfStructure.getImageName());
+    assertNull(pdfStructure.getInnerFormName());
+    assertNull(pdfStructure.getTemplate());
+    assertNull(pdfStructure.getPage());
+    assertNull(pdfStructure.getHolderFormResources());
+    assertNull(pdfStructure.getImageFormResources());
+    assertNull(pdfStructure.getInnerFormResources());
+    assertNull(pdfStructure.getFormatterRectangle());
+    assertNull(pdfStructure.getSignatureRectangle());
+    assertNull(pdfStructure.getHolderFormStream());
+    assertNull(pdfStructure.getImageFormStream());
+    assertNull(pdfStructure.getInnerFormStream());
+    assertNull(pdfStructure.getHolderForm());
+    assertNull(pdfStructure.getImageForm());
+    assertNull(pdfStructure.getInnerForm());
+    assertNull(pdfStructure.getImage());
+    assertNull(pdfStructure.getAppearanceDictionary());
+    assertNull(pdfStructure.getPdSignature());
+    assertNull(pdfStructure.getAcroForm());
+    assertNull(pdfStructure.getSignatureField());
   }
 }

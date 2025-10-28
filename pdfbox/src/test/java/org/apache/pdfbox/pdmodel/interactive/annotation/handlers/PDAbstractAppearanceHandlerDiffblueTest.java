@@ -6,83 +6,52 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.isA;
+import static org.mockito.ArgumentMatchers.isNull;
+import static org.mockito.Mockito.anyFloat;
 import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import java.awt.geom.AffineTransform;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.List;
-import org.apache.fontbox.ttf.TrueTypeFont;
+import java.util.Set;
 import org.apache.pdfbox.cos.COSArray;
 import org.apache.pdfbox.cos.COSBase;
 import org.apache.pdfbox.cos.COSDictionary;
+import org.apache.pdfbox.cos.COSDocumentState;
 import org.apache.pdfbox.cos.COSFloat;
 import org.apache.pdfbox.cos.COSIncrement;
 import org.apache.pdfbox.cos.COSName;
+import org.apache.pdfbox.cos.COSObjectKey;
 import org.apache.pdfbox.cos.COSStream;
 import org.apache.pdfbox.cos.COSUpdateState;
+import org.apache.pdfbox.io.RandomAccessStreamCache;
+import org.apache.pdfbox.io.RandomAccessStreamCacheImpl;
 import org.apache.pdfbox.pdmodel.PDAppearanceContentStream;
 import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDResources;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
-import org.apache.pdfbox.pdmodel.font.PDFont;
-import org.apache.pdfbox.pdmodel.font.PDType1Font;
-import org.apache.pdfbox.pdmodel.font.encoding.WinAnsiEncoding;
+import org.apache.pdfbox.pdmodel.common.PDStream;
 import org.apache.pdfbox.pdmodel.interactive.annotation.PDAnnotation;
 import org.apache.pdfbox.pdmodel.interactive.annotation.PDAnnotationCaret;
-import org.apache.pdfbox.pdmodel.interactive.annotation.PDAnnotationCircle;
 import org.apache.pdfbox.pdmodel.interactive.annotation.PDAnnotationSquareCircle;
 import org.apache.pdfbox.pdmodel.interactive.annotation.PDAppearanceDictionary;
 import org.apache.pdfbox.pdmodel.interactive.annotation.PDAppearanceEntry;
 import org.apache.pdfbox.pdmodel.interactive.annotation.PDAppearanceStream;
 import org.apache.pdfbox.util.Matrix;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 class PDAbstractAppearanceHandlerDiffblueTest {
   /**
-   * Test {@link PDAbstractAppearanceHandler#getDefaultFont()}.
-   * <p>
-   * Method under test: {@link PDAbstractAppearanceHandler#getDefaultFont()}
-   */
-  @Test
-  @DisplayName("Test getDefaultFont()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDFont PDAbstractAppearanceHandler.getDefaultFont()"})
-  void testGetDefaultFont() {
-    // Arrange and Act
-    PDFont actualDefaultFont = (new PDCaretAppearanceHandler(new PDAnnotationCaret())).getDefaultFont();
-
-    // Assert
-    assertTrue(((PDType1Font) actualDefaultFont).getFontBoxFont() instanceof TrueTypeFont);
-    assertTrue(actualDefaultFont instanceof PDType1Font);
-    assertTrue(((PDType1Font) actualDefaultFont).getEncoding() instanceof WinAnsiEncoding);
-    assertEquals("Font", actualDefaultFont.getType());
-    assertEquals("Helvetica", actualDefaultFont.getName());
-    assertEquals("Helvetica", ((PDType1Font) actualDefaultFont).getBaseFont());
-    assertEquals("Type1", actualDefaultFont.getSubType());
-    assertNull(((PDType1Font) actualDefaultFont).getType1Font());
-    assertEquals(278.0f, actualDefaultFont.getSpaceWidth());
-    assertEquals(542.7714f, actualDefaultFont.getAverageFontWidth());
-    assertFalse(actualDefaultFont.isVertical());
-    assertFalse(actualDefaultFont.isDamaged());
-    assertFalse(actualDefaultFont.isEmbedded());
-  }
-
-  /**
-   * Test {@link PDAbstractAppearanceHandler#getAnnotation()}.
-   * <p>
    * Method under test: {@link PDAbstractAppearanceHandler#getAnnotation()}
    */
   @Test
-  @DisplayName("Test getAnnotation()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAnnotation PDAbstractAppearanceHandler.getAnnotation()"})
   void testGetAnnotation() {
     // Arrange
     PDAnnotationCaret annotation = new PDAnnotationCaret();
@@ -92,35 +61,48 @@ class PDAbstractAppearanceHandlerDiffblueTest {
   }
 
   /**
-   * Test {@link PDAbstractAppearanceHandler#getColor()}.
-   * <ul>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PDAbstractAppearanceHandler#getAnnotation()}
+   */
+  @Test
+  void testGetAnnotation2() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDDocument document = new PDDocument(streamCacheCreateFunction);
+    PDAnnotationCaret annotation = new PDAnnotationCaret();
+
+    // Act
+    PDAnnotation actualAnnotation = (new PDCaretAppearanceHandler(annotation, document)).getAnnotation();
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertSame(annotation, actualAnnotation);
+  }
+
+  /**
    * Method under test: {@link PDAbstractAppearanceHandler#getColor()}
    */
   @Test
-  @DisplayName("Test getColor(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"org.apache.pdfbox.pdmodel.graphics.color.PDColor PDAbstractAppearanceHandler.getColor()"})
-  void testGetColor_thenReturnNull() {
+  void testGetColor() {
     // Arrange, Act and Assert
     assertNull((new PDCaretAppearanceHandler(new PDAnnotationCaret())).getColor());
   }
 
   /**
-   * Test {@link PDAbstractAppearanceHandler#getRectangle()}.
-   * <ul>
-   *   <li>Then return COSArray toList third Key is {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDAbstractAppearanceHandler#getRectangle()}
    */
   @Test
-  @DisplayName("Test getRectangle(); then return COSArray toList third Key is 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDRectangle PDAbstractAppearanceHandler.getRectangle()"})
-  void testGetRectangle_thenReturnCOSArrayToListThirdKeyIsNull() {
+  void testGetRectangle() {
+    // Arrange, Act and Assert
+    assertNull((new PDCaretAppearanceHandler(new PDAnnotationCaret())).getRectangle());
+  }
+
+  /**
+   * Method under test: {@link PDAbstractAppearanceHandler#getRectangle()}
+   */
+  @Test
+  void testGetRectangle2() {
     // Arrange
     PDAnnotationCaret annotation = new PDAnnotationCaret();
     annotation.setRectangle(PDRectangle.A0);
@@ -129,14 +111,20 @@ class PDAbstractAppearanceHandlerDiffblueTest {
     PDRectangle actualRectangle = (new PDCaretAppearanceHandler(annotation)).getRectangle();
 
     // Assert
-    List<? extends COSBase> toListResult = actualRectangle.getCOSArray().toList();
+    COSArray cOSArray = actualRectangle.getCOSArray();
+    List<? extends COSBase> toListResult = cOSArray.toList();
     assertEquals(4, toListResult.size());
-    COSBase getResult = toListResult.get(2);
+    COSBase getResult = toListResult.get(0);
     assertTrue(getResult instanceof COSFloat);
-    COSBase getResult2 = toListResult.get(3);
+    COSBase getResult2 = toListResult.get(1);
     assertTrue(getResult2 instanceof COSFloat);
+    COSBase getResult3 = toListResult.get(2);
+    assertTrue(getResult3 instanceof COSFloat);
+    COSBase getResult4 = toListResult.get(3);
+    assertTrue(getResult4 instanceof COSFloat);
     assertNull(getResult.getKey());
-    assertNull(getResult2.getKey());
+    assertNull(getResult3.getKey());
+    assertNull(getResult4.getKey());
     assertEquals(0.0f, actualRectangle.getLowerLeftX());
     assertEquals(0.0f, actualRectangle.getLowerLeftY());
     assertEquals(2383.937f, actualRectangle.getUpperRightX());
@@ -144,22 +132,17 @@ class PDAbstractAppearanceHandlerDiffblueTest {
     assertEquals(3370.3938f, actualRectangle.getHeight());
     assertEquals(3370.3938f, actualRectangle.getUpperRightY());
     assertFalse(getResult.isDirect());
-    assertFalse(getResult2.isDirect());
+    assertFalse(getResult3.isDirect());
+    assertFalse(getResult4.isDirect());
+    assertEquals(getResult, getResult2);
+    assertSame(cOSArray, actualRectangle.getCOSObject());
   }
 
   /**
-   * Test {@link PDAbstractAppearanceHandler#getRectangle()}.
-   * <ul>
-   *   <li>Then return Height is zero.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDAbstractAppearanceHandler#getRectangle()}
    */
   @Test
-  @DisplayName("Test getRectangle(); then return Height is zero")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDRectangle PDAbstractAppearanceHandler.getRectangle()"})
-  void testGetRectangle_thenReturnHeightIsZero() {
+  void testGetRectangle3() {
     // Arrange
     PDAnnotationCaret annotation = new PDAnnotationCaret();
     annotation.setRectangle(new PDRectangle(2.14748365E9f, 2.14748365E9f, 2.14748365E9f, 2.14748365E9f));
@@ -168,49 +151,35 @@ class PDAbstractAppearanceHandlerDiffblueTest {
     PDRectangle actualRectangle = (new PDCaretAppearanceHandler(annotation)).getRectangle();
 
     // Assert
-    List<? extends COSBase> toListResult = actualRectangle.getCOSArray().toList();
+    COSArray cOSArray = actualRectangle.getCOSArray();
+    List<? extends COSBase> toListResult = cOSArray.toList();
     assertEquals(4, toListResult.size());
-    COSBase getResult = toListResult.get(2);
+    COSBase getResult = toListResult.get(0);
     assertTrue(getResult instanceof COSFloat);
-    COSBase getResult2 = toListResult.get(3);
+    COSBase getResult2 = toListResult.get(1);
     assertTrue(getResult2 instanceof COSFloat);
+    COSBase getResult3 = toListResult.get(2);
+    assertTrue(getResult3 instanceof COSFloat);
+    COSBase getResult4 = toListResult.get(3);
+    assertTrue(getResult4 instanceof COSFloat);
+    assertNull(getResult.getKey());
     assertEquals(0.0f, actualRectangle.getHeight());
     assertEquals(0.0f, actualRectangle.getWidth());
     assertEquals(2.14748365E9f, actualRectangle.getLowerLeftX());
     assertEquals(2.14748365E9f, actualRectangle.getLowerLeftY());
     assertEquals(2.14748365E9f, actualRectangle.getUpperRightX());
     assertEquals(2.14748365E9f, actualRectangle.getUpperRightY());
-    COSBase getResult3 = toListResult.get(0);
-    assertEquals(getResult3, getResult);
-    assertEquals(getResult3, getResult2);
+    assertFalse(getResult.isDirect());
+    assertEquals(getResult, getResult2);
+    assertEquals(getResult, getResult3);
+    assertEquals(getResult, getResult4);
+    assertSame(cOSArray, actualRectangle.getCOSObject());
   }
 
   /**
-   * Test {@link PDAbstractAppearanceHandler#getRectangle()}.
-   * <ul>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAbstractAppearanceHandler#getRectangle()}
-   */
-  @Test
-  @DisplayName("Test getRectangle(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDRectangle PDAbstractAppearanceHandler.getRectangle()"})
-  void testGetRectangle_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull((new PDCaretAppearanceHandler(new PDAnnotationCaret())).getRectangle());
-  }
-
-  /**
-   * Test {@link PDAbstractAppearanceHandler#createCOSStream()}.
-   * <p>
    * Method under test: {@link PDAbstractAppearanceHandler#createCOSStream()}
    */
   @Test
-  @DisplayName("Test createCOSStream()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"COSStream PDAbstractAppearanceHandler.createCOSStream()"})
   void testCreateCOSStream() {
     // Arrange and Act
     COSStream actualCreateCOSStreamResult = (new PDCaretAppearanceHandler(new PDAnnotationCaret())).createCOSStream();
@@ -233,14 +202,9 @@ class PDAbstractAppearanceHandlerDiffblueTest {
   }
 
   /**
-   * Test {@link PDAbstractAppearanceHandler#createCOSStream()}.
-   * <p>
    * Method under test: {@link PDAbstractAppearanceHandler#createCOSStream()}
    */
   @Test
-  @DisplayName("Test createCOSStream()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"COSStream PDAbstractAppearanceHandler.createCOSStream()"})
   void testCreateCOSStream2() {
     // Arrange
     PDAnnotationCaret annotation = new PDAnnotationCaret();
@@ -267,81 +231,43 @@ class PDAbstractAppearanceHandlerDiffblueTest {
   }
 
   /**
-   * Test {@link PDAbstractAppearanceHandler#getAppearance()}.
-   * <ul>
-   *   <li>Then return COSObject Values size is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAbstractAppearanceHandler#getAppearance()}
+   * Method under test: {@link PDAbstractAppearanceHandler#createCOSStream()}
    */
   @Test
-  @DisplayName("Test getAppearance(); then return COSObject Values size is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAppearanceDictionary PDAbstractAppearanceHandler.getAppearance()"})
-  void testGetAppearance_thenReturnCOSObjectValuesSizeIsOne() {
+  void testCreateCOSStream3() throws IOException {
     // Arrange
-    PDAnnotation annotation = mock(PDAnnotation.class);
-    when(annotation.getAppearance()).thenReturn(null);
-    doNothing().when(annotation).setAppearance(Mockito.<PDAppearanceDictionary>any());
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDDocument document = new PDDocument(streamCacheCreateFunction);
 
     // Act
-    PDAppearanceDictionary actualAppearance = (new PDCaretAppearanceHandler(annotation)).getAppearance();
+    COSStream actualCreateCOSStreamResult = (new PDCaretAppearanceHandler(new PDAnnotationCaret(), document))
+        .createCOSStream();
 
     // Assert
-    verify(annotation).getAppearance();
-    verify(annotation).setAppearance(isA(PDAppearanceDictionary.class));
-    COSDictionary cOSObject = actualAppearance.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-    PDAppearanceEntry downAppearance = actualAppearance.getDownAppearance();
-    assertFalse(downAppearance.isStream());
-    PDAppearanceEntry normalAppearance = actualAppearance.getNormalAppearance();
-    assertFalse(normalAppearance.isStream());
-    PDAppearanceEntry rolloverAppearance = actualAppearance.getRolloverAppearance();
-    assertFalse(rolloverAppearance.isStream());
-    assertTrue(downAppearance.getSubDictionary().isEmpty());
-    assertTrue(normalAppearance.getSubDictionary().isEmpty());
-    assertTrue(rolloverAppearance.getSubDictionary().isEmpty());
-    assertTrue(downAppearance.isSubDictionary());
-    assertTrue(normalAppearance.isSubDictionary());
-    assertTrue(rolloverAppearance.isSubDictionary());
+    verify(streamCacheCreateFunction).create();
+    assertNull(actualCreateCOSStreamResult.getFilters());
+    COSUpdateState updateState = actualCreateCOSStreamResult.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(actualCreateCOSStreamResult.getKey());
+    assertEquals(0L, actualCreateCOSStreamResult.getLength());
+    assertEquals(1, actualCreateCOSStreamResult.getValues().size());
+    assertEquals(1, actualCreateCOSStreamResult.size());
+    COSIncrement toIncrementResult = actualCreateCOSStreamResult.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(actualCreateCOSStreamResult.isDirect());
+    assertFalse(actualCreateCOSStreamResult.hasData());
+    assertFalse(actualCreateCOSStreamResult.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
   }
 
   /**
-   * Test {@link PDAbstractAppearanceHandler#getAppearance()}.
-   * <ul>
-   *   <li>Then return {@link PDAppearanceDictionary#PDAppearanceDictionary()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAbstractAppearanceHandler#getAppearance()}
+   * Method under test:
+   * {@link PDAbstractAppearanceHandler#getNormalAppearanceAsContentStream()}
    */
   @Test
-  @DisplayName("Test getAppearance(); then return PDAppearanceDictionary()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAppearanceDictionary PDAbstractAppearanceHandler.getAppearance()"})
-  void testGetAppearance_thenReturnPDAppearanceDictionary() {
-    // Arrange
-    PDAnnotation annotation = mock(PDAnnotation.class);
-    PDAppearanceDictionary pdAppearanceDictionary = new PDAppearanceDictionary();
-    when(annotation.getAppearance()).thenReturn(pdAppearanceDictionary);
-
-    // Act
-    PDAppearanceDictionary actualAppearance = (new PDCaretAppearanceHandler(annotation)).getAppearance();
-
-    // Assert
-    verify(annotation).getAppearance();
-    assertSame(pdAppearanceDictionary, actualAppearance);
-  }
-
-  /**
-   * Test {@link PDAbstractAppearanceHandler#getNormalAppearanceAsContentStream()}.
-   * <p>
-   * Method under test: {@link PDAbstractAppearanceHandler#getNormalAppearanceAsContentStream()}
-   */
-  @Test
-  @DisplayName("Test getNormalAppearanceAsContentStream()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAppearanceContentStream PDAbstractAppearanceHandler.getNormalAppearanceAsContentStream()"})
   void testGetNormalAppearanceAsContentStream() throws IOException {
     // Arrange
     PDAnnotationCaret annotation = new PDAnnotationCaret();
@@ -349,357 +275,891 @@ class PDAbstractAppearanceHandlerDiffblueTest {
     PDCaretAppearanceHandler pdCaretAppearanceHandler = new PDCaretAppearanceHandler(annotation);
 
     // Act
-    pdCaretAppearanceHandler.getNormalAppearanceAsContentStream();
+    PDAppearanceContentStream actualNormalAppearanceAsContentStream = pdCaretAppearanceHandler
+        .getNormalAppearanceAsContentStream();
 
     // Assert
-    PDAppearanceStream appearanceStream = pdCaretAppearanceHandler.getDownAppearance().getAppearanceStream();
+    PDAppearanceEntry downAppearance = pdCaretAppearanceHandler.getDownAppearance();
+    PDAppearanceStream appearanceStream = downAppearance.getAppearanceStream();
+    PDResources resources = appearanceStream.getResources();
+    Iterable<COSName> colorSpaceNames = resources.getColorSpaceNames();
+    assertTrue(colorSpaceNames instanceof Set);
+    COSDictionary cOSObject = downAppearance.getCOSObject();
+    assertTrue(cOSObject instanceof COSStream);
+    COSDictionary cOSObject2 = resources.getCOSObject();
+    COSUpdateState updateState = cOSObject2.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject2.getKey());
+    PDAppearanceDictionary appearance = pdCaretAppearanceHandler.getAppearance();
+    PDAppearanceStream appearanceStream2 = appearance.getDownAppearance().getAppearanceStream();
+    PDResources resources2 = appearanceStream2.getResources();
+    assertNull(resources2.getResourceCache());
+    assertNull(resources.getResourceCache());
     Matrix matrix = appearanceStream.getMatrix();
     assertEquals(-0.0f, matrix.getTranslateX());
     assertEquals(-0.0f, matrix.getTranslateY());
-    PDRectangle bBox = appearanceStream.getBBox();
+    float[][] values = matrix.getValues();
+    float[] floatArray = values[2];
+    assertEquals(-0.0f, floatArray[0]);
+    assertEquals(-0.0f, floatArray[1]);
+    assertEquals(0, cOSObject2.size());
+    PDRectangle bBox = appearanceStream2.getBBox();
     assertEquals(0.0f, bBox.getLowerLeftX());
+    PDRectangle bBox2 = appearanceStream.getBBox();
+    assertEquals(0.0f, bBox2.getLowerLeftX());
     assertEquals(0.0f, bBox.getLowerLeftY());
+    assertEquals(0.0f, bBox2.getLowerLeftY());
+    COSDictionary cOSObject3 = appearance.getCOSObject();
+    assertEquals(1, cOSObject3.getValues().size());
+    assertEquals(1, cOSObject3.size());
     assertEquals(2383.937f, bBox.getUpperRightX());
+    assertEquals(2383.937f, bBox2.getUpperRightX());
     assertEquals(2383.937f, bBox.getWidth());
+    assertEquals(2383.937f, bBox2.getWidth());
+    assertEquals(3, values.length);
+    assertEquals(3, floatArray.length);
     assertEquals(3370.3938f, bBox.getHeight());
+    assertEquals(3370.3938f, bBox2.getHeight());
     assertEquals(3370.3938f, bBox.getUpperRightY());
+    assertEquals(3370.3938f, bBox2.getUpperRightY());
+    assertEquals(6, cOSObject.getValues().size());
+    assertEquals(6, cOSObject.size());
+    assertFalse(cOSObject2.toIncrement().iterator().hasNext());
+    assertFalse(cOSObject2.isDirect());
+    assertFalse(cOSObject2.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertFalse(actualNormalAppearanceAsContentStream.setNonStrokingColorOnDemand(null));
+    assertFalse(actualNormalAppearanceAsContentStream.setStrokingColorOnDemand(null));
+    assertTrue(cOSObject2.getValues().isEmpty());
+    assertTrue(((Set<COSName>) colorSpaceNames).isEmpty());
+    assertTrue(((COSStream) cOSObject).hasData());
+    assertEquals(matrix, appearanceStream2.getMatrix());
+    assertSame(annotation, pdCaretAppearanceHandler.getAnnotation());
+    assertSame(cOSObject2, resources2.getCOSObject());
+    PDAppearanceEntry normalAppearance = appearance.getNormalAppearance();
+    PDAppearanceStream appearanceStream3 = normalAppearance.getAppearanceStream();
+    PDResources resources3 = appearanceStream3.getResources();
+    assertSame(cOSObject2, resources3.getCOSObject());
+    PDAppearanceEntry rolloverAppearance = appearance.getRolloverAppearance();
+    PDAppearanceStream appearanceStream4 = rolloverAppearance.getAppearanceStream();
+    PDResources resources4 = appearanceStream4.getResources();
+    assertSame(cOSObject2, resources4.getCOSObject());
+    PDAppearanceEntry rolloverAppearance2 = pdCaretAppearanceHandler.getRolloverAppearance();
+    PDAppearanceStream appearanceStream5 = rolloverAppearance2.getAppearanceStream();
+    PDResources resources5 = appearanceStream5.getResources();
+    assertSame(cOSObject2, resources5.getCOSObject());
+    COSArray expectedCOSObject = bBox.getCOSArray();
+    assertSame(expectedCOSObject, bBox.getCOSObject());
+    COSArray expectedCOSObject2 = bBox2.getCOSArray();
+    assertSame(expectedCOSObject2, bBox2.getCOSObject());
+    assertSame(colorSpaceNames, resources2.getColorSpaceNames());
+    assertSame(colorSpaceNames, resources3.getColorSpaceNames());
+    assertSame(colorSpaceNames, resources4.getColorSpaceNames());
+    assertSame(colorSpaceNames, resources5.getColorSpaceNames());
+    assertSame(colorSpaceNames, resources2.getExtGStateNames());
+    assertSame(colorSpaceNames, resources3.getExtGStateNames());
+    assertSame(colorSpaceNames, resources4.getExtGStateNames());
+    assertSame(colorSpaceNames, resources.getExtGStateNames());
+    assertSame(colorSpaceNames, resources5.getExtGStateNames());
+    assertSame(colorSpaceNames, resources2.getFontNames());
+    assertSame(colorSpaceNames, resources3.getFontNames());
+    assertSame(colorSpaceNames, resources4.getFontNames());
+    assertSame(colorSpaceNames, resources.getFontNames());
+    assertSame(colorSpaceNames, resources5.getFontNames());
+    assertSame(colorSpaceNames, resources2.getPatternNames());
+    assertSame(colorSpaceNames, resources3.getPatternNames());
+    assertSame(colorSpaceNames, resources4.getPatternNames());
+    assertSame(colorSpaceNames, resources.getPatternNames());
+    assertSame(colorSpaceNames, resources5.getPatternNames());
+    assertSame(colorSpaceNames, resources2.getPropertiesNames());
+    assertSame(colorSpaceNames, resources3.getPropertiesNames());
+    assertSame(colorSpaceNames, resources4.getPropertiesNames());
+    assertSame(colorSpaceNames, resources.getPropertiesNames());
+    assertSame(colorSpaceNames, resources5.getPropertiesNames());
+    assertSame(colorSpaceNames, resources2.getShadingNames());
+    assertSame(colorSpaceNames, resources3.getShadingNames());
+    assertSame(colorSpaceNames, resources4.getShadingNames());
+    assertSame(colorSpaceNames, resources.getShadingNames());
+    assertSame(colorSpaceNames, resources5.getShadingNames());
+    assertSame(colorSpaceNames, resources2.getXObjectNames());
+    assertSame(colorSpaceNames, resources3.getXObjectNames());
+    assertSame(colorSpaceNames, resources4.getXObjectNames());
+    assertSame(colorSpaceNames, resources.getXObjectNames());
+    assertSame(colorSpaceNames, resources5.getXObjectNames());
+    assertSame(cOSObject, appearanceStream3.getStream().getCOSObject());
+    assertSame(cOSObject, appearanceStream4.getStream().getCOSObject());
+    assertSame(cOSObject, appearanceStream5.getStream().getCOSObject());
+    assertSame(cOSObject, appearanceStream3.getContentStream().getCOSObject());
+    assertSame(cOSObject, appearanceStream4.getContentStream().getCOSObject());
+    assertSame(cOSObject, appearanceStream5.getContentStream().getCOSObject());
+    assertSame(cOSObject, appearanceStream3.getCOSObject());
+    assertSame(cOSObject, appearanceStream4.getCOSObject());
+    assertSame(cOSObject, appearanceStream5.getCOSObject());
+    assertSame(cOSObject, normalAppearance.getCOSObject());
+    assertSame(cOSObject, rolloverAppearance.getCOSObject());
+    assertSame(cOSObject, rolloverAppearance2.getCOSObject());
   }
 
   /**
-   * Test {@link PDAbstractAppearanceHandler#getNormalAppearanceAsContentStream()}.
-   * <p>
-   * Method under test: {@link PDAbstractAppearanceHandler#getNormalAppearanceAsContentStream()}
+   * Method under test:
+   * {@link PDAbstractAppearanceHandler#getNormalAppearanceAsContentStream(boolean)}
    */
   @Test
-  @DisplayName("Test getNormalAppearanceAsContentStream()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAppearanceContentStream PDAbstractAppearanceHandler.getNormalAppearanceAsContentStream()"})
   void testGetNormalAppearanceAsContentStream2() throws IOException {
     // Arrange
     PDAnnotationCaret annotation = new PDAnnotationCaret();
-    annotation.setRectangle(new PDRectangle(2.14748365E9f, 2.14748365E9f, 2.14748365E9f, 2.14748365E9f));
-    PDCaretAppearanceHandler pdCaretAppearanceHandler = new PDCaretAppearanceHandler(annotation);
-
-    // Act
-    pdCaretAppearanceHandler.getNormalAppearanceAsContentStream();
-
-    // Assert
-    PDAppearanceStream appearanceStream = pdCaretAppearanceHandler.getDownAppearance().getAppearanceStream();
-    Matrix matrix = appearanceStream.getMatrix();
-    assertEquals(-2.14748365E9f, matrix.getTranslateX());
-    assertEquals(-2.14748365E9f, matrix.getTranslateY());
-    PDRectangle bBox = appearanceStream.getBBox();
-    assertEquals(0.0f, bBox.getHeight());
-    assertEquals(0.0f, bBox.getWidth());
-    assertEquals(2.14748365E9f, bBox.getLowerLeftX());
-    assertEquals(2.14748365E9f, bBox.getLowerLeftY());
-    assertEquals(2.14748365E9f, bBox.getUpperRightX());
-    assertEquals(2.14748365E9f, bBox.getUpperRightY());
-  }
-
-  /**
-   * Test {@link PDAbstractAppearanceHandler#getNormalAppearanceAsContentStream(boolean)} with {@code boolean}.
-   * <p>
-   * Method under test: {@link PDAbstractAppearanceHandler#getNormalAppearanceAsContentStream(boolean)}
-   */
-  @Test
-  @DisplayName("Test getNormalAppearanceAsContentStream(boolean) with 'boolean'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "PDAppearanceContentStream PDAbstractAppearanceHandler.getNormalAppearanceAsContentStream(boolean)"})
-  void testGetNormalAppearanceAsContentStreamWithBoolean() throws IOException {
-    // Arrange
-    PDAnnotationCaret annotation = new PDAnnotationCaret();
     annotation.setRectangle(PDRectangle.A0);
     PDCaretAppearanceHandler pdCaretAppearanceHandler = new PDCaretAppearanceHandler(annotation);
 
     // Act
-    pdCaretAppearanceHandler.getNormalAppearanceAsContentStream(true);
+    PDAppearanceContentStream actualNormalAppearanceAsContentStream = pdCaretAppearanceHandler
+        .getNormalAppearanceAsContentStream(true);
 
     // Assert
-    COSDictionary cOSObject = pdCaretAppearanceHandler.getDownAppearance().getCOSObject();
-    assertTrue(((COSStream) cOSObject).getFilters() instanceof COSName);
+    PDAppearanceEntry downAppearance = pdCaretAppearanceHandler.getDownAppearance();
+    PDAppearanceStream appearanceStream = downAppearance.getAppearanceStream();
+    PDResources resources = appearanceStream.getResources();
+    Iterable<COSName> colorSpaceNames = resources.getColorSpaceNames();
+    assertTrue(colorSpaceNames instanceof Set);
+    COSDictionary cOSObject = downAppearance.getCOSObject();
+    COSBase filters = ((COSStream) cOSObject).getFilters();
+    assertTrue(filters instanceof COSName);
     assertTrue(cOSObject instanceof COSStream);
+    assertEquals("FlateDecode", ((COSName) filters).getName());
+    COSDictionary cOSObject2 = resources.getCOSObject();
+    COSUpdateState updateState = cOSObject2.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(filters.getKey());
+    assertNull(cOSObject2.getKey());
+    PDAppearanceDictionary appearance = pdCaretAppearanceHandler.getAppearance();
+    PDAppearanceStream appearanceStream2 = appearance.getDownAppearance().getAppearanceStream();
+    PDResources resources2 = appearanceStream2.getResources();
+    assertNull(resources2.getResourceCache());
+    assertNull(resources.getResourceCache());
+    Matrix matrix = appearanceStream.getMatrix();
+    assertEquals(-0.0f, matrix.getTranslateX());
+    assertEquals(-0.0f, matrix.getTranslateY());
+    float[][] values = matrix.getValues();
+    float[] floatArray = values[2];
+    assertEquals(-0.0f, floatArray[0]);
+    assertEquals(-0.0f, floatArray[1]);
+    assertEquals(0, cOSObject2.size());
+    PDRectangle bBox = appearanceStream2.getBBox();
+    assertEquals(0.0f, bBox.getLowerLeftX());
+    PDRectangle bBox2 = appearanceStream.getBBox();
+    assertEquals(0.0f, bBox2.getLowerLeftX());
+    assertEquals(0.0f, bBox.getLowerLeftY());
+    assertEquals(0.0f, bBox2.getLowerLeftY());
+    COSDictionary cOSObject3 = appearance.getCOSObject();
+    assertEquals(1, cOSObject3.getValues().size());
+    List<COSName> filters2 = appearanceStream2.getStream().getFilters();
+    assertEquals(1, filters2.size());
+    PDAppearanceEntry normalAppearance = appearance.getNormalAppearance();
+    PDAppearanceStream appearanceStream3 = normalAppearance.getAppearanceStream();
+    PDStream stream = appearanceStream3.getStream();
+    List<COSName> filters3 = stream.getFilters();
+    assertEquals(1, filters3.size());
+    PDAppearanceEntry rolloverAppearance = appearance.getRolloverAppearance();
+    PDAppearanceStream appearanceStream4 = rolloverAppearance.getAppearanceStream();
+    PDStream stream2 = appearanceStream4.getStream();
+    List<COSName> filters4 = stream2.getFilters();
+    assertEquals(1, filters4.size());
+    List<COSName> filters5 = appearanceStream.getStream().getFilters();
+    assertEquals(1, filters5.size());
+    PDAppearanceEntry rolloverAppearance2 = pdCaretAppearanceHandler.getRolloverAppearance();
+    PDAppearanceStream appearanceStream5 = rolloverAppearance2.getAppearanceStream();
+    PDStream stream3 = appearanceStream5.getStream();
+    List<COSName> filters6 = stream3.getFilters();
+    assertEquals(1, filters6.size());
+    List<COSName> filters7 = appearanceStream2.getContentStream().getFilters();
+    assertEquals(1, filters7.size());
+    PDStream contentStream = appearanceStream3.getContentStream();
+    List<COSName> filters8 = contentStream.getFilters();
+    assertEquals(1, filters8.size());
+    PDStream contentStream2 = appearanceStream4.getContentStream();
+    List<COSName> filters9 = contentStream2.getFilters();
+    assertEquals(1, filters9.size());
+    List<COSName> filters10 = appearanceStream.getContentStream().getFilters();
+    assertEquals(1, filters10.size());
+    PDStream contentStream3 = appearanceStream5.getContentStream();
+    List<COSName> filters11 = contentStream3.getFilters();
+    assertEquals(1, filters11.size());
+    assertEquals(1, cOSObject3.size());
+    assertEquals(2383.937f, bBox.getUpperRightX());
+    assertEquals(2383.937f, bBox2.getUpperRightX());
+    assertEquals(2383.937f, bBox.getWidth());
+    assertEquals(2383.937f, bBox2.getWidth());
+    assertEquals(3, values.length);
+    assertEquals(3, floatArray.length);
+    assertEquals(3370.3938f, bBox.getHeight());
+    assertEquals(3370.3938f, bBox2.getHeight());
+    assertEquals(3370.3938f, bBox.getUpperRightY());
+    assertEquals(3370.3938f, bBox2.getUpperRightY());
     assertEquals(7, cOSObject.getValues().size());
     assertEquals(7, cOSObject.size());
+    assertFalse(cOSObject2.toIncrement().iterator().hasNext());
+    assertFalse(cOSObject2.isDirect());
+    assertFalse(((COSName) filters).isEmpty());
+    assertFalse(cOSObject2.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertFalse(actualNormalAppearanceAsContentStream.setNonStrokingColorOnDemand(null));
+    assertFalse(actualNormalAppearanceAsContentStream.setStrokingColorOnDemand(null));
+    assertTrue(cOSObject2.getValues().isEmpty());
+    assertTrue(((Set<COSName>) colorSpaceNames).isEmpty());
+    assertTrue(filters.isDirect());
+    assertTrue(((COSStream) cOSObject).hasData());
+    assertEquals(matrix, appearanceStream2.getMatrix());
+    assertSame(annotation, pdCaretAppearanceHandler.getAnnotation());
+    assertSame(cOSObject2, resources2.getCOSObject());
+    PDResources resources3 = appearanceStream3.getResources();
+    assertSame(cOSObject2, resources3.getCOSObject());
+    PDResources resources4 = appearanceStream4.getResources();
+    assertSame(cOSObject2, resources4.getCOSObject());
+    PDResources resources5 = appearanceStream5.getResources();
+    assertSame(cOSObject2, resources5.getCOSObject());
+    COSArray expectedCOSObject = bBox.getCOSArray();
+    assertSame(expectedCOSObject, bBox.getCOSObject());
+    COSArray expectedCOSObject2 = bBox2.getCOSArray();
+    assertSame(expectedCOSObject2, bBox2.getCOSObject());
+    assertSame(colorSpaceNames, resources2.getColorSpaceNames());
+    assertSame(colorSpaceNames, resources3.getColorSpaceNames());
+    assertSame(colorSpaceNames, resources4.getColorSpaceNames());
+    assertSame(colorSpaceNames, resources5.getColorSpaceNames());
+    assertSame(colorSpaceNames, resources2.getExtGStateNames());
+    assertSame(colorSpaceNames, resources3.getExtGStateNames());
+    assertSame(colorSpaceNames, resources4.getExtGStateNames());
+    assertSame(colorSpaceNames, resources.getExtGStateNames());
+    assertSame(colorSpaceNames, resources5.getExtGStateNames());
+    assertSame(colorSpaceNames, resources2.getFontNames());
+    assertSame(colorSpaceNames, resources3.getFontNames());
+    assertSame(colorSpaceNames, resources4.getFontNames());
+    assertSame(colorSpaceNames, resources.getFontNames());
+    assertSame(colorSpaceNames, resources5.getFontNames());
+    assertSame(colorSpaceNames, resources2.getPatternNames());
+    assertSame(colorSpaceNames, resources3.getPatternNames());
+    assertSame(colorSpaceNames, resources4.getPatternNames());
+    assertSame(colorSpaceNames, resources.getPatternNames());
+    assertSame(colorSpaceNames, resources5.getPatternNames());
+    assertSame(colorSpaceNames, resources2.getPropertiesNames());
+    assertSame(colorSpaceNames, resources3.getPropertiesNames());
+    assertSame(colorSpaceNames, resources4.getPropertiesNames());
+    assertSame(colorSpaceNames, resources.getPropertiesNames());
+    assertSame(colorSpaceNames, resources5.getPropertiesNames());
+    assertSame(colorSpaceNames, resources2.getShadingNames());
+    assertSame(colorSpaceNames, resources3.getShadingNames());
+    assertSame(colorSpaceNames, resources4.getShadingNames());
+    assertSame(colorSpaceNames, resources.getShadingNames());
+    assertSame(colorSpaceNames, resources5.getShadingNames());
+    assertSame(colorSpaceNames, resources2.getXObjectNames());
+    assertSame(colorSpaceNames, resources3.getXObjectNames());
+    assertSame(colorSpaceNames, resources4.getXObjectNames());
+    assertSame(colorSpaceNames, resources.getXObjectNames());
+    assertSame(colorSpaceNames, resources5.getXObjectNames());
+    assertSame(filters, filters2.get(0));
+    assertSame(filters, filters3.get(0));
+    assertSame(filters, filters4.get(0));
+    assertSame(filters, filters5.get(0));
+    assertSame(filters, filters6.get(0));
+    assertSame(filters, filters7.get(0));
+    assertSame(filters, filters8.get(0));
+    assertSame(filters, filters9.get(0));
+    assertSame(filters, filters10.get(0));
+    assertSame(filters, filters11.get(0));
+    assertSame(cOSObject, stream.getCOSObject());
+    assertSame(cOSObject, stream2.getCOSObject());
+    assertSame(cOSObject, stream3.getCOSObject());
+    assertSame(cOSObject, contentStream.getCOSObject());
+    assertSame(cOSObject, contentStream2.getCOSObject());
+    assertSame(cOSObject, contentStream3.getCOSObject());
+    assertSame(cOSObject, appearanceStream3.getCOSObject());
+    assertSame(cOSObject, appearanceStream4.getCOSObject());
+    assertSame(cOSObject, appearanceStream5.getCOSObject());
+    assertSame(cOSObject, normalAppearance.getCOSObject());
+    assertSame(cOSObject, rolloverAppearance.getCOSObject());
+    assertSame(cOSObject, rolloverAppearance2.getCOSObject());
   }
 
   /**
-   * Test {@link PDAbstractAppearanceHandler#getNormalAppearanceAsContentStream(boolean)} with {@code boolean}.
-   * <p>
-   * Method under test: {@link PDAbstractAppearanceHandler#getNormalAppearanceAsContentStream(boolean)}
+   * Method under test: {@link PDAbstractAppearanceHandler#getDownAppearance()}
    */
   @Test
-  @DisplayName("Test getNormalAppearanceAsContentStream(boolean) with 'boolean'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "PDAppearanceContentStream PDAbstractAppearanceHandler.getNormalAppearanceAsContentStream(boolean)"})
-  void testGetNormalAppearanceAsContentStreamWithBoolean2() throws IOException {
-    // Arrange
-    PDAnnotationCaret annotation = new PDAnnotationCaret();
-    annotation.setRectangle(new PDRectangle(2.14748365E9f, 2.14748365E9f, 2.14748365E9f, 2.14748365E9f));
-    PDCaretAppearanceHandler pdCaretAppearanceHandler = new PDCaretAppearanceHandler(annotation);
-
-    // Act
-    pdCaretAppearanceHandler.getNormalAppearanceAsContentStream(true);
+  void testGetDownAppearance() throws IOException {
+    // Arrange and Act
+    PDAppearanceEntry actualDownAppearance = (new PDCaretAppearanceHandler(new PDAnnotationCaret()))
+        .getDownAppearance();
 
     // Assert
-    PDAppearanceStream appearanceStream = pdCaretAppearanceHandler.getDownAppearance().getAppearanceStream();
-    Matrix matrix = appearanceStream.getMatrix();
-    assertEquals(-2.14748365E9f, matrix.getTranslateX());
-    assertEquals(-2.14748365E9f, matrix.getTranslateY());
-    PDRectangle bBox = appearanceStream.getBBox();
-    assertEquals(0.0f, bBox.getHeight());
-    assertEquals(0.0f, bBox.getWidth());
-    assertEquals(2.14748365E9f, bBox.getLowerLeftX());
-    assertEquals(2.14748365E9f, bBox.getLowerLeftY());
-    assertEquals(2.14748365E9f, bBox.getUpperRightX());
-    assertEquals(2.14748365E9f, bBox.getUpperRightY());
-  }
-
-  /**
-   * Test {@link PDAbstractAppearanceHandler#getNormalAppearanceAsContentStream(boolean)} with {@code boolean}.
-   * <p>
-   * Method under test: {@link PDAbstractAppearanceHandler#getNormalAppearanceAsContentStream(boolean)}
-   */
-  @Test
-  @DisplayName("Test getNormalAppearanceAsContentStream(boolean) with 'boolean'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "PDAppearanceContentStream PDAbstractAppearanceHandler.getNormalAppearanceAsContentStream(boolean)"})
-  void testGetNormalAppearanceAsContentStreamWithBoolean3() throws IOException {
-    // Arrange
-    PDAnnotationCaret annotation = new PDAnnotationCaret();
-    annotation.setRectangle(PDRectangle.A0);
-    PDCaretAppearanceHandler pdCaretAppearanceHandler = new PDCaretAppearanceHandler(annotation);
-
-    // Act
-    pdCaretAppearanceHandler.getNormalAppearanceAsContentStream(false);
-
-    // Assert
-    COSDictionary cOSObject = pdCaretAppearanceHandler.getDownAppearance().getCOSObject();
+    COSDictionary cOSObject = actualDownAppearance.getCOSObject();
     assertTrue(cOSObject instanceof COSStream);
+    PDAppearanceStream appearanceStream = actualDownAppearance.getAppearanceStream();
+    PDStream stream = appearanceStream.getStream();
+    assertNull(stream.getDecodeParms());
+    PDStream contentStream = appearanceStream.getContentStream();
+    assertNull(contentStream.getDecodeParms());
+    assertNull(stream.getFileDecodeParams());
+    assertNull(contentStream.getFileDecodeParams());
     assertNull(((COSStream) cOSObject).getFilters());
-    assertEquals(6, cOSObject.getValues().size());
-    assertEquals(6, cOSObject.size());
-  }
-
-  /**
-   * Test {@link PDAbstractAppearanceHandler#getDownAppearance()}.
-   * <p>
-   * Method under test: {@link PDAbstractAppearanceHandler#getDownAppearance()}
-   */
-  @Test
-  @DisplayName("Test getDownAppearance()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAppearanceEntry PDAbstractAppearanceHandler.getDownAppearance()"})
-  void testGetDownAppearance() {
-    // Arrange
-    PDAnnotationCaret annotation = new PDAnnotationCaret();
-
-    // Act and Assert
-    float[][] values = (new PDCaretAppearanceHandler(annotation, new PDDocument())).getDownAppearance()
-        .getAppearanceStream()
-        .getMatrix()
-        .getValues();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertNull(appearanceStream.getResources());
+    assertNull(stream.getMetadata());
+    assertNull(contentStream.getMetadata());
+    assertNull(appearanceStream.getBBox());
+    assertNull(stream.getFile());
+    assertNull(contentStream.getFile());
+    assertNull(appearanceStream.getOptionalContent());
+    assertNull(appearanceStream.getGroup());
+    assertEquals(-1, stream.getDecodedStreamLength());
+    assertEquals(-1, contentStream.getDecodedStreamLength());
+    assertEquals(-1, appearanceStream.getStructParents());
+    assertEquals(0, stream.getLength());
+    assertEquals(0, contentStream.getLength());
+    Matrix matrix = appearanceStream.getMatrix();
+    assertEquals(0.0f, matrix.getShearX());
+    assertEquals(0.0f, matrix.getShearY());
+    assertEquals(0.0f, matrix.getTranslateX());
+    assertEquals(0.0f, matrix.getTranslateY());
+    assertEquals(0L, ((COSStream) cOSObject).getLength());
+    assertEquals(1, appearanceStream.getFormType());
+    assertEquals(1.0f, matrix.getScaleX());
+    assertEquals(1.0f, matrix.getScaleY());
+    assertEquals(1.0f, matrix.getScalingFactorX());
+    assertEquals(1.0f, matrix.getScalingFactorY());
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
+    float[][] values = matrix.getValues();
     assertEquals(3, values.length);
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(((COSStream) cOSObject).hasData());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertFalse(actualDownAppearance.isSubDictionary());
+    List<String> fileFilters = contentStream.getFileFilters();
+    assertTrue(fileFilters.isEmpty());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertTrue(actualDownAppearance.isStream());
+    assertSame(fileFilters, stream.getFileFilters());
+    assertSame(fileFilters, stream.getFilters());
+    assertSame(fileFilters, contentStream.getFilters());
+    assertSame(cOSObject, stream.getCOSObject());
+    assertSame(cOSObject, contentStream.getCOSObject());
+    assertSame(cOSObject, appearanceStream.getCOSObject());
     assertArrayEquals(new float[]{0.0f, 0.0f, 1.0f}, values[2], 0.0f);
     assertArrayEquals(new float[]{0.0f, 1.0f, 0.0f}, values[1], 0.0f);
     assertArrayEquals(new float[]{1.0f, 0.0f, 0.0f}, values[0], 0.0f);
   }
 
   /**
-   * Test {@link PDAbstractAppearanceHandler#getDownAppearance()}.
-   * <p>
    * Method under test: {@link PDAbstractAppearanceHandler#getDownAppearance()}
    */
   @Test
-  @DisplayName("Test getDownAppearance()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAppearanceEntry PDAbstractAppearanceHandler.getDownAppearance()"})
-  void testGetDownAppearance2() {
+  void testGetDownAppearance2() throws IOException {
     // Arrange
-    PDAppearanceDictionary appearance = new PDAppearanceDictionary();
-    appearance.setDownAppearance(new PDAppearanceEntry(new COSDictionary()));
-
     PDAnnotationCaret annotation = new PDAnnotationCaret();
-    annotation.setAppearance(appearance);
 
-    // Act and Assert
-    float[][] values = (new PDCaretAppearanceHandler(annotation)).getDownAppearance()
-        .getAppearanceStream()
-        .getMatrix()
-        .getValues();
+    // Act
+    PDAppearanceEntry actualDownAppearance = (new PDCaretAppearanceHandler(annotation, new PDDocument()))
+        .getDownAppearance();
+
+    // Assert
+    COSDictionary cOSObject = actualDownAppearance.getCOSObject();
+    assertTrue(cOSObject instanceof COSStream);
+    PDAppearanceStream appearanceStream = actualDownAppearance.getAppearanceStream();
+    PDStream stream = appearanceStream.getStream();
+    assertNull(stream.getDecodeParms());
+    PDStream contentStream = appearanceStream.getContentStream();
+    assertNull(contentStream.getDecodeParms());
+    assertNull(stream.getFileDecodeParams());
+    assertNull(contentStream.getFileDecodeParams());
+    assertNull(((COSStream) cOSObject).getFilters());
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertNull(appearanceStream.getResources());
+    assertNull(stream.getMetadata());
+    assertNull(contentStream.getMetadata());
+    assertNull(appearanceStream.getBBox());
+    assertNull(stream.getFile());
+    assertNull(contentStream.getFile());
+    assertNull(appearanceStream.getOptionalContent());
+    assertNull(appearanceStream.getGroup());
+    assertEquals(-1, stream.getDecodedStreamLength());
+    assertEquals(-1, contentStream.getDecodedStreamLength());
+    assertEquals(-1, appearanceStream.getStructParents());
+    assertEquals(0, stream.getLength());
+    assertEquals(0, contentStream.getLength());
+    Matrix matrix = appearanceStream.getMatrix();
+    assertEquals(0.0f, matrix.getShearX());
+    assertEquals(0.0f, matrix.getShearY());
+    assertEquals(0.0f, matrix.getTranslateX());
+    assertEquals(0.0f, matrix.getTranslateY());
+    assertEquals(0L, ((COSStream) cOSObject).getLength());
+    assertEquals(1, appearanceStream.getFormType());
+    assertEquals(1.0f, matrix.getScaleX());
+    assertEquals(1.0f, matrix.getScaleY());
+    assertEquals(1.0f, matrix.getScalingFactorX());
+    assertEquals(1.0f, matrix.getScalingFactorY());
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
+    float[][] values = matrix.getValues();
     assertEquals(3, values.length);
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(((COSStream) cOSObject).hasData());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertFalse(actualDownAppearance.isSubDictionary());
+    List<String> fileFilters = contentStream.getFileFilters();
+    assertTrue(fileFilters.isEmpty());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertTrue(actualDownAppearance.isStream());
+    assertSame(fileFilters, stream.getFileFilters());
+    assertSame(fileFilters, stream.getFilters());
+    assertSame(fileFilters, contentStream.getFilters());
+    assertSame(cOSObject, stream.getCOSObject());
+    assertSame(cOSObject, contentStream.getCOSObject());
+    assertSame(cOSObject, appearanceStream.getCOSObject());
     assertArrayEquals(new float[]{0.0f, 0.0f, 1.0f}, values[2], 0.0f);
     assertArrayEquals(new float[]{0.0f, 1.0f, 0.0f}, values[1], 0.0f);
     assertArrayEquals(new float[]{1.0f, 0.0f, 0.0f}, values[0], 0.0f);
   }
 
   /**
-   * Test {@link PDAbstractAppearanceHandler#getDownAppearance()}.
-   * <ul>
-   *   <li>Given {@link PDAnnotationCaret#PDAnnotationCaret()} Appearance is {@link PDAppearanceDictionary#PDAppearanceDictionary()}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDAbstractAppearanceHandler#getDownAppearance()}
    */
   @Test
-  @DisplayName("Test getDownAppearance(); given PDAnnotationCaret() Appearance is PDAppearanceDictionary()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAppearanceEntry PDAbstractAppearanceHandler.getDownAppearance()"})
-  void testGetDownAppearance_givenPDAnnotationCaretAppearanceIsPDAppearanceDictionary() {
+  void testGetDownAppearance3() throws IOException {
     // Arrange
     PDAnnotationCaret annotation = new PDAnnotationCaret();
     annotation.setAppearance(new PDAppearanceDictionary());
-
-    // Act and Assert
-    float[][] values = (new PDCaretAppearanceHandler(annotation)).getDownAppearance()
-        .getAppearanceStream()
-        .getMatrix()
-        .getValues();
-    assertEquals(3, values.length);
-    assertArrayEquals(new float[]{0.0f, 0.0f, 1.0f}, values[2], 0.0f);
-    assertArrayEquals(new float[]{0.0f, 1.0f, 0.0f}, values[1], 0.0f);
-    assertArrayEquals(new float[]{1.0f, 0.0f, 0.0f}, values[0], 0.0f);
-  }
-
-  /**
-   * Test {@link PDAbstractAppearanceHandler#getDownAppearance()}.
-   * <ul>
-   *   <li>Then return AppearanceStream Stream COSObject is {@link COSStream#COSStream()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAbstractAppearanceHandler#getDownAppearance()}
-   */
-  @Test
-  @DisplayName("Test getDownAppearance(); then return AppearanceStream Stream COSObject is COSStream()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAppearanceEntry PDAbstractAppearanceHandler.getDownAppearance()"})
-  void testGetDownAppearance_thenReturnAppearanceStreamStreamCOSObjectIsCOSStream() {
-    // Arrange
-    PDAppearanceDictionary appearance = new PDAppearanceDictionary();
-    COSStream stream = new COSStream();
-    appearance.setNormalAppearance(new PDAppearanceStream(stream));
-
-    PDAnnotationCaret annotation = new PDAnnotationCaret();
-    annotation.setAppearance(appearance);
 
     // Act
     PDAppearanceEntry actualDownAppearance = (new PDCaretAppearanceHandler(annotation)).getDownAppearance();
 
     // Assert
+    COSDictionary cOSObject = actualDownAppearance.getCOSObject();
+    assertTrue(cOSObject instanceof COSStream);
     PDAppearanceStream appearanceStream = actualDownAppearance.getAppearanceStream();
-    float[][] values = appearanceStream.getMatrix().getValues();
+    PDStream stream = appearanceStream.getStream();
+    assertNull(stream.getDecodeParms());
+    PDStream contentStream = appearanceStream.getContentStream();
+    assertNull(contentStream.getDecodeParms());
+    assertNull(stream.getFileDecodeParams());
+    assertNull(contentStream.getFileDecodeParams());
+    assertNull(((COSStream) cOSObject).getFilters());
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertNull(appearanceStream.getResources());
+    assertNull(stream.getMetadata());
+    assertNull(contentStream.getMetadata());
+    assertNull(appearanceStream.getBBox());
+    assertNull(stream.getFile());
+    assertNull(contentStream.getFile());
+    assertNull(appearanceStream.getOptionalContent());
+    assertNull(appearanceStream.getGroup());
+    assertEquals(-1, stream.getDecodedStreamLength());
+    assertEquals(-1, contentStream.getDecodedStreamLength());
+    assertEquals(-1, appearanceStream.getStructParents());
+    assertEquals(0, stream.getLength());
+    assertEquals(0, contentStream.getLength());
+    Matrix matrix = appearanceStream.getMatrix();
+    assertEquals(0.0f, matrix.getShearX());
+    assertEquals(0.0f, matrix.getShearY());
+    assertEquals(0.0f, matrix.getTranslateX());
+    assertEquals(0.0f, matrix.getTranslateY());
+    assertEquals(0L, ((COSStream) cOSObject).getLength());
+    assertEquals(1, appearanceStream.getFormType());
+    assertEquals(1.0f, matrix.getScaleX());
+    assertEquals(1.0f, matrix.getScaleY());
+    assertEquals(1.0f, matrix.getScalingFactorX());
+    assertEquals(1.0f, matrix.getScalingFactorY());
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
+    float[][] values = matrix.getValues();
     assertEquals(3, values.length);
-    assertSame(stream, appearanceStream.getStream().getCOSObject());
-    assertSame(stream, appearanceStream.getContentStream().getCOSObject());
-    assertSame(stream, appearanceStream.getCOSObject());
-    assertSame(stream, actualDownAppearance.getCOSObject());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(((COSStream) cOSObject).hasData());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertFalse(actualDownAppearance.isSubDictionary());
+    List<String> fileFilters = contentStream.getFileFilters();
+    assertTrue(fileFilters.isEmpty());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertTrue(actualDownAppearance.isStream());
+    assertSame(fileFilters, stream.getFileFilters());
+    assertSame(fileFilters, stream.getFilters());
+    assertSame(fileFilters, contentStream.getFilters());
+    assertSame(cOSObject, stream.getCOSObject());
+    assertSame(cOSObject, contentStream.getCOSObject());
+    assertSame(cOSObject, appearanceStream.getCOSObject());
     assertArrayEquals(new float[]{0.0f, 0.0f, 1.0f}, values[2], 0.0f);
     assertArrayEquals(new float[]{0.0f, 1.0f, 0.0f}, values[1], 0.0f);
     assertArrayEquals(new float[]{1.0f, 0.0f, 0.0f}, values[0], 0.0f);
   }
 
   /**
-   * Test {@link PDAbstractAppearanceHandler#getDownAppearance()}.
-   * <ul>
-   *   <li>Then return array length is three.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDAbstractAppearanceHandler#getDownAppearance()}
    */
   @Test
-  @DisplayName("Test getDownAppearance(); then return array length is three")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAppearanceEntry PDAbstractAppearanceHandler.getDownAppearance()"})
-  void testGetDownAppearance_thenReturnArrayLengthIsThree() {
-    // Arrange, Act and Assert
-    float[][] values = (new PDCaretAppearanceHandler(new PDAnnotationCaret())).getDownAppearance()
-        .getAppearanceStream()
-        .getMatrix()
-        .getValues();
+  void testGetDownAppearance4() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDDocument document = new PDDocument(streamCacheCreateFunction);
+
+    // Act
+    PDAppearanceEntry actualDownAppearance = (new PDCaretAppearanceHandler(new PDAnnotationCaret(), document))
+        .getDownAppearance();
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    COSDictionary cOSObject = actualDownAppearance.getCOSObject();
+    assertTrue(cOSObject instanceof COSStream);
+    PDAppearanceStream appearanceStream = actualDownAppearance.getAppearanceStream();
+    PDStream stream = appearanceStream.getStream();
+    assertNull(stream.getDecodeParms());
+    PDStream contentStream = appearanceStream.getContentStream();
+    assertNull(contentStream.getDecodeParms());
+    assertNull(stream.getFileDecodeParams());
+    assertNull(contentStream.getFileDecodeParams());
+    assertNull(((COSStream) cOSObject).getFilters());
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertNull(appearanceStream.getResources());
+    assertNull(stream.getMetadata());
+    assertNull(contentStream.getMetadata());
+    assertNull(appearanceStream.getBBox());
+    assertNull(stream.getFile());
+    assertNull(contentStream.getFile());
+    assertNull(appearanceStream.getOptionalContent());
+    assertNull(appearanceStream.getGroup());
+    assertEquals(-1, stream.getDecodedStreamLength());
+    assertEquals(-1, contentStream.getDecodedStreamLength());
+    assertEquals(-1, appearanceStream.getStructParents());
+    assertEquals(0, stream.getLength());
+    assertEquals(0, contentStream.getLength());
+    Matrix matrix = appearanceStream.getMatrix();
+    assertEquals(0.0f, matrix.getShearX());
+    assertEquals(0.0f, matrix.getShearY());
+    assertEquals(0.0f, matrix.getTranslateX());
+    assertEquals(0.0f, matrix.getTranslateY());
+    assertEquals(0L, ((COSStream) cOSObject).getLength());
+    assertEquals(1, appearanceStream.getFormType());
+    assertEquals(1.0f, matrix.getScaleX());
+    assertEquals(1.0f, matrix.getScaleY());
+    assertEquals(1.0f, matrix.getScalingFactorX());
+    assertEquals(1.0f, matrix.getScalingFactorY());
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
+    float[][] values = matrix.getValues();
     assertEquals(3, values.length);
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(((COSStream) cOSObject).hasData());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertFalse(actualDownAppearance.isSubDictionary());
+    List<String> fileFilters = contentStream.getFileFilters();
+    assertTrue(fileFilters.isEmpty());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertTrue(actualDownAppearance.isStream());
+    assertSame(fileFilters, stream.getFileFilters());
+    assertSame(fileFilters, stream.getFilters());
+    assertSame(fileFilters, contentStream.getFilters());
+    assertSame(cOSObject, stream.getCOSObject());
+    assertSame(cOSObject, contentStream.getCOSObject());
+    assertSame(cOSObject, appearanceStream.getCOSObject());
     assertArrayEquals(new float[]{0.0f, 0.0f, 1.0f}, values[2], 0.0f);
     assertArrayEquals(new float[]{0.0f, 1.0f, 0.0f}, values[1], 0.0f);
     assertArrayEquals(new float[]{1.0f, 0.0f, 0.0f}, values[0], 0.0f);
   }
 
   /**
-   * Test {@link PDAbstractAppearanceHandler#getRolloverAppearance()}.
-   * <p>
-   * Method under test: {@link PDAbstractAppearanceHandler#getRolloverAppearance()}
+   * Method under test:
+   * {@link PDAbstractAppearanceHandler#getRolloverAppearance()}
    */
   @Test
-  @DisplayName("Test getRolloverAppearance()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAppearanceEntry PDAbstractAppearanceHandler.getRolloverAppearance()"})
-  void testGetRolloverAppearance() {
+  void testGetRolloverAppearance() throws IOException {
     // Arrange
-    PDAnnotationCaret annotation = new PDAnnotationCaret();
+    PDAnnotation annotation = mock(PDAnnotation.class);
+    PDAppearanceDictionary pdAppearanceDictionary = new PDAppearanceDictionary();
+    when(annotation.getAppearance()).thenReturn(pdAppearanceDictionary);
+    PDCaretAppearanceHandler pdCaretAppearanceHandler = new PDCaretAppearanceHandler(annotation);
 
-    // Act and Assert
-    float[][] values = (new PDCaretAppearanceHandler(annotation, new PDDocument())).getRolloverAppearance()
-        .getAppearanceStream()
-        .getMatrix()
-        .getValues();
+    // Act
+    PDAppearanceEntry actualRolloverAppearance = pdCaretAppearanceHandler.getRolloverAppearance();
+
+    // Assert
+    verify(annotation).getAppearance();
+    COSDictionary cOSObject = actualRolloverAppearance.getCOSObject();
+    assertTrue(cOSObject instanceof COSStream);
+    PDAppearanceStream appearanceStream = actualRolloverAppearance.getAppearanceStream();
+    PDStream stream = appearanceStream.getStream();
+    assertNull(stream.getDecodeParms());
+    PDStream contentStream = appearanceStream.getContentStream();
+    assertNull(contentStream.getDecodeParms());
+    assertNull(stream.getFileDecodeParams());
+    assertNull(contentStream.getFileDecodeParams());
+    assertNull(((COSStream) cOSObject).getFilters());
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertNull(appearanceStream.getResources());
+    assertNull(stream.getMetadata());
+    assertNull(contentStream.getMetadata());
+    assertNull(appearanceStream.getBBox());
+    assertNull(stream.getFile());
+    assertNull(contentStream.getFile());
+    assertNull(appearanceStream.getOptionalContent());
+    assertNull(appearanceStream.getGroup());
+    assertEquals(-1, stream.getDecodedStreamLength());
+    assertEquals(-1, contentStream.getDecodedStreamLength());
+    assertEquals(-1, appearanceStream.getStructParents());
+    assertEquals(0, stream.getLength());
+    assertEquals(0, contentStream.getLength());
+    Matrix matrix = appearanceStream.getMatrix();
+    assertEquals(0.0f, matrix.getShearX());
+    assertEquals(0.0f, matrix.getShearY());
+    assertEquals(0.0f, matrix.getTranslateX());
+    assertEquals(0.0f, matrix.getTranslateY());
+    assertEquals(0L, ((COSStream) cOSObject).getLength());
+    assertEquals(1, appearanceStream.getFormType());
+    assertEquals(1.0f, matrix.getScaleX());
+    assertEquals(1.0f, matrix.getScaleY());
+    assertEquals(1.0f, matrix.getScalingFactorX());
+    assertEquals(1.0f, matrix.getScalingFactorY());
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
+    float[][] values = matrix.getValues();
     assertEquals(3, values.length);
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(((COSStream) cOSObject).hasData());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertFalse(actualRolloverAppearance.isSubDictionary());
+    List<String> fileFilters = contentStream.getFileFilters();
+    assertTrue(fileFilters.isEmpty());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertTrue(actualRolloverAppearance.isStream());
+    assertSame(pdAppearanceDictionary, pdCaretAppearanceHandler.getAppearance());
+    assertSame(fileFilters, stream.getFileFilters());
+    assertSame(fileFilters, stream.getFilters());
+    assertSame(fileFilters, contentStream.getFilters());
+    assertSame(cOSObject, stream.getCOSObject());
+    assertSame(cOSObject, contentStream.getCOSObject());
+    assertSame(cOSObject, appearanceStream.getCOSObject());
     assertArrayEquals(new float[]{0.0f, 0.0f, 1.0f}, values[2], 0.0f);
     assertArrayEquals(new float[]{0.0f, 1.0f, 0.0f}, values[1], 0.0f);
     assertArrayEquals(new float[]{1.0f, 0.0f, 0.0f}, values[0], 0.0f);
   }
 
   /**
-   * Test {@link PDAbstractAppearanceHandler#getRolloverAppearance()}.
-   * <ul>
-   *   <li>Then return AppearanceStream Stream COSObject is {@link COSStream#COSStream()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAbstractAppearanceHandler#getRolloverAppearance()}
+   * Method under test:
+   * {@link PDAbstractAppearanceHandler#getRolloverAppearance()}
    */
   @Test
-  @DisplayName("Test getRolloverAppearance(); then return AppearanceStream Stream COSObject is COSStream()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAppearanceEntry PDAbstractAppearanceHandler.getRolloverAppearance()"})
-  void testGetRolloverAppearance_thenReturnAppearanceStreamStreamCOSObjectIsCOSStream() {
+  void testGetRolloverAppearance2() throws IOException {
     // Arrange
-    PDAppearanceDictionary appearance = new PDAppearanceDictionary();
-    COSStream stream = new COSStream();
-    appearance.setNormalAppearance(new PDAppearanceStream(stream));
+    PDAnnotation annotation = mock(PDAnnotation.class);
+    when(annotation.getAppearance()).thenReturn(null);
+    doNothing().when(annotation).setAppearance(Mockito.<PDAppearanceDictionary>any());
+    PDCaretAppearanceHandler pdCaretAppearanceHandler = new PDCaretAppearanceHandler(annotation);
 
-    PDAnnotationCaret annotation = new PDAnnotationCaret();
-    annotation.setAppearance(appearance);
+    // Act
+    PDAppearanceEntry actualRolloverAppearance = pdCaretAppearanceHandler.getRolloverAppearance();
+
+    // Assert
+    verify(annotation).getAppearance();
+    verify(annotation).setAppearance(isA(PDAppearanceDictionary.class));
+    COSDictionary cOSObject = actualRolloverAppearance.getCOSObject();
+    assertTrue(cOSObject instanceof COSStream);
+    PDAppearanceStream appearanceStream = actualRolloverAppearance.getAppearanceStream();
+    PDStream stream = appearanceStream.getStream();
+    assertNull(stream.getDecodeParms());
+    PDStream contentStream = appearanceStream.getContentStream();
+    assertNull(contentStream.getDecodeParms());
+    assertNull(stream.getFileDecodeParams());
+    assertNull(contentStream.getFileDecodeParams());
+    assertNull(((COSStream) cOSObject).getFilters());
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertNull(appearanceStream.getResources());
+    assertNull(stream.getMetadata());
+    assertNull(contentStream.getMetadata());
+    assertNull(appearanceStream.getBBox());
+    assertNull(stream.getFile());
+    assertNull(contentStream.getFile());
+    assertNull(appearanceStream.getOptionalContent());
+    assertNull(appearanceStream.getGroup());
+    assertEquals(-1, stream.getDecodedStreamLength());
+    assertEquals(-1, contentStream.getDecodedStreamLength());
+    assertEquals(-1, appearanceStream.getStructParents());
+    assertEquals(0, stream.getLength());
+    assertEquals(0, contentStream.getLength());
+    Matrix matrix = appearanceStream.getMatrix();
+    assertEquals(0.0f, matrix.getShearX());
+    assertEquals(0.0f, matrix.getShearY());
+    assertEquals(0.0f, matrix.getTranslateX());
+    assertEquals(0.0f, matrix.getTranslateY());
+    assertEquals(0L, ((COSStream) cOSObject).getLength());
+    COSDictionary cOSObject2 = pdCaretAppearanceHandler.getAppearance().getCOSObject();
+    assertEquals(1, cOSObject2.getValues().size());
+    assertEquals(1, cOSObject2.size());
+    assertEquals(1, appearanceStream.getFormType());
+    assertEquals(1.0f, matrix.getScaleX());
+    assertEquals(1.0f, matrix.getScaleY());
+    assertEquals(1.0f, matrix.getScalingFactorX());
+    assertEquals(1.0f, matrix.getScalingFactorY());
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
+    float[][] values = matrix.getValues();
+    assertEquals(3, values.length);
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(((COSStream) cOSObject).hasData());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertFalse(actualRolloverAppearance.isSubDictionary());
+    List<String> fileFilters = contentStream.getFileFilters();
+    assertTrue(fileFilters.isEmpty());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertTrue(actualRolloverAppearance.isStream());
+    assertSame(fileFilters, stream.getFileFilters());
+    assertSame(fileFilters, stream.getFilters());
+    assertSame(fileFilters, contentStream.getFilters());
+    assertSame(cOSObject, stream.getCOSObject());
+    assertSame(cOSObject, contentStream.getCOSObject());
+    assertSame(cOSObject, appearanceStream.getCOSObject());
+    assertArrayEquals(new float[]{0.0f, 0.0f, 1.0f}, values[2], 0.0f);
+    assertArrayEquals(new float[]{0.0f, 1.0f, 0.0f}, values[1], 0.0f);
+    assertArrayEquals(new float[]{1.0f, 0.0f, 0.0f}, values[0], 0.0f);
+  }
+
+  /**
+   * Method under test:
+   * {@link PDAbstractAppearanceHandler#getRolloverAppearance()}
+   */
+  @Test
+  void testGetRolloverAppearance3() throws IOException {
+    // Arrange
+    PDAppearanceDictionary pdAppearanceDictionary = mock(PDAppearanceDictionary.class);
+    doNothing().when(pdAppearanceDictionary).setRolloverAppearance(Mockito.<PDAppearanceEntry>any());
+    when(pdAppearanceDictionary.getRolloverAppearance()).thenReturn(new PDAppearanceEntry(new COSDictionary()));
+    PDAnnotation annotation = mock(PDAnnotation.class);
+    when(annotation.getAppearance()).thenReturn(pdAppearanceDictionary);
 
     // Act
     PDAppearanceEntry actualRolloverAppearance = (new PDCaretAppearanceHandler(annotation)).getRolloverAppearance();
 
     // Assert
+    verify(annotation).getAppearance();
+    verify(pdAppearanceDictionary).getRolloverAppearance();
+    verify(pdAppearanceDictionary).setRolloverAppearance(isA(PDAppearanceEntry.class));
+    COSDictionary cOSObject = actualRolloverAppearance.getCOSObject();
+    assertTrue(cOSObject instanceof COSStream);
     PDAppearanceStream appearanceStream = actualRolloverAppearance.getAppearanceStream();
-    float[][] values = appearanceStream.getMatrix().getValues();
+    PDStream stream = appearanceStream.getStream();
+    assertNull(stream.getDecodeParms());
+    PDStream contentStream = appearanceStream.getContentStream();
+    assertNull(contentStream.getDecodeParms());
+    assertNull(stream.getFileDecodeParams());
+    assertNull(contentStream.getFileDecodeParams());
+    assertNull(((COSStream) cOSObject).getFilters());
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertNull(appearanceStream.getResources());
+    assertNull(stream.getMetadata());
+    assertNull(contentStream.getMetadata());
+    assertNull(appearanceStream.getBBox());
+    assertNull(stream.getFile());
+    assertNull(contentStream.getFile());
+    assertNull(appearanceStream.getOptionalContent());
+    assertNull(appearanceStream.getGroup());
+    assertEquals(-1, stream.getDecodedStreamLength());
+    assertEquals(-1, contentStream.getDecodedStreamLength());
+    assertEquals(-1, appearanceStream.getStructParents());
+    assertEquals(0, stream.getLength());
+    assertEquals(0, contentStream.getLength());
+    Matrix matrix = appearanceStream.getMatrix();
+    assertEquals(0.0f, matrix.getShearX());
+    assertEquals(0.0f, matrix.getShearY());
+    assertEquals(0.0f, matrix.getTranslateX());
+    assertEquals(0.0f, matrix.getTranslateY());
+    assertEquals(0L, ((COSStream) cOSObject).getLength());
+    assertEquals(1, appearanceStream.getFormType());
+    assertEquals(1.0f, matrix.getScaleX());
+    assertEquals(1.0f, matrix.getScaleY());
+    assertEquals(1.0f, matrix.getScalingFactorX());
+    assertEquals(1.0f, matrix.getScalingFactorY());
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
+    float[][] values = matrix.getValues();
     assertEquals(3, values.length);
-    assertSame(stream, appearanceStream.getStream().getCOSObject());
-    assertSame(stream, appearanceStream.getContentStream().getCOSObject());
-    assertSame(stream, appearanceStream.getCOSObject());
-    assertSame(stream, actualRolloverAppearance.getCOSObject());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(((COSStream) cOSObject).hasData());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertFalse(actualRolloverAppearance.isSubDictionary());
+    List<String> fileFilters = contentStream.getFileFilters();
+    assertTrue(fileFilters.isEmpty());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertTrue(actualRolloverAppearance.isStream());
+    assertSame(fileFilters, stream.getFileFilters());
+    assertSame(fileFilters, stream.getFilters());
+    assertSame(fileFilters, contentStream.getFilters());
+    assertSame(cOSObject, stream.getCOSObject());
+    assertSame(cOSObject, contentStream.getCOSObject());
+    assertSame(cOSObject, appearanceStream.getCOSObject());
     assertArrayEquals(new float[]{0.0f, 0.0f, 1.0f}, values[2], 0.0f);
     assertArrayEquals(new float[]{0.0f, 1.0f, 0.0f}, values[1], 0.0f);
     assertArrayEquals(new float[]{1.0f, 0.0f, 0.0f}, values[0], 0.0f);
   }
 
   /**
-   * Test {@link PDAbstractAppearanceHandler#getPaddedRectangle(PDRectangle, float)}.
-   * <ul>
-   *   <li>When {@link PDRectangle#A0}.</li>
-   *   <li>Then return COSArray toList size is four.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAbstractAppearanceHandler#getPaddedRectangle(PDRectangle, float)}
+   * Method under test:
+   * {@link PDAbstractAppearanceHandler#getRolloverAppearance()}
    */
   @Test
-  @DisplayName("Test getPaddedRectangle(PDRectangle, float); when A0; then return COSArray toList size is four")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDRectangle PDAbstractAppearanceHandler.getPaddedRectangle(PDRectangle, float)"})
-  void testGetPaddedRectangle_whenA0_thenReturnCOSArrayToListSizeIsFour() {
+  void testGetRolloverAppearance4() {
+    // Arrange
+    PDAppearanceDictionary pdAppearanceDictionary = mock(PDAppearanceDictionary.class);
+    PDAppearanceEntry pdAppearanceEntry = new PDAppearanceEntry(new COSStream());
+    when(pdAppearanceDictionary.getRolloverAppearance()).thenReturn(pdAppearanceEntry);
+    PDAnnotation annotation = mock(PDAnnotation.class);
+    when(annotation.getAppearance()).thenReturn(pdAppearanceDictionary);
+
+    // Act
+    PDAppearanceEntry actualRolloverAppearance = (new PDCaretAppearanceHandler(annotation)).getRolloverAppearance();
+
+    // Assert
+    verify(annotation).getAppearance();
+    verify(pdAppearanceDictionary).getRolloverAppearance();
+    assertSame(pdAppearanceEntry, actualRolloverAppearance);
+  }
+
+  /**
+   * Method under test:
+   * {@link PDAbstractAppearanceHandler#getPaddedRectangle(PDRectangle, float)}
+   */
+  @Test
+  void testGetPaddedRectangle() {
     // Arrange and Act
     PDRectangle actualPaddedRectangle = (new PDCaretAppearanceHandler(new PDAnnotationCaret()))
         .getPaddedRectangle(PDRectangle.A0, 10.0f);
@@ -712,41 +1172,97 @@ class PDAbstractAppearanceHandlerDiffblueTest {
     assertTrue(getResult instanceof COSFloat);
     COSBase getResult2 = toListResult.get(1);
     assertTrue(getResult2 instanceof COSFloat);
-    assertTrue(toListResult.get(2) instanceof COSFloat);
-    assertTrue(toListResult.get(3) instanceof COSFloat);
+    COSBase getResult3 = toListResult.get(2);
+    assertTrue(getResult3 instanceof COSFloat);
+    COSBase getResult4 = toListResult.get(3);
+    assertTrue(getResult4 instanceof COSFloat);
+    assertNull(getResult.getKey());
+    assertNull(getResult3.getKey());
+    assertNull(getResult4.getKey());
     assertEquals(10.0f, actualPaddedRectangle.getLowerLeftX());
     assertEquals(10.0f, actualPaddedRectangle.getLowerLeftY());
     assertEquals(2363.937f, actualPaddedRectangle.getWidth());
     assertEquals(2373.937f, actualPaddedRectangle.getUpperRightX());
     assertEquals(3350.3938f, actualPaddedRectangle.getHeight());
     assertEquals(3360.3938f, actualPaddedRectangle.getUpperRightY());
+    assertFalse(getResult.isDirect());
+    assertFalse(getResult3.isDirect());
+    assertFalse(getResult4.isDirect());
     assertEquals(getResult, getResult2);
     assertSame(cOSArray, actualPaddedRectangle.getCOSObject());
   }
 
   /**
-   * Test {@link PDAbstractAppearanceHandler#addRectDifferences(PDRectangle, float[])}.
-   * <ul>
-   *   <li>Then return COSArray toList size is four.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAbstractAppearanceHandler#addRectDifferences(PDRectangle, float[])}
+   * Method under test:
+   * {@link PDAbstractAppearanceHandler#getPaddedRectangle(PDRectangle, float)}
    */
   @Test
-  @DisplayName("Test addRectDifferences(PDRectangle, float[]); then return COSArray toList size is four")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDRectangle PDAbstractAppearanceHandler.addRectDifferences(PDRectangle, float[])"})
-  void testAddRectDifferences_thenReturnCOSArrayToListSizeIsFour() {
+  void testGetPaddedRectangle2() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDDocument document = new PDDocument(streamCacheCreateFunction);
+
+    // Act
+    PDRectangle actualPaddedRectangle = (new PDCaretAppearanceHandler(new PDAnnotationCaret(), document))
+        .getPaddedRectangle(PDRectangle.A0, 10.0f);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    COSArray cOSArray = actualPaddedRectangle.getCOSArray();
+    List<? extends COSBase> toListResult = cOSArray.toList();
+    assertEquals(4, toListResult.size());
+    COSBase getResult = toListResult.get(0);
+    assertTrue(getResult instanceof COSFloat);
+    COSBase getResult2 = toListResult.get(1);
+    assertTrue(getResult2 instanceof COSFloat);
+    COSBase getResult3 = toListResult.get(2);
+    assertTrue(getResult3 instanceof COSFloat);
+    COSBase getResult4 = toListResult.get(3);
+    assertTrue(getResult4 instanceof COSFloat);
+    assertNull(getResult.getKey());
+    assertNull(getResult3.getKey());
+    assertNull(getResult4.getKey());
+    assertEquals(10.0f, actualPaddedRectangle.getLowerLeftX());
+    assertEquals(10.0f, actualPaddedRectangle.getLowerLeftY());
+    assertEquals(2363.937f, actualPaddedRectangle.getWidth());
+    assertEquals(2373.937f, actualPaddedRectangle.getUpperRightX());
+    assertEquals(3350.3938f, actualPaddedRectangle.getHeight());
+    assertEquals(3360.3938f, actualPaddedRectangle.getUpperRightY());
+    assertFalse(getResult.isDirect());
+    assertFalse(getResult3.isDirect());
+    assertFalse(getResult4.isDirect());
+    assertEquals(getResult, getResult2);
+    assertSame(cOSArray, actualPaddedRectangle.getCOSObject());
+  }
+
+  /**
+   * Method under test:
+   * {@link PDAbstractAppearanceHandler#addRectDifferences(PDRectangle, float[])}
+   */
+  @Test
+  void testAddRectDifferences() {
     // Arrange and Act
     PDRectangle actualAddRectDifferencesResult = (new PDCaretAppearanceHandler(new PDAnnotationCaret()))
         .addRectDifferences(PDRectangle.A0, new float[]{10.0f, 1.0f, 10.0f, 1.0f});
 
     // Assert
-    List<? extends COSBase> toListResult = actualAddRectDifferencesResult.getCOSArray().toList();
+    COSArray cOSArray = actualAddRectDifferencesResult.getCOSArray();
+    List<? extends COSBase> toListResult = cOSArray.toList();
     assertEquals(4, toListResult.size());
-    COSBase getResult = toListResult.get(1);
+    COSBase getResult = toListResult.get(0);
     assertTrue(getResult instanceof COSFloat);
+    COSBase getResult2 = toListResult.get(1);
+    assertTrue(getResult2 instanceof COSFloat);
+    COSBase getResult3 = toListResult.get(2);
+    assertTrue(getResult3 instanceof COSFloat);
+    COSBase getResult4 = toListResult.get(3);
+    assertTrue(getResult4 instanceof COSFloat);
     assertNull(getResult.getKey());
+    assertNull(getResult2.getKey());
+    assertNull(getResult3.getKey());
+    assertNull(getResult4.getKey());
     assertEquals(-1.0f, actualAddRectDifferencesResult.getLowerLeftY());
     assertEquals(-10.0f, actualAddRectDifferencesResult.getLowerLeftX());
     assertEquals(2393.937f, actualAddRectDifferencesResult.getUpperRightX());
@@ -754,44 +1270,18 @@ class PDAbstractAppearanceHandlerDiffblueTest {
     assertEquals(3371.3938f, actualAddRectDifferencesResult.getUpperRightY());
     assertEquals(3372.3938f, actualAddRectDifferencesResult.getHeight());
     assertFalse(getResult.isDirect());
+    assertFalse(getResult2.isDirect());
+    assertFalse(getResult3.isDirect());
+    assertFalse(getResult4.isDirect());
+    assertSame(cOSArray, actualAddRectDifferencesResult.getCOSObject());
   }
 
   /**
-   * Test {@link PDAbstractAppearanceHandler#addRectDifferences(PDRectangle, float[])}.
-   * <ul>
-   *   <li>When empty array of {@code float}.</li>
-   *   <li>Then return {@link PDRectangle#A0}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAbstractAppearanceHandler#addRectDifferences(PDRectangle, float[])}
+   * Method under test:
+   * {@link PDAbstractAppearanceHandler#addRectDifferences(PDRectangle, float[])}
    */
   @Test
-  @DisplayName("Test addRectDifferences(PDRectangle, float[]); when empty array of float; then return A0")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDRectangle PDAbstractAppearanceHandler.addRectDifferences(PDRectangle, float[])"})
-  void testAddRectDifferences_whenEmptyArrayOfFloat_thenReturnA0() {
-    // Arrange and Act
-    PDRectangle actualAddRectDifferencesResult = (new PDCaretAppearanceHandler(new PDAnnotationCaret()))
-        .addRectDifferences(PDRectangle.A0, new float[]{});
-
-    // Assert
-    assertSame(actualAddRectDifferencesResult.A0, actualAddRectDifferencesResult);
-  }
-
-  /**
-   * Test {@link PDAbstractAppearanceHandler#addRectDifferences(PDRectangle, float[])}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then return {@link PDRectangle#A0}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAbstractAppearanceHandler#addRectDifferences(PDRectangle, float[])}
-   */
-  @Test
-  @DisplayName("Test addRectDifferences(PDRectangle, float[]); when 'null'; then return A0")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDRectangle PDAbstractAppearanceHandler.addRectDifferences(PDRectangle, float[])"})
-  void testAddRectDifferences_whenNull_thenReturnA0() {
+  void testAddRectDifferences2() {
     // Arrange and Act
     PDRectangle actualAddRectDifferencesResult = (new PDCaretAppearanceHandler(new PDAnnotationCaret()))
         .addRectDifferences(PDRectangle.A0, null);
@@ -801,28 +1291,45 @@ class PDAbstractAppearanceHandlerDiffblueTest {
   }
 
   /**
-   * Test {@link PDAbstractAppearanceHandler#applyRectDifferences(PDRectangle, float[])}.
-   * <ul>
-   *   <li>Then return COSArray toList size is four.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAbstractAppearanceHandler#applyRectDifferences(PDRectangle, float[])}
+   * Method under test:
+   * {@link PDAbstractAppearanceHandler#addRectDifferences(PDRectangle, float[])}
    */
   @Test
-  @DisplayName("Test applyRectDifferences(PDRectangle, float[]); then return COSArray toList size is four")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDRectangle PDAbstractAppearanceHandler.applyRectDifferences(PDRectangle, float[])"})
-  void testApplyRectDifferences_thenReturnCOSArrayToListSizeIsFour() {
+  void testAddRectDifferences3() {
+    // Arrange and Act
+    PDRectangle actualAddRectDifferencesResult = (new PDCaretAppearanceHandler(new PDAnnotationCaret()))
+        .addRectDifferences(PDRectangle.A0, new float[]{});
+
+    // Assert
+    assertSame(actualAddRectDifferencesResult.A0, actualAddRectDifferencesResult);
+  }
+
+  /**
+   * Method under test:
+   * {@link PDAbstractAppearanceHandler#applyRectDifferences(PDRectangle, float[])}
+   */
+  @Test
+  void testApplyRectDifferences() {
     // Arrange and Act
     PDRectangle actualApplyRectDifferencesResult = (new PDCaretAppearanceHandler(new PDAnnotationCaret()))
         .applyRectDifferences(PDRectangle.A0, new float[]{10.0f, 1.0f, 10.0f, 1.0f});
 
     // Assert
-    List<? extends COSBase> toListResult = actualApplyRectDifferencesResult.getCOSArray().toList();
+    COSArray cOSArray = actualApplyRectDifferencesResult.getCOSArray();
+    List<? extends COSBase> toListResult = cOSArray.toList();
     assertEquals(4, toListResult.size());
-    COSBase getResult = toListResult.get(1);
+    COSBase getResult = toListResult.get(0);
     assertTrue(getResult instanceof COSFloat);
+    COSBase getResult2 = toListResult.get(1);
+    assertTrue(getResult2 instanceof COSFloat);
+    COSBase getResult3 = toListResult.get(2);
+    assertTrue(getResult3 instanceof COSFloat);
+    COSBase getResult4 = toListResult.get(3);
+    assertTrue(getResult4 instanceof COSFloat);
     assertNull(getResult.getKey());
+    assertNull(getResult2.getKey());
+    assertNull(getResult3.getKey());
+    assertNull(getResult4.getKey());
     assertEquals(1.0f, actualApplyRectDifferencesResult.getLowerLeftY());
     assertEquals(10.0f, actualApplyRectDifferencesResult.getLowerLeftX());
     assertEquals(2363.937f, actualApplyRectDifferencesResult.getWidth());
@@ -830,44 +1337,18 @@ class PDAbstractAppearanceHandlerDiffblueTest {
     assertEquals(3368.3938f, actualApplyRectDifferencesResult.getHeight());
     assertEquals(3369.3938f, actualApplyRectDifferencesResult.getUpperRightY());
     assertFalse(getResult.isDirect());
+    assertFalse(getResult2.isDirect());
+    assertFalse(getResult3.isDirect());
+    assertFalse(getResult4.isDirect());
+    assertSame(cOSArray, actualApplyRectDifferencesResult.getCOSObject());
   }
 
   /**
-   * Test {@link PDAbstractAppearanceHandler#applyRectDifferences(PDRectangle, float[])}.
-   * <ul>
-   *   <li>When empty array of {@code float}.</li>
-   *   <li>Then return {@link PDRectangle#A0}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAbstractAppearanceHandler#applyRectDifferences(PDRectangle, float[])}
+   * Method under test:
+   * {@link PDAbstractAppearanceHandler#applyRectDifferences(PDRectangle, float[])}
    */
   @Test
-  @DisplayName("Test applyRectDifferences(PDRectangle, float[]); when empty array of float; then return A0")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDRectangle PDAbstractAppearanceHandler.applyRectDifferences(PDRectangle, float[])"})
-  void testApplyRectDifferences_whenEmptyArrayOfFloat_thenReturnA0() {
-    // Arrange and Act
-    PDRectangle actualApplyRectDifferencesResult = (new PDCaretAppearanceHandler(new PDAnnotationCaret()))
-        .applyRectDifferences(PDRectangle.A0, new float[]{});
-
-    // Assert
-    assertSame(actualApplyRectDifferencesResult.A0, actualApplyRectDifferencesResult);
-  }
-
-  /**
-   * Test {@link PDAbstractAppearanceHandler#applyRectDifferences(PDRectangle, float[])}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then return {@link PDRectangle#A0}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAbstractAppearanceHandler#applyRectDifferences(PDRectangle, float[])}
-   */
-  @Test
-  @DisplayName("Test applyRectDifferences(PDRectangle, float[]); when 'null'; then return A0")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDRectangle PDAbstractAppearanceHandler.applyRectDifferences(PDRectangle, float[])"})
-  void testApplyRectDifferences_whenNull_thenReturnA0() {
+  void testApplyRectDifferences2() {
     // Arrange and Act
     PDRectangle actualApplyRectDifferencesResult = (new PDCaretAppearanceHandler(new PDAnnotationCaret()))
         .applyRectDifferences(PDRectangle.A0, null);
@@ -877,18 +1358,25 @@ class PDAbstractAppearanceHandlerDiffblueTest {
   }
 
   /**
-   * Test {@link PDAbstractAppearanceHandler#setOpacity(PDAppearanceContentStream, float)}.
-   * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAbstractAppearanceHandler#setOpacity(PDAppearanceContentStream, float)}
+   * Method under test:
+   * {@link PDAbstractAppearanceHandler#applyRectDifferences(PDRectangle, float[])}
    */
   @Test
-  @DisplayName("Test setOpacity(PDAppearanceContentStream, float); given COSDictionary()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAbstractAppearanceHandler.setOpacity(PDAppearanceContentStream, float)"})
-  void testSetOpacity_givenCOSDictionary() throws IOException {
+  void testApplyRectDifferences3() {
+    // Arrange and Act
+    PDRectangle actualApplyRectDifferencesResult = (new PDCaretAppearanceHandler(new PDAnnotationCaret()))
+        .applyRectDifferences(PDRectangle.A0, new float[]{});
+
+    // Assert
+    assertSame(actualApplyRectDifferencesResult.A0, actualApplyRectDifferencesResult);
+  }
+
+  /**
+   * Method under test:
+   * {@link PDAbstractAppearanceHandler#setOpacity(PDAppearanceContentStream, float)}
+   */
+  @Test
+  void testSetOpacity() throws IOException {
     // Arrange
     PDCaretAppearanceHandler pdCaretAppearanceHandler = new PDCaretAppearanceHandler(new PDAnnotationCaret());
     COSStream stream = mock(COSStream.class);
@@ -906,18 +1394,34 @@ class PDAbstractAppearanceHandlerDiffblueTest {
   }
 
   /**
-   * Test {@link PDAbstractAppearanceHandler#setOpacity(PDAppearanceContentStream, float)}.
-   * <ul>
-   *   <li>Given {@link COSDictionary} {@link COSDictionary#getCOSDictionary(COSName)} return {@link COSDictionary#COSDictionary()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAbstractAppearanceHandler#setOpacity(PDAppearanceContentStream, float)}
+   * Method under test:
+   * {@link PDAbstractAppearanceHandler#setOpacity(PDAppearanceContentStream, float)}
    */
   @Test
-  @DisplayName("Test setOpacity(PDAppearanceContentStream, float); given COSDictionary getCOSDictionary(COSName) return COSDictionary()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAbstractAppearanceHandler.setOpacity(PDAppearanceContentStream, float)"})
-  void testSetOpacity_givenCOSDictionaryGetCOSDictionaryReturnCOSDictionary() throws IOException {
+  void testSetOpacity2() throws IOException {
+    // Arrange
+    PDCaretAppearanceHandler pdCaretAppearanceHandler = new PDCaretAppearanceHandler(
+        new PDAnnotationCaret(new COSDictionary()));
+    COSStream stream = mock(COSStream.class);
+    when(stream.createOutputStream()).thenReturn(new ByteArrayOutputStream(1));
+    when(stream.getCOSDictionary(Mockito.<COSName>any())).thenReturn(new COSDictionary());
+    doNothing().when(stream).setName(Mockito.<COSName>any(), Mockito.<String>any());
+
+    // Act
+    pdCaretAppearanceHandler.setOpacity(new PDAppearanceContentStream(new PDAppearanceStream(stream)), 0.5f);
+
+    // Assert
+    verify(stream).getCOSDictionary(isA(COSName.class));
+    verify(stream, atLeast(1)).setName(Mockito.<COSName>any(), Mockito.<String>any());
+    verify(stream).createOutputStream();
+  }
+
+  /**
+   * Method under test:
+   * {@link PDAbstractAppearanceHandler#setOpacity(PDAppearanceContentStream, float)}
+   */
+  @Test
+  void testSetOpacity3() throws IOException {
     // Arrange
     PDCaretAppearanceHandler pdCaretAppearanceHandler = new PDCaretAppearanceHandler(new PDAnnotationCaret());
     COSDictionary cosDictionary = mock(COSDictionary.class);
@@ -938,51 +1442,11 @@ class PDAbstractAppearanceHandlerDiffblueTest {
   }
 
   /**
-   * Test {@link PDAbstractAppearanceHandler#setOpacity(PDAppearanceContentStream, float)}.
-   * <ul>
-   *   <li>Given {@link COSDictionary} {@link COSDictionary#getCOSDictionary(COSName)} return {@link COSStream#COSStream()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAbstractAppearanceHandler#setOpacity(PDAppearanceContentStream, float)}
+   * Method under test:
+   * {@link PDAbstractAppearanceHandler#setOpacity(PDAppearanceContentStream, float)}
    */
   @Test
-  @DisplayName("Test setOpacity(PDAppearanceContentStream, float); given COSDictionary getCOSDictionary(COSName) return COSStream()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAbstractAppearanceHandler.setOpacity(PDAppearanceContentStream, float)"})
-  void testSetOpacity_givenCOSDictionaryGetCOSDictionaryReturnCOSStream() throws IOException {
-    // Arrange
-    PDCaretAppearanceHandler pdCaretAppearanceHandler = new PDCaretAppearanceHandler(new PDAnnotationCaret());
-    COSDictionary cosDictionary = mock(COSDictionary.class);
-    when(cosDictionary.getCOSDictionary(Mockito.<COSName>any())).thenReturn(new COSStream());
-    COSStream stream = mock(COSStream.class);
-    when(stream.createOutputStream()).thenReturn(new ByteArrayOutputStream(1));
-    when(stream.getCOSDictionary(Mockito.<COSName>any())).thenReturn(cosDictionary);
-    doNothing().when(stream).setName(Mockito.<COSName>any(), Mockito.<String>any());
-
-    // Act
-    pdCaretAppearanceHandler.setOpacity(new PDAppearanceContentStream(new PDAppearanceStream(stream)), 0.5f);
-
-    // Assert
-    verify(stream).getCOSDictionary(isA(COSName.class));
-    verify(cosDictionary, atLeast(1)).getCOSDictionary(isA(COSName.class));
-    verify(stream, atLeast(1)).setName(Mockito.<COSName>any(), Mockito.<String>any());
-    verify(stream).createOutputStream();
-  }
-
-  /**
-   * Test {@link PDAbstractAppearanceHandler#setOpacity(PDAppearanceContentStream, float)}.
-   * <ul>
-   *   <li>Given {@link COSDictionary} {@link COSDictionary#getCOSDictionary(COSName)} return {@code null}.</li>
-   *   <li>Then calls {@link COSDictionary#setItem(COSName, COSBase)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAbstractAppearanceHandler#setOpacity(PDAppearanceContentStream, float)}
-   */
-  @Test
-  @DisplayName("Test setOpacity(PDAppearanceContentStream, float); given COSDictionary getCOSDictionary(COSName) return 'null'; then calls setItem(COSName, COSBase)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAbstractAppearanceHandler.setOpacity(PDAppearanceContentStream, float)"})
-  void testSetOpacity_givenCOSDictionaryGetCOSDictionaryReturnNull_thenCallsSetItem() throws IOException {
+  void testSetOpacity4() throws IOException {
     // Arrange
     PDCaretAppearanceHandler pdCaretAppearanceHandler = new PDCaretAppearanceHandler(new PDAnnotationCaret());
     COSDictionary cosDictionary = mock(COSDictionary.class);
@@ -1005,19 +1469,11 @@ class PDAbstractAppearanceHandlerDiffblueTest {
   }
 
   /**
-   * Test {@link PDAbstractAppearanceHandler#setOpacity(PDAppearanceContentStream, float)}.
-   * <ul>
-   *   <li>Given {@link COSDictionary} {@link COSDictionary#getKeyForValue(Object)} return {@link COSName#A}.</li>
-   *   <li>Then calls {@link COSDictionary#containsValue(Object)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAbstractAppearanceHandler#setOpacity(PDAppearanceContentStream, float)}
+   * Method under test:
+   * {@link PDAbstractAppearanceHandler#setOpacity(PDAppearanceContentStream, float)}
    */
   @Test
-  @DisplayName("Test setOpacity(PDAppearanceContentStream, float); given COSDictionary getKeyForValue(Object) return A; then calls containsValue(Object)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAbstractAppearanceHandler.setOpacity(PDAppearanceContentStream, float)"})
-  void testSetOpacity_givenCOSDictionaryGetKeyForValueReturnA_thenCallsContainsValue() throws IOException {
+  void testSetOpacity5() throws IOException {
     // Arrange
     PDCaretAppearanceHandler pdCaretAppearanceHandler = new PDCaretAppearanceHandler(new PDAnnotationCaret());
     COSDictionary cosDictionary = mock(COSDictionary.class);
@@ -1043,18 +1499,11 @@ class PDAbstractAppearanceHandlerDiffblueTest {
   }
 
   /**
-   * Test {@link PDAbstractAppearanceHandler#setOpacity(PDAppearanceContentStream, float)}.
-   * <ul>
-   *   <li>Given {@link COSDictionary} {@link COSDictionary#getKeyForValue(Object)} return {@link COSName#ADBE_PKCS7_DETACHED}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAbstractAppearanceHandler#setOpacity(PDAppearanceContentStream, float)}
+   * Method under test:
+   * {@link PDAbstractAppearanceHandler#setOpacity(PDAppearanceContentStream, float)}
    */
   @Test
-  @DisplayName("Test setOpacity(PDAppearanceContentStream, float); given COSDictionary getKeyForValue(Object) return ADBE_PKCS7_DETACHED")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAbstractAppearanceHandler.setOpacity(PDAppearanceContentStream, float)"})
-  void testSetOpacity_givenCOSDictionaryGetKeyForValueReturnAdbe_pkcs7_detached() throws IOException {
+  void testSetOpacity6() throws IOException {
     // Arrange
     PDCaretAppearanceHandler pdCaretAppearanceHandler = new PDCaretAppearanceHandler(new PDAnnotationCaret());
     COSDictionary cosDictionary = mock(COSDictionary.class);
@@ -1080,18 +1529,11 @@ class PDAbstractAppearanceHandlerDiffblueTest {
   }
 
   /**
-   * Test {@link PDAbstractAppearanceHandler#setOpacity(PDAppearanceContentStream, float)}.
-   * <ul>
-   *   <li>Given {@link COSDictionary} {@link COSDictionary#getKeyForValue(Object)} return {@link COSName#ADBE_X509_RSA_SHA1}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAbstractAppearanceHandler#setOpacity(PDAppearanceContentStream, float)}
+   * Method under test:
+   * {@link PDAbstractAppearanceHandler#setOpacity(PDAppearanceContentStream, float)}
    */
   @Test
-  @DisplayName("Test setOpacity(PDAppearanceContentStream, float); given COSDictionary getKeyForValue(Object) return ADBE_X509_RSA_SHA1")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAbstractAppearanceHandler.setOpacity(PDAppearanceContentStream, float)"})
-  void testSetOpacity_givenCOSDictionaryGetKeyForValueReturnAdbe_x509_rsa_sha1() throws IOException {
+  void testSetOpacity7() throws IOException {
     // Arrange
     PDCaretAppearanceHandler pdCaretAppearanceHandler = new PDCaretAppearanceHandler(new PDAnnotationCaret());
     COSDictionary cosDictionary = mock(COSDictionary.class);
@@ -1117,20 +1559,11 @@ class PDAbstractAppearanceHandlerDiffblueTest {
   }
 
   /**
-   * Test {@link PDAbstractAppearanceHandler#drawStyle(String, PDAppearanceContentStream, float, float, float, boolean, boolean, boolean)}.
-   * <ul>
-   *   <li>Given {@link ByteArrayOutputStream#ByteArrayOutputStream(int)} with one.</li>
-   *   <li>Then calls {@link COSDictionary#getCOSDictionary(COSName)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAbstractAppearanceHandler#drawStyle(String, PDAppearanceContentStream, float, float, float, boolean, boolean, boolean)}
+   * Method under test:
+   * {@link PDAbstractAppearanceHandler#drawStyle(String, PDAppearanceContentStream, float, float, float, boolean, boolean, boolean)}
    */
   @Test
-  @DisplayName("Test drawStyle(String, PDAppearanceContentStream, float, float, float, boolean, boolean, boolean); given ByteArrayOutputStream(int) with one; then calls getCOSDictionary(COSName)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "void PDAbstractAppearanceHandler.drawStyle(String, PDAppearanceContentStream, float, float, float, boolean, boolean, boolean)"})
-  void testDrawStyle_givenByteArrayOutputStreamWithOne_thenCallsGetCOSDictionary() throws IOException {
+  void testDrawStyle() throws IOException {
     // Arrange
     PDCaretAppearanceHandler pdCaretAppearanceHandler = new PDCaretAppearanceHandler(new PDAnnotationCaret());
     COSStream stream = mock(COSStream.class);
@@ -1149,20 +1582,11 @@ class PDAbstractAppearanceHandlerDiffblueTest {
   }
 
   /**
-   * Test {@link PDAbstractAppearanceHandler#drawStyle(String, PDAppearanceContentStream, float, float, float, boolean, boolean, boolean)}.
-   * <ul>
-   *   <li>When {@code -9.223372E18}.</li>
-   *   <li>Then calls {@link COSDictionary#getCOSDictionary(COSName)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAbstractAppearanceHandler#drawStyle(String, PDAppearanceContentStream, float, float, float, boolean, boolean, boolean)}
+   * Method under test:
+   * {@link PDAbstractAppearanceHandler#drawStyle(String, PDAppearanceContentStream, float, float, float, boolean, boolean, boolean)}
    */
   @Test
-  @DisplayName("Test drawStyle(String, PDAppearanceContentStream, float, float, float, boolean, boolean, boolean); when '-9.223372E18'; then calls getCOSDictionary(COSName)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "void PDAbstractAppearanceHandler.drawStyle(String, PDAppearanceContentStream, float, float, float, boolean, boolean, boolean)"})
-  void testDrawStyle_when9223372e18_thenCallsGetCOSDictionary() throws IOException {
+  void testDrawStyle2() throws IOException {
     // Arrange
     PDCaretAppearanceHandler pdCaretAppearanceHandler = new PDCaretAppearanceHandler(new PDAnnotationCaret());
     COSStream stream = mock(COSStream.class);
@@ -1181,20 +1605,11 @@ class PDAbstractAppearanceHandlerDiffblueTest {
   }
 
   /**
-   * Test {@link PDAbstractAppearanceHandler#drawStyle(String, PDAppearanceContentStream, float, float, float, boolean, boolean, boolean)}.
-   * <ul>
-   *   <li>When {@code -9.223372E18}.</li>
-   *   <li>Then calls {@link COSDictionary#getCOSDictionary(COSName)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAbstractAppearanceHandler#drawStyle(String, PDAppearanceContentStream, float, float, float, boolean, boolean, boolean)}
+   * Method under test:
+   * {@link PDAbstractAppearanceHandler#drawStyle(String, PDAppearanceContentStream, float, float, float, boolean, boolean, boolean)}
    */
   @Test
-  @DisplayName("Test drawStyle(String, PDAppearanceContentStream, float, float, float, boolean, boolean, boolean); when '-9.223372E18'; then calls getCOSDictionary(COSName)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "void PDAbstractAppearanceHandler.drawStyle(String, PDAppearanceContentStream, float, float, float, boolean, boolean, boolean)"})
-  void testDrawStyle_when9223372e18_thenCallsGetCOSDictionary2() throws IOException {
+  void testDrawStyle3() throws IOException {
     // Arrange
     PDCaretAppearanceHandler pdCaretAppearanceHandler = new PDCaretAppearanceHandler(new PDAnnotationCaret());
     COSStream stream = mock(COSStream.class);
@@ -1213,19 +1628,11 @@ class PDAbstractAppearanceHandlerDiffblueTest {
   }
 
   /**
-   * Test {@link PDAbstractAppearanceHandler#drawArrow(PDAppearanceContentStream, float, float, float)}.
-   * <ul>
-   *   <li>Given {@link ByteArrayOutputStream#ByteArrayOutputStream(int)} with one.</li>
-   *   <li>Then calls {@link COSDictionary#getCOSDictionary(COSName)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAbstractAppearanceHandler#drawArrow(PDAppearanceContentStream, float, float, float)}
+   * Method under test:
+   * {@link PDAbstractAppearanceHandler#drawArrow(PDAppearanceContentStream, float, float, float)}
    */
   @Test
-  @DisplayName("Test drawArrow(PDAppearanceContentStream, float, float, float); given ByteArrayOutputStream(int) with one; then calls getCOSDictionary(COSName)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAbstractAppearanceHandler.drawArrow(PDAppearanceContentStream, float, float, float)"})
-  void testDrawArrow_givenByteArrayOutputStreamWithOne_thenCallsGetCOSDictionary() throws IOException {
+  void testDrawArrow() throws IOException {
     // Arrange
     PDCaretAppearanceHandler pdCaretAppearanceHandler = new PDCaretAppearanceHandler(new PDAnnotationCaret());
     COSStream stream = mock(COSStream.class);
@@ -1244,19 +1651,11 @@ class PDAbstractAppearanceHandlerDiffblueTest {
   }
 
   /**
-   * Test {@link PDAbstractAppearanceHandler#drawArrow(PDAppearanceContentStream, float, float, float)}.
-   * <ul>
-   *   <li>When {@code -9.223372E18}.</li>
-   *   <li>Then calls {@link COSDictionary#getCOSDictionary(COSName)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAbstractAppearanceHandler#drawArrow(PDAppearanceContentStream, float, float, float)}
+   * Method under test:
+   * {@link PDAbstractAppearanceHandler#drawArrow(PDAppearanceContentStream, float, float, float)}
    */
   @Test
-  @DisplayName("Test drawArrow(PDAppearanceContentStream, float, float, float); when '-9.223372E18'; then calls getCOSDictionary(COSName)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAbstractAppearanceHandler.drawArrow(PDAppearanceContentStream, float, float, float)"})
-  void testDrawArrow_when9223372e18_thenCallsGetCOSDictionary() throws IOException {
+  void testDrawArrow2() throws IOException {
     // Arrange
     PDCaretAppearanceHandler pdCaretAppearanceHandler = new PDCaretAppearanceHandler(new PDAnnotationCaret());
     COSStream stream = mock(COSStream.class);
@@ -1275,19 +1674,11 @@ class PDAbstractAppearanceHandlerDiffblueTest {
   }
 
   /**
-   * Test {@link PDAbstractAppearanceHandler#drawDiamond(PDAppearanceContentStream, float, float, float)}.
-   * <ul>
-   *   <li>Given {@link ByteArrayOutputStream#ByteArrayOutputStream(int)} with one.</li>
-   *   <li>Then calls {@link COSDictionary#getCOSDictionary(COSName)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAbstractAppearanceHandler#drawDiamond(PDAppearanceContentStream, float, float, float)}
+   * Method under test:
+   * {@link PDAbstractAppearanceHandler#drawDiamond(PDAppearanceContentStream, float, float, float)}
    */
   @Test
-  @DisplayName("Test drawDiamond(PDAppearanceContentStream, float, float, float); given ByteArrayOutputStream(int) with one; then calls getCOSDictionary(COSName)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAbstractAppearanceHandler.drawDiamond(PDAppearanceContentStream, float, float, float)"})
-  void testDrawDiamond_givenByteArrayOutputStreamWithOne_thenCallsGetCOSDictionary() throws IOException {
+  void testDrawDiamond() throws IOException {
     // Arrange
     PDCaretAppearanceHandler pdCaretAppearanceHandler = new PDCaretAppearanceHandler(new PDAnnotationCaret());
     COSStream stream = mock(COSStream.class);
@@ -1306,19 +1697,11 @@ class PDAbstractAppearanceHandlerDiffblueTest {
   }
 
   /**
-   * Test {@link PDAbstractAppearanceHandler#drawDiamond(PDAppearanceContentStream, float, float, float)}.
-   * <ul>
-   *   <li>When {@code -9.223372E18}.</li>
-   *   <li>Then calls {@link COSDictionary#getCOSDictionary(COSName)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAbstractAppearanceHandler#drawDiamond(PDAppearanceContentStream, float, float, float)}
+   * Method under test:
+   * {@link PDAbstractAppearanceHandler#drawDiamond(PDAppearanceContentStream, float, float, float)}
    */
   @Test
-  @DisplayName("Test drawDiamond(PDAppearanceContentStream, float, float, float); when '-9.223372E18'; then calls getCOSDictionary(COSName)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAbstractAppearanceHandler.drawDiamond(PDAppearanceContentStream, float, float, float)"})
-  void testDrawDiamond_when9223372e18_thenCallsGetCOSDictionary() throws IOException {
+  void testDrawDiamond2() throws IOException {
     // Arrange
     PDCaretAppearanceHandler pdCaretAppearanceHandler = new PDCaretAppearanceHandler(new PDAnnotationCaret());
     COSStream stream = mock(COSStream.class);
@@ -1337,19 +1720,11 @@ class PDAbstractAppearanceHandlerDiffblueTest {
   }
 
   /**
-   * Test {@link PDAbstractAppearanceHandler#drawCircle(PDAppearanceContentStream, float, float, float)}.
-   * <ul>
-   *   <li>Given {@link ByteArrayOutputStream#ByteArrayOutputStream(int)} with one.</li>
-   *   <li>Then calls {@link COSDictionary#getCOSDictionary(COSName)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAbstractAppearanceHandler#drawCircle(PDAppearanceContentStream, float, float, float)}
+   * Method under test:
+   * {@link PDAbstractAppearanceHandler#drawCircle(PDAppearanceContentStream, float, float, float)}
    */
   @Test
-  @DisplayName("Test drawCircle(PDAppearanceContentStream, float, float, float); given ByteArrayOutputStream(int) with one; then calls getCOSDictionary(COSName)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAbstractAppearanceHandler.drawCircle(PDAppearanceContentStream, float, float, float)"})
-  void testDrawCircle_givenByteArrayOutputStreamWithOne_thenCallsGetCOSDictionary() throws IOException {
+  void testDrawCircle() throws IOException {
     // Arrange
     PDCaretAppearanceHandler pdCaretAppearanceHandler = new PDCaretAppearanceHandler(new PDAnnotationCaret());
     COSStream stream = mock(COSStream.class);
@@ -1368,19 +1743,11 @@ class PDAbstractAppearanceHandlerDiffblueTest {
   }
 
   /**
-   * Test {@link PDAbstractAppearanceHandler#drawCircle(PDAppearanceContentStream, float, float, float)}.
-   * <ul>
-   *   <li>When {@code -9.223372E18}.</li>
-   *   <li>Then calls {@link COSDictionary#getCOSDictionary(COSName)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAbstractAppearanceHandler#drawCircle(PDAppearanceContentStream, float, float, float)}
+   * Method under test:
+   * {@link PDAbstractAppearanceHandler#drawCircle(PDAppearanceContentStream, float, float, float)}
    */
   @Test
-  @DisplayName("Test drawCircle(PDAppearanceContentStream, float, float, float); when '-9.223372E18'; then calls getCOSDictionary(COSName)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAbstractAppearanceHandler.drawCircle(PDAppearanceContentStream, float, float, float)"})
-  void testDrawCircle_when9223372e18_thenCallsGetCOSDictionary() throws IOException {
+  void testDrawCircle2() throws IOException {
     // Arrange
     PDCaretAppearanceHandler pdCaretAppearanceHandler = new PDCaretAppearanceHandler(new PDAnnotationCaret());
     COSStream stream = mock(COSStream.class);
@@ -1399,19 +1766,11 @@ class PDAbstractAppearanceHandlerDiffblueTest {
   }
 
   /**
-   * Test {@link PDAbstractAppearanceHandler#drawCircle2(PDAppearanceContentStream, float, float, float)}.
-   * <ul>
-   *   <li>Given {@link ByteArrayOutputStream#ByteArrayOutputStream(int)} with one.</li>
-   *   <li>Then calls {@link COSDictionary#getCOSDictionary(COSName)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAbstractAppearanceHandler#drawCircle2(PDAppearanceContentStream, float, float, float)}
+   * Method under test:
+   * {@link PDAbstractAppearanceHandler#drawCircle2(PDAppearanceContentStream, float, float, float)}
    */
   @Test
-  @DisplayName("Test drawCircle2(PDAppearanceContentStream, float, float, float); given ByteArrayOutputStream(int) with one; then calls getCOSDictionary(COSName)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAbstractAppearanceHandler.drawCircle2(PDAppearanceContentStream, float, float, float)"})
-  void testDrawCircle2_givenByteArrayOutputStreamWithOne_thenCallsGetCOSDictionary() throws IOException {
+  void testDrawCircle22() throws IOException {
     // Arrange
     PDCaretAppearanceHandler pdCaretAppearanceHandler = new PDCaretAppearanceHandler(new PDAnnotationCaret());
     COSStream stream = mock(COSStream.class);
@@ -1430,19 +1789,11 @@ class PDAbstractAppearanceHandlerDiffblueTest {
   }
 
   /**
-   * Test {@link PDAbstractAppearanceHandler#drawCircle2(PDAppearanceContentStream, float, float, float)}.
-   * <ul>
-   *   <li>When {@code -9.223372E18}.</li>
-   *   <li>Then calls {@link COSDictionary#getCOSDictionary(COSName)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAbstractAppearanceHandler#drawCircle2(PDAppearanceContentStream, float, float, float)}
+   * Method under test:
+   * {@link PDAbstractAppearanceHandler#drawCircle2(PDAppearanceContentStream, float, float, float)}
    */
   @Test
-  @DisplayName("Test drawCircle2(PDAppearanceContentStream, float, float, float); when '-9.223372E18'; then calls getCOSDictionary(COSName)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAbstractAppearanceHandler.drawCircle2(PDAppearanceContentStream, float, float, float)"})
-  void testDrawCircle2_when9223372e18_thenCallsGetCOSDictionary() throws IOException {
+  void testDrawCircle23() throws IOException {
     // Arrange
     PDCaretAppearanceHandler pdCaretAppearanceHandler = new PDCaretAppearanceHandler(new PDAnnotationCaret());
     COSStream stream = mock(COSStream.class);
@@ -1461,39 +1812,586 @@ class PDAbstractAppearanceHandlerDiffblueTest {
   }
 
   /**
-   * Test {@link PDAbstractAppearanceHandler#handleBorderBox(PDAnnotationSquareCircle, float)}.
-   * <ul>
-   *   <li>Then return Width is {@code 2373.937}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAbstractAppearanceHandler#handleBorderBox(PDAnnotationSquareCircle, float)}
+   * Method under test:
+   * {@link PDAbstractAppearanceHandler#handleBorderBox(PDAnnotationSquareCircle, float)}
    */
   @Test
-  @DisplayName("Test handleBorderBox(PDAnnotationSquareCircle, float); then return Width is '2373.937'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDRectangle PDAbstractAppearanceHandler.handleBorderBox(PDAnnotationSquareCircle, float)"})
-  void testHandleBorderBox_thenReturnWidthIs2373937() {
+  void testHandleBorderBox() {
     // Arrange
-    PDAnnotationCaret annotation = new PDAnnotationCaret();
-    annotation.setRectangle(PDRectangle.A0);
+    PDRectangle pdRectangle = mock(PDRectangle.class);
+    when(pdRectangle.getHeight()).thenReturn(10.0f);
+    when(pdRectangle.getLowerLeftX()).thenReturn(10.0f);
+    when(pdRectangle.getLowerLeftY()).thenReturn(10.0f);
+    when(pdRectangle.getWidth()).thenReturn(10.0f);
+    PDAnnotation annotation = mock(PDAnnotation.class);
+    when(annotation.getRectangle()).thenReturn(pdRectangle);
     PDCaretAppearanceHandler pdCaretAppearanceHandler = new PDCaretAppearanceHandler(annotation);
-
-    PDAppearanceDictionary appearance = new PDAppearanceDictionary();
-    appearance.setNormalAppearance(new PDAppearanceStream(new COSStream()));
-
-    PDAnnotationCircle annotation2 = new PDAnnotationCircle();
-    annotation2.setAppearance(appearance);
+    PDAnnotationSquareCircle annotation2 = mock(PDAnnotationSquareCircle.class);
+    when(annotation2.getRectDifferences()).thenReturn(new float[]{10.0f, 0.5f, 10.0f, 0.5f});
 
     // Act
     PDRectangle actualHandleBorderBoxResult = pdCaretAppearanceHandler.handleBorderBox(annotation2, 10.0f);
 
     // Assert
+    verify(pdRectangle).getHeight();
+    verify(pdRectangle).getLowerLeftX();
+    verify(pdRectangle).getLowerLeftY();
+    verify(pdRectangle).getWidth();
+    verify(annotation).getRectangle();
+    verify(annotation2).getRectDifferences();
+    COSArray cOSArray = actualHandleBorderBoxResult.getCOSArray();
+    List<? extends COSBase> toListResult = cOSArray.toList();
+    assertEquals(4, toListResult.size());
+    COSBase getResult = toListResult.get(0);
+    assertTrue(getResult instanceof COSFloat);
+    COSBase getResult2 = toListResult.get(1);
+    assertTrue(getResult2 instanceof COSFloat);
+    COSBase getResult3 = toListResult.get(2);
+    assertTrue(getResult3 instanceof COSFloat);
+    COSBase getResult4 = toListResult.get(3);
+    assertTrue(getResult4 instanceof COSFloat);
+    assertNull(getResult.getKey());
+    assertNull(getResult2.getKey());
+    assertNull(getResult3.getKey());
+    assertNull(getResult4.getKey());
+    assertEquals(-1.0f, actualHandleBorderBoxResult.getHeight());
+    assertEquals(-20.0f, actualHandleBorderBoxResult.getWidth());
+    assertEquals(14.5f, actualHandleBorderBoxResult.getUpperRightY());
+    assertEquals(15.5f, actualHandleBorderBoxResult.getLowerLeftY());
+    assertEquals(25.0f, actualHandleBorderBoxResult.getLowerLeftX());
+    assertEquals(5.0f, actualHandleBorderBoxResult.getUpperRightX());
+    assertFalse(getResult.isDirect());
+    assertFalse(getResult2.isDirect());
+    assertFalse(getResult3.isDirect());
+    assertFalse(getResult4.isDirect());
+    assertSame(cOSArray, actualHandleBorderBoxResult.getCOSObject());
+  }
+
+  /**
+   * Method under test:
+   * {@link PDAbstractAppearanceHandler#handleBorderBox(PDAnnotationSquareCircle, float)}
+   */
+  @Test
+  void testHandleBorderBox2() {
+    // Arrange
+    PDRectangle pdRectangle = mock(PDRectangle.class);
+    when(pdRectangle.getCOSArray()).thenReturn(new COSArray());
+    when(pdRectangle.getHeight()).thenReturn(10.0f);
+    when(pdRectangle.getLowerLeftX()).thenReturn(10.0f);
+    when(pdRectangle.getLowerLeftY()).thenReturn(10.0f);
+    when(pdRectangle.getWidth()).thenReturn(10.0f);
+    PDAnnotation annotation = mock(PDAnnotation.class);
+    when(annotation.getRectangle()).thenReturn(pdRectangle);
+    PDCaretAppearanceHandler pdCaretAppearanceHandler = new PDCaretAppearanceHandler(annotation);
+    PDAnnotationSquareCircle annotation2 = mock(PDAnnotationSquareCircle.class);
+    when(annotation2.getNormalAppearanceStream()).thenReturn(new PDAppearanceStream(new COSStream()));
+    doNothing().when(annotation2).setRectangle(Mockito.<PDRectangle>any());
+    doNothing().when(annotation2).setRectDifferences(anyFloat());
+    when(annotation2.getRectDifferences()).thenReturn(new float[]{});
+
+    // Act
+    PDRectangle actualHandleBorderBoxResult = pdCaretAppearanceHandler.handleBorderBox(annotation2, 10.0f);
+
+    // Assert
+    verify(pdRectangle).getCOSArray();
+    verify(pdRectangle).getHeight();
+    verify(pdRectangle, atLeast(1)).getLowerLeftX();
+    verify(pdRectangle, atLeast(1)).getLowerLeftY();
+    verify(pdRectangle).getWidth();
+    verify(annotation2).getNormalAppearanceStream();
+    verify(annotation, atLeast(1)).getRectangle();
+    verify(annotation2).setRectangle(isA(PDRectangle.class));
+    verify(annotation2, atLeast(1)).getRectDifferences();
+    verify(annotation2).setRectDifferences(eq(5.0f));
+    COSArray cOSArray = actualHandleBorderBoxResult.getCOSArray();
+    List<? extends COSBase> toListResult = cOSArray.toList();
+    assertEquals(4, toListResult.size());
+    COSBase getResult = toListResult.get(0);
+    assertTrue(getResult instanceof COSFloat);
+    COSBase getResult2 = toListResult.get(1);
+    assertTrue(getResult2 instanceof COSFloat);
+    COSBase getResult3 = toListResult.get(2);
+    assertTrue(getResult3 instanceof COSFloat);
+    COSBase getResult4 = toListResult.get(3);
+    assertTrue(getResult4 instanceof COSFloat);
+    assertNull(getResult.getKey());
+    assertEquals(0.0f, actualHandleBorderBoxResult.getHeight());
+    assertEquals(0.0f, actualHandleBorderBoxResult.getWidth());
+    assertEquals(15.0f, actualHandleBorderBoxResult.getLowerLeftX());
+    assertEquals(15.0f, actualHandleBorderBoxResult.getLowerLeftY());
+    assertEquals(15.0f, actualHandleBorderBoxResult.getUpperRightX());
+    assertEquals(15.0f, actualHandleBorderBoxResult.getUpperRightY());
+    assertFalse(getResult.isDirect());
+    assertEquals(getResult, getResult2);
+    assertEquals(getResult, getResult3);
+    assertEquals(getResult, getResult4);
+    assertSame(cOSArray, actualHandleBorderBoxResult.getCOSObject());
+  }
+
+  /**
+   * Method under test:
+   * {@link PDAbstractAppearanceHandler#handleBorderBox(PDAnnotationSquareCircle, float)}
+   */
+  @Test
+  void testHandleBorderBox3() {
+    // Arrange
+    PDRectangle pdRectangle = mock(PDRectangle.class);
+    when(pdRectangle.getCOSArray()).thenReturn(null);
+    when(pdRectangle.getHeight()).thenReturn(10.0f);
+    when(pdRectangle.getLowerLeftX()).thenReturn(10.0f);
+    when(pdRectangle.getLowerLeftY()).thenReturn(10.0f);
+    when(pdRectangle.getWidth()).thenReturn(10.0f);
+    PDAnnotation annotation = mock(PDAnnotation.class);
+    when(annotation.getRectangle()).thenReturn(pdRectangle);
+    PDCaretAppearanceHandler pdCaretAppearanceHandler = new PDCaretAppearanceHandler(annotation);
+    PDAnnotationSquareCircle annotation2 = mock(PDAnnotationSquareCircle.class);
+    when(annotation2.getNormalAppearanceStream()).thenReturn(new PDAppearanceStream(new COSStream()));
+    doNothing().when(annotation2).setRectangle(Mockito.<PDRectangle>any());
+    doNothing().when(annotation2).setRectDifferences(anyFloat());
+    when(annotation2.getRectDifferences()).thenReturn(new float[]{});
+
+    // Act
+    PDRectangle actualHandleBorderBoxResult = pdCaretAppearanceHandler.handleBorderBox(annotation2, 10.0f);
+
+    // Assert
+    verify(pdRectangle).getCOSArray();
+    verify(pdRectangle).getHeight();
+    verify(pdRectangle, atLeast(1)).getLowerLeftX();
+    verify(pdRectangle, atLeast(1)).getLowerLeftY();
+    verify(pdRectangle).getWidth();
+    verify(annotation2).getNormalAppearanceStream();
+    verify(annotation, atLeast(1)).getRectangle();
+    verify(annotation2).setRectangle(isA(PDRectangle.class));
+    verify(annotation2, atLeast(1)).getRectDifferences();
+    verify(annotation2).setRectDifferences(eq(5.0f));
+    COSArray cOSArray = actualHandleBorderBoxResult.getCOSArray();
+    List<? extends COSBase> toListResult = cOSArray.toList();
+    assertEquals(4, toListResult.size());
+    COSBase getResult = toListResult.get(0);
+    assertTrue(getResult instanceof COSFloat);
+    COSBase getResult2 = toListResult.get(1);
+    assertTrue(getResult2 instanceof COSFloat);
+    COSBase getResult3 = toListResult.get(2);
+    assertTrue(getResult3 instanceof COSFloat);
+    COSBase getResult4 = toListResult.get(3);
+    assertTrue(getResult4 instanceof COSFloat);
+    assertNull(getResult.getKey());
+    assertEquals(0.0f, actualHandleBorderBoxResult.getHeight());
+    assertEquals(0.0f, actualHandleBorderBoxResult.getWidth());
+    assertEquals(15.0f, actualHandleBorderBoxResult.getLowerLeftX());
+    assertEquals(15.0f, actualHandleBorderBoxResult.getLowerLeftY());
+    assertEquals(15.0f, actualHandleBorderBoxResult.getUpperRightX());
+    assertEquals(15.0f, actualHandleBorderBoxResult.getUpperRightY());
+    assertFalse(getResult.isDirect());
+    assertEquals(getResult, getResult2);
+    assertEquals(getResult, getResult3);
+    assertEquals(getResult, getResult4);
+    assertSame(cOSArray, actualHandleBorderBoxResult.getCOSObject());
+  }
+
+  /**
+   * Method under test:
+   * {@link PDAbstractAppearanceHandler#handleBorderBox(PDAnnotationSquareCircle, float)}
+   */
+  @Test
+  void testHandleBorderBox4() {
+    // Arrange
+    COSArray cosArray = mock(COSArray.class);
+    when(cosArray.isDirect()).thenReturn(true);
+    when(cosArray.getUpdateState()).thenReturn(new COSUpdateState(new COSArray()));
+    PDRectangle pdRectangle = mock(PDRectangle.class);
+    when(pdRectangle.getCOSArray()).thenReturn(cosArray);
+    when(pdRectangle.getHeight()).thenReturn(10.0f);
+    when(pdRectangle.getLowerLeftX()).thenReturn(10.0f);
+    when(pdRectangle.getLowerLeftY()).thenReturn(10.0f);
+    when(pdRectangle.getWidth()).thenReturn(10.0f);
+    PDAnnotation annotation = mock(PDAnnotation.class);
+    when(annotation.getRectangle()).thenReturn(pdRectangle);
+    PDCaretAppearanceHandler pdCaretAppearanceHandler = new PDCaretAppearanceHandler(annotation);
+    PDAnnotationSquareCircle annotation2 = mock(PDAnnotationSquareCircle.class);
+    when(annotation2.getNormalAppearanceStream()).thenReturn(new PDAppearanceStream(new COSStream()));
+    doNothing().when(annotation2).setRectangle(Mockito.<PDRectangle>any());
+    doNothing().when(annotation2).setRectDifferences(anyFloat());
+    when(annotation2.getRectDifferences()).thenReturn(new float[]{});
+
+    // Act
+    PDRectangle actualHandleBorderBoxResult = pdCaretAppearanceHandler.handleBorderBox(annotation2, 10.0f);
+
+    // Assert
+    verify(cosArray).getUpdateState();
+    verify(cosArray).isDirect();
+    verify(pdRectangle).getCOSArray();
+    verify(pdRectangle).getHeight();
+    verify(pdRectangle, atLeast(1)).getLowerLeftX();
+    verify(pdRectangle, atLeast(1)).getLowerLeftY();
+    verify(pdRectangle).getWidth();
+    verify(annotation2).getNormalAppearanceStream();
+    verify(annotation, atLeast(1)).getRectangle();
+    verify(annotation2).setRectangle(isA(PDRectangle.class));
+    verify(annotation2, atLeast(1)).getRectDifferences();
+    verify(annotation2).setRectDifferences(eq(5.0f));
+    COSArray cOSArray = actualHandleBorderBoxResult.getCOSArray();
+    List<? extends COSBase> toListResult = cOSArray.toList();
+    assertEquals(4, toListResult.size());
+    COSBase getResult = toListResult.get(0);
+    assertTrue(getResult instanceof COSFloat);
+    COSBase getResult2 = toListResult.get(1);
+    assertTrue(getResult2 instanceof COSFloat);
+    COSBase getResult3 = toListResult.get(2);
+    assertTrue(getResult3 instanceof COSFloat);
+    COSBase getResult4 = toListResult.get(3);
+    assertTrue(getResult4 instanceof COSFloat);
+    assertNull(getResult.getKey());
+    assertEquals(0.0f, actualHandleBorderBoxResult.getHeight());
+    assertEquals(0.0f, actualHandleBorderBoxResult.getWidth());
+    assertEquals(15.0f, actualHandleBorderBoxResult.getLowerLeftX());
+    assertEquals(15.0f, actualHandleBorderBoxResult.getLowerLeftY());
+    assertEquals(15.0f, actualHandleBorderBoxResult.getUpperRightX());
+    assertEquals(15.0f, actualHandleBorderBoxResult.getUpperRightY());
+    assertFalse(getResult.isDirect());
+    assertEquals(getResult, getResult2);
+    assertEquals(getResult, getResult3);
+    assertEquals(getResult, getResult4);
+    assertSame(cOSArray, actualHandleBorderBoxResult.getCOSObject());
+  }
+
+  /**
+   * Method under test:
+   * {@link PDAbstractAppearanceHandler#handleBorderBox(PDAnnotationSquareCircle, float)}
+   */
+  @Test
+  void testHandleBorderBox5() {
+    // Arrange
+    COSArray cosArray = mock(COSArray.class);
+    when(cosArray.isDirect()).thenReturn(false);
+    when(cosArray.getKey()).thenReturn(new COSObjectKey(1L, 1));
+    PDRectangle pdRectangle = mock(PDRectangle.class);
+    when(pdRectangle.getCOSArray()).thenReturn(cosArray);
+    when(pdRectangle.getHeight()).thenReturn(10.0f);
+    when(pdRectangle.getLowerLeftX()).thenReturn(10.0f);
+    when(pdRectangle.getLowerLeftY()).thenReturn(10.0f);
+    when(pdRectangle.getWidth()).thenReturn(10.0f);
+    PDAnnotation annotation = mock(PDAnnotation.class);
+    when(annotation.getRectangle()).thenReturn(pdRectangle);
+    PDCaretAppearanceHandler pdCaretAppearanceHandler = new PDCaretAppearanceHandler(annotation);
+    PDAnnotationSquareCircle annotation2 = mock(PDAnnotationSquareCircle.class);
+    when(annotation2.getNormalAppearanceStream()).thenReturn(new PDAppearanceStream(new COSStream()));
+    doNothing().when(annotation2).setRectangle(Mockito.<PDRectangle>any());
+    doNothing().when(annotation2).setRectDifferences(anyFloat());
+    when(annotation2.getRectDifferences()).thenReturn(new float[]{});
+
+    // Act
+    PDRectangle actualHandleBorderBoxResult = pdCaretAppearanceHandler.handleBorderBox(annotation2, 10.0f);
+
+    // Assert
+    verify(cosArray, atLeast(1)).getKey();
+    verify(cosArray).isDirect();
+    verify(pdRectangle).getCOSArray();
+    verify(pdRectangle).getHeight();
+    verify(pdRectangle, atLeast(1)).getLowerLeftX();
+    verify(pdRectangle, atLeast(1)).getLowerLeftY();
+    verify(pdRectangle).getWidth();
+    verify(annotation2).getNormalAppearanceStream();
+    verify(annotation, atLeast(1)).getRectangle();
+    verify(annotation2).setRectangle(isA(PDRectangle.class));
+    verify(annotation2, atLeast(1)).getRectDifferences();
+    verify(annotation2).setRectDifferences(eq(5.0f));
+    COSArray cOSArray = actualHandleBorderBoxResult.getCOSArray();
+    List<? extends COSBase> toListResult = cOSArray.toList();
+    assertEquals(4, toListResult.size());
+    COSBase getResult = toListResult.get(0);
+    assertTrue(getResult instanceof COSFloat);
+    COSBase getResult2 = toListResult.get(1);
+    assertTrue(getResult2 instanceof COSFloat);
+    COSBase getResult3 = toListResult.get(2);
+    assertTrue(getResult3 instanceof COSFloat);
+    COSBase getResult4 = toListResult.get(3);
+    assertTrue(getResult4 instanceof COSFloat);
+    assertNull(getResult.getKey());
+    assertEquals(0.0f, actualHandleBorderBoxResult.getHeight());
+    assertEquals(0.0f, actualHandleBorderBoxResult.getWidth());
+    assertEquals(15.0f, actualHandleBorderBoxResult.getLowerLeftX());
+    assertEquals(15.0f, actualHandleBorderBoxResult.getLowerLeftY());
+    assertEquals(15.0f, actualHandleBorderBoxResult.getUpperRightX());
+    assertEquals(15.0f, actualHandleBorderBoxResult.getUpperRightY());
+    assertFalse(getResult.isDirect());
+    assertEquals(getResult, getResult2);
+    assertEquals(getResult, getResult3);
+    assertEquals(getResult, getResult4);
+    assertSame(cOSArray, actualHandleBorderBoxResult.getCOSObject());
+  }
+
+  /**
+   * Method under test:
+   * {@link PDAbstractAppearanceHandler#handleBorderBox(PDAnnotationSquareCircle, float)}
+   */
+  @Test
+  void testHandleBorderBox6() {
+    // Arrange
+    COSUpdateState cosUpdateState = mock(COSUpdateState.class);
+    doNothing().when(cosUpdateState).setOriginDocumentState(Mockito.<COSDocumentState>any());
+    COSArray cosArray = mock(COSArray.class);
+    when(cosArray.isDirect()).thenReturn(true);
+    when(cosArray.getUpdateState()).thenReturn(cosUpdateState);
+    PDRectangle pdRectangle = mock(PDRectangle.class);
+    when(pdRectangle.getCOSArray()).thenReturn(cosArray);
+    when(pdRectangle.getHeight()).thenReturn(10.0f);
+    when(pdRectangle.getLowerLeftX()).thenReturn(10.0f);
+    when(pdRectangle.getLowerLeftY()).thenReturn(10.0f);
+    when(pdRectangle.getWidth()).thenReturn(10.0f);
+    PDAnnotation annotation = mock(PDAnnotation.class);
+    when(annotation.getRectangle()).thenReturn(pdRectangle);
+    PDCaretAppearanceHandler pdCaretAppearanceHandler = new PDCaretAppearanceHandler(annotation);
+    PDAnnotationSquareCircle annotation2 = mock(PDAnnotationSquareCircle.class);
+    when(annotation2.getNormalAppearanceStream()).thenReturn(new PDAppearanceStream(new COSStream()));
+    doNothing().when(annotation2).setRectangle(Mockito.<PDRectangle>any());
+    doNothing().when(annotation2).setRectDifferences(anyFloat());
+    when(annotation2.getRectDifferences()).thenReturn(new float[]{});
+
+    // Act
+    PDRectangle actualHandleBorderBoxResult = pdCaretAppearanceHandler.handleBorderBox(annotation2, 10.0f);
+
+    // Assert
+    verify(cosArray).getUpdateState();
+    verify(cosArray).isDirect();
+    verify(cosUpdateState).setOriginDocumentState(isNull());
+    verify(pdRectangle).getCOSArray();
+    verify(pdRectangle).getHeight();
+    verify(pdRectangle, atLeast(1)).getLowerLeftX();
+    verify(pdRectangle, atLeast(1)).getLowerLeftY();
+    verify(pdRectangle).getWidth();
+    verify(annotation2).getNormalAppearanceStream();
+    verify(annotation, atLeast(1)).getRectangle();
+    verify(annotation2).setRectangle(isA(PDRectangle.class));
+    verify(annotation2, atLeast(1)).getRectDifferences();
+    verify(annotation2).setRectDifferences(eq(5.0f));
+    COSArray cOSArray = actualHandleBorderBoxResult.getCOSArray();
+    List<? extends COSBase> toListResult = cOSArray.toList();
+    assertEquals(4, toListResult.size());
+    COSBase getResult = toListResult.get(0);
+    assertTrue(getResult instanceof COSFloat);
+    COSBase getResult2 = toListResult.get(1);
+    assertTrue(getResult2 instanceof COSFloat);
+    COSBase getResult3 = toListResult.get(2);
+    assertTrue(getResult3 instanceof COSFloat);
+    COSBase getResult4 = toListResult.get(3);
+    assertTrue(getResult4 instanceof COSFloat);
+    assertNull(getResult.getKey());
+    assertEquals(0.0f, actualHandleBorderBoxResult.getHeight());
+    assertEquals(0.0f, actualHandleBorderBoxResult.getWidth());
+    assertEquals(15.0f, actualHandleBorderBoxResult.getLowerLeftX());
+    assertEquals(15.0f, actualHandleBorderBoxResult.getLowerLeftY());
+    assertEquals(15.0f, actualHandleBorderBoxResult.getUpperRightX());
+    assertEquals(15.0f, actualHandleBorderBoxResult.getUpperRightY());
+    assertFalse(getResult.isDirect());
+    assertEquals(getResult, getResult2);
+    assertEquals(getResult, getResult3);
+    assertEquals(getResult, getResult4);
+    assertSame(cOSArray, actualHandleBorderBoxResult.getCOSObject());
+  }
+
+  /**
+   * Method under test:
+   * {@link PDAbstractAppearanceHandler#handleBorderBox(PDAnnotationSquareCircle, float)}
+   */
+  @Test
+  void testHandleBorderBox7() {
+    // Arrange
+    PDRectangle pdRectangle = mock(PDRectangle.class);
+    when(pdRectangle.getHeight()).thenReturn(10.0f);
+    when(pdRectangle.getLowerLeftX()).thenReturn(10.0f);
+    when(pdRectangle.getLowerLeftY()).thenReturn(10.0f);
+    when(pdRectangle.getWidth()).thenReturn(10.0f);
+    PDAnnotation annotation = mock(PDAnnotation.class);
+    when(annotation.getRectangle()).thenReturn(pdRectangle);
+    PDCaretAppearanceHandler pdCaretAppearanceHandler = new PDCaretAppearanceHandler(annotation);
+    PDAppearanceStream pdAppearanceStream = mock(PDAppearanceStream.class);
+    doNothing().when(pdAppearanceStream).setBBox(Mockito.<PDRectangle>any());
+    doNothing().when(pdAppearanceStream).setMatrix(Mockito.<AffineTransform>any());
+    PDAnnotationSquareCircle annotation2 = mock(PDAnnotationSquareCircle.class);
+    when(annotation2.getNormalAppearanceStream()).thenReturn(pdAppearanceStream);
+    doNothing().when(annotation2).setRectangle(Mockito.<PDRectangle>any());
+    doNothing().when(annotation2).setRectDifferences(anyFloat());
+    when(annotation2.getRectDifferences()).thenReturn(new float[]{});
+
+    // Act
+    PDRectangle actualHandleBorderBoxResult = pdCaretAppearanceHandler.handleBorderBox(annotation2, 10.0f);
+
+    // Assert
+    verify(pdRectangle).getHeight();
+    verify(pdRectangle, atLeast(1)).getLowerLeftX();
+    verify(pdRectangle, atLeast(1)).getLowerLeftY();
+    verify(pdRectangle).getWidth();
+    verify(pdAppearanceStream).setBBox(isA(PDRectangle.class));
+    verify(pdAppearanceStream).setMatrix(isA(AffineTransform.class));
+    verify(annotation2).getNormalAppearanceStream();
+    verify(annotation, atLeast(1)).getRectangle();
+    verify(annotation2).setRectangle(isA(PDRectangle.class));
+    verify(annotation2, atLeast(1)).getRectDifferences();
+    verify(annotation2).setRectDifferences(eq(5.0f));
+    COSArray cOSArray = actualHandleBorderBoxResult.getCOSArray();
+    List<? extends COSBase> toListResult = cOSArray.toList();
+    assertEquals(4, toListResult.size());
+    COSBase getResult = toListResult.get(0);
+    assertTrue(getResult instanceof COSFloat);
+    COSBase getResult2 = toListResult.get(1);
+    assertTrue(getResult2 instanceof COSFloat);
+    COSBase getResult3 = toListResult.get(2);
+    assertTrue(getResult3 instanceof COSFloat);
+    COSBase getResult4 = toListResult.get(3);
+    assertTrue(getResult4 instanceof COSFloat);
+    assertNull(getResult.getKey());
+    assertEquals(0.0f, actualHandleBorderBoxResult.getHeight());
+    assertEquals(0.0f, actualHandleBorderBoxResult.getWidth());
+    assertEquals(15.0f, actualHandleBorderBoxResult.getLowerLeftX());
+    assertEquals(15.0f, actualHandleBorderBoxResult.getLowerLeftY());
+    assertEquals(15.0f, actualHandleBorderBoxResult.getUpperRightX());
+    assertEquals(15.0f, actualHandleBorderBoxResult.getUpperRightY());
+    assertFalse(getResult.isDirect());
+    assertEquals(getResult, getResult2);
+    assertEquals(getResult, getResult3);
+    assertEquals(getResult, getResult4);
+    assertSame(cOSArray, actualHandleBorderBoxResult.getCOSObject());
+  }
+
+  /**
+   * Method under test:
+   * {@link PDAbstractAppearanceHandler#handleBorderBox(PDAnnotationSquareCircle, float)}
+   */
+  @Test
+  void testHandleBorderBox8() {
+    // Arrange
+    PDRectangle pdRectangle = mock(PDRectangle.class);
+    when(pdRectangle.getHeight()).thenReturn(10.0f);
+    when(pdRectangle.getLowerLeftX()).thenReturn(10.0f);
+    when(pdRectangle.getLowerLeftY()).thenReturn(10.0f);
+    when(pdRectangle.getWidth()).thenReturn(10.0f);
+    PDAnnotation annotation = mock(PDAnnotation.class);
+    when(annotation.getRectangle()).thenReturn(pdRectangle);
+    PDCaretAppearanceHandler pdCaretAppearanceHandler = new PDCaretAppearanceHandler(annotation);
+    PDAnnotationSquareCircle annotation2 = mock(PDAnnotationSquareCircle.class);
+    when(annotation2.getRectDifferences()).thenReturn(new float[]{2.0f, 10.0f, 2.0f, 10.0f, 2.0f, 10.0f, 2.0f, 10.0f});
+
+    // Act
+    PDRectangle actualHandleBorderBoxResult = pdCaretAppearanceHandler.handleBorderBox(annotation2, 10.0f);
+
+    // Assert
+    verify(pdRectangle).getHeight();
+    verify(pdRectangle).getLowerLeftX();
+    verify(pdRectangle).getLowerLeftY();
+    verify(pdRectangle).getWidth();
+    verify(annotation).getRectangle();
+    verify(annotation2).getRectDifferences();
+    COSArray cOSArray = actualHandleBorderBoxResult.getCOSArray();
+    List<? extends COSBase> toListResult = cOSArray.toList();
+    assertEquals(4, toListResult.size());
+    COSBase getResult = toListResult.get(0);
+    assertTrue(getResult instanceof COSFloat);
+    COSBase getResult2 = toListResult.get(1);
+    assertTrue(getResult2 instanceof COSFloat);
+    COSBase getResult3 = toListResult.get(2);
+    assertTrue(getResult3 instanceof COSFloat);
+    COSBase getResult4 = toListResult.get(3);
+    assertTrue(getResult4 instanceof COSFloat);
+    assertNull(getResult.getKey());
+    assertEquals(0.0f, actualHandleBorderBoxResult.getHeight());
+    assertEquals(0.0f, actualHandleBorderBoxResult.getWidth());
+    assertEquals(15.0f, actualHandleBorderBoxResult.getLowerLeftX());
+    assertEquals(15.0f, actualHandleBorderBoxResult.getLowerLeftY());
+    assertEquals(15.0f, actualHandleBorderBoxResult.getUpperRightX());
+    assertEquals(15.0f, actualHandleBorderBoxResult.getUpperRightY());
+    assertFalse(getResult.isDirect());
+    assertEquals(getResult, getResult2);
+    assertEquals(getResult, getResult3);
+    assertEquals(getResult, getResult4);
+    assertSame(cOSArray, actualHandleBorderBoxResult.getCOSObject());
+  }
+
+  /**
+   * Method under test:
+   * {@link PDAbstractAppearanceHandler#handleBorderBox(PDAnnotationSquareCircle, float)}
+   */
+  @Test
+  void testHandleBorderBox9() {
+    // Arrange
+    PDAnnotationCaret annotation = new PDAnnotationCaret();
+    annotation.setRectangle(PDRectangle.A0);
+    PDCaretAppearanceHandler pdCaretAppearanceHandler = new PDCaretAppearanceHandler(annotation, new PDDocument());
+    PDAnnotationSquareCircle annotation2 = mock(PDAnnotationSquareCircle.class);
+    when(annotation2.getRectDifferences()).thenReturn(new float[]{2.0f, 10.0f, 2.0f, 10.0f, 2.0f, 10.0f, 2.0f, 10.0f});
+
+    // Act
+    PDRectangle actualHandleBorderBoxResult = pdCaretAppearanceHandler.handleBorderBox(annotation2, 10.0f);
+
+    // Assert
+    verify(annotation2).getRectDifferences();
+    COSArray cOSArray = actualHandleBorderBoxResult.getCOSArray();
+    List<? extends COSBase> toListResult = cOSArray.toList();
+    assertEquals(4, toListResult.size());
+    COSBase getResult = toListResult.get(0);
+    assertTrue(getResult instanceof COSFloat);
+    COSBase getResult2 = toListResult.get(1);
+    assertTrue(getResult2 instanceof COSFloat);
+    COSBase getResult3 = toListResult.get(2);
+    assertTrue(getResult3 instanceof COSFloat);
+    COSBase getResult4 = toListResult.get(3);
+    assertTrue(getResult4 instanceof COSFloat);
+    assertNull(getResult.getKey());
+    assertNull(getResult3.getKey());
+    assertNull(getResult4.getKey());
     assertEquals(2373.937f, actualHandleBorderBoxResult.getWidth());
     assertEquals(2378.937f, actualHandleBorderBoxResult.getUpperRightX());
     assertEquals(3360.3938f, actualHandleBorderBoxResult.getHeight());
     assertEquals(3365.3938f, actualHandleBorderBoxResult.getUpperRightY());
     assertEquals(5.0f, actualHandleBorderBoxResult.getLowerLeftX());
     assertEquals(5.0f, actualHandleBorderBoxResult.getLowerLeftY());
-    assertArrayEquals(new float[]{5.0f, 5.0f, 5.0f, 5.0f}, annotation2.getRectDifferences(), 0.0f);
+    assertFalse(getResult.isDirect());
+    assertFalse(getResult3.isDirect());
+    assertFalse(getResult4.isDirect());
+    assertEquals(getResult, getResult2);
+    assertSame(cOSArray, actualHandleBorderBoxResult.getCOSObject());
+  }
+
+  /**
+   * Method under test:
+   * {@link PDAbstractAppearanceHandler#handleBorderBox(PDAnnotationSquareCircle, float)}
+   */
+  @Test
+  void testHandleBorderBox10() {
+    // Arrange
+    PDAnnotationCaret annotation = new PDAnnotationCaret();
+    annotation.setRectangle(new PDRectangle(2.14748365E9f, 2.14748365E9f, 2.14748365E9f, 2.14748365E9f));
+    PDCaretAppearanceHandler pdCaretAppearanceHandler = new PDCaretAppearanceHandler(annotation, new PDDocument());
+    PDAnnotationSquareCircle annotation2 = mock(PDAnnotationSquareCircle.class);
+    when(annotation2.getRectDifferences()).thenReturn(new float[]{2.0f, 10.0f, 2.0f, 10.0f, 2.0f, 10.0f, 2.0f, 10.0f});
+
+    // Act
+    PDRectangle actualHandleBorderBoxResult = pdCaretAppearanceHandler.handleBorderBox(annotation2, 10.0f);
+
+    // Assert
+    verify(annotation2).getRectDifferences();
+    COSArray cOSArray = actualHandleBorderBoxResult.getCOSArray();
+    List<? extends COSBase> toListResult = cOSArray.toList();
+    assertEquals(4, toListResult.size());
+    COSBase getResult = toListResult.get(0);
+    assertTrue(getResult instanceof COSFloat);
+    COSBase getResult2 = toListResult.get(1);
+    assertTrue(getResult2 instanceof COSFloat);
+    COSBase getResult3 = toListResult.get(2);
+    assertTrue(getResult3 instanceof COSFloat);
+    COSBase getResult4 = toListResult.get(3);
+    assertTrue(getResult4 instanceof COSFloat);
+    assertNull(getResult.getKey());
+    assertEquals(0.0f, actualHandleBorderBoxResult.getHeight());
+    assertEquals(0.0f, actualHandleBorderBoxResult.getWidth());
+    assertEquals(2.14748365E9f, actualHandleBorderBoxResult.getLowerLeftX());
+    assertEquals(2.14748365E9f, actualHandleBorderBoxResult.getLowerLeftY());
+    assertEquals(2.14748365E9f, actualHandleBorderBoxResult.getUpperRightX());
+    assertEquals(2.14748365E9f, actualHandleBorderBoxResult.getUpperRightY());
+    assertFalse(getResult.isDirect());
+    assertEquals(getResult, getResult2);
+    assertEquals(getResult, getResult3);
+    assertEquals(getResult, getResult4);
+    assertSame(cOSArray, actualHandleBorderBoxResult.getCOSObject());
   }
 }

@@ -1,58 +1,17 @@
 package org.apache.pdfbox.pdmodel.font.encoding;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Map;
 import org.apache.pdfbox.cos.COSBase;
 import org.apache.pdfbox.cos.COSName;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class MacExpertEncodingDiffblueTest {
   /**
-   * Test new {@link MacExpertEncoding} (default constructor).
-   * <p>
-   * Method under test: default or parameterless constructor of {@link MacExpertEncoding}
-   */
-  @Test
-  @DisplayName("Test new MacExpertEncoding (default constructor)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void MacExpertEncoding.<init>()"})
-  void testNewMacExpertEncoding() {
-    // Arrange and Act
-    MacExpertEncoding actualMacExpertEncoding = new MacExpertEncoding();
-
-    // Assert
-    assertTrue(actualMacExpertEncoding.getCOSObject() instanceof COSName);
-    assertEquals("MacExpertEncoding", actualMacExpertEncoding.getEncodingName());
-    Map<Integer, String> integerStringMap = actualMacExpertEncoding.codeToName;
-    assertEquals(165, integerStringMap.size());
-    Map<String, Integer> stringIntegerMap = actualMacExpertEncoding.inverted;
-    assertEquals(165, stringIntegerMap.size());
-    assertTrue(integerStringMap.containsKey(33));
-    assertTrue(integerStringMap.containsKey(34));
-    assertTrue(integerStringMap.containsKey(35));
-    assertTrue(integerStringMap.containsKey(36));
-    assertTrue(integerStringMap.containsKey(37));
-    assertTrue(integerStringMap.containsKey(Integer.SIZE));
-    assertTrue(stringIntegerMap.containsKey("Aringsmall"));
-    assertTrue(stringIntegerMap.containsKey("Hungarumlautsmall"));
-    assertTrue(stringIntegerMap.containsKey("eightinferior"));
-    assertTrue(stringIntegerMap.containsKey("oneeighth"));
-    assertTrue(stringIntegerMap.containsKey("onefitted"));
-    assertTrue(stringIntegerMap.containsKey("twodotenleader"));
-    Map<Integer, String> expectedCodeToNameMap = actualMacExpertEncoding.codeToName;
-    assertEquals(expectedCodeToNameMap, actualMacExpertEncoding.getCodeToNameMap());
-    Map<String, Integer> expectedNameToCodeMap = actualMacExpertEncoding.inverted;
-    assertEquals(expectedNameToCodeMap, actualMacExpertEncoding.getNameToCodeMap());
-  }
-
-  /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link MacExpertEncoding#getCOSObject()}
@@ -60,9 +19,6 @@ class MacExpertEncodingDiffblueTest {
    * </ul>
    */
   @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"COSBase MacExpertEncoding.getCOSObject()", "String MacExpertEncoding.getEncodingName()"})
   void testGettersAndSetters() {
     // Arrange
     MacExpertEncoding macExpertEncoding = new MacExpertEncoding();
@@ -73,5 +29,44 @@ class MacExpertEncodingDiffblueTest {
     // Assert
     assertEquals("MacExpertEncoding", macExpertEncoding.getEncodingName());
     assertSame(((COSName) actualCOSObject).MAC_EXPERT_ENCODING, actualCOSObject);
+  }
+
+  /**
+   * Method under test: default or parameterless constructor of
+   * {@link MacExpertEncoding}
+   */
+  @Test
+  void testNewMacExpertEncoding() {
+    // Arrange and Act
+    MacExpertEncoding actualMacExpertEncoding = new MacExpertEncoding();
+
+    // Assert
+    COSBase cOSObject = actualMacExpertEncoding.getCOSObject();
+    assertTrue(cOSObject instanceof COSName);
+    Map<Integer, String> integerStringMap = actualMacExpertEncoding.codeToName;
+    assertEquals(165, integerStringMap.size());
+    assertEquals("Hungarumlautsmall", integerStringMap.get(34));
+    assertEquals("MacExpertEncoding", ((COSName) cOSObject).getName());
+    assertEquals("MacExpertEncoding", actualMacExpertEncoding.getEncodingName());
+    assertEquals("centoldstyle", integerStringMap.get(35));
+    assertEquals("dollaroldstyle", integerStringMap.get(36));
+    assertEquals("dollarsuperior", integerStringMap.get(37));
+    assertEquals("exclamsmall", integerStringMap.get(33));
+    assertEquals("space", integerStringMap.get(Integer.SIZE));
+    assertNull(cOSObject.getKey());
+    Map<String, Integer> stringIntegerMap = actualMacExpertEncoding.inverted;
+    assertEquals(165, stringIntegerMap.size());
+    assertEquals(124, stringIntegerMap.get("onefitted").intValue());
+    assertEquals(140, stringIntegerMap.get("Aringsmall").intValue());
+    assertEquals(165, stringIntegerMap.get("eightinferior").intValue());
+    assertEquals(34, stringIntegerMap.get("Hungarumlautsmall").intValue());
+    assertEquals(42, stringIntegerMap.get("twodotenleader").intValue());
+    assertEquals(74, stringIntegerMap.get("oneeighth").intValue());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(((COSName) cOSObject).isEmpty());
+    Map<Integer, String> expectedCodeToNameMap = actualMacExpertEncoding.codeToName;
+    assertEquals(expectedCodeToNameMap, actualMacExpertEncoding.getCodeToNameMap());
+    Map<String, Integer> expectedNameToCodeMap = actualMacExpertEncoding.inverted;
+    assertEquals(expectedNameToCodeMap, actualMacExpertEncoding.getNameToCodeMap());
   }
 }

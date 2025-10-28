@@ -6,29 +6,19 @@ import static org.mockito.Mockito.anyInt;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.apache.xmpbox.XMPMetadata;
 import org.apache.xmpbox.schema.PDFAExtensionSchema;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
 class PdfaExtensionHelperDiffblueTest {
   /**
-   * Test {@link PdfaExtensionHelper#validateNaming(XMPMetadata, Element)}.
-   * <ul>
-   *   <li>Then throw {@link IllegalArgumentException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PdfaExtensionHelper#validateNaming(XMPMetadata, Element)}
+   * Method under test:
+   * {@link PdfaExtensionHelper#validateNaming(XMPMetadata, Element)}
    */
   @Test
-  @DisplayName("Test validateNaming(XMPMetadata, Element); then throw IllegalArgumentException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PdfaExtensionHelper.validateNaming(XMPMetadata, Element)"})
-  void testValidateNaming_thenThrowIllegalArgumentException() throws XmpParsingException {
+  void testValidateNaming() throws XmpParsingException {
     // Arrange
     XMPMetadata meta = XMPMetadata.createXMPMetadata();
     NamedNodeMap namedNodeMap = mock(NamedNodeMap.class);
@@ -45,18 +35,11 @@ class PdfaExtensionHelperDiffblueTest {
   }
 
   /**
-   * Test {@link PdfaExtensionHelper#populateSchemaMapping(XMPMetadata)}.
-   * <ul>
-   *   <li>Then throw {@link XmpParsingException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PdfaExtensionHelper#populateSchemaMapping(XMPMetadata)}
+   * Method under test:
+   * {@link PdfaExtensionHelper#populateSchemaMapping(XMPMetadata)}
    */
   @Test
-  @DisplayName("Test populateSchemaMapping(XMPMetadata); then throw XmpParsingException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PdfaExtensionHelper.populateSchemaMapping(XMPMetadata)"})
-  void testPopulateSchemaMapping_thenThrowXmpParsingException() throws XmpParsingException {
+  void testPopulateSchemaMapping() throws XmpParsingException {
     // Arrange
     PDFAExtensionSchema obj = new PDFAExtensionSchema(XMPMetadata.createXMPMetadata(), "Prefix");
     obj.addBagValueAsSimple("http://www.aiim.org/pdfa/ns/extension/", "http://ns.adobe.com/pdf/1.3/");

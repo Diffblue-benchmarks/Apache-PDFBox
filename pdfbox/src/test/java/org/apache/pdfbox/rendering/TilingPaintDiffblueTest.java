@@ -1,37 +1,34 @@
 package org.apache.pdfbox.rendering;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import java.awt.geom.AffineTransform;
 import java.io.IOException;
 import org.apache.pdfbox.cos.COSArray;
+import org.apache.pdfbox.io.RandomAccessStreamCache;
+import org.apache.pdfbox.io.RandomAccessStreamCacheImpl;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.graphics.color.PDColor;
 import org.apache.pdfbox.pdmodel.graphics.color.PDColorSpace;
 import org.apache.pdfbox.pdmodel.graphics.color.PDDeviceGray;
 import org.apache.pdfbox.pdmodel.graphics.pattern.PDTilingPattern;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class TilingPaintDiffblueTest {
   /**
-   * Test {@link TilingPaint#TilingPaint(PageDrawer, PDTilingPattern, AffineTransform)}.
-   * <ul>
-   *   <li>Given {@link PDPage#PDPage()}.</li>
-   *   <li>Then throw {@link IOException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link TilingPaint#TilingPaint(PageDrawer, PDTilingPattern, AffineTransform)}
+   * Method under test:
+   * {@link TilingPaint#TilingPaint(PageDrawer, PDTilingPattern, AffineTransform)}
    */
   @Test
-  @DisplayName("Test new TilingPaint(PageDrawer, PDTilingPattern, AffineTransform); given PDPage(); then throw IOException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void TilingPaint.<init>(PageDrawer, PDTilingPattern, AffineTransform)"})
-  void testNewTilingPaint_givenPDPage_thenThrowIOException() throws IOException {
+  void testNewTilingPaint() throws IOException {
     // Arrange
-    PDFRenderer renderer = new PDFRenderer(new PDDocument());
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDFRenderer renderer = new PDFRenderer(new PDDocument(streamCacheCreateFunction));
 
     PageDrawer drawer = new PageDrawer(
         new PageDrawerParameters(renderer, new PDPage(), true, RenderDestination.EXPORT, null, 10.0f));
@@ -41,24 +38,20 @@ class TilingPaintDiffblueTest {
     // Act and Assert
     assertThrows(IOException.class, () -> new TilingPaint(drawer, pattern, new AffineTransform()));
 
+    verify(streamCacheCreateFunction).create();
   }
 
   /**
-   * Test {@link TilingPaint#TilingPaint(PageDrawer, PDTilingPattern, PDColorSpace, PDColor, AffineTransform)}.
-   * <ul>
-   *   <li>Given {@link PDPage#PDPage()}.</li>
-   *   <li>Then throw {@link IOException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link TilingPaint#TilingPaint(PageDrawer, PDTilingPattern, PDColorSpace, PDColor, AffineTransform)}
+   * Method under test:
+   * {@link TilingPaint#TilingPaint(PageDrawer, PDTilingPattern, PDColorSpace, PDColor, AffineTransform)}
    */
   @Test
-  @DisplayName("Test new TilingPaint(PageDrawer, PDTilingPattern, PDColorSpace, PDColor, AffineTransform); given PDPage(); then throw IOException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void TilingPaint.<init>(PageDrawer, PDTilingPattern, PDColorSpace, PDColor, AffineTransform)"})
-  void testNewTilingPaint_givenPDPage_thenThrowIOException2() throws IOException {
+  void testNewTilingPaint2() throws IOException {
     // Arrange
-    PDFRenderer renderer = new PDFRenderer(new PDDocument());
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDFRenderer renderer = new PDFRenderer(new PDDocument(streamCacheCreateFunction));
 
     PageDrawer drawer = new PageDrawer(
         new PageDrawerParameters(renderer, new PDPage(), true, RenderDestination.EXPORT, null, 10.0f));
@@ -70,5 +63,6 @@ class TilingPaintDiffblueTest {
     assertThrows(IOException.class,
         () -> new TilingPaint(drawer, pattern, PDDeviceGray.INSTANCE, color, new AffineTransform()));
 
+    verify(streamCacheCreateFunction).create();
   }
 }

@@ -3,27 +3,16 @@ package org.apache.xmpbox.type;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.apache.xmpbox.XMPMetadata;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class MIMETypeDiffblueTest {
   /**
-   * Test {@link MIMEType#MIMEType(XMPMetadata, String, String, String, Object)}.
-   * <ul>
-   *   <li>When {@code Value}.</li>
-   *   <li>Then return Namespace is {@code Namespace URI}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link MIMEType#MIMEType(XMPMetadata, String, String, String, Object)}
+   * Method under test:
+   * {@link MIMEType#MIMEType(XMPMetadata, String, String, String, Object)}
    */
   @Test
-  @DisplayName("Test new MIMEType(XMPMetadata, String, String, String, Object); when 'Value'; then return Namespace is 'Namespace URI'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void MIMEType.<init>(XMPMetadata, String, String, String, Object)"})
-  void testNewMIMEType_whenValue_thenReturnNamespaceIsNamespaceUri() {
+  void testNewMIMEType() {
     // Arrange
     XMPMetadata metadata = XMPMetadata.createXMPMetadata();
 

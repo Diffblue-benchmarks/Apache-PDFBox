@@ -2,16 +2,11 @@ package org.apache.fontbox.ttf.table.common;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.apache.fontbox.ttf.table.gsub.LookupTypeSingleSubstFormat1;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class LookupTableDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link LookupTable#LookupTable(int, int, int, LookupSubTable[])}
@@ -23,11 +18,6 @@ class LookupTableDiffblueTest {
    * </ul>
    */
   @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void LookupTable.<init>(int, int, int, LookupSubTable[])", "int LookupTable.getLookupFlag()",
-      "int LookupTable.getLookupType()", "int LookupTable.getMarkFilteringSet()",
-      "LookupSubTable[] LookupTable.getSubTables()", "String LookupTable.toString()"})
   void testGettersAndSetters() {
     // Arrange
     LookupSubTable[] subTables = new LookupSubTable[]{

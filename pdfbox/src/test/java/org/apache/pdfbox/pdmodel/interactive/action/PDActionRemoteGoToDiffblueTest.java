@@ -1,138 +1,47 @@
 package org.apache.pdfbox.pdmodel.interactive.action;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import java.io.IOException;
 import org.apache.pdfbox.cos.COSArray;
 import org.apache.pdfbox.cos.COSBase;
 import org.apache.pdfbox.cos.COSBoolean;
 import org.apache.pdfbox.cos.COSDictionary;
+import org.apache.pdfbox.cos.COSDocument;
+import org.apache.pdfbox.cos.COSIncrement;
 import org.apache.pdfbox.cos.COSObject;
 import org.apache.pdfbox.cos.COSObjectKey;
 import org.apache.pdfbox.cos.COSString;
+import org.apache.pdfbox.cos.COSUpdateState;
+import org.apache.pdfbox.io.RandomAccessStreamCache;
+import org.apache.pdfbox.io.RandomAccessStreamCacheImpl;
+import org.apache.pdfbox.pdmodel.common.COSObjectable;
 import org.apache.pdfbox.pdmodel.common.filespecification.PDComplexFileSpecification;
 import org.apache.pdfbox.pdmodel.common.filespecification.PDFileSpecification;
 import org.apache.pdfbox.pdmodel.common.filespecification.PDSimpleFileSpecification;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class PDActionRemoteGoToDiffblueTest {
   /**
-   * Test {@link PDActionRemoteGoTo#PDActionRemoteGoTo(COSDictionary)}.
-   * <p>
-   * Method under test: {@link PDActionRemoteGoTo#PDActionRemoteGoTo(COSDictionary)}
-   */
-  @Test
-  @DisplayName("Test new PDActionRemoteGoTo(COSDictionary)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDActionRemoteGoTo.<init>(COSDictionary)"})
-  void testNewPDActionRemoteGoTo() {
-    // Arrange
-    COSDictionary a = new COSDictionary();
-
-    // Act and Assert
-    assertSame(a, (new PDActionRemoteGoTo(a)).getCOSObject());
-  }
-
-  /**
-   * Test {@link PDActionRemoteGoTo#PDActionRemoteGoTo()}.
-   * <p>
-   * Method under test: {@link PDActionRemoteGoTo#PDActionRemoteGoTo()}
-   */
-  @Test
-  @DisplayName("Test new PDActionRemoteGoTo()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDActionRemoteGoTo.<init>()"})
-  void testNewPDActionRemoteGoTo2() throws IOException {
-    // Arrange and Act
-    PDActionRemoteGoTo actualPdActionRemoteGoTo = new PDActionRemoteGoTo();
-
-    // Assert
-    assertNull(actualPdActionRemoteGoTo.getNext());
-    assertNull(actualPdActionRemoteGoTo.getD());
-    COSDictionary cOSObject = actualPdActionRemoteGoTo.getCOSObject();
-    assertNull(cOSObject.getKey());
-    assertNull(actualPdActionRemoteGoTo.getFile());
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    assertEquals(OpenMode.USER_PREFERENCE, actualPdActionRemoteGoTo.getOpenInNewWindow());
-    assertFalse(cOSObject.isDirect());
-    assertFalse(cOSObject.isNeedToBeUpdated());
-    assertEquals(PDAction.TYPE, actualPdActionRemoteGoTo.getType());
-    assertEquals(PDActionRemoteGoTo.SUB_TYPE, actualPdActionRemoteGoTo.getSubType());
-  }
-
-  /**
-   * Test {@link PDActionRemoteGoTo#getFile()}.
-   * <ul>
-   *   <li>Given {@link PDActionRemoteGoTo#PDActionRemoteGoTo()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDActionRemoteGoTo#getFile()}
    */
   @Test
-  @DisplayName("Test getFile(); given PDActionRemoteGoTo(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDFileSpecification PDActionRemoteGoTo.getFile()"})
-  void testGetFile_givenPDActionRemoteGoTo_thenReturnNull() throws IOException {
+  void testGetFile() throws IOException {
     // Arrange, Act and Assert
     assertNull((new PDActionRemoteGoTo()).getFile());
   }
 
   /**
-   * Test {@link PDActionRemoteGoTo#getFile()}.
-   * <ul>
-   *   <li>Then COSObject return {@link COSString}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDActionRemoteGoTo#getFile()}
    */
   @Test
-  @DisplayName("Test getFile(); then COSObject return COSString")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDFileSpecification PDActionRemoteGoTo.getFile()"})
-  void testGetFile_thenCOSObjectReturnCOSString() throws IOException {
-    // Arrange
-    PDActionRemoteGoTo pdActionRemoteGoTo = new PDActionRemoteGoTo();
-    pdActionRemoteGoTo.setFile(new PDSimpleFileSpecification());
-
-    // Act
-    PDFileSpecification actualFile = pdActionRemoteGoTo.getFile();
-
-    // Assert
-    COSBase cOSObject = actualFile.getCOSObject();
-    assertTrue(cOSObject instanceof COSString);
-    assertTrue(actualFile instanceof PDSimpleFileSpecification);
-    assertEquals("", ((COSString) cOSObject).getASCII());
-    assertEquals("", ((COSString) cOSObject).getString());
-    assertEquals("", ((COSString) cOSObject).toHexString());
-    assertEquals("", actualFile.getFile());
-    assertNull(cOSObject.getKey());
-    assertFalse(cOSObject.isDirect());
-    assertFalse(((COSString) cOSObject).getForceHexForm());
-    assertArrayEquals(new byte[]{}, ((COSString) cOSObject).getBytes());
-  }
-
-  /**
-   * Test {@link PDActionRemoteGoTo#getFile()}.
-   * <ul>
-   *   <li>Then return {@link PDComplexFileSpecification}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDActionRemoteGoTo#getFile()}
-   */
-  @Test
-  @DisplayName("Test getFile(); then return PDComplexFileSpecification")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDFileSpecification PDActionRemoteGoTo.getFile()"})
-  void testGetFile_thenReturnPDComplexFileSpecification() throws IOException {
+  void testGetFile2() throws IOException {
     // Arrange
     PDActionRemoteGoTo pdActionRemoteGoTo = new PDActionRemoteGoTo();
     pdActionRemoteGoTo.setFile(new PDComplexFileSpecification());
@@ -149,27 +58,79 @@ class PDActionRemoteGoToDiffblueTest {
     assertNull(((PDComplexFileSpecification) actualFile).getFileUnix());
     assertNull(((PDComplexFileSpecification) actualFile).getFilename());
     assertNull(actualFile.getFile());
+    COSBase cOSObject = actualFile.getCOSObject();
+    COSUpdateState updateState = ((COSDictionary) cOSObject).getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
     assertNull(((PDComplexFileSpecification) actualFile).getEmbeddedFile());
     assertNull(((PDComplexFileSpecification) actualFile).getEmbeddedFileDos());
     assertNull(((PDComplexFileSpecification) actualFile).getEmbeddedFileMac());
     assertNull(((PDComplexFileSpecification) actualFile).getEmbeddedFileUnicode());
     assertNull(((PDComplexFileSpecification) actualFile).getEmbeddedFileUnix());
+    assertEquals(1, ((COSDictionary) cOSObject).getValues().size());
+    assertEquals(1, ((COSDictionary) cOSObject).size());
+    COSIncrement toIncrementResult = ((COSDictionary) cOSObject).toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(((COSDictionary) cOSObject).isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
     assertFalse(((PDComplexFileSpecification) actualFile).isVolatile());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
   }
 
   /**
-   * Test {@link PDActionRemoteGoTo#setFile(PDFileSpecification)}.
-   * <ul>
-   *   <li>Then {@link PDActionRemoteGoTo#PDActionRemoteGoTo()} File {@link PDComplexFileSpecification}.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PDActionRemoteGoTo#getFile()}
+   */
+  @Test
+  void testGetFile3() throws IOException {
+    // Arrange
+    PDActionRemoteGoTo pdActionRemoteGoTo = new PDActionRemoteGoTo();
+    pdActionRemoteGoTo.setFile(new PDSimpleFileSpecification());
+
+    // Act
+    PDFileSpecification actualFile = pdActionRemoteGoTo.getFile();
+
+    // Assert
+    COSBase cOSObject = actualFile.getCOSObject();
+    assertTrue(cOSObject instanceof COSString);
+    assertTrue(actualFile instanceof PDSimpleFileSpecification);
+    assertEquals("", ((COSString) cOSObject).getASCII());
+    assertEquals("", ((COSString) cOSObject).getString());
+    assertEquals("", ((COSString) cOSObject).toHexString());
+    assertEquals("", actualFile.getFile());
+    assertNull(cOSObject.getKey());
+    assertEquals(0, ((COSString) cOSObject).getBytes().length);
+    assertFalse(cOSObject.isDirect());
+    assertFalse(((COSString) cOSObject).getForceHexForm());
+  }
+
+  /**
+   * Method under test: {@link PDActionRemoteGoTo#getFile()}
+   */
+  @Test
+  void testGetFile4() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    COSDocument d = new COSDocument(streamCacheCreateFunction);
+
+    PDActionRemoteGoTo pdActionRemoteGoTo = new PDActionRemoteGoTo();
+    pdActionRemoteGoTo.setD(d);
+
+    // Act
+    PDFileSpecification actualFile = pdActionRemoteGoTo.getFile();
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertNull(actualFile);
+  }
+
+  /**
    * Method under test: {@link PDActionRemoteGoTo#setFile(PDFileSpecification)}
    */
   @Test
-  @DisplayName("Test setFile(PDFileSpecification); then PDActionRemoteGoTo() File PDComplexFileSpecification")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDActionRemoteGoTo.setFile(PDFileSpecification)"})
-  void testSetFile_thenPDActionRemoteGoToFilePDComplexFileSpecification() throws IOException {
+  void testSetFile() throws IOException {
     // Arrange
     PDActionRemoteGoTo pdActionRemoteGoTo = new PDActionRemoteGoTo();
 
@@ -191,22 +152,17 @@ class PDActionRemoteGoToDiffblueTest {
     assertNull(((PDComplexFileSpecification) file).getEmbeddedFileMac());
     assertNull(((PDComplexFileSpecification) file).getEmbeddedFileUnicode());
     assertNull(((PDComplexFileSpecification) file).getEmbeddedFileUnix());
+    COSDictionary cOSObject = pdActionRemoteGoTo.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
     assertFalse(((PDComplexFileSpecification) file).isVolatile());
   }
 
   /**
-   * Test {@link PDActionRemoteGoTo#setFile(PDFileSpecification)}.
-   * <ul>
-   *   <li>Then {@link PDActionRemoteGoTo#PDActionRemoteGoTo()} File {@link PDSimpleFileSpecification}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDActionRemoteGoTo#setFile(PDFileSpecification)}
    */
   @Test
-  @DisplayName("Test setFile(PDFileSpecification); then PDActionRemoteGoTo() File PDSimpleFileSpecification")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDActionRemoteGoTo.setFile(PDFileSpecification)"})
-  void testSetFile_thenPDActionRemoteGoToFilePDSimpleFileSpecification() throws IOException {
+  void testSetFile2() throws IOException {
     // Arrange
     PDActionRemoteGoTo pdActionRemoteGoTo = new PDActionRemoteGoTo();
 
@@ -223,45 +179,98 @@ class PDActionRemoteGoToDiffblueTest {
   }
 
   /**
-   * Test {@link PDActionRemoteGoTo#setFile(PDFileSpecification)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then {@link PDActionRemoteGoTo#PDActionRemoteGoTo()} COSObject Values size is two.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDActionRemoteGoTo#setFile(PDFileSpecification)}
    */
   @Test
-  @DisplayName("Test setFile(PDFileSpecification); when 'null'; then PDActionRemoteGoTo() COSObject Values size is two")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDActionRemoteGoTo.setFile(PDFileSpecification)"})
-  void testSetFile_whenNull_thenPDActionRemoteGoToCOSObjectValuesSizeIsTwo() {
+  void testSetFile3() throws IOException {
     // Arrange
     PDActionRemoteGoTo pdActionRemoteGoTo = new PDActionRemoteGoTo();
 
     // Act
     pdActionRemoteGoTo.setFile(null);
 
-    // Assert that nothing has changed
+    // Assert
+    assertNull(pdActionRemoteGoTo.getFile());
     COSDictionary cOSObject = pdActionRemoteGoTo.getCOSObject();
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
   }
 
   /**
-   * Test {@link PDActionRemoteGoTo#getD()}.
-   * <ul>
-   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
-   *   <li>Then return {@link COSBoolean#FALSE}.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PDActionRemoteGoTo#setFile(PDFileSpecification)}
+   */
+  @Test
+  void testSetFile4() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    COSDocument d = new COSDocument(streamCacheCreateFunction);
+
+    PDActionRemoteGoTo pdActionRemoteGoTo = new PDActionRemoteGoTo();
+    pdActionRemoteGoTo.setD(d);
+
+    // Act
+    pdActionRemoteGoTo.setFile(new PDComplexFileSpecification());
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    PDFileSpecification file = pdActionRemoteGoTo.getFile();
+    assertTrue(file instanceof PDComplexFileSpecification);
+    assertNull(((PDComplexFileSpecification) file).getFileDescription());
+    assertNull(((PDComplexFileSpecification) file).getFileDos());
+    assertNull(((PDComplexFileSpecification) file).getFileMac());
+    assertNull(((PDComplexFileSpecification) file).getFileUnicode());
+    assertNull(((PDComplexFileSpecification) file).getFileUnix());
+    assertNull(((PDComplexFileSpecification) file).getFilename());
+    assertNull(file.getFile());
+    assertNull(((PDComplexFileSpecification) file).getEmbeddedFile());
+    assertNull(((PDComplexFileSpecification) file).getEmbeddedFileDos());
+    assertNull(((PDComplexFileSpecification) file).getEmbeddedFileMac());
+    assertNull(((PDComplexFileSpecification) file).getEmbeddedFileUnicode());
+    assertNull(((PDComplexFileSpecification) file).getEmbeddedFileUnix());
+    COSDictionary cOSObject = pdActionRemoteGoTo.getCOSObject();
+    assertEquals(4, cOSObject.getValues().size());
+    assertEquals(4, cOSObject.size());
+    assertFalse(((PDComplexFileSpecification) file).isVolatile());
+  }
+
+  /**
    * Method under test: {@link PDActionRemoteGoTo#getD()}
    */
   @Test
-  @DisplayName("Test getD(); given COSObjectKey(long, int) with num is one and gen is one; then return FALSE")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"COSBase PDActionRemoteGoTo.getD()"})
-  void testGetD_givenCOSObjectKeyWithNumIsOneAndGenIsOne_thenReturnFalse() {
+  void testGetD() {
+    // Arrange, Act and Assert
+    assertNull((new PDActionRemoteGoTo()).getD());
+  }
+
+  /**
+   * Method under test: {@link PDActionRemoteGoTo#getD()}
+   */
+  @Test
+  void testGetD2() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    COSDocument d = new COSDocument(streamCacheCreateFunction);
+
+    PDActionRemoteGoTo pdActionRemoteGoTo = new PDActionRemoteGoTo();
+    pdActionRemoteGoTo.setD(d);
+
+    // Act
+    COSBase actualD = pdActionRemoteGoTo.getD();
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertSame(d, actualD);
+  }
+
+  /**
+   * Method under test: {@link PDActionRemoteGoTo#getD()}
+   */
+  @Test
+  void testGetD3() {
     // Arrange
     PDActionRemoteGoTo pdActionRemoteGoTo = new PDActionRemoteGoTo();
     pdActionRemoteGoTo.setD(new COSObject(COSBoolean.FALSE, new COSObjectKey(1L, 1)));
@@ -274,147 +283,10 @@ class PDActionRemoteGoToDiffblueTest {
   }
 
   /**
-   * Test {@link PDActionRemoteGoTo#getD()}.
-   * <ul>
-   *   <li>Given {@link PDActionRemoteGoTo#PDActionRemoteGoTo()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDActionRemoteGoTo#getD()}
-   */
-  @Test
-  @DisplayName("Test getD(); given PDActionRemoteGoTo(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"COSBase PDActionRemoteGoTo.getD()"})
-  void testGetD_givenPDActionRemoteGoTo_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull((new PDActionRemoteGoTo()).getD());
-  }
-
-  /**
-   * Test {@link PDActionRemoteGoTo#setD(COSBase)}.
-   * <ul>
-   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDActionRemoteGoTo#setD(COSBase)}
    */
   @Test
-  @DisplayName("Test setD(COSBase); given COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDActionRemoteGoTo.setD(COSBase)"})
-  void testSetD_givenCOSObjectKeyWithNumIsOneAndGenIsOne() {
-    // Arrange
-    PDActionRemoteGoTo pdActionRemoteGoTo = new PDActionRemoteGoTo();
-
-    COSDictionary d = new COSDictionary();
-    d.setKey(new COSObjectKey(1L, 1));
-
-    // Act
-    pdActionRemoteGoTo.setD(d);
-
-    // Assert
-    COSDictionary cOSObject = pdActionRemoteGoTo.getCOSObject();
-    assertEquals(3, cOSObject.getValues().size());
-    assertEquals(3, cOSObject.size());
-    assertSame(d, pdActionRemoteGoTo.getD());
-  }
-
-  /**
-   * Test {@link PDActionRemoteGoTo#setD(COSBase)}.
-   * <ul>
-   *   <li>When {@link COSArray#COSArray()}.</li>
-   *   <li>Then {@link PDActionRemoteGoTo#PDActionRemoteGoTo()} D is {@link COSArray#COSArray()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDActionRemoteGoTo#setD(COSBase)}
-   */
-  @Test
-  @DisplayName("Test setD(COSBase); when COSArray(); then PDActionRemoteGoTo() D is COSArray()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDActionRemoteGoTo.setD(COSBase)"})
-  void testSetD_whenCOSArray_thenPDActionRemoteGoToDIsCOSArray() {
-    // Arrange
-    PDActionRemoteGoTo pdActionRemoteGoTo = new PDActionRemoteGoTo();
-    COSArray d = new COSArray();
-
-    // Act
-    pdActionRemoteGoTo.setD(d);
-
-    // Assert
-    COSDictionary cOSObject = pdActionRemoteGoTo.getCOSObject();
-    assertEquals(3, cOSObject.getValues().size());
-    assertEquals(3, cOSObject.size());
-    assertSame(d, pdActionRemoteGoTo.getD());
-  }
-
-  /**
-   * Test {@link PDActionRemoteGoTo#setD(COSBase)}.
-   * <ul>
-   *   <li>When {@link COSDictionary#COSDictionary()}.</li>
-   *   <li>Then {@link PDActionRemoteGoTo#PDActionRemoteGoTo()} D is {@link COSDictionary#COSDictionary()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDActionRemoteGoTo#setD(COSBase)}
-   */
-  @Test
-  @DisplayName("Test setD(COSBase); when COSDictionary(); then PDActionRemoteGoTo() D is COSDictionary()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDActionRemoteGoTo.setD(COSBase)"})
-  void testSetD_whenCOSDictionary_thenPDActionRemoteGoToDIsCOSDictionary() {
-    // Arrange
-    PDActionRemoteGoTo pdActionRemoteGoTo = new PDActionRemoteGoTo();
-    COSDictionary d = new COSDictionary();
-
-    // Act
-    pdActionRemoteGoTo.setD(d);
-
-    // Assert
-    COSDictionary cOSObject = pdActionRemoteGoTo.getCOSObject();
-    assertEquals(3, cOSObject.getValues().size());
-    assertEquals(3, cOSObject.size());
-    assertSame(d, pdActionRemoteGoTo.getD());
-  }
-
-  /**
-   * Test {@link PDActionRemoteGoTo#setD(COSBase)}.
-   * <ul>
-   *   <li>When {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDActionRemoteGoTo#setD(COSBase)}
-   */
-  @Test
-  @DisplayName("Test setD(COSBase); when COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDActionRemoteGoTo.setD(COSBase)"})
-  void testSetD_whenCOSObjectKeyWithNumIsOneAndGenIsOne() {
-    // Arrange
-    PDActionRemoteGoTo pdActionRemoteGoTo = new PDActionRemoteGoTo();
-
-    // Act
-    pdActionRemoteGoTo.setD(new COSObject(COSBoolean.FALSE, new COSObjectKey(1L, 1)));
-
-    // Assert
-    COSDictionary cOSObject = pdActionRemoteGoTo.getCOSObject();
-    assertEquals(3, cOSObject.getValues().size());
-    assertEquals(3, cOSObject.size());
-  }
-
-  /**
-   * Test {@link PDActionRemoteGoTo#setD(COSBase)}.
-   * <ul>
-   *   <li>When {@link COSBoolean#FALSE}.</li>
-   *   <li>Then {@link PDActionRemoteGoTo#PDActionRemoteGoTo()} D is {@link COSBoolean#FALSE} {@link COSBoolean#FALSE}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDActionRemoteGoTo#setD(COSBase)}
-   */
-  @Test
-  @DisplayName("Test setD(COSBase); when FALSE; then PDActionRemoteGoTo() D is FALSE FALSE")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDActionRemoteGoTo.setD(COSBase)"})
-  void testSetD_whenFalse_thenPDActionRemoteGoToDIsFalseFalse() {
+  void testSetD() {
     // Arrange
     PDActionRemoteGoTo pdActionRemoteGoTo = new PDActionRemoteGoTo();
     COSBoolean d = COSBoolean.FALSE;
@@ -431,69 +303,145 @@ class PDActionRemoteGoToDiffblueTest {
   }
 
   /**
-   * Test {@link PDActionRemoteGoTo#setD(COSBase)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then {@link PDActionRemoteGoTo#PDActionRemoteGoTo()} COSObject Values size is two.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDActionRemoteGoTo#setD(COSBase)}
    */
   @Test
-  @DisplayName("Test setD(COSBase); when 'null'; then PDActionRemoteGoTo() COSObject Values size is two")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDActionRemoteGoTo.setD(COSBase)"})
-  void testSetD_whenNull_thenPDActionRemoteGoToCOSObjectValuesSizeIsTwo() {
+  void testSetD2() {
+    // Arrange
+    PDActionRemoteGoTo pdActionRemoteGoTo = new PDActionRemoteGoTo();
+    COSDictionary d = new COSDictionary();
+
+    // Act
+    pdActionRemoteGoTo.setD(d);
+
+    // Assert
+    COSDictionary cOSObject = pdActionRemoteGoTo.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
+    assertSame(d, pdActionRemoteGoTo.getD());
+  }
+
+  /**
+   * Method under test: {@link PDActionRemoteGoTo#setD(COSBase)}
+   */
+  @Test
+  void testSetD3() {
+    // Arrange
+    PDActionRemoteGoTo pdActionRemoteGoTo = new PDActionRemoteGoTo();
+    COSArray d = new COSArray();
+
+    // Act
+    pdActionRemoteGoTo.setD(d);
+
+    // Assert
+    COSDictionary cOSObject = pdActionRemoteGoTo.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
+    assertSame(d, pdActionRemoteGoTo.getD());
+  }
+
+  /**
+   * Method under test: {@link PDActionRemoteGoTo#setD(COSBase)}
+   */
+  @Test
+  void testSetD4() {
     // Arrange
     PDActionRemoteGoTo pdActionRemoteGoTo = new PDActionRemoteGoTo();
 
     // Act
     pdActionRemoteGoTo.setD(null);
 
-    // Assert that nothing has changed
+    // Assert
+    assertNull(pdActionRemoteGoTo.getD());
     COSDictionary cOSObject = pdActionRemoteGoTo.getCOSObject();
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
   }
 
   /**
-   * Test {@link PDActionRemoteGoTo#getOpenInNewWindow()}.
-   * <ul>
-   *   <li>Given {@link PDActionRemoteGoTo#PDActionRemoteGoTo()}.</li>
-   *   <li>Then return {@code USER_PREFERENCE}.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PDActionRemoteGoTo#setD(COSBase)}
+   */
+  @Test
+  void testSetD5() {
+    // Arrange
+    PDActionRemoteGoTo pdActionRemoteGoTo = new PDActionRemoteGoTo();
+
+    // Act
+    pdActionRemoteGoTo.setD(new COSObject(COSBoolean.FALSE, new COSObjectKey(1L, 1)));
+
+    // Assert
+    COSDictionary cOSObject = pdActionRemoteGoTo.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
+  }
+
+  /**
+   * Method under test: {@link PDActionRemoteGoTo#setD(COSBase)}
+   */
+  @Test
+  void testSetD6() {
+    // Arrange
+    PDActionRemoteGoTo pdActionRemoteGoTo = new PDActionRemoteGoTo();
+    COSObjectable object = mock(COSObjectable.class);
+    when(object.getCOSObject()).thenReturn(COSBoolean.FALSE);
+
+    COSArray d = new COSArray();
+    d.add(object);
+
+    // Act
+    pdActionRemoteGoTo.setD(d);
+
+    // Assert
+    verify(object).getCOSObject();
+    COSDictionary cOSObject = pdActionRemoteGoTo.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
+    assertSame(d, pdActionRemoteGoTo.getD());
+  }
+
+  /**
    * Method under test: {@link PDActionRemoteGoTo#getOpenInNewWindow()}
    */
   @Test
-  @DisplayName("Test getOpenInNewWindow(); given PDActionRemoteGoTo(); then return 'USER_PREFERENCE'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"OpenMode PDActionRemoteGoTo.getOpenInNewWindow()"})
-  void testGetOpenInNewWindow_givenPDActionRemoteGoTo_thenReturnUserPreference() {
+  void testGetOpenInNewWindow() {
     // Arrange, Act and Assert
     assertEquals(OpenMode.USER_PREFERENCE, (new PDActionRemoteGoTo()).getOpenInNewWindow());
   }
 
   /**
-   * Test {@link PDActionRemoteGoTo#setOpenInNewWindow(OpenMode)}.
-   * <ul>
-   *   <li>Then {@link PDActionRemoteGoTo#PDActionRemoteGoTo()} COSObject Values size is two.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PDActionRemoteGoTo#getOpenInNewWindow()}
+   */
+  @Test
+  void testGetOpenInNewWindow2() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    COSDocument d = new COSDocument(streamCacheCreateFunction);
+
+    PDActionRemoteGoTo pdActionRemoteGoTo = new PDActionRemoteGoTo();
+    pdActionRemoteGoTo.setD(d);
+
+    // Act
+    OpenMode actualOpenInNewWindow = pdActionRemoteGoTo.getOpenInNewWindow();
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertEquals(OpenMode.USER_PREFERENCE, actualOpenInNewWindow);
+  }
+
+  /**
    * Method under test: {@link PDActionRemoteGoTo#setOpenInNewWindow(OpenMode)}
    */
   @Test
-  @DisplayName("Test setOpenInNewWindow(OpenMode); then PDActionRemoteGoTo() COSObject Values size is two")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDActionRemoteGoTo.setOpenInNewWindow(OpenMode)"})
-  void testSetOpenInNewWindow_thenPDActionRemoteGoToCOSObjectValuesSizeIsTwo() {
+  void testSetOpenInNewWindow() {
     // Arrange
     PDActionRemoteGoTo pdActionRemoteGoTo = new PDActionRemoteGoTo();
 
     // Act
     pdActionRemoteGoTo.setOpenInNewWindow(OpenMode.USER_PREFERENCE);
 
-    // Assert that nothing has changed
+    // Assert
     COSDictionary cOSObject = pdActionRemoteGoTo.getCOSObject();
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
@@ -501,18 +449,28 @@ class PDActionRemoteGoToDiffblueTest {
   }
 
   /**
-   * Test {@link PDActionRemoteGoTo#setOpenInNewWindow(OpenMode)}.
-   * <ul>
-   *   <li>Then {@link PDActionRemoteGoTo#PDActionRemoteGoTo()} OpenInNewWindow is {@code NEW_WINDOW}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDActionRemoteGoTo#setOpenInNewWindow(OpenMode)}
    */
   @Test
-  @DisplayName("Test setOpenInNewWindow(OpenMode); then PDActionRemoteGoTo() OpenInNewWindow is 'NEW_WINDOW'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDActionRemoteGoTo.setOpenInNewWindow(OpenMode)"})
-  void testSetOpenInNewWindow_thenPDActionRemoteGoToOpenInNewWindowIsNewWindow() {
+  void testSetOpenInNewWindow2() {
+    // Arrange
+    PDActionRemoteGoTo pdActionRemoteGoTo = new PDActionRemoteGoTo();
+
+    // Act
+    pdActionRemoteGoTo.setOpenInNewWindow(OpenMode.SAME_WINDOW);
+
+    // Assert
+    COSDictionary cOSObject = pdActionRemoteGoTo.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
+    assertEquals(OpenMode.SAME_WINDOW, pdActionRemoteGoTo.getOpenInNewWindow());
+  }
+
+  /**
+   * Method under test: {@link PDActionRemoteGoTo#setOpenInNewWindow(OpenMode)}
+   */
+  @Test
+  void testSetOpenInNewWindow3() {
     // Arrange
     PDActionRemoteGoTo pdActionRemoteGoTo = new PDActionRemoteGoTo();
 
@@ -527,28 +485,69 @@ class PDActionRemoteGoToDiffblueTest {
   }
 
   /**
-   * Test {@link PDActionRemoteGoTo#setOpenInNewWindow(OpenMode)}.
-   * <ul>
-   *   <li>Then {@link PDActionRemoteGoTo#PDActionRemoteGoTo()} OpenInNewWindow is {@code SAME_WINDOW}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDActionRemoteGoTo#setOpenInNewWindow(OpenMode)}
    */
   @Test
-  @DisplayName("Test setOpenInNewWindow(OpenMode); then PDActionRemoteGoTo() OpenInNewWindow is 'SAME_WINDOW'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDActionRemoteGoTo.setOpenInNewWindow(OpenMode)"})
-  void testSetOpenInNewWindow_thenPDActionRemoteGoToOpenInNewWindowIsSameWindow() {
+  void testSetOpenInNewWindow4() throws IOException {
     // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    COSDocument d = new COSDocument(streamCacheCreateFunction);
+
     PDActionRemoteGoTo pdActionRemoteGoTo = new PDActionRemoteGoTo();
+    pdActionRemoteGoTo.setD(d);
 
     // Act
-    pdActionRemoteGoTo.setOpenInNewWindow(OpenMode.SAME_WINDOW);
+    pdActionRemoteGoTo.setOpenInNewWindow(OpenMode.USER_PREFERENCE);
 
     // Assert
+    verify(streamCacheCreateFunction).create();
     COSDictionary cOSObject = pdActionRemoteGoTo.getCOSObject();
     assertEquals(3, cOSObject.getValues().size());
     assertEquals(3, cOSObject.size());
-    assertEquals(OpenMode.SAME_WINDOW, pdActionRemoteGoTo.getOpenInNewWindow());
+    assertEquals(OpenMode.USER_PREFERENCE, pdActionRemoteGoTo.getOpenInNewWindow());
+  }
+
+  /**
+   * Method under test:
+   * {@link PDActionRemoteGoTo#PDActionRemoteGoTo(COSDictionary)}
+   */
+  @Test
+  void testNewPDActionRemoteGoTo() {
+    // Arrange
+    COSDictionary a = new COSDictionary();
+
+    // Act and Assert
+    assertSame(a, (new PDActionRemoteGoTo(a)).getCOSObject());
+  }
+
+  /**
+   * Method under test: {@link PDActionRemoteGoTo#PDActionRemoteGoTo()}
+   */
+  @Test
+  void testNewPDActionRemoteGoTo2() throws IOException {
+    // Arrange and Act
+    PDActionRemoteGoTo actualPdActionRemoteGoTo = new PDActionRemoteGoTo();
+
+    // Assert
+    assertNull(actualPdActionRemoteGoTo.getNext());
+    assertNull(actualPdActionRemoteGoTo.getD());
+    COSDictionary cOSObject = actualPdActionRemoteGoTo.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertNull(actualPdActionRemoteGoTo.getFile());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    assertEquals(OpenMode.USER_PREFERENCE, actualPdActionRemoteGoTo.getOpenInNewWindow());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertEquals(PDAction.TYPE, actualPdActionRemoteGoTo.getType());
+    assertEquals(PDActionRemoteGoTo.SUB_TYPE, actualPdActionRemoteGoTo.getSubType());
   }
 }

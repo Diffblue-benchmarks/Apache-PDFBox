@@ -12,7 +12,6 @@ import static org.mockito.Mockito.anyInt;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.awt.geom.AffineTransform;
 import java.io.IOException;
 import org.apache.pdfbox.cos.COSDictionary;
@@ -22,26 +21,16 @@ import org.apache.pdfbox.cos.COSUpdateState;
 import org.apache.pdfbox.pdmodel.DefaultResourceCache;
 import org.apache.pdfbox.pdmodel.ResourceCache;
 import org.apache.pdfbox.util.Matrix;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 class PDAbstractPatternDiffblueTest {
   /**
-   * Test {@link PDAbstractPattern#create(COSDictionary, ResourceCache)}.
-   * <ul>
-   *   <li>When {@link COSDictionary#COSDictionary()}.</li>
-   *   <li>Then throw {@link IOException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAbstractPattern#create(COSDictionary, ResourceCache)}
+   * Method under test:
+   * {@link PDAbstractPattern#create(COSDictionary, ResourceCache)}
    */
   @Test
-  @DisplayName("Test create(COSDictionary, ResourceCache); when COSDictionary(); then throw IOException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAbstractPattern PDAbstractPattern.create(COSDictionary, ResourceCache)"})
-  void testCreate_whenCOSDictionary_thenThrowIOException() throws IOException {
+  void testCreate() throws IOException {
     // Arrange
     COSDictionary dictionary = new COSDictionary();
 
@@ -50,14 +39,9 @@ class PDAbstractPatternDiffblueTest {
   }
 
   /**
-   * Test {@link PDAbstractPattern#getCOSObject()}.
-   * <p>
    * Method under test: {@link PDAbstractPattern#getCOSObject()}
    */
   @Test
-  @DisplayName("Test getCOSObject()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"COSDictionary PDAbstractPattern.getCOSObject()"})
   void testGetCOSObject() {
     // Arrange and Act
     COSDictionary actualCOSObject = (new PDShadingPattern()).getCOSObject();
@@ -77,18 +61,10 @@ class PDAbstractPatternDiffblueTest {
   }
 
   /**
-   * Test {@link PDAbstractPattern#setPaintType(int)}.
-   * <ul>
-   *   <li>Then {@link PDShadingPattern#PDShadingPattern()} COSObject Values size is three.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDAbstractPattern#setPaintType(int)}
    */
   @Test
-  @DisplayName("Test setPaintType(int); then PDShadingPattern() COSObject Values size is three")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAbstractPattern.setPaintType(int)"})
-  void testSetPaintType_thenPDShadingPatternCOSObjectValuesSizeIsThree() {
+  void testSetPaintType() {
     // Arrange
     PDShadingPattern pdShadingPattern = new PDShadingPattern();
 
@@ -102,19 +78,10 @@ class PDAbstractPatternDiffblueTest {
   }
 
   /**
-   * Test {@link PDAbstractPattern#setPaintType(int)}.
-   * <ul>
-   *   <li>When {@link Integer#MIN_VALUE}.</li>
-   *   <li>Then {@link PDShadingPattern#PDShadingPattern()} COSObject Values size is three.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDAbstractPattern#setPaintType(int)}
    */
   @Test
-  @DisplayName("Test setPaintType(int); when MIN_VALUE; then PDShadingPattern() COSObject Values size is three")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAbstractPattern.setPaintType(int)"})
-  void testSetPaintType_whenMin_value_thenPDShadingPatternCOSObjectValuesSizeIsThree() {
+  void testSetPaintType2() {
     // Arrange
     PDShadingPattern pdShadingPattern = new PDShadingPattern();
 
@@ -128,34 +95,19 @@ class PDAbstractPatternDiffblueTest {
   }
 
   /**
-   * Test {@link PDAbstractPattern#getType()}.
-   * <p>
    * Method under test: {@link PDAbstractPattern#getType()}
    */
   @Test
-  @DisplayName("Test getType()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"java.lang.String PDAbstractPattern.getType()"})
   void testGetType() {
     // Arrange, Act and Assert
     assertEquals("Pattern", (new PDShadingPattern()).getType());
   }
 
   /**
-   * Test {@link PDAbstractPattern#setPatternType(int)}.
-   * <ul>
-   *   <li>Given {@link COSDictionary} {@link COSDictionary#setInt(COSName, int)} does nothing.</li>
-   *   <li>When one.</li>
-   *   <li>Then calls {@link COSDictionary#setInt(COSName, int)}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDAbstractPattern#setPatternType(int)}
    */
   @Test
-  @DisplayName("Test setPatternType(int); given COSDictionary setInt(COSName, int) does nothing; when one; then calls setInt(COSName, int)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAbstractPattern.setPatternType(int)"})
-  void testSetPatternType_givenCOSDictionarySetIntDoesNothing_whenOne_thenCallsSetInt() {
+  void testSetPatternType() {
     // Arrange
     COSDictionary resourceDictionary = mock(COSDictionary.class);
     doNothing().when(resourceDictionary).setInt(Mockito.<COSName>any(), anyInt());
@@ -163,24 +115,15 @@ class PDAbstractPatternDiffblueTest {
     // Act
     (new PDShadingPattern(resourceDictionary)).setPatternType(1);
 
-    // Assert
+    // Assert that nothing has changed
     verify(resourceDictionary).setInt(isA(COSName.class), eq(1));
   }
 
   /**
-   * Test {@link PDAbstractPattern#getMatrix()}.
-   * <ul>
-   *   <li>Given {@link PDShadingPattern#PDShadingPattern()}.</li>
-   *   <li>Then return ShearX is zero.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDAbstractPattern#getMatrix()}
    */
   @Test
-  @DisplayName("Test getMatrix(); given PDShadingPattern(); then return ShearX is zero")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Matrix PDAbstractPattern.getMatrix()"})
-  void testGetMatrix_givenPDShadingPattern_thenReturnShearXIsZero() {
+  void testGetMatrix() {
     // Arrange and Act
     Matrix actualMatrix = (new PDShadingPattern()).getMatrix();
 
@@ -201,18 +144,10 @@ class PDAbstractPatternDiffblueTest {
   }
 
   /**
-   * Test {@link PDAbstractPattern#setMatrix(AffineTransform)}.
-   * <ul>
-   *   <li>Then {@link PDShadingPattern#PDShadingPattern()} COSObject Values size is three.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDAbstractPattern#setMatrix(AffineTransform)}
    */
   @Test
-  @DisplayName("Test setMatrix(AffineTransform); then PDShadingPattern() COSObject Values size is three")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAbstractPattern.setMatrix(AffineTransform)"})
-  void testSetMatrix_thenPDShadingPatternCOSObjectValuesSizeIsThree() {
+  void testSetMatrix() {
     // Arrange
     PDShadingPattern pdShadingPattern = new PDShadingPattern();
 

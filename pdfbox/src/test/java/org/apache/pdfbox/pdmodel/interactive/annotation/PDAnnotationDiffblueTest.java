@@ -8,14 +8,15 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Set;
 import org.apache.pdfbox.cos.COSArray;
 import org.apache.pdfbox.cos.COSBase;
 import org.apache.pdfbox.cos.COSBoolean;
@@ -29,493 +30,42 @@ import org.apache.pdfbox.cos.COSObjectKey;
 import org.apache.pdfbox.cos.COSStream;
 import org.apache.pdfbox.cos.COSString;
 import org.apache.pdfbox.cos.COSUpdateState;
+import org.apache.pdfbox.io.RandomAccessRead;
+import org.apache.pdfbox.io.RandomAccessReadBuffer;
+import org.apache.pdfbox.io.RandomAccessReadWriteBuffer;
+import org.apache.pdfbox.io.RandomAccessStreamCache;
+import org.apache.pdfbox.io.RandomAccessStreamCacheImpl;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.PDResources;
+import org.apache.pdfbox.pdmodel.common.COSObjectable;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
+import org.apache.pdfbox.pdmodel.common.PDStream;
 import org.apache.pdfbox.pdmodel.documentinterchange.markedcontent.PDPropertyList;
 import org.apache.pdfbox.pdmodel.graphics.color.PDColor;
 import org.apache.pdfbox.pdmodel.graphics.color.PDDeviceGray;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
+import org.apache.pdfbox.util.Matrix;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 class PDAnnotationDiffblueTest {
   /**
-   * Test {@link PDAnnotation#createAnnotation(COSBase)}.
-   * <ul>
-   *   <li>Given {@link COSName#A}.</li>
-   *   <li>When {@link COSArray#COSArray()} add {@link COSName#A}.</li>
-   *   <li>Then throw {@link IOException}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDAnnotation#createAnnotation(COSBase)}
    */
   @Test
-  @DisplayName("Test createAnnotation(COSBase); given A; when COSArray() add A; then throw IOException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAnnotation PDAnnotation.createAnnotation(COSBase)"})
-  void testCreateAnnotation_givenA_whenCOSArrayAddA_thenThrowIOException() throws IOException {
-    // Arrange
-    COSArray base = new COSArray();
-    base.add(COSName.A);
-
-    // Act and Assert
-    assertThrows(IOException.class, () -> PDAnnotation.createAnnotation(base));
-  }
-
-  /**
-   * Test {@link PDAnnotation#createAnnotation(COSBase)}.
-   * <ul>
-   *   <li>Given {@link COSName#A}.</li>
-   *   <li>When {@link COSArray#COSArray()} add {@link COSName#A}.</li>
-   *   <li>Then throw {@link IOException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAnnotation#createAnnotation(COSBase)}
-   */
-  @Test
-  @DisplayName("Test createAnnotation(COSBase); given A; when COSArray() add A; then throw IOException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAnnotation PDAnnotation.createAnnotation(COSBase)"})
-  void testCreateAnnotation_givenA_whenCOSArrayAddA_thenThrowIOException2() throws IOException {
-    // Arrange
-    COSArray base = new COSArray();
-    base.add(COSBoolean.FALSE);
-    base.add(COSName.A);
-
-    // Act and Assert
-    assertThrows(IOException.class, () -> PDAnnotation.createAnnotation(base));
-  }
-
-  /**
-   * Test {@link PDAnnotation#createAnnotation(COSBase)}.
-   * <ul>
-   *   <li>Given {@link COSArray#COSArray()}.</li>
-   *   <li>When {@link COSArray#COSArray()} add {@link COSArray#COSArray()}.</li>
-   *   <li>Then throw {@link IOException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAnnotation#createAnnotation(COSBase)}
-   */
-  @Test
-  @DisplayName("Test createAnnotation(COSBase); given COSArray(); when COSArray() add COSArray(); then throw IOException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAnnotation PDAnnotation.createAnnotation(COSBase)"})
-  void testCreateAnnotation_givenCOSArray_whenCOSArrayAddCOSArray_thenThrowIOException() throws IOException {
-    // Arrange
-    COSArray base = new COSArray();
-    base.add((COSBase) new COSArray());
-
-    // Act and Assert
-    assertThrows(IOException.class, () -> PDAnnotation.createAnnotation(base));
-  }
-
-  /**
-   * Test {@link PDAnnotation#createAnnotation(COSBase)}.
-   * <ul>
-   *   <li>Given {@link COSArray#COSArray()}.</li>
-   *   <li>When {@link COSArray#COSArray()} add {@link COSArray#COSArray()}.</li>
-   *   <li>Then throw {@link IOException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAnnotation#createAnnotation(COSBase)}
-   */
-  @Test
-  @DisplayName("Test createAnnotation(COSBase); given COSArray(); when COSArray() add COSArray(); then throw IOException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAnnotation PDAnnotation.createAnnotation(COSBase)"})
-  void testCreateAnnotation_givenCOSArray_whenCOSArrayAddCOSArray_thenThrowIOException2() throws IOException {
-    // Arrange
-    COSArray base = new COSArray();
-    base.add(COSBoolean.FALSE);
-    base.add((COSBase) new COSArray());
-
-    // Act and Assert
-    assertThrows(IOException.class, () -> PDAnnotation.createAnnotation(base));
-  }
-
-  /**
-   * Test {@link PDAnnotation#createAnnotation(COSBase)}.
-   * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary()}.</li>
-   *   <li>When {@link COSArray#COSArray()} add {@link COSDictionary#COSDictionary()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAnnotation#createAnnotation(COSBase)}
-   */
-  @Test
-  @DisplayName("Test createAnnotation(COSBase); given COSDictionary(); when COSArray() add COSDictionary()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAnnotation PDAnnotation.createAnnotation(COSBase)"})
-  void testCreateAnnotation_givenCOSDictionary_whenCOSArrayAddCOSDictionary() throws IOException {
-    // Arrange
-    COSArray base = new COSArray();
-    base.add((COSBase) new COSDictionary());
-
-    // Act and Assert
-    assertThrows(IOException.class, () -> PDAnnotation.createAnnotation(base));
-  }
-
-  /**
-   * Test {@link PDAnnotation#createAnnotation(COSBase)}.
-   * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary()}.</li>
-   *   <li>When {@link COSArray#COSArray()} add {@link COSDictionary#COSDictionary()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAnnotation#createAnnotation(COSBase)}
-   */
-  @Test
-  @DisplayName("Test createAnnotation(COSBase); given COSDictionary(); when COSArray() add COSDictionary()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAnnotation PDAnnotation.createAnnotation(COSBase)"})
-  void testCreateAnnotation_givenCOSDictionary_whenCOSArrayAddCOSDictionary2() throws IOException {
-    // Arrange
-    COSArray base = new COSArray();
-    base.add(COSBoolean.FALSE);
-    base.add((COSBase) new COSDictionary());
-
-    // Act and Assert
-    assertThrows(IOException.class, () -> PDAnnotation.createAnnotation(base));
-  }
-
-  /**
-   * Test {@link PDAnnotation#createAnnotation(COSBase)}.
-   * <ul>
-   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAnnotation#createAnnotation(COSBase)}
-   */
-  @Test
-  @DisplayName("Test createAnnotation(COSBase); given COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAnnotation PDAnnotation.createAnnotation(COSBase)"})
-  void testCreateAnnotation_givenCOSObjectKeyWithNumIsOneAndGenIsOne() throws IOException {
-    // Arrange
-    COSArray base = new COSArray();
-    base.add((COSBase) new COSObject(COSBoolean.FALSE, new COSObjectKey(1L, 1)));
-
-    // Act and Assert
-    assertThrows(IOException.class, () -> PDAnnotation.createAnnotation(base));
-  }
-
-  /**
-   * Test {@link PDAnnotation#createAnnotation(COSBase)}.
-   * <ul>
-   *   <li>Given {@link COSStream#COSStream()}.</li>
-   *   <li>When {@link COSArray#COSArray()} add {@link COSStream#COSStream()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAnnotation#createAnnotation(COSBase)}
-   */
-  @Test
-  @DisplayName("Test createAnnotation(COSBase); given COSStream(); when COSArray() add COSStream()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAnnotation PDAnnotation.createAnnotation(COSBase)"})
-  void testCreateAnnotation_givenCOSStream_whenCOSArrayAddCOSStream() throws IOException {
-    // Arrange
-    COSArray base = new COSArray();
-    base.add((COSBase) new COSStream());
-
-    // Act and Assert
-    assertThrows(IOException.class, () -> PDAnnotation.createAnnotation(base));
-  }
-
-  /**
-   * Test {@link PDAnnotation#createAnnotation(COSBase)}.
-   * <ul>
-   *   <li>Given {@link COSBoolean#FALSE}.</li>
-   *   <li>When {@link COSArray#COSArray()} add {@link COSBoolean#FALSE}.</li>
-   *   <li>Then throw {@link IOException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAnnotation#createAnnotation(COSBase)}
-   */
-  @Test
-  @DisplayName("Test createAnnotation(COSBase); given FALSE; when COSArray() add FALSE; then throw IOException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAnnotation PDAnnotation.createAnnotation(COSBase)"})
-  void testCreateAnnotation_givenFalse_whenCOSArrayAddFalse_thenThrowIOException() throws IOException {
-    // Arrange
-    COSArray base = new COSArray();
-    base.add(COSBoolean.FALSE);
-
-    // Act and Assert
-    assertThrows(IOException.class, () -> PDAnnotation.createAnnotation(base));
-  }
-
-  /**
-   * Test {@link PDAnnotation#createAnnotation(COSBase)}.
-   * <ul>
-   *   <li>Given {@link COSBoolean#FALSE}.</li>
-   *   <li>When {@link COSArray#COSArray()} add {@link COSBoolean#FALSE}.</li>
-   *   <li>Then throw {@link IOException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAnnotation#createAnnotation(COSBase)}
-   */
-  @Test
-  @DisplayName("Test createAnnotation(COSBase); given FALSE; when COSArray() add FALSE; then throw IOException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAnnotation PDAnnotation.createAnnotation(COSBase)"})
-  void testCreateAnnotation_givenFalse_whenCOSArrayAddFalse_thenThrowIOException2() throws IOException {
-    // Arrange
-    COSArray base = new COSArray();
-    base.add(COSBoolean.FALSE);
-    base.add(COSBoolean.FALSE);
-
-    // Act and Assert
-    assertThrows(IOException.class, () -> PDAnnotation.createAnnotation(base));
-  }
-
-  /**
-   * Test {@link PDAnnotation#createAnnotation(COSBase)}.
-   * <ul>
-   *   <li>Given {@link COSInteger#ONE}.</li>
-   *   <li>When {@link COSArray#COSArray()} add {@link COSInteger#ONE}.</li>
-   *   <li>Then throw {@link IOException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAnnotation#createAnnotation(COSBase)}
-   */
-  @Test
-  @DisplayName("Test createAnnotation(COSBase); given ONE; when COSArray() add ONE; then throw IOException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAnnotation PDAnnotation.createAnnotation(COSBase)"})
-  void testCreateAnnotation_givenOne_whenCOSArrayAddOne_thenThrowIOException() throws IOException {
-    // Arrange
-    COSArray base = new COSArray();
-    base.add(COSInteger.ONE);
-
-    // Act and Assert
-    assertThrows(IOException.class, () -> PDAnnotation.createAnnotation(base));
-  }
-
-  /**
-   * Test {@link PDAnnotation#createAnnotation(COSBase)}.
-   * <ul>
-   *   <li>Given {@link COSInteger#ONE}.</li>
-   *   <li>When {@link COSArray#COSArray()} add {@link COSInteger#ONE}.</li>
-   *   <li>Then throw {@link IOException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAnnotation#createAnnotation(COSBase)}
-   */
-  @Test
-  @DisplayName("Test createAnnotation(COSBase); given ONE; when COSArray() add ONE; then throw IOException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAnnotation PDAnnotation.createAnnotation(COSBase)"})
-  void testCreateAnnotation_givenOne_whenCOSArrayAddOne_thenThrowIOException2() throws IOException {
-    // Arrange
-    COSArray base = new COSArray();
-    base.add(COSBoolean.FALSE);
-    base.add(COSInteger.ONE);
-
-    // Act and Assert
-    assertThrows(IOException.class, () -> PDAnnotation.createAnnotation(base));
-  }
-
-  /**
-   * Test {@link PDAnnotation#createAnnotation(COSBase)}.
-   * <ul>
-   *   <li>When {@link COSName#A}.</li>
-   *   <li>Then throw {@link IOException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAnnotation#createAnnotation(COSBase)}
-   */
-  @Test
-  @DisplayName("Test createAnnotation(COSBase); when A; then throw IOException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAnnotation PDAnnotation.createAnnotation(COSBase)"})
-  void testCreateAnnotation_whenA_thenThrowIOException() throws IOException {
-    // Arrange, Act and Assert
-    assertThrows(IOException.class, () -> PDAnnotation.createAnnotation(COSName.A));
-  }
-
-  /**
-   * Test {@link PDAnnotation#createAnnotation(COSBase)}.
-   * <ul>
-   *   <li>When {@link COSArray#COSArray()}.</li>
-   *   <li>Then throw {@link IOException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAnnotation#createAnnotation(COSBase)}
-   */
-  @Test
-  @DisplayName("Test createAnnotation(COSBase); when COSArray(); then throw IOException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAnnotation PDAnnotation.createAnnotation(COSBase)"})
-  void testCreateAnnotation_whenCOSArray_thenThrowIOException() throws IOException {
-    // Arrange, Act and Assert
-    assertThrows(IOException.class, () -> PDAnnotation.createAnnotation(new COSArray()));
-  }
-
-  /**
-   * Test {@link PDAnnotation#createAnnotation(COSBase)}.
-   * <ul>
-   *   <li>When {@link COSDictionary#COSDictionary()}.</li>
-   *   <li>Then return {@link PDAnnotationUnknown}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAnnotation#createAnnotation(COSBase)}
-   */
-  @Test
-  @DisplayName("Test createAnnotation(COSBase); when COSDictionary(); then return PDAnnotationUnknown")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAnnotation PDAnnotation.createAnnotation(COSBase)"})
-  void testCreateAnnotation_whenCOSDictionary_thenReturnPDAnnotationUnknown() throws IOException {
-    // Arrange
-    COSDictionary base = new COSDictionary();
-
-    // Act
-    PDAnnotation actualCreateAnnotationResult = PDAnnotation.createAnnotation(base);
-
-    // Assert
-    assertTrue(actualCreateAnnotationResult instanceof PDAnnotationUnknown);
-    assertNull(actualCreateAnnotationResult.getAnnotationName());
-    assertNull(actualCreateAnnotationResult.getContents());
-    assertNull(actualCreateAnnotationResult.getModifiedDate());
-    assertNull(actualCreateAnnotationResult.getSubtype());
-    assertNull(actualCreateAnnotationResult.getAppearanceState());
-    assertNull(actualCreateAnnotationResult.getPage());
-    assertNull(actualCreateAnnotationResult.getRectangle());
-    assertNull(actualCreateAnnotationResult.getOptionalContent());
-    assertNull(actualCreateAnnotationResult.getColor());
-    assertNull(actualCreateAnnotationResult.getAppearance());
-    assertNull(actualCreateAnnotationResult.getNormalAppearanceStream());
-    assertEquals(-1, actualCreateAnnotationResult.getStructParent());
-    assertEquals(0, actualCreateAnnotationResult.getAnnotationFlags());
-    assertEquals(1, base.size());
-    assertFalse(actualCreateAnnotationResult.isHidden());
-    assertFalse(actualCreateAnnotationResult.isInvisible());
-    assertFalse(actualCreateAnnotationResult.isLocked());
-    assertFalse(actualCreateAnnotationResult.isLockedContents());
-    assertFalse(actualCreateAnnotationResult.isNoRotate());
-    assertFalse(actualCreateAnnotationResult.isNoView());
-    assertFalse(actualCreateAnnotationResult.isNoZoom());
-    assertFalse(actualCreateAnnotationResult.isPrinted());
-    assertFalse(actualCreateAnnotationResult.isReadOnly());
-    assertFalse(actualCreateAnnotationResult.isToggleNoView());
-    assertSame(base, actualCreateAnnotationResult.getCOSObject());
-  }
-
-  /**
-   * Test {@link PDAnnotation#createAnnotation(COSBase)}.
-   * <ul>
-   *   <li>When {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAnnotation#createAnnotation(COSBase)}
-   */
-  @Test
-  @DisplayName("Test createAnnotation(COSBase); when COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAnnotation PDAnnotation.createAnnotation(COSBase)"})
-  void testCreateAnnotation_whenCOSObjectKeyWithNumIsOneAndGenIsOne() throws IOException {
-    // Arrange, Act and Assert
-    assertThrows(IOException.class,
-        () -> PDAnnotation.createAnnotation(new COSObject(COSBoolean.FALSE, new COSObjectKey(1L, 1))));
-  }
-
-  /**
-   * Test {@link PDAnnotation#createAnnotation(COSBase)}.
-   * <ul>
-   *   <li>When {@link COSBoolean#FALSE}.</li>
-   *   <li>Then throw {@link IOException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAnnotation#createAnnotation(COSBase)}
-   */
-  @Test
-  @DisplayName("Test createAnnotation(COSBase); when FALSE; then throw IOException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAnnotation PDAnnotation.createAnnotation(COSBase)"})
-  void testCreateAnnotation_whenFalse_thenThrowIOException() throws IOException {
+  void testCreateAnnotation() throws IOException {
     // Arrange, Act and Assert
     assertThrows(IOException.class, () -> PDAnnotation.createAnnotation(COSBoolean.FALSE));
-  }
-
-  /**
-   * Test {@link PDAnnotation#createAnnotation(COSBase)}.
-   * <ul>
-   *   <li>When {@link COSFloat#ONE}.</li>
-   *   <li>Then throw {@link IOException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAnnotation#createAnnotation(COSBase)}
-   */
-  @Test
-  @DisplayName("Test createAnnotation(COSBase); when ONE; then throw IOException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAnnotation PDAnnotation.createAnnotation(COSBase)"})
-  void testCreateAnnotation_whenOne_thenThrowIOException() throws IOException {
-    // Arrange, Act and Assert
     assertThrows(IOException.class, () -> PDAnnotation.createAnnotation(COSFloat.ONE));
-  }
-
-  /**
-   * Test {@link PDAnnotation#createAnnotation(COSBase)}.
-   * <ul>
-   *   <li>When {@link COSInteger#ONE}.</li>
-   *   <li>Then throw {@link IOException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAnnotation#createAnnotation(COSBase)}
-   */
-  @Test
-  @DisplayName("Test createAnnotation(COSBase); when ONE; then throw IOException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAnnotation PDAnnotation.createAnnotation(COSBase)"})
-  void testCreateAnnotation_whenOne_thenThrowIOException2() throws IOException {
-    // Arrange, Act and Assert
     assertThrows(IOException.class, () -> PDAnnotation.createAnnotation(COSInteger.ONE));
-  }
-
-  /**
-   * Test {@link PDAnnotation#createAnnotation(COSBase)}.
-   * <ul>
-   *   <li>When parseHex {@code 42}.</li>
-   *   <li>Then throw {@link IOException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAnnotation#createAnnotation(COSBase)}
-   */
-  @Test
-  @DisplayName("Test createAnnotation(COSBase); when parseHex '42'; then throw IOException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAnnotation PDAnnotation.createAnnotation(COSBase)"})
-  void testCreateAnnotation_whenParseHex42_thenThrowIOException() throws IOException {
-    // Arrange, Act and Assert
-    assertThrows(IOException.class, () -> PDAnnotation.createAnnotation(COSString.parseHex("42")));
-  }
-
-  /**
-   * Test {@link PDAnnotation#createAnnotation(COSBase)}.
-   * <ul>
-   *   <li>When parseHex {@code 0123456789ABCDEF}.</li>
-   *   <li>Then throw {@link IOException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAnnotation#createAnnotation(COSBase)}
-   */
-  @Test
-  @DisplayName("Test createAnnotation(COSBase); when parseHex '0123456789ABCDEF'; then throw IOException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAnnotation PDAnnotation.createAnnotation(COSBase)"})
-  void testCreateAnnotation_whenParseHex0123456789abcdef_thenThrowIOException() throws IOException {
-    // Arrange, Act and Assert
+    assertThrows(IOException.class, () -> PDAnnotation.createAnnotation(COSName.A));
+    assertThrows(IOException.class, () -> PDAnnotation.createAnnotation(new COSArray()));
+    assertThrows(IOException.class,
+        () -> PDAnnotation.createAnnotation(new COSObject(COSBoolean.FALSE, new COSObjectKey(1L, 1))));
     assertThrows(IOException.class, () -> PDAnnotation.createAnnotation(COSString.parseHex("0123456789ABCDEF")));
   }
 
   /**
-   * Test {@link PDAnnotation#equals(Object)}, and {@link PDAnnotation#hashCode()}.
-   * <ul>
-   *   <li>When other is same.</li>
-   *   <li>Then return equal.</li>
-   * </ul>
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link PDAnnotation#equals(Object)}
@@ -523,9 +73,6 @@ class PDAnnotationDiffblueTest {
    * </ul>
    */
   @Test
-  @DisplayName("Test equals(Object), and hashCode(); when other is same; then return equal")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean PDAnnotation.equals(Object)", "int PDAnnotation.hashCode()"})
   void testEqualsAndHashCode_whenOtherIsSame_thenReturnEqual() {
     // Arrange
     PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
@@ -537,99 +84,10 @@ class PDAnnotationDiffblueTest {
   }
 
   /**
-   * Test {@link PDAnnotation#equals(Object)}.
-   * <ul>
-   *   <li>When other is different.</li>
-   *   <li>Then return not equal.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAnnotation#equals(Object)}
-   */
-  @Test
-  @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean PDAnnotation.equals(Object)", "int PDAnnotation.hashCode()"})
-  void testEquals_whenOtherIsDifferent_thenReturnNotEqual() {
-    // Arrange
-    PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
-
-    // Act and Assert
-    assertNotEquals(pdAnnotationCaret, new PDAnnotationCaret());
-  }
-
-  /**
-   * Test {@link PDAnnotation#equals(Object)}.
-   * <ul>
-   *   <li>When other is different.</li>
-   *   <li>Then return not equal.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAnnotation#equals(Object)}
-   */
-  @Test
-  @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean PDAnnotation.equals(Object)", "int PDAnnotation.hashCode()"})
-  void testEquals_whenOtherIsDifferent_thenReturnNotEqual2() {
-    // Arrange
-    PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
-    PDAnnotationCircle pdAnnotationCircle = mock(PDAnnotationCircle.class);
-    when(pdAnnotationCircle.getCOSObject()).thenReturn(new COSDictionary());
-
-    // Act and Assert
-    assertNotEquals(pdAnnotationCaret, pdAnnotationCircle);
-  }
-
-  /**
-   * Test {@link PDAnnotation#equals(Object)}.
-   * <ul>
-   *   <li>When other is {@code null}.</li>
-   *   <li>Then return not equal.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAnnotation#equals(Object)}
-   */
-  @Test
-  @DisplayName("Test equals(Object); when other is 'null'; then return not equal")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean PDAnnotation.equals(Object)", "int PDAnnotation.hashCode()"})
-  void testEquals_whenOtherIsNull_thenReturnNotEqual() {
-    // Arrange, Act and Assert
-    assertNotEquals(new PDAnnotationCaret(), null);
-  }
-
-  /**
-   * Test {@link PDAnnotation#equals(Object)}.
-   * <ul>
-   *   <li>When other is wrong type.</li>
-   *   <li>Then return not equal.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAnnotation#equals(Object)}
-   */
-  @Test
-  @DisplayName("Test equals(Object); when other is wrong type; then return not equal")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean PDAnnotation.equals(Object)", "int PDAnnotation.hashCode()"})
-  void testEquals_whenOtherIsWrongType_thenReturnNotEqual() {
-    // Arrange, Act and Assert
-    assertNotEquals(new PDAnnotationCaret(), "Different type to PDAnnotation");
-  }
-
-  /**
-   * Test {@link PDAnnotation#setSubtype(String)}.
-   * <ul>
-   *   <li>Given {@link PDAnnotationCaret#PDAnnotationCaret()}.</li>
-   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} Subtype is {@code Sub Type}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDAnnotation#setSubtype(String)}
    */
   @Test
-  @DisplayName("Test setSubtype(String); given PDAnnotationCaret(); then PDAnnotationCaret() Subtype is 'Sub Type'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAnnotation.setSubtype(String)"})
-  void testSetSubtype_givenPDAnnotationCaret_thenPDAnnotationCaretSubtypeIsSubType() {
+  void testSetSubtype() {
     // Arrange
     PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
 
@@ -638,104 +96,49 @@ class PDAnnotationDiffblueTest {
 
     // Assert
     assertEquals("Sub Type", pdAnnotationCaret.getSubtype());
-    COSDictionary cOSObject = pdAnnotationCaret.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
   }
 
   /**
-   * Test {@link PDAnnotation#setSubtype(String)}.
-   * <ul>
-   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret(COSDictionary)} with field is {@link COSDictionary#COSDictionary()} Subtype is {@code Sub Type}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDAnnotation#setSubtype(String)}
    */
   @Test
-  @DisplayName("Test setSubtype(String); then PDAnnotationCaret(COSDictionary) with field is COSDictionary() Subtype is 'Sub Type'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAnnotation.setSubtype(String)"})
-  void testSetSubtype_thenPDAnnotationCaretWithFieldIsCOSDictionarySubtypeIsSubType() {
+  void testSetSubtype2() {
     // Arrange
-    PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret(new COSDictionary());
+    COSDictionary field = new COSDictionary();
+    PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret(field);
 
     // Act
     pdAnnotationCaret.setSubtype("Sub Type");
 
     // Assert
     assertEquals("Sub Type", pdAnnotationCaret.getSubtype());
-    COSDictionary cOSObject = pdAnnotationCaret.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
+    assertSame(field, pdAnnotationCaret.getCOSObject());
   }
 
   /**
-   * Test {@link PDAnnotation#getSubtype()}.
-   * <ul>
-   *   <li>Given {@link PDAnnotationCaret#PDAnnotationCaret(COSDictionary)} with field is {@link COSDictionary#COSDictionary()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDAnnotation#getSubtype()}
    */
   @Test
-  @DisplayName("Test getSubtype(); given PDAnnotationCaret(COSDictionary) with field is COSDictionary(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDAnnotation.getSubtype()"})
-  void testGetSubtype_givenPDAnnotationCaretWithFieldIsCOSDictionary_thenReturnNull() {
+  void testGetSubtype() {
     // Arrange, Act and Assert
+    assertEquals(PDAnnotationCaret.SUB_TYPE, (new PDAnnotationCaret()).getSubtype());
     assertNull((new PDAnnotationCaret(new COSDictionary())).getSubtype());
   }
 
   /**
-   * Test {@link PDAnnotation#getSubtype()}.
-   * <ul>
-   *   <li>Given {@link PDAnnotationCaret#PDAnnotationCaret()}.</li>
-   *   <li>Then return {@link PDAnnotationCaret#SUB_TYPE}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAnnotation#getSubtype()}
-   */
-  @Test
-  @DisplayName("Test getSubtype(); given PDAnnotationCaret(); then return SUB_TYPE")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDAnnotation.getSubtype()"})
-  void testGetSubtype_givenPDAnnotationCaret_thenReturnSub_type() {
-    // Arrange, Act and Assert
-    assertEquals(PDAnnotationCaret.SUB_TYPE, (new PDAnnotationCaret()).getSubtype());
-  }
-
-  /**
-   * Test {@link PDAnnotation#getRectangle()}.
-   * <ul>
-   *   <li>Given {@link PDAnnotationCaret#PDAnnotationCaret()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDAnnotation#getRectangle()}
    */
   @Test
-  @DisplayName("Test getRectangle(); given PDAnnotationCaret(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDRectangle PDAnnotation.getRectangle()"})
-  void testGetRectangle_givenPDAnnotationCaret_thenReturnNull() {
+  void testGetRectangle() {
     // Arrange, Act and Assert
     assertNull((new PDAnnotationCaret()).getRectangle());
   }
 
   /**
-   * Test {@link PDAnnotation#getRectangle()}.
-   * <ul>
-   *   <li>Then return COSArray toList third Key is {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDAnnotation#getRectangle()}
    */
   @Test
-  @DisplayName("Test getRectangle(); then return COSArray toList third Key is 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDRectangle PDAnnotation.getRectangle()"})
-  void testGetRectangle_thenReturnCOSArrayToListThirdKeyIsNull() {
+  void testGetRectangle2() {
     // Arrange
     PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
     pdAnnotationCaret.setRectangle(PDRectangle.A0);
@@ -744,14 +147,20 @@ class PDAnnotationDiffblueTest {
     PDRectangle actualRectangle = pdAnnotationCaret.getRectangle();
 
     // Assert
-    List<? extends COSBase> toListResult = actualRectangle.getCOSArray().toList();
+    COSArray cOSArray = actualRectangle.getCOSArray();
+    List<? extends COSBase> toListResult = cOSArray.toList();
     assertEquals(4, toListResult.size());
-    COSBase getResult = toListResult.get(2);
+    COSBase getResult = toListResult.get(0);
     assertTrue(getResult instanceof COSFloat);
-    COSBase getResult2 = toListResult.get(3);
+    COSBase getResult2 = toListResult.get(1);
     assertTrue(getResult2 instanceof COSFloat);
+    COSBase getResult3 = toListResult.get(2);
+    assertTrue(getResult3 instanceof COSFloat);
+    COSBase getResult4 = toListResult.get(3);
+    assertTrue(getResult4 instanceof COSFloat);
     assertNull(getResult.getKey());
-    assertNull(getResult2.getKey());
+    assertNull(getResult3.getKey());
+    assertNull(getResult4.getKey());
     assertEquals(0.0f, actualRectangle.getLowerLeftX());
     assertEquals(0.0f, actualRectangle.getLowerLeftY());
     assertEquals(2383.937f, actualRectangle.getUpperRightX());
@@ -759,22 +168,17 @@ class PDAnnotationDiffblueTest {
     assertEquals(3370.3938f, actualRectangle.getHeight());
     assertEquals(3370.3938f, actualRectangle.getUpperRightY());
     assertFalse(getResult.isDirect());
-    assertFalse(getResult2.isDirect());
+    assertFalse(getResult3.isDirect());
+    assertFalse(getResult4.isDirect());
+    assertEquals(getResult, getResult2);
+    assertSame(cOSArray, actualRectangle.getCOSObject());
   }
 
   /**
-   * Test {@link PDAnnotation#getRectangle()}.
-   * <ul>
-   *   <li>Then return Height is zero.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDAnnotation#getRectangle()}
    */
   @Test
-  @DisplayName("Test getRectangle(); then return Height is zero")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDRectangle PDAnnotation.getRectangle()"})
-  void testGetRectangle_thenReturnHeightIsZero() {
+  void testGetRectangle3() {
     // Arrange
     PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
     pdAnnotationCaret.setRectangle(new PDRectangle(2.14748365E9f, 2.14748365E9f, 2.14748365E9f, 2.14748365E9f));
@@ -783,113 +187,45 @@ class PDAnnotationDiffblueTest {
     PDRectangle actualRectangle = pdAnnotationCaret.getRectangle();
 
     // Assert
-    List<? extends COSBase> toListResult = actualRectangle.getCOSArray().toList();
+    COSArray cOSArray = actualRectangle.getCOSArray();
+    List<? extends COSBase> toListResult = cOSArray.toList();
     assertEquals(4, toListResult.size());
-    COSBase getResult = toListResult.get(2);
+    COSBase getResult = toListResult.get(0);
     assertTrue(getResult instanceof COSFloat);
-    COSBase getResult2 = toListResult.get(3);
+    COSBase getResult2 = toListResult.get(1);
     assertTrue(getResult2 instanceof COSFloat);
+    COSBase getResult3 = toListResult.get(2);
+    assertTrue(getResult3 instanceof COSFloat);
+    COSBase getResult4 = toListResult.get(3);
+    assertTrue(getResult4 instanceof COSFloat);
+    assertNull(getResult.getKey());
     assertEquals(0.0f, actualRectangle.getHeight());
     assertEquals(0.0f, actualRectangle.getWidth());
     assertEquals(2.14748365E9f, actualRectangle.getLowerLeftX());
     assertEquals(2.14748365E9f, actualRectangle.getLowerLeftY());
     assertEquals(2.14748365E9f, actualRectangle.getUpperRightX());
     assertEquals(2.14748365E9f, actualRectangle.getUpperRightY());
-    COSBase getResult3 = toListResult.get(0);
-    assertEquals(getResult3, getResult);
-    assertEquals(getResult3, getResult2);
+    assertFalse(getResult.isDirect());
+    assertEquals(getResult, getResult2);
+    assertEquals(getResult, getResult3);
+    assertEquals(getResult, getResult4);
+    assertSame(cOSArray, actualRectangle.getCOSObject());
   }
 
   /**
-   * Test {@link PDAnnotation#setRectangle(PDRectangle)}.
-   * <ul>
-   *   <li>When {@link PDRectangle#A0}.</li>
-   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} Rectangle LowerLeftX is zero.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAnnotation#setRectangle(PDRectangle)}
-   */
-  @Test
-  @DisplayName("Test setRectangle(PDRectangle); when A0; then PDAnnotationCaret() Rectangle LowerLeftX is zero")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAnnotation.setRectangle(PDRectangle)"})
-  void testSetRectangle_whenA0_thenPDAnnotationCaretRectangleLowerLeftXIsZero() {
-    // Arrange
-    PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
-
-    // Act
-    pdAnnotationCaret.setRectangle(PDRectangle.A0);
-
-    // Assert
-    PDRectangle rectangle = pdAnnotationCaret.getRectangle();
-    assertEquals(0.0f, rectangle.getLowerLeftX());
-    assertEquals(0.0f, rectangle.getLowerLeftY());
-    assertEquals(2383.937f, rectangle.getUpperRightX());
-    assertEquals(2383.937f, rectangle.getWidth());
-    COSDictionary cOSObject = pdAnnotationCaret.getCOSObject();
-    assertEquals(3, cOSObject.getValues().size());
-    assertEquals(3, cOSObject.size());
-    assertEquals(3370.3938f, rectangle.getHeight());
-    assertEquals(3370.3938f, rectangle.getUpperRightY());
-    COSArray expectedCOSObject = rectangle.getCOSArray();
-    assertSame(expectedCOSObject, rectangle.getCOSObject());
-  }
-
-  /**
-   * Test {@link PDAnnotation#getAnnotationFlags()}.
-   * <p>
    * Method under test: {@link PDAnnotation#getAnnotationFlags()}
    */
   @Test
-  @DisplayName("Test getAnnotationFlags()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"int PDAnnotation.getAnnotationFlags()"})
   void testGetAnnotationFlags() {
     // Arrange, Act and Assert
     assertEquals(0, (new PDAnnotationCaret()).getAnnotationFlags());
   }
 
   /**
-   * Test {@link PDAnnotation#setAnnotationFlags(int)}.
-   * <ul>
-   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} AnnotationFlags is {@code -1810807491}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDAnnotation#setAnnotationFlags(int)}
    */
   @Test
-  @DisplayName("Test setAnnotationFlags(int); then PDAnnotationCaret() AnnotationFlags is '-1810807491'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAnnotation.setAnnotationFlags(int)"})
-  void testSetAnnotationFlags_thenPDAnnotationCaretAnnotationFlagsIs1810807491() {
-    // Arrange
-    PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
-
-    // Act
-    pdAnnotationCaret.setAnnotationFlags(-1810807491);
-
-    // Assert
-    assertEquals(-1810807491, pdAnnotationCaret.getAnnotationFlags());
-    assertTrue(pdAnnotationCaret.isNoRotate());
-    assertTrue(pdAnnotationCaret.isNoView());
-    assertTrue(pdAnnotationCaret.isNoZoom());
-    assertTrue(pdAnnotationCaret.isToggleNoView());
-  }
-
-  /**
-   * Test {@link PDAnnotation#setAnnotationFlags(int)}.
-   * <ul>
-   *   <li>When one.</li>
-   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} AnnotationFlags is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAnnotation#setAnnotationFlags(int)}
-   */
-  @Test
-  @DisplayName("Test setAnnotationFlags(int); when one; then PDAnnotationCaret() AnnotationFlags is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAnnotation.setAnnotationFlags(int)"})
-  void testSetAnnotationFlags_whenOne_thenPDAnnotationCaretAnnotationFlagsIsOne() {
+  void testSetAnnotationFlags() {
     // Arrange
     PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
 
@@ -898,28 +234,48 @@ class PDAnnotationDiffblueTest {
 
     // Assert
     assertEquals(1, pdAnnotationCaret.getAnnotationFlags());
+    COSDictionary cOSObject = pdAnnotationCaret.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
     assertFalse(pdAnnotationCaret.isHidden());
     assertFalse(pdAnnotationCaret.isNoRotate());
     assertFalse(pdAnnotationCaret.isNoView());
     assertFalse(pdAnnotationCaret.isNoZoom());
     assertFalse(pdAnnotationCaret.isPrinted());
     assertFalse(pdAnnotationCaret.isToggleNoView());
+    assertTrue(pdAnnotationCaret.isInvisible());
   }
 
   /**
-   * Test {@link PDAnnotation#setAnnotationFlags(int)}.
-   * <ul>
-   *   <li>When seven.</li>
-   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} AnnotationFlags is seven.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDAnnotation#setAnnotationFlags(int)}
    */
   @Test
-  @DisplayName("Test setAnnotationFlags(int); when seven; then PDAnnotationCaret() AnnotationFlags is seven")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAnnotation.setAnnotationFlags(int)"})
-  void testSetAnnotationFlags_whenSeven_thenPDAnnotationCaretAnnotationFlagsIsSeven() {
+  void testSetAnnotationFlags2() {
+    // Arrange
+    PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
+
+    // Act
+    pdAnnotationCaret.setAnnotationFlags(-1810807491);
+
+    // Assert
+    assertEquals(-1810807491, pdAnnotationCaret.getAnnotationFlags());
+    COSDictionary cOSObject = pdAnnotationCaret.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
+    assertFalse(pdAnnotationCaret.isHidden());
+    assertTrue(pdAnnotationCaret.isInvisible());
+    assertTrue(pdAnnotationCaret.isNoRotate());
+    assertTrue(pdAnnotationCaret.isNoView());
+    assertTrue(pdAnnotationCaret.isNoZoom());
+    assertTrue(pdAnnotationCaret.isPrinted());
+    assertTrue(pdAnnotationCaret.isToggleNoView());
+  }
+
+  /**
+   * Method under test: {@link PDAnnotation#setAnnotationFlags(int)}
+   */
+  @Test
+  void testSetAnnotationFlags3() {
     // Arrange
     PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
 
@@ -927,24 +283,23 @@ class PDAnnotationDiffblueTest {
     pdAnnotationCaret.setAnnotationFlags(7);
 
     // Assert
+    COSDictionary cOSObject = pdAnnotationCaret.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
     assertEquals(7, pdAnnotationCaret.getAnnotationFlags());
     assertFalse(pdAnnotationCaret.isNoRotate());
     assertFalse(pdAnnotationCaret.isNoView());
     assertFalse(pdAnnotationCaret.isNoZoom());
     assertFalse(pdAnnotationCaret.isToggleNoView());
     assertTrue(pdAnnotationCaret.isHidden());
+    assertTrue(pdAnnotationCaret.isInvisible());
     assertTrue(pdAnnotationCaret.isPrinted());
   }
 
   /**
-   * Test {@link PDAnnotation#getCOSObject()}.
-   * <p>
    * Method under test: {@link PDAnnotation#getCOSObject()}
    */
   @Test
-  @DisplayName("Test getCOSObject()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"COSDictionary PDAnnotation.getCOSObject()"})
   void testGetCOSObject() {
     // Arrange and Act
     COSDictionary actualCOSObject = (new PDAnnotationCaret()).getCOSObject();
@@ -964,59 +319,19 @@ class PDAnnotationDiffblueTest {
   }
 
   /**
-   * Test {@link PDAnnotation#getAppearanceState()}.
-   * <p>
    * Method under test: {@link PDAnnotation#getAppearanceState()}
    */
   @Test
-  @DisplayName("Test getAppearanceState()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"COSName PDAnnotation.getAppearanceState()"})
   void testGetAppearanceState() {
     // Arrange, Act and Assert
     assertNull((new PDAnnotationCaret()).getAppearanceState());
   }
 
   /**
-   * Test {@link PDAnnotation#setAppearanceState(String)}.
-   * <p>
    * Method under test: {@link PDAnnotation#setAppearanceState(String)}
    */
   @Test
-  @DisplayName("Test setAppearanceState(String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAnnotation.setAppearanceState(String)"})
   void testSetAppearanceState() {
-    // Arrange
-    PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret(new COSDictionary());
-
-    // Act
-    pdAnnotationCaret.setAppearanceState("As");
-
-    // Assert
-    COSName appearanceState = pdAnnotationCaret.getAppearanceState();
-    assertEquals("As", appearanceState.getName());
-    assertNull(appearanceState.getKey());
-    COSDictionary cOSObject = pdAnnotationCaret.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    assertFalse(appearanceState.isDirect());
-    assertFalse(appearanceState.isEmpty());
-  }
-
-  /**
-   * Test {@link PDAnnotation#setAppearanceState(String)}.
-   * <ul>
-   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} AppearanceState Name is {@code As}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAnnotation#setAppearanceState(String)}
-   */
-  @Test
-  @DisplayName("Test setAppearanceState(String); then PDAnnotationCaret() AppearanceState Name is 'As'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAnnotation.setAppearanceState(String)"})
-  void testSetAppearanceState_thenPDAnnotationCaretAppearanceStateNameIsAs() {
     // Arrange
     PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
 
@@ -1035,36 +350,40 @@ class PDAnnotationDiffblueTest {
   }
 
   /**
-   * Test {@link PDAnnotation#getAppearance()}.
-   * <ul>
-   *   <li>Given {@link PDAnnotationCaret#PDAnnotationCaret()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PDAnnotation#setAppearanceState(String)}
+   */
+  @Test
+  void testSetAppearanceState2() {
+    // Arrange
+    COSDictionary field = new COSDictionary();
+    PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret(field);
+
+    // Act
+    pdAnnotationCaret.setAppearanceState("As");
+
+    // Assert
+    COSName appearanceState = pdAnnotationCaret.getAppearanceState();
+    assertEquals("As", appearanceState.getName());
+    assertNull(appearanceState.getKey());
+    assertFalse(appearanceState.isDirect());
+    assertFalse(appearanceState.isEmpty());
+    assertSame(field, pdAnnotationCaret.getCOSObject());
+  }
+
+  /**
    * Method under test: {@link PDAnnotation#getAppearance()}
    */
   @Test
-  @DisplayName("Test getAppearance(); given PDAnnotationCaret(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAppearanceDictionary PDAnnotation.getAppearance()"})
-  void testGetAppearance_givenPDAnnotationCaret_thenReturnNull() {
+  void testGetAppearance() {
     // Arrange, Act and Assert
     assertNull((new PDAnnotationCaret()).getAppearance());
   }
 
   /**
-   * Test {@link PDAnnotation#getAppearance()}.
-   * <ul>
-   *   <li>Then return COSObject Key is {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDAnnotation#getAppearance()}
    */
   @Test
-  @DisplayName("Test getAppearance(); then return COSObject Key is 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAppearanceDictionary PDAnnotation.getAppearance()"})
-  void testGetAppearance_thenReturnCOSObjectKeyIsNull() {
+  void testGetAppearance2() {
     // Arrange
     PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
     pdAnnotationCaret.setAppearance(new PDAppearanceDictionary());
@@ -1074,36 +393,50 @@ class PDAnnotationDiffblueTest {
 
     // Assert
     COSDictionary cOSObject = actualAppearance.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    PDAppearanceEntry downAppearance = actualAppearance.getDownAppearance();
+    COSDictionary cOSObject2 = downAppearance.getCOSObject();
+    COSUpdateState updateState2 = cOSObject2.getUpdateState();
+    assertNull(updateState2.getOriginDocumentState());
     assertNull(cOSObject.getKey());
+    assertNull(cOSObject2.getKey());
+    assertEquals(0, cOSObject2.size());
     assertEquals(1, cOSObject.getValues().size());
     assertEquals(1, cOSObject.size());
-    PDAppearanceEntry downAppearance = actualAppearance.getDownAppearance();
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    COSIncrement toIncrementResult2 = cOSObject2.toIncrement();
+    assertFalse(toIncrementResult2.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject2.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(cOSObject2.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertFalse(updateState2.isUpdated());
     assertFalse(downAppearance.isStream());
     PDAppearanceEntry normalAppearance = actualAppearance.getNormalAppearance();
     assertFalse(normalAppearance.isStream());
     PDAppearanceEntry rolloverAppearance = actualAppearance.getRolloverAppearance();
     assertFalse(rolloverAppearance.isStream());
+    assertTrue(cOSObject2.getValues().isEmpty());
     assertTrue(downAppearance.getSubDictionary().isEmpty());
     assertTrue(normalAppearance.getSubDictionary().isEmpty());
     assertTrue(rolloverAppearance.getSubDictionary().isEmpty());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertTrue(toIncrementResult2.getObjects().isEmpty());
     assertTrue(downAppearance.isSubDictionary());
     assertTrue(normalAppearance.isSubDictionary());
     assertTrue(rolloverAppearance.isSubDictionary());
+    assertSame(cOSObject2, normalAppearance.getCOSObject());
+    assertSame(cOSObject2, rolloverAppearance.getCOSObject());
   }
 
   /**
-   * Test {@link PDAnnotation#getAppearance()}.
-   * <ul>
-   *   <li>Then return DownAppearance is {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDAnnotation#getAppearance()}
    */
   @Test
-  @DisplayName("Test getAppearance(); then return DownAppearance is 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAppearanceDictionary PDAnnotation.getAppearance()"})
-  void testGetAppearance_thenReturnDownAppearanceIsNull() {
+  void testGetAppearance3() {
     // Arrange
     COSDictionary dictionary = new COSDictionary();
     dictionary.setKey(new COSObjectKey(1L, 1));
@@ -1123,79 +456,10 @@ class PDAnnotationDiffblueTest {
   }
 
   /**
-   * Test {@link PDAnnotation#setAppearance(PDAppearanceDictionary)}.
-   * <ul>
-   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDAnnotation#setAppearance(PDAppearanceDictionary)}
    */
   @Test
-  @DisplayName("Test setAppearance(PDAppearanceDictionary); given COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAnnotation.setAppearance(PDAppearanceDictionary)"})
-  void testSetAppearance_givenCOSObjectKeyWithNumIsOneAndGenIsOne() {
-    // Arrange
-    PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
-
-    COSDictionary dictionary = new COSDictionary();
-    dictionary.setKey(new COSObjectKey(1L, 1));
-
-    // Act
-    pdAnnotationCaret.setAppearance(new PDAppearanceDictionary(dictionary));
-
-    // Assert
-    PDAppearanceDictionary appearance = pdAnnotationCaret.getAppearance();
-    assertNull(appearance.getDownAppearance());
-    assertNull(appearance.getNormalAppearance());
-    assertNull(appearance.getRolloverAppearance());
-    assertSame(dictionary, appearance.getCOSObject());
-  }
-
-  /**
-   * Test {@link PDAnnotation#setAppearance(PDAppearanceDictionary)}.
-   * <ul>
-   *   <li>Given {@code true}.</li>
-   *   <li>When {@link COSDictionary#COSDictionary()} Direct is {@code true}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAnnotation#setAppearance(PDAppearanceDictionary)}
-   */
-  @Test
-  @DisplayName("Test setAppearance(PDAppearanceDictionary); given 'true'; when COSDictionary() Direct is 'true'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAnnotation.setAppearance(PDAppearanceDictionary)"})
-  void testSetAppearance_givenTrue_whenCOSDictionaryDirectIsTrue() {
-    // Arrange
-    PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
-
-    COSDictionary dictionary = new COSDictionary();
-    dictionary.setDirect(true);
-
-    // Act
-    pdAnnotationCaret.setAppearance(new PDAppearanceDictionary(dictionary));
-
-    // Assert
-    PDAppearanceDictionary appearance = pdAnnotationCaret.getAppearance();
-    assertNull(appearance.getDownAppearance());
-    assertNull(appearance.getNormalAppearance());
-    assertNull(appearance.getRolloverAppearance());
-    assertSame(dictionary, appearance.getCOSObject());
-  }
-
-  /**
-   * Test {@link PDAnnotation#setAppearance(PDAppearanceDictionary)}.
-   * <ul>
-   *   <li>Then not {@link PDAnnotationCaret#PDAnnotationCaret()} Appearance DownAppearance Stream.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAnnotation#setAppearance(PDAppearanceDictionary)}
-   */
-  @Test
-  @DisplayName("Test setAppearance(PDAppearanceDictionary); then not PDAnnotationCaret() Appearance DownAppearance Stream")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAnnotation.setAppearance(PDAppearanceDictionary)"})
-  void testSetAppearance_thenNotPDAnnotationCaretAppearanceDownAppearanceStream() {
+  void testSetAppearance() {
     // Arrange
     PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
 
@@ -1203,6 +467,9 @@ class PDAnnotationDiffblueTest {
     pdAnnotationCaret.setAppearance(new PDAppearanceDictionary());
 
     // Assert
+    COSDictionary cOSObject = pdAnnotationCaret.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
     PDAppearanceDictionary appearance = pdAnnotationCaret.getAppearance();
     PDAppearanceEntry downAppearance = appearance.getDownAppearance();
     assertFalse(downAppearance.isStream());
@@ -1219,15 +486,87 @@ class PDAnnotationDiffblueTest {
   }
 
   /**
-   * Test {@link PDAnnotation#getNormalAppearanceStream()}.
-   * <p>
+   * Method under test: {@link PDAnnotation#setAppearance(PDAppearanceDictionary)}
+   */
+  @Test
+  void testSetAppearance2() {
+    // Arrange
+    PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
+
+    // Act
+    pdAnnotationCaret.setAppearance(null);
+
+    // Assert
+    assertNull(pdAnnotationCaret.getAppearance());
+    COSDictionary cOSObject = pdAnnotationCaret.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+  }
+
+  /**
+   * Method under test: {@link PDAnnotation#setAppearance(PDAppearanceDictionary)}
+   */
+  @Test
+  void testSetAppearance3() {
+    // Arrange
+    PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
+
+    COSDictionary dictionary = new COSDictionary();
+    dictionary.setDirect(true);
+
+    // Act
+    pdAnnotationCaret.setAppearance(new PDAppearanceDictionary(dictionary));
+
+    // Assert
+    PDAppearanceDictionary appearance = pdAnnotationCaret.getAppearance();
+    assertNull(appearance.getDownAppearance());
+    assertNull(appearance.getNormalAppearance());
+    assertNull(appearance.getRolloverAppearance());
+    COSDictionary cOSObject = pdAnnotationCaret.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
+    assertSame(dictionary, appearance.getCOSObject());
+  }
+
+  /**
+   * Method under test: {@link PDAnnotation#setAppearance(PDAppearanceDictionary)}
+   */
+  @Test
+  void testSetAppearance4() {
+    // Arrange
+    PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
+
+    COSDictionary dictionary = new COSDictionary();
+    dictionary.setKey(new COSObjectKey(1L, 1));
+
+    // Act
+    pdAnnotationCaret.setAppearance(new PDAppearanceDictionary(dictionary));
+
+    // Assert
+    PDAppearanceDictionary appearance = pdAnnotationCaret.getAppearance();
+    assertNull(appearance.getDownAppearance());
+    assertNull(appearance.getNormalAppearance());
+    assertNull(appearance.getRolloverAppearance());
+    COSDictionary cOSObject = pdAnnotationCaret.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
+    assertSame(dictionary, appearance.getCOSObject());
+  }
+
+  /**
    * Method under test: {@link PDAnnotation#getNormalAppearanceStream()}
    */
   @Test
-  @DisplayName("Test getNormalAppearanceStream()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAppearanceStream PDAnnotation.getNormalAppearanceStream()"})
   void testGetNormalAppearanceStream() {
+    // Arrange, Act and Assert
+    assertNull((new PDAnnotationCaret()).getNormalAppearanceStream());
+  }
+
+  /**
+   * Method under test: {@link PDAnnotation#getNormalAppearanceStream()}
+   */
+  @Test
+  void testGetNormalAppearanceStream2() {
     // Arrange
     PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
     pdAnnotationCaret.setAppearance(new PDAppearanceDictionary());
@@ -1237,15 +576,10 @@ class PDAnnotationDiffblueTest {
   }
 
   /**
-   * Test {@link PDAnnotation#getNormalAppearanceStream()}.
-   * <p>
    * Method under test: {@link PDAnnotation#getNormalAppearanceStream()}
    */
   @Test
-  @DisplayName("Test getNormalAppearanceStream()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAppearanceStream PDAnnotation.getNormalAppearanceStream()"})
-  void testGetNormalAppearanceStream2() {
+  void testGetNormalAppearanceStream3() {
     // Arrange
     PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
     pdAnnotationCaret.setAppearance(new PDAppearanceDictionary(new COSDictionary()));
@@ -1255,15 +589,71 @@ class PDAnnotationDiffblueTest {
   }
 
   /**
-   * Test {@link PDAnnotation#getNormalAppearanceStream()}.
-   * <p>
    * Method under test: {@link PDAnnotation#getNormalAppearanceStream()}
    */
   @Test
-  @DisplayName("Test getNormalAppearanceStream()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAppearanceStream PDAnnotation.getNormalAppearanceStream()"})
-  void testGetNormalAppearanceStream3() {
+  void testGetNormalAppearanceStream4() throws IOException {
+    // Arrange
+    PDAppearanceDictionary appearance = new PDAppearanceDictionary();
+    COSStream stream = new COSStream();
+    appearance.setNormalAppearance(new PDAppearanceStream(stream));
+
+    PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
+    pdAnnotationCaret.setAppearance(appearance);
+
+    // Act
+    PDAppearanceStream actualNormalAppearanceStream = pdAnnotationCaret.getNormalAppearanceStream();
+
+    // Assert
+    PDStream stream2 = actualNormalAppearanceStream.getStream();
+    assertNull(stream2.getDecodeParms());
+    PDStream contentStream = actualNormalAppearanceStream.getContentStream();
+    assertNull(contentStream.getDecodeParms());
+    assertNull(stream2.getFileDecodeParams());
+    assertNull(contentStream.getFileDecodeParams());
+    assertNull(actualNormalAppearanceStream.getResources());
+    assertNull(stream2.getMetadata());
+    assertNull(contentStream.getMetadata());
+    assertNull(actualNormalAppearanceStream.getBBox());
+    assertNull(stream2.getFile());
+    assertNull(contentStream.getFile());
+    assertNull(actualNormalAppearanceStream.getOptionalContent());
+    assertNull(actualNormalAppearanceStream.getGroup());
+    assertEquals(-1, stream2.getDecodedStreamLength());
+    assertEquals(-1, contentStream.getDecodedStreamLength());
+    assertEquals(-1, actualNormalAppearanceStream.getStructParents());
+    assertEquals(0, stream2.getLength());
+    assertEquals(0, contentStream.getLength());
+    Matrix matrix = actualNormalAppearanceStream.getMatrix();
+    assertEquals(0.0f, matrix.getShearX());
+    assertEquals(0.0f, matrix.getShearY());
+    assertEquals(0.0f, matrix.getTranslateX());
+    assertEquals(0.0f, matrix.getTranslateY());
+    assertEquals(1, actualNormalAppearanceStream.getFormType());
+    assertEquals(1.0f, matrix.getScaleX());
+    assertEquals(1.0f, matrix.getScaleY());
+    assertEquals(1.0f, matrix.getScalingFactorX());
+    assertEquals(1.0f, matrix.getScalingFactorY());
+    float[][] values = matrix.getValues();
+    assertEquals(3, values.length);
+    List<String> fileFilters = contentStream.getFileFilters();
+    assertTrue(fileFilters.isEmpty());
+    assertSame(stream, stream2.getCOSObject());
+    assertSame(stream, contentStream.getCOSObject());
+    assertSame(stream, actualNormalAppearanceStream.getCOSObject());
+    assertSame(fileFilters, stream2.getFileFilters());
+    assertSame(fileFilters, stream2.getFilters());
+    assertSame(fileFilters, contentStream.getFilters());
+    assertArrayEquals(new float[]{0.0f, 0.0f, 1.0f}, values[2], 0.0f);
+    assertArrayEquals(new float[]{0.0f, 1.0f, 0.0f}, values[1], 0.0f);
+    assertArrayEquals(new float[]{1.0f, 0.0f, 0.0f}, values[0], 0.0f);
+  }
+
+  /**
+   * Method under test: {@link PDAnnotation#getNormalAppearanceStream()}
+   */
+  @Test
+  void testGetNormalAppearanceStream5() {
     // Arrange
     COSDictionary dictionary = new COSDictionary();
     dictionary.setKey(new COSObjectKey(1L, 1));
@@ -1277,113 +667,19 @@ class PDAnnotationDiffblueTest {
   }
 
   /**
-   * Test {@link PDAnnotation#getNormalAppearanceStream()}.
-   * <ul>
-   *   <li>Given {@link PDAnnotationCaret#PDAnnotationCaret()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAnnotation#getNormalAppearanceStream()}
-   */
-  @Test
-  @DisplayName("Test getNormalAppearanceStream(); given PDAnnotationCaret(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAppearanceStream PDAnnotation.getNormalAppearanceStream()"})
-  void testGetNormalAppearanceStream_givenPDAnnotationCaret_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull((new PDAnnotationCaret()).getNormalAppearanceStream());
-  }
-
-  /**
-   * Test {@link PDAnnotation#getNormalAppearanceStream()}.
-   * <ul>
-   *   <li>Then return Resources is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAnnotation#getNormalAppearanceStream()}
-   */
-  @Test
-  @DisplayName("Test getNormalAppearanceStream(); then return Resources is 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDAppearanceStream PDAnnotation.getNormalAppearanceStream()"})
-  void testGetNormalAppearanceStream_thenReturnResourcesIsNull() {
-    // Arrange
-    PDAppearanceDictionary appearance = new PDAppearanceDictionary();
-    COSStream stream = new COSStream();
-    appearance.setNormalAppearance(new PDAppearanceStream(stream));
-
-    PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
-    pdAnnotationCaret.setAppearance(appearance);
-
-    // Act
-    PDAppearanceStream actualNormalAppearanceStream = pdAnnotationCaret.getNormalAppearanceStream();
-
-    // Assert
-    assertNull(actualNormalAppearanceStream.getResources());
-    assertNull(actualNormalAppearanceStream.getBBox());
-    assertNull(actualNormalAppearanceStream.getOptionalContent());
-    assertNull(actualNormalAppearanceStream.getGroup());
-    assertEquals(-1, actualNormalAppearanceStream.getStructParents());
-    assertEquals(1, actualNormalAppearanceStream.getFormType());
-    assertSame(stream, actualNormalAppearanceStream.getCOSObject());
-  }
-
-  /**
-   * Test {@link PDAnnotation#isInvisible()}.
-   * <p>
    * Method under test: {@link PDAnnotation#isInvisible()}
    */
   @Test
-  @DisplayName("Test isInvisible()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean PDAnnotation.isInvisible()"})
   void testIsInvisible() {
     // Arrange, Act and Assert
     assertFalse((new PDAnnotationCaret()).isInvisible());
   }
 
   /**
-   * Test {@link PDAnnotation#setInvisible(boolean)}.
-   * <ul>
-   *   <li>When {@code false}.</li>
-   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} AnnotationFlags is zero.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDAnnotation#setInvisible(boolean)}
    */
   @Test
-  @DisplayName("Test setInvisible(boolean); when 'false'; then PDAnnotationCaret() AnnotationFlags is zero")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAnnotation.setInvisible(boolean)"})
-  void testSetInvisible_whenFalse_thenPDAnnotationCaretAnnotationFlagsIsZero() {
-    // Arrange
-    PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
-
-    // Act
-    pdAnnotationCaret.setInvisible(false);
-
-    // Assert
-    assertEquals(0, pdAnnotationCaret.getAnnotationFlags());
-    COSDictionary cOSObject = pdAnnotationCaret.getCOSObject();
-    assertEquals(3, cOSObject.getValues().size());
-    assertEquals(3, cOSObject.size());
-    assertFalse(pdAnnotationCaret.isInvisible());
-  }
-
-  /**
-   * Test {@link PDAnnotation#setInvisible(boolean)}.
-   * <ul>
-   *   <li>When {@code true}.</li>
-   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} AnnotationFlags is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAnnotation#setInvisible(boolean)}
-   */
-  @Test
-  @DisplayName("Test setInvisible(boolean); when 'true'; then PDAnnotationCaret() AnnotationFlags is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAnnotation.setInvisible(boolean)"})
-  void testSetInvisible_whenTrue_thenPDAnnotationCaretAnnotationFlagsIsOne() {
+  void testSetInvisible() {
     // Arrange
     PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
 
@@ -1399,61 +695,38 @@ class PDAnnotationDiffblueTest {
   }
 
   /**
-   * Test {@link PDAnnotation#isHidden()}.
-   * <p>
-   * Method under test: {@link PDAnnotation#isHidden()}
+   * Method under test: {@link PDAnnotation#setInvisible(boolean)}
    */
   @Test
-  @DisplayName("Test isHidden()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean PDAnnotation.isHidden()"})
-  void testIsHidden() {
-    // Arrange, Act and Assert
-    assertFalse((new PDAnnotationCaret()).isHidden());
-  }
-
-  /**
-   * Test {@link PDAnnotation#setHidden(boolean)}.
-   * <ul>
-   *   <li>When {@code false}.</li>
-   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} AnnotationFlags is zero.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAnnotation#setHidden(boolean)}
-   */
-  @Test
-  @DisplayName("Test setHidden(boolean); when 'false'; then PDAnnotationCaret() AnnotationFlags is zero")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAnnotation.setHidden(boolean)"})
-  void testSetHidden_whenFalse_thenPDAnnotationCaretAnnotationFlagsIsZero() {
+  void testSetInvisible2() {
     // Arrange
     PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
 
     // Act
-    pdAnnotationCaret.setHidden(false);
+    pdAnnotationCaret.setInvisible(false);
 
     // Assert
     assertEquals(0, pdAnnotationCaret.getAnnotationFlags());
     COSDictionary cOSObject = pdAnnotationCaret.getCOSObject();
     assertEquals(3, cOSObject.getValues().size());
     assertEquals(3, cOSObject.size());
-    assertFalse(pdAnnotationCaret.isHidden());
+    assertFalse(pdAnnotationCaret.isInvisible());
   }
 
   /**
-   * Test {@link PDAnnotation#setHidden(boolean)}.
-   * <ul>
-   *   <li>When {@code true}.</li>
-   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} AnnotationFlags is two.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PDAnnotation#isHidden()}
+   */
+  @Test
+  void testIsHidden() {
+    // Arrange, Act and Assert
+    assertFalse((new PDAnnotationCaret()).isHidden());
+  }
+
+  /**
    * Method under test: {@link PDAnnotation#setHidden(boolean)}
    */
   @Test
-  @DisplayName("Test setHidden(boolean); when 'true'; then PDAnnotationCaret() AnnotationFlags is two")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAnnotation.setHidden(boolean)"})
-  void testSetHidden_whenTrue_thenPDAnnotationCaretAnnotationFlagsIsTwo() {
+  void testSetHidden() {
     // Arrange
     PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
 
@@ -1469,61 +742,38 @@ class PDAnnotationDiffblueTest {
   }
 
   /**
-   * Test {@link PDAnnotation#isPrinted()}.
-   * <p>
-   * Method under test: {@link PDAnnotation#isPrinted()}
+   * Method under test: {@link PDAnnotation#setHidden(boolean)}
    */
   @Test
-  @DisplayName("Test isPrinted()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean PDAnnotation.isPrinted()"})
-  void testIsPrinted() {
-    // Arrange, Act and Assert
-    assertFalse((new PDAnnotationCaret()).isPrinted());
-  }
-
-  /**
-   * Test {@link PDAnnotation#setPrinted(boolean)}.
-   * <ul>
-   *   <li>When {@code false}.</li>
-   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} AnnotationFlags is zero.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAnnotation#setPrinted(boolean)}
-   */
-  @Test
-  @DisplayName("Test setPrinted(boolean); when 'false'; then PDAnnotationCaret() AnnotationFlags is zero")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAnnotation.setPrinted(boolean)"})
-  void testSetPrinted_whenFalse_thenPDAnnotationCaretAnnotationFlagsIsZero() {
+  void testSetHidden2() {
     // Arrange
     PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
 
     // Act
-    pdAnnotationCaret.setPrinted(false);
+    pdAnnotationCaret.setHidden(false);
 
     // Assert
     assertEquals(0, pdAnnotationCaret.getAnnotationFlags());
     COSDictionary cOSObject = pdAnnotationCaret.getCOSObject();
     assertEquals(3, cOSObject.getValues().size());
     assertEquals(3, cOSObject.size());
-    assertFalse(pdAnnotationCaret.isPrinted());
+    assertFalse(pdAnnotationCaret.isHidden());
   }
 
   /**
-   * Test {@link PDAnnotation#setPrinted(boolean)}.
-   * <ul>
-   *   <li>When {@code true}.</li>
-   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} AnnotationFlags is four.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PDAnnotation#isPrinted()}
+   */
+  @Test
+  void testIsPrinted() {
+    // Arrange, Act and Assert
+    assertFalse((new PDAnnotationCaret()).isPrinted());
+  }
+
+  /**
    * Method under test: {@link PDAnnotation#setPrinted(boolean)}
    */
   @Test
-  @DisplayName("Test setPrinted(boolean); when 'true'; then PDAnnotationCaret() AnnotationFlags is four")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAnnotation.setPrinted(boolean)"})
-  void testSetPrinted_whenTrue_thenPDAnnotationCaretAnnotationFlagsIsFour() {
+  void testSetPrinted() {
     // Arrange
     PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
 
@@ -1539,61 +789,38 @@ class PDAnnotationDiffblueTest {
   }
 
   /**
-   * Test {@link PDAnnotation#isNoZoom()}.
-   * <p>
-   * Method under test: {@link PDAnnotation#isNoZoom()}
+   * Method under test: {@link PDAnnotation#setPrinted(boolean)}
    */
   @Test
-  @DisplayName("Test isNoZoom()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean PDAnnotation.isNoZoom()"})
-  void testIsNoZoom() {
-    // Arrange, Act and Assert
-    assertFalse((new PDAnnotationCaret()).isNoZoom());
-  }
-
-  /**
-   * Test {@link PDAnnotation#setNoZoom(boolean)}.
-   * <ul>
-   *   <li>When {@code false}.</li>
-   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} AnnotationFlags is zero.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAnnotation#setNoZoom(boolean)}
-   */
-  @Test
-  @DisplayName("Test setNoZoom(boolean); when 'false'; then PDAnnotationCaret() AnnotationFlags is zero")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAnnotation.setNoZoom(boolean)"})
-  void testSetNoZoom_whenFalse_thenPDAnnotationCaretAnnotationFlagsIsZero() {
+  void testSetPrinted2() {
     // Arrange
     PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
 
     // Act
-    pdAnnotationCaret.setNoZoom(false);
+    pdAnnotationCaret.setPrinted(false);
 
     // Assert
     assertEquals(0, pdAnnotationCaret.getAnnotationFlags());
     COSDictionary cOSObject = pdAnnotationCaret.getCOSObject();
     assertEquals(3, cOSObject.getValues().size());
     assertEquals(3, cOSObject.size());
-    assertFalse(pdAnnotationCaret.isNoZoom());
+    assertFalse(pdAnnotationCaret.isPrinted());
   }
 
   /**
-   * Test {@link PDAnnotation#setNoZoom(boolean)}.
-   * <ul>
-   *   <li>When {@code true}.</li>
-   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} AnnotationFlags is eight.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PDAnnotation#isNoZoom()}
+   */
+  @Test
+  void testIsNoZoom() {
+    // Arrange, Act and Assert
+    assertFalse((new PDAnnotationCaret()).isNoZoom());
+  }
+
+  /**
    * Method under test: {@link PDAnnotation#setNoZoom(boolean)}
    */
   @Test
-  @DisplayName("Test setNoZoom(boolean); when 'true'; then PDAnnotationCaret() AnnotationFlags is eight")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAnnotation.setNoZoom(boolean)"})
-  void testSetNoZoom_whenTrue_thenPDAnnotationCaretAnnotationFlagsIsEight() {
+  void testSetNoZoom() {
     // Arrange
     PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
 
@@ -1609,61 +836,38 @@ class PDAnnotationDiffblueTest {
   }
 
   /**
-   * Test {@link PDAnnotation#isNoRotate()}.
-   * <p>
-   * Method under test: {@link PDAnnotation#isNoRotate()}
+   * Method under test: {@link PDAnnotation#setNoZoom(boolean)}
    */
   @Test
-  @DisplayName("Test isNoRotate()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean PDAnnotation.isNoRotate()"})
-  void testIsNoRotate() {
-    // Arrange, Act and Assert
-    assertFalse((new PDAnnotationCaret()).isNoRotate());
-  }
-
-  /**
-   * Test {@link PDAnnotation#setNoRotate(boolean)}.
-   * <ul>
-   *   <li>When {@code false}.</li>
-   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} AnnotationFlags is zero.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAnnotation#setNoRotate(boolean)}
-   */
-  @Test
-  @DisplayName("Test setNoRotate(boolean); when 'false'; then PDAnnotationCaret() AnnotationFlags is zero")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAnnotation.setNoRotate(boolean)"})
-  void testSetNoRotate_whenFalse_thenPDAnnotationCaretAnnotationFlagsIsZero() {
+  void testSetNoZoom2() {
     // Arrange
     PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
 
     // Act
-    pdAnnotationCaret.setNoRotate(false);
+    pdAnnotationCaret.setNoZoom(false);
 
     // Assert
     assertEquals(0, pdAnnotationCaret.getAnnotationFlags());
     COSDictionary cOSObject = pdAnnotationCaret.getCOSObject();
     assertEquals(3, cOSObject.getValues().size());
     assertEquals(3, cOSObject.size());
-    assertFalse(pdAnnotationCaret.isNoRotate());
+    assertFalse(pdAnnotationCaret.isNoZoom());
   }
 
   /**
-   * Test {@link PDAnnotation#setNoRotate(boolean)}.
-   * <ul>
-   *   <li>When {@code true}.</li>
-   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} NoRotate.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PDAnnotation#isNoRotate()}
+   */
+  @Test
+  void testIsNoRotate() {
+    // Arrange, Act and Assert
+    assertFalse((new PDAnnotationCaret()).isNoRotate());
+  }
+
+  /**
    * Method under test: {@link PDAnnotation#setNoRotate(boolean)}
    */
   @Test
-  @DisplayName("Test setNoRotate(boolean); when 'true'; then PDAnnotationCaret() NoRotate")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAnnotation.setNoRotate(boolean)"})
-  void testSetNoRotate_whenTrue_thenPDAnnotationCaretNoRotate() {
+  void testSetNoRotate() {
     // Arrange
     PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
 
@@ -1679,61 +883,38 @@ class PDAnnotationDiffblueTest {
   }
 
   /**
-   * Test {@link PDAnnotation#isNoView()}.
-   * <p>
-   * Method under test: {@link PDAnnotation#isNoView()}
+   * Method under test: {@link PDAnnotation#setNoRotate(boolean)}
    */
   @Test
-  @DisplayName("Test isNoView()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean PDAnnotation.isNoView()"})
-  void testIsNoView() {
-    // Arrange, Act and Assert
-    assertFalse((new PDAnnotationCaret()).isNoView());
-  }
-
-  /**
-   * Test {@link PDAnnotation#setNoView(boolean)}.
-   * <ul>
-   *   <li>When {@code false}.</li>
-   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} AnnotationFlags is zero.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAnnotation#setNoView(boolean)}
-   */
-  @Test
-  @DisplayName("Test setNoView(boolean); when 'false'; then PDAnnotationCaret() AnnotationFlags is zero")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAnnotation.setNoView(boolean)"})
-  void testSetNoView_whenFalse_thenPDAnnotationCaretAnnotationFlagsIsZero() {
+  void testSetNoRotate2() {
     // Arrange
     PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
 
     // Act
-    pdAnnotationCaret.setNoView(false);
+    pdAnnotationCaret.setNoRotate(false);
 
     // Assert
     assertEquals(0, pdAnnotationCaret.getAnnotationFlags());
     COSDictionary cOSObject = pdAnnotationCaret.getCOSObject();
     assertEquals(3, cOSObject.getValues().size());
     assertEquals(3, cOSObject.size());
-    assertFalse(pdAnnotationCaret.isNoView());
+    assertFalse(pdAnnotationCaret.isNoRotate());
   }
 
   /**
-   * Test {@link PDAnnotation#setNoView(boolean)}.
-   * <ul>
-   *   <li>When {@code true}.</li>
-   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} NoView.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PDAnnotation#isNoView()}
+   */
+  @Test
+  void testIsNoView() {
+    // Arrange, Act and Assert
+    assertFalse((new PDAnnotationCaret()).isNoView());
+  }
+
+  /**
    * Method under test: {@link PDAnnotation#setNoView(boolean)}
    */
   @Test
-  @DisplayName("Test setNoView(boolean); when 'true'; then PDAnnotationCaret() NoView")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAnnotation.setNoView(boolean)"})
-  void testSetNoView_whenTrue_thenPDAnnotationCaretNoView() {
+  void testSetNoView() {
     // Arrange
     PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
 
@@ -1749,58 +930,38 @@ class PDAnnotationDiffblueTest {
   }
 
   /**
-   * Test {@link PDAnnotation#isReadOnly()}.
-   * <p>
+   * Method under test: {@link PDAnnotation#setNoView(boolean)}
+   */
+  @Test
+  void testSetNoView2() {
+    // Arrange
+    PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
+
+    // Act
+    pdAnnotationCaret.setNoView(false);
+
+    // Assert
+    assertEquals(0, pdAnnotationCaret.getAnnotationFlags());
+    COSDictionary cOSObject = pdAnnotationCaret.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
+    assertFalse(pdAnnotationCaret.isNoView());
+  }
+
+  /**
    * Method under test: {@link PDAnnotation#isReadOnly()}
    */
   @Test
-  @DisplayName("Test isReadOnly()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean PDAnnotation.isReadOnly()"})
   void testIsReadOnly() {
     // Arrange, Act and Assert
     assertFalse((new PDAnnotationCaret()).isReadOnly());
   }
 
   /**
-   * Test {@link PDAnnotation#setReadOnly(boolean)}.
-   * <p>
    * Method under test: {@link PDAnnotation#setReadOnly(boolean)}
    */
   @Test
-  @DisplayName("Test setReadOnly(boolean)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAnnotation.setReadOnly(boolean)"})
   void testSetReadOnly() {
-    // Arrange
-    PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret(new COSDictionary());
-
-    // Act
-    pdAnnotationCaret.setReadOnly(true);
-
-    // Assert
-    COSDictionary cOSObject = pdAnnotationCaret.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    assertTrue(pdAnnotationCaret.isReadOnly());
-    assertEquals(Double.SIZE, pdAnnotationCaret.getAnnotationFlags());
-  }
-
-  /**
-   * Test {@link PDAnnotation#setReadOnly(boolean)}.
-   * <ul>
-   *   <li>Given {@link PDAnnotationCaret#PDAnnotationCaret()}.</li>
-   *   <li>When {@code true}.</li>
-   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} ReadOnly.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAnnotation#setReadOnly(boolean)}
-   */
-  @Test
-  @DisplayName("Test setReadOnly(boolean); given PDAnnotationCaret(); when 'true'; then PDAnnotationCaret() ReadOnly")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAnnotation.setReadOnly(boolean)"})
-  void testSetReadOnly_givenPDAnnotationCaret_whenTrue_thenPDAnnotationCaretReadOnly() {
     // Arrange
     PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
 
@@ -1816,19 +977,28 @@ class PDAnnotationDiffblueTest {
   }
 
   /**
-   * Test {@link PDAnnotation#setReadOnly(boolean)}.
-   * <ul>
-   *   <li>When {@code false}.</li>
-   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} AnnotationFlags is zero.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDAnnotation#setReadOnly(boolean)}
    */
   @Test
-  @DisplayName("Test setReadOnly(boolean); when 'false'; then PDAnnotationCaret() AnnotationFlags is zero")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAnnotation.setReadOnly(boolean)"})
-  void testSetReadOnly_whenFalse_thenPDAnnotationCaretAnnotationFlagsIsZero() {
+  void testSetReadOnly2() {
+    // Arrange
+    COSDictionary field = new COSDictionary();
+    PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret(field);
+
+    // Act
+    pdAnnotationCaret.setReadOnly(true);
+
+    // Assert
+    assertTrue(pdAnnotationCaret.isReadOnly());
+    assertEquals(Double.SIZE, pdAnnotationCaret.getAnnotationFlags());
+    assertSame(field, pdAnnotationCaret.getCOSObject());
+  }
+
+  /**
+   * Method under test: {@link PDAnnotation#setReadOnly(boolean)}
+   */
+  @Test
+  void testSetReadOnly3() {
     // Arrange
     PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
 
@@ -1844,56 +1014,19 @@ class PDAnnotationDiffblueTest {
   }
 
   /**
-   * Test {@link PDAnnotation#isLocked()}.
-   * <p>
    * Method under test: {@link PDAnnotation#isLocked()}
    */
   @Test
-  @DisplayName("Test isLocked()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean PDAnnotation.isLocked()"})
   void testIsLocked() {
     // Arrange, Act and Assert
     assertFalse((new PDAnnotationCaret()).isLocked());
   }
 
   /**
-   * Test {@link PDAnnotation#setLocked(boolean)}.
-   * <p>
    * Method under test: {@link PDAnnotation#setLocked(boolean)}
    */
   @Test
-  @DisplayName("Test setLocked(boolean)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAnnotation.setLocked(boolean)"})
   void testSetLocked() {
-    // Arrange
-    PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret(new COSDictionary());
-
-    // Act
-    pdAnnotationCaret.setLocked(true);
-
-    // Assert
-    assertEquals(128, pdAnnotationCaret.getAnnotationFlags());
-    COSDictionary cOSObject = pdAnnotationCaret.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    assertTrue(pdAnnotationCaret.isLocked());
-  }
-
-  /**
-   * Test {@link PDAnnotation#setLocked(boolean)}.
-   * <ul>
-   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} AnnotationFlags is one hundred twenty-eight.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAnnotation#setLocked(boolean)}
-   */
-  @Test
-  @DisplayName("Test setLocked(boolean); then PDAnnotationCaret() AnnotationFlags is one hundred twenty-eight")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAnnotation.setLocked(boolean)"})
-  void testSetLocked_thenPDAnnotationCaretAnnotationFlagsIsOneHundredTwentyEight() {
     // Arrange
     PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
 
@@ -1909,19 +1042,28 @@ class PDAnnotationDiffblueTest {
   }
 
   /**
-   * Test {@link PDAnnotation#setLocked(boolean)}.
-   * <ul>
-   *   <li>When {@code false}.</li>
-   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} AnnotationFlags is zero.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDAnnotation#setLocked(boolean)}
    */
   @Test
-  @DisplayName("Test setLocked(boolean); when 'false'; then PDAnnotationCaret() AnnotationFlags is zero")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAnnotation.setLocked(boolean)"})
-  void testSetLocked_whenFalse_thenPDAnnotationCaretAnnotationFlagsIsZero() {
+  void testSetLocked2() {
+    // Arrange
+    COSDictionary field = new COSDictionary();
+    PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret(field);
+
+    // Act
+    pdAnnotationCaret.setLocked(true);
+
+    // Assert
+    assertEquals(128, pdAnnotationCaret.getAnnotationFlags());
+    assertTrue(pdAnnotationCaret.isLocked());
+    assertSame(field, pdAnnotationCaret.getCOSObject());
+  }
+
+  /**
+   * Method under test: {@link PDAnnotation#setLocked(boolean)}
+   */
+  @Test
+  void testSetLocked3() {
     // Arrange
     PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
 
@@ -1937,32 +1079,19 @@ class PDAnnotationDiffblueTest {
   }
 
   /**
-   * Test {@link PDAnnotation#isToggleNoView()}.
-   * <p>
    * Method under test: {@link PDAnnotation#isToggleNoView()}
    */
   @Test
-  @DisplayName("Test isToggleNoView()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean PDAnnotation.isToggleNoView()"})
   void testIsToggleNoView() {
     // Arrange, Act and Assert
     assertFalse((new PDAnnotationCaret()).isToggleNoView());
   }
 
   /**
-   * Test {@link PDAnnotation#setToggleNoView(boolean)}.
-   * <ul>
-   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} AnnotationFlags is two hundred fifty-six.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDAnnotation#setToggleNoView(boolean)}
    */
   @Test
-  @DisplayName("Test setToggleNoView(boolean); then PDAnnotationCaret() AnnotationFlags is two hundred fifty-six")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAnnotation.setToggleNoView(boolean)"})
-  void testSetToggleNoView_thenPDAnnotationCaretAnnotationFlagsIsTwoHundredFiftySix() {
+  void testSetToggleNoView() {
     // Arrange
     PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
 
@@ -1978,19 +1107,10 @@ class PDAnnotationDiffblueTest {
   }
 
   /**
-   * Test {@link PDAnnotation#setToggleNoView(boolean)}.
-   * <ul>
-   *   <li>When {@code false}.</li>
-   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} AnnotationFlags is zero.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDAnnotation#setToggleNoView(boolean)}
    */
   @Test
-  @DisplayName("Test setToggleNoView(boolean); when 'false'; then PDAnnotationCaret() AnnotationFlags is zero")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAnnotation.setToggleNoView(boolean)"})
-  void testSetToggleNoView_whenFalse_thenPDAnnotationCaretAnnotationFlagsIsZero() {
+  void testSetToggleNoView2() {
     // Arrange
     PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
 
@@ -2006,32 +1126,19 @@ class PDAnnotationDiffblueTest {
   }
 
   /**
-   * Test {@link PDAnnotation#isLockedContents()}.
-   * <p>
    * Method under test: {@link PDAnnotation#isLockedContents()}
    */
   @Test
-  @DisplayName("Test isLockedContents()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean PDAnnotation.isLockedContents()"})
   void testIsLockedContents() {
     // Arrange, Act and Assert
     assertFalse((new PDAnnotationCaret()).isLockedContents());
   }
 
   /**
-   * Test {@link PDAnnotation#setLockedContents(boolean)}.
-   * <ul>
-   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} AnnotationFlags is five hundred twelve.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDAnnotation#setLockedContents(boolean)}
    */
   @Test
-  @DisplayName("Test setLockedContents(boolean); then PDAnnotationCaret() AnnotationFlags is five hundred twelve")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAnnotation.setLockedContents(boolean)"})
-  void testSetLockedContents_thenPDAnnotationCaretAnnotationFlagsIsFiveHundredTwelve() {
+  void testSetLockedContents() {
     // Arrange
     PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
 
@@ -2047,19 +1154,10 @@ class PDAnnotationDiffblueTest {
   }
 
   /**
-   * Test {@link PDAnnotation#setLockedContents(boolean)}.
-   * <ul>
-   *   <li>When {@code false}.</li>
-   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} AnnotationFlags is zero.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDAnnotation#setLockedContents(boolean)}
    */
   @Test
-  @DisplayName("Test setLockedContents(boolean); when 'false'; then PDAnnotationCaret() AnnotationFlags is zero")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAnnotation.setLockedContents(boolean)"})
-  void testSetLockedContents_whenFalse_thenPDAnnotationCaretAnnotationFlagsIsZero() {
+  void testSetLockedContents2() {
     // Arrange
     PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
 
@@ -2075,19 +1173,19 @@ class PDAnnotationDiffblueTest {
   }
 
   /**
-   * Test {@link PDAnnotation#getContents()}.
-   * <ul>
-   *   <li>Given {@link PDAnnotationCaret#PDAnnotationCaret()} Contents is {@code 42}.</li>
-   *   <li>Then return {@code 42}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDAnnotation#getContents()}
    */
   @Test
-  @DisplayName("Test getContents(); given PDAnnotationCaret() Contents is '42'; then return '42'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDAnnotation.getContents()"})
-  void testGetContents_givenPDAnnotationCaretContentsIs42_thenReturn42() {
+  void testGetContents() {
+    // Arrange, Act and Assert
+    assertNull((new PDAnnotationCaret()).getContents());
+  }
+
+  /**
+   * Method under test: {@link PDAnnotation#getContents()}
+   */
+  @Test
+  void testGetContents2() {
     // Arrange
     PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
     pdAnnotationCaret.setContents("42");
@@ -2097,36 +1195,10 @@ class PDAnnotationDiffblueTest {
   }
 
   /**
-   * Test {@link PDAnnotation#getContents()}.
-   * <ul>
-   *   <li>Given {@link PDAnnotationCaret#PDAnnotationCaret()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDAnnotation#getContents()}
    */
   @Test
-  @DisplayName("Test getContents(); given PDAnnotationCaret(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDAnnotation.getContents()"})
-  void testGetContents_givenPDAnnotationCaret_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull((new PDAnnotationCaret()).getContents());
-  }
-
-  /**
-   * Test {@link PDAnnotation#getContents()}.
-   * <ul>
-   *   <li>Then return empty string.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAnnotation#getContents()}
-   */
-  @Test
-  @DisplayName("Test getContents(); then return empty string")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDAnnotation.getContents()"})
-  void testGetContents_thenReturnEmptyString() {
+  void testGetContents3() {
     // Arrange
     PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
     pdAnnotationCaret.setContents("");
@@ -2136,14 +1208,9 @@ class PDAnnotationDiffblueTest {
   }
 
   /**
-   * Test {@link PDAnnotation#setContents(String)}.
-   * <p>
    * Method under test: {@link PDAnnotation#setContents(String)}
    */
   @Test
-  @DisplayName("Test setContents(String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAnnotation.setContents(String)"})
   void testSetContents() {
     // Arrange
     PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
@@ -2159,102 +1226,19 @@ class PDAnnotationDiffblueTest {
   }
 
   /**
-   * Test {@link PDAnnotation#getModifiedDate()}.
-   * <p>
    * Method under test: {@link PDAnnotation#getModifiedDate()}
    */
   @Test
-  @DisplayName("Test getModifiedDate()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDAnnotation.getModifiedDate()"})
   void testGetModifiedDate() {
     // Arrange, Act and Assert
     assertNull((new PDAnnotationCaret()).getModifiedDate());
   }
 
   /**
-   * Test {@link PDAnnotation#setModifiedDate(Calendar)} with {@code c}.
-   * <p>
-   * Method under test: {@link PDAnnotation#setModifiedDate(Calendar)}
-   */
-  @Test
-  @DisplayName("Test setModifiedDate(Calendar) with 'c'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAnnotation.setModifiedDate(Calendar)"})
-  void testSetModifiedDateWithC() {
-    // Arrange
-    PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret(new COSDictionary());
-
-    // Act
-    pdAnnotationCaret.setModifiedDate(new GregorianCalendar(1, 1, 1));
-
-    // Assert
-    COSDictionary cOSObject = pdAnnotationCaret.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-  }
-
-  /**
-   * Test {@link PDAnnotation#setModifiedDate(Calendar)} with {@code c}.
-   * <ul>
-   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} COSObject Values size is three.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAnnotation#setModifiedDate(Calendar)}
-   */
-  @Test
-  @DisplayName("Test setModifiedDate(Calendar) with 'c'; then PDAnnotationCaret() COSObject Values size is three")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAnnotation.setModifiedDate(Calendar)"})
-  void testSetModifiedDateWithC_thenPDAnnotationCaretCOSObjectValuesSizeIsThree() {
-    // Arrange
-    PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
-
-    // Act
-    pdAnnotationCaret.setModifiedDate(new GregorianCalendar(1, 1, 1));
-
-    // Assert
-    COSDictionary cOSObject = pdAnnotationCaret.getCOSObject();
-    assertEquals(3, cOSObject.getValues().size());
-    assertEquals(3, cOSObject.size());
-  }
-
-  /**
-   * Test {@link PDAnnotation#setModifiedDate(Calendar)} with {@code c}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} COSObject Values size is two.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAnnotation#setModifiedDate(Calendar)}
-   */
-  @Test
-  @DisplayName("Test setModifiedDate(Calendar) with 'c'; when 'null'; then PDAnnotationCaret() COSObject Values size is two")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAnnotation.setModifiedDate(Calendar)"})
-  void testSetModifiedDateWithC_whenNull_thenPDAnnotationCaretCOSObjectValuesSizeIsTwo() {
-    // Arrange
-    PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
-
-    // Act
-    pdAnnotationCaret.setModifiedDate((Calendar) null);
-
-    // Assert that nothing has changed
-    COSDictionary cOSObject = pdAnnotationCaret.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-  }
-
-  /**
-   * Test {@link PDAnnotation#setModifiedDate(String)} with {@code m}.
-   * <p>
    * Method under test: {@link PDAnnotation#setModifiedDate(String)}
    */
   @Test
-  @DisplayName("Test setModifiedDate(String) with 'm'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAnnotation.setModifiedDate(String)"})
-  void testSetModifiedDateWithM() {
+  void testSetModifiedDate() {
     // Arrange
     PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
 
@@ -2269,28 +1253,69 @@ class PDAnnotationDiffblueTest {
   }
 
   /**
-   * Test {@link PDAnnotation#getAnnotationName()}.
-   * <p>
+   * Method under test: {@link PDAnnotation#setModifiedDate(Calendar)}
+   */
+  @Test
+  void testSetModifiedDate2() {
+    // Arrange
+    PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
+
+    // Act
+    pdAnnotationCaret.setModifiedDate(new GregorianCalendar(1, 1, 1));
+
+    // Assert
+    COSDictionary cOSObject = pdAnnotationCaret.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
+  }
+
+  /**
+   * Method under test: {@link PDAnnotation#setModifiedDate(Calendar)}
+   */
+  @Test
+  void testSetModifiedDate3() {
+    // Arrange
+    COSDictionary field = new COSDictionary();
+    PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret(field);
+
+    // Act
+    pdAnnotationCaret.setModifiedDate(new GregorianCalendar(1, 1, 1));
+
+    // Assert
+    assertSame(field, pdAnnotationCaret.getCOSObject());
+  }
+
+  /**
+   * Method under test: {@link PDAnnotation#setModifiedDate(Calendar)}
+   */
+  @Test
+  void testSetModifiedDate4() {
+    // Arrange
+    PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
+
+    // Act
+    pdAnnotationCaret.setModifiedDate((Calendar) null);
+
+    // Assert
+    assertNull(pdAnnotationCaret.getModifiedDate());
+    COSDictionary cOSObject = pdAnnotationCaret.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+  }
+
+  /**
    * Method under test: {@link PDAnnotation#getAnnotationName()}
    */
   @Test
-  @DisplayName("Test getAnnotationName()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDAnnotation.getAnnotationName()"})
   void testGetAnnotationName() {
     // Arrange, Act and Assert
     assertNull((new PDAnnotationCaret()).getAnnotationName());
   }
 
   /**
-   * Test {@link PDAnnotation#setAnnotationName(String)}.
-   * <p>
    * Method under test: {@link PDAnnotation#setAnnotationName(String)}
    */
   @Test
-  @DisplayName("Test setAnnotationName(String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAnnotation.setAnnotationName(String)"})
   void testSetAnnotationName() {
     // Arrange
     PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
@@ -2306,87 +1331,19 @@ class PDAnnotationDiffblueTest {
   }
 
   /**
-   * Test {@link PDAnnotation#getStructParent()}.
-   * <p>
    * Method under test: {@link PDAnnotation#getStructParent()}
    */
   @Test
-  @DisplayName("Test getStructParent()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"int PDAnnotation.getStructParent()"})
   void testGetStructParent() {
     // Arrange, Act and Assert
     assertEquals(-1, (new PDAnnotationCaret()).getStructParent());
   }
 
   /**
-   * Test {@link PDAnnotation#setStructParent(int)}.
-   * <ul>
-   *   <li>When {@code -1810807491}.</li>
-   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} StructParent is {@code -1810807491}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDAnnotation#setStructParent(int)}
    */
   @Test
-  @DisplayName("Test setStructParent(int); when '-1810807491'; then PDAnnotationCaret() StructParent is '-1810807491'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAnnotation.setStructParent(int)"})
-  void testSetStructParent_when1810807491_thenPDAnnotationCaretStructParentIs1810807491() {
-    // Arrange
-    PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
-
-    // Act
-    pdAnnotationCaret.setStructParent(-1810807491);
-
-    // Assert
-    assertEquals(-1810807491, pdAnnotationCaret.getStructParent());
-    COSDictionary cOSObject = pdAnnotationCaret.getCOSObject();
-    assertEquals(3, cOSObject.getValues().size());
-    assertEquals(3, cOSObject.size());
-  }
-
-  /**
-   * Test {@link PDAnnotation#setStructParent(int)}.
-   * <ul>
-   *   <li>When nine.</li>
-   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} StructParent is nine.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAnnotation#setStructParent(int)}
-   */
-  @Test
-  @DisplayName("Test setStructParent(int); when nine; then PDAnnotationCaret() StructParent is nine")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAnnotation.setStructParent(int)"})
-  void testSetStructParent_whenNine_thenPDAnnotationCaretStructParentIsNine() {
-    // Arrange
-    PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
-
-    // Act
-    pdAnnotationCaret.setStructParent(9);
-
-    // Assert
-    COSDictionary cOSObject = pdAnnotationCaret.getCOSObject();
-    assertEquals(3, cOSObject.getValues().size());
-    assertEquals(3, cOSObject.size());
-    assertEquals(9, pdAnnotationCaret.getStructParent());
-  }
-
-  /**
-   * Test {@link PDAnnotation#setStructParent(int)}.
-   * <ul>
-   *   <li>When one.</li>
-   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} StructParent is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAnnotation#setStructParent(int)}
-   */
-  @Test
-  @DisplayName("Test setStructParent(int); when one; then PDAnnotationCaret() StructParent is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAnnotation.setStructParent(int)"})
-  void testSetStructParent_whenOne_thenPDAnnotationCaretStructParentIsOne() {
+  void testSetStructParent() {
     // Arrange
     PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
 
@@ -2401,46 +1358,66 @@ class PDAnnotationDiffblueTest {
   }
 
   /**
-   * Test {@link PDAnnotation#setOptionalContent(PDPropertyList)}.
-   * <p>
-   * Method under test: {@link PDAnnotation#setOptionalContent(PDPropertyList)}
+   * Method under test: {@link PDAnnotation#setStructParent(int)}
    */
   @Test
-  @DisplayName("Test setOptionalContent(PDPropertyList)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAnnotation.setOptionalContent(PDPropertyList)"})
-  void testSetOptionalContent() {
+  void testSetStructParent2() {
     // Arrange
     PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
 
-    COSDictionary cosDictionary = new COSDictionary();
-    COSObjectKey key = new COSObjectKey(1L, 1);
-
-    cosDictionary.setKey(key);
-    PDPropertyList oc = mock(PDPropertyList.class);
-    when(oc.getCOSObject()).thenReturn(cosDictionary);
-
     // Act
-    pdAnnotationCaret.setOptionalContent(oc);
+    pdAnnotationCaret.setStructParent(-1810807491);
 
     // Assert
-    verify(oc).getCOSObject();
-    assertSame(key, pdAnnotationCaret.getOptionalContent().getCOSObject().getKey());
+    assertEquals(-1810807491, pdAnnotationCaret.getStructParent());
+    COSDictionary cOSObject = pdAnnotationCaret.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
   }
 
   /**
-   * Test {@link PDAnnotation#setOptionalContent(PDPropertyList)}.
-   * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary()}.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PDAnnotation#setStructParent(int)}
+   */
+  @Test
+  void testSetStructParent3() {
+    // Arrange
+    PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
+
+    // Act
+    pdAnnotationCaret.setStructParent(9);
+
+    // Assert
+    COSDictionary cOSObject = pdAnnotationCaret.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
+    assertEquals(9, pdAnnotationCaret.getStructParent());
+  }
+
+  /**
+   * Method under test: {@link PDAnnotation#getOptionalContent()}
+   */
+  @Test
+  void testGetOptionalContent() {
+    // Arrange
+    COSDictionary field = mock(COSDictionary.class);
+    when(field.getDictionaryObject(Mockito.<COSName>any())).thenReturn(COSBoolean.FALSE);
+    COSDictionary cosDictionary = new COSDictionary();
+    when(field.getCOSDictionary(Mockito.<COSName>any())).thenReturn(cosDictionary);
+
+    // Act
+    COSDictionary actualCOSObject = (new PDAnnotationCaret(field)).getOptionalContent().getCOSObject();
+
+    // Assert
+    verify(field).getCOSDictionary(isA(COSName.class));
+    verify(field).getDictionaryObject(isA(COSName.class));
+    assertSame(cosDictionary, actualCOSObject);
+  }
+
+  /**
    * Method under test: {@link PDAnnotation#setOptionalContent(PDPropertyList)}
    */
   @Test
-  @DisplayName("Test setOptionalContent(PDPropertyList); given COSDictionary()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAnnotation.setOptionalContent(PDPropertyList)"})
-  void testSetOptionalContent_givenCOSDictionary() {
+  void testSetOptionalContent() {
     // Arrange
     PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
     PDPropertyList oc = mock(PDPropertyList.class);
@@ -2452,6 +1429,10 @@ class PDAnnotationDiffblueTest {
 
     // Assert
     verify(oc).getCOSObject();
+    List<? extends COSBase> toListResult = pdAnnotationCaret.getBorder().toList();
+    assertEquals(3, toListResult.size());
+    assertTrue(toListResult.get(0) instanceof COSInteger);
+    assertTrue(toListResult.get(2) instanceof COSInteger);
     COSDictionary cOSObject = pdAnnotationCaret.getCOSObject();
     assertEquals(3, cOSObject.getValues().size());
     assertEquals(3, cOSObject.size());
@@ -2459,18 +1440,35 @@ class PDAnnotationDiffblueTest {
   }
 
   /**
-   * Test {@link PDAnnotation#setOptionalContent(PDPropertyList)}.
-   * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary()} Direct is {@code true}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDAnnotation#setOptionalContent(PDPropertyList)}
    */
   @Test
-  @DisplayName("Test setOptionalContent(PDPropertyList); given COSDictionary() Direct is 'true'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAnnotation.setOptionalContent(PDPropertyList)"})
-  void testSetOptionalContent_givenCOSDictionaryDirectIsTrue() {
+  void testSetOptionalContent2() {
+    // Arrange
+    PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
+    PDPropertyList oc = mock(PDPropertyList.class);
+    when(oc.getCOSObject()).thenReturn(null);
+
+    // Act
+    pdAnnotationCaret.setOptionalContent(oc);
+
+    // Assert
+    verify(oc).getCOSObject();
+    List<? extends COSBase> toListResult = pdAnnotationCaret.getBorder().toList();
+    assertEquals(3, toListResult.size());
+    assertTrue(toListResult.get(0) instanceof COSInteger);
+    assertTrue(toListResult.get(2) instanceof COSInteger);
+    assertNull(pdAnnotationCaret.getOptionalContent());
+    COSDictionary cOSObject = pdAnnotationCaret.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+  }
+
+  /**
+   * Method under test: {@link PDAnnotation#setOptionalContent(PDPropertyList)}
+   */
+  @Test
+  void testSetOptionalContent3() {
     // Arrange
     PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
 
@@ -2484,6 +1482,10 @@ class PDAnnotationDiffblueTest {
 
     // Assert
     verify(oc).getCOSObject();
+    List<? extends COSBase> toListResult = pdAnnotationCaret.getBorder().toList();
+    assertEquals(3, toListResult.size());
+    assertTrue(toListResult.get(0) instanceof COSInteger);
+    assertTrue(toListResult.get(2) instanceof COSInteger);
     COSDictionary cOSObject = pdAnnotationCaret.getCOSObject();
     assertEquals(3, cOSObject.getValues().size());
     assertEquals(3, cOSObject.size());
@@ -2491,112 +1493,38 @@ class PDAnnotationDiffblueTest {
   }
 
   /**
-   * Test {@link PDAnnotation#setOptionalContent(PDPropertyList)}.
-   * <ul>
-   *   <li>Given {@code null}.</li>
-   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} COSObject Values size is two.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDAnnotation#setOptionalContent(PDPropertyList)}
    */
   @Test
-  @DisplayName("Test setOptionalContent(PDPropertyList); given 'null'; then PDAnnotationCaret() COSObject Values size is two")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAnnotation.setOptionalContent(PDPropertyList)"})
-  void testSetOptionalContent_givenNull_thenPDAnnotationCaretCOSObjectValuesSizeIsTwo() {
+  void testSetOptionalContent4() {
     // Arrange
     PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
+
+    COSDictionary cosDictionary = new COSDictionary();
+    cosDictionary.setKey(new COSObjectKey(1L, 1));
     PDPropertyList oc = mock(PDPropertyList.class);
-    when(oc.getCOSObject()).thenReturn(null);
+    when(oc.getCOSObject()).thenReturn(cosDictionary);
 
     // Act
     pdAnnotationCaret.setOptionalContent(oc);
 
-    // Assert that nothing has changed
+    // Assert
     verify(oc).getCOSObject();
-    COSDictionary cOSObject = pdAnnotationCaret.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-  }
-
-  /**
-   * Test {@link PDAnnotation#setBorder(COSArray)}.
-   * <ul>
-   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAnnotation#setBorder(COSArray)}
-   */
-  @Test
-  @DisplayName("Test setBorder(COSArray); given COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAnnotation.setBorder(COSArray)"})
-  void testSetBorder_givenCOSObjectKeyWithNumIsOneAndGenIsOne() {
-    // Arrange
-    PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
-
-    COSArray borderArray = new COSArray();
-    borderArray.setKey(new COSObjectKey(1L, 1));
-    borderArray.setDirect(false);
-
-    // Act
-    pdAnnotationCaret.setBorder(borderArray);
-
-    // Assert
-    COSDictionary cOSObject = pdAnnotationCaret.getCOSObject();
-    assertEquals(3, cOSObject.getValues().size());
     List<? extends COSBase> toListResult = pdAnnotationCaret.getBorder().toList();
     assertEquals(3, toListResult.size());
-    assertEquals(3, cOSObject.size());
-    assertSame(toListResult.get(0), toListResult.get(2));
-  }
-
-  /**
-   * Test {@link PDAnnotation#setBorder(COSArray)}.
-   * <ul>
-   *   <li>Given {@code false}.</li>
-   *   <li>When {@link COSArray#COSArray()} Direct is {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAnnotation#setBorder(COSArray)}
-   */
-  @Test
-  @DisplayName("Test setBorder(COSArray); given 'false'; when COSArray() Direct is 'false'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAnnotation.setBorder(COSArray)"})
-  void testSetBorder_givenFalse_whenCOSArrayDirectIsFalse() {
-    // Arrange
-    PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
-
-    COSArray borderArray = new COSArray();
-    borderArray.setDirect(false);
-
-    // Act
-    pdAnnotationCaret.setBorder(borderArray);
-
-    // Assert
+    assertTrue(toListResult.get(0) instanceof COSInteger);
+    assertTrue(toListResult.get(2) instanceof COSInteger);
     COSDictionary cOSObject = pdAnnotationCaret.getCOSObject();
     assertEquals(3, cOSObject.getValues().size());
-    List<? extends COSBase> toListResult = pdAnnotationCaret.getBorder().toList();
-    assertEquals(3, toListResult.size());
     assertEquals(3, cOSObject.size());
-    assertSame(toListResult.get(0), toListResult.get(2));
+    assertSame(cosDictionary, pdAnnotationCaret.getOptionalContent().getCOSObject());
   }
 
   /**
-   * Test {@link PDAnnotation#setBorder(COSArray)}.
-   * <ul>
-   *   <li>When {@link COSArray#COSArray()}.</li>
-   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} COSObject Values size is three.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDAnnotation#setBorder(COSArray)}
    */
   @Test
-  @DisplayName("Test setBorder(COSArray); when COSArray(); then PDAnnotationCaret() COSObject Values size is three")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAnnotation.setBorder(COSArray)"})
-  void testSetBorder_whenCOSArray_thenPDAnnotationCaretCOSObjectValuesSizeIsThree() {
+  void testSetBorder() {
     // Arrange
     PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
 
@@ -2604,57 +1532,67 @@ class PDAnnotationDiffblueTest {
     pdAnnotationCaret.setBorder(new COSArray());
 
     // Assert
-    COSDictionary cOSObject = pdAnnotationCaret.getCOSObject();
-    assertEquals(3, cOSObject.getValues().size());
     List<? extends COSBase> toListResult = pdAnnotationCaret.getBorder().toList();
     assertEquals(3, toListResult.size());
+    COSBase getResult = toListResult.get(0);
+    assertTrue(getResult instanceof COSInteger);
+    COSDictionary cOSObject = pdAnnotationCaret.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
     assertEquals(3, cOSObject.size());
-    assertSame(toListResult.get(0), toListResult.get(2));
+    assertSame(getResult, toListResult.get(1));
+    assertSame(getResult, toListResult.get(2));
   }
 
   /**
-   * Test {@link PDAnnotation#setBorder(COSArray)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} Border toList third {@link COSInteger}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDAnnotation#setBorder(COSArray)}
    */
   @Test
-  @DisplayName("Test setBorder(COSArray); when 'null'; then PDAnnotationCaret() Border toList third COSInteger")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAnnotation.setBorder(COSArray)"})
-  void testSetBorder_whenNull_thenPDAnnotationCaretBorderToListThirdCOSInteger() {
+  void testSetBorder2() {
     // Arrange
     PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
 
     // Act
     pdAnnotationCaret.setBorder(null);
 
-    // Assert that nothing has changed
+    // Assert
     List<? extends COSBase> toListResult = pdAnnotationCaret.getBorder().toList();
     assertEquals(3, toListResult.size());
+    COSBase getResult = toListResult.get(0);
+    assertTrue(getResult instanceof COSInteger);
     assertTrue(toListResult.get(2) instanceof COSInteger);
     COSDictionary cOSObject = pdAnnotationCaret.getCOSObject();
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
+    assertSame(getResult, toListResult.get(1));
   }
 
   /**
-   * Test {@link PDAnnotation#setColor(PDColor)}.
-   * <ul>
-   *   <li>Given {@link COSBoolean#FALSE}.</li>
-   *   <li>When {@link COSArray#COSArray()} add {@link COSBoolean#FALSE}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDAnnotation#setColor(PDColor)}
    */
   @Test
-  @DisplayName("Test setColor(PDColor); given FALSE; when COSArray() add FALSE")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAnnotation.setColor(PDColor)"})
-  void testSetColor_givenFalse_whenCOSArrayAddFalse() {
+  void testSetColor() {
+    // Arrange
+    PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
+
+    // Act
+    pdAnnotationCaret.setColor(new PDColor(new COSArray(), PDDeviceGray.INSTANCE));
+
+    // Assert
+    PDColor color = pdAnnotationCaret.getColor();
+    assertNull(color.getPatternName());
+    assertNull(color.getColorSpace());
+    assertEquals(0, color.getComponents().length);
+    COSDictionary cOSObject = pdAnnotationCaret.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
+    assertFalse(color.isPattern());
+  }
+
+  /**
+   * Method under test: {@link PDAnnotation#setColor(PDColor)}
+   */
+  @Test
+  void testSetColor2() {
     // Arrange
     PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
 
@@ -2667,243 +1605,136 @@ class PDAnnotationDiffblueTest {
     // Assert
     PDColor color = pdAnnotationCaret.getColor();
     assertNull(color.getPatternName());
+    COSDictionary cOSObject = pdAnnotationCaret.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
     assertFalse(color.isPattern());
     assertArrayEquals(new float[]{0.0f}, color.getComponents(), 0.0f);
   }
 
   /**
-   * Test {@link PDAnnotation#setColor(PDColor)}.
-   * <ul>
-   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} Color ColorSpace is {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDAnnotation#setColor(PDColor)}
    */
   @Test
-  @DisplayName("Test setColor(PDColor); then PDAnnotationCaret() Color ColorSpace is 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAnnotation.setColor(PDColor)"})
-  void testSetColor_thenPDAnnotationCaretColorColorSpaceIsNull() {
+  void testSetColor3() {
     // Arrange
     PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
+    COSObjectable object = mock(COSObjectable.class);
+    when(object.getCOSObject()).thenReturn(COSBoolean.FALSE);
+
+    COSArray array = new COSArray();
+    array.add(object);
+    array.add(COSBoolean.FALSE);
 
     // Act
-    pdAnnotationCaret.setColor(new PDColor(new COSArray(), PDDeviceGray.INSTANCE));
+    pdAnnotationCaret.setColor(new PDColor(array, PDDeviceGray.INSTANCE));
 
     // Assert
+    verify(object).getCOSObject();
     PDColor color = pdAnnotationCaret.getColor();
     assertNull(color.getPatternName());
     assertNull(color.getColorSpace());
+    COSDictionary cOSObject = pdAnnotationCaret.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
     assertFalse(color.isPattern());
-    assertArrayEquals(new float[]{}, color.getComponents(), 0.0f);
+    assertArrayEquals(new float[]{0.0f, 0.0f}, color.getComponents(), 0.0f);
   }
 
   /**
-   * Test {@link PDAnnotation#setColor(PDColor)}.
-   * <ul>
-   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} Color Pattern.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDAnnotation#setColor(PDColor)}
    */
   @Test
-  @DisplayName("Test setColor(PDColor); then PDAnnotationCaret() Color Pattern")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAnnotation.setColor(PDColor)"})
-  void testSetColor_thenPDAnnotationCaretColorPattern() {
+  void testSetColor4() {
     // Arrange
     PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
+    COSObjectable object = mock(COSObjectable.class);
+    when(object.getCOSObject()).thenReturn(COSBoolean.FALSE);
+
+    COSArray array = new COSArray();
+    array.add(object);
+    array.add(COSName.A);
 
     // Act
-    pdAnnotationCaret.setColor(new PDColor(COSName.A, PDDeviceGray.INSTANCE));
+    pdAnnotationCaret.setColor(new PDColor(array, PDDeviceGray.INSTANCE));
 
     // Assert
+    verify(object).getCOSObject();
     PDColor color = pdAnnotationCaret.getColor();
+    assertNull(color.getColorSpace());
+    COSDictionary cOSObject = pdAnnotationCaret.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
     assertTrue(color.isPattern());
     assertArrayEquals(new float[]{0.0f}, color.getComponents(), 0.0f);
   }
 
   /**
-   * Test {@link PDAnnotation#getColor()}.
-   * <p>
    * Method under test: {@link PDAnnotation#getColor()}
    */
   @Test
-  @DisplayName("Test getColor()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDColor PDAnnotation.getColor()"})
   void testGetColor() {
     // Arrange, Act and Assert
     assertNull((new PDAnnotationCaret()).getColor());
-  }
-
-  /**
-   * Test {@link PDAnnotation#getColor(COSName)} with {@code COSName}.
-   * <ul>
-   *   <li>When {@link COSName#A}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAnnotation#getColor(COSName)}
-   */
-  @Test
-  @DisplayName("Test getColor(COSName) with 'COSName'; when A")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDColor PDAnnotation.getColor(COSName)"})
-  void testGetColorWithCOSName_whenA() {
-    // Arrange, Act and Assert
     assertNull((new PDAnnotationCaret()).getColor(COSName.A));
-  }
-
-  /**
-   * Test {@link PDAnnotation#getColor(COSName)} with {@code COSName}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAnnotation#getColor(COSName)}
-   */
-  @Test
-  @DisplayName("Test getColor(COSName) with 'COSName'; when 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDColor PDAnnotation.getColor(COSName)"})
-  void testGetColorWithCOSName_whenNull() {
-    // Arrange, Act and Assert
     assertNull((new PDAnnotationCaret()).getColor(null));
   }
 
   /**
-   * Test {@link PDAnnotation#setPage(PDPage)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} Page is {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDAnnotation#setPage(PDPage)}
    */
   @Test
-  @DisplayName("Test setPage(PDPage); when 'null'; then PDAnnotationCaret() Page is 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAnnotation.setPage(PDPage)"})
-  void testSetPage_whenNull_thenPDAnnotationCaretPageIsNull() {
+  void testSetPage() {
     // Arrange
     PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
 
     // Act
     pdAnnotationCaret.setPage(null);
 
-    // Assert that nothing has changed
-    assertNull(pdAnnotationCaret.getPage());
-  }
-
-  /**
-   * Test {@link PDAnnotation#setPage(PDPage)}.
-   * <ul>
-   *   <li>When {@link PDPage#PDPage()}.</li>
-   *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} Page is {@link PDPage#PDPage()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAnnotation#setPage(PDPage)}
-   */
-  @Test
-  @DisplayName("Test setPage(PDPage); when PDPage(); then PDAnnotationCaret() Page is PDPage()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAnnotation.setPage(PDPage)"})
-  void testSetPage_whenPDPage_thenPDAnnotationCaretPageIsPDPage() {
-    // Arrange
-    PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
-    PDPage page = new PDPage();
-
-    // Act
-    pdAnnotationCaret.setPage(page);
-
     // Assert
-    assertEquals(page, pdAnnotationCaret.getPage());
+    assertNull(pdAnnotationCaret.getPage());
+    COSDictionary cOSObject = pdAnnotationCaret.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
   }
 
   /**
-   * Test {@link PDAnnotation#getPage()}.
-   * <p>
    * Method under test: {@link PDAnnotation#getPage()}
    */
   @Test
-  @DisplayName("Test getPage()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDPage PDAnnotation.getPage()"})
   void testGetPage() {
     // Arrange, Act and Assert
     assertNull((new PDAnnotationCaret()).getPage());
   }
 
   /**
-   * Test {@link PDAnnotation#constructAppearances(PDDocument)} with {@code PDDocument}.
-   * <p>
-   * Method under test: {@link PDAnnotation#constructAppearances(PDDocument)}
-   */
-  @Test
-  @DisplayName("Test constructAppearances(PDDocument) with 'PDDocument'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAnnotation.constructAppearances(PDDocument)"})
-  void testConstructAppearancesWithPDDocument() throws IOException {
-    // Arrange
-    PDAnnotationFileAttachment pdAnnotationFileAttachment = new PDAnnotationFileAttachment();
-    pdAnnotationFileAttachment.setRectangle(PDRectangle.A0);
-
-    // Act
-    pdAnnotationFileAttachment.constructAppearances(new PDDocument());
-
-    // Assert
-    PDRectangle rectangle = pdAnnotationFileAttachment.getRectangle();
-    assertEquals(18.0f, rectangle.getHeight());
-    assertEquals(18.0f, rectangle.getUpperRightX());
-    assertEquals(18.0f, rectangle.getWidth());
-    assertEquals(3352.3938f, rectangle.getLowerLeftY());
-    byte[] byteArray = new byte[51];
-    assertEquals(51, pdAnnotationFileAttachment.getNormalAppearanceStream().getContents().read(byteArray));
-    assertArrayEquals("13.574 9.301 m\n8.926 13.949 l\n7.648 15.227 5.625 15".getBytes("UTF-8"), byteArray);
-  }
-
-  /**
-   * Test {@link PDAnnotation#constructAppearances(PDDocument)} with {@code PDDocument}.
-   * <ul>
-   *   <li>Then third element is array of {@code float} with {@code 0.5} and {@code 0.5}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDAnnotation#constructAppearances(PDDocument)}
-   */
-  @Test
-  @DisplayName("Test constructAppearances(PDDocument) with 'PDDocument'; then third element is array of float with '0.5' and '0.5'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAnnotation.constructAppearances(PDDocument)"})
-  void testConstructAppearancesWithPDDocument_thenThirdElementIsArrayOfFloatWith05And05() {
-    // Arrange
-    PDAnnotationCircle pdAnnotationCircle = new PDAnnotationCircle();
-    pdAnnotationCircle.setRectangle(PDRectangle.A0);
-
-    // Act
-    pdAnnotationCircle.constructAppearances(new PDDocument());
-
-    // Assert
-    float[][] values = pdAnnotationCircle.getNormalAppearanceStream().getMatrix().getValues();
-    assertEquals(3, values.length);
-    assertArrayEquals(new float[]{0.0f, 1.0f, 0.0f}, values[1], 0.0f);
-    assertArrayEquals(new float[]{0.5f, 0.5f, 1.0f}, values[2], 0.0f);
-    assertArrayEquals(new float[]{1.0f, 0.0f, 0.0f}, values[0], 0.0f);
-    assertArrayEquals(new float[]{0.5f, 0.5f, 0.5f, 0.5f}, pdAnnotationCircle.getRectDifferences(), 0.0f);
-  }
-
-  /**
-   * Test {@link PDAnnotation#constructAppearances()}.
-   * <ul>
-   *   <li>Then {@link PDAnnotationCircle#PDAnnotationCircle()} Rectangle LowerLeftX is {@code -0.5}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDAnnotation#constructAppearances()}
    */
   @Test
-  @DisplayName("Test constructAppearances(); then PDAnnotationCircle() Rectangle LowerLeftX is '-0.5'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAnnotation.constructAppearances()"})
-  void testConstructAppearances_thenPDAnnotationCircleRectangleLowerLeftXIs05() throws IOException {
+  void testConstructAppearances() {
+    // Arrange
+    PDAnnotationFileAttachment pdAnnotationFileAttachment = new PDAnnotationFileAttachment();
+
+    // Act
+    pdAnnotationFileAttachment.constructAppearances();
+
+    // Assert
+    assertNull(pdAnnotationFileAttachment.getRectangle());
+    assertNull(pdAnnotationFileAttachment.getAppearance());
+    assertNull(pdAnnotationFileAttachment.getNormalAppearanceStream());
+    COSDictionary cOSObject = pdAnnotationFileAttachment.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+  }
+
+  /**
+   * Method under test: {@link PDAnnotation#constructAppearances()}
+   */
+  @Test
+  void testConstructAppearances2() throws IOException {
     // Arrange
     PDAnnotationCircle pdAnnotationCircle = new PDAnnotationCircle();
     pdAnnotationCircle.setRectangle(PDRectangle.A0);
@@ -2912,32 +1743,350 @@ class PDAnnotationDiffblueTest {
     pdAnnotationCircle.constructAppearances();
 
     // Assert
+    PDAppearanceStream normalAppearanceStream = pdAnnotationCircle.getNormalAppearanceStream();
+    PDResources resources = normalAppearanceStream.getResources();
+    Iterable<COSName> colorSpaceNames = resources.getColorSpaceNames();
+    assertTrue(colorSpaceNames instanceof Set);
+    PDRectangle rectDifference = pdAnnotationCircle.getRectDifference();
+    COSArray cOSArray = rectDifference.getCOSArray();
+    List<? extends COSBase> toListResult = cOSArray.toList();
+    assertEquals(4, toListResult.size());
+    COSBase getResult = toListResult.get(0);
+    assertTrue(getResult instanceof COSFloat);
+    COSBase getResult2 = toListResult.get(1);
+    assertTrue(getResult2 instanceof COSFloat);
+    COSBase getResult3 = toListResult.get(2);
+    assertTrue(getResult3 instanceof COSFloat);
+    COSBase getResult4 = toListResult.get(3);
+    assertTrue(getResult4 instanceof COSFloat);
+    RandomAccessRead contentsForStreamParsing = normalAppearanceStream.getContentsForStreamParsing();
+    assertTrue(contentsForStreamParsing instanceof RandomAccessReadBuffer);
+    PDAppearanceDictionary appearance = pdAnnotationCircle.getAppearance();
+    PDAppearanceEntry downAppearance = appearance.getDownAppearance();
+    PDAppearanceStream appearanceStream = downAppearance.getAppearanceStream();
+    RandomAccessRead contentsForStreamParsing2 = appearanceStream.getContentsForStreamParsing();
+    assertTrue(contentsForStreamParsing2 instanceof RandomAccessReadBuffer);
+    PDAppearanceEntry normalAppearance = appearance.getNormalAppearance();
+    PDAppearanceStream appearanceStream2 = normalAppearance.getAppearanceStream();
+    RandomAccessRead contentsForStreamParsing3 = appearanceStream2.getContentsForStreamParsing();
+    assertTrue(contentsForStreamParsing3 instanceof RandomAccessReadBuffer);
+    PDAppearanceEntry rolloverAppearance = appearance.getRolloverAppearance();
+    PDAppearanceStream appearanceStream3 = rolloverAppearance.getAppearanceStream();
+    RandomAccessRead contentsForStreamParsing4 = appearanceStream3.getContentsForStreamParsing();
+    assertTrue(contentsForStreamParsing4 instanceof RandomAccessReadBuffer);
+    RandomAccessRead contentsForRandomAccess = normalAppearanceStream.getContentsForRandomAccess();
+    assertTrue(contentsForRandomAccess instanceof RandomAccessReadBuffer);
+    RandomAccessRead contentsForRandomAccess2 = appearanceStream.getContentsForRandomAccess();
+    assertTrue(contentsForRandomAccess2 instanceof RandomAccessReadBuffer);
+    RandomAccessRead contentsForRandomAccess3 = appearanceStream2.getContentsForRandomAccess();
+    assertTrue(contentsForRandomAccess3 instanceof RandomAccessReadBuffer);
+    RandomAccessRead contentsForRandomAccess4 = appearanceStream3.getContentsForRandomAccess();
+    assertTrue(contentsForRandomAccess4 instanceof RandomAccessReadBuffer);
+    PDStream stream = normalAppearanceStream.getStream();
+    assertNull(stream.getDecodeParms());
+    PDStream stream2 = appearanceStream.getStream();
+    assertNull(stream2.getDecodeParms());
+    PDStream stream3 = appearanceStream2.getStream();
+    assertNull(stream3.getDecodeParms());
+    PDStream stream4 = appearanceStream3.getStream();
+    assertNull(stream4.getDecodeParms());
+    PDStream contentStream = normalAppearanceStream.getContentStream();
+    assertNull(contentStream.getDecodeParms());
+    PDStream contentStream2 = appearanceStream.getContentStream();
+    assertNull(contentStream2.getDecodeParms());
+    PDStream contentStream3 = appearanceStream2.getContentStream();
+    assertNull(contentStream3.getDecodeParms());
+    PDStream contentStream4 = appearanceStream3.getContentStream();
+    assertNull(contentStream4.getDecodeParms());
+    assertNull(stream.getFileDecodeParams());
+    assertNull(stream2.getFileDecodeParams());
+    assertNull(stream3.getFileDecodeParams());
+    assertNull(stream4.getFileDecodeParams());
+    assertNull(contentStream.getFileDecodeParams());
+    assertNull(contentStream2.getFileDecodeParams());
+    assertNull(contentStream3.getFileDecodeParams());
+    assertNull(contentStream4.getFileDecodeParams());
+    COSStream cOSObject = normalAppearanceStream.getCOSObject();
+    assertNull(cOSObject.getFilters());
+    COSDictionary cOSObject2 = resources.getCOSObject();
+    COSUpdateState updateState = cOSObject2.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    COSUpdateState updateState2 = cOSObject.getUpdateState();
+    assertNull(updateState2.getOriginDocumentState());
+    COSDictionary cOSObject3 = appearance.getCOSObject();
+    COSUpdateState updateState3 = cOSObject3.getUpdateState();
+    assertNull(updateState3.getOriginDocumentState());
+    assertNull(getResult.getKey());
+    assertNull(cOSObject2.getKey());
+    assertNull(cOSObject.getKey());
+    assertNull(cOSObject3.getKey());
+    assertNull(resources.getResourceCache());
+    PDResources resources2 = appearanceStream.getResources();
+    assertNull(resources2.getResourceCache());
+    PDResources resources3 = appearanceStream2.getResources();
+    assertNull(resources3.getResourceCache());
+    PDResources resources4 = appearanceStream3.getResources();
+    assertNull(resources4.getResourceCache());
+    assertNull(stream.getMetadata());
+    assertNull(stream2.getMetadata());
+    assertNull(stream3.getMetadata());
+    assertNull(stream4.getMetadata());
+    assertNull(contentStream.getMetadata());
+    assertNull(contentStream2.getMetadata());
+    assertNull(contentStream3.getMetadata());
+    assertNull(contentStream4.getMetadata());
+    assertNull(stream.getFile());
+    assertNull(stream2.getFile());
+    assertNull(stream3.getFile());
+    assertNull(stream4.getFile());
+    assertNull(contentStream.getFile());
+    assertNull(contentStream2.getFile());
+    assertNull(contentStream3.getFile());
+    assertNull(contentStream4.getFile());
+    assertNull(normalAppearanceStream.getOptionalContent());
+    assertNull(appearanceStream.getOptionalContent());
+    assertNull(appearanceStream2.getOptionalContent());
+    assertNull(appearanceStream3.getOptionalContent());
+    assertNull(normalAppearanceStream.getGroup());
+    assertNull(appearanceStream.getGroup());
+    assertNull(appearanceStream2.getGroup());
+    assertNull(appearanceStream3.getGroup());
+    PDRectangle bBox = normalAppearanceStream.getBBox();
+    assertEquals(-0.5f, bBox.getLowerLeftX());
+    PDRectangle bBox2 = appearanceStream.getBBox();
+    assertEquals(-0.5f, bBox2.getLowerLeftX());
+    PDRectangle bBox3 = appearanceStream2.getBBox();
+    assertEquals(-0.5f, bBox3.getLowerLeftX());
+    PDRectangle bBox4 = appearanceStream3.getBBox();
+    assertEquals(-0.5f, bBox4.getLowerLeftX());
     PDRectangle rectangle = pdAnnotationCircle.getRectangle();
     assertEquals(-0.5f, rectangle.getLowerLeftX());
+    assertEquals(-0.5f, bBox.getLowerLeftY());
+    assertEquals(-0.5f, bBox2.getLowerLeftY());
+    assertEquals(-0.5f, bBox3.getLowerLeftY());
+    assertEquals(-0.5f, bBox4.getLowerLeftY());
     assertEquals(-0.5f, rectangle.getLowerLeftY());
+    assertEquals(-1, stream.getDecodedStreamLength());
+    assertEquals(-1, stream2.getDecodedStreamLength());
+    assertEquals(-1, stream3.getDecodedStreamLength());
+    assertEquals(-1, stream4.getDecodedStreamLength());
+    assertEquals(-1, contentStream.getDecodedStreamLength());
+    assertEquals(-1, contentStream2.getDecodedStreamLength());
+    assertEquals(-1, contentStream3.getDecodedStreamLength());
+    assertEquals(-1, contentStream4.getDecodedStreamLength());
+    assertEquals(-1, normalAppearanceStream.getStructParents());
+    assertEquals(-1, appearanceStream.getStructParents());
+    assertEquals(-1, appearanceStream2.getStructParents());
+    assertEquals(-1, appearanceStream3.getStructParents());
+    assertEquals(0, cOSObject2.size());
+    assertEquals(0.0f, rectDifference.getHeight());
+    assertEquals(0.0f, rectDifference.getWidth());
+    Matrix matrix = normalAppearanceStream.getMatrix();
+    assertEquals(0.0f, matrix.getShearX());
+    assertEquals(0.0f, matrix.getShearY());
+    assertEquals(0.5f, rectDifference.getLowerLeftX());
+    assertEquals(0.5f, rectDifference.getLowerLeftY());
+    assertEquals(0.5f, rectDifference.getUpperRightX());
+    assertEquals(0.5f, rectDifference.getUpperRightY());
+    assertEquals(0.5f, matrix.getTranslateX());
+    assertEquals(0.5f, matrix.getTranslateY());
+    assertEquals(0L, contentsForStreamParsing.getPosition());
+    assertEquals(0L, contentsForStreamParsing2.getPosition());
+    assertEquals(0L, contentsForStreamParsing3.getPosition());
+    assertEquals(0L, contentsForStreamParsing4.getPosition());
+    assertEquals(0L, contentsForRandomAccess.getPosition());
+    assertEquals(0L, contentsForRandomAccess2.getPosition());
+    assertEquals(0L, contentsForRandomAccess3.getPosition());
+    assertEquals(0L, contentsForRandomAccess4.getPosition());
+    assertEquals(1, cOSObject3.getValues().size());
+    assertEquals(1, cOSObject3.size());
+    assertEquals(1, normalAppearanceStream.getFormType());
+    assertEquals(1, appearanceStream.getFormType());
+    assertEquals(1, appearanceStream2.getFormType());
+    assertEquals(1, appearanceStream3.getFormType());
+    assertEquals(1.0f, matrix.getScaleX());
+    assertEquals(1.0f, matrix.getScaleY());
+    assertEquals(1.0f, matrix.getScalingFactorX());
+    assertEquals(1.0f, matrix.getScalingFactorY());
+    assertEquals(231, contentsForStreamParsing.available());
+    assertEquals(231, contentsForStreamParsing2.available());
+    assertEquals(231, contentsForStreamParsing3.available());
+    assertEquals(231, contentsForStreamParsing4.available());
+    assertEquals(231, contentsForRandomAccess.available());
+    assertEquals(231, contentsForRandomAccess2.available());
+    assertEquals(231, contentsForRandomAccess3.available());
+    assertEquals(231, contentsForRandomAccess4.available());
+    assertEquals(231, stream.getLength());
+    assertEquals(231, stream2.getLength());
+    assertEquals(231, stream3.getLength());
+    assertEquals(231, stream4.getLength());
+    assertEquals(231, contentStream.getLength());
+    assertEquals(231, contentStream2.getLength());
+    assertEquals(231, contentStream3.getLength());
+    assertEquals(231, contentStream4.getLength());
+    assertEquals(231L, cOSObject.getLength());
+    assertEquals(2384.437f, bBox.getUpperRightX());
+    assertEquals(2384.437f, bBox2.getUpperRightX());
+    assertEquals(2384.437f, bBox3.getUpperRightX());
+    assertEquals(2384.437f, bBox4.getUpperRightX());
     assertEquals(2384.437f, rectangle.getUpperRightX());
+    assertEquals(2384.937f, bBox.getWidth());
+    assertEquals(2384.937f, bBox2.getWidth());
+    assertEquals(2384.937f, bBox3.getWidth());
+    assertEquals(2384.937f, bBox4.getWidth());
     assertEquals(2384.937f, rectangle.getWidth());
+    float[][] values = matrix.getValues();
+    assertEquals(3, values.length);
+    assertEquals(3370.8938f, bBox.getUpperRightY());
+    assertEquals(3370.8938f, bBox2.getUpperRightY());
+    assertEquals(3370.8938f, bBox3.getUpperRightY());
+    assertEquals(3370.8938f, bBox4.getUpperRightY());
     assertEquals(3370.8938f, rectangle.getUpperRightY());
+    assertEquals(3371.3938f, bBox.getHeight());
+    assertEquals(3371.3938f, bBox2.getHeight());
+    assertEquals(3371.3938f, bBox3.getHeight());
+    assertEquals(3371.3938f, bBox4.getHeight());
     assertEquals(3371.3938f, rectangle.getHeight());
+    COSDictionary cOSObject4 = pdAnnotationCircle.getCOSObject();
+    assertEquals(5, cOSObject4.getValues().size());
+    assertEquals(5, cOSObject4.size());
     byte[] byteArray = new byte[51];
-    assertEquals(51, pdAnnotationCircle.getNormalAppearanceStream().getContents().read(byteArray));
+    assertEquals(51, normalAppearanceStream.getContents().read(byteArray));
+    byte[] byteArray2 = new byte[51];
+    assertEquals(51, appearanceStream.getContents().read(byteArray2));
+    byte[] byteArray3 = new byte[51];
+    assertEquals(51, appearanceStream2.getContents().read(byteArray3));
+    byte[] byteArray4 = new byte[51];
+    assertEquals(51, appearanceStream3.getContents().read(byteArray4));
+    assertEquals(6, cOSObject.getValues().size());
+    assertEquals(6, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject2.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    COSIncrement toIncrementResult2 = cOSObject.toIncrement();
+    assertFalse(toIncrementResult2.iterator().hasNext());
+    COSIncrement toIncrementResult3 = cOSObject3.toIncrement();
+    assertFalse(toIncrementResult3.iterator().hasNext());
+    assertFalse(getResult.isDirect());
+    assertFalse(cOSObject2.isDirect());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject3.isDirect());
+    assertFalse(cOSObject2.isNeedToBeUpdated());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(cOSObject3.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertFalse(updateState2.isUpdated());
+    assertFalse(updateState3.isUpdated());
+    assertFalse(contentsForStreamParsing.isClosed());
+    assertFalse(contentsForStreamParsing2.isClosed());
+    assertFalse(contentsForStreamParsing3.isClosed());
+    assertFalse(contentsForStreamParsing4.isClosed());
+    assertFalse(contentsForRandomAccess.isClosed());
+    assertFalse(contentsForRandomAccess2.isClosed());
+    assertFalse(contentsForRandomAccess3.isClosed());
+    assertFalse(contentsForRandomAccess4.isClosed());
+    assertFalse(downAppearance.isSubDictionary());
+    assertFalse(normalAppearance.isSubDictionary());
+    assertFalse(rolloverAppearance.isSubDictionary());
+    assertTrue(cOSObject2.getValues().isEmpty());
+    List<String> fileFilters = contentStream.getFileFilters();
+    assertTrue(fileFilters.isEmpty());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertTrue(toIncrementResult2.getObjects().isEmpty());
+    assertTrue(toIncrementResult3.getObjects().isEmpty());
+    assertTrue(((Set<COSName>) colorSpaceNames).isEmpty());
+    assertTrue(cOSObject.hasData());
+    assertTrue(downAppearance.isStream());
+    assertTrue(normalAppearance.isStream());
+    assertTrue(rolloverAppearance.isStream());
+    assertEquals(matrix, appearanceStream.getMatrix());
+    assertEquals(matrix, appearanceStream2.getMatrix());
+    assertEquals(matrix, appearanceStream3.getMatrix());
+    assertEquals(getResult, getResult2);
+    assertEquals(getResult, getResult3);
+    assertEquals(getResult, getResult4);
+    assertSame(cOSObject2, resources2.getCOSObject());
+    assertSame(cOSObject2, resources3.getCOSObject());
+    assertSame(cOSObject2, resources4.getCOSObject());
+    COSArray expectedCOSObject = bBox.getCOSArray();
+    assertSame(expectedCOSObject, bBox.getCOSObject());
+    COSArray expectedCOSObject2 = bBox2.getCOSArray();
+    assertSame(expectedCOSObject2, bBox2.getCOSObject());
+    COSArray expectedCOSObject3 = bBox3.getCOSArray();
+    assertSame(expectedCOSObject3, bBox3.getCOSObject());
+    COSArray expectedCOSObject4 = bBox4.getCOSArray();
+    assertSame(expectedCOSObject4, bBox4.getCOSObject());
+    assertSame(cOSArray, rectDifference.getCOSObject());
+    assertSame(fileFilters, stream.getFileFilters());
+    assertSame(fileFilters, stream2.getFileFilters());
+    assertSame(fileFilters, stream3.getFileFilters());
+    assertSame(fileFilters, stream4.getFileFilters());
+    assertSame(fileFilters, contentStream2.getFileFilters());
+    assertSame(fileFilters, contentStream3.getFileFilters());
+    assertSame(fileFilters, contentStream4.getFileFilters());
+    assertSame(fileFilters, stream.getFilters());
+    assertSame(fileFilters, stream2.getFilters());
+    assertSame(fileFilters, stream3.getFilters());
+    assertSame(fileFilters, stream4.getFilters());
+    assertSame(fileFilters, contentStream.getFilters());
+    assertSame(fileFilters, contentStream2.getFilters());
+    assertSame(fileFilters, contentStream3.getFilters());
+    assertSame(fileFilters, contentStream4.getFilters());
+    assertSame(cOSObject, stream.getCOSObject());
+    assertSame(cOSObject, stream2.getCOSObject());
+    assertSame(cOSObject, stream3.getCOSObject());
+    assertSame(cOSObject, stream4.getCOSObject());
+    assertSame(cOSObject, contentStream.getCOSObject());
+    assertSame(cOSObject, contentStream2.getCOSObject());
+    assertSame(cOSObject, contentStream3.getCOSObject());
+    assertSame(cOSObject, contentStream4.getCOSObject());
+    assertSame(cOSObject, appearanceStream.getCOSObject());
+    assertSame(cOSObject, appearanceStream2.getCOSObject());
+    assertSame(cOSObject, appearanceStream3.getCOSObject());
+    assertSame(cOSObject, downAppearance.getCOSObject());
+    assertSame(cOSObject, normalAppearance.getCOSObject());
+    assertSame(cOSObject, rolloverAppearance.getCOSObject());
+    assertSame(colorSpaceNames, resources2.getColorSpaceNames());
+    assertSame(colorSpaceNames, resources3.getColorSpaceNames());
+    assertSame(colorSpaceNames, resources4.getColorSpaceNames());
+    assertSame(colorSpaceNames, resources.getExtGStateNames());
+    assertSame(colorSpaceNames, resources2.getExtGStateNames());
+    assertSame(colorSpaceNames, resources3.getExtGStateNames());
+    assertSame(colorSpaceNames, resources4.getExtGStateNames());
+    assertSame(colorSpaceNames, resources.getFontNames());
+    assertSame(colorSpaceNames, resources2.getFontNames());
+    assertSame(colorSpaceNames, resources3.getFontNames());
+    assertSame(colorSpaceNames, resources4.getFontNames());
+    assertSame(colorSpaceNames, resources.getPatternNames());
+    assertSame(colorSpaceNames, resources2.getPatternNames());
+    assertSame(colorSpaceNames, resources3.getPatternNames());
+    assertSame(colorSpaceNames, resources4.getPatternNames());
+    assertSame(colorSpaceNames, resources.getPropertiesNames());
+    assertSame(colorSpaceNames, resources2.getPropertiesNames());
+    assertSame(colorSpaceNames, resources3.getPropertiesNames());
+    assertSame(colorSpaceNames, resources4.getPropertiesNames());
+    assertSame(colorSpaceNames, resources.getShadingNames());
+    assertSame(colorSpaceNames, resources2.getShadingNames());
+    assertSame(colorSpaceNames, resources3.getShadingNames());
+    assertSame(colorSpaceNames, resources4.getShadingNames());
+    assertSame(colorSpaceNames, resources.getXObjectNames());
+    assertSame(colorSpaceNames, resources2.getXObjectNames());
+    assertSame(colorSpaceNames, resources3.getXObjectNames());
+    assertSame(colorSpaceNames, resources4.getXObjectNames());
+    assertArrayEquals("1191.9685 3369.8938 m\n1853.8938 3369.8938 2383.437 ".getBytes("UTF-8"), byteArray2);
+    assertArrayEquals("1191.9685 3369.8938 m\n1853.8938 3369.8938 2383.437 ".getBytes("UTF-8"), byteArray3);
+    assertArrayEquals("1191.9685 3369.8938 m\n1853.8938 3369.8938 2383.437 ".getBytes("UTF-8"), byteArray4);
     assertArrayEquals("1191.9685 3369.8938 m\n1853.8938 3369.8938 2383.437 ".getBytes("UTF-8"), byteArray);
+    assertArrayEquals(new float[]{0.0f, 1.0f, 0.0f}, values[1], 0.0f);
+    assertArrayEquals(new float[]{0.5f, 0.5f, 1.0f}, values[2], 0.0f);
+    assertArrayEquals(new float[]{1.0f, 0.0f, 0.0f}, values[0], 0.0f);
     assertArrayEquals(new float[]{0.5f, 0.5f, 0.5f, 0.5f}, pdAnnotationCircle.getRectDifferences(), 0.0f);
   }
 
   /**
-   * Test {@link PDAnnotation#constructAppearances()}.
-   * <ul>
-   *   <li>Then {@link PDAnnotationFileAttachment#PDAnnotationFileAttachment()} Rectangle Height is eighteen.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDAnnotation#constructAppearances()}
    */
   @Test
-  @DisplayName("Test constructAppearances(); then PDAnnotationFileAttachment() Rectangle Height is eighteen")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDAnnotation.constructAppearances()"})
-  void testConstructAppearances_thenPDAnnotationFileAttachmentRectangleHeightIsEighteen() throws IOException {
+  void testConstructAppearances3() throws IOException {
     // Arrange
     PDAnnotationFileAttachment pdAnnotationFileAttachment = new PDAnnotationFileAttachment();
     pdAnnotationFileAttachment.setRectangle(PDRectangle.A0);
@@ -2946,13 +2095,1190 @@ class PDAnnotationDiffblueTest {
     pdAnnotationFileAttachment.constructAppearances();
 
     // Assert
+    PDAppearanceStream normalAppearanceStream = pdAnnotationFileAttachment.getNormalAppearanceStream();
+    PDResources resources = normalAppearanceStream.getResources();
+    Iterable<COSName> colorSpaceNames = resources.getColorSpaceNames();
+    assertTrue(colorSpaceNames instanceof Set);
+    PDRectangle bBox = normalAppearanceStream.getBBox();
+    COSArray cOSArray = bBox.getCOSArray();
+    List<? extends COSBase> toListResult = cOSArray.toList();
+    assertEquals(4, toListResult.size());
+    assertTrue(toListResult.get(0) instanceof COSFloat);
+    assertTrue(toListResult.get(1) instanceof COSFloat);
+    assertTrue(toListResult.get(2) instanceof COSFloat);
+    assertTrue(toListResult.get(3) instanceof COSFloat);
+    RandomAccessRead contentsForStreamParsing = normalAppearanceStream.getContentsForStreamParsing();
+    assertTrue(contentsForStreamParsing instanceof RandomAccessReadBuffer);
+    PDAppearanceDictionary appearance = pdAnnotationFileAttachment.getAppearance();
+    PDAppearanceEntry downAppearance = appearance.getDownAppearance();
+    PDAppearanceStream appearanceStream = downAppearance.getAppearanceStream();
+    RandomAccessRead contentsForStreamParsing2 = appearanceStream.getContentsForStreamParsing();
+    assertTrue(contentsForStreamParsing2 instanceof RandomAccessReadBuffer);
+    PDAppearanceEntry normalAppearance = appearance.getNormalAppearance();
+    PDAppearanceStream appearanceStream2 = normalAppearance.getAppearanceStream();
+    RandomAccessRead contentsForStreamParsing3 = appearanceStream2.getContentsForStreamParsing();
+    assertTrue(contentsForStreamParsing3 instanceof RandomAccessReadBuffer);
+    PDAppearanceEntry rolloverAppearance = appearance.getRolloverAppearance();
+    PDAppearanceStream appearanceStream3 = rolloverAppearance.getAppearanceStream();
+    RandomAccessRead contentsForStreamParsing4 = appearanceStream3.getContentsForStreamParsing();
+    assertTrue(contentsForStreamParsing4 instanceof RandomAccessReadBuffer);
+    RandomAccessRead contentsForRandomAccess = normalAppearanceStream.getContentsForRandomAccess();
+    assertTrue(contentsForRandomAccess instanceof RandomAccessReadBuffer);
+    RandomAccessRead contentsForRandomAccess2 = appearanceStream.getContentsForRandomAccess();
+    assertTrue(contentsForRandomAccess2 instanceof RandomAccessReadBuffer);
+    RandomAccessRead contentsForRandomAccess3 = appearanceStream2.getContentsForRandomAccess();
+    assertTrue(contentsForRandomAccess3 instanceof RandomAccessReadBuffer);
+    RandomAccessRead contentsForRandomAccess4 = appearanceStream3.getContentsForRandomAccess();
+    assertTrue(contentsForRandomAccess4 instanceof RandomAccessReadBuffer);
+    PDStream stream = normalAppearanceStream.getStream();
+    assertNull(stream.getDecodeParms());
+    PDStream stream2 = appearanceStream.getStream();
+    assertNull(stream2.getDecodeParms());
+    PDStream stream3 = appearanceStream2.getStream();
+    assertNull(stream3.getDecodeParms());
+    PDStream stream4 = appearanceStream3.getStream();
+    assertNull(stream4.getDecodeParms());
+    PDStream contentStream = normalAppearanceStream.getContentStream();
+    assertNull(contentStream.getDecodeParms());
+    PDStream contentStream2 = appearanceStream.getContentStream();
+    assertNull(contentStream2.getDecodeParms());
+    PDStream contentStream3 = appearanceStream2.getContentStream();
+    assertNull(contentStream3.getDecodeParms());
+    PDStream contentStream4 = appearanceStream3.getContentStream();
+    assertNull(contentStream4.getDecodeParms());
+    assertNull(stream.getFileDecodeParams());
+    assertNull(stream2.getFileDecodeParams());
+    assertNull(stream3.getFileDecodeParams());
+    assertNull(stream4.getFileDecodeParams());
+    assertNull(contentStream.getFileDecodeParams());
+    assertNull(contentStream2.getFileDecodeParams());
+    assertNull(contentStream3.getFileDecodeParams());
+    assertNull(contentStream4.getFileDecodeParams());
+    COSStream cOSObject = normalAppearanceStream.getCOSObject();
+    assertNull(cOSObject.getFilters());
+    COSDictionary cOSObject2 = resources.getCOSObject();
+    COSUpdateState updateState = cOSObject2.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    COSUpdateState updateState2 = cOSObject.getUpdateState();
+    assertNull(updateState2.getOriginDocumentState());
+    COSDictionary cOSObject3 = appearance.getCOSObject();
+    COSUpdateState updateState3 = cOSObject3.getUpdateState();
+    assertNull(updateState3.getOriginDocumentState());
+    assertNull(cOSObject2.getKey());
+    assertNull(cOSObject.getKey());
+    assertNull(cOSObject3.getKey());
+    assertNull(resources.getResourceCache());
+    PDResources resources2 = appearanceStream.getResources();
+    assertNull(resources2.getResourceCache());
+    PDResources resources3 = appearanceStream2.getResources();
+    assertNull(resources3.getResourceCache());
+    PDResources resources4 = appearanceStream3.getResources();
+    assertNull(resources4.getResourceCache());
+    assertNull(stream.getMetadata());
+    assertNull(stream2.getMetadata());
+    assertNull(stream3.getMetadata());
+    assertNull(stream4.getMetadata());
+    assertNull(contentStream.getMetadata());
+    assertNull(contentStream2.getMetadata());
+    assertNull(contentStream3.getMetadata());
+    assertNull(contentStream4.getMetadata());
+    assertNull(stream.getFile());
+    assertNull(stream2.getFile());
+    assertNull(stream3.getFile());
+    assertNull(stream4.getFile());
+    assertNull(contentStream.getFile());
+    assertNull(contentStream2.getFile());
+    assertNull(contentStream3.getFile());
+    assertNull(contentStream4.getFile());
+    assertNull(normalAppearanceStream.getOptionalContent());
+    assertNull(appearanceStream.getOptionalContent());
+    assertNull(appearanceStream2.getOptionalContent());
+    assertNull(appearanceStream3.getOptionalContent());
+    assertNull(normalAppearanceStream.getGroup());
+    assertNull(appearanceStream.getGroup());
+    assertNull(appearanceStream2.getGroup());
+    assertNull(appearanceStream3.getGroup());
+    Matrix matrix = normalAppearanceStream.getMatrix();
+    assertEquals(-0.0f, matrix.getTranslateX());
+    assertEquals(-0.0f, matrix.getTranslateY());
+    assertEquals(-1, stream.getDecodedStreamLength());
+    assertEquals(-1, stream2.getDecodedStreamLength());
+    assertEquals(-1, stream3.getDecodedStreamLength());
+    assertEquals(-1, stream4.getDecodedStreamLength());
+    assertEquals(-1, contentStream.getDecodedStreamLength());
+    assertEquals(-1, contentStream2.getDecodedStreamLength());
+    assertEquals(-1, contentStream3.getDecodedStreamLength());
+    assertEquals(-1, contentStream4.getDecodedStreamLength());
+    assertEquals(-1, normalAppearanceStream.getStructParents());
+    assertEquals(-1, appearanceStream.getStructParents());
+    assertEquals(-1, appearanceStream2.getStructParents());
+    assertEquals(-1, appearanceStream3.getStructParents());
+    assertEquals(0, cOSObject2.size());
+    assertEquals(0.0f, bBox.getLowerLeftX());
+    PDRectangle bBox2 = appearanceStream.getBBox();
+    assertEquals(0.0f, bBox2.getLowerLeftX());
+    PDRectangle bBox3 = appearanceStream2.getBBox();
+    assertEquals(0.0f, bBox3.getLowerLeftX());
+    PDRectangle bBox4 = appearanceStream3.getBBox();
+    assertEquals(0.0f, bBox4.getLowerLeftX());
+    assertEquals(0.0f, bBox.getLowerLeftY());
+    assertEquals(0.0f, bBox2.getLowerLeftY());
+    assertEquals(0.0f, bBox3.getLowerLeftY());
+    assertEquals(0.0f, bBox4.getLowerLeftY());
+    assertEquals(0.0f, matrix.getShearX());
+    assertEquals(0.0f, matrix.getShearY());
+    assertEquals(0L, contentsForStreamParsing.getPosition());
+    assertEquals(0L, contentsForStreamParsing2.getPosition());
+    assertEquals(0L, contentsForStreamParsing3.getPosition());
+    assertEquals(0L, contentsForStreamParsing4.getPosition());
+    assertEquals(0L, contentsForRandomAccess.getPosition());
+    assertEquals(0L, contentsForRandomAccess2.getPosition());
+    assertEquals(0L, contentsForRandomAccess3.getPosition());
+    assertEquals(0L, contentsForRandomAccess4.getPosition());
+    assertEquals(1, cOSObject3.getValues().size());
+    assertEquals(1, cOSObject3.size());
+    assertEquals(1, normalAppearanceStream.getFormType());
+    assertEquals(1, appearanceStream.getFormType());
+    assertEquals(1, appearanceStream2.getFormType());
+    assertEquals(1, appearanceStream3.getFormType());
+    assertEquals(1.0f, matrix.getScaleX());
+    assertEquals(1.0f, matrix.getScaleY());
+    assertEquals(1.0f, matrix.getScalingFactorX());
+    assertEquals(1.0f, matrix.getScalingFactorY());
+    assertEquals(18.0f, bBox.getHeight());
+    assertEquals(18.0f, bBox2.getHeight());
+    assertEquals(18.0f, bBox3.getHeight());
+    assertEquals(18.0f, bBox4.getHeight());
     PDRectangle rectangle = pdAnnotationFileAttachment.getRectangle();
     assertEquals(18.0f, rectangle.getHeight());
+    assertEquals(18.0f, bBox.getUpperRightX());
+    assertEquals(18.0f, bBox2.getUpperRightX());
+    assertEquals(18.0f, bBox3.getUpperRightX());
+    assertEquals(18.0f, bBox4.getUpperRightX());
     assertEquals(18.0f, rectangle.getUpperRightX());
+    assertEquals(18.0f, bBox.getUpperRightY());
+    assertEquals(18.0f, bBox2.getUpperRightY());
+    assertEquals(18.0f, bBox3.getUpperRightY());
+    assertEquals(18.0f, bBox4.getUpperRightY());
+    assertEquals(18.0f, bBox.getWidth());
+    assertEquals(18.0f, bBox2.getWidth());
+    assertEquals(18.0f, bBox3.getWidth());
+    assertEquals(18.0f, bBox4.getWidth());
     assertEquals(18.0f, rectangle.getWidth());
+    float[][] values = matrix.getValues();
+    assertEquals(3, values.length);
     assertEquals(3352.3938f, rectangle.getLowerLeftY());
+    COSDictionary cOSObject4 = pdAnnotationFileAttachment.getCOSObject();
+    assertEquals(4, cOSObject4.getValues().size());
+    assertEquals(4, cOSObject4.size());
     byte[] byteArray = new byte[51];
-    assertEquals(51, pdAnnotationFileAttachment.getNormalAppearanceStream().getContents().read(byteArray));
+    assertEquals(51, normalAppearanceStream.getContents().read(byteArray));
+    byte[] byteArray2 = new byte[51];
+    assertEquals(51, appearanceStream.getContents().read(byteArray2));
+    byte[] byteArray3 = new byte[51];
+    assertEquals(51, appearanceStream2.getContents().read(byteArray3));
+    byte[] byteArray4 = new byte[51];
+    assertEquals(51, appearanceStream3.getContents().read(byteArray4));
+    assertEquals(6, cOSObject.getValues().size());
+    assertEquals(6, cOSObject.size());
+    assertEquals(804, contentsForStreamParsing.available());
+    assertEquals(804, contentsForStreamParsing2.available());
+    assertEquals(804, contentsForStreamParsing3.available());
+    assertEquals(804, contentsForStreamParsing4.available());
+    assertEquals(804, contentsForRandomAccess.available());
+    assertEquals(804, contentsForRandomAccess2.available());
+    assertEquals(804, contentsForRandomAccess3.available());
+    assertEquals(804, contentsForRandomAccess4.available());
+    assertEquals(804, stream.getLength());
+    assertEquals(804, stream2.getLength());
+    assertEquals(804, stream3.getLength());
+    assertEquals(804, stream4.getLength());
+    assertEquals(804, contentStream.getLength());
+    assertEquals(804, contentStream2.getLength());
+    assertEquals(804, contentStream3.getLength());
+    assertEquals(804, contentStream4.getLength());
+    assertEquals(804L, cOSObject.getLength());
+    COSIncrement toIncrementResult = cOSObject2.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    COSIncrement toIncrementResult2 = cOSObject.toIncrement();
+    assertFalse(toIncrementResult2.iterator().hasNext());
+    COSIncrement toIncrementResult3 = cOSObject3.toIncrement();
+    assertFalse(toIncrementResult3.iterator().hasNext());
+    assertFalse(cOSObject2.isDirect());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject3.isDirect());
+    assertFalse(cOSObject2.isNeedToBeUpdated());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(cOSObject3.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertFalse(updateState2.isUpdated());
+    assertFalse(updateState3.isUpdated());
+    assertFalse(contentsForStreamParsing.isClosed());
+    assertFalse(contentsForStreamParsing2.isClosed());
+    assertFalse(contentsForStreamParsing3.isClosed());
+    assertFalse(contentsForStreamParsing4.isClosed());
+    assertFalse(contentsForRandomAccess.isClosed());
+    assertFalse(contentsForRandomAccess2.isClosed());
+    assertFalse(contentsForRandomAccess3.isClosed());
+    assertFalse(contentsForRandomAccess4.isClosed());
+    assertFalse(downAppearance.isSubDictionary());
+    assertFalse(normalAppearance.isSubDictionary());
+    assertFalse(rolloverAppearance.isSubDictionary());
+    assertTrue(cOSObject2.getValues().isEmpty());
+    List<String> fileFilters = contentStream.getFileFilters();
+    assertTrue(fileFilters.isEmpty());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertTrue(toIncrementResult2.getObjects().isEmpty());
+    assertTrue(toIncrementResult3.getObjects().isEmpty());
+    assertTrue(((Set<COSName>) colorSpaceNames).isEmpty());
+    assertTrue(cOSObject.hasData());
+    assertTrue(downAppearance.isStream());
+    assertTrue(normalAppearance.isStream());
+    assertTrue(rolloverAppearance.isStream());
+    COSArray cOSArray2 = bBox2.getCOSArray();
+    assertEquals(toListResult, cOSArray2.toList());
+    COSArray cOSArray3 = bBox3.getCOSArray();
+    assertEquals(toListResult, cOSArray3.toList());
+    COSArray cOSArray4 = bBox4.getCOSArray();
+    assertEquals(toListResult, cOSArray4.toList());
+    assertEquals(matrix, appearanceStream.getMatrix());
+    assertEquals(matrix, appearanceStream2.getMatrix());
+    assertEquals(matrix, appearanceStream3.getMatrix());
+    assertSame(cOSObject2, resources2.getCOSObject());
+    assertSame(cOSObject2, resources3.getCOSObject());
+    assertSame(cOSObject2, resources4.getCOSObject());
+    assertSame(cOSArray, bBox.getCOSObject());
+    assertSame(cOSArray2, bBox2.getCOSObject());
+    assertSame(cOSArray3, bBox3.getCOSObject());
+    assertSame(cOSArray4, bBox4.getCOSObject());
+    assertSame(fileFilters, stream.getFileFilters());
+    assertSame(fileFilters, stream2.getFileFilters());
+    assertSame(fileFilters, stream3.getFileFilters());
+    assertSame(fileFilters, stream4.getFileFilters());
+    assertSame(fileFilters, contentStream2.getFileFilters());
+    assertSame(fileFilters, contentStream3.getFileFilters());
+    assertSame(fileFilters, contentStream4.getFileFilters());
+    assertSame(fileFilters, stream.getFilters());
+    assertSame(fileFilters, stream2.getFilters());
+    assertSame(fileFilters, stream3.getFilters());
+    assertSame(fileFilters, stream4.getFilters());
+    assertSame(fileFilters, contentStream.getFilters());
+    assertSame(fileFilters, contentStream2.getFilters());
+    assertSame(fileFilters, contentStream3.getFilters());
+    assertSame(fileFilters, contentStream4.getFilters());
+    assertSame(cOSObject, stream.getCOSObject());
+    assertSame(cOSObject, stream2.getCOSObject());
+    assertSame(cOSObject, stream3.getCOSObject());
+    assertSame(cOSObject, stream4.getCOSObject());
+    assertSame(cOSObject, contentStream.getCOSObject());
+    assertSame(cOSObject, contentStream2.getCOSObject());
+    assertSame(cOSObject, contentStream3.getCOSObject());
+    assertSame(cOSObject, contentStream4.getCOSObject());
+    assertSame(cOSObject, appearanceStream.getCOSObject());
+    assertSame(cOSObject, appearanceStream2.getCOSObject());
+    assertSame(cOSObject, appearanceStream3.getCOSObject());
+    assertSame(cOSObject, downAppearance.getCOSObject());
+    assertSame(cOSObject, normalAppearance.getCOSObject());
+    assertSame(cOSObject, rolloverAppearance.getCOSObject());
+    assertSame(colorSpaceNames, resources2.getColorSpaceNames());
+    assertSame(colorSpaceNames, resources3.getColorSpaceNames());
+    assertSame(colorSpaceNames, resources4.getColorSpaceNames());
+    assertSame(colorSpaceNames, resources.getExtGStateNames());
+    assertSame(colorSpaceNames, resources2.getExtGStateNames());
+    assertSame(colorSpaceNames, resources3.getExtGStateNames());
+    assertSame(colorSpaceNames, resources4.getExtGStateNames());
+    assertSame(colorSpaceNames, resources.getFontNames());
+    assertSame(colorSpaceNames, resources2.getFontNames());
+    assertSame(colorSpaceNames, resources3.getFontNames());
+    assertSame(colorSpaceNames, resources4.getFontNames());
+    assertSame(colorSpaceNames, resources.getPatternNames());
+    assertSame(colorSpaceNames, resources2.getPatternNames());
+    assertSame(colorSpaceNames, resources3.getPatternNames());
+    assertSame(colorSpaceNames, resources4.getPatternNames());
+    assertSame(colorSpaceNames, resources.getPropertiesNames());
+    assertSame(colorSpaceNames, resources2.getPropertiesNames());
+    assertSame(colorSpaceNames, resources3.getPropertiesNames());
+    assertSame(colorSpaceNames, resources4.getPropertiesNames());
+    assertSame(colorSpaceNames, resources.getShadingNames());
+    assertSame(colorSpaceNames, resources2.getShadingNames());
+    assertSame(colorSpaceNames, resources3.getShadingNames());
+    assertSame(colorSpaceNames, resources4.getShadingNames());
+    assertSame(colorSpaceNames, resources.getXObjectNames());
+    assertSame(colorSpaceNames, resources2.getXObjectNames());
+    assertSame(colorSpaceNames, resources3.getXObjectNames());
+    assertSame(colorSpaceNames, resources4.getXObjectNames());
+    assertArrayEquals("13.574 9.301 m\n8.926 13.949 l\n7.648 15.227 5.625 15".getBytes("UTF-8"), byteArray2);
+    assertArrayEquals("13.574 9.301 m\n8.926 13.949 l\n7.648 15.227 5.625 15".getBytes("UTF-8"), byteArray3);
+    assertArrayEquals("13.574 9.301 m\n8.926 13.949 l\n7.648 15.227 5.625 15".getBytes("UTF-8"), byteArray4);
     assertArrayEquals("13.574 9.301 m\n8.926 13.949 l\n7.648 15.227 5.625 15".getBytes("UTF-8"), byteArray);
+    assertArrayEquals(new float[]{-0.0f, -0.0f, 1.0f}, values[2], 0.0f);
+    assertArrayEquals(new float[]{0.0f, 1.0f, 0.0f}, values[1], 0.0f);
+    assertArrayEquals(new float[]{1.0f, 0.0f, 0.0f}, values[0], 0.0f);
+  }
+
+  /**
+   * Method under test: {@link PDAnnotation#constructAppearances()}
+   */
+  @Test
+  void testConstructAppearances4() throws IOException {
+    // Arrange
+    PDAnnotationFreeText pdAnnotationFreeText = new PDAnnotationFreeText();
+    pdAnnotationFreeText.setRectangle(PDRectangle.A0);
+
+    // Act
+    pdAnnotationFreeText.constructAppearances();
+
+    // Assert
+    PDAppearanceStream normalAppearanceStream = pdAnnotationFreeText.getNormalAppearanceStream();
+    PDResources resources = normalAppearanceStream.getResources();
+    Iterable<COSName> colorSpaceNames = resources.getColorSpaceNames();
+    assertTrue(colorSpaceNames instanceof Set);
+    COSStream cOSObject = normalAppearanceStream.getCOSObject();
+    COSBase filters = cOSObject.getFilters();
+    assertTrue(filters instanceof COSName);
+    RandomAccessRead contentsForStreamParsing = normalAppearanceStream.getContentsForStreamParsing();
+    assertTrue(contentsForStreamParsing instanceof RandomAccessReadWriteBuffer);
+    PDAppearanceDictionary appearance = pdAnnotationFreeText.getAppearance();
+    PDAppearanceEntry downAppearance = appearance.getDownAppearance();
+    PDAppearanceStream appearanceStream = downAppearance.getAppearanceStream();
+    RandomAccessRead contentsForStreamParsing2 = appearanceStream.getContentsForStreamParsing();
+    assertTrue(contentsForStreamParsing2 instanceof RandomAccessReadWriteBuffer);
+    PDAppearanceEntry normalAppearance = appearance.getNormalAppearance();
+    PDAppearanceStream appearanceStream2 = normalAppearance.getAppearanceStream();
+    RandomAccessRead contentsForStreamParsing3 = appearanceStream2.getContentsForStreamParsing();
+    assertTrue(contentsForStreamParsing3 instanceof RandomAccessReadWriteBuffer);
+    PDAppearanceEntry rolloverAppearance = appearance.getRolloverAppearance();
+    PDAppearanceStream appearanceStream3 = rolloverAppearance.getAppearanceStream();
+    RandomAccessRead contentsForStreamParsing4 = appearanceStream3.getContentsForStreamParsing();
+    assertTrue(contentsForStreamParsing4 instanceof RandomAccessReadWriteBuffer);
+    RandomAccessRead contentsForRandomAccess = normalAppearanceStream.getContentsForRandomAccess();
+    assertTrue(contentsForRandomAccess instanceof RandomAccessReadWriteBuffer);
+    RandomAccessRead contentsForRandomAccess2 = appearanceStream.getContentsForRandomAccess();
+    assertTrue(contentsForRandomAccess2 instanceof RandomAccessReadWriteBuffer);
+    RandomAccessRead contentsForRandomAccess3 = appearanceStream2.getContentsForRandomAccess();
+    assertTrue(contentsForRandomAccess3 instanceof RandomAccessReadWriteBuffer);
+    RandomAccessRead contentsForRandomAccess4 = appearanceStream3.getContentsForRandomAccess();
+    assertTrue(contentsForRandomAccess4 instanceof RandomAccessReadWriteBuffer);
+    assertEquals("FlateDecode", ((COSName) filters).getName());
+    PDStream stream = normalAppearanceStream.getStream();
+    assertNull(stream.getDecodeParms());
+    PDStream stream2 = appearanceStream.getStream();
+    assertNull(stream2.getDecodeParms());
+    PDStream stream3 = appearanceStream2.getStream();
+    assertNull(stream3.getDecodeParms());
+    PDStream stream4 = appearanceStream3.getStream();
+    assertNull(stream4.getDecodeParms());
+    PDStream contentStream = normalAppearanceStream.getContentStream();
+    assertNull(contentStream.getDecodeParms());
+    PDStream contentStream2 = appearanceStream.getContentStream();
+    assertNull(contentStream2.getDecodeParms());
+    PDStream contentStream3 = appearanceStream2.getContentStream();
+    assertNull(contentStream3.getDecodeParms());
+    PDStream contentStream4 = appearanceStream3.getContentStream();
+    assertNull(contentStream4.getDecodeParms());
+    assertNull(stream.getFileDecodeParams());
+    assertNull(stream2.getFileDecodeParams());
+    assertNull(stream3.getFileDecodeParams());
+    assertNull(stream4.getFileDecodeParams());
+    assertNull(contentStream.getFileDecodeParams());
+    assertNull(contentStream2.getFileDecodeParams());
+    assertNull(contentStream3.getFileDecodeParams());
+    assertNull(contentStream4.getFileDecodeParams());
+    COSDictionary cOSObject2 = resources.getCOSObject();
+    COSUpdateState updateState = cOSObject2.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    COSUpdateState updateState2 = cOSObject.getUpdateState();
+    assertNull(updateState2.getOriginDocumentState());
+    COSDictionary cOSObject3 = appearance.getCOSObject();
+    COSUpdateState updateState3 = cOSObject3.getUpdateState();
+    assertNull(updateState3.getOriginDocumentState());
+    assertNull(filters.getKey());
+    assertNull(cOSObject2.getKey());
+    assertNull(cOSObject.getKey());
+    assertNull(cOSObject3.getKey());
+    assertNull(resources.getResourceCache());
+    PDResources resources2 = appearanceStream.getResources();
+    assertNull(resources2.getResourceCache());
+    PDResources resources3 = appearanceStream2.getResources();
+    assertNull(resources3.getResourceCache());
+    PDResources resources4 = appearanceStream3.getResources();
+    assertNull(resources4.getResourceCache());
+    assertNull(stream.getMetadata());
+    assertNull(stream2.getMetadata());
+    assertNull(stream3.getMetadata());
+    assertNull(stream4.getMetadata());
+    assertNull(contentStream.getMetadata());
+    assertNull(contentStream2.getMetadata());
+    assertNull(contentStream3.getMetadata());
+    assertNull(contentStream4.getMetadata());
+    assertNull(stream.getFile());
+    assertNull(stream2.getFile());
+    assertNull(stream3.getFile());
+    assertNull(stream4.getFile());
+    assertNull(contentStream.getFile());
+    assertNull(contentStream2.getFile());
+    assertNull(contentStream3.getFile());
+    assertNull(contentStream4.getFile());
+    assertNull(normalAppearanceStream.getOptionalContent());
+    assertNull(appearanceStream.getOptionalContent());
+    assertNull(appearanceStream2.getOptionalContent());
+    assertNull(appearanceStream3.getOptionalContent());
+    assertNull(normalAppearanceStream.getGroup());
+    assertNull(appearanceStream.getGroup());
+    assertNull(appearanceStream2.getGroup());
+    assertNull(appearanceStream3.getGroup());
+    Matrix matrix = normalAppearanceStream.getMatrix();
+    assertEquals(-0.0f, matrix.getTranslateX());
+    assertEquals(-0.0f, matrix.getTranslateY());
+    assertEquals(-1, stream.getDecodedStreamLength());
+    assertEquals(-1, stream2.getDecodedStreamLength());
+    assertEquals(-1, stream3.getDecodedStreamLength());
+    assertEquals(-1, stream4.getDecodedStreamLength());
+    assertEquals(-1, contentStream.getDecodedStreamLength());
+    assertEquals(-1, contentStream2.getDecodedStreamLength());
+    assertEquals(-1, contentStream3.getDecodedStreamLength());
+    assertEquals(-1, contentStream4.getDecodedStreamLength());
+    assertEquals(-1, normalAppearanceStream.getStructParents());
+    assertEquals(-1, appearanceStream.getStructParents());
+    assertEquals(-1, appearanceStream2.getStructParents());
+    assertEquals(-1, appearanceStream3.getStructParents());
+    assertEquals(0, cOSObject2.size());
+    PDRectangle bBox = normalAppearanceStream.getBBox();
+    assertEquals(0.0f, bBox.getLowerLeftX());
+    PDRectangle bBox2 = appearanceStream.getBBox();
+    assertEquals(0.0f, bBox2.getLowerLeftX());
+    PDRectangle bBox3 = appearanceStream2.getBBox();
+    assertEquals(0.0f, bBox3.getLowerLeftX());
+    PDRectangle bBox4 = appearanceStream3.getBBox();
+    assertEquals(0.0f, bBox4.getLowerLeftX());
+    assertEquals(0.0f, bBox.getLowerLeftY());
+    assertEquals(0.0f, bBox2.getLowerLeftY());
+    assertEquals(0.0f, bBox3.getLowerLeftY());
+    assertEquals(0.0f, bBox4.getLowerLeftY());
+    assertEquals(0.0f, matrix.getShearX());
+    assertEquals(0.0f, matrix.getShearY());
+    assertEquals(0L, contentsForStreamParsing.getPosition());
+    assertEquals(0L, contentsForStreamParsing2.getPosition());
+    assertEquals(0L, contentsForStreamParsing3.getPosition());
+    assertEquals(0L, contentsForStreamParsing4.getPosition());
+    assertEquals(0L, contentsForRandomAccess.getPosition());
+    assertEquals(0L, contentsForRandomAccess2.getPosition());
+    assertEquals(0L, contentsForRandomAccess3.getPosition());
+    assertEquals(0L, contentsForRandomAccess4.getPosition());
+    assertEquals(1, cOSObject3.getValues().size());
+    List<COSName> filters2 = stream.getFilters();
+    assertEquals(1, filters2.size());
+    List<COSName> filters3 = stream2.getFilters();
+    assertEquals(1, filters3.size());
+    List<COSName> filters4 = stream3.getFilters();
+    assertEquals(1, filters4.size());
+    List<COSName> filters5 = stream4.getFilters();
+    assertEquals(1, filters5.size());
+    List<COSName> filters6 = contentStream.getFilters();
+    assertEquals(1, filters6.size());
+    List<COSName> filters7 = contentStream2.getFilters();
+    assertEquals(1, filters7.size());
+    List<COSName> filters8 = contentStream3.getFilters();
+    assertEquals(1, filters8.size());
+    List<COSName> filters9 = contentStream4.getFilters();
+    assertEquals(1, filters9.size());
+    assertEquals(1, cOSObject3.size());
+    assertEquals(1, normalAppearanceStream.getFormType());
+    assertEquals(1, appearanceStream.getFormType());
+    assertEquals(1, appearanceStream2.getFormType());
+    assertEquals(1, appearanceStream3.getFormType());
+    assertEquals(1.0f, matrix.getScaleX());
+    assertEquals(1.0f, matrix.getScaleY());
+    assertEquals(1.0f, matrix.getScalingFactorX());
+    assertEquals(1.0f, matrix.getScalingFactorY());
+    assertEquals(2383.937f, bBox.getUpperRightX());
+    assertEquals(2383.937f, bBox2.getUpperRightX());
+    assertEquals(2383.937f, bBox3.getUpperRightX());
+    assertEquals(2383.937f, bBox4.getUpperRightX());
+    assertEquals(2383.937f, bBox.getWidth());
+    assertEquals(2383.937f, bBox2.getWidth());
+    assertEquals(2383.937f, bBox3.getWidth());
+    assertEquals(2383.937f, bBox4.getWidth());
+    float[][] values = matrix.getValues();
+    assertEquals(3, values.length);
+    assertEquals(3370.3938f, bBox.getHeight());
+    assertEquals(3370.3938f, bBox2.getHeight());
+    assertEquals(3370.3938f, bBox3.getHeight());
+    assertEquals(3370.3938f, bBox4.getHeight());
+    assertEquals(3370.3938f, bBox.getUpperRightY());
+    assertEquals(3370.3938f, bBox2.getUpperRightY());
+    assertEquals(3370.3938f, bBox3.getUpperRightY());
+    assertEquals(3370.3938f, bBox4.getUpperRightY());
+    COSDictionary cOSObject4 = pdAnnotationFreeText.getCOSObject();
+    assertEquals(4, cOSObject4.getValues().size());
+    assertEquals(4, cOSObject4.size());
+    byte[] byteArray = new byte[51];
+    assertEquals(51, normalAppearanceStream.getContents().read(byteArray));
+    byte[] byteArray2 = new byte[51];
+    assertEquals(51, appearanceStream.getContents().read(byteArray2));
+    byte[] byteArray3 = new byte[51];
+    assertEquals(51, appearanceStream2.getContents().read(byteArray3));
+    byte[] byteArray4 = new byte[51];
+    assertEquals(51, appearanceStream3.getContents().read(byteArray4));
+    assertEquals(69, stream.getLength());
+    assertEquals(69, stream2.getLength());
+    assertEquals(69, stream3.getLength());
+    assertEquals(69, stream4.getLength());
+    assertEquals(69, contentStream.getLength());
+    assertEquals(69, contentStream2.getLength());
+    assertEquals(69, contentStream3.getLength());
+    assertEquals(69, contentStream4.getLength());
+    assertEquals(69L, cOSObject.getLength());
+    assertEquals(7, cOSObject.getValues().size());
+    assertEquals(7, cOSObject.size());
+    assertEquals(85, contentsForStreamParsing.available());
+    assertEquals(85, contentsForStreamParsing2.available());
+    assertEquals(85, contentsForStreamParsing3.available());
+    assertEquals(85, contentsForStreamParsing4.available());
+    assertEquals(85, contentsForRandomAccess.available());
+    assertEquals(85, contentsForRandomAccess2.available());
+    assertEquals(85, contentsForRandomAccess3.available());
+    assertEquals(85, contentsForRandomAccess4.available());
+    COSIncrement toIncrementResult = cOSObject2.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    COSIncrement toIncrementResult2 = cOSObject.toIncrement();
+    assertFalse(toIncrementResult2.iterator().hasNext());
+    COSIncrement toIncrementResult3 = cOSObject3.toIncrement();
+    assertFalse(toIncrementResult3.iterator().hasNext());
+    assertFalse(cOSObject2.isDirect());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject3.isDirect());
+    assertFalse(((COSName) filters).isEmpty());
+    assertFalse(cOSObject2.isNeedToBeUpdated());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(cOSObject3.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertFalse(updateState2.isUpdated());
+    assertFalse(updateState3.isUpdated());
+    assertFalse(contentsForStreamParsing.isClosed());
+    assertFalse(contentsForStreamParsing2.isClosed());
+    assertFalse(contentsForStreamParsing3.isClosed());
+    assertFalse(contentsForStreamParsing4.isClosed());
+    assertFalse(contentsForRandomAccess.isClosed());
+    assertFalse(contentsForRandomAccess2.isClosed());
+    assertFalse(contentsForRandomAccess3.isClosed());
+    assertFalse(contentsForRandomAccess4.isClosed());
+    assertFalse(downAppearance.isSubDictionary());
+    assertFalse(normalAppearance.isSubDictionary());
+    assertFalse(rolloverAppearance.isSubDictionary());
+    assertTrue(cOSObject2.getValues().isEmpty());
+    List<String> fileFilters = contentStream.getFileFilters();
+    assertTrue(fileFilters.isEmpty());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertTrue(toIncrementResult2.getObjects().isEmpty());
+    assertTrue(toIncrementResult3.getObjects().isEmpty());
+    assertTrue(((Set<COSName>) colorSpaceNames).isEmpty());
+    assertTrue(filters.isDirect());
+    assertTrue(cOSObject.hasData());
+    assertTrue(downAppearance.isStream());
+    assertTrue(normalAppearance.isStream());
+    assertTrue(rolloverAppearance.isStream());
+    assertEquals(matrix, appearanceStream.getMatrix());
+    assertEquals(matrix, appearanceStream2.getMatrix());
+    assertEquals(matrix, appearanceStream3.getMatrix());
+    assertSame(cOSObject2, resources2.getCOSObject());
+    assertSame(cOSObject2, resources3.getCOSObject());
+    assertSame(cOSObject2, resources4.getCOSObject());
+    COSArray expectedCOSObject = bBox.getCOSArray();
+    assertSame(expectedCOSObject, bBox.getCOSObject());
+    COSArray expectedCOSObject2 = bBox2.getCOSArray();
+    assertSame(expectedCOSObject2, bBox2.getCOSObject());
+    COSArray expectedCOSObject3 = bBox3.getCOSArray();
+    assertSame(expectedCOSObject3, bBox3.getCOSObject());
+    COSArray expectedCOSObject4 = bBox4.getCOSArray();
+    assertSame(expectedCOSObject4, bBox4.getCOSObject());
+    assertSame(fileFilters, stream.getFileFilters());
+    assertSame(fileFilters, stream2.getFileFilters());
+    assertSame(fileFilters, stream3.getFileFilters());
+    assertSame(fileFilters, stream4.getFileFilters());
+    assertSame(fileFilters, contentStream2.getFileFilters());
+    assertSame(fileFilters, contentStream3.getFileFilters());
+    assertSame(fileFilters, contentStream4.getFileFilters());
+    assertSame(cOSObject, stream.getCOSObject());
+    assertSame(cOSObject, stream2.getCOSObject());
+    assertSame(cOSObject, stream3.getCOSObject());
+    assertSame(cOSObject, stream4.getCOSObject());
+    assertSame(cOSObject, contentStream.getCOSObject());
+    assertSame(cOSObject, contentStream2.getCOSObject());
+    assertSame(cOSObject, contentStream3.getCOSObject());
+    assertSame(cOSObject, contentStream4.getCOSObject());
+    assertSame(cOSObject, appearanceStream.getCOSObject());
+    assertSame(cOSObject, appearanceStream2.getCOSObject());
+    assertSame(cOSObject, appearanceStream3.getCOSObject());
+    assertSame(cOSObject, downAppearance.getCOSObject());
+    assertSame(cOSObject, normalAppearance.getCOSObject());
+    assertSame(cOSObject, rolloverAppearance.getCOSObject());
+    assertSame(colorSpaceNames, resources2.getColorSpaceNames());
+    assertSame(colorSpaceNames, resources3.getColorSpaceNames());
+    assertSame(colorSpaceNames, resources4.getColorSpaceNames());
+    assertSame(colorSpaceNames, resources.getExtGStateNames());
+    assertSame(colorSpaceNames, resources2.getExtGStateNames());
+    assertSame(colorSpaceNames, resources3.getExtGStateNames());
+    assertSame(colorSpaceNames, resources4.getExtGStateNames());
+    assertSame(colorSpaceNames, resources.getFontNames());
+    assertSame(colorSpaceNames, resources2.getFontNames());
+    assertSame(colorSpaceNames, resources3.getFontNames());
+    assertSame(colorSpaceNames, resources4.getFontNames());
+    assertSame(colorSpaceNames, resources.getPatternNames());
+    assertSame(colorSpaceNames, resources2.getPatternNames());
+    assertSame(colorSpaceNames, resources3.getPatternNames());
+    assertSame(colorSpaceNames, resources4.getPatternNames());
+    assertSame(colorSpaceNames, resources.getPropertiesNames());
+    assertSame(colorSpaceNames, resources2.getPropertiesNames());
+    assertSame(colorSpaceNames, resources3.getPropertiesNames());
+    assertSame(colorSpaceNames, resources4.getPropertiesNames());
+    assertSame(colorSpaceNames, resources.getShadingNames());
+    assertSame(colorSpaceNames, resources2.getShadingNames());
+    assertSame(colorSpaceNames, resources3.getShadingNames());
+    assertSame(colorSpaceNames, resources4.getShadingNames());
+    assertSame(colorSpaceNames, resources.getXObjectNames());
+    assertSame(colorSpaceNames, resources2.getXObjectNames());
+    assertSame(colorSpaceNames, resources3.getXObjectNames());
+    assertSame(colorSpaceNames, resources4.getXObjectNames());
+    assertSame(filters, filters2.get(0));
+    assertSame(filters, filters3.get(0));
+    assertSame(filters, filters4.get(0));
+    assertSame(filters, filters5.get(0));
+    assertSame(filters, filters6.get(0));
+    assertSame(filters, filters7.get(0));
+    assertSame(filters, filters8.get(0));
+    assertSame(filters, filters9.get(0));
+    assertArrayEquals("0 G\n1 w\n0.5 0.5 2382.937 3369.3938 re\nS\n1 0 0 1 0 0".getBytes("UTF-8"), byteArray2);
+    assertArrayEquals("0 G\n1 w\n0.5 0.5 2382.937 3369.3938 re\nS\n1 0 0 1 0 0".getBytes("UTF-8"), byteArray3);
+    assertArrayEquals("0 G\n1 w\n0.5 0.5 2382.937 3369.3938 re\nS\n1 0 0 1 0 0".getBytes("UTF-8"), byteArray4);
+    assertArrayEquals("0 G\n1 w\n0.5 0.5 2382.937 3369.3938 re\nS\n1 0 0 1 0 0".getBytes("UTF-8"), byteArray);
+    assertArrayEquals(new float[]{-0.0f, -0.0f, 1.0f}, values[2], 0.0f);
+    assertArrayEquals(new float[]{0.0f, 1.0f, 0.0f}, values[1], 0.0f);
+    assertArrayEquals(new float[]{1.0f, 0.0f, 0.0f}, values[0], 0.0f);
+  }
+
+  /**
+   * Method under test: {@link PDAnnotation#constructAppearances()}
+   */
+  @Test
+  void testConstructAppearances5() throws IOException {
+    // Arrange
+    PDAnnotationCircle pdAnnotationCircle = new PDAnnotationCircle();
+    pdAnnotationCircle.setRectangle(new PDRectangle(2.14748365E9f, 2.14748365E9f, 2.14748365E9f, 2.14748365E9f));
+
+    // Act
+    pdAnnotationCircle.constructAppearances();
+
+    // Assert
+    PDAppearanceStream normalAppearanceStream = pdAnnotationCircle.getNormalAppearanceStream();
+    PDResources resources = normalAppearanceStream.getResources();
+    Iterable<COSName> colorSpaceNames = resources.getColorSpaceNames();
+    assertTrue(colorSpaceNames instanceof Set);
+    PDRectangle rectDifference = pdAnnotationCircle.getRectDifference();
+    COSArray cOSArray = rectDifference.getCOSArray();
+    List<? extends COSBase> toListResult = cOSArray.toList();
+    assertEquals(4, toListResult.size());
+    COSBase getResult = toListResult.get(0);
+    assertTrue(getResult instanceof COSFloat);
+    COSBase getResult2 = toListResult.get(1);
+    assertTrue(getResult2 instanceof COSFloat);
+    COSBase getResult3 = toListResult.get(2);
+    assertTrue(getResult3 instanceof COSFloat);
+    COSBase getResult4 = toListResult.get(3);
+    assertTrue(getResult4 instanceof COSFloat);
+    RandomAccessRead contentsForStreamParsing = normalAppearanceStream.getContentsForStreamParsing();
+    assertTrue(contentsForStreamParsing instanceof RandomAccessReadBuffer);
+    PDAppearanceDictionary appearance = pdAnnotationCircle.getAppearance();
+    PDAppearanceEntry downAppearance = appearance.getDownAppearance();
+    PDAppearanceStream appearanceStream = downAppearance.getAppearanceStream();
+    RandomAccessRead contentsForStreamParsing2 = appearanceStream.getContentsForStreamParsing();
+    assertTrue(contentsForStreamParsing2 instanceof RandomAccessReadBuffer);
+    PDAppearanceEntry normalAppearance = appearance.getNormalAppearance();
+    PDAppearanceStream appearanceStream2 = normalAppearance.getAppearanceStream();
+    RandomAccessRead contentsForStreamParsing3 = appearanceStream2.getContentsForStreamParsing();
+    assertTrue(contentsForStreamParsing3 instanceof RandomAccessReadBuffer);
+    PDAppearanceEntry rolloverAppearance = appearance.getRolloverAppearance();
+    PDAppearanceStream appearanceStream3 = rolloverAppearance.getAppearanceStream();
+    RandomAccessRead contentsForStreamParsing4 = appearanceStream3.getContentsForStreamParsing();
+    assertTrue(contentsForStreamParsing4 instanceof RandomAccessReadBuffer);
+    RandomAccessRead contentsForRandomAccess = normalAppearanceStream.getContentsForRandomAccess();
+    assertTrue(contentsForRandomAccess instanceof RandomAccessReadBuffer);
+    RandomAccessRead contentsForRandomAccess2 = appearanceStream.getContentsForRandomAccess();
+    assertTrue(contentsForRandomAccess2 instanceof RandomAccessReadBuffer);
+    RandomAccessRead contentsForRandomAccess3 = appearanceStream2.getContentsForRandomAccess();
+    assertTrue(contentsForRandomAccess3 instanceof RandomAccessReadBuffer);
+    RandomAccessRead contentsForRandomAccess4 = appearanceStream3.getContentsForRandomAccess();
+    assertTrue(contentsForRandomAccess4 instanceof RandomAccessReadBuffer);
+    PDStream stream = normalAppearanceStream.getStream();
+    assertNull(stream.getDecodeParms());
+    PDStream stream2 = appearanceStream.getStream();
+    assertNull(stream2.getDecodeParms());
+    PDStream stream3 = appearanceStream2.getStream();
+    assertNull(stream3.getDecodeParms());
+    PDStream stream4 = appearanceStream3.getStream();
+    assertNull(stream4.getDecodeParms());
+    PDStream contentStream = normalAppearanceStream.getContentStream();
+    assertNull(contentStream.getDecodeParms());
+    PDStream contentStream2 = appearanceStream.getContentStream();
+    assertNull(contentStream2.getDecodeParms());
+    PDStream contentStream3 = appearanceStream2.getContentStream();
+    assertNull(contentStream3.getDecodeParms());
+    PDStream contentStream4 = appearanceStream3.getContentStream();
+    assertNull(contentStream4.getDecodeParms());
+    assertNull(stream.getFileDecodeParams());
+    assertNull(stream2.getFileDecodeParams());
+    assertNull(stream3.getFileDecodeParams());
+    assertNull(stream4.getFileDecodeParams());
+    assertNull(contentStream.getFileDecodeParams());
+    assertNull(contentStream2.getFileDecodeParams());
+    assertNull(contentStream3.getFileDecodeParams());
+    assertNull(contentStream4.getFileDecodeParams());
+    COSStream cOSObject = normalAppearanceStream.getCOSObject();
+    assertNull(cOSObject.getFilters());
+    COSDictionary cOSObject2 = resources.getCOSObject();
+    COSUpdateState updateState = cOSObject2.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    COSUpdateState updateState2 = cOSObject.getUpdateState();
+    assertNull(updateState2.getOriginDocumentState());
+    COSDictionary cOSObject3 = appearance.getCOSObject();
+    COSUpdateState updateState3 = cOSObject3.getUpdateState();
+    assertNull(updateState3.getOriginDocumentState());
+    assertNull(getResult.getKey());
+    assertNull(cOSObject2.getKey());
+    assertNull(cOSObject.getKey());
+    assertNull(cOSObject3.getKey());
+    assertNull(resources.getResourceCache());
+    PDResources resources2 = appearanceStream.getResources();
+    assertNull(resources2.getResourceCache());
+    PDResources resources3 = appearanceStream2.getResources();
+    assertNull(resources3.getResourceCache());
+    PDResources resources4 = appearanceStream3.getResources();
+    assertNull(resources4.getResourceCache());
+    assertNull(stream.getMetadata());
+    assertNull(stream2.getMetadata());
+    assertNull(stream3.getMetadata());
+    assertNull(stream4.getMetadata());
+    assertNull(contentStream.getMetadata());
+    assertNull(contentStream2.getMetadata());
+    assertNull(contentStream3.getMetadata());
+    assertNull(contentStream4.getMetadata());
+    assertNull(stream.getFile());
+    assertNull(stream2.getFile());
+    assertNull(stream3.getFile());
+    assertNull(stream4.getFile());
+    assertNull(contentStream.getFile());
+    assertNull(contentStream2.getFile());
+    assertNull(contentStream3.getFile());
+    assertNull(contentStream4.getFile());
+    assertNull(normalAppearanceStream.getOptionalContent());
+    assertNull(appearanceStream.getOptionalContent());
+    assertNull(appearanceStream2.getOptionalContent());
+    assertNull(appearanceStream3.getOptionalContent());
+    assertNull(normalAppearanceStream.getGroup());
+    assertNull(appearanceStream.getGroup());
+    assertNull(appearanceStream2.getGroup());
+    assertNull(appearanceStream3.getGroup());
+    assertEquals(-1, stream.getDecodedStreamLength());
+    assertEquals(-1, stream2.getDecodedStreamLength());
+    assertEquals(-1, stream3.getDecodedStreamLength());
+    assertEquals(-1, stream4.getDecodedStreamLength());
+    assertEquals(-1, contentStream.getDecodedStreamLength());
+    assertEquals(-1, contentStream2.getDecodedStreamLength());
+    assertEquals(-1, contentStream3.getDecodedStreamLength());
+    assertEquals(-1, contentStream4.getDecodedStreamLength());
+    assertEquals(-1, normalAppearanceStream.getStructParents());
+    assertEquals(-1, appearanceStream.getStructParents());
+    assertEquals(-1, appearanceStream2.getStructParents());
+    assertEquals(-1, appearanceStream3.getStructParents());
+    Matrix matrix = normalAppearanceStream.getMatrix();
+    assertEquals(-2.14748365E9f, matrix.getTranslateX());
+    assertEquals(-2.14748365E9f, matrix.getTranslateY());
+    assertEquals(0, cOSObject2.size());
+    PDRectangle bBox = normalAppearanceStream.getBBox();
+    assertEquals(0.0f, bBox.getHeight());
+    PDRectangle bBox2 = appearanceStream.getBBox();
+    assertEquals(0.0f, bBox2.getHeight());
+    PDRectangle bBox3 = appearanceStream2.getBBox();
+    assertEquals(0.0f, bBox3.getHeight());
+    PDRectangle bBox4 = appearanceStream3.getBBox();
+    assertEquals(0.0f, bBox4.getHeight());
+    PDRectangle rectangle = pdAnnotationCircle.getRectangle();
+    assertEquals(0.0f, rectangle.getHeight());
+    assertEquals(0.0f, rectDifference.getHeight());
+    assertEquals(0.0f, bBox.getWidth());
+    assertEquals(0.0f, bBox2.getWidth());
+    assertEquals(0.0f, bBox3.getWidth());
+    assertEquals(0.0f, bBox4.getWidth());
+    assertEquals(0.0f, rectangle.getWidth());
+    assertEquals(0.0f, rectDifference.getWidth());
+    assertEquals(0.0f, matrix.getShearX());
+    assertEquals(0.0f, matrix.getShearY());
+    assertEquals(0.5f, rectDifference.getLowerLeftX());
+    assertEquals(0.5f, rectDifference.getLowerLeftY());
+    assertEquals(0.5f, rectDifference.getUpperRightX());
+    assertEquals(0.5f, rectDifference.getUpperRightY());
+    assertEquals(0L, contentsForStreamParsing.getPosition());
+    assertEquals(0L, contentsForStreamParsing2.getPosition());
+    assertEquals(0L, contentsForStreamParsing3.getPosition());
+    assertEquals(0L, contentsForStreamParsing4.getPosition());
+    assertEquals(0L, contentsForRandomAccess.getPosition());
+    assertEquals(0L, contentsForRandomAccess2.getPosition());
+    assertEquals(0L, contentsForRandomAccess3.getPosition());
+    assertEquals(0L, contentsForRandomAccess4.getPosition());
+    assertEquals(1, cOSObject3.getValues().size());
+    assertEquals(1, cOSObject3.size());
+    assertEquals(1, normalAppearanceStream.getFormType());
+    assertEquals(1, appearanceStream.getFormType());
+    assertEquals(1, appearanceStream2.getFormType());
+    assertEquals(1, appearanceStream3.getFormType());
+    assertEquals(1.0f, matrix.getScaleX());
+    assertEquals(1.0f, matrix.getScaleY());
+    assertEquals(1.0f, matrix.getScalingFactorX());
+    assertEquals(1.0f, matrix.getScalingFactorY());
+    assertEquals(2.14748365E9f, bBox.getLowerLeftX());
+    assertEquals(2.14748365E9f, bBox2.getLowerLeftX());
+    assertEquals(2.14748365E9f, bBox3.getLowerLeftX());
+    assertEquals(2.14748365E9f, bBox4.getLowerLeftX());
+    assertEquals(2.14748365E9f, rectangle.getLowerLeftX());
+    assertEquals(2.14748365E9f, bBox.getLowerLeftY());
+    assertEquals(2.14748365E9f, bBox2.getLowerLeftY());
+    assertEquals(2.14748365E9f, bBox3.getLowerLeftY());
+    assertEquals(2.14748365E9f, bBox4.getLowerLeftY());
+    assertEquals(2.14748365E9f, rectangle.getLowerLeftY());
+    assertEquals(2.14748365E9f, bBox.getUpperRightX());
+    assertEquals(2.14748365E9f, bBox2.getUpperRightX());
+    assertEquals(2.14748365E9f, bBox3.getUpperRightX());
+    assertEquals(2.14748365E9f, bBox4.getUpperRightX());
+    assertEquals(2.14748365E9f, rectangle.getUpperRightX());
+    assertEquals(2.14748365E9f, bBox.getUpperRightY());
+    assertEquals(2.14748365E9f, bBox2.getUpperRightY());
+    assertEquals(2.14748365E9f, bBox3.getUpperRightY());
+    assertEquals(2.14748365E9f, bBox4.getUpperRightY());
+    assertEquals(2.14748365E9f, rectangle.getUpperRightY());
+    float[][] values = matrix.getValues();
+    assertEquals(3, values.length);
+    assertEquals(300, contentsForStreamParsing.available());
+    assertEquals(300, contentsForStreamParsing2.available());
+    assertEquals(300, contentsForStreamParsing3.available());
+    assertEquals(300, contentsForStreamParsing4.available());
+    assertEquals(300, contentsForRandomAccess.available());
+    assertEquals(300, contentsForRandomAccess2.available());
+    assertEquals(300, contentsForRandomAccess3.available());
+    assertEquals(300, contentsForRandomAccess4.available());
+    assertEquals(300, stream.getLength());
+    assertEquals(300, stream2.getLength());
+    assertEquals(300, stream3.getLength());
+    assertEquals(300, stream4.getLength());
+    assertEquals(300, contentStream.getLength());
+    assertEquals(300, contentStream2.getLength());
+    assertEquals(300, contentStream3.getLength());
+    assertEquals(300, contentStream4.getLength());
+    assertEquals(300L, cOSObject.getLength());
+    COSDictionary cOSObject4 = pdAnnotationCircle.getCOSObject();
+    assertEquals(5, cOSObject4.getValues().size());
+    assertEquals(5, cOSObject4.size());
+    byte[] byteArray = new byte[51];
+    assertEquals(51, normalAppearanceStream.getContents().read(byteArray));
+    byte[] byteArray2 = new byte[51];
+    assertEquals(51, appearanceStream.getContents().read(byteArray2));
+    byte[] byteArray3 = new byte[51];
+    assertEquals(51, appearanceStream2.getContents().read(byteArray3));
+    byte[] byteArray4 = new byte[51];
+    assertEquals(51, appearanceStream3.getContents().read(byteArray4));
+    assertEquals(6, cOSObject.getValues().size());
+    assertEquals(6, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject2.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    COSIncrement toIncrementResult2 = cOSObject.toIncrement();
+    assertFalse(toIncrementResult2.iterator().hasNext());
+    COSIncrement toIncrementResult3 = cOSObject3.toIncrement();
+    assertFalse(toIncrementResult3.iterator().hasNext());
+    assertFalse(getResult.isDirect());
+    assertFalse(cOSObject2.isDirect());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject3.isDirect());
+    assertFalse(cOSObject2.isNeedToBeUpdated());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(cOSObject3.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertFalse(updateState2.isUpdated());
+    assertFalse(updateState3.isUpdated());
+    assertFalse(contentsForStreamParsing.isClosed());
+    assertFalse(contentsForStreamParsing2.isClosed());
+    assertFalse(contentsForStreamParsing3.isClosed());
+    assertFalse(contentsForStreamParsing4.isClosed());
+    assertFalse(contentsForRandomAccess.isClosed());
+    assertFalse(contentsForRandomAccess2.isClosed());
+    assertFalse(contentsForRandomAccess3.isClosed());
+    assertFalse(contentsForRandomAccess4.isClosed());
+    assertFalse(downAppearance.isSubDictionary());
+    assertFalse(normalAppearance.isSubDictionary());
+    assertFalse(rolloverAppearance.isSubDictionary());
+    assertTrue(cOSObject2.getValues().isEmpty());
+    List<String> fileFilters = contentStream.getFileFilters();
+    assertTrue(fileFilters.isEmpty());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertTrue(toIncrementResult2.getObjects().isEmpty());
+    assertTrue(toIncrementResult3.getObjects().isEmpty());
+    assertTrue(((Set<COSName>) colorSpaceNames).isEmpty());
+    assertTrue(cOSObject.hasData());
+    assertTrue(downAppearance.isStream());
+    assertTrue(normalAppearance.isStream());
+    assertTrue(rolloverAppearance.isStream());
+    assertEquals(matrix, appearanceStream.getMatrix());
+    assertEquals(matrix, appearanceStream2.getMatrix());
+    assertEquals(matrix, appearanceStream3.getMatrix());
+    assertEquals(getResult, getResult2);
+    assertEquals(getResult, getResult3);
+    assertEquals(getResult, getResult4);
+    assertSame(cOSObject2, resources2.getCOSObject());
+    assertSame(cOSObject2, resources3.getCOSObject());
+    assertSame(cOSObject2, resources4.getCOSObject());
+    COSArray expectedCOSObject = bBox.getCOSArray();
+    assertSame(expectedCOSObject, bBox.getCOSObject());
+    COSArray expectedCOSObject2 = bBox2.getCOSArray();
+    assertSame(expectedCOSObject2, bBox2.getCOSObject());
+    COSArray expectedCOSObject3 = bBox3.getCOSArray();
+    assertSame(expectedCOSObject3, bBox3.getCOSObject());
+    COSArray expectedCOSObject4 = bBox4.getCOSArray();
+    assertSame(expectedCOSObject4, bBox4.getCOSObject());
+    assertSame(cOSArray, rectDifference.getCOSObject());
+    assertSame(fileFilters, stream.getFileFilters());
+    assertSame(fileFilters, stream2.getFileFilters());
+    assertSame(fileFilters, stream3.getFileFilters());
+    assertSame(fileFilters, stream4.getFileFilters());
+    assertSame(fileFilters, contentStream2.getFileFilters());
+    assertSame(fileFilters, contentStream3.getFileFilters());
+    assertSame(fileFilters, contentStream4.getFileFilters());
+    assertSame(fileFilters, stream.getFilters());
+    assertSame(fileFilters, stream2.getFilters());
+    assertSame(fileFilters, stream3.getFilters());
+    assertSame(fileFilters, stream4.getFilters());
+    assertSame(fileFilters, contentStream.getFilters());
+    assertSame(fileFilters, contentStream2.getFilters());
+    assertSame(fileFilters, contentStream3.getFilters());
+    assertSame(fileFilters, contentStream4.getFilters());
+    assertSame(cOSObject, stream.getCOSObject());
+    assertSame(cOSObject, stream2.getCOSObject());
+    assertSame(cOSObject, stream3.getCOSObject());
+    assertSame(cOSObject, stream4.getCOSObject());
+    assertSame(cOSObject, contentStream.getCOSObject());
+    assertSame(cOSObject, contentStream2.getCOSObject());
+    assertSame(cOSObject, contentStream3.getCOSObject());
+    assertSame(cOSObject, contentStream4.getCOSObject());
+    assertSame(cOSObject, appearanceStream.getCOSObject());
+    assertSame(cOSObject, appearanceStream2.getCOSObject());
+    assertSame(cOSObject, appearanceStream3.getCOSObject());
+    assertSame(cOSObject, downAppearance.getCOSObject());
+    assertSame(cOSObject, normalAppearance.getCOSObject());
+    assertSame(cOSObject, rolloverAppearance.getCOSObject());
+    assertSame(colorSpaceNames, resources2.getColorSpaceNames());
+    assertSame(colorSpaceNames, resources3.getColorSpaceNames());
+    assertSame(colorSpaceNames, resources4.getColorSpaceNames());
+    assertSame(colorSpaceNames, resources.getExtGStateNames());
+    assertSame(colorSpaceNames, resources2.getExtGStateNames());
+    assertSame(colorSpaceNames, resources3.getExtGStateNames());
+    assertSame(colorSpaceNames, resources4.getExtGStateNames());
+    assertSame(colorSpaceNames, resources.getFontNames());
+    assertSame(colorSpaceNames, resources2.getFontNames());
+    assertSame(colorSpaceNames, resources3.getFontNames());
+    assertSame(colorSpaceNames, resources4.getFontNames());
+    assertSame(colorSpaceNames, resources.getPatternNames());
+    assertSame(colorSpaceNames, resources2.getPatternNames());
+    assertSame(colorSpaceNames, resources3.getPatternNames());
+    assertSame(colorSpaceNames, resources4.getPatternNames());
+    assertSame(colorSpaceNames, resources.getPropertiesNames());
+    assertSame(colorSpaceNames, resources2.getPropertiesNames());
+    assertSame(colorSpaceNames, resources3.getPropertiesNames());
+    assertSame(colorSpaceNames, resources4.getPropertiesNames());
+    assertSame(colorSpaceNames, resources.getShadingNames());
+    assertSame(colorSpaceNames, resources2.getShadingNames());
+    assertSame(colorSpaceNames, resources3.getShadingNames());
+    assertSame(colorSpaceNames, resources4.getShadingNames());
+    assertSame(colorSpaceNames, resources.getXObjectNames());
+    assertSame(colorSpaceNames, resources2.getXObjectNames());
+    assertSame(colorSpaceNames, resources3.getXObjectNames());
+    assertSame(colorSpaceNames, resources4.getXObjectNames());
+    assertArrayEquals("2147483648 2147483648 m\n2147483648 2147483648 21474".getBytes("UTF-8"), byteArray2);
+    assertArrayEquals("2147483648 2147483648 m\n2147483648 2147483648 21474".getBytes("UTF-8"), byteArray3);
+    assertArrayEquals("2147483648 2147483648 m\n2147483648 2147483648 21474".getBytes("UTF-8"), byteArray4);
+    assertArrayEquals("2147483648 2147483648 m\n2147483648 2147483648 21474".getBytes("UTF-8"), byteArray);
+    assertArrayEquals(new float[]{-2.14748365E9f, -2.14748365E9f, 1.0f}, values[2], 0.0f);
+    assertArrayEquals(new float[]{0.0f, 1.0f, 0.0f}, values[1], 0.0f);
+    assertArrayEquals(new float[]{1.0f, 0.0f, 0.0f}, values[0], 0.0f);
+    assertArrayEquals(new float[]{0.5f, 0.5f, 0.5f, 0.5f}, pdAnnotationCircle.getRectDifferences(), 0.0f);
+  }
+
+  /**
+   * Method under test: {@link PDAnnotation#constructAppearances(PDDocument)}
+   */
+  @Test
+  void testConstructAppearances6() throws IOException {
+    // Arrange
+    PDAnnotationMarkup pdAnnotationMarkup = new PDAnnotationMarkup();
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+
+    // Act
+    pdAnnotationMarkup.constructAppearances(new PDDocument(streamCacheCreateFunction));
+
+    // Assert that nothing has changed
+    verify(streamCacheCreateFunction).create();
+  }
+
+  /**
+   * Method under test: {@link PDAnnotation#constructAppearances(PDDocument)}
+   */
+  @Test
+  void testConstructAppearances7() throws IOException {
+    // Arrange
+    PDAnnotationPolygon pdAnnotationPolygon = new PDAnnotationPolygon();
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+
+    // Act
+    pdAnnotationPolygon.constructAppearances(new PDDocument(streamCacheCreateFunction));
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+  }
+
+  /**
+   * Method under test: {@link PDAnnotation#constructAppearances(PDDocument)}
+   */
+  @Test
+  void testConstructAppearances8() throws IOException {
+    // Arrange
+    PDAnnotationPolyline pdAnnotationPolyline = new PDAnnotationPolyline();
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+
+    // Act
+    pdAnnotationPolyline.constructAppearances(new PDDocument(streamCacheCreateFunction));
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+  }
+
+  /**
+   * Method under test: {@link PDAnnotation#constructAppearances(PDDocument)}
+   */
+  @Test
+  void testConstructAppearances9() throws IOException {
+    // Arrange
+    PDAnnotationPolyline pdAnnotationPolyline = new PDAnnotationPolyline();
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenThrow(new IOException("foo"));
+
+    // Act
+    pdAnnotationPolyline.constructAppearances(new PDDocument(streamCacheCreateFunction));
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+  }
+
+  /**
+   * Method under test: {@link PDAnnotation#constructAppearances(PDDocument)}
+   */
+  @Test
+  void testConstructAppearances10() throws IOException {
+    // Arrange
+    PDAnnotationPolygon pdAnnotationPolygon = new PDAnnotationPolygon();
+    pdAnnotationPolygon.setRectangle(PDRectangle.A0);
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+
+    // Act
+    pdAnnotationPolygon.constructAppearances(new PDDocument(streamCacheCreateFunction));
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+  }
+
+  /**
+   * Method under test: {@link PDAnnotation#constructAppearances(PDDocument)}
+   */
+  @Test
+  void testConstructAppearances11() throws IOException {
+    // Arrange
+    PDAnnotationPolyline pdAnnotationPolyline = new PDAnnotationPolyline();
+    pdAnnotationPolyline.setRectangle(PDRectangle.A0);
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+
+    // Act
+    pdAnnotationPolyline.constructAppearances(new PDDocument(streamCacheCreateFunction));
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+  }
+
+  /**
+   * Method under test: {@link PDAnnotation#constructAppearances(PDDocument)}
+   */
+  @Test
+  void testConstructAppearances12() throws IOException {
+    // Arrange
+    PDAnnotationPolygon pdAnnotationPolygon = new PDAnnotationPolygon();
+    pdAnnotationPolygon.setRectangle(new PDRectangle(2.14748365E9f, 2.14748365E9f, 2.14748365E9f, 2.14748365E9f));
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+
+    // Act
+    pdAnnotationPolygon.constructAppearances(new PDDocument(streamCacheCreateFunction));
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+  }
+
+  /**
+   * Method under test: {@link PDAnnotation#equals(Object)}
+   */
+  @Test
+  void testEquals_whenOtherIsDifferent_thenReturnNotEqual() {
+    // Arrange
+    PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
+
+    // Act and Assert
+    assertNotEquals(pdAnnotationCaret, new PDAnnotationCaret());
+  }
+
+  /**
+   * Method under test: {@link PDAnnotation#equals(Object)}
+   */
+  @Test
+  void testEquals_whenOtherIsDifferent_thenReturnNotEqual2() {
+    // Arrange
+    PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
+    PDAnnotationCircle pdAnnotationCircle = mock(PDAnnotationCircle.class);
+    when(pdAnnotationCircle.getCOSObject()).thenReturn(new COSDictionary());
+
+    // Act and Assert
+    assertNotEquals(pdAnnotationCaret, pdAnnotationCircle);
+  }
+
+  /**
+   * Method under test: {@link PDAnnotation#equals(Object)}
+   */
+  @Test
+  void testEquals_whenOtherIsNull_thenReturnNotEqual() {
+    // Arrange, Act and Assert
+    assertNotEquals(new PDAnnotationCaret(), null);
+  }
+
+  /**
+   * Method under test: {@link PDAnnotation#equals(Object)}
+   */
+  @Test
+  void testEquals_whenOtherIsWrongType_thenReturnNotEqual() {
+    // Arrange, Act and Assert
+    assertNotEquals(new PDAnnotationCaret(), "Different type to PDAnnotation");
   }
 }

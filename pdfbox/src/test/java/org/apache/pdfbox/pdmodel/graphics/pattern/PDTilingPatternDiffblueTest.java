@@ -1,125 +1,42 @@
 package org.apache.pdfbox.pdmodel.graphics.pattern;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import java.io.IOException;
 import java.util.List;
 import java.util.Set;
+import org.apache.pdfbox.cos.COSArray;
+import org.apache.pdfbox.cos.COSBase;
 import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.cos.COSIncrement;
 import org.apache.pdfbox.cos.COSName;
 import org.apache.pdfbox.cos.COSStream;
+import org.apache.pdfbox.cos.COSUpdateState;
+import org.apache.pdfbox.io.RandomAccessStreamCache;
+import org.apache.pdfbox.io.RandomAccessStreamCacheImpl;
 import org.apache.pdfbox.pdmodel.DefaultResourceCache;
+import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDResources;
 import org.apache.pdfbox.pdmodel.ResourceCache;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.common.PDStream;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
+import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
+import org.apache.pdfbox.util.Matrix;
 import org.junit.jupiter.api.Test;
 
 class PDTilingPatternDiffblueTest {
   /**
-   * Test getters and setters.
-   * <ul>
-   *   <li>When {@link COSDictionary#COSDictionary()}.</li>
-   * </ul>
-   * <p>
-   * Methods under test:
-   * <ul>
-   *   <li>{@link PDTilingPattern#PDTilingPattern(COSDictionary)}
-   *   <li>{@link PDTilingPattern#getPatternType()}
-   * </ul>
-   */
-  @Test
-  @DisplayName("Test getters and setters; when COSDictionary()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDTilingPattern.<init>(COSDictionary)",
-      "void PDTilingPattern.<init>(COSDictionary, ResourceCache)", "int PDTilingPattern.getPatternType()"})
-  void testGettersAndSetters_whenCOSDictionary() {
-    // Arrange
-    COSDictionary dictionary = new COSDictionary();
-
-    // Act
-    PDTilingPattern actualPdTilingPattern = new PDTilingPattern(dictionary);
-
-    // Assert
-    assertEquals(1, actualPdTilingPattern.getPatternType());
-    assertSame(dictionary, actualPdTilingPattern.getCOSObject());
-  }
-
-  /**
-   * Test getters and setters.
-   * <ul>
-   *   <li>When {@link DefaultResourceCache} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Methods under test:
-   * <ul>
-   *   <li>{@link PDTilingPattern#PDTilingPattern(COSDictionary, ResourceCache)}
-   *   <li>{@link PDTilingPattern#getPatternType()}
-   * </ul>
-   */
-  @Test
-  @DisplayName("Test getters and setters; when DefaultResourceCache (default constructor)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDTilingPattern.<init>(COSDictionary)",
-      "void PDTilingPattern.<init>(COSDictionary, ResourceCache)", "int PDTilingPattern.getPatternType()"})
-  void testGettersAndSetters_whenDefaultResourceCache() {
-    // Arrange
-    COSDictionary dictionary = new COSDictionary();
-
-    // Act
-    PDTilingPattern actualPdTilingPattern = new PDTilingPattern(dictionary, new DefaultResourceCache());
-
-    // Assert
-    assertEquals(1, actualPdTilingPattern.getPatternType());
-    assertSame(dictionary, actualPdTilingPattern.getCOSObject());
-  }
-
-  /**
-   * Test {@link PDTilingPattern#PDTilingPattern()}.
-   * <p>
-   * Method under test: {@link PDTilingPattern#PDTilingPattern()}
-   */
-  @Test
-  @DisplayName("Test new PDTilingPattern()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDTilingPattern.<init>()"})
-  void testNewPDTilingPattern() {
-    // Arrange and Act
-    PDTilingPattern actualPdTilingPattern = new PDTilingPattern();
-
-    // Assert
-    assertTrue(actualPdTilingPattern.getCOSObject() instanceof COSStream);
-    assertEquals("Pattern", actualPdTilingPattern.getType());
-    assertNull(actualPdTilingPattern.getBBox());
-    assertEquals(0, actualPdTilingPattern.getPaintType());
-    assertEquals(0, actualPdTilingPattern.getTilingType());
-    assertEquals(0.0f, actualPdTilingPattern.getXStep());
-    assertEquals(0.0f, actualPdTilingPattern.getYStep());
-    assertEquals(1, actualPdTilingPattern.getPatternType());
-  }
-
-  /**
-   * Test {@link PDTilingPattern#setPaintType(int)}.
-   * <ul>
-   *   <li>Given {@link PDTilingPattern#PDTilingPattern()}.</li>
-   *   <li>When one.</li>
-   *   <li>Then {@link PDTilingPattern#PDTilingPattern()} PaintType is one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDTilingPattern#setPaintType(int)}
    */
   @Test
-  @DisplayName("Test setPaintType(int); given PDTilingPattern(); when one; then PDTilingPattern() PaintType is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDTilingPattern.setPaintType(int)"})
-  void testSetPaintType_givenPDTilingPattern_whenOne_thenPDTilingPatternPaintTypeIsOne() {
+  void testSetPaintType() {
     // Arrange
     PDTilingPattern pdTilingPattern = new PDTilingPattern();
 
@@ -135,19 +52,10 @@ class PDTilingPatternDiffblueTest {
   }
 
   /**
-   * Test {@link PDTilingPattern#setPaintType(int)}.
-   * <ul>
-   *   <li>When {@link Integer#MIN_VALUE}.</li>
-   *   <li>Then {@link PDTilingPattern#PDTilingPattern()} PaintType is {@link Integer#MIN_VALUE}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDTilingPattern#setPaintType(int)}
    */
   @Test
-  @DisplayName("Test setPaintType(int); when MIN_VALUE; then PDTilingPattern() PaintType is MIN_VALUE")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDTilingPattern.setPaintType(int)"})
-  void testSetPaintType_whenMin_value_thenPDTilingPatternPaintTypeIsMin_value() {
+  void testSetPaintType2() {
     // Arrange
     PDTilingPattern pdTilingPattern = new PDTilingPattern();
 
@@ -163,19 +71,19 @@ class PDTilingPatternDiffblueTest {
   }
 
   /**
-   * Test {@link PDTilingPattern#getPaintType()}.
-   * <ul>
-   *   <li>Given {@link PDTilingPattern#PDTilingPattern()} PaintType is one.</li>
-   *   <li>Then return one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDTilingPattern#getPaintType()}
    */
   @Test
-  @DisplayName("Test getPaintType(); given PDTilingPattern() PaintType is one; then return one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"int PDTilingPattern.getPaintType()"})
-  void testGetPaintType_givenPDTilingPatternPaintTypeIsOne_thenReturnOne() {
+  void testGetPaintType() {
+    // Arrange, Act and Assert
+    assertEquals(0, (new PDTilingPattern()).getPaintType());
+  }
+
+  /**
+   * Method under test: {@link PDTilingPattern#getPaintType()}
+   */
+  @Test
+  void testGetPaintType2() {
     // Arrange
     PDTilingPattern pdTilingPattern = new PDTilingPattern();
     pdTilingPattern.setPaintType(1);
@@ -185,37 +93,10 @@ class PDTilingPatternDiffblueTest {
   }
 
   /**
-   * Test {@link PDTilingPattern#getPaintType()}.
-   * <ul>
-   *   <li>Given {@link PDTilingPattern#PDTilingPattern()}.</li>
-   *   <li>Then return zero.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDTilingPattern#getPaintType()}
-   */
-  @Test
-  @DisplayName("Test getPaintType(); given PDTilingPattern(); then return zero")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"int PDTilingPattern.getPaintType()"})
-  void testGetPaintType_givenPDTilingPattern_thenReturnZero() {
-    // Arrange, Act and Assert
-    assertEquals(0, (new PDTilingPattern()).getPaintType());
-  }
-
-  /**
-   * Test {@link PDTilingPattern#setTilingType(int)}.
-   * <ul>
-   *   <li>Given {@link PDTilingPattern#PDTilingPattern()}.</li>
-   *   <li>Then {@link PDTilingPattern#PDTilingPattern()} TilingType is one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDTilingPattern#setTilingType(int)}
    */
   @Test
-  @DisplayName("Test setTilingType(int); given PDTilingPattern(); then PDTilingPattern() TilingType is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDTilingPattern.setTilingType(int)"})
-  void testSetTilingType_givenPDTilingPattern_thenPDTilingPatternTilingTypeIsOne() {
+  void testSetTilingType() {
     // Arrange
     PDTilingPattern pdTilingPattern = new PDTilingPattern();
 
@@ -231,19 +112,10 @@ class PDTilingPatternDiffblueTest {
   }
 
   /**
-   * Test {@link PDTilingPattern#setTilingType(int)}.
-   * <ul>
-   *   <li>When {@link Integer#MIN_VALUE}.</li>
-   *   <li>Then {@link PDTilingPattern#PDTilingPattern()} TilingType is {@link Integer#MIN_VALUE}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDTilingPattern#setTilingType(int)}
    */
   @Test
-  @DisplayName("Test setTilingType(int); when MIN_VALUE; then PDTilingPattern() TilingType is MIN_VALUE")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDTilingPattern.setTilingType(int)"})
-  void testSetTilingType_whenMin_value_thenPDTilingPatternTilingTypeIsMin_value() {
+  void testSetTilingType2() {
     // Arrange
     PDTilingPattern pdTilingPattern = new PDTilingPattern();
 
@@ -259,37 +131,19 @@ class PDTilingPatternDiffblueTest {
   }
 
   /**
-   * Test {@link PDTilingPattern#getTilingType()}.
-   * <ul>
-   *   <li>Given {@link PDTilingPattern#PDTilingPattern()}.</li>
-   *   <li>Then return zero.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDTilingPattern#getTilingType()}
    */
   @Test
-  @DisplayName("Test getTilingType(); given PDTilingPattern(); then return zero")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"int PDTilingPattern.getTilingType()"})
-  void testGetTilingType_givenPDTilingPattern_thenReturnZero() {
+  void testGetTilingType() {
     // Arrange, Act and Assert
     assertEquals(0, (new PDTilingPattern()).getTilingType());
   }
 
   /**
-   * Test {@link PDTilingPattern#setXStep(float)}.
-   * <ul>
-   *   <li>Given {@link PDTilingPattern#PDTilingPattern()}.</li>
-   *   <li>Then {@link PDTilingPattern#PDTilingPattern()} COSObject {@link COSStream}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDTilingPattern#setXStep(float)}
    */
   @Test
-  @DisplayName("Test setXStep(float); given PDTilingPattern(); then PDTilingPattern() COSObject COSStream")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDTilingPattern.setXStep(float)"})
-  void testSetXStep_givenPDTilingPattern_thenPDTilingPatternCOSObjectCOSStream() {
+  void testSetXStep() {
     // Arrange
     PDTilingPattern pdTilingPattern = new PDTilingPattern();
 
@@ -305,37 +159,19 @@ class PDTilingPatternDiffblueTest {
   }
 
   /**
-   * Test {@link PDTilingPattern#getXStep()}.
-   * <ul>
-   *   <li>Given {@link PDTilingPattern#PDTilingPattern()}.</li>
-   *   <li>Then return zero.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDTilingPattern#getXStep()}
    */
   @Test
-  @DisplayName("Test getXStep(); given PDTilingPattern(); then return zero")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"float PDTilingPattern.getXStep()"})
-  void testGetXStep_givenPDTilingPattern_thenReturnZero() {
+  void testGetXStep() {
     // Arrange, Act and Assert
     assertEquals(0.0f, (new PDTilingPattern()).getXStep());
   }
 
   /**
-   * Test {@link PDTilingPattern#setYStep(float)}.
-   * <ul>
-   *   <li>Given {@link PDTilingPattern#PDTilingPattern()}.</li>
-   *   <li>Then {@link PDTilingPattern#PDTilingPattern()} COSObject {@link COSStream}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDTilingPattern#setYStep(float)}
    */
   @Test
-  @DisplayName("Test setYStep(float); given PDTilingPattern(); then PDTilingPattern() COSObject COSStream")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDTilingPattern.setYStep(float)"})
-  void testSetYStep_givenPDTilingPattern_thenPDTilingPatternCOSObjectCOSStream() {
+  void testSetYStep() {
     // Arrange
     PDTilingPattern pdTilingPattern = new PDTilingPattern();
 
@@ -351,32 +187,18 @@ class PDTilingPatternDiffblueTest {
   }
 
   /**
-   * Test {@link PDTilingPattern#getYStep()}.
-   * <ul>
-   *   <li>Given {@link PDTilingPattern#PDTilingPattern()}.</li>
-   *   <li>Then return zero.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDTilingPattern#getYStep()}
    */
   @Test
-  @DisplayName("Test getYStep(); given PDTilingPattern(); then return zero")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"float PDTilingPattern.getYStep()"})
-  void testGetYStep_givenPDTilingPattern_thenReturnZero() {
+  void testGetYStep() {
     // Arrange, Act and Assert
     assertEquals(0.0f, (new PDTilingPattern()).getYStep());
   }
 
   /**
-   * Test {@link PDTilingPattern#getContentStream()}.
-   * <p>
    * Method under test: {@link PDTilingPattern#getContentStream()}
    */
   @Test
-  @DisplayName("Test getContentStream()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDStream PDTilingPattern.getContentStream()"})
   void testGetContentStream() throws IOException {
     // Arrange and Act
     PDStream actualContentStream = (new PDTilingPattern()).getContentStream();
@@ -384,64 +206,53 @@ class PDTilingPatternDiffblueTest {
     // Assert
     assertNull(actualContentStream.getDecodeParms());
     assertNull(actualContentStream.getFileDecodeParams());
+    COSStream cOSObject = actualContentStream.getCOSObject();
+    assertNull(cOSObject.getFilters());
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
     assertNull(actualContentStream.getMetadata());
     assertNull(actualContentStream.getFile());
     assertEquals(-1, actualContentStream.getDecodedStreamLength());
     assertEquals(0, actualContentStream.getLength());
+    assertEquals(0L, cOSObject.getLength());
+    assertEquals(4, cOSObject.getValues().size());
+    assertEquals(4, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.hasData());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
     List<String> fileFilters = actualContentStream.getFileFilters();
     assertTrue(fileFilters.isEmpty());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
     assertSame(fileFilters, actualContentStream.getFilters());
   }
 
   /**
-   * Test {@link PDTilingPattern#getContents()}.
-   * <ul>
-   *   <li>Given {@link PDTilingPattern#PDTilingPattern(COSDictionary)} with dictionary is {@link COSDictionary#COSDictionary()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDTilingPattern#getContents()}
    */
   @Test
-  @DisplayName("Test getContents(); given PDTilingPattern(COSDictionary) with dictionary is COSDictionary(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"java.io.InputStream PDTilingPattern.getContents()"})
-  void testGetContents_givenPDTilingPatternWithDictionaryIsCOSDictionary_thenReturnNull() throws IOException {
+  void testGetContents() throws IOException {
     // Arrange, Act and Assert
     assertNull((new PDTilingPattern(new COSDictionary())).getContents());
   }
 
   /**
-   * Test {@link PDTilingPattern#getContentsForRandomAccess()}.
-   * <ul>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDTilingPattern#getContentsForRandomAccess()}
    */
   @Test
-  @DisplayName("Test getContentsForRandomAccess(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"org.apache.pdfbox.io.RandomAccessRead PDTilingPattern.getContentsForRandomAccess()"})
-  void testGetContentsForRandomAccess_thenReturnNull() throws IOException {
+  void testGetContentsForRandomAccess() throws IOException {
     // Arrange, Act and Assert
     assertNull((new PDTilingPattern(new COSDictionary())).getContentsForRandomAccess());
   }
 
   /**
-   * Test {@link PDTilingPattern#getResources()}.
-   * <ul>
-   *   <li>Given {@link PDTilingPattern#PDTilingPattern()}.</li>
-   *   <li>Then ColorSpaceNames return {@link Set}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDTilingPattern#getResources()}
    */
   @Test
-  @DisplayName("Test getResources(); given PDTilingPattern(); then ColorSpaceNames return Set")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDResources PDTilingPattern.getResources()"})
-  void testGetResources_givenPDTilingPattern_thenColorSpaceNamesReturnSet() {
+  void testGetResources() {
     // Arrange and Act
     PDResources actualResources = (new PDTilingPattern()).getResources();
 
@@ -449,12 +260,18 @@ class PDTilingPatternDiffblueTest {
     Iterable<COSName> colorSpaceNames = actualResources.getColorSpaceNames();
     assertTrue(colorSpaceNames instanceof Set);
     COSDictionary cOSObject = actualResources.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
     assertNull(cOSObject.getKey());
     assertNull(actualResources.getResourceCache());
     assertEquals(0, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
     assertFalse(cOSObject.isDirect());
     assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
     assertTrue(cOSObject.getValues().isEmpty());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
     assertTrue(((Set<COSName>) colorSpaceNames).isEmpty());
     assertSame(colorSpaceNames, actualResources.getExtGStateNames());
     assertSame(colorSpaceNames, actualResources.getFontNames());
@@ -465,35 +282,19 @@ class PDTilingPatternDiffblueTest {
   }
 
   /**
-   * Test {@link PDTilingPattern#getResources()}.
-   * <ul>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDTilingPattern#getResources()}
    */
   @Test
-  @DisplayName("Test getResources(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDResources PDTilingPattern.getResources()"})
-  void testGetResources_thenReturnNull() {
+  void testGetResources2() {
     // Arrange, Act and Assert
     assertNull((new PDTilingPattern(new COSDictionary())).getResources());
   }
 
   /**
-   * Test {@link PDTilingPattern#setResources(PDResources)}.
-   * <ul>
-   *   <li>Then {@link PDTilingPattern#PDTilingPattern()} COSObject Values size is four.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDTilingPattern#setResources(PDResources)}
    */
   @Test
-  @DisplayName("Test setResources(PDResources); then PDTilingPattern() COSObject Values size is four")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDTilingPattern.setResources(PDResources)"})
-  void testSetResources_thenPDTilingPatternCOSObjectValuesSizeIsFour() {
+  void testSetResources() {
     // Arrange
     PDTilingPattern pdTilingPattern = new PDTilingPattern();
 
@@ -508,19 +309,10 @@ class PDTilingPatternDiffblueTest {
   }
 
   /**
-   * Test {@link PDTilingPattern#setResources(PDResources)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then {@link PDTilingPattern#PDTilingPattern()} Resources is {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDTilingPattern#setResources(PDResources)}
    */
   @Test
-  @DisplayName("Test setResources(PDResources); when 'null'; then PDTilingPattern() Resources is 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDTilingPattern.setResources(PDResources)"})
-  void testSetResources_whenNull_thenPDTilingPatternResourcesIsNull() {
+  void testSetResources2() {
     // Arrange
     PDTilingPattern pdTilingPattern = new PDTilingPattern();
 
@@ -536,37 +328,45 @@ class PDTilingPatternDiffblueTest {
   }
 
   /**
-   * Test {@link PDTilingPattern#getBBox()}.
-   * <ul>
-   *   <li>Given {@link PDTilingPattern#PDTilingPattern()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PDTilingPattern#setResources(PDResources)}
+   */
+  @Test
+  void testSetResources3() throws IOException {
+    // Arrange
+    PDTilingPattern pdTilingPattern = new PDTilingPattern();
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDImageXObject image = new PDImageXObject(new PDDocument(streamCacheCreateFunction));
+
+    PDResources resources = new PDResources();
+    resources.add(image);
+
+    // Act
+    pdTilingPattern.setResources(resources);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    COSDictionary cOSObject = pdTilingPattern.getCOSObject();
+    assertTrue(cOSObject instanceof COSStream);
+    assertEquals(4, cOSObject.getValues().size());
+    assertEquals(4, cOSObject.size());
+  }
+
+  /**
    * Method under test: {@link PDTilingPattern#getBBox()}
    */
   @Test
-  @DisplayName("Test getBBox(); given PDTilingPattern(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDRectangle PDTilingPattern.getBBox()"})
-  void testGetBBox_givenPDTilingPattern_thenReturnNull() {
+  void testGetBBox() {
     // Arrange, Act and Assert
     assertNull((new PDTilingPattern()).getBBox());
   }
 
   /**
-   * Test {@link PDTilingPattern#setBBox(PDRectangle)}.
-   * <ul>
-   *   <li>When {@link PDRectangle#A1}.</li>
-   *   <li>Then {@link PDTilingPattern#PDTilingPattern()} BBox UpperRightX is {@code 1683.7795}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDTilingPattern#setBBox(PDRectangle)}
    */
   @Test
-  @DisplayName("Test setBBox(PDRectangle); when A1; then PDTilingPattern() BBox UpperRightX is '1683.7795'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDTilingPattern.setBBox(PDRectangle)"})
-  void testSetBBox_whenA1_thenPDTilingPatternBBoxUpperRightXIs16837795() {
+  void testSetBBox() {
     // Arrange
     PDTilingPattern pdTilingPattern = new PDTilingPattern();
 
@@ -574,38 +374,165 @@ class PDTilingPatternDiffblueTest {
     pdTilingPattern.setBBox(PDRectangle.A1);
 
     // Assert
+    COSDictionary cOSObject = pdTilingPattern.getCOSObject();
+    assertTrue(cOSObject instanceof COSStream);
     PDRectangle bBox = pdTilingPattern.getBBox();
+    assertEquals(0.0f, bBox.getLowerLeftX());
+    assertEquals(0.0f, bBox.getLowerLeftY());
     assertEquals(1683.7795f, bBox.getUpperRightX());
     assertEquals(1683.7795f, bBox.getWidth());
     assertEquals(2383.937f, bBox.getHeight());
     assertEquals(2383.937f, bBox.getUpperRightY());
+    assertEquals(5, cOSObject.getValues().size());
+    assertEquals(5, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    COSArray expectedCOSObject = bBox.getCOSArray();
+    assertSame(expectedCOSObject, bBox.getCOSObject());
   }
 
   /**
-   * Test {@link PDTilingPattern#setBBox(PDRectangle)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then {@link PDTilingPattern#PDTilingPattern()} COSObject toIncrement Objects Empty.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDTilingPattern#setBBox(PDRectangle)}
    */
   @Test
-  @DisplayName("Test setBBox(PDRectangle); when 'null'; then PDTilingPattern() COSObject toIncrement Objects Empty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDTilingPattern.setBBox(PDRectangle)"})
-  void testSetBBox_whenNull_thenPDTilingPatternCOSObjectToIncrementObjectsEmpty() {
+  void testSetBBox2() {
     // Arrange
     PDTilingPattern pdTilingPattern = new PDTilingPattern();
 
     // Act
     pdTilingPattern.setBBox(null);
 
-    // Assert that nothing has changed
+    // Assert
     COSDictionary cOSObject = pdTilingPattern.getCOSObject();
     assertTrue(cOSObject instanceof COSStream);
+    assertNull(pdTilingPattern.getBBox());
+    assertEquals(4, cOSObject.getValues().size());
+    assertEquals(4, cOSObject.size());
     COSIncrement toIncrementResult = cOSObject.toIncrement();
     assertFalse(toIncrementResult.iterator().hasNext());
     assertTrue(toIncrementResult.getObjects().isEmpty());
+  }
+
+  /**
+   * Methods under test:
+   * <ul>
+   *   <li>{@link PDTilingPattern#PDTilingPattern(COSDictionary)}
+   *   <li>{@link PDTilingPattern#getPatternType()}
+   * </ul>
+   */
+  @Test
+  void testGettersAndSetters() {
+    // Arrange
+    COSDictionary dictionary = new COSDictionary();
+
+    // Act
+    PDTilingPattern actualPdTilingPattern = new PDTilingPattern(dictionary);
+
+    // Assert
+    assertEquals(1, actualPdTilingPattern.getPatternType());
+    assertSame(dictionary, actualPdTilingPattern.getCOSObject());
+  }
+
+  /**
+   * Methods under test:
+   * <ul>
+   *   <li>{@link PDTilingPattern#PDTilingPattern(COSDictionary, ResourceCache)}
+   *   <li>{@link PDTilingPattern#getPatternType()}
+   * </ul>
+   */
+  @Test
+  void testGettersAndSetters2() {
+    // Arrange
+    COSDictionary dictionary = new COSDictionary();
+
+    // Act
+    PDTilingPattern actualPdTilingPattern = new PDTilingPattern(dictionary, new DefaultResourceCache());
+
+    // Assert
+    assertEquals(1, actualPdTilingPattern.getPatternType());
+    assertSame(dictionary, actualPdTilingPattern.getCOSObject());
+  }
+
+  /**
+   * Method under test: {@link PDTilingPattern#PDTilingPattern()}
+   */
+  @Test
+  void testNewPDTilingPattern() throws IOException {
+    // Arrange and Act
+    PDTilingPattern actualPdTilingPattern = new PDTilingPattern();
+
+    // Assert
+    PDResources resources = actualPdTilingPattern.getResources();
+    Iterable<COSName> colorSpaceNames = resources.getColorSpaceNames();
+    assertTrue(colorSpaceNames instanceof Set);
+    COSDictionary cOSObject = actualPdTilingPattern.getCOSObject();
+    assertTrue(cOSObject instanceof COSStream);
+    assertEquals("Pattern", actualPdTilingPattern.getType());
+    PDStream contentStream = actualPdTilingPattern.getContentStream();
+    assertNull(contentStream.getDecodeParms());
+    assertNull(contentStream.getFileDecodeParams());
+    assertNull(((COSStream) cOSObject).getFilters());
+    COSDictionary cOSObject2 = resources.getCOSObject();
+    COSUpdateState updateState = cOSObject2.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    COSUpdateState updateState2 = cOSObject.getUpdateState();
+    assertNull(updateState2.getOriginDocumentState());
+    assertNull(cOSObject2.getKey());
+    assertNull(cOSObject.getKey());
+    assertNull(resources.getResourceCache());
+    assertNull(contentStream.getMetadata());
+    assertNull(actualPdTilingPattern.getBBox());
+    assertNull(contentStream.getFile());
+    assertEquals(-1, contentStream.getDecodedStreamLength());
+    assertEquals(0, cOSObject2.size());
+    assertEquals(0, contentStream.getLength());
+    assertEquals(0, actualPdTilingPattern.getPaintType());
+    assertEquals(0, actualPdTilingPattern.getTilingType());
+    assertEquals(0.0f, actualPdTilingPattern.getXStep());
+    assertEquals(0.0f, actualPdTilingPattern.getYStep());
+    Matrix matrix = actualPdTilingPattern.getMatrix();
+    assertEquals(0.0f, matrix.getShearX());
+    assertEquals(0.0f, matrix.getShearY());
+    assertEquals(0.0f, matrix.getTranslateX());
+    assertEquals(0.0f, matrix.getTranslateY());
+    assertEquals(0L, ((COSStream) cOSObject).getLength());
+    assertEquals(1, actualPdTilingPattern.getPatternType());
+    assertEquals(1.0f, matrix.getScaleX());
+    assertEquals(1.0f, matrix.getScaleY());
+    assertEquals(1.0f, matrix.getScalingFactorX());
+    assertEquals(1.0f, matrix.getScalingFactorY());
+    float[][] values = matrix.getValues();
+    assertEquals(3, values.length);
+    assertEquals(4, cOSObject.getValues().size());
+    assertEquals(4, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject2.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    COSIncrement toIncrementResult2 = cOSObject.toIncrement();
+    assertFalse(toIncrementResult2.iterator().hasNext());
+    assertFalse(cOSObject2.isDirect());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(((COSStream) cOSObject).hasData());
+    assertFalse(cOSObject2.isNeedToBeUpdated());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertFalse(updateState2.isUpdated());
+    assertTrue(cOSObject2.getValues().isEmpty());
+    List<String> fileFilters = contentStream.getFileFilters();
+    assertTrue(fileFilters.isEmpty());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertTrue(toIncrementResult2.getObjects().isEmpty());
+    assertTrue(((Set<COSName>) colorSpaceNames).isEmpty());
+    assertSame(fileFilters, contentStream.getFilters());
+    assertSame(colorSpaceNames, resources.getExtGStateNames());
+    assertSame(colorSpaceNames, resources.getFontNames());
+    assertSame(colorSpaceNames, resources.getPatternNames());
+    assertSame(colorSpaceNames, resources.getPropertiesNames());
+    assertSame(colorSpaceNames, resources.getShadingNames());
+    assertSame(colorSpaceNames, resources.getXObjectNames());
+    assertSame(cOSObject, contentStream.getCOSObject());
+    assertArrayEquals(new float[]{0.0f, 0.0f, 1.0f}, values[2], 0.0f);
+    assertArrayEquals(new float[]{0.0f, 1.0f, 0.0f}, values[1], 0.0f);
+    assertArrayEquals(new float[]{1.0f, 0.0f, 0.0f}, values[0], 0.0f);
   }
 }

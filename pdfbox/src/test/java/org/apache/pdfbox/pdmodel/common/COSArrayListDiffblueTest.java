@@ -1,6 +1,5 @@
 package org.apache.pdfbox.pdmodel.common;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -8,7 +7,10 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -16,247 +18,20 @@ import org.apache.pdfbox.cos.COSArray;
 import org.apache.pdfbox.cos.COSBase;
 import org.apache.pdfbox.cos.COSBoolean;
 import org.apache.pdfbox.cos.COSDictionary;
-import org.apache.pdfbox.cos.COSInteger;
+import org.apache.pdfbox.cos.COSDocument;
 import org.apache.pdfbox.cos.COSName;
 import org.apache.pdfbox.cos.COSNull;
 import org.apache.pdfbox.cos.COSObject;
 import org.apache.pdfbox.cos.COSObjectKey;
-import org.apache.pdfbox.cos.COSString;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
+import org.apache.pdfbox.io.RandomAccessStreamCache;
+import org.apache.pdfbox.io.RandomAccessStreamCacheImpl;
 import org.junit.jupiter.api.Test;
 
 class COSArrayListDiffblueTest {
   /**
-   * Test {@link COSArrayList#COSArrayList()}.
-   * <p>
-   * Method under test: {@link COSArrayList#COSArrayList()}
-   */
-  @Test
-  @DisplayName("Test new COSArrayList()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void COSArrayList.<init>()"})
-  void testNewCOSArrayList() {
-    // Arrange and Act
-    COSArrayList<Object> actualObjectList = new COSArrayList<>();
-
-    // Assert
-    assertTrue(actualObjectList.isEmpty());
-  }
-
-  /**
-   * Test {@link COSArrayList#COSArrayList(COSDictionary, COSName)}.
-   * <p>
-   * Method under test: {@link COSArrayList#COSArrayList(COSDictionary, COSName)}
-   */
-  @Test
-  @DisplayName("Test new COSArrayList(COSDictionary, COSName)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void COSArrayList.<init>(COSDictionary, COSName)"})
-  void testNewCOSArrayList2() {
-    // Arrange and Act
-    COSArrayList<Object> actualObjectList = new COSArrayList<>(new COSDictionary(), COSName.A);
-
-    // Assert
-    assertTrue(actualObjectList.isEmpty());
-  }
-
-  /**
-   * Test {@link COSArrayList#COSArrayList(List, COSArray)}.
-   * <ul>
-   *   <li>Given {@code 42}.</li>
-   *   <li>When {@link ArrayList#ArrayList()} add {@code 42}.</li>
-   *   <li>Then return {@link ArrayList#ArrayList()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link COSArrayList#COSArrayList(List, COSArray)}
-   */
-  @Test
-  @DisplayName("Test new COSArrayList(List, COSArray); given '42'; when ArrayList() add '42'; then return ArrayList()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void COSArrayList.<init>(List, COSArray)"})
-  void testNewCOSArrayList_given42_whenArrayListAdd42_thenReturnArrayList() {
-    // Arrange
-    ArrayList<Object> actualList = new ArrayList<>();
-    actualList.add("42");
-
-    // Act and Assert
-    assertEquals(actualList, new COSArrayList<>(actualList, new COSArray()));
-  }
-
-  /**
-   * Test {@link COSArrayList#COSArrayList(List, COSArray)}.
-   * <ul>
-   *   <li>Given {@code 42}.</li>
-   *   <li>When {@link ArrayList#ArrayList()} add {@code 42}.</li>
-   *   <li>Then return {@link ArrayList#ArrayList()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link COSArrayList#COSArrayList(List, COSArray)}
-   */
-  @Test
-  @DisplayName("Test new COSArrayList(List, COSArray); given '42'; when ArrayList() add '42'; then return ArrayList()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void COSArrayList.<init>(List, COSArray)"})
-  void testNewCOSArrayList_given42_whenArrayListAdd42_thenReturnArrayList2() {
-    // Arrange
-    ArrayList<Object> actualList = new ArrayList<>();
-    actualList.add("42");
-    actualList.add("42");
-
-    // Act and Assert
-    assertEquals(actualList, new COSArrayList<>(actualList, new COSArray()));
-  }
-
-  /**
-   * Test {@link COSArrayList#COSArrayList(Object, COSBase, COSDictionary, COSName)}.
-   * <ul>
-   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link COSArrayList#COSArrayList(Object, COSBase, COSDictionary, COSName)}
-   */
-  @Test
-  @DisplayName("Test new COSArrayList(Object, COSBase, COSDictionary, COSName); given COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void COSArrayList.<init>(Object, COSBase, COSDictionary, COSName)"})
-  void testNewCOSArrayList_givenCOSObjectKeyWithNumIsOneAndGenIsOne() {
-    // Arrange
-    COSDictionary item = new COSDictionary();
-    item.setKey(new COSObjectKey(1L, 1));
-
-    // Act
-    COSArrayList<Object> actualObjectList = new COSArrayList<>("Actual Object", item, new COSDictionary(), COSName.A);
-
-    // Assert
-    assertEquals(1, actualObjectList.size());
-    assertEquals("Actual Object", actualObjectList.get(0));
-  }
-
-  /**
-   * Test {@link COSArrayList#COSArrayList(List, COSArray)}.
-   * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then return {@link ArrayList#ArrayList()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link COSArrayList#COSArrayList(List, COSArray)}
-   */
-  @Test
-  @DisplayName("Test new COSArrayList(List, COSArray); when ArrayList(); then return ArrayList()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void COSArrayList.<init>(List, COSArray)"})
-  void testNewCOSArrayList_whenArrayList_thenReturnArrayList() {
-    // Arrange
-    ArrayList<Object> actualList = new ArrayList<>();
-
-    // Act and Assert
-    assertEquals(actualList, new COSArrayList<>(actualList, new COSArray()));
-  }
-
-  /**
-   * Test {@link COSArrayList#COSArrayList(Object, COSBase, COSDictionary, COSName)}.
-   * <ul>
-   *   <li>When {@link COSArray#COSArray()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link COSArrayList#COSArrayList(Object, COSBase, COSDictionary, COSName)}
-   */
-  @Test
-  @DisplayName("Test new COSArrayList(Object, COSBase, COSDictionary, COSName); when COSArray()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void COSArrayList.<init>(Object, COSBase, COSDictionary, COSName)"})
-  void testNewCOSArrayList_whenCOSArray() {
-    // Arrange
-    COSArray item = new COSArray();
-
-    // Act
-    COSArrayList<Object> actualObjectList = new COSArrayList<>("Actual Object", item, new COSDictionary(), COSName.A);
-
-    // Assert
-    assertEquals(1, actualObjectList.size());
-    assertEquals("Actual Object", actualObjectList.get(0));
-  }
-
-  /**
-   * Test {@link COSArrayList#COSArrayList(Object, COSBase, COSDictionary, COSName)}.
-   * <ul>
-   *   <li>When {@link COSDictionary#COSDictionary()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link COSArrayList#COSArrayList(Object, COSBase, COSDictionary, COSName)}
-   */
-  @Test
-  @DisplayName("Test new COSArrayList(Object, COSBase, COSDictionary, COSName); when COSDictionary()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void COSArrayList.<init>(Object, COSBase, COSDictionary, COSName)"})
-  void testNewCOSArrayList_whenCOSDictionary() {
-    // Arrange
-    COSDictionary item = new COSDictionary();
-
-    // Act
-    COSArrayList<Object> actualObjectList = new COSArrayList<>("Actual Object", item, new COSDictionary(), COSName.A);
-
-    // Assert
-    assertEquals(1, actualObjectList.size());
-    assertEquals("Actual Object", actualObjectList.get(0));
-  }
-
-  /**
-   * Test {@link COSArrayList#COSArrayList(Object, COSBase, COSDictionary, COSName)}.
-   * <ul>
-   *   <li>When {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link COSArrayList#COSArrayList(Object, COSBase, COSDictionary, COSName)}
-   */
-  @Test
-  @DisplayName("Test new COSArrayList(Object, COSBase, COSDictionary, COSName); when COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void COSArrayList.<init>(Object, COSBase, COSDictionary, COSName)"})
-  void testNewCOSArrayList_whenCOSObjectKeyWithNumIsOneAndGenIsOne() {
-    // Arrange
-    COSObject item = new COSObject(COSBoolean.FALSE, new COSObjectKey(1L, 1));
-
-    // Act
-    COSArrayList<Object> actualObjectList = new COSArrayList<>("Actual Object", item, new COSDictionary(), COSName.A);
-
-    // Assert
-    assertEquals(1, actualObjectList.size());
-    assertEquals("Actual Object", actualObjectList.get(0));
-  }
-
-  /**
-   * Test {@link COSArrayList#COSArrayList(Object, COSBase, COSDictionary, COSName)}.
-   * <ul>
-   *   <li>When {@link COSBoolean#FALSE}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link COSArrayList#COSArrayList(Object, COSBase, COSDictionary, COSName)}
-   */
-  @Test
-  @DisplayName("Test new COSArrayList(Object, COSBase, COSDictionary, COSName); when FALSE")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void COSArrayList.<init>(Object, COSBase, COSDictionary, COSName)"})
-  void testNewCOSArrayList_whenFalse() {
-    // Arrange and Act
-    COSArrayList<Object> actualObjectList = new COSArrayList<>("Actual Object", COSBoolean.FALSE, new COSDictionary(),
-        COSName.A);
-
-    // Assert
-    assertEquals(1, actualObjectList.size());
-    assertEquals("Actual Object", actualObjectList.get(0));
-  }
-
-  /**
-   * Test {@link COSArrayList#size()}.
-   * <p>
    * Method under test: {@link COSArrayList#size()}
    */
   @Test
-  @DisplayName("Test size()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"int COSArrayList.size()"})
   void testSize() {
     // Arrange
     COSArrayList<Object> objectList = new COSArrayList<>();
@@ -266,19 +41,22 @@ class COSArrayListDiffblueTest {
   }
 
   /**
-   * Test {@link COSArrayList#isEmpty()}.
-   * <ul>
-   *   <li>Given {@link COSArrayList#COSArrayList()} add {@code 42}.</li>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link COSArrayList#isEmpty()}
    */
   @Test
-  @DisplayName("Test isEmpty(); given COSArrayList() add '42'; then return 'false'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean COSArrayList.isEmpty()"})
-  void testIsEmpty_givenCOSArrayListAdd42_thenReturnFalse() {
+  void testIsEmpty() {
+    // Arrange
+    COSArrayList<Object> objectList = new COSArrayList<>();
+
+    // Act and Assert
+    assertTrue(objectList.isEmpty());
+  }
+
+  /**
+   * Method under test: {@link COSArrayList#isEmpty()}
+   */
+  @Test
+  void testIsEmpty2() {
     // Arrange
     COSArrayList<Object> objectList = new COSArrayList<>();
     objectList.add("42");
@@ -288,40 +66,22 @@ class COSArrayListDiffblueTest {
   }
 
   /**
-   * Test {@link COSArrayList#isEmpty()}.
-   * <ul>
-   *   <li>Given {@link COSArrayList#COSArrayList()}.</li>
-   *   <li>Then return {@code true}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link COSArrayList#isEmpty()}
+   * Method under test: {@link COSArrayList#contains(Object)}
    */
   @Test
-  @DisplayName("Test isEmpty(); given COSArrayList(); then return 'true'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean COSArrayList.isEmpty()"})
-  void testIsEmpty_givenCOSArrayList_thenReturnTrue() {
+  void testContains() {
     // Arrange
     COSArrayList<Object> objectList = new COSArrayList<>();
 
     // Act and Assert
-    assertTrue(objectList.isEmpty());
+    assertFalse(objectList.contains("42"));
   }
 
   /**
-   * Test {@link COSArrayList#contains(Object)}.
-   * <ul>
-   *   <li>Given {@link COSArrayList#COSArrayList()} add {@code 42}.</li>
-   *   <li>Then return {@code true}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link COSArrayList#contains(Object)}
    */
   @Test
-  @DisplayName("Test contains(Object); given COSArrayList() add '42'; then return 'true'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean COSArrayList.contains(Object)"})
-  void testContains_givenCOSArrayListAdd42_thenReturnTrue() {
+  void testContains2() {
     // Arrange
     COSArrayList<Object> objectList = new COSArrayList<>();
     objectList.add("42");
@@ -331,35 +91,9 @@ class COSArrayListDiffblueTest {
   }
 
   /**
-   * Test {@link COSArrayList#contains(Object)}.
-   * <ul>
-   *   <li>Given {@link COSArrayList#COSArrayList()}.</li>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link COSArrayList#contains(Object)}
-   */
-  @Test
-  @DisplayName("Test contains(Object); given COSArrayList(); then return 'false'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean COSArrayList.contains(Object)"})
-  void testContains_givenCOSArrayList_thenReturnFalse() {
-    // Arrange
-    COSArrayList<Object> objectList = new COSArrayList<>();
-
-    // Act and Assert
-    assertFalse(objectList.contains("42"));
-  }
-
-  /**
-   * Test {@link COSArrayList#iterator()}.
-   * <p>
    * Method under test: {@link COSArrayList#iterator()}
    */
   @Test
-  @DisplayName("Test iterator()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"java.util.Iterator COSArrayList.iterator()"})
   void testIterator() {
     // Arrange
     COSArrayList<Object> objectList = new COSArrayList<>();
@@ -369,69 +103,59 @@ class COSArrayListDiffblueTest {
   }
 
   /**
-   * Test {@link COSArrayList#add(int, Object)} with {@code index}, {@code element}.
-   * <p>
-   * Method under test: {@link COSArrayList#add(int, Object)}
+   * Method under test: {@link COSArrayList#toArray()}
    */
   @Test
-  @DisplayName("Test add(int, Object) with 'index', 'element'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void COSArrayList.add(int, Object)"})
-  void testAddWithIndexElement() {
+  void testToArray() {
     // Arrange
     COSArrayList<Object> objectList = new COSArrayList<>();
-    objectList.add("42");
-    COSObject cosObject = new COSObject(COSBoolean.FALSE, new COSObjectKey(1L, 1));
 
-    // Act
-    objectList.add(1, cosObject);
-
-    // Assert
-    assertEquals(2, objectList.size());
-    assertSame(cosObject, objectList.get(1));
+    // Act and Assert
+    assertEquals(0, objectList.toArray().length);
   }
 
   /**
-   * Test {@link COSArrayList#add(int, Object)} with {@code index}, {@code element}.
-   * <ul>
-   *   <li>When {@link COSArray#COSArray()}.</li>
-   *   <li>Then {@link COSArrayList#COSArrayList()} second is {@link COSArray#COSArray()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link COSArrayList#add(int, Object)}
+   * Method under test: {@link COSArrayList#toArray(Object[])}
    */
   @Test
-  @DisplayName("Test add(int, Object) with 'index', 'element'; when COSArray(); then COSArrayList() second is COSArray()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void COSArrayList.add(int, Object)"})
-  void testAddWithIndexElement_whenCOSArray_thenCOSArrayListSecondIsCOSArray() {
+  void testToArray2() {
     // Arrange
     COSArrayList<Object> objectList = new COSArrayList<>();
-    objectList.add("42");
-    COSArray cosArray = new COSArray();
+    Object[] a = new Object[]{"42"};
 
     // Act
-    objectList.add(1, cosArray);
+    Object[] actualToArrayResult = objectList.toArray(a);
 
     // Assert
-    assertEquals(2, objectList.size());
-    assertSame(cosArray, objectList.get(1));
+    assertNull(actualToArrayResult[0]);
+    assertNull(a[0]);
+    assertEquals(1, actualToArrayResult.length);
+    assertEquals(1, a.length);
+    assertSame(a, actualToArrayResult);
   }
 
   /**
-   * Test {@link COSArrayList#add(int, Object)} with {@code index}, {@code element}.
-   * <ul>
-   *   <li>When {@link COSDictionary#COSDictionary()}.</li>
-   *   <li>Then {@link COSArrayList#COSArrayList()} second is {@link COSDictionary#COSDictionary()}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link COSArrayList#add(int, Object)}
    */
   @Test
-  @DisplayName("Test add(int, Object) with 'index', 'element'; when COSDictionary(); then COSArrayList() second is COSDictionary()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void COSArrayList.add(int, Object)"})
-  void testAddWithIndexElement_whenCOSDictionary_thenCOSArrayListSecondIsCOSDictionary() {
+  void testAdd() {
+    // Arrange
+    COSArrayList<Object> objectList = new COSArrayList<>();
+    objectList.add("42");
+
+    // Act
+    objectList.add(1, "Element");
+
+    // Assert
+    assertEquals(2, objectList.size());
+    assertEquals("Element", objectList.get(1));
+  }
+
+  /**
+   * Method under test: {@link COSArrayList#add(int, Object)}
+   */
+  @Test
+  void testAdd2() {
     // Arrange
     COSArrayList<Object> objectList = new COSArrayList<>();
     objectList.add("42");
@@ -446,68 +170,46 @@ class COSArrayListDiffblueTest {
   }
 
   /**
-   * Test {@link COSArrayList#add(int, Object)} with {@code index}, {@code element}.
-   * <ul>
-   *   <li>When {@code Element}.</li>
-   *   <li>Then {@link COSArrayList#COSArrayList()} second is {@code Element}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link COSArrayList#add(int, Object)}
    */
   @Test
-  @DisplayName("Test add(int, Object) with 'index', 'element'; when 'Element'; then COSArrayList() second is 'Element'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void COSArrayList.add(int, Object)"})
-  void testAddWithIndexElement_whenElement_thenCOSArrayListSecondIsElement() {
+  void testAdd3() {
     // Arrange
     COSArrayList<Object> objectList = new COSArrayList<>();
     objectList.add("42");
+    COSArray cosArray = new COSArray();
 
     // Act
-    objectList.add(1, "Element");
+    objectList.add(1, cosArray);
 
     // Assert
     assertEquals(2, objectList.size());
-    assertEquals("Element", objectList.get(1));
+    assertSame(cosArray, objectList.get(1));
   }
 
   /**
-   * Test {@link COSArrayList#add(Object)} with {@code o}.
-   * <p>
-   * Method under test: {@link COSArrayList#add(Object)}
+   * Method under test: {@link COSArrayList#add(int, Object)}
    */
   @Test
-  @DisplayName("Test add(Object) with 'o'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean COSArrayList.add(Object)"})
-  void testAddWithO() {
+  void testAdd4() {
     // Arrange
     COSArrayList<Object> objectList = new COSArrayList<>();
+    objectList.add("42");
     COSObject cosObject = new COSObject(COSBoolean.FALSE, new COSObjectKey(1L, 1));
 
     // Act
-    boolean actualAddResult = objectList.add(cosObject);
+    objectList.add(1, cosObject);
 
     // Assert
-    assertEquals(1, objectList.size());
-    assertTrue(actualAddResult);
-    assertSame(cosObject, objectList.get(0));
+    assertEquals(2, objectList.size());
+    assertSame(cosObject, objectList.get(1));
   }
 
   /**
-   * Test {@link COSArrayList#add(Object)} with {@code o}.
-   * <ul>
-   *   <li>When {@code 42}.</li>
-   *   <li>Then {@link COSArrayList#COSArrayList()} first is {@code 42}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link COSArrayList#add(Object)}
    */
   @Test
-  @DisplayName("Test add(Object) with 'o'; when '42'; then COSArrayList() first is '42'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean COSArrayList.add(Object)"})
-  void testAddWithO_when42_thenCOSArrayListFirstIs42() {
+  void testAdd5() {
     // Arrange
     COSArrayList<Object> objectList = new COSArrayList<>();
 
@@ -521,46 +223,10 @@ class COSArrayListDiffblueTest {
   }
 
   /**
-   * Test {@link COSArrayList#add(Object)} with {@code o}.
-   * <ul>
-   *   <li>When {@link COSArray#COSArray()}.</li>
-   *   <li>Then {@link COSArrayList#COSArrayList()} first is {@link COSArray#COSArray()}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link COSArrayList#add(Object)}
    */
   @Test
-  @DisplayName("Test add(Object) with 'o'; when COSArray(); then COSArrayList() first is COSArray()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean COSArrayList.add(Object)"})
-  void testAddWithO_whenCOSArray_thenCOSArrayListFirstIsCOSArray() {
-    // Arrange
-    COSArrayList<Object> objectList = new COSArrayList<>();
-    COSArray cosArray = new COSArray();
-
-    // Act
-    boolean actualAddResult = objectList.add(cosArray);
-
-    // Assert
-    assertEquals(1, objectList.size());
-    assertTrue(actualAddResult);
-    assertSame(cosArray, objectList.get(0));
-  }
-
-  /**
-   * Test {@link COSArrayList#add(Object)} with {@code o}.
-   * <ul>
-   *   <li>When {@link COSDictionary#COSDictionary()}.</li>
-   *   <li>Then {@link COSArrayList#COSArrayList()} first is {@link COSDictionary#COSDictionary()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link COSArrayList#add(Object)}
-   */
-  @Test
-  @DisplayName("Test add(Object) with 'o'; when COSDictionary(); then COSArrayList() first is COSDictionary()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean COSArrayList.add(Object)"})
-  void testAddWithO_whenCOSDictionary_thenCOSArrayListFirstIsCOSDictionary() {
+  void testAdd6() {
     // Arrange
     COSArrayList<Object> objectList = new COSArrayList<>();
     COSDictionary cosDictionary = new COSDictionary();
@@ -575,19 +241,46 @@ class COSArrayListDiffblueTest {
   }
 
   /**
-   * Test {@link COSArrayList#remove(int)} with {@code index}.
-   * <ul>
-   *   <li>Given {@link COSArrayList#COSArrayList()} add {@code 42}.</li>
-   *   <li>Then {@link COSArrayList#COSArrayList()} size is one.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link COSArrayList#add(Object)}
+   */
+  @Test
+  void testAdd7() {
+    // Arrange
+    COSArrayList<Object> objectList = new COSArrayList<>();
+    COSArray cosArray = new COSArray();
+
+    // Act
+    boolean actualAddResult = objectList.add(cosArray);
+
+    // Assert
+    assertEquals(1, objectList.size());
+    assertTrue(actualAddResult);
+    assertSame(cosArray, objectList.get(0));
+  }
+
+  /**
+   * Method under test: {@link COSArrayList#add(Object)}
+   */
+  @Test
+  void testAdd8() {
+    // Arrange
+    COSArrayList<Object> objectList = new COSArrayList<>();
+    COSObject cosObject = new COSObject(COSBoolean.FALSE, new COSObjectKey(1L, 1));
+
+    // Act
+    boolean actualAddResult = objectList.add(cosObject);
+
+    // Assert
+    assertEquals(1, objectList.size());
+    assertTrue(actualAddResult);
+    assertSame(cosObject, objectList.get(0));
+  }
+
+  /**
    * Method under test: {@link COSArrayList#remove(int)}
    */
   @Test
-  @DisplayName("Test remove(int) with 'index'; given COSArrayList() add '42'; then COSArrayList() size is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Object COSArrayList.remove(int)"})
-  void testRemoveWithIndex_givenCOSArrayListAdd42_thenCOSArrayListSizeIsOne() {
+  void testRemove() {
     // Arrange
     COSArrayList<Object> objectList = new COSArrayList<>();
     objectList.add("42");
@@ -602,20 +295,47 @@ class COSArrayListDiffblueTest {
   }
 
   /**
-   * Test {@link COSArrayList#remove(Object)} with {@code o}.
-   * <ul>
-   *   <li>Given {@link COSArrayList#COSArrayList()} add {@code 42}.</li>
-   *   <li>When {@code 42}.</li>
-   *   <li>Then {@link COSArrayList#COSArrayList()} Empty.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link COSArrayList#remove(int)}
+   */
+  @Test
+  void testRemove2() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    COSDocument cosDocument = new COSDocument(streamCacheCreateFunction);
+
+    COSArrayList<Object> objectList = new COSArrayList<>();
+    objectList.add(cosDocument);
+    objectList.add("42");
+
+    // Act
+    Object actualRemoveResult = objectList.remove(1);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertEquals(1, objectList.size());
+    assertEquals("42", actualRemoveResult);
+  }
+
+  /**
    * Method under test: {@link COSArrayList#remove(Object)}
    */
   @Test
-  @DisplayName("Test remove(Object) with 'o'; given COSArrayList() add '42'; when '42'; then COSArrayList() Empty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean COSArrayList.remove(Object)"})
-  void testRemoveWithO_givenCOSArrayListAdd42_when42_thenCOSArrayListEmpty() {
+  void testRemove3() {
+    // Arrange
+    COSArrayList<Object> objectList = new COSArrayList<>();
+
+    // Act and Assert
+    assertFalse(objectList.remove("42"));
+    assertTrue(objectList.isEmpty());
+  }
+
+  /**
+   * Method under test: {@link COSArrayList#remove(Object)}
+   */
+  @Test
+  void testRemove4() {
     // Arrange
     COSArrayList<Object> objectList = new COSArrayList<>();
     objectList.add("42");
@@ -629,211 +349,32 @@ class COSArrayListDiffblueTest {
   }
 
   /**
-   * Test {@link COSArrayList#remove(Object)} with {@code o}.
-   * <ul>
-   *   <li>Given {@link COSArrayList#COSArrayList()} add {@code 42}.</li>
-   *   <li>When {@link COSBoolean#FALSE}.</li>
-   *   <li>Then {@link COSArrayList#COSArrayList()} size is one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link COSArrayList#remove(Object)}
    */
   @Test
-  @DisplayName("Test remove(Object) with 'o'; given COSArrayList() add '42'; when FALSE; then COSArrayList() size is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean COSArrayList.remove(Object)"})
-  void testRemoveWithO_givenCOSArrayListAdd42_whenFalse_thenCOSArrayListSizeIsOne() {
+  void testRemove5() throws IOException {
     // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    COSDocument cosDocument = new COSDocument(streamCacheCreateFunction);
+
     COSArrayList<Object> objectList = new COSArrayList<>();
-    objectList.add("42");
+    objectList.add(cosDocument);
 
     // Act
-    boolean actualRemoveResult = objectList.remove(COSBoolean.FALSE);
+    boolean actualRemoveResult = objectList.remove("42");
 
     // Assert
+    verify(streamCacheCreateFunction).create();
     assertEquals(1, objectList.size());
-    assertEquals("42", objectList.get(0));
     assertFalse(actualRemoveResult);
   }
 
   /**
-   * Test {@link COSArrayList#remove(Object)} with {@code o}.
-   * <ul>
-   *   <li>Given {@link COSArrayList#COSArrayList()} add {@code 42}.</li>
-   *   <li>When {@link COSBoolean#FALSE}.</li>
-   *   <li>Then {@link COSArrayList#COSArrayList()} size is two.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link COSArrayList#remove(Object)}
-   */
-  @Test
-  @DisplayName("Test remove(Object) with 'o'; given COSArrayList() add '42'; when FALSE; then COSArrayList() size is two")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean COSArrayList.remove(Object)"})
-  void testRemoveWithO_givenCOSArrayListAdd42_whenFalse_thenCOSArrayListSizeIsTwo() {
-    // Arrange
-    COSArrayList<Object> objectList = new COSArrayList<>();
-    objectList.add("42");
-    objectList.add("42");
-
-    // Act
-    boolean actualRemoveResult = objectList.remove(COSBoolean.FALSE);
-
-    // Assert
-    assertEquals(2, objectList.size());
-    assertEquals("42", objectList.get(0));
-    assertFalse(actualRemoveResult);
-  }
-
-  /**
-   * Test {@link COSArrayList#remove(Object)} with {@code o}.
-   * <ul>
-   *   <li>Given {@link COSArrayList#COSArrayList()} add {@code 42}.</li>
-   *   <li>When {@link COSInteger#ONE}.</li>
-   *   <li>Then {@link COSArrayList#COSArrayList()} size is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link COSArrayList#remove(Object)}
-   */
-  @Test
-  @DisplayName("Test remove(Object) with 'o'; given COSArrayList() add '42'; when ONE; then COSArrayList() size is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean COSArrayList.remove(Object)"})
-  void testRemoveWithO_givenCOSArrayListAdd42_whenOne_thenCOSArrayListSizeIsOne() {
-    // Arrange
-    COSArrayList<Object> objectList = new COSArrayList<>();
-    objectList.add("42");
-
-    // Act
-    boolean actualRemoveResult = objectList.remove(COSInteger.ONE);
-
-    // Assert
-    assertEquals(1, objectList.size());
-    assertEquals("42", objectList.get(0));
-    assertFalse(actualRemoveResult);
-  }
-
-  /**
-   * Test {@link COSArrayList#remove(Object)} with {@code o}.
-   * <ul>
-   *   <li>Given {@link COSArrayList#COSArrayList()} add {@code 42}.</li>
-   *   <li>When {@link COSInteger#ONE}.</li>
-   *   <li>Then {@link COSArrayList#COSArrayList()} size is two.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link COSArrayList#remove(Object)}
-   */
-  @Test
-  @DisplayName("Test remove(Object) with 'o'; given COSArrayList() add '42'; when ONE; then COSArrayList() size is two")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean COSArrayList.remove(Object)"})
-  void testRemoveWithO_givenCOSArrayListAdd42_whenOne_thenCOSArrayListSizeIsTwo() {
-    // Arrange
-    COSArrayList<Object> objectList = new COSArrayList<>();
-    objectList.add("42");
-    objectList.add("42");
-
-    // Act
-    boolean actualRemoveResult = objectList.remove(COSInteger.ONE);
-
-    // Assert
-    assertEquals(2, objectList.size());
-    assertEquals("42", objectList.get(0));
-    assertFalse(actualRemoveResult);
-  }
-
-  /**
-   * Test {@link COSArrayList#remove(Object)} with {@code o}.
-   * <ul>
-   *   <li>Given {@link COSArrayList#COSArrayList()} add {@link COSInteger#ONE}.</li>
-   *   <li>When {@link COSInteger#ONE}.</li>
-   *   <li>Then return {@code true}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link COSArrayList#remove(Object)}
-   */
-  @Test
-  @DisplayName("Test remove(Object) with 'o'; given COSArrayList() add ONE; when ONE; then return 'true'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean COSArrayList.remove(Object)"})
-  void testRemoveWithO_givenCOSArrayListAddOne_whenOne_thenReturnTrue() {
-    // Arrange
-    COSArrayList<Object> objectList = new COSArrayList<>();
-    objectList.add(COSInteger.ONE);
-    objectList.add("42");
-
-    // Act
-    boolean actualRemoveResult = objectList.remove(COSInteger.ONE);
-
-    // Assert
-    assertEquals(1, objectList.size());
-    assertEquals("42", objectList.get(0));
-    assertTrue(actualRemoveResult);
-  }
-
-  /**
-   * Test {@link COSArrayList#remove(Object)} with {@code o}.
-   * <ul>
-   *   <li>Given {@link COSArrayList#COSArrayList()} add {@link COSInteger#THREE}.</li>
-   *   <li>Then {@link COSArrayList#COSArrayList()} first {@link COSInteger}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link COSArrayList#remove(Object)}
-   */
-  @Test
-  @DisplayName("Test remove(Object) with 'o'; given COSArrayList() add THREE; then COSArrayList() first COSInteger")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean COSArrayList.remove(Object)"})
-  void testRemoveWithO_givenCOSArrayListAddThree_thenCOSArrayListFirstCOSInteger() {
-    // Arrange
-    COSArrayList<Object> objectList = new COSArrayList<>();
-    objectList.add(COSInteger.THREE);
-    objectList.add("42");
-    COSInteger cosInteger = COSInteger.ONE;
-
-    // Act
-    boolean actualRemoveResult = objectList.remove(cosInteger);
-
-    // Assert
-    assertEquals(2, objectList.size());
-    Object getResult = objectList.get(0);
-    assertTrue(getResult instanceof COSInteger);
-    assertFalse(actualRemoveResult);
-    assertSame(cosInteger.THREE, getResult);
-  }
-
-  /**
-   * Test {@link COSArrayList#remove(Object)} with {@code o}.
-   * <ul>
-   *   <li>Given {@link COSArrayList#COSArrayList()}.</li>
-   *   <li>When {@code 42}.</li>
-   *   <li>Then {@link COSArrayList#COSArrayList()} Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link COSArrayList#remove(Object)}
-   */
-  @Test
-  @DisplayName("Test remove(Object) with 'o'; given COSArrayList(); when '42'; then COSArrayList() Empty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean COSArrayList.remove(Object)"})
-  void testRemoveWithO_givenCOSArrayList_when42_thenCOSArrayListEmpty() {
-    // Arrange
-    COSArrayList<Object> objectList = new COSArrayList<>();
-
-    // Act and Assert
-    assertFalse(objectList.remove("42"));
-    assertTrue(objectList.isEmpty());
-  }
-
-  /**
-   * Test {@link COSArrayList#indexOf(Object)}.
-   * <p>
    * Method under test: {@link COSArrayList#indexOf(Object)}
    */
   @Test
-  @DisplayName("Test indexOf(Object)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"int COSArrayList.indexOf(Object)"})
   void testIndexOf() {
     // Arrange
     COSArrayList<Object> objectList = new COSArrayList<>();
@@ -843,14 +384,9 @@ class COSArrayListDiffblueTest {
   }
 
   /**
-   * Test {@link COSArrayList#lastIndexOf(Object)}.
-   * <p>
    * Method under test: {@link COSArrayList#lastIndexOf(Object)}
    */
   @Test
-  @DisplayName("Test lastIndexOf(Object)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"int COSArrayList.lastIndexOf(Object)"})
   void testLastIndexOf() {
     // Arrange
     COSArrayList<Object> objectList = new COSArrayList<>();
@@ -860,14 +396,9 @@ class COSArrayListDiffblueTest {
   }
 
   /**
-   * Test {@link COSArrayList#listIterator()}.
-   * <p>
    * Method under test: {@link COSArrayList#listIterator()}
    */
   @Test
-  @DisplayName("Test listIterator()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"ListIterator COSArrayList.listIterator()"})
   void testListIterator() {
     // Arrange
     COSArrayList<Object> objectList = new COSArrayList<>();
@@ -877,19 +408,10 @@ class COSArrayListDiffblueTest {
   }
 
   /**
-   * Test {@link COSArrayList#listIterator(int)} with {@code int}.
-   * <ul>
-   *   <li>Given {@link COSArrayList#COSArrayList()} add {@code 42}.</li>
-   *   <li>Then return not hasNext.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link COSArrayList#listIterator(int)}
    */
   @Test
-  @DisplayName("Test listIterator(int) with 'int'; given COSArrayList() add '42'; then return not hasNext")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"ListIterator COSArrayList.listIterator(int)"})
-  void testListIteratorWithInt_givenCOSArrayListAdd42_thenReturnNotHasNext() {
+  void testListIterator2() {
     // Arrange
     COSArrayList<Object> objectList = new COSArrayList<>();
     objectList.add("42");
@@ -899,19 +421,10 @@ class COSArrayListDiffblueTest {
   }
 
   /**
-   * Test {@link COSArrayList#subList(int, int)}.
-   * <ul>
-   *   <li>Given {@link COSArrayList#COSArrayList()} add {@code 42}.</li>
-   *   <li>Then return Empty.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link COSArrayList#subList(int, int)}
    */
   @Test
-  @DisplayName("Test subList(int, int); given COSArrayList() add '42'; then return Empty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List COSArrayList.subList(int, int)"})
-  void testSubList_givenCOSArrayListAdd42_thenReturnEmpty() {
+  void testSubList() {
     // Arrange
     COSArrayList<Object> objectList = new COSArrayList<>();
     objectList.add("42");
@@ -921,70 +434,10 @@ class COSArrayListDiffblueTest {
   }
 
   /**
-   * Test {@link COSArrayList#containsAll(Collection)}.
-   * <ul>
-   *   <li>Given {@code 42}.</li>
-   *   <li>When {@link ArrayList#ArrayList()} add {@code 42}.</li>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link COSArrayList#containsAll(Collection)}
    */
   @Test
-  @DisplayName("Test containsAll(Collection); given '42'; when ArrayList() add '42'; then return 'false'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean COSArrayList.containsAll(Collection)"})
-  void testContainsAll_given42_whenArrayListAdd42_thenReturnFalse() {
-    // Arrange
-    COSArrayList<Object> objectList = new COSArrayList<>();
-
-    ArrayList<Object> c = new ArrayList<>();
-    c.add("42");
-
-    // Act and Assert
-    assertFalse(objectList.containsAll(c));
-  }
-
-  /**
-   * Test {@link COSArrayList#containsAll(Collection)}.
-   * <ul>
-   *   <li>Given {@code 42}.</li>
-   *   <li>When {@link ArrayList#ArrayList()} add {@code 42}.</li>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link COSArrayList#containsAll(Collection)}
-   */
-  @Test
-  @DisplayName("Test containsAll(Collection); given '42'; when ArrayList() add '42'; then return 'false'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean COSArrayList.containsAll(Collection)"})
-  void testContainsAll_given42_whenArrayListAdd42_thenReturnFalse2() {
-    // Arrange
-    COSArrayList<Object> objectList = new COSArrayList<>();
-
-    ArrayList<Object> c = new ArrayList<>();
-    c.add("42");
-    c.add("42");
-
-    // Act and Assert
-    assertFalse(objectList.containsAll(c));
-  }
-
-  /**
-   * Test {@link COSArrayList#containsAll(Collection)}.
-   * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then return {@code true}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link COSArrayList#containsAll(Collection)}
-   */
-  @Test
-  @DisplayName("Test containsAll(Collection); when ArrayList(); then return 'true'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean COSArrayList.containsAll(Collection)"})
-  void testContainsAll_whenArrayList_thenReturnTrue() {
+  void testContainsAll() {
     // Arrange
     COSArrayList<Object> objectList = new COSArrayList<>();
 
@@ -993,47 +446,69 @@ class COSArrayListDiffblueTest {
   }
 
   /**
-   * Test {@link COSArrayList#addAll(Collection)} with {@code c}.
-   * <p>
-   * Method under test: {@link COSArrayList#addAll(Collection)}
+   * Method under test: {@link COSArrayList#containsAll(Collection)}
    */
   @Test
-  @DisplayName("Test addAll(Collection) with 'c'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean COSArrayList.addAll(Collection)"})
-  void testAddAllWithC() {
+  void testContainsAll2() {
     // Arrange
     COSArrayList<Object> objectList = new COSArrayList<>();
 
     ArrayList<Object> c = new ArrayList<>();
-    COSObject cosObject = new COSObject(COSBoolean.FALSE, new COSObjectKey(1L, 1));
+    c.add("42");
 
-    c.add(cosObject);
-
-    // Act
-    objectList.addAll(c);
-
-    // Assert
-    assertEquals(1, c.size());
-    assertEquals(1, objectList.size());
-    assertSame(cosObject, objectList.get(0));
+    // Act and Assert
+    assertFalse(objectList.containsAll(c));
   }
 
   /**
-   * Test {@link COSArrayList#addAll(Collection)} with {@code c}.
-   * <ul>
-   *   <li>Given {@code 42}.</li>
-   *   <li>When {@link ArrayList#ArrayList()} add {@code 42}.</li>
-   *   <li>Then {@link COSArrayList#COSArrayList()} first is {@code 42}.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link COSArrayList#containsAll(Collection)}
+   */
+  @Test
+  void testContainsAll3() {
+    // Arrange
+    COSArrayList<Object> objectList = new COSArrayList<>();
+
+    ArrayList<Object> c = new ArrayList<>();
+    c.add("42");
+    c.add("42");
+
+    // Act and Assert
+    assertFalse(objectList.containsAll(c));
+  }
+
+  /**
+   * Method under test: {@link COSArrayList#addAll(int, Collection)}
+   */
+  @Test
+  void testAddAll() {
+    // Arrange
+    COSArrayList<Object> objectList = new COSArrayList<>();
+    objectList.add("42");
+
+    // Act and Assert
+    assertFalse(objectList.addAll(1, new ArrayList<>()));
+  }
+
+  /**
    * Method under test: {@link COSArrayList#addAll(Collection)}
    */
   @Test
-  @DisplayName("Test addAll(Collection) with 'c'; given '42'; when ArrayList() add '42'; then COSArrayList() first is '42'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean COSArrayList.addAll(Collection)"})
-  void testAddAllWithC_given42_whenArrayListAdd42_thenCOSArrayListFirstIs42() {
+  void testAddAll2() {
+    // Arrange
+    COSArrayList<Object> objectList = new COSArrayList<>();
+    ArrayList<Object> c = new ArrayList<>();
+
+    // Act and Assert
+    assertFalse(objectList.addAll(c));
+    assertTrue(c.isEmpty());
+    assertTrue(objectList.isEmpty());
+  }
+
+  /**
+   * Method under test: {@link COSArrayList#addAll(Collection)}
+   */
+  @Test
+  void testAddAll3() {
     // Arrange
     COSArrayList<Object> objectList = new COSArrayList<>();
 
@@ -1046,25 +521,15 @@ class COSArrayListDiffblueTest {
     // Assert
     assertEquals(1, objectList.size());
     assertEquals("42", objectList.get(0));
+    assertEquals(1, c.size());
     assertTrue(actualAddAllResult);
-    assertEquals(objectList, c);
   }
 
   /**
-   * Test {@link COSArrayList#addAll(Collection)} with {@code c}.
-   * <ul>
-   *   <li>Given {@code 42}.</li>
-   *   <li>When {@link ArrayList#ArrayList()} add {@code 42}.</li>
-   *   <li>Then {@link COSArrayList#COSArrayList()} size is two.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link COSArrayList#addAll(Collection)}
    */
   @Test
-  @DisplayName("Test addAll(Collection) with 'c'; given '42'; when ArrayList() add '42'; then COSArrayList() size is two")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean COSArrayList.addAll(Collection)"})
-  void testAddAllWithC_given42_whenArrayListAdd42_thenCOSArrayListSizeIsTwo() {
+  void testAddAll4() {
     // Arrange
     COSArrayList<Object> objectList = new COSArrayList<>();
 
@@ -1073,89 +538,21 @@ class COSArrayListDiffblueTest {
     c.add("42");
 
     // Act
-    objectList.addAll(c);
+    boolean actualAddAllResult = objectList.addAll(c);
 
     // Assert
     assertEquals(2, objectList.size());
     assertEquals("42", objectList.get(0));
     assertEquals("42", objectList.get(1));
+    assertTrue(actualAddAllResult);
+    assertEquals(objectList, c);
   }
 
   /**
-   * Test {@link COSArrayList#addAll(Collection)} with {@code c}.
-   * <ul>
-   *   <li>Given {@link COSArray#COSArray()}.</li>
-   *   <li>Then {@link COSArrayList#COSArrayList()} first is {@link COSArray#COSArray()}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link COSArrayList#addAll(Collection)}
    */
   @Test
-  @DisplayName("Test addAll(Collection) with 'c'; given COSArray(); then COSArrayList() first is COSArray()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean COSArrayList.addAll(Collection)"})
-  void testAddAllWithC_givenCOSArray_thenCOSArrayListFirstIsCOSArray() {
-    // Arrange
-    COSArrayList<Object> objectList = new COSArrayList<>();
-
-    ArrayList<Object> c = new ArrayList<>();
-    COSArray cosArray = new COSArray();
-    c.add(cosArray);
-
-    // Act
-    objectList.addAll(c);
-
-    // Assert
-    assertEquals(1, c.size());
-    assertEquals(1, objectList.size());
-    assertSame(cosArray, objectList.get(0));
-  }
-
-  /**
-   * Test {@link COSArrayList#addAll(Collection)} with {@code c}.
-   * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary()}.</li>
-   *   <li>Then {@link COSArrayList#COSArrayList()} first is {@link COSDictionary#COSDictionary()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link COSArrayList#addAll(Collection)}
-   */
-  @Test
-  @DisplayName("Test addAll(Collection) with 'c'; given COSDictionary(); then COSArrayList() first is COSDictionary()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean COSArrayList.addAll(Collection)"})
-  void testAddAllWithC_givenCOSDictionary_thenCOSArrayListFirstIsCOSDictionary() {
-    // Arrange
-    COSArrayList<Object> objectList = new COSArrayList<>();
-
-    ArrayList<Object> c = new ArrayList<>();
-    COSDictionary cosDictionary = new COSDictionary();
-    c.add(cosDictionary);
-
-    // Act
-    objectList.addAll(c);
-
-    // Assert
-    assertEquals(1, c.size());
-    assertEquals(1, objectList.size());
-    assertSame(cosDictionary, objectList.get(0));
-  }
-
-  /**
-   * Test {@link COSArrayList#addAll(Collection)} with {@code c}.
-   * <ul>
-   *   <li>Given {@link COSBoolean#FALSE}.</li>
-   *   <li>When {@link ArrayList#ArrayList()} add {@link COSBoolean#FALSE}.</li>
-   *   <li>Then return {@code true}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link COSArrayList#addAll(Collection)}
-   */
-  @Test
-  @DisplayName("Test addAll(Collection) with 'c'; given FALSE; when ArrayList() add FALSE; then return 'true'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean COSArrayList.addAll(Collection)"})
-  void testAddAllWithC_givenFalse_whenArrayListAddFalse_thenReturnTrue() {
+  void testAddAll5() {
     // Arrange
     COSArrayList<Object> objectList = new COSArrayList<>();
 
@@ -1166,174 +563,96 @@ class COSArrayListDiffblueTest {
     boolean actualAddAllResult = objectList.addAll(c);
 
     // Assert
+    assertEquals(1, c.size());
     assertEquals(1, objectList.size());
     assertTrue(actualAddAllResult);
-    assertEquals(objectList, c);
+    Object expectedGetResult = c.get(0);
+    assertSame(expectedGetResult, objectList.get(0));
   }
 
   /**
-   * Test {@link COSArrayList#addAll(Collection)} with {@code c}.
-   * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link COSArrayList#addAll(Collection)}
    */
   @Test
-  @DisplayName("Test addAll(Collection) with 'c'; when ArrayList(); then return 'false'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean COSArrayList.addAll(Collection)"})
-  void testAddAllWithC_whenArrayList_thenReturnFalse() {
+  void testAddAll6() {
     // Arrange
     COSArrayList<Object> objectList = new COSArrayList<>();
+
     ArrayList<Object> c = new ArrayList<>();
+    COSArray cosArray = new COSArray();
+    c.add(cosArray);
 
-    // Act and Assert
-    assertFalse(objectList.addAll(c));
-    assertTrue(objectList.isEmpty());
-    assertEquals(objectList, c);
+    // Act
+    boolean actualAddAllResult = objectList.addAll(c);
+
+    // Assert
+    assertEquals(1, c.size());
+    assertEquals(1, objectList.size());
+    assertTrue(actualAddAllResult);
+    assertSame(cosArray, objectList.get(0));
   }
 
   /**
-   * Test {@link COSArrayList#addAll(int, Collection)} with {@code index}, {@code c}.
-   * <ul>
-   *   <li>Given {@link COSArrayList#COSArrayList()} add {@code 42}.</li>
-   *   <li>When {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link COSArrayList#addAll(int, Collection)}
+   * Method under test: {@link COSArrayList#addAll(Collection)}
    */
   @Test
-  @DisplayName("Test addAll(int, Collection) with 'index', 'c'; given COSArrayList() add '42'; when ArrayList(); then return 'false'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean COSArrayList.addAll(int, Collection)"})
-  void testAddAllWithIndexC_givenCOSArrayListAdd42_whenArrayList_thenReturnFalse() {
+  void testAddAll7() {
     // Arrange
     COSArrayList<Object> objectList = new COSArrayList<>();
-    objectList.add("42");
 
-    // Act and Assert
-    assertFalse(objectList.addAll(1, new ArrayList<>()));
+    ArrayList<Object> c = new ArrayList<>();
+    COSDictionary cosDictionary = new COSDictionary();
+    c.add(cosDictionary);
+
+    // Act
+    boolean actualAddAllResult = objectList.addAll(c);
+
+    // Assert
+    assertEquals(1, c.size());
+    assertEquals(1, objectList.size());
+    assertTrue(actualAddAllResult);
+    assertSame(cosDictionary, objectList.get(0));
   }
 
   /**
-   * Test {@link COSArrayList#converterToCOSArray(List)}.
-   * <p>
-   * Method under test: {@link COSArrayList#converterToCOSArray(List)}
+   * Method under test: {@link COSArrayList#addAll(Collection)}
    */
   @Test
-  @DisplayName("Test converterToCOSArray(List)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"COSArray COSArrayList.converterToCOSArray(List)"})
-  void testConverterToCOSArray() {
+  void testAddAll8() {
     // Arrange
-    ArrayList<Object> cosObjectableList = new ArrayList<>();
+    COSArrayList<Object> objectList = new COSArrayList<>();
+
+    ArrayList<Object> c = new ArrayList<>();
     COSObject cosObject = new COSObject(COSBoolean.FALSE, new COSObjectKey(1L, 1));
 
-    cosObjectableList.add(cosObject);
-    cosObjectableList.add(2);
+    c.add(cosObject);
 
-    // Act and Assert
-    List<? extends COSBase> toListResult = COSArrayList.converterToCOSArray(cosObjectableList).toList();
-    assertEquals(2, toListResult.size());
-    assertSame(cosObject, toListResult.get(0));
+    // Act
+    boolean actualAddAllResult = objectList.addAll(c);
+
+    // Assert
+    assertEquals(1, c.size());
+    assertEquals(1, objectList.size());
+    assertTrue(actualAddAllResult);
+    assertSame(cosObject, objectList.get(0));
   }
 
   /**
-   * Test {@link COSArrayList#converterToCOSArray(List)}.
-   * <ul>
-   *   <li>Given {@code 42}.</li>
-   *   <li>Then return toList first toHexString is {@code 3432}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link COSArrayList#converterToCOSArray(List)}
    */
   @Test
-  @DisplayName("Test converterToCOSArray(List); given '42'; then return toList first toHexString is '3432'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"COSArray COSArrayList.converterToCOSArray(List)"})
-  void testConverterToCOSArray_given42_thenReturnToListFirstToHexStringIs3432() {
-    // Arrange
-    ArrayList<Object> cosObjectableList = new ArrayList<>();
-    cosObjectableList.add("42");
-    cosObjectableList.add(2);
-
-    // Act and Assert
-    List<? extends COSBase> toListResult = COSArrayList.converterToCOSArray(cosObjectableList).toList();
-    assertEquals(2, toListResult.size());
-    COSBase getResult = toListResult.get(0);
-    assertTrue(getResult instanceof COSString);
-    assertEquals("3432", ((COSString) getResult).toHexString());
-    assertEquals("42", ((COSString) getResult).getASCII());
-    assertEquals("42", ((COSString) getResult).getString());
-    assertArrayEquals(new byte[]{'4', '2'}, ((COSString) getResult).getBytes());
+  void testConverterToCOSArray() {
+    // Arrange, Act and Assert
+    assertTrue(COSArrayList.converterToCOSArray(new ArrayList<>()).toList().isEmpty());
+    assertNull(COSArrayList.converterToCOSArray(null));
+    assertTrue(COSArrayList.converterToCOSArray(new COSArrayList<>()).toList().isEmpty());
   }
 
   /**
-   * Test {@link COSArrayList#converterToCOSArray(List)}.
-   * <ul>
-   *   <li>Given {@code A}.</li>
-   *   <li>Then throw {@link IllegalArgumentException}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link COSArrayList#converterToCOSArray(List)}
    */
   @Test
-  @DisplayName("Test converterToCOSArray(List); given 'A'; then throw IllegalArgumentException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"COSArray COSArrayList.converterToCOSArray(List)"})
-  void testConverterToCOSArray_givenA_thenThrowIllegalArgumentException() {
-    // Arrange
-    ArrayList<Object> cosObjectableList = new ArrayList<>();
-    cosObjectableList.add((byte) 'A');
-    cosObjectableList.add(2);
-
-    // Act and Assert
-    assertThrows(IllegalArgumentException.class, () -> COSArrayList.converterToCOSArray(cosObjectableList));
-  }
-
-  /**
-   * Test {@link COSArrayList#converterToCOSArray(List)}.
-   * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary()}.</li>
-   *   <li>Then return toList first is {@link COSDictionary#COSDictionary()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link COSArrayList#converterToCOSArray(List)}
-   */
-  @Test
-  @DisplayName("Test converterToCOSArray(List); given COSDictionary(); then return toList first is COSDictionary()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"COSArray COSArrayList.converterToCOSArray(List)"})
-  void testConverterToCOSArray_givenCOSDictionary_thenReturnToListFirstIsCOSDictionary() {
-    // Arrange
-    ArrayList<Object> cosObjectableList = new ArrayList<>();
-    COSDictionary cosDictionary = new COSDictionary();
-    cosObjectableList.add(cosDictionary);
-    cosObjectableList.add(2);
-
-    // Act and Assert
-    List<? extends COSBase> toListResult = COSArrayList.converterToCOSArray(cosObjectableList).toList();
-    assertEquals(2, toListResult.size());
-    assertSame(cosDictionary, toListResult.get(0));
-  }
-
-  /**
-   * Test {@link COSArrayList#converterToCOSArray(List)}.
-   * <ul>
-   *   <li>Given {@code null}.</li>
-   *   <li>Then toList first return {@link COSNull}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link COSArrayList#converterToCOSArray(List)}
-   */
-  @Test
-  @DisplayName("Test converterToCOSArray(List); given 'null'; then toList first return COSNull")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"COSArray COSArrayList.converterToCOSArray(List)"})
-  void testConverterToCOSArray_givenNull_thenToListFirstReturnCOSNull() {
+  void testConverterToCOSArray2() {
     // Arrange
     ArrayList<?> cosObjectableList = new ArrayList<>();
     cosObjectableList.add(null);
@@ -1348,77 +667,23 @@ class COSArrayListDiffblueTest {
   }
 
   /**
-   * Test {@link COSArrayList#converterToCOSArray(List)}.
-   * <ul>
-   *   <li>Given two.</li>
-   *   <li>Then toList first return {@link COSInteger}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link COSArrayList#converterToCOSArray(List)}
    */
   @Test
-  @DisplayName("Test converterToCOSArray(List); given two; then toList first return COSInteger")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"COSArray COSArrayList.converterToCOSArray(List)"})
-  void testConverterToCOSArray_givenTwo_thenToListFirstReturnCOSInteger() {
+  void testConverterToCOSArray3() {
     // Arrange
     ArrayList<Object> cosObjectableList = new ArrayList<>();
+    cosObjectableList.add((byte) 'A');
     cosObjectableList.add(2);
 
     // Act and Assert
-    List<? extends COSBase> toListResult = COSArrayList.converterToCOSArray(cosObjectableList).toList();
-    assertEquals(1, toListResult.size());
-    COSBase getResult = toListResult.get(0);
-    assertTrue(getResult instanceof COSInteger);
-    assertNull(getResult.getKey());
-    assertTrue(((COSInteger) getResult).isValid());
+    assertThrows(IllegalArgumentException.class, () -> COSArrayList.converterToCOSArray(cosObjectableList));
   }
 
   /**
-   * Test {@link COSArrayList#converterToCOSArray(List)}.
-   * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then return toList Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link COSArrayList#converterToCOSArray(List)}
-   */
-  @Test
-  @DisplayName("Test converterToCOSArray(List); when ArrayList(); then return toList Empty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"COSArray COSArrayList.converterToCOSArray(List)"})
-  void testConverterToCOSArray_whenArrayList_thenReturnToListEmpty() {
-    // Arrange, Act and Assert
-    assertTrue(COSArrayList.converterToCOSArray(new ArrayList<>()).toList().isEmpty());
-  }
-
-  /**
-   * Test {@link COSArrayList#converterToCOSArray(List)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link COSArrayList#converterToCOSArray(List)}
-   */
-  @Test
-  @DisplayName("Test converterToCOSArray(List); when 'null'; then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"COSArray COSArrayList.converterToCOSArray(List)"})
-  void testConverterToCOSArray_whenNull_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull(COSArrayList.converterToCOSArray(null));
-  }
-
-  /**
-   * Test {@link COSArrayList#removeAll(Collection)}.
-   * <p>
    * Method under test: {@link COSArrayList#removeAll(Collection)}
    */
   @Test
-  @DisplayName("Test removeAll(Collection)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean COSArrayList.removeAll(Collection)"})
   void testRemoveAll() {
     // Arrange
     COSArrayList<Object> objectList = new COSArrayList<>();
@@ -1428,19 +693,25 @@ class COSArrayListDiffblueTest {
   }
 
   /**
-   * Test {@link COSArrayList#retainAll(Collection)}.
-   * <ul>
-   *   <li>Given {@link COSArrayList#COSArrayList()} add {@code 42}.</li>
-   *   <li>Then return {@code true}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link COSArrayList#retainAll(Collection)}
    */
   @Test
-  @DisplayName("Test retainAll(Collection); given COSArrayList() add '42'; then return 'true'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean COSArrayList.retainAll(Collection)"})
-  void testRetainAll_givenCOSArrayListAdd42_thenReturnTrue() {
+  void testRetainAll() {
+    // Arrange
+    COSArrayList<Object> objectList = new COSArrayList<>();
+    ArrayList<Object> c = new ArrayList<>();
+
+    // Act and Assert
+    assertFalse(objectList.retainAll(c));
+    assertTrue(c.isEmpty());
+    assertTrue(objectList.isEmpty());
+  }
+
+  /**
+   * Method under test: {@link COSArrayList#retainAll(Collection)}
+   */
+  @Test
+  void testRetainAll2() {
     // Arrange
     COSArrayList<Object> objectList = new COSArrayList<>();
     objectList.add("42");
@@ -1450,42 +721,12 @@ class COSArrayListDiffblueTest {
     boolean actualRetainAllResult = objectList.retainAll(c);
 
     // Assert
+    assertTrue(c.isEmpty());
     assertTrue(objectList.isEmpty());
     assertTrue(actualRetainAllResult);
-    assertEquals(objectList, c);
   }
 
   /**
-   * Test {@link COSArrayList#retainAll(Collection)}.
-   * <ul>
-   *   <li>Given {@link COSArrayList#COSArrayList()}.</li>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link COSArrayList#retainAll(Collection)}
-   */
-  @Test
-  @DisplayName("Test retainAll(Collection); given COSArrayList(); then return 'false'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean COSArrayList.retainAll(Collection)"})
-  void testRetainAll_givenCOSArrayList_thenReturnFalse() {
-    // Arrange
-    COSArrayList<Object> objectList = new COSArrayList<>();
-    ArrayList<Object> c = new ArrayList<>();
-
-    // Act and Assert
-    assertFalse(objectList.retainAll(c));
-    assertTrue(objectList.isEmpty());
-    assertEquals(objectList, c);
-  }
-
-  /**
-   * Test {@link COSArrayList#equals(Object)}, and {@link COSArrayList#hashCode()}.
-   * <ul>
-   *   <li>When other is equal.</li>
-   *   <li>Then return equal.</li>
-   * </ul>
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link COSArrayList#equals(Object)}
@@ -1493,9 +734,6 @@ class COSArrayListDiffblueTest {
    * </ul>
    */
   @Test
-  @DisplayName("Test equals(Object), and hashCode(); when other is equal; then return equal")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean COSArrayList.equals(Object)", "int COSArrayList.hashCode()"})
   void testEqualsAndHashCode_whenOtherIsEqual_thenReturnEqual() {
     // Arrange
     COSArrayList<Object> objectList = new COSArrayList<>();
@@ -1508,12 +746,6 @@ class COSArrayListDiffblueTest {
   }
 
   /**
-   * Test {@link COSArrayList#equals(Object)}, and {@link COSArrayList#hashCode()}.
-   * <ul>
-   *   <li>When other is same.</li>
-   *   <li>Then return equal.</li>
-   * </ul>
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link COSArrayList#equals(Object)}
@@ -1521,9 +753,6 @@ class COSArrayListDiffblueTest {
    * </ul>
    */
   @Test
-  @DisplayName("Test equals(Object), and hashCode(); when other is same; then return equal")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean COSArrayList.equals(Object)", "int COSArrayList.hashCode()"})
   void testEqualsAndHashCode_whenOtherIsSame_thenReturnEqual() {
     // Arrange
     COSArrayList<Object> objectList = new COSArrayList<>();
@@ -1535,83 +764,10 @@ class COSArrayListDiffblueTest {
   }
 
   /**
-   * Test {@link COSArrayList#equals(Object)}.
-   * <ul>
-   *   <li>When other is different.</li>
-   *   <li>Then return not equal.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link COSArrayList#equals(Object)}
-   */
-  @Test
-  @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean COSArrayList.equals(Object)", "int COSArrayList.hashCode()"})
-  void testEquals_whenOtherIsDifferent_thenReturnNotEqual() {
-    // Arrange
-    COSArrayList<Object> objectList = new COSArrayList<>();
-    objectList.add("42");
-
-    // Act and Assert
-    assertNotEquals(objectList, new COSArrayList<>());
-  }
-
-  /**
-   * Test {@link COSArrayList#equals(Object)}.
-   * <ul>
-   *   <li>When other is {@code null}.</li>
-   *   <li>Then return not equal.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link COSArrayList#equals(Object)}
-   */
-  @Test
-  @DisplayName("Test equals(Object); when other is 'null'; then return not equal")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean COSArrayList.equals(Object)", "int COSArrayList.hashCode()"})
-  void testEquals_whenOtherIsNull_thenReturnNotEqual() {
-    // Arrange
-    COSArrayList<Object> objectList = new COSArrayList<>();
-
-    // Act and Assert
-    assertNotEquals(objectList, null);
-  }
-
-  /**
-   * Test {@link COSArrayList#equals(Object)}.
-   * <ul>
-   *   <li>When other is wrong type.</li>
-   *   <li>Then return not equal.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link COSArrayList#equals(Object)}
-   */
-  @Test
-  @DisplayName("Test equals(Object); when other is wrong type; then return not equal")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean COSArrayList.equals(Object)", "int COSArrayList.hashCode()"})
-  void testEquals_whenOtherIsWrongType_thenReturnNotEqual() {
-    // Arrange
-    COSArrayList<Object> objectList = new COSArrayList<>();
-
-    // Act and Assert
-    assertNotEquals(objectList, "Different type to COSArrayList");
-  }
-
-  /**
-   * Test {@link COSArrayList#get(int)}.
-   * <ul>
-   *   <li>Given {@link COSArrayList#COSArrayList()} add {@code 42}.</li>
-   *   <li>Then return {@code 42}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link COSArrayList#get(int)}
    */
   @Test
-  @DisplayName("Test get(int); given COSArrayList() add '42'; then return '42'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Object COSArrayList.get(int)"})
-  void testGet_givenCOSArrayListAdd42_thenReturn42() {
+  void testGet() {
     // Arrange
     COSArrayList<Object> objectList = new COSArrayList<>();
     objectList.add("42");
@@ -1622,8 +778,43 @@ class COSArrayListDiffblueTest {
   }
 
   /**
-   * Test getters and setters.
-   * <p>
+   * Method under test: {@link COSArrayList#equals(Object)}
+   */
+  @Test
+  void testEquals_whenOtherIsDifferent_thenReturnNotEqual() {
+    // Arrange
+    COSArrayList<Object> objectList = new COSArrayList<>();
+    objectList.add("42");
+
+    // Act and Assert
+    assertNotEquals(objectList, new COSArrayList<>());
+  }
+
+  /**
+   * Method under test: {@link COSArrayList#equals(Object)}
+   */
+  @Test
+  void testEquals_whenOtherIsNull_thenReturnNotEqual() {
+    // Arrange
+    COSArrayList<Object> objectList = new COSArrayList<>();
+
+    // Act and Assert
+    assertNotEquals(objectList, null);
+  }
+
+  /**
+   * Method under test: {@link COSArrayList#equals(Object)}
+   */
+  @Test
+  void testEquals_whenOtherIsWrongType_thenReturnNotEqual() {
+    // Arrange
+    COSArrayList<Object> objectList = new COSArrayList<>();
+
+    // Act and Assert
+    assertNotEquals(objectList, "Different type to COSArrayList");
+  }
+
+  /**
    * Methods under test:
    * <ul>
    *   <li>{@link COSArrayList#toString()}
@@ -1631,9 +822,6 @@ class COSArrayListDiffblueTest {
    * </ul>
    */
   @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"COSArray COSArrayList.toList()", "String COSArrayList.toString()"})
   void testGettersAndSetters() {
     // Arrange
     COSArrayList<Object> objectList = new COSArrayList<>();
@@ -1644,5 +832,184 @@ class COSArrayListDiffblueTest {
     // Assert
     assertEquals("COSArrayList{COSArray{[]}}", actualToStringResult);
     assertTrue(objectList.toList().toList().isEmpty());
+  }
+
+  /**
+   * Method under test: {@link COSArrayList#COSArrayList()}
+   */
+  @Test
+  void testNewCOSArrayList() {
+    // Arrange and Act
+    COSArrayList<Object> actualObjectList = new COSArrayList<>();
+
+    // Assert
+    assertTrue(actualObjectList.isEmpty());
+  }
+
+  /**
+   * Method under test:
+   * {@link COSArrayList#COSArrayList(Object, COSBase, COSDictionary, COSName)}
+   */
+  @Test
+  void testNewCOSArrayList2() {
+    // Arrange and Act
+    COSArrayList<Object> actualObjectList = new COSArrayList<>("Actual Object", COSBoolean.FALSE, new COSDictionary(),
+        COSName.A);
+
+    // Assert
+    assertEquals(1, actualObjectList.size());
+    assertEquals("Actual Object", actualObjectList.get(0));
+  }
+
+  /**
+   * Method under test:
+   * {@link COSArrayList#COSArrayList(Object, COSBase, COSDictionary, COSName)}
+   */
+  @Test
+  void testNewCOSArrayList3() {
+    // Arrange
+    COSDictionary item = new COSDictionary();
+
+    // Act
+    COSArrayList<Object> actualObjectList = new COSArrayList<>("Actual Object", item, new COSDictionary(), COSName.A);
+
+    // Assert
+    assertEquals(1, actualObjectList.size());
+    assertEquals("Actual Object", actualObjectList.get(0));
+  }
+
+  /**
+   * Method under test:
+   * {@link COSArrayList#COSArrayList(Object, COSBase, COSDictionary, COSName)}
+   */
+  @Test
+  void testNewCOSArrayList4() {
+    // Arrange
+    COSArray item = new COSArray();
+
+    // Act
+    COSArrayList<Object> actualObjectList = new COSArrayList<>("Actual Object", item, new COSDictionary(), COSName.A);
+
+    // Assert
+    assertEquals(1, actualObjectList.size());
+    assertEquals("Actual Object", actualObjectList.get(0));
+  }
+
+  /**
+   * Method under test:
+   * {@link COSArrayList#COSArrayList(Object, COSBase, COSDictionary, COSName)}
+   */
+  @Test
+  void testNewCOSArrayList5() {
+    // Arrange
+    COSObject item = new COSObject(COSBoolean.FALSE, new COSObjectKey(1L, 1));
+
+    // Act
+    COSArrayList<Object> actualObjectList = new COSArrayList<>("Actual Object", item, new COSDictionary(), COSName.A);
+
+    // Assert
+    assertEquals(1, actualObjectList.size());
+    assertEquals("Actual Object", actualObjectList.get(0));
+  }
+
+  /**
+   * Method under test:
+   * {@link COSArrayList#COSArrayList(Object, COSBase, COSDictionary, COSName)}
+   */
+  @Test
+  void testNewCOSArrayList6() {
+    // Arrange
+    COSObjectable object = mock(COSObjectable.class);
+    when(object.getCOSObject()).thenReturn(COSBoolean.FALSE);
+
+    COSArray item = new COSArray();
+    item.add(object);
+
+    // Act
+    COSArrayList<Object> actualObjectList = new COSArrayList<>("Actual Object", item, new COSDictionary(), COSName.A);
+
+    // Assert
+    verify(object).getCOSObject();
+    assertEquals(1, actualObjectList.size());
+    assertEquals("Actual Object", actualObjectList.get(0));
+  }
+
+  /**
+   * Method under test: {@link COSArrayList#COSArrayList(List, COSArray)}
+   */
+  @Test
+  void testNewCOSArrayList7() {
+    // Arrange
+    ArrayList<Object> actualList = new ArrayList<>();
+
+    // Act
+    COSArrayList<Object> actualObjectList = new COSArrayList<>(actualList, new COSArray());
+
+    // Assert
+    assertTrue(actualObjectList.isEmpty());
+  }
+
+  /**
+   * Method under test: {@link COSArrayList#COSArrayList(List, COSArray)}
+   */
+  @Test
+  void testNewCOSArrayList8() {
+    // Arrange
+    ArrayList<Object> actualList = new ArrayList<>();
+    actualList.add("42");
+
+    // Act
+    COSArrayList<Object> actualObjectList = new COSArrayList<>(actualList, new COSArray());
+
+    // Assert
+    assertEquals(1, actualObjectList.size());
+    assertEquals("42", actualObjectList.get(0));
+  }
+
+  /**
+   * Method under test: {@link COSArrayList#COSArrayList(List, COSArray)}
+   */
+  @Test
+  void testNewCOSArrayList9() {
+    // Arrange
+    ArrayList<Object> actualList = new ArrayList<>();
+    actualList.add("42");
+    actualList.add("42");
+
+    // Act and Assert
+    assertEquals(actualList, new COSArrayList<>(actualList, new COSArray()));
+  }
+
+  /**
+   * Method under test: {@link COSArrayList#COSArrayList(List, COSArray)}
+   */
+  @Test
+  void testNewCOSArrayList10() {
+    // Arrange
+    ArrayList<Object> actualList = new ArrayList<>();
+    COSObjectable object = mock(COSObjectable.class);
+    when(object.getCOSObject()).thenReturn(COSBoolean.FALSE);
+
+    COSArray cosArray = new COSArray();
+    cosArray.add(object);
+
+    // Act
+    COSArrayList<Object> actualObjectList = new COSArrayList<>(actualList, cosArray);
+
+    // Assert
+    verify(object).getCOSObject();
+    assertTrue(actualObjectList.isEmpty());
+  }
+
+  /**
+   * Method under test: {@link COSArrayList#COSArrayList(COSDictionary, COSName)}
+   */
+  @Test
+  void testNewCOSArrayList11() {
+    // Arrange and Act
+    COSArrayList<Object> actualObjectList = new COSArrayList<>(new COSDictionary(), COSName.A);
+
+    // Assert
+    assertTrue(actualObjectList.isEmpty());
   }
 }

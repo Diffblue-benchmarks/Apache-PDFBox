@@ -5,113 +5,19 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.github.jaiimageio.impl.common.BogusColorSpace;
 import java.awt.image.BufferedImage;
 import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.cos.COSIncrement;
 import org.apache.pdfbox.cos.COSUpdateState;
 import org.apache.pdfbox.pdmodel.graphics.color.PDJPXColorSpace;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class DecodeResultDiffblueTest {
   /**
-   * Test getters and setters.
-   * <ul>
-   *   <li>When {@link BogusColorSpace#BogusColorSpace(int)} with numComponents is ten.</li>
-   * </ul>
-   * <p>
-   * Methods under test:
-   * <ul>
-   *   <li>{@link DecodeResult#DecodeResult(COSDictionary, PDJPXColorSpace)}
-   *   <li>{@link DecodeResult#setColorSpace(PDJPXColorSpace)}
-   *   <li>{@link DecodeResult#setJPXSMask(BufferedImage)}
-   *   <li>{@link DecodeResult#getJPXColorSpace()}
-   *   <li>{@link DecodeResult#getJPXSMask()}
-   *   <li>{@link DecodeResult#getParameters()}
-   * </ul>
-   */
-  @Test
-  @DisplayName("Test getters and setters; when BogusColorSpace(int) with numComponents is ten")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void DecodeResult.<init>(COSDictionary)",
-      "void DecodeResult.<init>(COSDictionary, PDJPXColorSpace)", "PDJPXColorSpace DecodeResult.getJPXColorSpace()",
-      "BufferedImage DecodeResult.getJPXSMask()", "COSDictionary DecodeResult.getParameters()",
-      "void DecodeResult.setColorSpace(PDJPXColorSpace)", "void DecodeResult.setJPXSMask(BufferedImage)"})
-  void testGettersAndSetters_whenBogusColorSpaceWithNumComponentsIsTen() {
-    // Arrange
-    COSDictionary parameters = new COSDictionary();
-
-    // Act
-    DecodeResult actualDecodeResult = new DecodeResult(parameters, new PDJPXColorSpace(new BogusColorSpace(10)));
-    PDJPXColorSpace colorSpace = new PDJPXColorSpace(new BogusColorSpace(10));
-    actualDecodeResult.setColorSpace(colorSpace);
-    BufferedImage smask = new BufferedImage(1, 1, 1);
-
-    actualDecodeResult.setJPXSMask(smask);
-    PDJPXColorSpace actualJPXColorSpace = actualDecodeResult.getJPXColorSpace();
-    BufferedImage actualJPXSMask = actualDecodeResult.getJPXSMask();
-
-    // Assert
-    assertSame(smask, actualJPXSMask);
-    assertSame(parameters, actualDecodeResult.getParameters());
-    assertSame(colorSpace, actualJPXColorSpace);
-  }
-
-  /**
-   * Test getters and setters.
-   * <ul>
-   *   <li>When {@link COSDictionary#COSDictionary()}.</li>
-   * </ul>
-   * <p>
-   * Methods under test:
-   * <ul>
-   *   <li>{@link DecodeResult#DecodeResult(COSDictionary)}
-   *   <li>{@link DecodeResult#setColorSpace(PDJPXColorSpace)}
-   *   <li>{@link DecodeResult#setJPXSMask(BufferedImage)}
-   *   <li>{@link DecodeResult#getJPXColorSpace()}
-   *   <li>{@link DecodeResult#getJPXSMask()}
-   *   <li>{@link DecodeResult#getParameters()}
-   * </ul>
-   */
-  @Test
-  @DisplayName("Test getters and setters; when COSDictionary()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void DecodeResult.<init>(COSDictionary)",
-      "void DecodeResult.<init>(COSDictionary, PDJPXColorSpace)", "PDJPXColorSpace DecodeResult.getJPXColorSpace()",
-      "BufferedImage DecodeResult.getJPXSMask()", "COSDictionary DecodeResult.getParameters()",
-      "void DecodeResult.setColorSpace(PDJPXColorSpace)", "void DecodeResult.setJPXSMask(BufferedImage)"})
-  void testGettersAndSetters_whenCOSDictionary() {
-    // Arrange
-    COSDictionary parameters = new COSDictionary();
-
-    // Act
-    DecodeResult actualDecodeResult = new DecodeResult(parameters);
-    PDJPXColorSpace colorSpace = new PDJPXColorSpace(new BogusColorSpace(10));
-    actualDecodeResult.setColorSpace(colorSpace);
-    BufferedImage smask = new BufferedImage(1, 1, 1);
-
-    actualDecodeResult.setJPXSMask(smask);
-    PDJPXColorSpace actualJPXColorSpace = actualDecodeResult.getJPXColorSpace();
-    BufferedImage actualJPXSMask = actualDecodeResult.getJPXSMask();
-
-    // Assert
-    assertSame(smask, actualJPXSMask);
-    assertSame(parameters, actualDecodeResult.getParameters());
-    assertSame(colorSpace, actualJPXColorSpace);
-  }
-
-  /**
-   * Test {@link DecodeResult#createDefault()}.
-   * <p>
    * Method under test: {@link DecodeResult#createDefault()}
    */
   @Test
-  @DisplayName("Test createDefault()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"DecodeResult DecodeResult.createDefault()"})
   void testCreateDefault() {
     // Arrange and Act
     DecodeResult actualCreateDefaultResult = DecodeResult.createDefault();
@@ -131,5 +37,69 @@ class DecodeResultDiffblueTest {
     assertFalse(updateState.isUpdated());
     assertTrue(parameters.getValues().isEmpty());
     assertTrue(toIncrementResult.getObjects().isEmpty());
+  }
+
+  /**
+   * Methods under test:
+   * <ul>
+   *   <li>{@link DecodeResult#DecodeResult(COSDictionary)}
+   *   <li>{@link DecodeResult#setColorSpace(PDJPXColorSpace)}
+   *   <li>{@link DecodeResult#setJPXSMask(BufferedImage)}
+   *   <li>{@link DecodeResult#getJPXColorSpace()}
+   *   <li>{@link DecodeResult#getJPXSMask()}
+   *   <li>{@link DecodeResult#getParameters()}
+   * </ul>
+   */
+  @Test
+  void testGettersAndSetters() {
+    // Arrange
+    COSDictionary parameters = new COSDictionary();
+
+    // Act
+    DecodeResult actualDecodeResult = new DecodeResult(parameters);
+    PDJPXColorSpace colorSpace = new PDJPXColorSpace(new BogusColorSpace(10));
+    actualDecodeResult.setColorSpace(colorSpace);
+    BufferedImage smask = new BufferedImage(1, 1, 1);
+
+    actualDecodeResult.setJPXSMask(smask);
+    PDJPXColorSpace actualJPXColorSpace = actualDecodeResult.getJPXColorSpace();
+    BufferedImage actualJPXSMask = actualDecodeResult.getJPXSMask();
+
+    // Assert that nothing has changed
+    assertSame(smask, actualJPXSMask);
+    assertSame(parameters, actualDecodeResult.getParameters());
+    assertSame(colorSpace, actualJPXColorSpace);
+  }
+
+  /**
+   * Methods under test:
+   * <ul>
+   *   <li>{@link DecodeResult#DecodeResult(COSDictionary, PDJPXColorSpace)}
+   *   <li>{@link DecodeResult#setColorSpace(PDJPXColorSpace)}
+   *   <li>{@link DecodeResult#setJPXSMask(BufferedImage)}
+   *   <li>{@link DecodeResult#getJPXColorSpace()}
+   *   <li>{@link DecodeResult#getJPXSMask()}
+   *   <li>{@link DecodeResult#getParameters()}
+   * </ul>
+   */
+  @Test
+  void testGettersAndSetters2() {
+    // Arrange
+    COSDictionary parameters = new COSDictionary();
+
+    // Act
+    DecodeResult actualDecodeResult = new DecodeResult(parameters, new PDJPXColorSpace(new BogusColorSpace(10)));
+    PDJPXColorSpace colorSpace = new PDJPXColorSpace(new BogusColorSpace(10));
+    actualDecodeResult.setColorSpace(colorSpace);
+    BufferedImage smask = new BufferedImage(1, 1, 1);
+
+    actualDecodeResult.setJPXSMask(smask);
+    PDJPXColorSpace actualJPXColorSpace = actualDecodeResult.getJPXColorSpace();
+    BufferedImage actualJPXSMask = actualDecodeResult.getJPXSMask();
+
+    // Assert that nothing has changed
+    assertSame(smask, actualJPXSMask);
+    assertSame(parameters, actualDecodeResult.getParameters());
+    assertSame(colorSpace, actualJPXColorSpace);
   }
 }

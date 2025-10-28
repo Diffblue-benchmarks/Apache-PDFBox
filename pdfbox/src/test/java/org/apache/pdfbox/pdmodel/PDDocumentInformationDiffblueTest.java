@@ -6,70 +6,19 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Set;
 import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.cos.COSIncrement;
 import org.apache.pdfbox.cos.COSUpdateState;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class PDDocumentInformationDiffblueTest {
   /**
-   * Test {@link PDDocumentInformation#PDDocumentInformation(COSDictionary)}.
-   * <p>
-   * Method under test: {@link PDDocumentInformation#PDDocumentInformation(COSDictionary)}
-   */
-  @Test
-  @DisplayName("Test new PDDocumentInformation(COSDictionary)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDDocumentInformation.<init>(COSDictionary)"})
-  void testNewPDDocumentInformation() {
-    // Arrange
-    COSDictionary dic = new COSDictionary();
-
-    // Act and Assert
-    assertSame(dic, (new PDDocumentInformation(dic)).getCOSObject());
-  }
-
-  /**
-   * Test {@link PDDocumentInformation#PDDocumentInformation()}.
-   * <p>
-   * Method under test: {@link PDDocumentInformation#PDDocumentInformation()}
-   */
-  @Test
-  @DisplayName("Test new PDDocumentInformation()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDDocumentInformation.<init>()"})
-  void testNewPDDocumentInformation2() {
-    // Arrange and Act
-    PDDocumentInformation actualPdDocumentInformation = new PDDocumentInformation();
-
-    // Assert
-    assertNull(actualPdDocumentInformation.getAuthor());
-    assertNull(actualPdDocumentInformation.getCreator());
-    assertNull(actualPdDocumentInformation.getKeywords());
-    assertNull(actualPdDocumentInformation.getProducer());
-    assertNull(actualPdDocumentInformation.getSubject());
-    assertNull(actualPdDocumentInformation.getTitle());
-    assertNull(actualPdDocumentInformation.getTrapped());
-    assertNull(actualPdDocumentInformation.getCreationDate());
-    assertNull(actualPdDocumentInformation.getModificationDate());
-    assertTrue(actualPdDocumentInformation.getMetadataKeys().isEmpty());
-  }
-
-  /**
-   * Test {@link PDDocumentInformation#getCOSObject()}.
-   * <p>
    * Method under test: {@link PDDocumentInformation#getCOSObject()}
    */
   @Test
-  @DisplayName("Test getCOSObject()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"COSDictionary PDDocumentInformation.getCOSObject()"})
   void testGetCOSObject() {
     // Arrange and Act
     COSDictionary actualCOSObject = (new PDDocumentInformation()).getCOSObject();
@@ -89,54 +38,30 @@ class PDDocumentInformationDiffblueTest {
   }
 
   /**
-   * Test {@link PDDocumentInformation#getPropertyStringValue(String)}.
-   * <ul>
-   *   <li>Given {@link PDDocumentInformation#PDDocumentInformation(COSDictionary)} with dic is {@link COSDictionary#COSDictionary()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentInformation#getPropertyStringValue(String)}
+   * Method under test:
+   * {@link PDDocumentInformation#getPropertyStringValue(String)}
    */
   @Test
-  @DisplayName("Test getPropertyStringValue(String); given PDDocumentInformation(COSDictionary) with dic is COSDictionary()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"java.lang.Object PDDocumentInformation.getPropertyStringValue(String)"})
-  void testGetPropertyStringValue_givenPDDocumentInformationWithDicIsCOSDictionary() {
+  void testGetPropertyStringValue() {
     // Arrange, Act and Assert
+    assertNull((new PDDocumentInformation()).getPropertyStringValue("Property Key"));
     assertNull((new PDDocumentInformation(new COSDictionary())).getPropertyStringValue("Property Key"));
   }
 
   /**
-   * Test {@link PDDocumentInformation#getPropertyStringValue(String)}.
-   * <ul>
-   *   <li>Given {@link PDDocumentInformation#PDDocumentInformation()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentInformation#getPropertyStringValue(String)}
-   */
-  @Test
-  @DisplayName("Test getPropertyStringValue(String); given PDDocumentInformation(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"java.lang.Object PDDocumentInformation.getPropertyStringValue(String)"})
-  void testGetPropertyStringValue_givenPDDocumentInformation_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull((new PDDocumentInformation()).getPropertyStringValue("Property Key"));
-  }
-
-  /**
-   * Test {@link PDDocumentInformation#getTitle()}.
-   * <ul>
-   *   <li>Given {@link PDDocumentInformation#PDDocumentInformation()} Title is {@code Dr}.</li>
-   *   <li>Then return {@code Dr}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDDocumentInformation#getTitle()}
    */
   @Test
-  @DisplayName("Test getTitle(); given PDDocumentInformation() Title is 'Dr'; then return 'Dr'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDDocumentInformation.getTitle()"})
-  void testGetTitle_givenPDDocumentInformationTitleIsDr_thenReturnDr() {
+  void testGetTitle() {
+    // Arrange, Act and Assert
+    assertNull((new PDDocumentInformation()).getTitle());
+  }
+
+  /**
+   * Method under test: {@link PDDocumentInformation#getTitle()}
+   */
+  @Test
+  void testGetTitle2() {
     // Arrange
     PDDocumentInformation pdDocumentInformation = new PDDocumentInformation();
     pdDocumentInformation.setTitle("Dr");
@@ -146,19 +71,10 @@ class PDDocumentInformationDiffblueTest {
   }
 
   /**
-   * Test {@link PDDocumentInformation#getTitle()}.
-   * <ul>
-   *   <li>Given {@link PDDocumentInformation#PDDocumentInformation()} Title is empty string.</li>
-   *   <li>Then return empty string.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDDocumentInformation#getTitle()}
    */
   @Test
-  @DisplayName("Test getTitle(); given PDDocumentInformation() Title is empty string; then return empty string")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDDocumentInformation.getTitle()"})
-  void testGetTitle_givenPDDocumentInformationTitleIsEmptyString_thenReturnEmptyString() {
+  void testGetTitle3() {
     // Arrange
     PDDocumentInformation pdDocumentInformation = new PDDocumentInformation();
     pdDocumentInformation.setTitle("");
@@ -168,37 +84,10 @@ class PDDocumentInformationDiffblueTest {
   }
 
   /**
-   * Test {@link PDDocumentInformation#getTitle()}.
-   * <ul>
-   *   <li>Given {@link PDDocumentInformation#PDDocumentInformation()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentInformation#getTitle()}
-   */
-  @Test
-  @DisplayName("Test getTitle(); given PDDocumentInformation(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDDocumentInformation.getTitle()"})
-  void testGetTitle_givenPDDocumentInformation_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull((new PDDocumentInformation()).getTitle());
-  }
-
-  /**
-   * Test {@link PDDocumentInformation#setTitle(String)}.
-   * <ul>
-   *   <li>Given {@link PDDocumentInformation#PDDocumentInformation()}.</li>
-   *   <li>Then {@link PDDocumentInformation#PDDocumentInformation()} Title is {@code Dr}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDDocumentInformation#setTitle(String)}
    */
   @Test
-  @DisplayName("Test setTitle(String); given PDDocumentInformation(); then PDDocumentInformation() Title is 'Dr'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDDocumentInformation.setTitle(String)"})
-  void testSetTitle_givenPDDocumentInformation_thenPDDocumentInformationTitleIsDr() {
+  void testSetTitle() {
     // Arrange
     PDDocumentInformation pdDocumentInformation = new PDDocumentInformation();
 
@@ -216,19 +105,19 @@ class PDDocumentInformationDiffblueTest {
   }
 
   /**
-   * Test {@link PDDocumentInformation#getAuthor()}.
-   * <ul>
-   *   <li>Given {@link PDDocumentInformation#PDDocumentInformation()} Author is {@code JaneDoe}.</li>
-   *   <li>Then return {@code JaneDoe}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDDocumentInformation#getAuthor()}
    */
   @Test
-  @DisplayName("Test getAuthor(); given PDDocumentInformation() Author is 'JaneDoe'; then return 'JaneDoe'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDDocumentInformation.getAuthor()"})
-  void testGetAuthor_givenPDDocumentInformationAuthorIsJaneDoe_thenReturnJaneDoe() {
+  void testGetAuthor() {
+    // Arrange, Act and Assert
+    assertNull((new PDDocumentInformation()).getAuthor());
+  }
+
+  /**
+   * Method under test: {@link PDDocumentInformation#getAuthor()}
+   */
+  @Test
+  void testGetAuthor2() {
     // Arrange
     PDDocumentInformation pdDocumentInformation = new PDDocumentInformation();
     pdDocumentInformation.setAuthor("JaneDoe");
@@ -238,36 +127,10 @@ class PDDocumentInformationDiffblueTest {
   }
 
   /**
-   * Test {@link PDDocumentInformation#getAuthor()}.
-   * <ul>
-   *   <li>Given {@link PDDocumentInformation#PDDocumentInformation()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDDocumentInformation#getAuthor()}
    */
   @Test
-  @DisplayName("Test getAuthor(); given PDDocumentInformation(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDDocumentInformation.getAuthor()"})
-  void testGetAuthor_givenPDDocumentInformation_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull((new PDDocumentInformation()).getAuthor());
-  }
-
-  /**
-   * Test {@link PDDocumentInformation#getAuthor()}.
-   * <ul>
-   *   <li>Then return empty string.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentInformation#getAuthor()}
-   */
-  @Test
-  @DisplayName("Test getAuthor(); then return empty string")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDDocumentInformation.getAuthor()"})
-  void testGetAuthor_thenReturnEmptyString() {
+  void testGetAuthor3() {
     // Arrange
     PDDocumentInformation pdDocumentInformation = new PDDocumentInformation();
     pdDocumentInformation.setAuthor("");
@@ -277,18 +140,10 @@ class PDDocumentInformationDiffblueTest {
   }
 
   /**
-   * Test {@link PDDocumentInformation#setAuthor(String)}.
-   * <ul>
-   *   <li>Then {@link PDDocumentInformation#PDDocumentInformation()} Author is {@code JaneDoe}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDDocumentInformation#setAuthor(String)}
    */
   @Test
-  @DisplayName("Test setAuthor(String); then PDDocumentInformation() Author is 'JaneDoe'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDDocumentInformation.setAuthor(String)"})
-  void testSetAuthor_thenPDDocumentInformationAuthorIsJaneDoe() {
+  void testSetAuthor() {
     // Arrange
     PDDocumentInformation pdDocumentInformation = new PDDocumentInformation();
 
@@ -306,57 +161,19 @@ class PDDocumentInformationDiffblueTest {
   }
 
   /**
-   * Test {@link PDDocumentInformation#getSubject()}.
-   * <ul>
-   *   <li>Given {@link PDDocumentInformation#PDDocumentInformation()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDDocumentInformation#getSubject()}
    */
   @Test
-  @DisplayName("Test getSubject(); given PDDocumentInformation(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDDocumentInformation.getSubject()"})
-  void testGetSubject_givenPDDocumentInformation_thenReturnNull() {
+  void testGetSubject() {
     // Arrange, Act and Assert
     assertNull((new PDDocumentInformation()).getSubject());
   }
 
   /**
-   * Test {@link PDDocumentInformation#getSubject()}.
-   * <ul>
-   *   <li>Then return empty string.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDDocumentInformation#getSubject()}
    */
   @Test
-  @DisplayName("Test getSubject(); then return empty string")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDDocumentInformation.getSubject()"})
-  void testGetSubject_thenReturnEmptyString() {
-    // Arrange
-    PDDocumentInformation pdDocumentInformation = new PDDocumentInformation();
-    pdDocumentInformation.setSubject("");
-
-    // Act and Assert
-    assertEquals("", pdDocumentInformation.getSubject());
-  }
-
-  /**
-   * Test {@link PDDocumentInformation#getSubject()}.
-   * <ul>
-   *   <li>Then return {@code Hello from the Dreaming Spires}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentInformation#getSubject()}
-   */
-  @Test
-  @DisplayName("Test getSubject(); then return 'Hello from the Dreaming Spires'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDDocumentInformation.getSubject()"})
-  void testGetSubject_thenReturnHelloFromTheDreamingSpires() {
+  void testGetSubject2() {
     // Arrange
     PDDocumentInformation pdDocumentInformation = new PDDocumentInformation();
     pdDocumentInformation.setSubject("Hello from the Dreaming Spires");
@@ -366,18 +183,23 @@ class PDDocumentInformationDiffblueTest {
   }
 
   /**
-   * Test {@link PDDocumentInformation#setSubject(String)}.
-   * <ul>
-   *   <li>Then {@link PDDocumentInformation#PDDocumentInformation()} Subject is {@code Hello from the Dreaming Spires}.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PDDocumentInformation#getSubject()}
+   */
+  @Test
+  void testGetSubject3() {
+    // Arrange
+    PDDocumentInformation pdDocumentInformation = new PDDocumentInformation();
+    pdDocumentInformation.setSubject("");
+
+    // Act and Assert
+    assertEquals("", pdDocumentInformation.getSubject());
+  }
+
+  /**
    * Method under test: {@link PDDocumentInformation#setSubject(String)}
    */
   @Test
-  @DisplayName("Test setSubject(String); then PDDocumentInformation() Subject is 'Hello from the Dreaming Spires'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDDocumentInformation.setSubject(String)"})
-  void testSetSubject_thenPDDocumentInformationSubjectIsHelloFromTheDreamingSpires() {
+  void testSetSubject() {
     // Arrange
     PDDocumentInformation pdDocumentInformation = new PDDocumentInformation();
 
@@ -395,19 +217,19 @@ class PDDocumentInformationDiffblueTest {
   }
 
   /**
-   * Test {@link PDDocumentInformation#getKeywords()}.
-   * <ul>
-   *   <li>Given {@link PDDocumentInformation#PDDocumentInformation()} Keywords is {@code Keywords}.</li>
-   *   <li>Then return {@code Keywords}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDDocumentInformation#getKeywords()}
    */
   @Test
-  @DisplayName("Test getKeywords(); given PDDocumentInformation() Keywords is 'Keywords'; then return 'Keywords'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDDocumentInformation.getKeywords()"})
-  void testGetKeywords_givenPDDocumentInformationKeywordsIsKeywords_thenReturnKeywords() {
+  void testGetKeywords() {
+    // Arrange, Act and Assert
+    assertNull((new PDDocumentInformation()).getKeywords());
+  }
+
+  /**
+   * Method under test: {@link PDDocumentInformation#getKeywords()}
+   */
+  @Test
+  void testGetKeywords2() {
     // Arrange
     PDDocumentInformation pdDocumentInformation = new PDDocumentInformation();
     pdDocumentInformation.setKeywords("Keywords");
@@ -417,36 +239,10 @@ class PDDocumentInformationDiffblueTest {
   }
 
   /**
-   * Test {@link PDDocumentInformation#getKeywords()}.
-   * <ul>
-   *   <li>Given {@link PDDocumentInformation#PDDocumentInformation()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDDocumentInformation#getKeywords()}
    */
   @Test
-  @DisplayName("Test getKeywords(); given PDDocumentInformation(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDDocumentInformation.getKeywords()"})
-  void testGetKeywords_givenPDDocumentInformation_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull((new PDDocumentInformation()).getKeywords());
-  }
-
-  /**
-   * Test {@link PDDocumentInformation#getKeywords()}.
-   * <ul>
-   *   <li>Then return empty string.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentInformation#getKeywords()}
-   */
-  @Test
-  @DisplayName("Test getKeywords(); then return empty string")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDDocumentInformation.getKeywords()"})
-  void testGetKeywords_thenReturnEmptyString() {
+  void testGetKeywords3() {
     // Arrange
     PDDocumentInformation pdDocumentInformation = new PDDocumentInformation();
     pdDocumentInformation.setKeywords("");
@@ -456,18 +252,10 @@ class PDDocumentInformationDiffblueTest {
   }
 
   /**
-   * Test {@link PDDocumentInformation#setKeywords(String)}.
-   * <ul>
-   *   <li>Then {@link PDDocumentInformation#PDDocumentInformation()} Keywords is {@code Keywords}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDDocumentInformation#setKeywords(String)}
    */
   @Test
-  @DisplayName("Test setKeywords(String); then PDDocumentInformation() Keywords is 'Keywords'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDDocumentInformation.setKeywords(String)"})
-  void testSetKeywords_thenPDDocumentInformationKeywordsIsKeywords() {
+  void testSetKeywords() {
     // Arrange
     PDDocumentInformation pdDocumentInformation = new PDDocumentInformation();
 
@@ -485,19 +273,19 @@ class PDDocumentInformationDiffblueTest {
   }
 
   /**
-   * Test {@link PDDocumentInformation#getCreator()}.
-   * <ul>
-   *   <li>Given {@link PDDocumentInformation#PDDocumentInformation()} Creator is {@code Creator}.</li>
-   *   <li>Then return {@code Creator}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDDocumentInformation#getCreator()}
    */
   @Test
-  @DisplayName("Test getCreator(); given PDDocumentInformation() Creator is 'Creator'; then return 'Creator'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDDocumentInformation.getCreator()"})
-  void testGetCreator_givenPDDocumentInformationCreatorIsCreator_thenReturnCreator() {
+  void testGetCreator() {
+    // Arrange, Act and Assert
+    assertNull((new PDDocumentInformation()).getCreator());
+  }
+
+  /**
+   * Method under test: {@link PDDocumentInformation#getCreator()}
+   */
+  @Test
+  void testGetCreator2() {
     // Arrange
     PDDocumentInformation pdDocumentInformation = new PDDocumentInformation();
     pdDocumentInformation.setCreator("Creator");
@@ -507,36 +295,10 @@ class PDDocumentInformationDiffblueTest {
   }
 
   /**
-   * Test {@link PDDocumentInformation#getCreator()}.
-   * <ul>
-   *   <li>Given {@link PDDocumentInformation#PDDocumentInformation()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDDocumentInformation#getCreator()}
    */
   @Test
-  @DisplayName("Test getCreator(); given PDDocumentInformation(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDDocumentInformation.getCreator()"})
-  void testGetCreator_givenPDDocumentInformation_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull((new PDDocumentInformation()).getCreator());
-  }
-
-  /**
-   * Test {@link PDDocumentInformation#getCreator()}.
-   * <ul>
-   *   <li>Then return empty string.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentInformation#getCreator()}
-   */
-  @Test
-  @DisplayName("Test getCreator(); then return empty string")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDDocumentInformation.getCreator()"})
-  void testGetCreator_thenReturnEmptyString() {
+  void testGetCreator3() {
     // Arrange
     PDDocumentInformation pdDocumentInformation = new PDDocumentInformation();
     pdDocumentInformation.setCreator("");
@@ -546,18 +308,10 @@ class PDDocumentInformationDiffblueTest {
   }
 
   /**
-   * Test {@link PDDocumentInformation#setCreator(String)}.
-   * <ul>
-   *   <li>Then {@link PDDocumentInformation#PDDocumentInformation()} Creator is {@code Creator}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDDocumentInformation#setCreator(String)}
    */
   @Test
-  @DisplayName("Test setCreator(String); then PDDocumentInformation() Creator is 'Creator'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDDocumentInformation.setCreator(String)"})
-  void testSetCreator_thenPDDocumentInformationCreatorIsCreator() {
+  void testSetCreator() {
     // Arrange
     PDDocumentInformation pdDocumentInformation = new PDDocumentInformation();
 
@@ -575,19 +329,19 @@ class PDDocumentInformationDiffblueTest {
   }
 
   /**
-   * Test {@link PDDocumentInformation#getProducer()}.
-   * <ul>
-   *   <li>Given {@link PDDocumentInformation#PDDocumentInformation()} Producer is {@code Producer}.</li>
-   *   <li>Then return {@code Producer}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDDocumentInformation#getProducer()}
    */
   @Test
-  @DisplayName("Test getProducer(); given PDDocumentInformation() Producer is 'Producer'; then return 'Producer'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDDocumentInformation.getProducer()"})
-  void testGetProducer_givenPDDocumentInformationProducerIsProducer_thenReturnProducer() {
+  void testGetProducer() {
+    // Arrange, Act and Assert
+    assertNull((new PDDocumentInformation()).getProducer());
+  }
+
+  /**
+   * Method under test: {@link PDDocumentInformation#getProducer()}
+   */
+  @Test
+  void testGetProducer2() {
     // Arrange
     PDDocumentInformation pdDocumentInformation = new PDDocumentInformation();
     pdDocumentInformation.setProducer("Producer");
@@ -597,36 +351,10 @@ class PDDocumentInformationDiffblueTest {
   }
 
   /**
-   * Test {@link PDDocumentInformation#getProducer()}.
-   * <ul>
-   *   <li>Given {@link PDDocumentInformation#PDDocumentInformation()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDDocumentInformation#getProducer()}
    */
   @Test
-  @DisplayName("Test getProducer(); given PDDocumentInformation(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDDocumentInformation.getProducer()"})
-  void testGetProducer_givenPDDocumentInformation_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull((new PDDocumentInformation()).getProducer());
-  }
-
-  /**
-   * Test {@link PDDocumentInformation#getProducer()}.
-   * <ul>
-   *   <li>Then return empty string.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentInformation#getProducer()}
-   */
-  @Test
-  @DisplayName("Test getProducer(); then return empty string")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDDocumentInformation.getProducer()"})
-  void testGetProducer_thenReturnEmptyString() {
+  void testGetProducer3() {
     // Arrange
     PDDocumentInformation pdDocumentInformation = new PDDocumentInformation();
     pdDocumentInformation.setProducer("");
@@ -636,18 +364,10 @@ class PDDocumentInformationDiffblueTest {
   }
 
   /**
-   * Test {@link PDDocumentInformation#setProducer(String)}.
-   * <ul>
-   *   <li>Then {@link PDDocumentInformation#PDDocumentInformation()} Producer is {@code Producer}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDDocumentInformation#setProducer(String)}
    */
   @Test
-  @DisplayName("Test setProducer(String); then PDDocumentInformation() Producer is 'Producer'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDDocumentInformation.setProducer(String)"})
-  void testSetProducer_thenPDDocumentInformationProducerIsProducer() {
+  void testSetProducer() {
     // Arrange
     PDDocumentInformation pdDocumentInformation = new PDDocumentInformation();
 
@@ -665,54 +385,19 @@ class PDDocumentInformationDiffblueTest {
   }
 
   /**
-   * Test {@link PDDocumentInformation#getCreationDate()}.
-   * <p>
    * Method under test: {@link PDDocumentInformation#getCreationDate()}
    */
   @Test
-  @DisplayName("Test getCreationDate()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Calendar PDDocumentInformation.getCreationDate()"})
   void testGetCreationDate() {
-    // Arrange
-    PDDocumentInformation pdDocumentInformation = new PDDocumentInformation();
-    pdDocumentInformation.setCreationDate(new GregorianCalendar(Integer.MIN_VALUE, 1, 1));
-
-    // Act and Assert
-    assertNull(pdDocumentInformation.getCreationDate());
-  }
-
-  /**
-   * Test {@link PDDocumentInformation#getCreationDate()}.
-   * <ul>
-   *   <li>Given {@link PDDocumentInformation#PDDocumentInformation()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentInformation#getCreationDate()}
-   */
-  @Test
-  @DisplayName("Test getCreationDate(); given PDDocumentInformation(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Calendar PDDocumentInformation.getCreationDate()"})
-  void testGetCreationDate_givenPDDocumentInformation_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull((new PDDocumentInformation()).getCreationDate());
   }
 
   /**
-   * Test {@link PDDocumentInformation#getCreationDate()}.
-   * <ul>
-   *   <li>Then return {@link GregorianCalendar}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDDocumentInformation#getCreationDate()}
    */
   @Test
-  @DisplayName("Test getCreationDate(); then return GregorianCalendar")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Calendar PDDocumentInformation.getCreationDate()"})
-  void testGetCreationDate_thenReturnGregorianCalendar() {
+  void testGetCreationDate2() {
     // Arrange
     PDDocumentInformation pdDocumentInformation = new PDDocumentInformation();
     pdDocumentInformation.setCreationDate(new GregorianCalendar(1, 1, 1));
@@ -723,6 +408,7 @@ class PDDocumentInformationDiffblueTest {
     // Assert
     assertTrue(actualCreationDate instanceof GregorianCalendar);
     assertEquals("gregory", actualCreationDate.getCalendarType());
+    assertEquals(0, actualCreationDate.getTimeZone().getDSTSavings());
     assertEquals(1, actualCreationDate.getFirstDayOfWeek());
     assertEquals(1, actualCreationDate.getMinimalDaysInFirstWeek());
     assertEquals(1, actualCreationDate.getWeekYear());
@@ -732,18 +418,23 @@ class PDDocumentInformationDiffblueTest {
   }
 
   /**
-   * Test {@link PDDocumentInformation#setCreationDate(Calendar)}.
-   * <ul>
-   *   <li>Then {@link PDDocumentInformation#PDDocumentInformation()} CreationDate {@link GregorianCalendar}.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PDDocumentInformation#getCreationDate()}
+   */
+  @Test
+  void testGetCreationDate3() {
+    // Arrange
+    PDDocumentInformation pdDocumentInformation = new PDDocumentInformation();
+    pdDocumentInformation.setCreationDate(new GregorianCalendar(Integer.MIN_VALUE, 1, 1));
+
+    // Act and Assert
+    assertNull(pdDocumentInformation.getCreationDate());
+  }
+
+  /**
    * Method under test: {@link PDDocumentInformation#setCreationDate(Calendar)}
    */
   @Test
-  @DisplayName("Test setCreationDate(Calendar); then PDDocumentInformation() CreationDate GregorianCalendar")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDDocumentInformation.setCreationDate(Calendar)"})
-  void testSetCreationDate_thenPDDocumentInformationCreationDateGregorianCalendar() {
+  void testSetCreationDate() {
     // Arrange
     PDDocumentInformation pdDocumentInformation = new PDDocumentInformation();
 
@@ -754,6 +445,7 @@ class PDDocumentInformationDiffblueTest {
     Calendar creationDate = pdDocumentInformation.getCreationDate();
     assertTrue(creationDate instanceof GregorianCalendar);
     assertEquals("gregory", creationDate.getCalendarType());
+    assertEquals(0, creationDate.getTimeZone().getDSTSavings());
     assertEquals(1, creationDate.getFirstDayOfWeek());
     assertEquals(1, creationDate.getMinimalDaysInFirstWeek());
     assertEquals(1, creationDate.getWeekYear());
@@ -769,26 +461,18 @@ class PDDocumentInformationDiffblueTest {
   }
 
   /**
-   * Test {@link PDDocumentInformation#setCreationDate(Calendar)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then {@link PDDocumentInformation#PDDocumentInformation()} COSObject size is zero.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDDocumentInformation#setCreationDate(Calendar)}
    */
   @Test
-  @DisplayName("Test setCreationDate(Calendar); when 'null'; then PDDocumentInformation() COSObject size is zero")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDDocumentInformation.setCreationDate(Calendar)"})
-  void testSetCreationDate_whenNull_thenPDDocumentInformationCOSObjectSizeIsZero() {
+  void testSetCreationDate2() {
     // Arrange
     PDDocumentInformation pdDocumentInformation = new PDDocumentInformation();
 
     // Act
     pdDocumentInformation.setCreationDate(null);
 
-    // Assert that nothing has changed
+    // Assert
+    assertNull(pdDocumentInformation.getCreationDate());
     COSDictionary cOSObject = pdDocumentInformation.getCOSObject();
     assertEquals(0, cOSObject.size());
     assertTrue(cOSObject.getValues().isEmpty());
@@ -796,54 +480,19 @@ class PDDocumentInformationDiffblueTest {
   }
 
   /**
-   * Test {@link PDDocumentInformation#getModificationDate()}.
-   * <p>
    * Method under test: {@link PDDocumentInformation#getModificationDate()}
    */
   @Test
-  @DisplayName("Test getModificationDate()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Calendar PDDocumentInformation.getModificationDate()"})
   void testGetModificationDate() {
-    // Arrange
-    PDDocumentInformation pdDocumentInformation = new PDDocumentInformation();
-    pdDocumentInformation.setModificationDate(new GregorianCalendar(Integer.MIN_VALUE, 1, 1));
-
-    // Act and Assert
-    assertNull(pdDocumentInformation.getModificationDate());
-  }
-
-  /**
-   * Test {@link PDDocumentInformation#getModificationDate()}.
-   * <ul>
-   *   <li>Given {@link PDDocumentInformation#PDDocumentInformation()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentInformation#getModificationDate()}
-   */
-  @Test
-  @DisplayName("Test getModificationDate(); given PDDocumentInformation(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Calendar PDDocumentInformation.getModificationDate()"})
-  void testGetModificationDate_givenPDDocumentInformation_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull((new PDDocumentInformation()).getModificationDate());
   }
 
   /**
-   * Test {@link PDDocumentInformation#getModificationDate()}.
-   * <ul>
-   *   <li>Then return {@link GregorianCalendar}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDDocumentInformation#getModificationDate()}
    */
   @Test
-  @DisplayName("Test getModificationDate(); then return GregorianCalendar")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Calendar PDDocumentInformation.getModificationDate()"})
-  void testGetModificationDate_thenReturnGregorianCalendar() {
+  void testGetModificationDate2() {
     // Arrange
     PDDocumentInformation pdDocumentInformation = new PDDocumentInformation();
     pdDocumentInformation.setModificationDate(new GregorianCalendar(1, 1, 1));
@@ -854,6 +503,7 @@ class PDDocumentInformationDiffblueTest {
     // Assert
     assertTrue(actualModificationDate instanceof GregorianCalendar);
     assertEquals("gregory", actualModificationDate.getCalendarType());
+    assertEquals(0, actualModificationDate.getTimeZone().getDSTSavings());
     assertEquals(1, actualModificationDate.getFirstDayOfWeek());
     assertEquals(1, actualModificationDate.getMinimalDaysInFirstWeek());
     assertEquals(1, actualModificationDate.getWeekYear());
@@ -863,14 +513,23 @@ class PDDocumentInformationDiffblueTest {
   }
 
   /**
-   * Test {@link PDDocumentInformation#setModificationDate(Calendar)}.
-   * <p>
-   * Method under test: {@link PDDocumentInformation#setModificationDate(Calendar)}
+   * Method under test: {@link PDDocumentInformation#getModificationDate()}
    */
   @Test
-  @DisplayName("Test setModificationDate(Calendar)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDDocumentInformation.setModificationDate(Calendar)"})
+  void testGetModificationDate3() {
+    // Arrange
+    PDDocumentInformation pdDocumentInformation = new PDDocumentInformation();
+    pdDocumentInformation.setModificationDate(new GregorianCalendar(Integer.MIN_VALUE, 1, 1));
+
+    // Act and Assert
+    assertNull(pdDocumentInformation.getModificationDate());
+  }
+
+  /**
+   * Method under test:
+   * {@link PDDocumentInformation#setModificationDate(Calendar)}
+   */
+  @Test
   void testSetModificationDate() {
     // Arrange
     PDDocumentInformation pdDocumentInformation = new PDDocumentInformation();
@@ -882,6 +541,7 @@ class PDDocumentInformationDiffblueTest {
     Calendar modificationDate = pdDocumentInformation.getModificationDate();
     assertTrue(modificationDate instanceof GregorianCalendar);
     assertEquals("gregory", modificationDate.getCalendarType());
+    assertEquals(0, modificationDate.getTimeZone().getDSTSavings());
     assertEquals(1, modificationDate.getFirstDayOfWeek());
     assertEquals(1, modificationDate.getMinimalDaysInFirstWeek());
     assertEquals(1, modificationDate.getWeekYear());
@@ -897,26 +557,19 @@ class PDDocumentInformationDiffblueTest {
   }
 
   /**
-   * Test {@link PDDocumentInformation#setModificationDate(Calendar)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then {@link PDDocumentInformation#PDDocumentInformation()} COSObject size is zero.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentInformation#setModificationDate(Calendar)}
+   * Method under test:
+   * {@link PDDocumentInformation#setModificationDate(Calendar)}
    */
   @Test
-  @DisplayName("Test setModificationDate(Calendar); when 'null'; then PDDocumentInformation() COSObject size is zero")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDDocumentInformation.setModificationDate(Calendar)"})
-  void testSetModificationDate_whenNull_thenPDDocumentInformationCOSObjectSizeIsZero() {
+  void testSetModificationDate2() {
     // Arrange
     PDDocumentInformation pdDocumentInformation = new PDDocumentInformation();
 
     // Act
     pdDocumentInformation.setModificationDate(null);
 
-    // Assert that nothing has changed
+    // Assert
+    assertNull(pdDocumentInformation.getModificationDate());
     COSDictionary cOSObject = pdDocumentInformation.getCOSObject();
     assertEquals(0, cOSObject.size());
     assertTrue(cOSObject.getValues().isEmpty());
@@ -924,19 +577,19 @@ class PDDocumentInformationDiffblueTest {
   }
 
   /**
-   * Test {@link PDDocumentInformation#getTrapped()}.
-   * <ul>
-   *   <li>Given {@link PDDocumentInformation#PDDocumentInformation()} Trapped is {@code False}.</li>
-   *   <li>Then return {@code False}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDDocumentInformation#getTrapped()}
    */
   @Test
-  @DisplayName("Test getTrapped(); given PDDocumentInformation() Trapped is 'False'; then return 'False'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDDocumentInformation.getTrapped()"})
-  void testGetTrapped_givenPDDocumentInformationTrappedIsFalse_thenReturnFalse() {
+  void testGetTrapped() {
+    // Arrange, Act and Assert
+    assertNull((new PDDocumentInformation()).getTrapped());
+  }
+
+  /**
+   * Method under test: {@link PDDocumentInformation#getTrapped()}
+   */
+  @Test
+  void testGetTrapped2() {
     // Arrange
     PDDocumentInformation pdDocumentInformation = new PDDocumentInformation();
     pdDocumentInformation.setTrapped("False");
@@ -946,37 +599,19 @@ class PDDocumentInformationDiffblueTest {
   }
 
   /**
-   * Test {@link PDDocumentInformation#getTrapped()}.
-   * <ul>
-   *   <li>Given {@link PDDocumentInformation#PDDocumentInformation()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentInformation#getTrapped()}
-   */
-  @Test
-  @DisplayName("Test getTrapped(); given PDDocumentInformation(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDDocumentInformation.getTrapped()"})
-  void testGetTrapped_givenPDDocumentInformation_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull((new PDDocumentInformation()).getTrapped());
-  }
-
-  /**
-   * Test {@link PDDocumentInformation#getMetadataKeys()}.
-   * <ul>
-   *   <li>Given {@link PDDocumentInformation#PDDocumentInformation()} Title is {@code Dr}.</li>
-   *   <li>Then return size is one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDDocumentInformation#getMetadataKeys()}
    */
   @Test
-  @DisplayName("Test getMetadataKeys(); given PDDocumentInformation() Title is 'Dr'; then return size is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Set PDDocumentInformation.getMetadataKeys()"})
-  void testGetMetadataKeys_givenPDDocumentInformationTitleIsDr_thenReturnSizeIsOne() {
+  void testGetMetadataKeys() {
+    // Arrange, Act and Assert
+    assertTrue((new PDDocumentInformation()).getMetadataKeys().isEmpty());
+  }
+
+  /**
+   * Method under test: {@link PDDocumentInformation#getMetadataKeys()}
+   */
+  @Test
+  void testGetMetadataKeys2() {
     // Arrange
     PDDocumentInformation pdDocumentInformation = new PDDocumentInformation();
     pdDocumentInformation.setTitle("Dr");
@@ -990,73 +625,22 @@ class PDDocumentInformationDiffblueTest {
   }
 
   /**
-   * Test {@link PDDocumentInformation#getMetadataKeys()}.
-   * <ul>
-   *   <li>Given {@link PDDocumentInformation#PDDocumentInformation()}.</li>
-   *   <li>Then return Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentInformation#getMetadataKeys()}
+   * Method under test:
+   * {@link PDDocumentInformation#getCustomMetadataValue(String)}
    */
   @Test
-  @DisplayName("Test getMetadataKeys(); given PDDocumentInformation(); then return Empty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Set PDDocumentInformation.getMetadataKeys()"})
-  void testGetMetadataKeys_givenPDDocumentInformation_thenReturnEmpty() {
-    // Arrange, Act and Assert
-    assertTrue((new PDDocumentInformation()).getMetadataKeys().isEmpty());
-  }
-
-  /**
-   * Test {@link PDDocumentInformation#getCustomMetadataValue(String)}.
-   * <ul>
-   *   <li>Given {@link PDDocumentInformation#PDDocumentInformation()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentInformation#getCustomMetadataValue(String)}
-   */
-  @Test
-  @DisplayName("Test getCustomMetadataValue(String); given PDDocumentInformation(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDDocumentInformation.getCustomMetadataValue(String)"})
-  void testGetCustomMetadataValue_givenPDDocumentInformation_thenReturnNull() {
+  void testGetCustomMetadataValue() {
     // Arrange, Act and Assert
     assertNull((new PDDocumentInformation()).getCustomMetadataValue("Field Name"));
+    assertNull((new PDDocumentInformation()).getCustomMetadataValue("org.apache.pdfbox.cos.COSName"));
   }
 
   /**
-   * Test {@link PDDocumentInformation#getCustomMetadataValue(String)}.
-   * <ul>
-   *   <li>Given {@link PDDocumentInformation#PDDocumentInformation()}.</li>
-   *   <li>When {@code False}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentInformation#getCustomMetadataValue(String)}
+   * Method under test:
+   * {@link PDDocumentInformation#getCustomMetadataValue(String)}
    */
   @Test
-  @DisplayName("Test getCustomMetadataValue(String); given PDDocumentInformation(); when 'False'; then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDDocumentInformation.getCustomMetadataValue(String)"})
-  void testGetCustomMetadataValue_givenPDDocumentInformation_whenFalse_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull((new PDDocumentInformation()).getCustomMetadataValue("False"));
-  }
-
-  /**
-   * Test {@link PDDocumentInformation#getCustomMetadataValue(String)}.
-   * <ul>
-   *   <li>Then return {@code 42}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentInformation#getCustomMetadataValue(String)}
-   */
-  @Test
-  @DisplayName("Test getCustomMetadataValue(String); then return '42'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDDocumentInformation.getCustomMetadataValue(String)"})
-  void testGetCustomMetadataValue_thenReturn42() {
+  void testGetCustomMetadataValue2() {
     // Arrange
     PDDocumentInformation pdDocumentInformation = new PDDocumentInformation();
     pdDocumentInformation.setCustomMetadataValue("Field Name", "42");
@@ -1066,18 +650,11 @@ class PDDocumentInformationDiffblueTest {
   }
 
   /**
-   * Test {@link PDDocumentInformation#getCustomMetadataValue(String)}.
-   * <ul>
-   *   <li>Then return empty string.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentInformation#getCustomMetadataValue(String)}
+   * Method under test:
+   * {@link PDDocumentInformation#getCustomMetadataValue(String)}
    */
   @Test
-  @DisplayName("Test getCustomMetadataValue(String); then return empty string")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String PDDocumentInformation.getCustomMetadataValue(String)"})
-  void testGetCustomMetadataValue_thenReturnEmptyString() {
+  void testGetCustomMetadataValue3() {
     // Arrange
     PDDocumentInformation pdDocumentInformation = new PDDocumentInformation();
     pdDocumentInformation.setCustomMetadataValue("Field Name", "");
@@ -1087,14 +664,10 @@ class PDDocumentInformationDiffblueTest {
   }
 
   /**
-   * Test {@link PDDocumentInformation#setCustomMetadataValue(String, String)}.
-   * <p>
-   * Method under test: {@link PDDocumentInformation#setCustomMetadataValue(String, String)}
+   * Method under test:
+   * {@link PDDocumentInformation#setCustomMetadataValue(String, String)}
    */
   @Test
-  @DisplayName("Test setCustomMetadataValue(String, String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDDocumentInformation.setCustomMetadataValue(String, String)"})
   void testSetCustomMetadataValue() {
     // Arrange
     PDDocumentInformation pdDocumentInformation = new PDDocumentInformation();
@@ -1112,18 +685,11 @@ class PDDocumentInformationDiffblueTest {
   }
 
   /**
-   * Test {@link PDDocumentInformation#setCustomMetadataValue(String, String)}.
-   * <ul>
-   *   <li>Then {@link PDDocumentInformation#PDDocumentInformation()} MetadataKeys contains {@code False}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentInformation#setCustomMetadataValue(String, String)}
+   * Method under test:
+   * {@link PDDocumentInformation#setCustomMetadataValue(String, String)}
    */
   @Test
-  @DisplayName("Test setCustomMetadataValue(String, String); then PDDocumentInformation() MetadataKeys contains 'False'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDDocumentInformation.setCustomMetadataValue(String, String)"})
-  void testSetCustomMetadataValue_thenPDDocumentInformationMetadataKeysContainsFalse() {
+  void testSetCustomMetadataValue2() {
     // Arrange
     PDDocumentInformation pdDocumentInformation = new PDDocumentInformation();
 
@@ -1140,20 +706,21 @@ class PDDocumentInformationDiffblueTest {
   }
 
   /**
-   * Test {@link PDDocumentInformation#setTrapped(String)}.
-   * <ul>
-   *   <li>Then {@link PDDocumentInformation#PDDocumentInformation(COSDictionary)} with dic is {@link COSDictionary#COSDictionary()} Trapped is {@code True}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDDocumentInformation#setTrapped(String)}
    */
   @Test
-  @DisplayName("Test setTrapped(String); then PDDocumentInformation(COSDictionary) with dic is COSDictionary() Trapped is 'True'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDDocumentInformation.setTrapped(String)"})
-  void testSetTrapped_thenPDDocumentInformationWithDicIsCOSDictionaryTrappedIsTrue() {
+  void testSetTrapped() {
+    // Arrange, Act and Assert
+    assertThrows(IllegalArgumentException.class, () -> (new PDDocumentInformation()).setTrapped("42"));
+  }
+
+  /**
+   * Method under test: {@link PDDocumentInformation#setTrapped(String)}
+   */
+  @Test
+  void testSetTrapped2() {
     // Arrange
-    PDDocumentInformation pdDocumentInformation = new PDDocumentInformation(new COSDictionary());
+    PDDocumentInformation pdDocumentInformation = new PDDocumentInformation();
 
     // Act
     pdDocumentInformation.setTrapped("True");
@@ -1169,37 +736,10 @@ class PDDocumentInformationDiffblueTest {
   }
 
   /**
-   * Test {@link PDDocumentInformation#setTrapped(String)}.
-   * <ul>
-   *   <li>When {@code 42}.</li>
-   *   <li>Then throw {@link IllegalArgumentException}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDDocumentInformation#setTrapped(String)}
    */
   @Test
-  @DisplayName("Test setTrapped(String); when '42'; then throw IllegalArgumentException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDDocumentInformation.setTrapped(String)"})
-  void testSetTrapped_when42_thenThrowIllegalArgumentException() {
-    // Arrange, Act and Assert
-    assertThrows(IllegalArgumentException.class, () -> (new PDDocumentInformation()).setTrapped("42"));
-  }
-
-  /**
-   * Test {@link PDDocumentInformation#setTrapped(String)}.
-   * <ul>
-   *   <li>When {@code False}.</li>
-   *   <li>Then {@link PDDocumentInformation#PDDocumentInformation()} Trapped is {@code False}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentInformation#setTrapped(String)}
-   */
-  @Test
-  @DisplayName("Test setTrapped(String); when 'False'; then PDDocumentInformation() Trapped is 'False'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDDocumentInformation.setTrapped(String)"})
-  void testSetTrapped_whenFalse_thenPDDocumentInformationTrappedIsFalse() {
+  void testSetTrapped3() {
     // Arrange
     PDDocumentInformation pdDocumentInformation = new PDDocumentInformation();
 
@@ -1217,76 +757,10 @@ class PDDocumentInformationDiffblueTest {
   }
 
   /**
-   * Test {@link PDDocumentInformation#setTrapped(String)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then {@link PDDocumentInformation#PDDocumentInformation()} COSObject size is zero.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDDocumentInformation#setTrapped(String)}
    */
   @Test
-  @DisplayName("Test setTrapped(String); when 'null'; then PDDocumentInformation() COSObject size is zero")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDDocumentInformation.setTrapped(String)"})
-  void testSetTrapped_whenNull_thenPDDocumentInformationCOSObjectSizeIsZero() {
-    // Arrange
-    PDDocumentInformation pdDocumentInformation = new PDDocumentInformation();
-
-    // Act
-    pdDocumentInformation.setTrapped(null);
-
-    // Assert that nothing has changed
-    COSDictionary cOSObject = pdDocumentInformation.getCOSObject();
-    assertEquals(0, cOSObject.size());
-    assertTrue(cOSObject.getValues().isEmpty());
-    assertTrue(pdDocumentInformation.getMetadataKeys().isEmpty());
-  }
-
-  /**
-   * Test {@link PDDocumentInformation#setTrapped(String)}.
-   * <ul>
-   *   <li>When {@code True}.</li>
-   *   <li>Then {@link PDDocumentInformation#PDDocumentInformation()} Trapped is {@code True}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentInformation#setTrapped(String)}
-   */
-  @Test
-  @DisplayName("Test setTrapped(String); when 'True'; then PDDocumentInformation() Trapped is 'True'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDDocumentInformation.setTrapped(String)"})
-  void testSetTrapped_whenTrue_thenPDDocumentInformationTrappedIsTrue() {
-    // Arrange
-    PDDocumentInformation pdDocumentInformation = new PDDocumentInformation();
-
-    // Act
-    pdDocumentInformation.setTrapped("True");
-
-    // Assert
-    assertEquals("True", pdDocumentInformation.getTrapped());
-    COSDictionary cOSObject = pdDocumentInformation.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    Set<String> metadataKeys = pdDocumentInformation.getMetadataKeys();
-    assertEquals(1, metadataKeys.size());
-    assertEquals(1, cOSObject.size());
-    assertTrue(metadataKeys.contains("Trapped"));
-  }
-
-  /**
-   * Test {@link PDDocumentInformation#setTrapped(String)}.
-   * <ul>
-   *   <li>When {@code Unknown}.</li>
-   *   <li>Then {@link PDDocumentInformation#PDDocumentInformation()} Trapped is {@code Unknown}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDDocumentInformation#setTrapped(String)}
-   */
-  @Test
-  @DisplayName("Test setTrapped(String); when 'Unknown'; then PDDocumentInformation() Trapped is 'Unknown'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDDocumentInformation.setTrapped(String)"})
-  void testSetTrapped_whenUnknown_thenPDDocumentInformationTrappedIsUnknown() {
+  void testSetTrapped4() {
     // Arrange
     PDDocumentInformation pdDocumentInformation = new PDDocumentInformation();
 
@@ -1301,5 +775,90 @@ class PDDocumentInformationDiffblueTest {
     assertEquals(1, metadataKeys.size());
     assertEquals(1, cOSObject.size());
     assertTrue(metadataKeys.contains("Trapped"));
+  }
+
+  /**
+   * Method under test: {@link PDDocumentInformation#setTrapped(String)}
+   */
+  @Test
+  void testSetTrapped5() {
+    // Arrange
+    PDDocumentInformation pdDocumentInformation = new PDDocumentInformation();
+
+    // Act
+    pdDocumentInformation.setTrapped(null);
+
+    // Assert
+    assertNull(pdDocumentInformation.getTrapped());
+    COSDictionary cOSObject = pdDocumentInformation.getCOSObject();
+    assertEquals(0, cOSObject.size());
+    assertTrue(cOSObject.getValues().isEmpty());
+    assertTrue(pdDocumentInformation.getMetadataKeys().isEmpty());
+  }
+
+  /**
+   * Method under test: {@link PDDocumentInformation#setTrapped(String)}
+   */
+  @Test
+  void testSetTrapped6() {
+    // Arrange
+    COSDictionary dic = new COSDictionary();
+    PDDocumentInformation pdDocumentInformation = new PDDocumentInformation(dic);
+
+    // Act
+    pdDocumentInformation.setTrapped("True");
+
+    // Assert
+    assertEquals("True", pdDocumentInformation.getTrapped());
+    Set<String> metadataKeys = pdDocumentInformation.getMetadataKeys();
+    assertEquals(1, metadataKeys.size());
+    assertTrue(metadataKeys.contains("Trapped"));
+    assertSame(dic, pdDocumentInformation.getCOSObject());
+  }
+
+  /**
+   * Method under test:
+   * {@link PDDocumentInformation#PDDocumentInformation(COSDictionary)}
+   */
+  @Test
+  void testNewPDDocumentInformation() {
+    // Arrange
+    COSDictionary dic = new COSDictionary();
+
+    // Act and Assert
+    assertSame(dic, (new PDDocumentInformation(dic)).getCOSObject());
+  }
+
+  /**
+   * Method under test: {@link PDDocumentInformation#PDDocumentInformation()}
+   */
+  @Test
+  void testNewPDDocumentInformation2() {
+    // Arrange and Act
+    PDDocumentInformation actualPdDocumentInformation = new PDDocumentInformation();
+
+    // Assert
+    assertNull(actualPdDocumentInformation.getAuthor());
+    assertNull(actualPdDocumentInformation.getCreator());
+    assertNull(actualPdDocumentInformation.getKeywords());
+    assertNull(actualPdDocumentInformation.getProducer());
+    assertNull(actualPdDocumentInformation.getSubject());
+    assertNull(actualPdDocumentInformation.getTitle());
+    assertNull(actualPdDocumentInformation.getTrapped());
+    assertNull(actualPdDocumentInformation.getCreationDate());
+    assertNull(actualPdDocumentInformation.getModificationDate());
+    COSDictionary cOSObject = actualPdDocumentInformation.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertEquals(0, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(cOSObject.getValues().isEmpty());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
+    assertTrue(actualPdDocumentInformation.getMetadataKeys().isEmpty());
   }
 }

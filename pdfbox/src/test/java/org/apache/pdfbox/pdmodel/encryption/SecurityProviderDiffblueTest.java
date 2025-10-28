@@ -1,22 +1,14 @@
 package org.apache.pdfbox.pdmodel.encryption;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.security.Provider;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class SecurityProviderDiffblueTest {
   /**
-   * Test {@link SecurityProvider#getProvider()}.
-   * <p>
    * Method under test: {@link SecurityProvider#getProvider()}
    */
   @Test
-  @DisplayName("Test getProvider()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Provider SecurityProvider.getProvider()"})
   void testGetProvider() {
     // Arrange and Act
     Provider actualProvider = SecurityProvider.getProvider();

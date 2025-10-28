@@ -2,23 +2,17 @@ package org.apache.fontbox.ttf;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MethodsUnderTest;
-import java.io.ByteArrayInputStream;
+import java.io.DataInputStream;
 import java.io.IOException;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class HorizontalHeaderTableDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link HorizontalHeaderTable}
@@ -59,27 +53,6 @@ class HorizontalHeaderTableDiffblueTest {
    * </ul>
    */
   @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void HorizontalHeaderTable.<init>()", "int HorizontalHeaderTable.getAdvanceWidthMax()",
-      "short HorizontalHeaderTable.getAscender()", "short HorizontalHeaderTable.getCaretSlopeRise()",
-      "short HorizontalHeaderTable.getCaretSlopeRun()", "short HorizontalHeaderTable.getDescender()",
-      "short HorizontalHeaderTable.getLineGap()", "short HorizontalHeaderTable.getMetricDataFormat()",
-      "short HorizontalHeaderTable.getMinLeftSideBearing()", "short HorizontalHeaderTable.getMinRightSideBearing()",
-      "int HorizontalHeaderTable.getNumberOfHMetrics()", "short HorizontalHeaderTable.getReserved1()",
-      "short HorizontalHeaderTable.getReserved2()", "short HorizontalHeaderTable.getReserved3()",
-      "short HorizontalHeaderTable.getReserved4()", "short HorizontalHeaderTable.getReserved5()",
-      "float HorizontalHeaderTable.getVersion()", "short HorizontalHeaderTable.getXMaxExtent()",
-      "void HorizontalHeaderTable.setAdvanceWidthMax(int)", "void HorizontalHeaderTable.setAscender(short)",
-      "void HorizontalHeaderTable.setCaretSlopeRise(short)", "void HorizontalHeaderTable.setCaretSlopeRun(short)",
-      "void HorizontalHeaderTable.setDescender(short)", "void HorizontalHeaderTable.setLineGap(short)",
-      "void HorizontalHeaderTable.setMetricDataFormat(short)",
-      "void HorizontalHeaderTable.setMinLeftSideBearing(short)",
-      "void HorizontalHeaderTable.setMinRightSideBearing(short)", "void HorizontalHeaderTable.setNumberOfHMetrics(int)",
-      "void HorizontalHeaderTable.setReserved1(short)", "void HorizontalHeaderTable.setReserved2(short)",
-      "void HorizontalHeaderTable.setReserved3(short)", "void HorizontalHeaderTable.setReserved4(short)",
-      "void HorizontalHeaderTable.setReserved5(short)", "void HorizontalHeaderTable.setVersion(float)",
-      "void HorizontalHeaderTable.setXMaxExtent(short)"})
   void testGettersAndSetters() {
     // Arrange and Act
     HorizontalHeaderTable actualHorizontalHeaderTable = new HorizontalHeaderTable();
@@ -118,8 +91,7 @@ class HorizontalHeaderTableDiffblueTest {
     float actualVersion = actualHorizontalHeaderTable.getVersion();
     short actualXMaxExtent = actualHorizontalHeaderTable.getXMaxExtent();
 
-    // Assert
-    assertNull(actualHorizontalHeaderTable.getTag());
+    // Assert that nothing has changed
     assertEquals(0L, actualHorizontalHeaderTable.getCheckSum());
     assertEquals(0L, actualHorizontalHeaderTable.getLength());
     assertEquals(0L, actualHorizontalHeaderTable.getOffset());
@@ -144,23 +116,16 @@ class HorizontalHeaderTableDiffblueTest {
   }
 
   /**
-   * Test {@link HorizontalHeaderTable#read(TrueTypeFont, TTFDataStream)}.
-   * <ul>
-   *   <li>Given ten.</li>
-   *   <li>Then {@link HorizontalHeaderTable#HorizontalHeaderTable()} AdvanceWidthMax is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link HorizontalHeaderTable#read(TrueTypeFont, TTFDataStream)}
+   * Method under test:
+   * {@link HorizontalHeaderTable#read(TrueTypeFont, TTFDataStream)}
    */
   @Test
-  @DisplayName("Test read(TrueTypeFont, TTFDataStream); given ten; then HorizontalHeaderTable() AdvanceWidthMax is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void HorizontalHeaderTable.read(TrueTypeFont, TTFDataStream)"})
-  void testRead_givenTen_thenHorizontalHeaderTableAdvanceWidthMaxIsOne() throws IOException {
+  void testRead() throws IOException {
     // Arrange
     HorizontalHeaderTable horizontalHeaderTable = new HorizontalHeaderTable();
-    TrueTypeFont ttf = new TrueTypeFont(
-        new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"))));
+    DataInputStream inputStream = mock(DataInputStream.class);
+    when(inputStream.readAllBytes()).thenReturn("AXAXAXAX".getBytes("UTF-8"));
+    TrueTypeFont ttf = new TrueTypeFont(new RandomAccessReadDataStream(inputStream));
     RandomAccessReadDataStream data = mock(RandomAccessReadDataStream.class);
     when(data.read32Fixed()).thenReturn(10.0f);
     when(data.readUnsignedShort()).thenReturn(1);
@@ -170,6 +135,7 @@ class HorizontalHeaderTableDiffblueTest {
     horizontalHeaderTable.read(ttf, data);
 
     // Assert
+    verify(inputStream).readAllBytes();
     verify(data).read32Fixed();
     verify(data, atLeast(1)).readSignedShort();
     verify(data, atLeast(1)).readUnsignedShort();

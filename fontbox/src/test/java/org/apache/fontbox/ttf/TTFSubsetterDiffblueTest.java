@@ -5,24 +5,16 @@ import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.Map;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class TTFSubsetterDiffblueTest {
   /**
-   * Test {@link TTFSubsetter#getGIDMap()}.
-   * <p>
    * Method under test: {@link TTFSubsetter#getGIDMap()}
    */
   @Test
-  @DisplayName("Test getGIDMap()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Map TTFSubsetter.getGIDMap()"})
   void testGetGIDMap() throws IOException {
     // Arrange
     GlyphTable glyphTable = mock(GlyphTable.class);
@@ -50,14 +42,9 @@ class TTFSubsetterDiffblueTest {
   }
 
   /**
-   * Test {@link TTFSubsetter#getGIDMap()}.
-   * <p>
    * Method under test: {@link TTFSubsetter#getGIDMap()}
    */
   @Test
-  @DisplayName("Test getGIDMap()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Map TTFSubsetter.getGIDMap()"})
   void testGetGIDMap2() throws IOException {
     // Arrange
     GlyphTable glyphTable = mock(GlyphTable.class);
@@ -85,14 +72,9 @@ class TTFSubsetterDiffblueTest {
   }
 
   /**
-   * Test {@link TTFSubsetter#getGIDMap()}.
-   * <p>
    * Method under test: {@link TTFSubsetter#getGIDMap()}
    */
   @Test
-  @DisplayName("Test getGIDMap()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Map TTFSubsetter.getGIDMap()"})
   void testGetGIDMap3() throws IOException {
     // Arrange
     GlyphTable glyphTable = mock(GlyphTable.class);

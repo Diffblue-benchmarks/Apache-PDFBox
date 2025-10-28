@@ -4,31 +4,21 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import org.apache.pdfbox.cos.COSDictionary;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class CryptFilterDiffblueTest {
   /**
-   * Test {@link CryptFilter#decode(InputStream, OutputStream, COSDictionary, int)} with {@code encoded}, {@code decoded}, {@code parameters}, {@code index}.
-   * <ul>
-   *   <li>Then return JPXSMask is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link CryptFilter#decode(InputStream, OutputStream, COSDictionary, int)}
+   * Method under test:
+   * {@link CryptFilter#decode(InputStream, OutputStream, COSDictionary, int)}
    */
   @Test
-  @DisplayName("Test decode(InputStream, OutputStream, COSDictionary, int) with 'encoded', 'decoded', 'parameters', 'index'; then return JPXSMask is 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"DecodeResult CryptFilter.decode(InputStream, OutputStream, COSDictionary, int)"})
-  void testDecodeWithEncodedDecodedParametersIndex_thenReturnJPXSMaskIsNull() throws IOException {
+  void testDecode() throws IOException {
     // Arrange
     CryptFilter cryptFilter = new CryptFilter();
     ByteArrayInputStream encoded = new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"));
@@ -48,15 +38,11 @@ class CryptFilterDiffblueTest {
   }
 
   /**
-   * Test {@link CryptFilter#encode(InputStream, OutputStream, COSDictionary)} with {@code input}, {@code encoded}, {@code parameters}.
-   * <p>
-   * Method under test: {@link CryptFilter#encode(InputStream, OutputStream, COSDictionary)}
+   * Method under test:
+   * {@link CryptFilter#encode(InputStream, OutputStream, COSDictionary)}
    */
   @Test
-  @DisplayName("Test encode(InputStream, OutputStream, COSDictionary) with 'input', 'encoded', 'parameters'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void CryptFilter.encode(InputStream, OutputStream, COSDictionary)"})
-  void testEncodeWithInputEncodedParameters() throws IOException {
+  void testEncode() throws IOException {
     // Arrange
     CryptFilter cryptFilter = new CryptFilter();
     ByteArrayInputStream input = new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"));
@@ -65,7 +51,7 @@ class CryptFilterDiffblueTest {
     // Act
     cryptFilter.encode(input, encoded, new COSDictionary());
 
-    // Assert
+    // Assert that nothing has changed
     assertEquals(-1, input.read(new byte[]{}));
     byte[] expectedToByteArrayResult = "AXAXAXAX".getBytes("UTF-8");
     assertArrayEquals(expectedToByteArrayResult, encoded.toByteArray());

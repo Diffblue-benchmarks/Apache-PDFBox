@@ -4,28 +4,21 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import org.apache.pdfbox.cos.COSDictionary;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class ASCIIHexFilterDiffblueTest {
   /**
-   * Test {@link ASCIIHexFilter#decode(InputStream, OutputStream, COSDictionary, int)} with {@code encoded}, {@code decoded}, {@code parameters}, {@code index}.
-   * <p>
-   * Method under test: {@link ASCIIHexFilter#decode(InputStream, OutputStream, COSDictionary, int)}
+   * Method under test:
+   * {@link ASCIIHexFilter#decode(InputStream, OutputStream, COSDictionary, int)}
    */
   @Test
-  @DisplayName("Test decode(InputStream, OutputStream, COSDictionary, int) with 'encoded', 'decoded', 'parameters', 'index'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"DecodeResult ASCIIHexFilter.decode(InputStream, OutputStream, COSDictionary, int)"})
-  void testDecodeWithEncodedDecodedParametersIndex() throws IOException {
+  void testDecode() throws IOException {
     // Arrange
     ASCIIHexFilter asciiHexFilter = new ASCIIHexFilter();
     ByteArrayInputStream encoded = new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"));
@@ -44,15 +37,11 @@ class ASCIIHexFilterDiffblueTest {
   }
 
   /**
-   * Test {@link ASCIIHexFilter#decode(InputStream, OutputStream, COSDictionary, int)} with {@code encoded}, {@code decoded}, {@code parameters}, {@code index}.
-   * <p>
-   * Method under test: {@link ASCIIHexFilter#decode(InputStream, OutputStream, COSDictionary, int)}
+   * Method under test:
+   * {@link ASCIIHexFilter#decode(InputStream, OutputStream, COSDictionary, int)}
    */
   @Test
-  @DisplayName("Test decode(InputStream, OutputStream, COSDictionary, int) with 'encoded', 'decoded', 'parameters', 'index'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"DecodeResult ASCIIHexFilter.decode(InputStream, OutputStream, COSDictionary, int)"})
-  void testDecodeWithEncodedDecodedParametersIndex2() throws IOException {
+  void testDecode2() throws IOException {
     // Arrange
     ASCIIHexFilter asciiHexFilter = new ASCIIHexFilter();
     ByteArrayInputStream encoded = new ByteArrayInputStream(new byte[]{-1, 'X', 'A', 'X', 'A', 'X', 'A', 'X'});
@@ -71,15 +60,11 @@ class ASCIIHexFilterDiffblueTest {
   }
 
   /**
-   * Test {@link ASCIIHexFilter#decode(InputStream, OutputStream, COSDictionary, int)} with {@code encoded}, {@code decoded}, {@code parameters}, {@code index}.
-   * <p>
-   * Method under test: {@link ASCIIHexFilter#decode(InputStream, OutputStream, COSDictionary, int)}
+   * Method under test:
+   * {@link ASCIIHexFilter#decode(InputStream, OutputStream, COSDictionary, int)}
    */
   @Test
-  @DisplayName("Test decode(InputStream, OutputStream, COSDictionary, int) with 'encoded', 'decoded', 'parameters', 'index'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"DecodeResult ASCIIHexFilter.decode(InputStream, OutputStream, COSDictionary, int)"})
-  void testDecodeWithEncodedDecodedParametersIndex3() throws IOException {
+  void testDecode3() throws IOException {
     // Arrange
     ASCIIHexFilter asciiHexFilter = new ASCIIHexFilter();
     ByteArrayInputStream encoded = new ByteArrayInputStream("\tXAXAXAX".getBytes("UTF-8"));
@@ -98,15 +83,11 @@ class ASCIIHexFilterDiffblueTest {
   }
 
   /**
-   * Test {@link ASCIIHexFilter#decode(InputStream, OutputStream, COSDictionary, int)} with {@code encoded}, {@code decoded}, {@code parameters}, {@code index}.
-   * <p>
-   * Method under test: {@link ASCIIHexFilter#decode(InputStream, OutputStream, COSDictionary, int)}
+   * Method under test:
+   * {@link ASCIIHexFilter#decode(InputStream, OutputStream, COSDictionary, int)}
    */
   @Test
-  @DisplayName("Test decode(InputStream, OutputStream, COSDictionary, int) with 'encoded', 'decoded', 'parameters', 'index'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"DecodeResult ASCIIHexFilter.decode(InputStream, OutputStream, COSDictionary, int)"})
-  void testDecodeWithEncodedDecodedParametersIndex4() throws IOException {
+  void testDecode4() throws IOException {
     // Arrange
     ASCIIHexFilter asciiHexFilter = new ASCIIHexFilter();
     ByteArrayInputStream encoded = new ByteArrayInputStream(">XAXAXAX".getBytes("UTF-8"));
@@ -119,23 +100,19 @@ class ASCIIHexFilterDiffblueTest {
     // Assert
     assertNull(actualDecodeResult.getJPXSMask());
     assertNull(actualDecodeResult.getJPXColorSpace());
+    assertEquals(0, decoded.toByteArray().length);
     byte[] byteArray = new byte[7];
     assertEquals(7, encoded.read(byteArray));
     assertSame(parameters, actualDecodeResult.getParameters());
     assertArrayEquals("XAXAXAX".getBytes("UTF-8"), byteArray);
-    assertArrayEquals(new byte[]{}, decoded.toByteArray());
   }
 
   /**
-   * Test {@link ASCIIHexFilter#decode(InputStream, OutputStream, COSDictionary, int)} with {@code encoded}, {@code decoded}, {@code parameters}, {@code index}.
-   * <p>
-   * Method under test: {@link ASCIIHexFilter#decode(InputStream, OutputStream, COSDictionary, int)}
+   * Method under test:
+   * {@link ASCIIHexFilter#decode(InputStream, OutputStream, COSDictionary, int)}
    */
   @Test
-  @DisplayName("Test decode(InputStream, OutputStream, COSDictionary, int) with 'encoded', 'decoded', 'parameters', 'index'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"DecodeResult ASCIIHexFilter.decode(InputStream, OutputStream, COSDictionary, int)"})
-  void testDecodeWithEncodedDecodedParametersIndex5() throws IOException {
+  void testDecode5() throws IOException {
     // Arrange
     ASCIIHexFilter asciiHexFilter = new ASCIIHexFilter();
     ByteArrayInputStream encoded = new ByteArrayInputStream("A>AXAXAX".getBytes("UTF-8"));
@@ -156,15 +133,11 @@ class ASCIIHexFilterDiffblueTest {
   }
 
   /**
-   * Test {@link ASCIIHexFilter#decode(InputStream, OutputStream, COSDictionary, int)} with {@code encoded}, {@code decoded}, {@code parameters}, {@code index}.
-   * <p>
-   * Method under test: {@link ASCIIHexFilter#decode(InputStream, OutputStream, COSDictionary, int)}
+   * Method under test:
+   * {@link ASCIIHexFilter#decode(InputStream, OutputStream, COSDictionary, int)}
    */
   @Test
-  @DisplayName("Test decode(InputStream, OutputStream, COSDictionary, int) with 'encoded', 'decoded', 'parameters', 'index'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"DecodeResult ASCIIHexFilter.decode(InputStream, OutputStream, COSDictionary, int)"})
-  void testDecodeWithEncodedDecodedParametersIndex6() throws IOException {
+  void testDecode6() throws IOException {
     // Arrange
     ASCIIHexFilter asciiHexFilter = new ASCIIHexFilter();
     ByteArrayInputStream encoded = new ByteArrayInputStream("\tXAXAXA\t".getBytes("UTF-8"));
@@ -183,15 +156,11 @@ class ASCIIHexFilterDiffblueTest {
   }
 
   /**
-   * Test {@link ASCIIHexFilter#encode(InputStream, OutputStream, COSDictionary)} with {@code input}, {@code encoded}, {@code parameters}.
-   * <p>
-   * Method under test: {@link ASCIIHexFilter#encode(InputStream, OutputStream, COSDictionary)}
+   * Method under test:
+   * {@link ASCIIHexFilter#encode(InputStream, OutputStream, COSDictionary)}
    */
   @Test
-  @DisplayName("Test encode(InputStream, OutputStream, COSDictionary) with 'input', 'encoded', 'parameters'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ASCIIHexFilter.encode(InputStream, OutputStream, COSDictionary)"})
-  void testEncodeWithInputEncodedParameters() throws IOException {
+  void testEncode() throws IOException {
     // Arrange
     ASCIIHexFilter asciiHexFilter = new ASCIIHexFilter();
     ByteArrayInputStream input = new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"));
@@ -200,7 +169,7 @@ class ASCIIHexFilterDiffblueTest {
     // Act
     asciiHexFilter.encode(input, encoded, new COSDictionary());
 
-    // Assert
+    // Assert that nothing has changed
     assertEquals(-1, input.read(new byte[]{}));
     byte[] expectedToByteArrayResult = "4158415841584158".getBytes("UTF-8");
     assertArrayEquals(expectedToByteArrayResult, encoded.toByteArray());

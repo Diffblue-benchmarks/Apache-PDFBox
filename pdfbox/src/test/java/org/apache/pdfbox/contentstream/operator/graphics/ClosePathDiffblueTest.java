@@ -4,33 +4,20 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.awt.Point;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.pdfbox.contentstream.operator.Operator;
 import org.apache.pdfbox.rendering.PageDrawer;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class ClosePathDiffblueTest {
   /**
-   * Test {@link ClosePath#process(Operator, List)}.
-   * <ul>
-   *   <li>Given {@link PageDrawer} {@link PageDrawer#closePath()} does nothing.</li>
-   *   <li>When {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then calls {@link PageDrawer#closePath()}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ClosePath#process(Operator, List)}
    */
   @Test
-  @DisplayName("Test process(Operator, List); given PageDrawer closePath() does nothing; when ArrayList(); then calls closePath()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ClosePath.process(Operator, List)"})
-  void testProcess_givenPageDrawerClosePathDoesNothing_whenArrayList_thenCallsClosePath() throws IOException {
+  void testProcess() throws IOException {
     // Arrange
     PageDrawer context = mock(PageDrawer.class);
     doNothing().when(context).closePath();
@@ -41,25 +28,16 @@ class ClosePathDiffblueTest {
     // Act
     closePath.process(operator, new ArrayList<>());
 
-    // Assert
+    // Assert that nothing has changed
     verify(context).closePath();
     verify(context).getCurrentPoint();
   }
 
   /**
-   * Test {@link ClosePath#process(Operator, List)}.
-   * <ul>
-   *   <li>Given {@link PageDrawer} {@link PageDrawer#getCurrentPoint()} return {@code null}.</li>
-   *   <li>Then calls {@link PageDrawer#getCurrentPoint()}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ClosePath#process(Operator, List)}
    */
   @Test
-  @DisplayName("Test process(Operator, List); given PageDrawer getCurrentPoint() return 'null'; then calls getCurrentPoint()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ClosePath.process(Operator, List)"})
-  void testProcess_givenPageDrawerGetCurrentPointReturnNull_thenCallsGetCurrentPoint() throws IOException {
+  void testProcess2() throws IOException {
     // Arrange
     PageDrawer context = mock(PageDrawer.class);
     when(context.getCurrentPoint()).thenReturn(null);

@@ -10,31 +10,46 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import org.apache.pdfbox.pdfwriter.COSWriter;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 class COSIntegerDiffblueTest {
   /**
-   * Test {@link COSInteger#get(long)} with {@code val}.
-   * <ul>
-   *   <li>When minus one hundred one.</li>
-   *   <li>Then return Key is {@code null}.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link COSInteger#equals(Object)}
+   */
+  @Test
+  void testEquals_whenOtherIsDifferent_thenReturnNotEqual() {
+    // Arrange, Act and Assert
+    assertNotEquals(COSInteger.OUT_OF_RANGE_MAX, COSInteger.ONE);
+  }
+
+  /**
+   * Method under test: {@link COSInteger#equals(Object)}
+   */
+  @Test
+  void testEquals_whenOtherIsNull_thenReturnNotEqual() {
+    // Arrange, Act and Assert
+    assertNotEquals(COSInteger.ONE, null);
+  }
+
+  /**
+   * Method under test: {@link COSInteger#equals(Object)}
+   */
+  @Test
+  void testEquals_whenOtherIsWrongType_thenReturnNotEqual() {
+    // Arrange, Act and Assert
+    assertNotEquals(COSInteger.ONE, "Different type to COSInteger");
+  }
+
+  /**
    * Method under test: {@link COSInteger#get(long)}
    */
   @Test
-  @DisplayName("Test get(long) with 'val'; when minus one hundred one; then return Key is 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"COSInteger COSInteger.get(long)"})
-  void testGetWithVal_whenMinusOneHundredOne_thenReturnKeyIsNull() {
+  void testGet() {
     // Arrange and Act
     COSInteger actualGetResult = COSInteger.get(-101L);
 
@@ -45,19 +60,10 @@ class COSIntegerDiffblueTest {
   }
 
   /**
-   * Test {@link COSInteger#get(long)} with {@code val}.
-   * <ul>
-   *   <li>When two hundred fifty-seven.</li>
-   *   <li>Then return Key is {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link COSInteger#get(long)}
    */
   @Test
-  @DisplayName("Test get(long) with 'val'; when two hundred fifty-seven; then return Key is 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"COSInteger COSInteger.get(long)"})
-  void testGetWithVal_whenTwoHundredFiftySeven_thenReturnKeyIsNull() {
+  void testGet2() {
     // Arrange and Act
     COSInteger actualGetResult = COSInteger.get(257L);
 
@@ -68,159 +74,6 @@ class COSIntegerDiffblueTest {
   }
 
   /**
-   * Test {@link COSInteger#equals(Object)}, and {@link COSInteger#hashCode()}.
-   * <ul>
-   *   <li>When other is equal.</li>
-   *   <li>Then return equal.</li>
-   * </ul>
-   * <p>
-   * Methods under test:
-   * <ul>
-   *   <li>{@link COSInteger#equals(Object)}
-   *   <li>{@link COSInteger#hashCode()}
-   * </ul>
-   */
-  @Test
-  @DisplayName("Test equals(Object), and hashCode(); when other is equal; then return equal")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean COSInteger.equals(Object)", "int COSInteger.hashCode()"})
-  void testEqualsAndHashCode_whenOtherIsEqual_thenReturnEqual() {
-    // Arrange
-    COSInteger cosInteger = COSInteger.ONE;
-    COSInteger cosInteger2 = COSInteger.ONE;
-
-    // Act and Assert
-    assertEquals(cosInteger, cosInteger2);
-    int expectedHashCodeResult = cosInteger.hashCode();
-    assertEquals(expectedHashCodeResult, cosInteger2.hashCode());
-  }
-
-  /**
-   * Test {@link COSInteger#equals(Object)}, and {@link COSInteger#hashCode()}.
-   * <ul>
-   *   <li>When other is same.</li>
-   *   <li>Then return equal.</li>
-   * </ul>
-   * <p>
-   * Methods under test:
-   * <ul>
-   *   <li>{@link COSInteger#equals(Object)}
-   *   <li>{@link COSInteger#hashCode()}
-   * </ul>
-   */
-  @Test
-  @DisplayName("Test equals(Object), and hashCode(); when other is same; then return equal")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean COSInteger.equals(Object)", "int COSInteger.hashCode()"})
-  void testEqualsAndHashCode_whenOtherIsSame_thenReturnEqual() {
-    // Arrange
-    COSInteger cosInteger = COSInteger.ONE;
-
-    // Act and Assert
-    assertEquals(cosInteger, cosInteger);
-    int expectedHashCodeResult = cosInteger.hashCode();
-    assertEquals(expectedHashCodeResult, cosInteger.hashCode());
-  }
-
-  /**
-   * Test {@link COSInteger#equals(Object)}.
-   * <ul>
-   *   <li>When other is different.</li>
-   *   <li>Then return not equal.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link COSInteger#equals(Object)}
-   */
-  @Test
-  @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean COSInteger.equals(Object)", "int COSInteger.hashCode()"})
-  void testEquals_whenOtherIsDifferent_thenReturnNotEqual() {
-    // Arrange, Act and Assert
-    assertNotEquals(COSInteger.OUT_OF_RANGE_MAX, COSInteger.ONE);
-  }
-
-  /**
-   * Test {@link COSInteger#equals(Object)}.
-   * <ul>
-   *   <li>When other is {@code null}.</li>
-   *   <li>Then return not equal.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link COSInteger#equals(Object)}
-   */
-  @Test
-  @DisplayName("Test equals(Object); when other is 'null'; then return not equal")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean COSInteger.equals(Object)", "int COSInteger.hashCode()"})
-  void testEquals_whenOtherIsNull_thenReturnNotEqual() {
-    // Arrange, Act and Assert
-    assertNotEquals(COSInteger.ONE, null);
-  }
-
-  /**
-   * Test {@link COSInteger#equals(Object)}.
-   * <ul>
-   *   <li>When other is wrong type.</li>
-   *   <li>Then return not equal.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link COSInteger#equals(Object)}
-   */
-  @Test
-  @DisplayName("Test equals(Object); when other is wrong type; then return not equal")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean COSInteger.equals(Object)", "int COSInteger.hashCode()"})
-  void testEquals_whenOtherIsWrongType_thenReturnNotEqual() {
-    // Arrange, Act and Assert
-    assertNotEquals(COSInteger.ONE, "Different type to COSInteger");
-  }
-
-  /**
-   * Test {@link COSInteger#floatValue()}.
-   * <p>
-   * Method under test: {@link COSInteger#floatValue()}
-   */
-  @Test
-  @DisplayName("Test floatValue()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"float COSInteger.floatValue()"})
-  void testFloatValue() {
-    // Arrange, Act and Assert
-    assertEquals(1.0f, COSInteger.ONE.floatValue());
-  }
-
-  /**
-   * Test {@link COSInteger#intValue()}.
-   * <p>
-   * Method under test: {@link COSInteger#intValue()}
-   */
-  @Test
-  @DisplayName("Test intValue()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"int COSInteger.intValue()"})
-  void testIntValue() {
-    // Arrange, Act and Assert
-    assertEquals(1, COSInteger.ONE.intValue());
-  }
-
-  /**
-   * Test {@link COSInteger#longValue()}.
-   * <p>
-   * Method under test: {@link COSInteger#longValue()}
-   */
-  @Test
-  @DisplayName("Test longValue()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"long COSInteger.longValue()"})
-  void testLongValue() {
-    // Arrange, Act and Assert
-    assertEquals(1L, COSInteger.ONE.longValue());
-  }
-
-  /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link COSInteger#toString()}
@@ -228,9 +81,6 @@ class COSIntegerDiffblueTest {
    * </ul>
    */
   @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean COSInteger.isValid()", "String COSInteger.toString()"})
   void testGettersAndSetters() {
     // Arrange
     COSInteger getResult = COSInteger.get(42L);
@@ -244,19 +94,74 @@ class COSIntegerDiffblueTest {
   }
 
   /**
-   * Test {@link COSInteger#accept(ICOSVisitor)}.
+   * Methods under test:
    * <ul>
-   *   <li>When {@link COSWriter} {@link COSWriter#visitFromInt(COSInteger)} does nothing.</li>
-   *   <li>Then calls {@link COSWriter#visitFromInt(COSInteger)}.</li>
+   *   <li>{@link COSInteger#equals(Object)}
+   *   <li>{@link COSInteger#hashCode()}
    * </ul>
-   * <p>
+   */
+  @Test
+  void testEqualsAndHashCode_whenOtherIsEqual_thenReturnEqual() {
+    // Arrange
+    COSInteger cosInteger = COSInteger.ONE;
+    COSInteger cosInteger2 = COSInteger.ONE;
+
+    // Act and Assert
+    assertEquals(cosInteger, cosInteger2);
+    int expectedHashCodeResult = cosInteger.hashCode();
+    assertEquals(expectedHashCodeResult, cosInteger2.hashCode());
+  }
+
+  /**
+   * Methods under test:
+   * <ul>
+   *   <li>{@link COSInteger#equals(Object)}
+   *   <li>{@link COSInteger#hashCode()}
+   * </ul>
+   */
+  @Test
+  void testEqualsAndHashCode_whenOtherIsSame_thenReturnEqual() {
+    // Arrange
+    COSInteger cosInteger = COSInteger.ONE;
+
+    // Act and Assert
+    assertEquals(cosInteger, cosInteger);
+    int expectedHashCodeResult = cosInteger.hashCode();
+    assertEquals(expectedHashCodeResult, cosInteger.hashCode());
+  }
+
+  /**
+   * Method under test: {@link COSInteger#floatValue()}
+   */
+  @Test
+  void testFloatValue() {
+    // Arrange, Act and Assert
+    assertEquals(1.0f, COSInteger.ONE.floatValue());
+  }
+
+  /**
+   * Method under test: {@link COSInteger#intValue()}
+   */
+  @Test
+  void testIntValue() {
+    // Arrange, Act and Assert
+    assertEquals(1, COSInteger.ONE.intValue());
+  }
+
+  /**
+   * Method under test: {@link COSInteger#longValue()}
+   */
+  @Test
+  void testLongValue() {
+    // Arrange, Act and Assert
+    assertEquals(1L, COSInteger.ONE.longValue());
+  }
+
+  /**
    * Method under test: {@link COSInteger#accept(ICOSVisitor)}
    */
   @Test
-  @DisplayName("Test accept(ICOSVisitor); when COSWriter visitFromInt(COSInteger) does nothing; then calls visitFromInt(COSInteger)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void COSInteger.accept(ICOSVisitor)"})
-  void testAccept_whenCOSWriterVisitFromIntDoesNothing_thenCallsVisitFromInt() throws IOException {
+  void testAccept() throws IOException {
     // Arrange
     COSWriter visitor = mock(COSWriter.class);
     doNothing().when(visitor).visitFromInt(Mockito.<COSInteger>any());
@@ -264,30 +169,22 @@ class COSIntegerDiffblueTest {
     // Act
     COSInteger.ONE.accept(visitor);
 
-    // Assert
+    // Assert that nothing has changed
     verify(visitor).visitFromInt(isA(COSInteger.class));
   }
 
   /**
-   * Test {@link COSInteger#writePDF(OutputStream)}.
-   * <ul>
-   *   <li>Then {@link ByteArrayOutputStream#ByteArrayOutputStream(int)} with one toByteArray is array of {@code byte} with {@code 1}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link COSInteger#writePDF(OutputStream)}
    */
   @Test
-  @DisplayName("Test writePDF(OutputStream); then ByteArrayOutputStream(int) with one toByteArray is array of byte with '1'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void COSInteger.writePDF(OutputStream)"})
-  void testWritePDF_thenByteArrayOutputStreamWithOneToByteArrayIsArrayOfByteWith1() throws IOException {
+  void testWritePDF() throws IOException {
     // Arrange
     ByteArrayOutputStream output = new ByteArrayOutputStream(1);
 
     // Act
     COSInteger.ONE.writePDF(output);
 
-    // Assert
+    // Assert that nothing has changed
     assertArrayEquals(new byte[]{'1'}, output.toByteArray());
   }
 }

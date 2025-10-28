@@ -3,127 +3,180 @@ package org.apache.pdfbox.debugger.streampane;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
-import java.awt.BorderLayout;
+import static org.mockito.Mockito.mock;
 import java.awt.Component;
-import java.awt.Component.BaselineResizeBehavior;
-import java.awt.image.DirectColorModel;
+import java.awt.Dimension;
+import java.awt.Rectangle;
+import java.awt.geom.Rectangle2D;
 import java.util.Dictionary;
 import java.util.Map;
+import javax.swing.BoxLayout;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.event.AncestorListener;
+import javax.swing.event.UndoableEditListener;
 import javax.swing.text.DefaultStyledDocument;
 import javax.swing.text.GapContent;
-import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleContext;
 import javax.swing.text.StyledDocument;
 import org.apache.pdfbox.debugger.streampane.tooltip.ToolTipController;
+import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDResources;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
+import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 import org.junit.jupiter.api.Test;
 
 class StreamPaneViewDiffblueTest {
   /**
-   * Test new {@link StreamPaneView} (default constructor).
-   * <p>
-   * Method under test: default or parameterless constructor of {@link StreamPaneView}
+   * Method under test:
+   * {@link StreamPaneView#showStreamText(StyledDocument, ToolTipController)}
    */
   @Test
-  @DisplayName("Test new StreamPaneView (default constructor)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void StreamPaneView.<init>()"})
-  void testNewStreamPaneView() {
-    // Arrange, Act and Assert
-    JPanel streamPanel = (new StreamPaneView()).getStreamPanel();
-    assertTrue(streamPanel.getLayout() instanceof BorderLayout);
-    assertTrue(streamPanel.getColorModel() instanceof DirectColorModel);
-    assertEquals("PanelUI", streamPanel.getUIClassID());
-    assertNull(streamPanel.getNextFocusableComponent());
-    assertNull(streamPanel.getFocusCycleRootAncestor());
-    assertNull(streamPanel.getParent());
-    assertNull(streamPanel.getTopLevelAncestor());
-    assertNull(streamPanel.getFocusTraversalPolicy());
-    assertNull(streamPanel.getGraphics());
-    assertNull(streamPanel.getGraphicsConfiguration());
-    assertNull(streamPanel.getDropTarget());
-    assertNull(streamPanel.getInputContext());
-    assertNull(streamPanel.getInputMethodRequests());
-    assertNull(streamPanel.getName());
-    assertNull(streamPanel.getToolTipText());
-    assertNull(streamPanel.getInputVerifier());
-    assertNull(streamPanel.getComponentPopupMenu());
-    assertNull(streamPanel.getRootPane());
-    assertNull(streamPanel.getTransferHandler());
-    assertNull(streamPanel.getBorder());
-    assertEquals(0, streamPanel.getComponentCount());
-    assertEquals(0, streamPanel.getDebugGraphicsOptions());
-    assertEquals(0, streamPanel.getHeight());
-    assertEquals(0, streamPanel.getWidth());
-    assertEquals(0, streamPanel.getX());
-    assertEquals(0, streamPanel.getY());
-    assertEquals(0, streamPanel.getComponentListeners().length);
-    assertEquals(0, streamPanel.getFocusListeners().length);
-    assertEquals(0, streamPanel.getHierarchyBoundsListeners().length);
-    assertEquals(0, streamPanel.getHierarchyListeners().length);
-    assertEquals(0, streamPanel.getInputMethodListeners().length);
-    assertEquals(0, streamPanel.getKeyListeners().length);
-    assertEquals(0, streamPanel.getMouseListeners().length);
-    assertEquals(0, streamPanel.getMouseMotionListeners().length);
-    assertEquals(0, streamPanel.getMouseWheelListeners().length);
-    assertEquals(0, streamPanel.getPropertyChangeListeners().length);
-    assertEquals(0, streamPanel.getComponents().length);
-    assertEquals(0, streamPanel.getContainerListeners().length);
-    assertEquals(0, streamPanel.getAncestorListeners().length);
-    assertEquals(0, streamPanel.getRegisteredKeyStrokes().length);
-    assertEquals(0, streamPanel.getVetoableChangeListeners().length);
-    assertEquals(0.5f, streamPanel.getAlignmentX());
-    assertEquals(0.5f, streamPanel.getAlignmentY());
-    assertEquals(BaselineResizeBehavior.OTHER, streamPanel.getBaselineResizeBehavior());
-    assertFalse(streamPanel.getIgnoreRepaint());
-    assertFalse(streamPanel.hasFocus());
-    assertFalse(streamPanel.isCursorSet());
-    assertFalse(streamPanel.isDisplayable());
-    assertFalse(streamPanel.isFocusOwner());
-    assertFalse(streamPanel.isLightweight());
-    assertFalse(streamPanel.isMaximumSizeSet());
-    assertFalse(streamPanel.isMinimumSizeSet());
-    assertFalse(streamPanel.isPreferredSizeSet());
-    assertFalse(streamPanel.isShowing());
-    assertFalse(streamPanel.isValid());
-    assertFalse(streamPanel.isFocusCycleRoot());
-    assertFalse(streamPanel.isFocusTraversalPolicyProvider());
-    assertFalse(streamPanel.isFocusTraversalPolicySet());
-    assertFalse(streamPanel.getAutoscrolls());
-    assertFalse(streamPanel.getInheritsPopupMenu());
-    assertFalse(streamPanel.isManagingFocus());
-    assertFalse(streamPanel.isPaintingForPrint());
-    assertFalse(streamPanel.isPaintingTile());
-    assertFalse(streamPanel.isValidateRoot());
-    assertTrue(streamPanel.getFocusTraversalKeysEnabled());
-    assertTrue(streamPanel.isBackgroundSet());
-    assertTrue(streamPanel.isEnabled());
-    assertTrue(streamPanel.isFocusable());
-    assertTrue(streamPanel.isFontSet());
-    assertTrue(streamPanel.isForegroundSet());
-    assertTrue(streamPanel.isVisible());
-    assertTrue(streamPanel.getVerifyInputWhenFocusTarget());
-    assertTrue(streamPanel.isDoubleBuffered());
-    assertTrue(streamPanel.isOpaque());
-    assertTrue(streamPanel.isOptimizedDrawingEnabled());
-    assertTrue(streamPanel.isRequestFocusEnabled());
+  void testShowStreamText() {
+    // Arrange
+    StreamPaneView streamPaneView = new StreamPaneView();
+    DefaultStyledDocument document = new DefaultStyledDocument();
+
+    // Act
+    streamPaneView.showStreamText(document, new ToolTipController(new PDResources()));
+
+    // Assert
+    JPanel streamPanel = streamPaneView.getStreamPanel();
+    Rectangle boundsResult = streamPanel.bounds();
+    Rectangle2D bounds2D = boundsResult.getBounds2D();
+    assertTrue(bounds2D instanceof Rectangle);
+    Rectangle2D frame = boundsResult.getFrame();
+    assertTrue(frame instanceof Rectangle2D.Double);
+    Dictionary<Object, Object> documentProperties = document.getDocumentProperties();
+    assertTrue(documentProperties instanceof Map);
+    Component[] components = streamPanel.getComponents();
+    Component component = components[0];
+    assertTrue(((JPanel) component).getLayout() instanceof BoxLayout);
+    assertTrue(component instanceof JPanel);
+    Component[] components2 = ((JPanel) component).getComponents();
+    assertTrue(components2[0] instanceof JPanel);
+    assertTrue(components2[1] instanceof JScrollPane);
+    AncestorListener[] ancestorListeners = ((JPanel) component).getAncestorListeners();
+    assertTrue(ancestorListeners[0] instanceof StreamTextView);
+    assertEquals("PanelUI", ((JPanel) component).getUIClassID());
+    assertNull(((JPanel) component).getNextFocusableComponent());
+    assertNull(component.getFocusCycleRootAncestor());
+    assertNull(((JPanel) component).getTopLevelAncestor());
+    assertNull(((JPanel) component).getFocusTraversalPolicy());
+    assertNull(component.getGraphics());
+    assertNull(component.getGraphicsConfiguration());
+    assertNull(component.getDropTarget());
+    assertNull(component.getInputContext());
+    assertNull(component.getInputMethodRequests());
+    assertNull(component.getName());
+    assertNull(((JPanel) component).getToolTipText());
+    assertNull(((JPanel) component).getInputVerifier());
+    assertNull(((JPanel) component).getComponentPopupMenu());
+    assertNull(((JPanel) component).getRootPane());
+    assertNull(((JPanel) component).getTransferHandler());
+    assertNull(((JPanel) component).getBorder());
+    assertEquals(0, component.getHeight());
+    assertEquals(0, component.getWidth());
+    assertEquals(0, component.getX());
+    assertEquals(0, component.getY());
+    assertEquals(0, ((JPanel) component).getDebugGraphicsOptions());
+    assertEquals(0, component.getFocusListeners().length);
+    assertEquals(0, component.getHierarchyBoundsListeners().length);
+    assertEquals(0, component.getHierarchyListeners().length);
+    assertEquals(0, component.getInputMethodListeners().length);
+    assertEquals(0, component.getKeyListeners().length);
+    assertEquals(0, component.getMouseListeners().length);
+    assertEquals(0, component.getMouseMotionListeners().length);
+    assertEquals(0, component.getMouseWheelListeners().length);
+    assertEquals(0, ((JPanel) component).getContainerListeners().length);
+    assertEquals(0, ((JPanel) component).getRegisteredKeyStrokes().length);
+    assertEquals(0, ((JPanel) component).getVetoableChangeListeners().length);
+    assertEquals(0.5f, component.getAlignmentX());
+    assertEquals(0.5f, component.getAlignmentY());
+    assertEquals(1, streamPanel.getComponentCount());
+    assertEquals(1, component.getComponentListeners().length);
+    assertEquals(1, component.getPropertyChangeListeners().length);
+    assertEquals(1, components.length);
+    assertEquals(1, ancestorListeners.length);
+    Dimension preferredSize = streamPanel.getPreferredSize();
+    assertEquals(10, preferredSize.width);
+    assertEquals(10.0d, preferredSize.getWidth());
+    assertEquals(2, ((JPanel) component).getComponentCount());
+    assertEquals(2, documentProperties.size());
+    assertEquals(2, components2.length);
+    assertEquals(2, document.getDocumentListeners().length);
+    Dimension minimumSize = streamPanel.getMinimumSize();
+    assertEquals(22, minimumSize.height);
+    assertEquals(22, minimumSize.width);
+    assertEquals(22.0d, minimumSize.getHeight());
+    assertEquals(22.0d, minimumSize.getWidth());
+    assertEquals(26, preferredSize.height);
+    assertEquals(26.0d, preferredSize.getHeight());
+    Dimension maximumSize = component.getMaximumSize();
+    assertEquals(32767, maximumSize.height);
+    assertEquals(32767, maximumSize.width);
+    assertEquals(Component.BaselineResizeBehavior.OTHER, component.getBaselineResizeBehavior());
+    assertFalse(component.getIgnoreRepaint());
+    assertFalse(component.hasFocus());
+    assertFalse(component.isCursorSet());
+    assertFalse(component.isDisplayable());
+    assertFalse(component.isFocusOwner());
+    assertFalse(component.isLightweight());
+    assertFalse(component.isMaximumSizeSet());
+    assertFalse(component.isMinimumSizeSet());
+    assertFalse(component.isPreferredSizeSet());
+    assertFalse(component.isShowing());
+    assertFalse(component.isValid());
+    assertFalse(((JPanel) component).isFocusCycleRoot());
+    assertFalse(((JPanel) component).isFocusTraversalPolicyProvider());
+    assertFalse(((JPanel) component).isFocusTraversalPolicySet());
+    assertFalse(((JPanel) component).getAutoscrolls());
+    assertFalse(((JPanel) component).getInheritsPopupMenu());
+    assertFalse(((JPanel) component).isManagingFocus());
+    assertFalse(((JPanel) component).isPaintingForPrint());
+    assertFalse(((JPanel) component).isPaintingTile());
+    assertFalse(((JPanel) component).isValidateRoot());
+    assertTrue(component.getFocusTraversalKeysEnabled());
+    assertTrue(component.isBackgroundSet());
+    assertTrue(component.isDoubleBuffered());
+    assertTrue(component.isEnabled());
+    assertTrue(component.isFocusable());
+    assertTrue(component.isFontSet());
+    assertTrue(component.isForegroundSet());
+    assertTrue(component.isOpaque());
+    assertTrue(component.isVisible());
+    assertTrue(((Map<Object, Boolean>) documentProperties).containsKey("i18n"));
+    assertTrue(((JPanel) component).getVerifyInputWhenFocusTarget());
+    assertTrue(((JPanel) component).isOptimizedDrawingEnabled());
+    assertTrue(((JPanel) component).isRequestFocusEnabled());
+    assertEquals(boundsResult, component.bounds());
+    assertEquals(boundsResult, streamPanel.getBounds());
+    assertEquals(boundsResult, component.getBounds());
+    assertEquals(boundsResult, boundsResult.getBounds());
+    assertEquals(boundsResult, streamPanel.getVisibleRect());
+    assertEquals(boundsResult, ((JPanel) component).getVisibleRect());
+    assertEquals(boundsResult, bounds2D);
+    assertEquals(boundsResult, frame);
+    Dimension size = streamPanel.getSize();
+    assertEquals(size, component.getSize());
+    assertEquals(size, streamPanel.size());
+    assertEquals(size, component.size());
+    assertEquals(size, size.getSize());
+    assertEquals(size, boundsResult.getSize());
+    assertEquals(minimumSize, component.getMinimumSize());
+    assertEquals(minimumSize, minimumSize.getSize());
+    assertEquals(preferredSize, component.getPreferredSize());
+    assertEquals(preferredSize, preferredSize.getSize());
+    assertSame(streamPanel, component.getParent());
   }
 
   /**
-   * Test {@link StreamPaneView#showStreamText(StyledDocument, ToolTipController)}.
-   * <p>
-   * Method under test: {@link StreamPaneView#showStreamText(StyledDocument, ToolTipController)}
+   * Method under test:
+   * {@link StreamPaneView#showStreamText(StyledDocument, ToolTipController)}
    */
   @Test
-  @DisplayName("Test showStreamText(StyledDocument, ToolTipController)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void StreamPaneView.showStreamText(StyledDocument, ToolTipController)"})
-  void testShowStreamText() {
+  void testShowStreamText2() {
     // Arrange
     StreamPaneView streamPaneView = new StreamPaneView();
     GapContent gapContent = new GapContent(13);
@@ -133,112 +186,716 @@ class StreamPaneViewDiffblueTest {
     streamPaneView.showStreamText(document, new ToolTipController(new PDResources()));
 
     // Assert
+    JPanel streamPanel = streamPaneView.getStreamPanel();
+    Rectangle boundsResult = streamPanel.bounds();
+    Rectangle2D bounds2D = boundsResult.getBounds2D();
+    assertTrue(bounds2D instanceof Rectangle);
+    Rectangle2D frame = boundsResult.getFrame();
+    assertTrue(frame instanceof Rectangle2D.Double);
     Dictionary<Object, Object> documentProperties = document.getDocumentProperties();
     assertTrue(documentProperties instanceof Map);
-    JPanel streamPanel = streamPaneView.getStreamPanel();
+    Component[] components = streamPanel.getComponents();
+    Component component = components[0];
+    assertTrue(((JPanel) component).getLayout() instanceof BoxLayout);
+    assertTrue(component instanceof JPanel);
+    Component[] components2 = ((JPanel) component).getComponents();
+    assertTrue(components2[0] instanceof JPanel);
+    assertTrue(components2[1] instanceof JScrollPane);
+    AncestorListener[] ancestorListeners = ((JPanel) component).getAncestorListeners();
+    assertTrue(ancestorListeners[0] instanceof StreamTextView);
+    assertEquals("PanelUI", ((JPanel) component).getUIClassID());
+    assertNull(((JPanel) component).getNextFocusableComponent());
+    assertNull(component.getFocusCycleRootAncestor());
+    assertNull(((JPanel) component).getTopLevelAncestor());
+    assertNull(((JPanel) component).getFocusTraversalPolicy());
+    assertNull(component.getGraphics());
+    assertNull(component.getGraphicsConfiguration());
+    assertNull(component.getDropTarget());
+    assertNull(component.getInputContext());
+    assertNull(component.getInputMethodRequests());
+    assertNull(component.getName());
+    assertNull(((JPanel) component).getToolTipText());
+    assertNull(((JPanel) component).getInputVerifier());
+    assertNull(((JPanel) component).getComponentPopupMenu());
+    assertNull(((JPanel) component).getRootPane());
+    assertNull(((JPanel) component).getTransferHandler());
+    assertNull(((JPanel) component).getBorder());
+    assertEquals(0, component.getHeight());
+    assertEquals(0, component.getWidth());
+    assertEquals(0, component.getX());
+    assertEquals(0, component.getY());
+    assertEquals(0, ((JPanel) component).getDebugGraphicsOptions());
+    assertEquals(0, component.getFocusListeners().length);
+    assertEquals(0, component.getHierarchyBoundsListeners().length);
+    assertEquals(0, component.getHierarchyListeners().length);
+    assertEquals(0, component.getInputMethodListeners().length);
+    assertEquals(0, component.getKeyListeners().length);
+    assertEquals(0, component.getMouseListeners().length);
+    assertEquals(0, component.getMouseMotionListeners().length);
+    assertEquals(0, component.getMouseWheelListeners().length);
+    assertEquals(0, ((JPanel) component).getContainerListeners().length);
+    assertEquals(0, ((JPanel) component).getRegisteredKeyStrokes().length);
+    assertEquals(0, ((JPanel) component).getVetoableChangeListeners().length);
+    assertEquals(0.5f, component.getAlignmentX());
+    assertEquals(0.5f, component.getAlignmentY());
     assertEquals(1, streamPanel.getComponentCount());
-    assertEquals(1, streamPanel.getComponents().length);
+    assertEquals(1, component.getComponentListeners().length);
+    assertEquals(1, component.getPropertyChangeListeners().length);
+    assertEquals(1, components.length);
+    assertEquals(1, ancestorListeners.length);
+    Dimension preferredSize = streamPanel.getPreferredSize();
+    assertEquals(10, preferredSize.width);
+    assertEquals(10.0d, preferredSize.getWidth());
+    assertEquals(2, ((JPanel) component).getComponentCount());
     assertEquals(2, documentProperties.size());
+    assertEquals(2, components2.length);
     assertEquals(2, document.getDocumentListeners().length);
+    Dimension minimumSize = streamPanel.getMinimumSize();
+    assertEquals(22, minimumSize.height);
+    assertEquals(22, minimumSize.width);
+    assertEquals(22.0d, minimumSize.getHeight());
+    assertEquals(22.0d, minimumSize.getWidth());
+    assertEquals(26, preferredSize.height);
+    assertEquals(26.0d, preferredSize.getHeight());
+    Dimension maximumSize = component.getMaximumSize();
+    assertEquals(32767, maximumSize.height);
+    assertEquals(32767, maximumSize.width);
+    assertEquals(Component.BaselineResizeBehavior.OTHER, component.getBaselineResizeBehavior());
+    assertFalse(component.getIgnoreRepaint());
+    assertFalse(component.hasFocus());
+    assertFalse(component.isCursorSet());
+    assertFalse(component.isDisplayable());
+    assertFalse(component.isFocusOwner());
+    assertFalse(component.isLightweight());
+    assertFalse(component.isMaximumSizeSet());
+    assertFalse(component.isMinimumSizeSet());
+    assertFalse(component.isPreferredSizeSet());
+    assertFalse(component.isShowing());
+    assertFalse(component.isValid());
+    assertFalse(((JPanel) component).isFocusCycleRoot());
+    assertFalse(((JPanel) component).isFocusTraversalPolicyProvider());
+    assertFalse(((JPanel) component).isFocusTraversalPolicySet());
+    assertFalse(((JPanel) component).getAutoscrolls());
+    assertFalse(((JPanel) component).getInheritsPopupMenu());
+    assertFalse(((JPanel) component).isManagingFocus());
+    assertFalse(((JPanel) component).isPaintingForPrint());
+    assertFalse(((JPanel) component).isPaintingTile());
+    assertFalse(((JPanel) component).isValidateRoot());
+    assertTrue(component.getFocusTraversalKeysEnabled());
+    assertTrue(component.isBackgroundSet());
+    assertTrue(component.isDoubleBuffered());
+    assertTrue(component.isEnabled());
+    assertTrue(component.isFocusable());
+    assertTrue(component.isFontSet());
+    assertTrue(component.isForegroundSet());
+    assertTrue(component.isOpaque());
+    assertTrue(component.isVisible());
     assertTrue(((Map<Object, Boolean>) documentProperties).containsKey("i18n"));
+    assertTrue(((JPanel) component).getVerifyInputWhenFocusTarget());
+    assertTrue(((JPanel) component).isOptimizedDrawingEnabled());
+    assertTrue(((JPanel) component).isRequestFocusEnabled());
+    assertEquals(boundsResult, component.bounds());
+    assertEquals(boundsResult, streamPanel.getBounds());
+    assertEquals(boundsResult, component.getBounds());
+    assertEquals(boundsResult, boundsResult.getBounds());
+    assertEquals(boundsResult, streamPanel.getVisibleRect());
+    assertEquals(boundsResult, ((JPanel) component).getVisibleRect());
+    assertEquals(boundsResult, bounds2D);
+    assertEquals(boundsResult, frame);
+    Dimension size = streamPanel.getSize();
+    assertEquals(size, component.getSize());
+    assertEquals(size, streamPanel.size());
+    assertEquals(size, component.size());
+    assertEquals(size, size.getSize());
+    assertEquals(size, boundsResult.getSize());
+    assertEquals(minimumSize, component.getMinimumSize());
+    assertEquals(minimumSize, minimumSize.getSize());
+    assertEquals(preferredSize, component.getPreferredSize());
+    assertEquals(preferredSize, preferredSize.getSize());
+    assertSame(streamPanel, component.getParent());
   }
 
   /**
-   * Test {@link StreamPaneView#showStreamText(StyledDocument, ToolTipController)}.
-   * <ul>
-   *   <li>Given {@link SimpleAttributeSet#SimpleAttributeSet()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link StreamPaneView#showStreamText(StyledDocument, ToolTipController)}
+   * Method under test:
+   * {@link StreamPaneView#showStreamText(StyledDocument, ToolTipController)}
    */
   @Test
-  @DisplayName("Test showStreamText(StyledDocument, ToolTipController); given SimpleAttributeSet()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void StreamPaneView.showStreamText(StyledDocument, ToolTipController)"})
-  void testShowStreamText_givenSimpleAttributeSet() {
-    // Arrange
-    StreamPaneView streamPaneView = new StreamPaneView();
-    StyleContext defaultStyleContext = StyleContext.getDefaultStyleContext();
-    SimpleAttributeSet simpleAttributeSet = new SimpleAttributeSet();
-    defaultStyleContext.addAttributes(simpleAttributeSet, new SimpleAttributeSet());
-    DefaultStyledDocument document = new DefaultStyledDocument(new GapContent(13), defaultStyleContext);
-
-    // Act
-    streamPaneView.showStreamText(document, new ToolTipController(new PDResources()));
-
-    // Assert
-    Dictionary<Object, Object> documentProperties = document.getDocumentProperties();
-    assertTrue(documentProperties instanceof Map);
-    JPanel streamPanel = streamPaneView.getStreamPanel();
-    assertEquals(1, streamPanel.getComponentCount());
-    assertEquals(1, streamPanel.getComponents().length);
-    assertEquals(2, documentProperties.size());
-    assertEquals(2, document.getDocumentListeners().length);
-    assertTrue(((Map<Object, Boolean>) documentProperties).containsKey("i18n"));
-  }
-
-  /**
-   * Test {@link StreamPaneView#showStreamText(StyledDocument, ToolTipController)}.
-   * <ul>
-   *   <li>Then {@link DefaultStyledDocument#DefaultStyledDocument()} DocumentProperties size is three.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link StreamPaneView#showStreamText(StyledDocument, ToolTipController)}
-   */
-  @Test
-  @DisplayName("Test showStreamText(StyledDocument, ToolTipController); then DefaultStyledDocument() DocumentProperties size is three")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void StreamPaneView.showStreamText(StyledDocument, ToolTipController)"})
-  void testShowStreamText_thenDefaultStyledDocumentDocumentPropertiesSizeIsThree() {
+  void testShowStreamText3() {
     // Arrange
     StreamPaneView streamPaneView = new StreamPaneView();
 
     DefaultStyledDocument document = new DefaultStyledDocument();
-    document.putProperty("42", 0);
+    document.addUndoableEditListener(mock(UndoableEditListener.class));
 
     // Act
     streamPaneView.showStreamText(document, new ToolTipController(new PDResources()));
 
     // Assert
+    JPanel streamPanel = streamPaneView.getStreamPanel();
+    Rectangle boundsResult = streamPanel.bounds();
+    Rectangle2D bounds2D = boundsResult.getBounds2D();
+    assertTrue(bounds2D instanceof Rectangle);
+    Rectangle2D frame = boundsResult.getFrame();
+    assertTrue(frame instanceof Rectangle2D.Double);
     Dictionary<Object, Object> documentProperties = document.getDocumentProperties();
     assertTrue(documentProperties instanceof Map);
-    JPanel streamPanel = streamPaneView.getStreamPanel();
+    Component[] components = streamPanel.getComponents();
+    Component component = components[0];
+    assertTrue(((JPanel) component).getLayout() instanceof BoxLayout);
+    assertTrue(component instanceof JPanel);
+    Component[] components2 = ((JPanel) component).getComponents();
+    assertTrue(components2[0] instanceof JPanel);
+    assertTrue(components2[1] instanceof JScrollPane);
+    AncestorListener[] ancestorListeners = ((JPanel) component).getAncestorListeners();
+    assertTrue(ancestorListeners[0] instanceof StreamTextView);
+    assertEquals("PanelUI", ((JPanel) component).getUIClassID());
+    assertNull(((JPanel) component).getNextFocusableComponent());
+    assertNull(component.getFocusCycleRootAncestor());
+    assertNull(((JPanel) component).getTopLevelAncestor());
+    assertNull(((JPanel) component).getFocusTraversalPolicy());
+    assertNull(component.getGraphics());
+    assertNull(component.getGraphicsConfiguration());
+    assertNull(component.getDropTarget());
+    assertNull(component.getInputContext());
+    assertNull(component.getInputMethodRequests());
+    assertNull(component.getName());
+    assertNull(((JPanel) component).getToolTipText());
+    assertNull(((JPanel) component).getInputVerifier());
+    assertNull(((JPanel) component).getComponentPopupMenu());
+    assertNull(((JPanel) component).getRootPane());
+    assertNull(((JPanel) component).getTransferHandler());
+    assertNull(((JPanel) component).getBorder());
+    assertEquals(0, component.getHeight());
+    assertEquals(0, component.getWidth());
+    assertEquals(0, component.getX());
+    assertEquals(0, component.getY());
+    assertEquals(0, ((JPanel) component).getDebugGraphicsOptions());
+    assertEquals(0, component.getFocusListeners().length);
+    assertEquals(0, component.getHierarchyBoundsListeners().length);
+    assertEquals(0, component.getHierarchyListeners().length);
+    assertEquals(0, component.getInputMethodListeners().length);
+    assertEquals(0, component.getKeyListeners().length);
+    assertEquals(0, component.getMouseListeners().length);
+    assertEquals(0, component.getMouseMotionListeners().length);
+    assertEquals(0, component.getMouseWheelListeners().length);
+    assertEquals(0, ((JPanel) component).getContainerListeners().length);
+    assertEquals(0, ((JPanel) component).getRegisteredKeyStrokes().length);
+    assertEquals(0, ((JPanel) component).getVetoableChangeListeners().length);
+    assertEquals(0.5f, component.getAlignmentX());
+    assertEquals(0.5f, component.getAlignmentY());
     assertEquals(1, streamPanel.getComponentCount());
-    assertEquals(1, streamPanel.getComponents().length);
+    assertEquals(1, component.getComponentListeners().length);
+    assertEquals(1, component.getPropertyChangeListeners().length);
+    assertEquals(1, components.length);
+    assertEquals(1, ancestorListeners.length);
+    Dimension preferredSize = streamPanel.getPreferredSize();
+    assertEquals(10, preferredSize.width);
+    assertEquals(10.0d, preferredSize.getWidth());
+    assertEquals(2, ((JPanel) component).getComponentCount());
+    assertEquals(2, documentProperties.size());
+    assertEquals(2, components2.length);
     assertEquals(2, document.getDocumentListeners().length);
+    Dimension minimumSize = streamPanel.getMinimumSize();
+    assertEquals(22, minimumSize.height);
+    assertEquals(22, minimumSize.width);
+    assertEquals(22.0d, minimumSize.getHeight());
+    assertEquals(22.0d, minimumSize.getWidth());
+    assertEquals(26, preferredSize.height);
+    assertEquals(26.0d, preferredSize.getHeight());
+    Dimension maximumSize = component.getMaximumSize();
+    assertEquals(32767, maximumSize.height);
+    assertEquals(32767, maximumSize.width);
+    assertEquals(Component.BaselineResizeBehavior.OTHER, component.getBaselineResizeBehavior());
+    assertFalse(component.getIgnoreRepaint());
+    assertFalse(component.hasFocus());
+    assertFalse(component.isCursorSet());
+    assertFalse(component.isDisplayable());
+    assertFalse(component.isFocusOwner());
+    assertFalse(component.isLightweight());
+    assertFalse(component.isMaximumSizeSet());
+    assertFalse(component.isMinimumSizeSet());
+    assertFalse(component.isPreferredSizeSet());
+    assertFalse(component.isShowing());
+    assertFalse(component.isValid());
+    assertFalse(((JPanel) component).isFocusCycleRoot());
+    assertFalse(((JPanel) component).isFocusTraversalPolicyProvider());
+    assertFalse(((JPanel) component).isFocusTraversalPolicySet());
+    assertFalse(((JPanel) component).getAutoscrolls());
+    assertFalse(((JPanel) component).getInheritsPopupMenu());
+    assertFalse(((JPanel) component).isManagingFocus());
+    assertFalse(((JPanel) component).isPaintingForPrint());
+    assertFalse(((JPanel) component).isPaintingTile());
+    assertFalse(((JPanel) component).isValidateRoot());
+    assertTrue(component.getFocusTraversalKeysEnabled());
+    assertTrue(component.isBackgroundSet());
+    assertTrue(component.isDoubleBuffered());
+    assertTrue(component.isEnabled());
+    assertTrue(component.isFocusable());
+    assertTrue(component.isFontSet());
+    assertTrue(component.isForegroundSet());
+    assertTrue(component.isOpaque());
+    assertTrue(component.isVisible());
+    assertTrue(((Map<Object, Boolean>) documentProperties).containsKey("i18n"));
+    assertTrue(((JPanel) component).getVerifyInputWhenFocusTarget());
+    assertTrue(((JPanel) component).isOptimizedDrawingEnabled());
+    assertTrue(((JPanel) component).isRequestFocusEnabled());
+    assertEquals(boundsResult, component.bounds());
+    assertEquals(boundsResult, streamPanel.getBounds());
+    assertEquals(boundsResult, component.getBounds());
+    assertEquals(boundsResult, boundsResult.getBounds());
+    assertEquals(boundsResult, streamPanel.getVisibleRect());
+    assertEquals(boundsResult, ((JPanel) component).getVisibleRect());
+    assertEquals(boundsResult, bounds2D);
+    assertEquals(boundsResult, frame);
+    Dimension size = streamPanel.getSize();
+    assertEquals(size, component.getSize());
+    assertEquals(size, streamPanel.size());
+    assertEquals(size, component.size());
+    assertEquals(size, size.getSize());
+    assertEquals(size, boundsResult.getSize());
+    assertEquals(minimumSize, component.getMinimumSize());
+    assertEquals(minimumSize, minimumSize.getSize());
+    assertEquals(preferredSize, component.getPreferredSize());
+    assertEquals(preferredSize, preferredSize.getSize());
+    assertSame(streamPanel, component.getParent());
+  }
+
+  /**
+   * Method under test:
+   * {@link StreamPaneView#showStreamText(StyledDocument, ToolTipController)}
+   */
+  @Test
+  void testShowStreamText4() {
+    // Arrange
+    StreamPaneView streamPaneView = new StreamPaneView();
+
+    DefaultStyledDocument document = new DefaultStyledDocument();
+    document.addStyle("42", StyleContext.getDefaultStyleContext().new NamedStyle());
+    document.addUndoableEditListener(mock(UndoableEditListener.class));
+
+    // Act
+    streamPaneView.showStreamText(document, new ToolTipController(new PDResources()));
+
+    // Assert
+    JPanel streamPanel = streamPaneView.getStreamPanel();
+    Rectangle boundsResult = streamPanel.bounds();
+    Rectangle2D bounds2D = boundsResult.getBounds2D();
+    assertTrue(bounds2D instanceof Rectangle);
+    Rectangle2D frame = boundsResult.getFrame();
+    assertTrue(frame instanceof Rectangle2D.Double);
+    Dictionary<Object, Object> documentProperties = document.getDocumentProperties();
+    assertTrue(documentProperties instanceof Map);
+    Component[] components = streamPanel.getComponents();
+    Component component = components[0];
+    assertTrue(((JPanel) component).getLayout() instanceof BoxLayout);
+    assertTrue(component instanceof JPanel);
+    Component[] components2 = ((JPanel) component).getComponents();
+    assertTrue(components2[0] instanceof JPanel);
+    assertTrue(components2[1] instanceof JScrollPane);
+    AncestorListener[] ancestorListeners = ((JPanel) component).getAncestorListeners();
+    assertTrue(ancestorListeners[0] instanceof StreamTextView);
+    assertEquals("PanelUI", ((JPanel) component).getUIClassID());
+    assertNull(((JPanel) component).getNextFocusableComponent());
+    assertNull(component.getFocusCycleRootAncestor());
+    assertNull(((JPanel) component).getTopLevelAncestor());
+    assertNull(((JPanel) component).getFocusTraversalPolicy());
+    assertNull(component.getGraphics());
+    assertNull(component.getGraphicsConfiguration());
+    assertNull(component.getDropTarget());
+    assertNull(component.getInputContext());
+    assertNull(component.getInputMethodRequests());
+    assertNull(component.getName());
+    assertNull(((JPanel) component).getToolTipText());
+    assertNull(((JPanel) component).getInputVerifier());
+    assertNull(((JPanel) component).getComponentPopupMenu());
+    assertNull(((JPanel) component).getRootPane());
+    assertNull(((JPanel) component).getTransferHandler());
+    assertNull(((JPanel) component).getBorder());
+    assertEquals(0, component.getHeight());
+    assertEquals(0, component.getWidth());
+    assertEquals(0, component.getX());
+    assertEquals(0, component.getY());
+    assertEquals(0, ((JPanel) component).getDebugGraphicsOptions());
+    assertEquals(0, component.getFocusListeners().length);
+    assertEquals(0, component.getHierarchyBoundsListeners().length);
+    assertEquals(0, component.getHierarchyListeners().length);
+    assertEquals(0, component.getInputMethodListeners().length);
+    assertEquals(0, component.getKeyListeners().length);
+    assertEquals(0, component.getMouseListeners().length);
+    assertEquals(0, component.getMouseMotionListeners().length);
+    assertEquals(0, component.getMouseWheelListeners().length);
+    assertEquals(0, ((JPanel) component).getContainerListeners().length);
+    assertEquals(0, ((JPanel) component).getRegisteredKeyStrokes().length);
+    assertEquals(0, ((JPanel) component).getVetoableChangeListeners().length);
+    assertEquals(0.5f, component.getAlignmentX());
+    assertEquals(0.5f, component.getAlignmentY());
+    assertEquals(1, streamPanel.getComponentCount());
+    assertEquals(1, component.getComponentListeners().length);
+    assertEquals(1, component.getPropertyChangeListeners().length);
+    assertEquals(1, components.length);
+    assertEquals(1, ancestorListeners.length);
+    Dimension preferredSize = streamPanel.getPreferredSize();
+    assertEquals(10, preferredSize.width);
+    assertEquals(10.0d, preferredSize.getWidth());
+    assertEquals(2, ((JPanel) component).getComponentCount());
+    assertEquals(2, documentProperties.size());
+    assertEquals(2, components2.length);
+    assertEquals(2, document.getDocumentListeners().length);
+    Dimension minimumSize = streamPanel.getMinimumSize();
+    assertEquals(22, minimumSize.height);
+    assertEquals(22, minimumSize.width);
+    assertEquals(22.0d, minimumSize.getHeight());
+    assertEquals(22.0d, minimumSize.getWidth());
+    assertEquals(26, preferredSize.height);
+    assertEquals(26.0d, preferredSize.getHeight());
+    Dimension maximumSize = component.getMaximumSize();
+    assertEquals(32767, maximumSize.height);
+    assertEquals(32767, maximumSize.width);
+    assertEquals(Component.BaselineResizeBehavior.OTHER, component.getBaselineResizeBehavior());
+    assertFalse(component.getIgnoreRepaint());
+    assertFalse(component.hasFocus());
+    assertFalse(component.isCursorSet());
+    assertFalse(component.isDisplayable());
+    assertFalse(component.isFocusOwner());
+    assertFalse(component.isLightweight());
+    assertFalse(component.isMaximumSizeSet());
+    assertFalse(component.isMinimumSizeSet());
+    assertFalse(component.isPreferredSizeSet());
+    assertFalse(component.isShowing());
+    assertFalse(component.isValid());
+    assertFalse(((JPanel) component).isFocusCycleRoot());
+    assertFalse(((JPanel) component).isFocusTraversalPolicyProvider());
+    assertFalse(((JPanel) component).isFocusTraversalPolicySet());
+    assertFalse(((JPanel) component).getAutoscrolls());
+    assertFalse(((JPanel) component).getInheritsPopupMenu());
+    assertFalse(((JPanel) component).isManagingFocus());
+    assertFalse(((JPanel) component).isPaintingForPrint());
+    assertFalse(((JPanel) component).isPaintingTile());
+    assertFalse(((JPanel) component).isValidateRoot());
+    assertTrue(component.getFocusTraversalKeysEnabled());
+    assertTrue(component.isBackgroundSet());
+    assertTrue(component.isDoubleBuffered());
+    assertTrue(component.isEnabled());
+    assertTrue(component.isFocusable());
+    assertTrue(component.isFontSet());
+    assertTrue(component.isForegroundSet());
+    assertTrue(component.isOpaque());
+    assertTrue(component.isVisible());
+    assertTrue(((Map<Object, Boolean>) documentProperties).containsKey("i18n"));
+    assertTrue(((JPanel) component).getVerifyInputWhenFocusTarget());
+    assertTrue(((JPanel) component).isOptimizedDrawingEnabled());
+    assertTrue(((JPanel) component).isRequestFocusEnabled());
+    assertEquals(boundsResult, component.bounds());
+    assertEquals(boundsResult, streamPanel.getBounds());
+    assertEquals(boundsResult, component.getBounds());
+    assertEquals(boundsResult, boundsResult.getBounds());
+    assertEquals(boundsResult, streamPanel.getVisibleRect());
+    assertEquals(boundsResult, ((JPanel) component).getVisibleRect());
+    assertEquals(boundsResult, bounds2D);
+    assertEquals(boundsResult, frame);
+    Dimension size = streamPanel.getSize();
+    assertEquals(size, component.getSize());
+    assertEquals(size, streamPanel.size());
+    assertEquals(size, component.size());
+    assertEquals(size, size.getSize());
+    assertEquals(size, boundsResult.getSize());
+    assertEquals(minimumSize, component.getMinimumSize());
+    assertEquals(minimumSize, minimumSize.getSize());
+    assertEquals(preferredSize, component.getPreferredSize());
+    assertEquals(preferredSize, preferredSize.getSize());
+    assertSame(streamPanel, component.getParent());
+  }
+
+  /**
+   * Method under test:
+   * {@link StreamPaneView#showStreamText(StyledDocument, ToolTipController)}
+   */
+  @Test
+  void testShowStreamText5() {
+    // Arrange
+    StreamPaneView streamPaneView = new StreamPaneView();
+
+    DefaultStyledDocument document = new DefaultStyledDocument();
+    document.putProperty(-1, "42");
+    document.addUndoableEditListener(mock(UndoableEditListener.class));
+
+    // Act
+    streamPaneView.showStreamText(document, new ToolTipController(new PDResources()));
+
+    // Assert
+    JPanel streamPanel = streamPaneView.getStreamPanel();
+    Rectangle boundsResult = streamPanel.bounds();
+    Rectangle2D bounds2D = boundsResult.getBounds2D();
+    assertTrue(bounds2D instanceof Rectangle);
+    Rectangle2D frame = boundsResult.getFrame();
+    assertTrue(frame instanceof Rectangle2D.Double);
+    Dictionary<Object, Object> documentProperties = document.getDocumentProperties();
+    assertTrue(documentProperties instanceof Map);
+    Component[] components = streamPanel.getComponents();
+    Component component = components[0];
+    assertTrue(((JPanel) component).getLayout() instanceof BoxLayout);
+    assertTrue(component instanceof JPanel);
+    Component[] components2 = ((JPanel) component).getComponents();
+    assertTrue(components2[0] instanceof JPanel);
+    assertTrue(components2[1] instanceof JScrollPane);
+    AncestorListener[] ancestorListeners = ((JPanel) component).getAncestorListeners();
+    assertTrue(ancestorListeners[0] instanceof StreamTextView);
+    assertEquals("PanelUI", ((JPanel) component).getUIClassID());
+    assertNull(((JPanel) component).getNextFocusableComponent());
+    assertNull(component.getFocusCycleRootAncestor());
+    assertNull(((JPanel) component).getTopLevelAncestor());
+    assertNull(((JPanel) component).getFocusTraversalPolicy());
+    assertNull(component.getGraphics());
+    assertNull(component.getGraphicsConfiguration());
+    assertNull(component.getDropTarget());
+    assertNull(component.getInputContext());
+    assertNull(component.getInputMethodRequests());
+    assertNull(component.getName());
+    assertNull(((JPanel) component).getToolTipText());
+    assertNull(((JPanel) component).getInputVerifier());
+    assertNull(((JPanel) component).getComponentPopupMenu());
+    assertNull(((JPanel) component).getRootPane());
+    assertNull(((JPanel) component).getTransferHandler());
+    assertNull(((JPanel) component).getBorder());
+    assertEquals(0, component.getHeight());
+    assertEquals(0, component.getWidth());
+    assertEquals(0, component.getX());
+    assertEquals(0, component.getY());
+    assertEquals(0, ((JPanel) component).getDebugGraphicsOptions());
+    assertEquals(0, component.getFocusListeners().length);
+    assertEquals(0, component.getHierarchyBoundsListeners().length);
+    assertEquals(0, component.getHierarchyListeners().length);
+    assertEquals(0, component.getInputMethodListeners().length);
+    assertEquals(0, component.getKeyListeners().length);
+    assertEquals(0, component.getMouseListeners().length);
+    assertEquals(0, component.getMouseMotionListeners().length);
+    assertEquals(0, component.getMouseWheelListeners().length);
+    assertEquals(0, ((JPanel) component).getContainerListeners().length);
+    assertEquals(0, ((JPanel) component).getRegisteredKeyStrokes().length);
+    assertEquals(0, ((JPanel) component).getVetoableChangeListeners().length);
+    assertEquals(0.5f, component.getAlignmentX());
+    assertEquals(0.5f, component.getAlignmentY());
+    assertEquals(1, streamPanel.getComponentCount());
+    assertEquals(1, component.getComponentListeners().length);
+    assertEquals(1, component.getPropertyChangeListeners().length);
+    assertEquals(1, components.length);
+    assertEquals(1, ancestorListeners.length);
+    Dimension preferredSize = streamPanel.getPreferredSize();
+    assertEquals(10, preferredSize.width);
+    assertEquals(10.0d, preferredSize.getWidth());
+    assertEquals(2, ((JPanel) component).getComponentCount());
+    assertEquals(2, components2.length);
+    assertEquals(2, document.getDocumentListeners().length);
+    Dimension minimumSize = streamPanel.getMinimumSize();
+    assertEquals(22, minimumSize.height);
+    assertEquals(22, minimumSize.width);
+    assertEquals(22.0d, minimumSize.getHeight());
+    assertEquals(22.0d, minimumSize.getWidth());
+    assertEquals(26, preferredSize.height);
+    assertEquals(26.0d, preferredSize.getHeight());
     assertEquals(3, documentProperties.size());
-    assertTrue(((Map<Object, Object>) documentProperties).containsKey("42"));
+    Dimension maximumSize = component.getMaximumSize();
+    assertEquals(32767, maximumSize.height);
+    assertEquals(32767, maximumSize.width);
+    assertEquals(Component.BaselineResizeBehavior.OTHER, component.getBaselineResizeBehavior());
+    assertFalse(component.getIgnoreRepaint());
+    assertFalse(component.hasFocus());
+    assertFalse(component.isCursorSet());
+    assertFalse(component.isDisplayable());
+    assertFalse(component.isFocusOwner());
+    assertFalse(component.isLightweight());
+    assertFalse(component.isMaximumSizeSet());
+    assertFalse(component.isMinimumSizeSet());
+    assertFalse(component.isPreferredSizeSet());
+    assertFalse(component.isShowing());
+    assertFalse(component.isValid());
+    assertFalse(((JPanel) component).isFocusCycleRoot());
+    assertFalse(((JPanel) component).isFocusTraversalPolicyProvider());
+    assertFalse(((JPanel) component).isFocusTraversalPolicySet());
+    assertFalse(((JPanel) component).getAutoscrolls());
+    assertFalse(((JPanel) component).getInheritsPopupMenu());
+    assertFalse(((JPanel) component).isManagingFocus());
+    assertFalse(((JPanel) component).isPaintingForPrint());
+    assertFalse(((JPanel) component).isPaintingTile());
+    assertFalse(((JPanel) component).isValidateRoot());
+    assertTrue(component.getFocusTraversalKeysEnabled());
+    assertTrue(component.isBackgroundSet());
+    assertTrue(component.isDoubleBuffered());
+    assertTrue(component.isEnabled());
+    assertTrue(component.isFocusable());
+    assertTrue(component.isFontSet());
+    assertTrue(component.isForegroundSet());
+    assertTrue(component.isOpaque());
+    assertTrue(component.isVisible());
     assertTrue(((Map<Object, Object>) documentProperties).containsKey("i18n"));
+    assertTrue(((Map<Object, Object>) documentProperties).containsKey(-1));
+    assertTrue(((JPanel) component).getVerifyInputWhenFocusTarget());
+    assertTrue(((JPanel) component).isOptimizedDrawingEnabled());
+    assertTrue(((JPanel) component).isRequestFocusEnabled());
+    assertEquals(boundsResult, component.bounds());
+    assertEquals(boundsResult, streamPanel.getBounds());
+    assertEquals(boundsResult, component.getBounds());
+    assertEquals(boundsResult, boundsResult.getBounds());
+    assertEquals(boundsResult, streamPanel.getVisibleRect());
+    assertEquals(boundsResult, ((JPanel) component).getVisibleRect());
+    assertEquals(boundsResult, bounds2D);
+    assertEquals(boundsResult, frame);
+    Dimension size = streamPanel.getSize();
+    assertEquals(size, component.getSize());
+    assertEquals(size, streamPanel.size());
+    assertEquals(size, component.size());
+    assertEquals(size, size.getSize());
+    assertEquals(size, boundsResult.getSize());
+    assertEquals(minimumSize, component.getMinimumSize());
+    assertEquals(minimumSize, minimumSize.getSize());
+    assertEquals(preferredSize, component.getPreferredSize());
+    assertEquals(preferredSize, preferredSize.getSize());
+    assertSame(streamPanel, component.getParent());
   }
 
   /**
-   * Test {@link StreamPaneView#showStreamText(StyledDocument, ToolTipController)}.
-   * <ul>
-   *   <li>Then {@link DefaultStyledDocument#DefaultStyledDocument()} DocumentProperties size is two.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link StreamPaneView#showStreamText(StyledDocument, ToolTipController)}
+   * Method under test:
+   * {@link StreamPaneView#showStreamText(StyledDocument, ToolTipController)}
    */
   @Test
-  @DisplayName("Test showStreamText(StyledDocument, ToolTipController); then DefaultStyledDocument() DocumentProperties size is two")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void StreamPaneView.showStreamText(StyledDocument, ToolTipController)"})
-  void testShowStreamText_thenDefaultStyledDocumentDocumentPropertiesSizeIsTwo() {
+  void testShowStreamText6() {
     // Arrange
     StreamPaneView streamPaneView = new StreamPaneView();
     DefaultStyledDocument document = new DefaultStyledDocument();
 
+    PDResources resources = new PDResources();
+    resources.add(new PDImageXObject(new PDDocument()));
+
     // Act
-    streamPaneView.showStreamText(document, new ToolTipController(new PDResources()));
+    streamPaneView.showStreamText(document, new ToolTipController(resources));
 
     // Assert
+    JPanel streamPanel = streamPaneView.getStreamPanel();
+    Rectangle boundsResult = streamPanel.bounds();
+    Rectangle2D bounds2D = boundsResult.getBounds2D();
+    assertTrue(bounds2D instanceof Rectangle);
+    Rectangle2D frame = boundsResult.getFrame();
+    assertTrue(frame instanceof Rectangle2D.Double);
     Dictionary<Object, Object> documentProperties = document.getDocumentProperties();
     assertTrue(documentProperties instanceof Map);
-    JPanel streamPanel = streamPaneView.getStreamPanel();
+    Component[] components = streamPanel.getComponents();
+    Component component = components[0];
+    assertTrue(((JPanel) component).getLayout() instanceof BoxLayout);
+    assertTrue(component instanceof JPanel);
+    Component[] components2 = ((JPanel) component).getComponents();
+    assertTrue(components2[0] instanceof JPanel);
+    assertTrue(components2[1] instanceof JScrollPane);
+    AncestorListener[] ancestorListeners = ((JPanel) component).getAncestorListeners();
+    assertTrue(ancestorListeners[0] instanceof StreamTextView);
+    assertEquals("PanelUI", ((JPanel) component).getUIClassID());
+    assertNull(((JPanel) component).getNextFocusableComponent());
+    assertNull(component.getFocusCycleRootAncestor());
+    assertNull(((JPanel) component).getTopLevelAncestor());
+    assertNull(((JPanel) component).getFocusTraversalPolicy());
+    assertNull(component.getGraphics());
+    assertNull(component.getGraphicsConfiguration());
+    assertNull(component.getDropTarget());
+    assertNull(component.getInputContext());
+    assertNull(component.getInputMethodRequests());
+    assertNull(component.getName());
+    assertNull(((JPanel) component).getToolTipText());
+    assertNull(((JPanel) component).getInputVerifier());
+    assertNull(((JPanel) component).getComponentPopupMenu());
+    assertNull(((JPanel) component).getRootPane());
+    assertNull(((JPanel) component).getTransferHandler());
+    assertNull(((JPanel) component).getBorder());
+    assertEquals(0, component.getHeight());
+    assertEquals(0, component.getWidth());
+    assertEquals(0, component.getX());
+    assertEquals(0, component.getY());
+    assertEquals(0, ((JPanel) component).getDebugGraphicsOptions());
+    assertEquals(0, component.getFocusListeners().length);
+    assertEquals(0, component.getHierarchyBoundsListeners().length);
+    assertEquals(0, component.getHierarchyListeners().length);
+    assertEquals(0, component.getInputMethodListeners().length);
+    assertEquals(0, component.getKeyListeners().length);
+    assertEquals(0, component.getMouseListeners().length);
+    assertEquals(0, component.getMouseMotionListeners().length);
+    assertEquals(0, component.getMouseWheelListeners().length);
+    assertEquals(0, ((JPanel) component).getContainerListeners().length);
+    assertEquals(0, ((JPanel) component).getRegisteredKeyStrokes().length);
+    assertEquals(0, ((JPanel) component).getVetoableChangeListeners().length);
+    assertEquals(0.5f, component.getAlignmentX());
+    assertEquals(0.5f, component.getAlignmentY());
     assertEquals(1, streamPanel.getComponentCount());
-    assertEquals(1, streamPanel.getComponents().length);
+    assertEquals(1, component.getComponentListeners().length);
+    assertEquals(1, component.getPropertyChangeListeners().length);
+    assertEquals(1, components.length);
+    assertEquals(1, ancestorListeners.length);
+    Dimension preferredSize = streamPanel.getPreferredSize();
+    assertEquals(10, preferredSize.width);
+    assertEquals(10.0d, preferredSize.getWidth());
+    assertEquals(2, ((JPanel) component).getComponentCount());
     assertEquals(2, documentProperties.size());
+    assertEquals(2, components2.length);
     assertEquals(2, document.getDocumentListeners().length);
+    Dimension minimumSize = streamPanel.getMinimumSize();
+    assertEquals(22, minimumSize.height);
+    assertEquals(22, minimumSize.width);
+    assertEquals(22.0d, minimumSize.getHeight());
+    assertEquals(22.0d, minimumSize.getWidth());
+    assertEquals(26, preferredSize.height);
+    assertEquals(26.0d, preferredSize.getHeight());
+    Dimension maximumSize = component.getMaximumSize();
+    assertEquals(32767, maximumSize.height);
+    assertEquals(32767, maximumSize.width);
+    assertEquals(Component.BaselineResizeBehavior.OTHER, component.getBaselineResizeBehavior());
+    assertFalse(component.getIgnoreRepaint());
+    assertFalse(component.hasFocus());
+    assertFalse(component.isCursorSet());
+    assertFalse(component.isDisplayable());
+    assertFalse(component.isFocusOwner());
+    assertFalse(component.isLightweight());
+    assertFalse(component.isMaximumSizeSet());
+    assertFalse(component.isMinimumSizeSet());
+    assertFalse(component.isPreferredSizeSet());
+    assertFalse(component.isShowing());
+    assertFalse(component.isValid());
+    assertFalse(((JPanel) component).isFocusCycleRoot());
+    assertFalse(((JPanel) component).isFocusTraversalPolicyProvider());
+    assertFalse(((JPanel) component).isFocusTraversalPolicySet());
+    assertFalse(((JPanel) component).getAutoscrolls());
+    assertFalse(((JPanel) component).getInheritsPopupMenu());
+    assertFalse(((JPanel) component).isManagingFocus());
+    assertFalse(((JPanel) component).isPaintingForPrint());
+    assertFalse(((JPanel) component).isPaintingTile());
+    assertFalse(((JPanel) component).isValidateRoot());
+    assertTrue(component.getFocusTraversalKeysEnabled());
+    assertTrue(component.isBackgroundSet());
+    assertTrue(component.isDoubleBuffered());
+    assertTrue(component.isEnabled());
+    assertTrue(component.isFocusable());
+    assertTrue(component.isFontSet());
+    assertTrue(component.isForegroundSet());
+    assertTrue(component.isOpaque());
+    assertTrue(component.isVisible());
     assertTrue(((Map<Object, Boolean>) documentProperties).containsKey("i18n"));
+    assertTrue(((JPanel) component).getVerifyInputWhenFocusTarget());
+    assertTrue(((JPanel) component).isOptimizedDrawingEnabled());
+    assertTrue(((JPanel) component).isRequestFocusEnabled());
+    assertEquals(boundsResult, component.bounds());
+    assertEquals(boundsResult, streamPanel.getBounds());
+    assertEquals(boundsResult, component.getBounds());
+    assertEquals(boundsResult, boundsResult.getBounds());
+    assertEquals(boundsResult, streamPanel.getVisibleRect());
+    assertEquals(boundsResult, ((JPanel) component).getVisibleRect());
+    assertEquals(boundsResult, bounds2D);
+    assertEquals(boundsResult, frame);
+    Dimension size = streamPanel.getSize();
+    assertEquals(size, component.getSize());
+    assertEquals(size, streamPanel.size());
+    assertEquals(size, component.size());
+    assertEquals(size, size.getSize());
+    assertEquals(size, boundsResult.getSize());
+    assertEquals(minimumSize, component.getMinimumSize());
+    assertEquals(minimumSize, minimumSize.getSize());
+    assertEquals(preferredSize, component.getPreferredSize());
+    assertEquals(preferredSize, preferredSize.getSize());
+    assertSame(streamPanel, component.getParent());
   }
 }

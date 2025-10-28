@@ -3,28 +3,114 @@ package org.apache.pdfbox.text;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.ArgumentMatchers.isA;
+import static org.mockito.Mockito.atLeast;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import java.awt.Rectangle;
 import java.io.IOException;
-import org.apache.pdfbox.cos.COSDocument;
+import java.util.List;
+import java.util.regex.Pattern;
+import org.apache.pdfbox.cos.COSBoolean;
+import org.apache.pdfbox.cos.COSDictionary;
+import org.apache.pdfbox.cos.COSName;
 import org.apache.pdfbox.pdmodel.PDPage;
-import org.apache.pdfbox.pdmodel.common.PDStream;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
+import org.apache.pdfbox.pdmodel.font.PDMMType1Font;
+import org.apache.pdfbox.util.Matrix;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 class PDFTextStripperByAreaDiffblueTest {
   /**
-   * Test {@link PDFTextStripperByArea#PDFTextStripperByArea()}.
-   * <p>
-   * Method under test: default or parameterless constructor of {@link PDFTextStripperByArea}
+   * Method under test: {@link PDFTextStripperByArea#extractRegions(PDPage)}
    */
   @Test
-  @DisplayName("Test new PDFTextStripperByArea()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFTextStripperByArea.<init>()"})
+  void testExtractRegions() throws IOException {
+    // Arrange
+    PDFTextStripperByArea pdfTextStripperByArea = new PDFTextStripperByArea();
+
+    // Act
+    pdfTextStripperByArea.extractRegions(new PDPage());
+
+    // Assert that nothing has changed
+    assertEquals(0, pdfTextStripperByArea.getGraphicsStackSize());
+    assertTrue(pdfTextStripperByArea.getCharactersByArticle().isEmpty());
+    assertEquals(Integer.MAX_VALUE, pdfTextStripperByArea.getEndPage());
+  }
+
+  /**
+   * Method under test: {@link PDFTextStripperByArea#extractRegions(PDPage)}
+   */
+  @Test
+  void testExtractRegions2() throws IOException {
+    // Arrange
+    PDFTextStripperByArea pdfTextStripperByArea = new PDFTextStripperByArea();
+    pdfTextStripperByArea.addRegion("us-east-2", new Rectangle(1, 1));
+
+    // Act
+    pdfTextStripperByArea.extractRegions(new PDPage());
+
+    // Assert
+    assertNull(pdfTextStripperByArea.getOutput());
+    assertNull(pdfTextStripperByArea.getCurrentPage());
+    assertNull(pdfTextStripperByArea.getGraphicsState());
+    assertNull(pdfTextStripperByArea.getInitialMatrix());
+    assertEquals(0, pdfTextStripperByArea.getGraphicsStackSize());
+    assertEquals(1, pdfTextStripperByArea.getEndPage());
+    assertTrue(pdfTextStripperByArea.getCharactersByArticle().isEmpty());
+  }
+
+  /**
+   * Method under test:
+   * {@link PDFTextStripperByArea#processTextPosition(TextPosition)}
+   */
+  @Test
+  void testProcessTextPosition() throws IOException {
+    // Arrange
+    PDFTextStripperByArea pdfTextStripperByArea = new PDFTextStripperByArea();
+    COSDictionary fontDictionary = mock(COSDictionary.class);
+    when(fontDictionary.getNameAsString(Mockito.<COSName>any())).thenReturn("Name As String");
+    when(fontDictionary.getDictionaryObject(Mockito.<COSName>any())).thenReturn(COSBoolean.FALSE);
+    when(fontDictionary.getCOSDictionary(Mockito.<COSName>any())).thenReturn(new COSDictionary());
+    PDMMType1Font font = new PDMMType1Font(fontDictionary);
+
+    // Act
+    pdfTextStripperByArea.processTextPosition(new TextPosition(1, 10.0f, 10.0f, new Matrix(), 10.0f, 10.0f, 10.0f,
+        10.0f, 10.0f, "Unicode", new int[]{1, 0, 1, 0}, font, 10.0f, 3));
+
+    // Assert that nothing has changed
+    verify(fontDictionary).getCOSDictionary(isA(COSName.class));
+    verify(fontDictionary, atLeast(1)).getDictionaryObject(Mockito.<COSName>any());
+    verify(fontDictionary, atLeast(1)).getNameAsString(isA(COSName.class));
+  }
+
+  /**
+   * Methods under test:
+   * <ul>
+   *   <li>{@link PDFTextStripperByArea#setShouldSeparateByBeads(boolean)}
+   *   <li>{@link PDFTextStripperByArea#getRegions()}
+   * </ul>
+   */
+  @Test
+  void testGettersAndSetters() throws IOException {
+    // Arrange
+    PDFTextStripperByArea pdfTextStripperByArea = new PDFTextStripperByArea();
+
+    // Act
+    pdfTextStripperByArea.setShouldSeparateByBeads(true);
+    pdfTextStripperByArea.setShouldSeparateByBeads(true);
+
+    // Assert that nothing has changed
+    assertTrue(pdfTextStripperByArea.getRegions().isEmpty());
+  }
+
+  /**
+   * Method under test: default or parameterless constructor of
+   * {@link PDFTextStripperByArea}
+   */
+  @Test
   void testNewPDFTextStripperByArea() throws IOException {
     // Arrange and Act
     PDFTextStripperByArea actualPdfTextStripperByArea = new PDFTextStripperByArea();
@@ -36,6 +122,14 @@ class PDFTextStripperByAreaDiffblueTest {
     assertEquals("", actualPdfTextStripperByArea.getPageStart());
     assertEquals("", actualPdfTextStripperByArea.getParagraphEnd());
     assertEquals("", actualPdfTextStripperByArea.getParagraphStart());
+    List<Pattern> listItemPatterns = actualPdfTextStripperByArea.getListItemPatterns();
+    assertEquals(10, listItemPatterns.size());
+    assertEquals("[IVXL]+\\.", listItemPatterns.get(8).pattern());
+    assertEquals("[a-z]\\)", listItemPatterns.get(7).pattern());
+    assertEquals("[ivxl]+\\.", listItemPatterns.get(9).pattern());
+    assertEquals("\\.", listItemPatterns.get(0).pattern());
+    assertEquals("\\[\\d+\\]", listItemPatterns.get(2).pattern());
+    assertEquals("\\d+\\.", listItemPatterns.get(1).pattern());
     assertEquals("\n", actualPdfTextStripperByArea.getLineSeparator());
     assertEquals("\n", actualPdfTextStripperByArea.getPageEnd());
     assertNull(actualPdfTextStripperByArea.getOutput());
@@ -53,7 +147,6 @@ class PDFTextStripperByAreaDiffblueTest {
     assertEquals(0.5f, actualPdfTextStripperByArea.getSpacingTolerance());
     assertEquals(1, actualPdfTextStripperByArea.getCurrentPageNo());
     assertEquals(1, actualPdfTextStripperByArea.getStartPage());
-    assertEquals(10, actualPdfTextStripperByArea.getListItemPatterns().size());
     assertEquals(2.0f, actualPdfTextStripperByArea.getIndentThreshold());
     assertEquals(2.5f, actualPdfTextStripperByArea.getDropThreshold());
     assertFalse(actualPdfTextStripperByArea.getAddMoreFormatting());
@@ -64,178 +157,5 @@ class PDFTextStripperByAreaDiffblueTest {
     assertTrue(actualPdfTextStripperByArea.getRegions().isEmpty());
     assertTrue(actualPdfTextStripperByArea.getSuppressDuplicateOverlappingText());
     assertEquals(Integer.MAX_VALUE, actualPdfTextStripperByArea.getEndPage());
-  }
-
-  /**
-   * Test getters and setters.
-   * <p>
-   * Methods under test:
-   * <ul>
-   *   <li>{@link PDFTextStripperByArea#setShouldSeparateByBeads(boolean)}
-   *   <li>{@link PDFTextStripperByArea#getRegions()}
-   * </ul>
-   */
-  @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"java.util.List PDFTextStripperByArea.getRegions()",
-      "void PDFTextStripperByArea.setShouldSeparateByBeads(boolean)"})
-  void testGettersAndSetters() throws IOException {
-    // Arrange
-    PDFTextStripperByArea pdfTextStripperByArea = new PDFTextStripperByArea();
-
-    // Act
-    pdfTextStripperByArea.setShouldSeparateByBeads(true);
-    pdfTextStripperByArea.setShouldSeparateByBeads(true);
-
-    // Assert
-    assertTrue(pdfTextStripperByArea.getRegions().isEmpty());
-  }
-
-  /**
-   * Test {@link PDFTextStripperByArea#extractRegions(PDPage)}.
-   * <ul>
-   *   <li>Given {@link PDFTextStripperByArea#PDFTextStripperByArea()} SortByPosition is {@code true}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDFTextStripperByArea#extractRegions(PDPage)}
-   */
-  @Test
-  @DisplayName("Test extractRegions(PDPage); given PDFTextStripperByArea() SortByPosition is 'true'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFTextStripperByArea.extractRegions(PDPage)"})
-  void testExtractRegions_givenPDFTextStripperByAreaSortByPositionIsTrue() throws IOException {
-    // Arrange
-    PDFTextStripperByArea pdfTextStripperByArea = new PDFTextStripperByArea();
-    pdfTextStripperByArea.setSortByPosition(true);
-    pdfTextStripperByArea.addRegion("us-east-2", new Rectangle(1, 1));
-
-    PDPage page = new PDPage();
-    page.setContents(new PDStream(new COSDocument()));
-
-    // Act
-    pdfTextStripperByArea.extractRegions(page);
-
-    // Assert
-    assertNull(pdfTextStripperByArea.getTextLineMatrix());
-    assertNull(pdfTextStripperByArea.getTextMatrix());
-    assertEquals(1, pdfTextStripperByArea.getCharactersByArticle().size());
-    assertEquals(1, pdfTextStripperByArea.getGraphicsStackSize());
-    assertEquals(1, pdfTextStripperByArea.getEndPage());
-    assertSame(page, pdfTextStripperByArea.getCurrentPage());
-  }
-
-  /**
-   * Test {@link PDFTextStripperByArea#extractRegions(PDPage)}.
-   * <ul>
-   *   <li>Then {@link PDFTextStripperByArea#PDFTextStripperByArea()} EndPage is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDFTextStripperByArea#extractRegions(PDPage)}
-   */
-  @Test
-  @DisplayName("Test extractRegions(PDPage); then PDFTextStripperByArea() EndPage is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFTextStripperByArea.extractRegions(PDPage)"})
-  void testExtractRegions_thenPDFTextStripperByAreaEndPageIsOne() throws IOException {
-    // Arrange
-    PDFTextStripperByArea pdfTextStripperByArea = new PDFTextStripperByArea();
-    pdfTextStripperByArea.addRegion("us-east-2", new Rectangle(1, 1));
-
-    PDPage page = new PDPage();
-    page.setContents(new PDStream(new COSDocument()));
-
-    // Act
-    pdfTextStripperByArea.extractRegions(page);
-
-    // Assert
-    assertNull(pdfTextStripperByArea.getTextLineMatrix());
-    assertNull(pdfTextStripperByArea.getTextMatrix());
-    assertEquals(1, pdfTextStripperByArea.getCharactersByArticle().size());
-    assertEquals(1, pdfTextStripperByArea.getGraphicsStackSize());
-    assertEquals(1, pdfTextStripperByArea.getEndPage());
-    assertSame(page, pdfTextStripperByArea.getCurrentPage());
-  }
-
-  /**
-   * Test {@link PDFTextStripperByArea#extractRegions(PDPage)}.
-   * <ul>
-   *   <li>Then {@link PDFTextStripperByArea#PDFTextStripperByArea()} TextLineMatrix is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDFTextStripperByArea#extractRegions(PDPage)}
-   */
-  @Test
-  @DisplayName("Test extractRegions(PDPage); then PDFTextStripperByArea() TextLineMatrix is 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFTextStripperByArea.extractRegions(PDPage)"})
-  void testExtractRegions_thenPDFTextStripperByAreaTextLineMatrixIsNull() throws IOException {
-    // Arrange
-    PDFTextStripperByArea pdfTextStripperByArea = new PDFTextStripperByArea();
-
-    PDPage page = new PDPage();
-    page.setContents(new PDStream(new COSDocument()));
-
-    // Act
-    pdfTextStripperByArea.extractRegions(page);
-
-    // Assert
-    assertNull(pdfTextStripperByArea.getTextLineMatrix());
-    assertNull(pdfTextStripperByArea.getTextMatrix());
-    assertEquals(1, pdfTextStripperByArea.getCharactersByArticle().size());
-    assertEquals(1, pdfTextStripperByArea.getGraphicsStackSize());
-    assertSame(page, pdfTextStripperByArea.getCurrentPage());
-  }
-
-  /**
-   * Test {@link PDFTextStripperByArea#extractRegions(PDPage)}.
-   * <ul>
-   *   <li>When {@link PDPage#PDPage()}.</li>
-   *   <li>Then {@link PDFTextStripperByArea#PDFTextStripperByArea()} EndPage is {@link Integer#MAX_VALUE}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDFTextStripperByArea#extractRegions(PDPage)}
-   */
-  @Test
-  @DisplayName("Test extractRegions(PDPage); when PDPage(); then PDFTextStripperByArea() EndPage is MAX_VALUE")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFTextStripperByArea.extractRegions(PDPage)"})
-  void testExtractRegions_whenPDPage_thenPDFTextStripperByAreaEndPageIsMax_value() throws IOException {
-    // Arrange
-    PDFTextStripperByArea pdfTextStripperByArea = new PDFTextStripperByArea();
-
-    // Act
-    pdfTextStripperByArea.extractRegions(new PDPage());
-
-    // Assert that nothing has changed
-    assertEquals(0, pdfTextStripperByArea.getGraphicsStackSize());
-    assertTrue(pdfTextStripperByArea.getCharactersByArticle().isEmpty());
-    assertEquals(Integer.MAX_VALUE, pdfTextStripperByArea.getEndPage());
-  }
-
-  /**
-   * Test {@link PDFTextStripperByArea#extractRegions(PDPage)}.
-   * <ul>
-   *   <li>When {@link PDPage#PDPage()}.</li>
-   *   <li>Then {@link PDFTextStripperByArea#PDFTextStripperByArea()} GraphicsStackSize is zero.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDFTextStripperByArea#extractRegions(PDPage)}
-   */
-  @Test
-  @DisplayName("Test extractRegions(PDPage); when PDPage(); then PDFTextStripperByArea() GraphicsStackSize is zero")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFTextStripperByArea.extractRegions(PDPage)"})
-  void testExtractRegions_whenPDPage_thenPDFTextStripperByAreaGraphicsStackSizeIsZero() throws IOException {
-    // Arrange
-    PDFTextStripperByArea pdfTextStripperByArea = new PDFTextStripperByArea();
-    pdfTextStripperByArea.addRegion("us-east-2", new Rectangle(1, 1));
-
-    // Act
-    pdfTextStripperByArea.extractRegions(new PDPage());
-
-    // Assert that nothing has changed
-    assertEquals(0, pdfTextStripperByArea.getGraphicsStackSize());
-    assertTrue(pdfTextStripperByArea.getCharactersByArticle().isEmpty());
   }
 }

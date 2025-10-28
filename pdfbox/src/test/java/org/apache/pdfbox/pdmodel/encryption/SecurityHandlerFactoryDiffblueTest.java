@@ -2,25 +2,15 @@ package org.apache.pdfbox.pdmodel.encryption;
 
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import com.diffblue.cover.annotations.MethodsUnderTest;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class SecurityHandlerFactoryDiffblueTest {
   /**
-   * Test {@link SecurityHandlerFactory#registerHandler(String, Class, Class)}.
-   * <ul>
-   *   <li>When {@link PublicKeySecurityHandler#FILTER}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SecurityHandlerFactory#registerHandler(String, Class, Class)}
+   * Method under test:
+   * {@link SecurityHandlerFactory#registerHandler(String, Class, Class)}
    */
   @Test
-  @DisplayName("Test registerHandler(String, Class, Class); when FILTER")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void SecurityHandlerFactory.registerHandler(String, Class, Class)"})
-  void testRegisterHandler_whenFilter() {
+  void testRegisterHandler() {
     // Arrange
     Class<SecurityHandler> securityHandler = SecurityHandler.class;
     Class<ProtectionPolicy> protectionPolicy = ProtectionPolicy.class;
@@ -31,19 +21,11 @@ class SecurityHandlerFactoryDiffblueTest {
   }
 
   /**
-   * Test {@link SecurityHandlerFactory#newSecurityHandlerForFilter(String)}.
-   * <ul>
-   *   <li>When {@code Name}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SecurityHandlerFactory#newSecurityHandlerForFilter(String)}
+   * Method under test:
+   * {@link SecurityHandlerFactory#newSecurityHandlerForFilter(String)}
    */
   @Test
-  @DisplayName("Test newSecurityHandlerForFilter(String); when 'Name'; then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"SecurityHandler SecurityHandlerFactory.newSecurityHandlerForFilter(String)"})
-  void testNewSecurityHandlerForFilter_whenName_thenReturnNull() {
+  void testNewSecurityHandlerForFilter() {
     // Arrange, Act and Assert
     assertNull(SecurityHandlerFactory.INSTANCE.newSecurityHandlerForFilter("Name"));
   }

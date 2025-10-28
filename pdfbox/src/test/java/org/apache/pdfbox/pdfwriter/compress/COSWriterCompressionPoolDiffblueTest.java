@@ -3,7 +3,9 @@ package org.apache.pdfbox.pdfwriter.compress;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.List;
@@ -14,247 +16,680 @@ import org.apache.pdfbox.cos.COSInteger;
 import org.apache.pdfbox.cos.COSName;
 import org.apache.pdfbox.cos.COSObject;
 import org.apache.pdfbox.cos.COSObjectKey;
+import org.apache.pdfbox.cos.COSString;
+import org.apache.pdfbox.io.RandomAccessStreamCache;
+import org.apache.pdfbox.io.RandomAccessStreamCacheImpl;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.encryption.PDEncryption;
 import org.apache.pdfbox.pdmodel.interactive.digitalsignature.PDSignature;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class COSWriterCompressionPoolDiffblueTest {
   /**
-   * Test {@link COSWriterCompressionPool#COSWriterCompressionPool(PDDocument, CompressParameters)}.
-   * <p>
-   * Method under test: {@link COSWriterCompressionPool#COSWriterCompressionPool(PDDocument, CompressParameters)}
+   * Method under test: {@link COSWriterCompressionPool#contains(COSBase)}
    */
   @Test
-  @DisplayName("Test new COSWriterCompressionPool(PDDocument, CompressParameters)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void COSWriterCompressionPool.<init>(PDDocument, CompressParameters)"})
-  void testNewCOSWriterCompressionPool() throws IOException {
-    // Arrange
-    PDDocument document = new PDDocument();
-    document.addPage(new PDPage());
-
-    // Act
-    COSWriterCompressionPool actualCosWriterCompressionPool = new COSWriterCompressionPool(document,
-        CompressParameters.DEFAULT_COMPRESSION);
-
-    // Assert
-    List<COSObjectKey> objectStreamObjects = actualCosWriterCompressionPool.getObjectStreamObjects();
-    assertEquals(2, objectStreamObjects.size());
-    COSObjectKey getResult = objectStreamObjects.get(1);
-    assertEquals(196608L, getResult.getInternalHash());
-    assertEquals(3L, getResult.getNumber());
-    assertEquals(3L, actualCosWriterCompressionPool.getHighestXRefObjectNumber());
+  void testContains() throws IOException {
+    // Arrange, Act and Assert
+    assertFalse((new COSWriterCompressionPool(new PDDocument(), CompressParameters.DEFAULT_COMPRESSION))
+        .contains(COSBoolean.FALSE));
   }
 
   /**
-   * Test {@link COSWriterCompressionPool#COSWriterCompressionPool(PDDocument, CompressParameters)}.
-   * <p>
-   * Method under test: {@link COSWriterCompressionPool#COSWriterCompressionPool(PDDocument, CompressParameters)}
+   * Method under test: {@link COSWriterCompressionPool#contains(COSBase)}
    */
   @Test
-  @DisplayName("Test new COSWriterCompressionPool(PDDocument, CompressParameters)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void COSWriterCompressionPool.<init>(PDDocument, CompressParameters)"})
-  void testNewCOSWriterCompressionPool2() throws IOException {
+  void testContains2() throws IOException {
     // Arrange
-    PDDocument document = new PDDocument();
-    document.save(new ByteArrayOutputStream(1), CompressParameters.DEFAULT_COMPRESSION);
-    document.addPage(new PDPage());
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
 
     // Act
-    COSWriterCompressionPool actualCosWriterCompressionPool = new COSWriterCompressionPool(document,
-        CompressParameters.DEFAULT_COMPRESSION);
+    boolean actualContainsResult = (new COSWriterCompressionPool(new PDDocument(streamCacheCreateFunction),
+        CompressParameters.DEFAULT_COMPRESSION)).contains(COSBoolean.FALSE);
 
     // Assert
-    List<COSObjectKey> objectStreamObjects = actualCosWriterCompressionPool.getObjectStreamObjects();
-    assertEquals(2, objectStreamObjects.size());
-    COSObjectKey getResult = objectStreamObjects.get(1);
-    assertEquals(327680L, getResult.getInternalHash());
-    assertEquals(5L, getResult.getNumber());
-    assertEquals(5L, actualCosWriterCompressionPool.getHighestXRefObjectNumber());
+    verify(streamCacheCreateFunction).create();
+    assertFalse(actualContainsResult);
   }
 
   /**
-   * Test {@link COSWriterCompressionPool#COSWriterCompressionPool(PDDocument, CompressParameters)}.
-   * <ul>
-   *   <li>Given {@link PDEncryption#PDEncryption()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link COSWriterCompressionPool#COSWriterCompressionPool(PDDocument, CompressParameters)}
+   * Method under test: {@link COSWriterCompressionPool#contains(COSBase)}
    */
   @Test
-  @DisplayName("Test new COSWriterCompressionPool(PDDocument, CompressParameters); given PDEncryption()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void COSWriterCompressionPool.<init>(PDDocument, CompressParameters)"})
-  void testNewCOSWriterCompressionPool_givenPDEncryption() throws IOException {
+  void testContains3() throws IOException {
     // Arrange
-    PDDocument document = new PDDocument();
-    document.setEncryptionDictionary(new PDEncryption());
-    document.addPage(new PDPage());
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
 
     // Act
-    COSWriterCompressionPool actualCosWriterCompressionPool = new COSWriterCompressionPool(document,
-        CompressParameters.DEFAULT_COMPRESSION);
+    boolean actualContainsResult = (new COSWriterCompressionPool(new PDDocument(streamCacheCreateFunction),
+        CompressParameters.DEFAULT_COMPRESSION)).contains(COSBoolean.TRUE);
 
     // Assert
-    List<COSObjectKey> objectStreamObjects = actualCosWriterCompressionPool.getObjectStreamObjects();
-    assertEquals(2, objectStreamObjects.size());
-    COSObjectKey getResult = objectStreamObjects.get(1);
-    assertEquals(196608L, getResult.getInternalHash());
-    assertEquals(3L, getResult.getNumber());
-    assertEquals(3L, actualCosWriterCompressionPool.getHighestXRefObjectNumber());
+    verify(streamCacheCreateFunction).create();
+    assertFalse(actualContainsResult);
   }
 
   /**
-   * Test {@link COSWriterCompressionPool#COSWriterCompressionPool(PDDocument, CompressParameters)}.
-   * <ul>
-   *   <li>Then return ObjectStreamObjects size is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link COSWriterCompressionPool#COSWriterCompressionPool(PDDocument, CompressParameters)}
+   * Method under test: {@link COSWriterCompressionPool#contains(COSBase)}
    */
   @Test
-  @DisplayName("Test new COSWriterCompressionPool(PDDocument, CompressParameters); then return ObjectStreamObjects size is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void COSWriterCompressionPool.<init>(PDDocument, CompressParameters)"})
-  void testNewCOSWriterCompressionPool_thenReturnObjectStreamObjectsSizeIsOne() throws IOException {
+  void testContains4() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+
+    // Act
+    boolean actualContainsResult = (new COSWriterCompressionPool(new PDDocument(streamCacheCreateFunction),
+        CompressParameters.DEFAULT_COMPRESSION)).contains(COSFloat.ONE);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertFalse(actualContainsResult);
+  }
+
+  /**
+   * Method under test: {@link COSWriterCompressionPool#contains(COSBase)}
+   */
+  @Test
+  void testContains5() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+
+    // Act
+    boolean actualContainsResult = (new COSWriterCompressionPool(new PDDocument(streamCacheCreateFunction),
+        CompressParameters.DEFAULT_COMPRESSION)).contains(COSInteger.ONE);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertFalse(actualContainsResult);
+  }
+
+  /**
+   * Method under test: {@link COSWriterCompressionPool#contains(COSBase)}
+   */
+  @Test
+  void testContains6() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+
+    // Act
+    boolean actualContainsResult = (new COSWriterCompressionPool(new PDDocument(streamCacheCreateFunction),
+        CompressParameters.DEFAULT_COMPRESSION)).contains(COSName.A);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertFalse(actualContainsResult);
+  }
+
+  /**
+   * Method under test: {@link COSWriterCompressionPool#contains(COSBase)}
+   */
+  @Test
+  void testContains7() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    COSWriterCompressionPool cosWriterCompressionPool = new COSWriterCompressionPool(
+        new PDDocument(streamCacheCreateFunction), CompressParameters.DEFAULT_COMPRESSION);
+
+    // Act
+    boolean actualContainsResult = cosWriterCompressionPool
+        .contains(new COSObject(COSBoolean.FALSE, new COSObjectKey(1237L, 1237)));
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertFalse(actualContainsResult);
+  }
+
+  /**
+   * Method under test: {@link COSWriterCompressionPool#contains(COSBase)}
+   */
+  @Test
+  void testContains8() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenThrow(new IOException("foo"));
+    COSWriterCompressionPool cosWriterCompressionPool = new COSWriterCompressionPool(
+        new PDDocument(streamCacheCreateFunction), CompressParameters.DEFAULT_COMPRESSION);
+
+    // Act
+    boolean actualContainsResult = cosWriterCompressionPool.contains(COSString.parseHex("0123456789ABCDEF"));
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertFalse(actualContainsResult);
+  }
+
+  /**
+   * Method under test: {@link COSWriterCompressionPool#contains(COSBase)}
+   */
+  @Test
+  void testContains9() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenThrow(new IOException("foo"));
+    COSWriterCompressionPool cosWriterCompressionPool = new COSWriterCompressionPool(
+        new PDDocument(streamCacheCreateFunction), CompressParameters.DEFAULT_COMPRESSION);
+
+    // Act
+    boolean actualContainsResult = cosWriterCompressionPool.contains(new COSString("Text", true));
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertFalse(actualContainsResult);
+  }
+
+  /**
+   * Method under test: {@link COSWriterCompressionPool#contains(COSBase)}
+   */
+  @Test
+  void testContains10() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    COSWriterCompressionPool cosWriterCompressionPool = new COSWriterCompressionPool(
+        new PDDocument(streamCacheCreateFunction), CompressParameters.DEFAULT_COMPRESSION);
+
+    // Act
+    boolean actualContainsResult = cosWriterCompressionPool
+        .contains(new COSObject(COSFloat.ONE, new COSObjectKey(1237L, 1237)));
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertFalse(actualContainsResult);
+  }
+
+  /**
+   * Method under test: {@link COSWriterCompressionPool#contains(COSBase)}
+   */
+  @Test
+  void testContains11() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    COSWriterCompressionPool cosWriterCompressionPool = new COSWriterCompressionPool(
+        new PDDocument(streamCacheCreateFunction), CompressParameters.DEFAULT_COMPRESSION);
+
+    // Act
+    boolean actualContainsResult = cosWriterCompressionPool
+        .contains(new COSObject(COSInteger.ONE, new COSObjectKey(1237L, 1237)));
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertFalse(actualContainsResult);
+  }
+
+  /**
+   * Method under test: {@link COSWriterCompressionPool#contains(COSBase)}
+   */
+  @Test
+  void testContains12() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    COSWriterCompressionPool cosWriterCompressionPool = new COSWriterCompressionPool(
+        new PDDocument(streamCacheCreateFunction), CompressParameters.DEFAULT_COMPRESSION);
+
+    // Act
+    boolean actualContainsResult = cosWriterCompressionPool
+        .contains(new COSObject(COSName.A, new COSObjectKey(1237L, 1237)));
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertFalse(actualContainsResult);
+  }
+
+  /**
+   * Method under test: {@link COSWriterCompressionPool#contains(COSBase)}
+   */
+  @Test
+  void testContains13() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    COSWriterCompressionPool cosWriterCompressionPool = new COSWriterCompressionPool(
+        new PDDocument(streamCacheCreateFunction), CompressParameters.DEFAULT_COMPRESSION);
+    COSObject object = new COSObject(COSBoolean.FALSE, new COSObjectKey(1237L, 1237));
+
+    // Act
+    boolean actualContainsResult = cosWriterCompressionPool
+        .contains(new COSObject(object, new COSObjectKey(1237L, 1237)));
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertFalse(actualContainsResult);
+  }
+
+  /**
+   * Method under test: {@link COSWriterCompressionPool#getKey(COSBase)}
+   */
+  @Test
+  void testGetKey() throws IOException {
+    // Arrange, Act and Assert
+    assertNull((new COSWriterCompressionPool(new PDDocument(), CompressParameters.DEFAULT_COMPRESSION))
+        .getKey(COSBoolean.FALSE));
+  }
+
+  /**
+   * Method under test: {@link COSWriterCompressionPool#getKey(COSBase)}
+   */
+  @Test
+  void testGetKey2() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+
+    // Act
+    COSObjectKey actualKey = (new COSWriterCompressionPool(new PDDocument(streamCacheCreateFunction),
+        CompressParameters.DEFAULT_COMPRESSION)).getKey(COSBoolean.FALSE);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertNull(actualKey);
+  }
+
+  /**
+   * Method under test: {@link COSWriterCompressionPool#getKey(COSBase)}
+   */
+  @Test
+  void testGetKey3() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+
+    // Act
+    COSObjectKey actualKey = (new COSWriterCompressionPool(new PDDocument(streamCacheCreateFunction),
+        CompressParameters.DEFAULT_COMPRESSION)).getKey(COSBoolean.TRUE);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertNull(actualKey);
+  }
+
+  /**
+   * Method under test: {@link COSWriterCompressionPool#getKey(COSBase)}
+   */
+  @Test
+  void testGetKey4() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+
+    // Act
+    COSObjectKey actualKey = (new COSWriterCompressionPool(new PDDocument(streamCacheCreateFunction),
+        CompressParameters.DEFAULT_COMPRESSION)).getKey(COSFloat.ONE);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertNull(actualKey);
+  }
+
+  /**
+   * Method under test: {@link COSWriterCompressionPool#getKey(COSBase)}
+   */
+  @Test
+  void testGetKey5() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+
+    // Act
+    COSObjectKey actualKey = (new COSWriterCompressionPool(new PDDocument(streamCacheCreateFunction),
+        CompressParameters.DEFAULT_COMPRESSION)).getKey(COSInteger.ONE);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertNull(actualKey);
+  }
+
+  /**
+   * Method under test: {@link COSWriterCompressionPool#getKey(COSBase)}
+   */
+  @Test
+  void testGetKey6() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+
+    // Act
+    COSObjectKey actualKey = (new COSWriterCompressionPool(new PDDocument(streamCacheCreateFunction),
+        CompressParameters.DEFAULT_COMPRESSION)).getKey(COSName.A);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertNull(actualKey);
+  }
+
+  /**
+   * Method under test: {@link COSWriterCompressionPool#getKey(COSBase)}
+   */
+  @Test
+  void testGetKey7() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    COSWriterCompressionPool cosWriterCompressionPool = new COSWriterCompressionPool(
+        new PDDocument(streamCacheCreateFunction), CompressParameters.DEFAULT_COMPRESSION);
+
+    // Act
+    COSObjectKey actualKey = cosWriterCompressionPool
+        .getKey(new COSObject(COSBoolean.FALSE, new COSObjectKey(1237L, 1237)));
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertNull(actualKey);
+  }
+
+  /**
+   * Method under test: {@link COSWriterCompressionPool#getKey(COSBase)}
+   */
+  @Test
+  void testGetKey8() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenThrow(new IOException("foo"));
+    COSWriterCompressionPool cosWriterCompressionPool = new COSWriterCompressionPool(
+        new PDDocument(streamCacheCreateFunction), CompressParameters.DEFAULT_COMPRESSION);
+
+    // Act
+    COSObjectKey actualKey = cosWriterCompressionPool.getKey(COSString.parseHex("0123456789ABCDEF"));
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertNull(actualKey);
+  }
+
+  /**
+   * Method under test: {@link COSWriterCompressionPool#getKey(COSBase)}
+   */
+  @Test
+  void testGetKey9() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenThrow(new IOException("foo"));
+    COSWriterCompressionPool cosWriterCompressionPool = new COSWriterCompressionPool(
+        new PDDocument(streamCacheCreateFunction), CompressParameters.DEFAULT_COMPRESSION);
+
+    // Act
+    COSObjectKey actualKey = cosWriterCompressionPool.getKey(new COSString("Text", true));
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertNull(actualKey);
+  }
+
+  /**
+   * Method under test: {@link COSWriterCompressionPool#getKey(COSBase)}
+   */
+  @Test
+  void testGetKey10() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    COSWriterCompressionPool cosWriterCompressionPool = new COSWriterCompressionPool(
+        new PDDocument(streamCacheCreateFunction), CompressParameters.DEFAULT_COMPRESSION);
+
+    // Act
+    COSObjectKey actualKey = cosWriterCompressionPool
+        .getKey(new COSObject(COSFloat.ONE, new COSObjectKey(1237L, 1237)));
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertNull(actualKey);
+  }
+
+  /**
+   * Method under test: {@link COSWriterCompressionPool#getKey(COSBase)}
+   */
+  @Test
+  void testGetKey11() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    COSWriterCompressionPool cosWriterCompressionPool = new COSWriterCompressionPool(
+        new PDDocument(streamCacheCreateFunction), CompressParameters.DEFAULT_COMPRESSION);
+
+    // Act
+    COSObjectKey actualKey = cosWriterCompressionPool
+        .getKey(new COSObject(COSInteger.ONE, new COSObjectKey(1237L, 1237)));
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertNull(actualKey);
+  }
+
+  /**
+   * Method under test: {@link COSWriterCompressionPool#getKey(COSBase)}
+   */
+  @Test
+  void testGetKey12() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    COSWriterCompressionPool cosWriterCompressionPool = new COSWriterCompressionPool(
+        new PDDocument(streamCacheCreateFunction), CompressParameters.DEFAULT_COMPRESSION);
+
+    // Act
+    COSObjectKey actualKey = cosWriterCompressionPool.getKey(new COSObject(COSName.A, new COSObjectKey(1237L, 1237)));
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertNull(actualKey);
+  }
+
+  /**
+   * Method under test: {@link COSWriterCompressionPool#getKey(COSBase)}
+   */
+  @Test
+  void testGetKey13() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    COSWriterCompressionPool cosWriterCompressionPool = new COSWriterCompressionPool(
+        new PDDocument(streamCacheCreateFunction), CompressParameters.DEFAULT_COMPRESSION);
+    COSObject object = new COSObject(COSBoolean.FALSE, new COSObjectKey(1237L, 1237));
+
+    // Act
+    COSObjectKey actualKey = cosWriterCompressionPool.getKey(new COSObject(object, new COSObjectKey(1237L, 1237)));
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertNull(actualKey);
+  }
+
+  /**
+   * Method under test: {@link COSWriterCompressionPool#getObject(COSObjectKey)}
+   */
+  @Test
+  void testGetObject() throws IOException {
+    // Arrange
+    COSWriterCompressionPool cosWriterCompressionPool = new COSWriterCompressionPool(new PDDocument(),
+        CompressParameters.DEFAULT_COMPRESSION);
+
+    // Act and Assert
+    assertNull(cosWriterCompressionPool.getObject(new COSObjectKey(1L, 1)));
+  }
+
+  /**
+   * Method under test: {@link COSWriterCompressionPool#getObject(COSObjectKey)}
+   */
+  @Test
+  void testGetObject2() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    COSWriterCompressionPool cosWriterCompressionPool = new COSWriterCompressionPool(
+        new PDDocument(streamCacheCreateFunction), CompressParameters.DEFAULT_COMPRESSION);
+
+    // Act
+    COSBase actualObject = cosWriterCompressionPool.getObject(new COSObjectKey(1L, 1));
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertNull(actualObject);
+  }
+
+  /**
+   * Method under test: {@link COSWriterCompressionPool#getObject(COSObjectKey)}
+   */
+  @Test
+  void testGetObject3() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+
+    // Act
+    COSBase actualObject = (new COSWriterCompressionPool(new PDDocument(streamCacheCreateFunction),
+        CompressParameters.DEFAULT_COMPRESSION)).getObject(null);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertNull(actualObject);
+  }
+
+  /**
+   * Method under test:
+   * {@link COSWriterCompressionPool#getHighestXRefObjectNumber()}
+   */
+  @Test
+  void testGetHighestXRefObjectNumber() throws IOException {
+    // Arrange, Act and Assert
+    assertEquals(2L, (new COSWriterCompressionPool(new PDDocument(), CompressParameters.DEFAULT_COMPRESSION))
+        .getHighestXRefObjectNumber());
+  }
+
+  /**
+   * Method under test:
+   * {@link COSWriterCompressionPool#getHighestXRefObjectNumber()}
+   */
+  @Test
+  void testGetHighestXRefObjectNumber2() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+
+    // Act
+    long actualHighestXRefObjectNumber = (new COSWriterCompressionPool(new PDDocument(streamCacheCreateFunction),
+        CompressParameters.DEFAULT_COMPRESSION)).getHighestXRefObjectNumber();
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertEquals(2L, actualHighestXRefObjectNumber);
+  }
+
+  /**
+   * Method under test: {@link COSWriterCompressionPool#createObjectStreams()}
+   */
+  @Test
+  void testCreateObjectStreams() throws IOException {
     // Arrange and Act
-    COSWriterCompressionPool actualCosWriterCompressionPool = new COSWriterCompressionPool(new PDDocument(),
-        CompressParameters.DEFAULT_COMPRESSION);
+    List<COSWriterObjectStream> actualCreateObjectStreamsResult = (new COSWriterCompressionPool(new PDDocument(),
+        CompressParameters.DEFAULT_COMPRESSION)).createObjectStreams();
 
     // Assert
-    List<COSObjectKey> objectStreamObjects = actualCosWriterCompressionPool.getObjectStreamObjects();
-    assertEquals(1, objectStreamObjects.size());
-    List<COSObjectKey> topLevelObjects = actualCosWriterCompressionPool.getTopLevelObjects();
-    assertEquals(1, topLevelObjects.size());
-    COSObjectKey getResult = objectStreamObjects.get(0);
-    assertEquals(131072L, getResult.getInternalHash());
-    COSObjectKey getResult2 = topLevelObjects.get(0);
-    assertEquals(1L, getResult2.getNumber());
-    assertEquals(2L, getResult.getNumber());
-    assertEquals(2L, actualCosWriterCompressionPool.getHighestXRefObjectNumber());
-    assertEquals(65536L, getResult2.getInternalHash());
-  }
-
-  /**
-   * Test {@link COSWriterCompressionPool#COSWriterCompressionPool(PDDocument, CompressParameters)}.
-   * <ul>
-   *   <li>Then return ObjectStreamObjects size is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link COSWriterCompressionPool#COSWriterCompressionPool(PDDocument, CompressParameters)}
-   */
-  @Test
-  @DisplayName("Test new COSWriterCompressionPool(PDDocument, CompressParameters); then return ObjectStreamObjects size is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void COSWriterCompressionPool.<init>(PDDocument, CompressParameters)"})
-  void testNewCOSWriterCompressionPool_thenReturnObjectStreamObjectsSizeIsOne2() throws IOException {
-    // Arrange and Act
-    COSWriterCompressionPool actualCosWriterCompressionPool = new COSWriterCompressionPool(new PDDocument(), null);
-
-    // Assert
-    List<COSObjectKey> objectStreamObjects = actualCosWriterCompressionPool.getObjectStreamObjects();
-    assertEquals(1, objectStreamObjects.size());
-    List<COSObjectKey> topLevelObjects = actualCosWriterCompressionPool.getTopLevelObjects();
-    assertEquals(1, topLevelObjects.size());
-    COSObjectKey getResult = objectStreamObjects.get(0);
-    assertEquals(131072L, getResult.getInternalHash());
-    COSObjectKey getResult2 = topLevelObjects.get(0);
-    assertEquals(1L, getResult2.getNumber());
-    assertEquals(2L, getResult.getNumber());
-    assertEquals(2L, actualCosWriterCompressionPool.getHighestXRefObjectNumber());
-    assertEquals(65536L, getResult2.getInternalHash());
-  }
-
-  /**
-   * Test {@link COSWriterCompressionPool#COSWriterCompressionPool(PDDocument, CompressParameters)}.
-   * <ul>
-   *   <li>Then return ObjectStreamObjects size is six.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link COSWriterCompressionPool#COSWriterCompressionPool(PDDocument, CompressParameters)}
-   */
-  @Test
-  @DisplayName("Test new COSWriterCompressionPool(PDDocument, CompressParameters); then return ObjectStreamObjects size is six")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void COSWriterCompressionPool.<init>(PDDocument, CompressParameters)"})
-  void testNewCOSWriterCompressionPool_thenReturnObjectStreamObjectsSizeIsSix() throws IOException {
-    // Arrange
-    PDDocument document = new PDDocument();
-    document.addPage(new PDPage());
-    document.addSignature(new PDSignature());
-    document.addPage(new PDPage());
-
-    // Act
-    COSWriterCompressionPool actualCosWriterCompressionPool = new COSWriterCompressionPool(document,
-        CompressParameters.DEFAULT_COMPRESSION);
-
-    // Assert
-    List<COSObjectKey> objectStreamObjects = actualCosWriterCompressionPool.getObjectStreamObjects();
-    assertEquals(6, objectStreamObjects.size());
-    COSObjectKey getResult = objectStreamObjects.get(3);
+    assertEquals(1, actualCreateObjectStreamsResult.size());
+    List<COSObjectKey> preparedKeys = actualCreateObjectStreamsResult.get(0).getPreparedKeys();
+    assertEquals(1, preparedKeys.size());
+    COSObjectKey getResult = preparedKeys.get(0);
     assertEquals(-1, getResult.getStreamIndex());
-    COSObjectKey getResult2 = objectStreamObjects.get(4);
+    assertEquals(0, getResult.getGeneration());
+    assertEquals(131072L, getResult.getInternalHash());
+    assertEquals(2L, getResult.getNumber());
+  }
+
+  /**
+   * Method under test: {@link COSWriterCompressionPool#createObjectStreams()}
+   */
+  @Test
+  void testCreateObjectStreams2() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+
+    // Act
+    List<COSWriterObjectStream> actualCreateObjectStreamsResult = (new COSWriterCompressionPool(
+        new PDDocument(streamCacheCreateFunction), CompressParameters.DEFAULT_COMPRESSION)).createObjectStreams();
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertEquals(1, actualCreateObjectStreamsResult.size());
+    List<COSObjectKey> preparedKeys = actualCreateObjectStreamsResult.get(0).getPreparedKeys();
+    assertEquals(1, preparedKeys.size());
+    COSObjectKey getResult = preparedKeys.get(0);
+    assertEquals(-1, getResult.getStreamIndex());
+    assertEquals(0, getResult.getGeneration());
+    assertEquals(131072L, getResult.getInternalHash());
+    assertEquals(2L, getResult.getNumber());
+  }
+
+  /**
+   * Method under test: {@link COSWriterCompressionPool#createObjectStreams()}
+   */
+  @Test
+  void testCreateObjectStreams3() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+
+    PDDocument document = new PDDocument(streamCacheCreateFunction);
+    document.addPage(new PDPage());
+
+    // Act
+    List<COSWriterObjectStream> actualCreateObjectStreamsResult = (new COSWriterCompressionPool(document,
+        CompressParameters.DEFAULT_COMPRESSION)).createObjectStreams();
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertEquals(1, actualCreateObjectStreamsResult.size());
+    List<COSObjectKey> preparedKeys = actualCreateObjectStreamsResult.get(0).getPreparedKeys();
+    assertEquals(2, preparedKeys.size());
+    COSObjectKey getResult = preparedKeys.get(0);
+    assertEquals(-1, getResult.getStreamIndex());
+    COSObjectKey getResult2 = preparedKeys.get(1);
     assertEquals(-1, getResult2.getStreamIndex());
-    COSObjectKey getResult3 = objectStreamObjects.get(5);
-    assertEquals(-1, getResult3.getStreamIndex());
     assertEquals(0, getResult.getGeneration());
     assertEquals(0, getResult2.getGeneration());
-    assertEquals(0, getResult3.getGeneration());
-    List<COSObjectKey> topLevelObjects = actualCosWriterCompressionPool.getTopLevelObjects();
-    assertEquals(2, topLevelObjects.size());
-    assertEquals(327680L, getResult.getInternalHash());
-    assertEquals(393216L, getResult2.getInternalHash());
-    COSObjectKey getResult4 = topLevelObjects.get(1);
-    assertEquals(458752L, getResult4.getInternalHash());
-    assertEquals(524288L, getResult3.getInternalHash());
-    assertEquals(5L, getResult.getNumber());
-    assertEquals(6L, getResult2.getNumber());
-    assertEquals(7L, getResult4.getNumber());
-    assertEquals(8L, getResult3.getNumber());
-    assertEquals(8L, actualCosWriterCompressionPool.getHighestXRefObjectNumber());
+    assertEquals(131072L, getResult.getInternalHash());
+    assertEquals(196608L, getResult2.getInternalHash());
+    assertEquals(2L, getResult.getNumber());
+    assertEquals(3L, getResult2.getNumber());
   }
 
   /**
-   * Test {@link COSWriterCompressionPool#COSWriterCompressionPool(PDDocument, CompressParameters)}.
-   * <ul>
-   *   <li>Then return ObjectStreamObjects size is three.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link COSWriterCompressionPool#COSWriterCompressionPool(PDDocument, CompressParameters)}
-   */
-  @Test
-  @DisplayName("Test new COSWriterCompressionPool(PDDocument, CompressParameters); then return ObjectStreamObjects size is three")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void COSWriterCompressionPool.<init>(PDDocument, CompressParameters)"})
-  void testNewCOSWriterCompressionPool_thenReturnObjectStreamObjectsSizeIsThree() throws IOException {
-    // Arrange
-    PDDocument document = new PDDocument();
-    document.addPage(new PDPage());
-    document.addPage(new PDPage());
-
-    // Act
-    COSWriterCompressionPool actualCosWriterCompressionPool = new COSWriterCompressionPool(document,
-        CompressParameters.DEFAULT_COMPRESSION);
-
-    // Assert
-    List<COSObjectKey> objectStreamObjects = actualCosWriterCompressionPool.getObjectStreamObjects();
-    assertEquals(3, objectStreamObjects.size());
-    COSObjectKey getResult = objectStreamObjects.get(2);
-    assertEquals(-1, getResult.getStreamIndex());
-    assertEquals(0, getResult.getGeneration());
-    assertEquals(262144L, getResult.getInternalHash());
-    assertEquals(4L, getResult.getNumber());
-    assertEquals(4L, actualCosWriterCompressionPool.getHighestXRefObjectNumber());
-  }
-
-  /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link COSWriterCompressionPool#getObjectStreamObjects()}
@@ -262,10 +697,6 @@ class COSWriterCompressionPoolDiffblueTest {
    * </ul>
    */
   @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List COSWriterCompressionPool.getObjectStreamObjects()",
-      "List COSWriterCompressionPool.getTopLevelObjects()"})
   void testGettersAndSetters() throws IOException {
     // Arrange
     COSWriterCompressionPool cosWriterCompressionPool = new COSWriterCompressionPool(new PDDocument(),
@@ -291,510 +722,337 @@ class COSWriterCompressionPoolDiffblueTest {
   }
 
   /**
-   * Test {@link COSWriterCompressionPool#contains(COSBase)}.
-   * <ul>
-   *   <li>When {@link COSName#A}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link COSWriterCompressionPool#contains(COSBase)}
+   * Method under test:
+   * {@link COSWriterCompressionPool#COSWriterCompressionPool(PDDocument, CompressParameters)}
    */
   @Test
-  @DisplayName("Test contains(COSBase); when A")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean COSWriterCompressionPool.contains(COSBase)"})
-  void testContains_whenA() throws IOException {
-    // Arrange, Act and Assert
-    assertFalse(
-        (new COSWriterCompressionPool(new PDDocument(), CompressParameters.DEFAULT_COMPRESSION)).contains(COSName.A));
-  }
-
-  /**
-   * Test {@link COSWriterCompressionPool#contains(COSBase)}.
-   * <ul>
-   *   <li>When {@link COSObject#COSObject(COSBase, COSObjectKey)} with object is {@link COSName#A} and objectKey is {@link COSObjectKey#COSObjectKey(long, int)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link COSWriterCompressionPool#contains(COSBase)}
-   */
-  @Test
-  @DisplayName("Test contains(COSBase); when COSObject(COSBase, COSObjectKey) with object is A and objectKey is COSObjectKey(long, int)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean COSWriterCompressionPool.contains(COSBase)"})
-  void testContains_whenCOSObjectWithObjectIsAAndObjectKeyIsCOSObjectKey() throws IOException {
-    // Arrange
-    COSWriterCompressionPool cosWriterCompressionPool = new COSWriterCompressionPool(new PDDocument(),
-        CompressParameters.DEFAULT_COMPRESSION);
-
-    // Act and Assert
-    assertFalse(cosWriterCompressionPool.contains(new COSObject(COSName.A, new COSObjectKey(1237L, 1237))));
-  }
-
-  /**
-   * Test {@link COSWriterCompressionPool#contains(COSBase)}.
-   * <ul>
-   *   <li>When {@link COSObject#COSObject(COSBase, COSObjectKey)} with object is {@link COSObject#COSObject(COSBase, COSObjectKey)} and objectKey is {@link COSObjectKey#COSObjectKey(long, int)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link COSWriterCompressionPool#contains(COSBase)}
-   */
-  @Test
-  @DisplayName("Test contains(COSBase); when COSObject(COSBase, COSObjectKey) with object is COSObject(COSBase, COSObjectKey) and objectKey is COSObjectKey(long, int)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean COSWriterCompressionPool.contains(COSBase)"})
-  void testContains_whenCOSObjectWithObjectIsCOSObjectAndObjectKeyIsCOSObjectKey() throws IOException {
-    // Arrange
-    COSWriterCompressionPool cosWriterCompressionPool = new COSWriterCompressionPool(new PDDocument(),
-        CompressParameters.DEFAULT_COMPRESSION);
-    COSObject object = new COSObject(COSBoolean.FALSE, new COSObjectKey(1237L, 1237));
-
-    // Act and Assert
-    assertFalse(cosWriterCompressionPool.contains(new COSObject(object, new COSObjectKey(1237L, 1237))));
-  }
-
-  /**
-   * Test {@link COSWriterCompressionPool#contains(COSBase)}.
-   * <ul>
-   *   <li>When {@link COSObject#COSObject(COSBase, COSObjectKey)} with object is {@link COSBoolean#FALSE} and objectKey is {@link COSObjectKey#COSObjectKey(long, int)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link COSWriterCompressionPool#contains(COSBase)}
-   */
-  @Test
-  @DisplayName("Test contains(COSBase); when COSObject(COSBase, COSObjectKey) with object is FALSE and objectKey is COSObjectKey(long, int)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean COSWriterCompressionPool.contains(COSBase)"})
-  void testContains_whenCOSObjectWithObjectIsFalseAndObjectKeyIsCOSObjectKey() throws IOException {
-    // Arrange
-    COSWriterCompressionPool cosWriterCompressionPool = new COSWriterCompressionPool(new PDDocument(),
-        CompressParameters.DEFAULT_COMPRESSION);
-
-    // Act and Assert
-    assertFalse(cosWriterCompressionPool.contains(new COSObject(COSBoolean.FALSE, new COSObjectKey(1237L, 1237))));
-  }
-
-  /**
-   * Test {@link COSWriterCompressionPool#contains(COSBase)}.
-   * <ul>
-   *   <li>When {@link COSObject#COSObject(COSBase, COSObjectKey)} with object is {@link COSFloat#ONE} and objectKey is {@link COSObjectKey#COSObjectKey(long, int)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link COSWriterCompressionPool#contains(COSBase)}
-   */
-  @Test
-  @DisplayName("Test contains(COSBase); when COSObject(COSBase, COSObjectKey) with object is ONE and objectKey is COSObjectKey(long, int)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean COSWriterCompressionPool.contains(COSBase)"})
-  void testContains_whenCOSObjectWithObjectIsOneAndObjectKeyIsCOSObjectKey() throws IOException {
-    // Arrange
-    COSWriterCompressionPool cosWriterCompressionPool = new COSWriterCompressionPool(new PDDocument(),
-        CompressParameters.DEFAULT_COMPRESSION);
-
-    // Act and Assert
-    assertFalse(cosWriterCompressionPool.contains(new COSObject(COSFloat.ONE, new COSObjectKey(1237L, 1237))));
-  }
-
-  /**
-   * Test {@link COSWriterCompressionPool#contains(COSBase)}.
-   * <ul>
-   *   <li>When {@link COSObject#COSObject(COSBase, COSObjectKey)} with object is {@link COSInteger#ONE} and objectKey is {@link COSObjectKey#COSObjectKey(long, int)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link COSWriterCompressionPool#contains(COSBase)}
-   */
-  @Test
-  @DisplayName("Test contains(COSBase); when COSObject(COSBase, COSObjectKey) with object is ONE and objectKey is COSObjectKey(long, int)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean COSWriterCompressionPool.contains(COSBase)"})
-  void testContains_whenCOSObjectWithObjectIsOneAndObjectKeyIsCOSObjectKey2() throws IOException {
-    // Arrange
-    COSWriterCompressionPool cosWriterCompressionPool = new COSWriterCompressionPool(new PDDocument(),
-        CompressParameters.DEFAULT_COMPRESSION);
-
-    // Act and Assert
-    assertFalse(cosWriterCompressionPool.contains(new COSObject(COSInteger.ONE, new COSObjectKey(1237L, 1237))));
-  }
-
-  /**
-   * Test {@link COSWriterCompressionPool#contains(COSBase)}.
-   * <ul>
-   *   <li>When {@link COSBoolean#FALSE}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link COSWriterCompressionPool#contains(COSBase)}
-   */
-  @Test
-  @DisplayName("Test contains(COSBase); when FALSE")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean COSWriterCompressionPool.contains(COSBase)"})
-  void testContains_whenFalse() throws IOException {
-    // Arrange, Act and Assert
-    assertFalse((new COSWriterCompressionPool(new PDDocument(), CompressParameters.DEFAULT_COMPRESSION))
-        .contains(COSBoolean.FALSE));
-  }
-
-  /**
-   * Test {@link COSWriterCompressionPool#contains(COSBase)}.
-   * <ul>
-   *   <li>When {@link COSFloat#ONE}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link COSWriterCompressionPool#contains(COSBase)}
-   */
-  @Test
-  @DisplayName("Test contains(COSBase); when ONE")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean COSWriterCompressionPool.contains(COSBase)"})
-  void testContains_whenOne() throws IOException {
-    // Arrange, Act and Assert
-    assertFalse((new COSWriterCompressionPool(new PDDocument(), CompressParameters.DEFAULT_COMPRESSION))
-        .contains(COSFloat.ONE));
-  }
-
-  /**
-   * Test {@link COSWriterCompressionPool#contains(COSBase)}.
-   * <ul>
-   *   <li>When {@link COSInteger#ONE}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link COSWriterCompressionPool#contains(COSBase)}
-   */
-  @Test
-  @DisplayName("Test contains(COSBase); when ONE")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean COSWriterCompressionPool.contains(COSBase)"})
-  void testContains_whenOne2() throws IOException {
-    // Arrange, Act and Assert
-    assertFalse((new COSWriterCompressionPool(new PDDocument(), CompressParameters.DEFAULT_COMPRESSION))
-        .contains(COSInteger.ONE));
-  }
-
-  /**
-   * Test {@link COSWriterCompressionPool#contains(COSBase)}.
-   * <ul>
-   *   <li>When {@link COSBoolean#TRUE}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link COSWriterCompressionPool#contains(COSBase)}
-   */
-  @Test
-  @DisplayName("Test contains(COSBase); when TRUE")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean COSWriterCompressionPool.contains(COSBase)"})
-  void testContains_whenTrue() throws IOException {
-    // Arrange, Act and Assert
-    assertFalse((new COSWriterCompressionPool(new PDDocument(), CompressParameters.DEFAULT_COMPRESSION))
-        .contains(COSBoolean.TRUE));
-  }
-
-  /**
-   * Test {@link COSWriterCompressionPool#getKey(COSBase)}.
-   * <ul>
-   *   <li>When {@link COSName#A}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link COSWriterCompressionPool#getKey(COSBase)}
-   */
-  @Test
-  @DisplayName("Test getKey(COSBase); when A")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"COSObjectKey COSWriterCompressionPool.getKey(COSBase)"})
-  void testGetKey_whenA() throws IOException {
-    // Arrange, Act and Assert
-    assertNull(
-        (new COSWriterCompressionPool(new PDDocument(), CompressParameters.DEFAULT_COMPRESSION)).getKey(COSName.A));
-  }
-
-  /**
-   * Test {@link COSWriterCompressionPool#getKey(COSBase)}.
-   * <ul>
-   *   <li>When {@link COSObject#COSObject(COSBase, COSObjectKey)} with object is {@link COSName#A} and objectKey is {@link COSObjectKey#COSObjectKey(long, int)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link COSWriterCompressionPool#getKey(COSBase)}
-   */
-  @Test
-  @DisplayName("Test getKey(COSBase); when COSObject(COSBase, COSObjectKey) with object is A and objectKey is COSObjectKey(long, int)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"COSObjectKey COSWriterCompressionPool.getKey(COSBase)"})
-  void testGetKey_whenCOSObjectWithObjectIsAAndObjectKeyIsCOSObjectKey() throws IOException {
-    // Arrange
-    COSWriterCompressionPool cosWriterCompressionPool = new COSWriterCompressionPool(new PDDocument(),
-        CompressParameters.DEFAULT_COMPRESSION);
-
-    // Act and Assert
-    assertNull(cosWriterCompressionPool.getKey(new COSObject(COSName.A, new COSObjectKey(1237L, 1237))));
-  }
-
-  /**
-   * Test {@link COSWriterCompressionPool#getKey(COSBase)}.
-   * <ul>
-   *   <li>When {@link COSObject#COSObject(COSBase, COSObjectKey)} with object is {@link COSObject#COSObject(COSBase, COSObjectKey)} and objectKey is {@link COSObjectKey#COSObjectKey(long, int)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link COSWriterCompressionPool#getKey(COSBase)}
-   */
-  @Test
-  @DisplayName("Test getKey(COSBase); when COSObject(COSBase, COSObjectKey) with object is COSObject(COSBase, COSObjectKey) and objectKey is COSObjectKey(long, int)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"COSObjectKey COSWriterCompressionPool.getKey(COSBase)"})
-  void testGetKey_whenCOSObjectWithObjectIsCOSObjectAndObjectKeyIsCOSObjectKey() throws IOException {
-    // Arrange
-    COSWriterCompressionPool cosWriterCompressionPool = new COSWriterCompressionPool(new PDDocument(),
-        CompressParameters.DEFAULT_COMPRESSION);
-    COSObject object = new COSObject(COSBoolean.FALSE, new COSObjectKey(1237L, 1237));
-
-    // Act and Assert
-    assertNull(cosWriterCompressionPool.getKey(new COSObject(object, new COSObjectKey(1237L, 1237))));
-  }
-
-  /**
-   * Test {@link COSWriterCompressionPool#getKey(COSBase)}.
-   * <ul>
-   *   <li>When {@link COSObject#COSObject(COSBase, COSObjectKey)} with object is {@link COSBoolean#FALSE} and objectKey is {@link COSObjectKey#COSObjectKey(long, int)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link COSWriterCompressionPool#getKey(COSBase)}
-   */
-  @Test
-  @DisplayName("Test getKey(COSBase); when COSObject(COSBase, COSObjectKey) with object is FALSE and objectKey is COSObjectKey(long, int)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"COSObjectKey COSWriterCompressionPool.getKey(COSBase)"})
-  void testGetKey_whenCOSObjectWithObjectIsFalseAndObjectKeyIsCOSObjectKey() throws IOException {
-    // Arrange
-    COSWriterCompressionPool cosWriterCompressionPool = new COSWriterCompressionPool(new PDDocument(),
-        CompressParameters.DEFAULT_COMPRESSION);
-
-    // Act and Assert
-    assertNull(cosWriterCompressionPool.getKey(new COSObject(COSBoolean.FALSE, new COSObjectKey(1237L, 1237))));
-  }
-
-  /**
-   * Test {@link COSWriterCompressionPool#getKey(COSBase)}.
-   * <ul>
-   *   <li>When {@link COSObject#COSObject(COSBase, COSObjectKey)} with object is {@link COSFloat#ONE} and objectKey is {@link COSObjectKey#COSObjectKey(long, int)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link COSWriterCompressionPool#getKey(COSBase)}
-   */
-  @Test
-  @DisplayName("Test getKey(COSBase); when COSObject(COSBase, COSObjectKey) with object is ONE and objectKey is COSObjectKey(long, int)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"COSObjectKey COSWriterCompressionPool.getKey(COSBase)"})
-  void testGetKey_whenCOSObjectWithObjectIsOneAndObjectKeyIsCOSObjectKey() throws IOException {
-    // Arrange
-    COSWriterCompressionPool cosWriterCompressionPool = new COSWriterCompressionPool(new PDDocument(),
-        CompressParameters.DEFAULT_COMPRESSION);
-
-    // Act and Assert
-    assertNull(cosWriterCompressionPool.getKey(new COSObject(COSFloat.ONE, new COSObjectKey(1237L, 1237))));
-  }
-
-  /**
-   * Test {@link COSWriterCompressionPool#getKey(COSBase)}.
-   * <ul>
-   *   <li>When {@link COSObject#COSObject(COSBase, COSObjectKey)} with object is {@link COSInteger#ONE} and objectKey is {@link COSObjectKey#COSObjectKey(long, int)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link COSWriterCompressionPool#getKey(COSBase)}
-   */
-  @Test
-  @DisplayName("Test getKey(COSBase); when COSObject(COSBase, COSObjectKey) with object is ONE and objectKey is COSObjectKey(long, int)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"COSObjectKey COSWriterCompressionPool.getKey(COSBase)"})
-  void testGetKey_whenCOSObjectWithObjectIsOneAndObjectKeyIsCOSObjectKey2() throws IOException {
-    // Arrange
-    COSWriterCompressionPool cosWriterCompressionPool = new COSWriterCompressionPool(new PDDocument(),
-        CompressParameters.DEFAULT_COMPRESSION);
-
-    // Act and Assert
-    assertNull(cosWriterCompressionPool.getKey(new COSObject(COSInteger.ONE, new COSObjectKey(1237L, 1237))));
-  }
-
-  /**
-   * Test {@link COSWriterCompressionPool#getKey(COSBase)}.
-   * <ul>
-   *   <li>When {@link COSBoolean#FALSE}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link COSWriterCompressionPool#getKey(COSBase)}
-   */
-  @Test
-  @DisplayName("Test getKey(COSBase); when FALSE")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"COSObjectKey COSWriterCompressionPool.getKey(COSBase)"})
-  void testGetKey_whenFalse() throws IOException {
-    // Arrange, Act and Assert
-    assertNull((new COSWriterCompressionPool(new PDDocument(), CompressParameters.DEFAULT_COMPRESSION))
-        .getKey(COSBoolean.FALSE));
-  }
-
-  /**
-   * Test {@link COSWriterCompressionPool#getKey(COSBase)}.
-   * <ul>
-   *   <li>When {@link COSFloat#ONE}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link COSWriterCompressionPool#getKey(COSBase)}
-   */
-  @Test
-  @DisplayName("Test getKey(COSBase); when ONE")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"COSObjectKey COSWriterCompressionPool.getKey(COSBase)"})
-  void testGetKey_whenOne() throws IOException {
-    // Arrange, Act and Assert
-    assertNull(
-        (new COSWriterCompressionPool(new PDDocument(), CompressParameters.DEFAULT_COMPRESSION)).getKey(COSFloat.ONE));
-  }
-
-  /**
-   * Test {@link COSWriterCompressionPool#getKey(COSBase)}.
-   * <ul>
-   *   <li>When {@link COSInteger#ONE}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link COSWriterCompressionPool#getKey(COSBase)}
-   */
-  @Test
-  @DisplayName("Test getKey(COSBase); when ONE")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"COSObjectKey COSWriterCompressionPool.getKey(COSBase)"})
-  void testGetKey_whenOne2() throws IOException {
-    // Arrange, Act and Assert
-    assertNull((new COSWriterCompressionPool(new PDDocument(), CompressParameters.DEFAULT_COMPRESSION))
-        .getKey(COSInteger.ONE));
-  }
-
-  /**
-   * Test {@link COSWriterCompressionPool#getKey(COSBase)}.
-   * <ul>
-   *   <li>When {@link COSBoolean#TRUE}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link COSWriterCompressionPool#getKey(COSBase)}
-   */
-  @Test
-  @DisplayName("Test getKey(COSBase); when TRUE")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"COSObjectKey COSWriterCompressionPool.getKey(COSBase)"})
-  void testGetKey_whenTrue() throws IOException {
-    // Arrange, Act and Assert
-    assertNull((new COSWriterCompressionPool(new PDDocument(), CompressParameters.DEFAULT_COMPRESSION))
-        .getKey(COSBoolean.TRUE));
-  }
-
-  /**
-   * Test {@link COSWriterCompressionPool#getObject(COSObjectKey)}.
-   * <ul>
-   *   <li>When {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link COSWriterCompressionPool#getObject(COSObjectKey)}
-   */
-  @Test
-  @DisplayName("Test getObject(COSObjectKey); when COSObjectKey(long, int) with num is one and gen is one; then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"COSBase COSWriterCompressionPool.getObject(COSObjectKey)"})
-  void testGetObject_whenCOSObjectKeyWithNumIsOneAndGenIsOne_thenReturnNull() throws IOException {
-    // Arrange
-    COSWriterCompressionPool cosWriterCompressionPool = new COSWriterCompressionPool(new PDDocument(),
-        CompressParameters.DEFAULT_COMPRESSION);
-
-    // Act and Assert
-    assertNull(cosWriterCompressionPool.getObject(new COSObjectKey(1L, 1)));
-  }
-
-  /**
-   * Test {@link COSWriterCompressionPool#getObject(COSObjectKey)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link COSWriterCompressionPool#getObject(COSObjectKey)}
-   */
-  @Test
-  @DisplayName("Test getObject(COSObjectKey); when 'null'; then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"COSBase COSWriterCompressionPool.getObject(COSObjectKey)"})
-  void testGetObject_whenNull_thenReturnNull() throws IOException {
-    // Arrange, Act and Assert
-    assertNull(
-        (new COSWriterCompressionPool(new PDDocument(), CompressParameters.DEFAULT_COMPRESSION)).getObject(null));
-  }
-
-  /**
-   * Test {@link COSWriterCompressionPool#getHighestXRefObjectNumber()}.
-   * <p>
-   * Method under test: {@link COSWriterCompressionPool#getHighestXRefObjectNumber()}
-   */
-  @Test
-  @DisplayName("Test getHighestXRefObjectNumber()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"long COSWriterCompressionPool.getHighestXRefObjectNumber()"})
-  void testGetHighestXRefObjectNumber() throws IOException {
-    // Arrange, Act and Assert
-    assertEquals(2L, (new COSWriterCompressionPool(new PDDocument(), CompressParameters.DEFAULT_COMPRESSION))
-        .getHighestXRefObjectNumber());
-  }
-
-  /**
-   * Test {@link COSWriterCompressionPool#createObjectStreams()}.
-   * <ul>
-   *   <li>Then return first PreparedKeys size is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link COSWriterCompressionPool#createObjectStreams()}
-   */
-  @Test
-  @DisplayName("Test createObjectStreams(); then return first PreparedKeys size is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List COSWriterCompressionPool.createObjectStreams()"})
-  void testCreateObjectStreams_thenReturnFirstPreparedKeysSizeIsOne() throws IOException {
+  void testNewCOSWriterCompressionPool() throws IOException {
     // Arrange and Act
-    List<COSWriterObjectStream> actualCreateObjectStreamsResult = (new COSWriterCompressionPool(new PDDocument(),
-        CompressParameters.DEFAULT_COMPRESSION)).createObjectStreams();
+    COSWriterCompressionPool actualCosWriterCompressionPool = new COSWriterCompressionPool(new PDDocument(),
+        CompressParameters.DEFAULT_COMPRESSION);
 
     // Assert
-    assertEquals(1, actualCreateObjectStreamsResult.size());
-    List<COSObjectKey> preparedKeys = actualCreateObjectStreamsResult.get(0).getPreparedKeys();
-    assertEquals(1, preparedKeys.size());
-    COSObjectKey getResult = preparedKeys.get(0);
+    List<COSObjectKey> objectStreamObjects = actualCosWriterCompressionPool.getObjectStreamObjects();
+    assertEquals(1, objectStreamObjects.size());
+    COSObjectKey getResult = objectStreamObjects.get(0);
     assertEquals(-1, getResult.getStreamIndex());
+    List<COSObjectKey> topLevelObjects = actualCosWriterCompressionPool.getTopLevelObjects();
+    assertEquals(1, topLevelObjects.size());
+    COSObjectKey getResult2 = topLevelObjects.get(0);
+    assertEquals(-1, getResult2.getStreamIndex());
     assertEquals(0, getResult.getGeneration());
+    assertEquals(0, getResult2.getGeneration());
     assertEquals(131072L, getResult.getInternalHash());
+    assertEquals(1L, getResult2.getNumber());
     assertEquals(2L, getResult.getNumber());
+    assertEquals(2L, actualCosWriterCompressionPool.getHighestXRefObjectNumber());
+    assertEquals(65536L, getResult2.getInternalHash());
   }
 
   /**
-   * Test {@link COSWriterCompressionPool#createObjectStreams()}.
-   * <ul>
-   *   <li>Then return first PreparedKeys size is two.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link COSWriterCompressionPool#createObjectStreams()}
+   * Method under test:
+   * {@link COSWriterCompressionPool#COSWriterCompressionPool(PDDocument, CompressParameters)}
    */
   @Test
-  @DisplayName("Test createObjectStreams(); then return first PreparedKeys size is two")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List COSWriterCompressionPool.createObjectStreams()"})
-  void testCreateObjectStreams_thenReturnFirstPreparedKeysSizeIsTwo() throws IOException {
+  void testNewCOSWriterCompressionPool2() throws IOException {
     // Arrange
-    PDDocument document = new PDDocument();
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+
+    // Act
+    COSWriterCompressionPool actualCosWriterCompressionPool = new COSWriterCompressionPool(
+        new PDDocument(streamCacheCreateFunction), CompressParameters.DEFAULT_COMPRESSION);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    List<COSObjectKey> objectStreamObjects = actualCosWriterCompressionPool.getObjectStreamObjects();
+    assertEquals(1, objectStreamObjects.size());
+    COSObjectKey getResult = objectStreamObjects.get(0);
+    assertEquals(-1, getResult.getStreamIndex());
+    List<COSObjectKey> topLevelObjects = actualCosWriterCompressionPool.getTopLevelObjects();
+    assertEquals(1, topLevelObjects.size());
+    COSObjectKey getResult2 = topLevelObjects.get(0);
+    assertEquals(-1, getResult2.getStreamIndex());
+    assertEquals(0, getResult.getGeneration());
+    assertEquals(0, getResult2.getGeneration());
+    assertEquals(131072L, getResult.getInternalHash());
+    assertEquals(1L, getResult2.getNumber());
+    assertEquals(2L, getResult.getNumber());
+    assertEquals(2L, actualCosWriterCompressionPool.getHighestXRefObjectNumber());
+    assertEquals(65536L, getResult2.getInternalHash());
+  }
+
+  /**
+   * Method under test:
+   * {@link COSWriterCompressionPool#COSWriterCompressionPool(PDDocument, CompressParameters)}
+   */
+  @Test
+  void testNewCOSWriterCompressionPool3() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+
+    PDDocument document = new PDDocument(streamCacheCreateFunction);
     document.addPage(new PDPage());
 
     // Act
-    List<COSWriterObjectStream> actualCreateObjectStreamsResult = (new COSWriterCompressionPool(document,
-        CompressParameters.DEFAULT_COMPRESSION)).createObjectStreams();
+    COSWriterCompressionPool actualCosWriterCompressionPool = new COSWriterCompressionPool(document,
+        CompressParameters.DEFAULT_COMPRESSION);
 
     // Assert
-    assertEquals(1, actualCreateObjectStreamsResult.size());
-    List<COSObjectKey> preparedKeys = actualCreateObjectStreamsResult.get(0).getPreparedKeys();
-    assertEquals(2, preparedKeys.size());
-    COSObjectKey getResult = preparedKeys.get(1);
+    verify(streamCacheCreateFunction).create();
+    List<COSObjectKey> objectStreamObjects = actualCosWriterCompressionPool.getObjectStreamObjects();
+    assertEquals(2, objectStreamObjects.size());
+    COSObjectKey getResult = objectStreamObjects.get(0);
     assertEquals(-1, getResult.getStreamIndex());
+    COSObjectKey getResult2 = objectStreamObjects.get(1);
+    assertEquals(-1, getResult2.getStreamIndex());
+    List<COSObjectKey> topLevelObjects = actualCosWriterCompressionPool.getTopLevelObjects();
+    assertEquals(1, topLevelObjects.size());
+    COSObjectKey getResult3 = topLevelObjects.get(0);
+    assertEquals(-1, getResult3.getStreamIndex());
     assertEquals(0, getResult.getGeneration());
-    assertEquals(196608L, getResult.getInternalHash());
-    assertEquals(3L, getResult.getNumber());
+    assertEquals(0, getResult2.getGeneration());
+    assertEquals(0, getResult3.getGeneration());
+    assertEquals(131072L, getResult.getInternalHash());
+    assertEquals(196608L, getResult2.getInternalHash());
+    assertEquals(1L, getResult3.getNumber());
+    assertEquals(2L, getResult.getNumber());
+    assertEquals(3L, getResult2.getNumber());
+    assertEquals(3L, actualCosWriterCompressionPool.getHighestXRefObjectNumber());
+    assertEquals(65536L, getResult3.getInternalHash());
+  }
+
+  /**
+   * Method under test:
+   * {@link COSWriterCompressionPool#COSWriterCompressionPool(PDDocument, CompressParameters)}
+   */
+  @Test
+  void testNewCOSWriterCompressionPool4() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+
+    PDDocument document = new PDDocument(streamCacheCreateFunction);
+    document.addPage(new PDPage());
+    document.addPage(new PDPage());
+
+    // Act
+    COSWriterCompressionPool actualCosWriterCompressionPool = new COSWriterCompressionPool(document,
+        CompressParameters.DEFAULT_COMPRESSION);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    List<COSObjectKey> objectStreamObjects = actualCosWriterCompressionPool.getObjectStreamObjects();
+    assertEquals(3, objectStreamObjects.size());
+    COSObjectKey getResult = objectStreamObjects.get(0);
+    assertEquals(-1, getResult.getStreamIndex());
+    COSObjectKey getResult2 = objectStreamObjects.get(1);
+    assertEquals(-1, getResult2.getStreamIndex());
+    COSObjectKey getResult3 = objectStreamObjects.get(2);
+    assertEquals(-1, getResult3.getStreamIndex());
+    List<COSObjectKey> topLevelObjects = actualCosWriterCompressionPool.getTopLevelObjects();
+    assertEquals(1, topLevelObjects.size());
+    COSObjectKey getResult4 = topLevelObjects.get(0);
+    assertEquals(-1, getResult4.getStreamIndex());
+    assertEquals(0, getResult.getGeneration());
+    assertEquals(0, getResult2.getGeneration());
+    assertEquals(0, getResult3.getGeneration());
+    assertEquals(0, getResult4.getGeneration());
+    assertEquals(131072L, getResult.getInternalHash());
+    assertEquals(196608L, getResult2.getInternalHash());
+    assertEquals(1L, getResult4.getNumber());
+    assertEquals(262144L, getResult3.getInternalHash());
+    assertEquals(2L, getResult.getNumber());
+    assertEquals(3L, getResult2.getNumber());
+    assertEquals(4L, getResult3.getNumber());
+    assertEquals(4L, actualCosWriterCompressionPool.getHighestXRefObjectNumber());
+    assertEquals(65536L, getResult4.getInternalHash());
+  }
+
+  /**
+   * Method under test:
+   * {@link COSWriterCompressionPool#COSWriterCompressionPool(PDDocument, CompressParameters)}
+   */
+  @Test
+  void testNewCOSWriterCompressionPool5() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+
+    PDDocument document = new PDDocument(streamCacheCreateFunction);
+    document.setEncryptionDictionary(new PDEncryption());
+    document.addPage(new PDPage());
+
+    // Act
+    COSWriterCompressionPool actualCosWriterCompressionPool = new COSWriterCompressionPool(document,
+        CompressParameters.DEFAULT_COMPRESSION);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    List<COSObjectKey> objectStreamObjects = actualCosWriterCompressionPool.getObjectStreamObjects();
+    assertEquals(2, objectStreamObjects.size());
+    COSObjectKey getResult = objectStreamObjects.get(0);
+    assertEquals(-1, getResult.getStreamIndex());
+    COSObjectKey getResult2 = objectStreamObjects.get(1);
+    assertEquals(-1, getResult2.getStreamIndex());
+    List<COSObjectKey> topLevelObjects = actualCosWriterCompressionPool.getTopLevelObjects();
+    assertEquals(1, topLevelObjects.size());
+    COSObjectKey getResult3 = topLevelObjects.get(0);
+    assertEquals(-1, getResult3.getStreamIndex());
+    assertEquals(0, getResult.getGeneration());
+    assertEquals(0, getResult2.getGeneration());
+    assertEquals(0, getResult3.getGeneration());
+    assertEquals(131072L, getResult.getInternalHash());
+    assertEquals(196608L, getResult2.getInternalHash());
+    assertEquals(1L, getResult3.getNumber());
+    assertEquals(2L, getResult.getNumber());
+    assertEquals(3L, getResult2.getNumber());
+    assertEquals(3L, actualCosWriterCompressionPool.getHighestXRefObjectNumber());
+    assertEquals(65536L, getResult3.getInternalHash());
+  }
+
+  /**
+   * Method under test:
+   * {@link COSWriterCompressionPool#COSWriterCompressionPool(PDDocument, CompressParameters)}
+   */
+  @Test
+  void testNewCOSWriterCompressionPool6() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+
+    PDDocument document = new PDDocument(streamCacheCreateFunction);
+    document.save(new ByteArrayOutputStream(1), CompressParameters.DEFAULT_COMPRESSION);
+    document.addPage(new PDPage());
+
+    // Act
+    COSWriterCompressionPool actualCosWriterCompressionPool = new COSWriterCompressionPool(document,
+        CompressParameters.DEFAULT_COMPRESSION);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    List<COSObjectKey> objectStreamObjects = actualCosWriterCompressionPool.getObjectStreamObjects();
+    assertEquals(2, objectStreamObjects.size());
+    COSObjectKey getResult = objectStreamObjects.get(0);
+    assertEquals(-1, getResult.getStreamIndex());
+    COSObjectKey getResult2 = objectStreamObjects.get(1);
+    assertEquals(-1, getResult2.getStreamIndex());
+    List<COSObjectKey> topLevelObjects = actualCosWriterCompressionPool.getTopLevelObjects();
+    assertEquals(1, topLevelObjects.size());
+    COSObjectKey getResult3 = topLevelObjects.get(0);
+    assertEquals(-1, getResult3.getStreamIndex());
+    assertEquals(0, getResult.getGeneration());
+    assertEquals(0, getResult2.getGeneration());
+    assertEquals(0, getResult3.getGeneration());
+    assertEquals(131072L, getResult.getInternalHash());
+    assertEquals(1L, getResult3.getNumber());
+    assertEquals(2L, getResult.getNumber());
+    assertEquals(327680L, getResult2.getInternalHash());
+    assertEquals(5L, getResult2.getNumber());
+    assertEquals(5L, actualCosWriterCompressionPool.getHighestXRefObjectNumber());
+    assertEquals(65536L, getResult3.getInternalHash());
+  }
+
+  /**
+   * Method under test:
+   * {@link COSWriterCompressionPool#COSWriterCompressionPool(PDDocument, CompressParameters)}
+   */
+  @Test
+  void testNewCOSWriterCompressionPool7() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+
+    // Act
+    COSWriterCompressionPool actualCosWriterCompressionPool = new COSWriterCompressionPool(
+        new PDDocument(streamCacheCreateFunction), null);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    List<COSObjectKey> objectStreamObjects = actualCosWriterCompressionPool.getObjectStreamObjects();
+    assertEquals(1, objectStreamObjects.size());
+    COSObjectKey getResult = objectStreamObjects.get(0);
+    assertEquals(-1, getResult.getStreamIndex());
+    List<COSObjectKey> topLevelObjects = actualCosWriterCompressionPool.getTopLevelObjects();
+    assertEquals(1, topLevelObjects.size());
+    COSObjectKey getResult2 = topLevelObjects.get(0);
+    assertEquals(-1, getResult2.getStreamIndex());
+    assertEquals(0, getResult.getGeneration());
+    assertEquals(0, getResult2.getGeneration());
+    assertEquals(131072L, getResult.getInternalHash());
+    assertEquals(1L, getResult2.getNumber());
+    assertEquals(2L, getResult.getNumber());
+    assertEquals(2L, actualCosWriterCompressionPool.getHighestXRefObjectNumber());
+    assertEquals(65536L, getResult2.getInternalHash());
+  }
+
+  /**
+   * Method under test:
+   * {@link COSWriterCompressionPool#COSWriterCompressionPool(PDDocument, CompressParameters)}
+   */
+  @Test
+  void testNewCOSWriterCompressionPool8() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+
+    PDDocument document = new PDDocument(streamCacheCreateFunction);
+    document.addPage(new PDPage());
+    document.addSignature(new PDSignature());
+
+    // Act
+    COSWriterCompressionPool actualCosWriterCompressionPool = new COSWriterCompressionPool(document,
+        CompressParameters.DEFAULT_COMPRESSION);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    List<COSObjectKey> objectStreamObjects = actualCosWriterCompressionPool.getObjectStreamObjects();
+    assertEquals(5, objectStreamObjects.size());
+    COSObjectKey getResult = objectStreamObjects.get(0);
+    assertEquals(-1, getResult.getStreamIndex());
+    COSObjectKey getResult2 = objectStreamObjects.get(1);
+    assertEquals(-1, getResult2.getStreamIndex());
+    COSObjectKey getResult3 = objectStreamObjects.get(2);
+    assertEquals(-1, getResult3.getStreamIndex());
+    COSObjectKey getResult4 = objectStreamObjects.get(3);
+    assertEquals(-1, getResult4.getStreamIndex());
+    COSObjectKey getResult5 = objectStreamObjects.get(4);
+    assertEquals(-1, getResult5.getStreamIndex());
+    List<COSObjectKey> topLevelObjects = actualCosWriterCompressionPool.getTopLevelObjects();
+    assertEquals(2, topLevelObjects.size());
+    COSObjectKey getResult6 = topLevelObjects.get(0);
+    assertEquals(-1, getResult6.getStreamIndex());
+    COSObjectKey getResult7 = topLevelObjects.get(1);
+    assertEquals(-1, getResult7.getStreamIndex());
+    assertEquals(0, getResult.getGeneration());
+    assertEquals(0, getResult2.getGeneration());
+    assertEquals(0, getResult3.getGeneration());
+    assertEquals(0, getResult4.getGeneration());
+    assertEquals(0, getResult5.getGeneration());
+    assertEquals(0, getResult6.getGeneration());
+    assertEquals(0, getResult7.getGeneration());
+    assertEquals(131072L, getResult.getInternalHash());
+    assertEquals(196608L, getResult2.getInternalHash());
+    assertEquals(1L, getResult6.getNumber());
+    assertEquals(262144L, getResult3.getInternalHash());
+    assertEquals(2L, getResult.getNumber());
+    assertEquals(327680L, getResult4.getInternalHash());
+    assertEquals(393216L, getResult5.getInternalHash());
+    assertEquals(3L, getResult2.getNumber());
+    assertEquals(458752L, getResult7.getInternalHash());
+    assertEquals(4L, getResult3.getNumber());
+    assertEquals(5L, getResult4.getNumber());
+    assertEquals(65536L, getResult6.getInternalHash());
+    assertEquals(6L, getResult5.getNumber());
+    assertEquals(7L, getResult7.getNumber());
+    assertEquals(7L, actualCosWriterCompressionPool.getHighestXRefObjectNumber());
   }
 }

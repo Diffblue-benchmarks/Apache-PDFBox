@@ -5,39 +5,355 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import java.awt.Graphics;
 import java.awt.RenderingHints;
 import java.awt.print.PageFormat;
 import java.awt.print.PrinterException;
+import java.io.IOException;
 import java.util.List;
 import javax.swing.DebugGraphics;
 import org.apache.pdfbox.cos.COSArray;
 import org.apache.pdfbox.cos.COSBase;
+import org.apache.pdfbox.cos.COSDocument;
 import org.apache.pdfbox.cos.COSFloat;
+import org.apache.pdfbox.io.RandomAccessStreamCache;
+import org.apache.pdfbox.io.RandomAccessStreamCacheImpl;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
+import org.apache.pdfbox.pdmodel.common.PDStream;
 import org.apache.pdfbox.rendering.PDFRenderer;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class PDFPrintableDiffblueTest {
   /**
-   * Test {@link PDFPrintable#PDFPrintable(PDDocument)}.
+   * Method under test: {@link PDFPrintable#print(Graphics, PageFormat, int)}
+   */
+  @Test
+  void testPrint() throws PrinterException {
+    // Arrange
+    PDFPrintable pdfPrintable = new PDFPrintable(new PDDocument());
+    DebugGraphics graphics = new DebugGraphics();
+
+    // Act and Assert
+    assertEquals(1, pdfPrintable.print(graphics, new PageFormat(), 1));
+  }
+
+  /**
+   * Method under test: {@link PDFPrintable#print(Graphics, PageFormat, int)}
+   */
+  @Test
+  void testPrint2() throws PrinterException, IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDFPrintable pdfPrintable = new PDFPrintable(new PDDocument(streamCacheCreateFunction));
+    DebugGraphics graphics = new DebugGraphics();
+
+    // Act
+    int actualPrintResult = pdfPrintable.print(graphics, new PageFormat(), 1);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertEquals(1, actualPrintResult);
+  }
+
+  /**
+   * Method under test: {@link PDFPrintable#print(Graphics, PageFormat, int)}
+   */
+  @Test
+  void testPrint3() throws PrinterException, IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDFPrintable pdfPrintable = new PDFPrintable(new PDDocument(streamCacheCreateFunction));
+    DebugGraphics graphics = new DebugGraphics();
+
+    // Act
+    int actualPrintResult = pdfPrintable.print(graphics, new PageFormat(), -1);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertEquals(1, actualPrintResult);
+  }
+
+  /**
+   * Method under test: {@link PDFPrintable#getRotatedCropBox(PDPage)}
+   */
+  @Test
+  void testGetRotatedCropBox() {
+    // Arrange and Act
+    PDRectangle actualRotatedCropBox = PDFPrintable.getRotatedCropBox(new PDPage());
+
+    // Assert
+    COSArray cOSArray = actualRotatedCropBox.getCOSArray();
+    List<? extends COSBase> toListResult = cOSArray.toList();
+    assertEquals(4, toListResult.size());
+    COSBase getResult = toListResult.get(0);
+    assertTrue(getResult instanceof COSFloat);
+    COSBase getResult2 = toListResult.get(1);
+    assertTrue(getResult2 instanceof COSFloat);
+    COSBase getResult3 = toListResult.get(2);
+    assertTrue(getResult3 instanceof COSFloat);
+    COSBase getResult4 = toListResult.get(3);
+    assertTrue(getResult4 instanceof COSFloat);
+    assertNull(getResult.getKey());
+    assertNull(getResult3.getKey());
+    assertNull(getResult4.getKey());
+    assertEquals(0.0f, actualRotatedCropBox.getLowerLeftX());
+    assertEquals(0.0f, actualRotatedCropBox.getLowerLeftY());
+    assertEquals(612.0f, actualRotatedCropBox.getUpperRightX());
+    assertEquals(612.0f, actualRotatedCropBox.getWidth());
+    assertEquals(792.0f, actualRotatedCropBox.getHeight());
+    assertEquals(792.0f, actualRotatedCropBox.getUpperRightY());
+    assertFalse(getResult.isDirect());
+    assertFalse(getResult3.isDirect());
+    assertFalse(getResult4.isDirect());
+    assertEquals(getResult, getResult2);
+    assertSame(cOSArray, actualRotatedCropBox.getCOSObject());
+  }
+
+  /**
+   * Method under test: {@link PDFPrintable#getRotatedCropBox(PDPage)}
+   */
+  @Test
+  void testGetRotatedCropBox2() {
+    // Arrange
+    PDPage page = new PDPage();
+    page.setCropBox(PDRectangle.A0);
+
+    // Act
+    PDRectangle actualRotatedCropBox = PDFPrintable.getRotatedCropBox(page);
+
+    // Assert
+    COSArray cOSArray = actualRotatedCropBox.getCOSArray();
+    List<? extends COSBase> toListResult = cOSArray.toList();
+    assertEquals(4, toListResult.size());
+    COSBase getResult = toListResult.get(0);
+    assertTrue(getResult instanceof COSFloat);
+    COSBase getResult2 = toListResult.get(1);
+    assertTrue(getResult2 instanceof COSFloat);
+    COSBase getResult3 = toListResult.get(2);
+    assertTrue(getResult3 instanceof COSFloat);
+    COSBase getResult4 = toListResult.get(3);
+    assertTrue(getResult4 instanceof COSFloat);
+    assertNull(getResult.getKey());
+    assertNull(getResult3.getKey());
+    assertNull(getResult4.getKey());
+    assertEquals(0.0f, actualRotatedCropBox.getLowerLeftX());
+    assertEquals(0.0f, actualRotatedCropBox.getLowerLeftY());
+    assertEquals(612.0f, actualRotatedCropBox.getUpperRightX());
+    assertEquals(612.0f, actualRotatedCropBox.getWidth());
+    assertEquals(792.0f, actualRotatedCropBox.getHeight());
+    assertEquals(792.0f, actualRotatedCropBox.getUpperRightY());
+    assertFalse(getResult.isDirect());
+    assertFalse(getResult3.isDirect());
+    assertFalse(getResult4.isDirect());
+    assertEquals(getResult, getResult2);
+    assertSame(cOSArray, actualRotatedCropBox.getCOSObject());
+  }
+
+  /**
+   * Method under test: {@link PDFPrintable#getRotatedCropBox(PDPage)}
+   */
+  @Test
+  void testGetRotatedCropBox3() {
+    // Arrange
+    PDPage page = new PDPage();
+    page.setCropBox(new PDRectangle(2.14748365E9f, 2.14748365E9f, 2.14748365E9f, 2.14748365E9f));
+
+    // Act
+    PDRectangle actualRotatedCropBox = PDFPrintable.getRotatedCropBox(page);
+
+    // Assert
+    COSArray cOSArray = actualRotatedCropBox.getCOSArray();
+    List<? extends COSBase> toListResult = cOSArray.toList();
+    assertEquals(4, toListResult.size());
+    COSBase getResult = toListResult.get(0);
+    assertTrue(getResult instanceof COSFloat);
+    COSBase getResult2 = toListResult.get(1);
+    assertTrue(getResult2 instanceof COSFloat);
+    COSBase getResult3 = toListResult.get(2);
+    assertTrue(getResult3 instanceof COSFloat);
+    COSBase getResult4 = toListResult.get(3);
+    assertTrue(getResult4 instanceof COSFloat);
+    assertNull(getResult.getKey());
+    assertNull(getResult3.getKey());
+    assertNull(getResult4.getKey());
+    assertEquals(-2.14748288E9f, actualRotatedCropBox.getHeight());
+    assertEquals(-2.14748301E9f, actualRotatedCropBox.getWidth());
+    assertEquals(2.14748365E9f, actualRotatedCropBox.getLowerLeftX());
+    assertEquals(2.14748365E9f, actualRotatedCropBox.getLowerLeftY());
+    assertEquals(612.0f, actualRotatedCropBox.getUpperRightX());
+    assertEquals(792.0f, actualRotatedCropBox.getUpperRightY());
+    assertFalse(getResult.isDirect());
+    assertFalse(getResult3.isDirect());
+    assertFalse(getResult4.isDirect());
+    assertEquals(getResult, getResult2);
+    assertSame(cOSArray, actualRotatedCropBox.getCOSObject());
+  }
+
+  /**
+   * Method under test: {@link PDFPrintable#getRotatedCropBox(PDPage)}
+   */
+  @Test
+  void testGetRotatedCropBox4() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDStream contents = new PDStream(new COSDocument(streamCacheCreateFunction));
+
+    PDPage page = new PDPage();
+    page.setContents(contents);
+
+    // Act
+    PDRectangle actualRotatedCropBox = PDFPrintable.getRotatedCropBox(page);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    COSArray cOSArray = actualRotatedCropBox.getCOSArray();
+    List<? extends COSBase> toListResult = cOSArray.toList();
+    assertEquals(4, toListResult.size());
+    COSBase getResult = toListResult.get(0);
+    assertTrue(getResult instanceof COSFloat);
+    COSBase getResult2 = toListResult.get(1);
+    assertTrue(getResult2 instanceof COSFloat);
+    COSBase getResult3 = toListResult.get(2);
+    assertTrue(getResult3 instanceof COSFloat);
+    COSBase getResult4 = toListResult.get(3);
+    assertTrue(getResult4 instanceof COSFloat);
+    assertNull(getResult.getKey());
+    assertNull(getResult3.getKey());
+    assertNull(getResult4.getKey());
+    assertEquals(0.0f, actualRotatedCropBox.getLowerLeftX());
+    assertEquals(0.0f, actualRotatedCropBox.getLowerLeftY());
+    assertEquals(612.0f, actualRotatedCropBox.getUpperRightX());
+    assertEquals(612.0f, actualRotatedCropBox.getWidth());
+    assertEquals(792.0f, actualRotatedCropBox.getHeight());
+    assertEquals(792.0f, actualRotatedCropBox.getUpperRightY());
+    assertFalse(getResult.isDirect());
+    assertFalse(getResult3.isDirect());
+    assertFalse(getResult4.isDirect());
+    assertEquals(getResult, getResult2);
+    assertSame(cOSArray, actualRotatedCropBox.getCOSObject());
+  }
+
+  /**
+   * Method under test: {@link PDFPrintable#getRotatedMediaBox(PDPage)}
+   */
+  @Test
+  void testGetRotatedMediaBox() {
+    // Arrange and Act
+    PDRectangle actualRotatedMediaBox = PDFPrintable.getRotatedMediaBox(new PDPage());
+
+    // Assert
+    COSArray cOSArray = actualRotatedMediaBox.getCOSArray();
+    List<? extends COSBase> toListResult = cOSArray.toList();
+    assertEquals(4, toListResult.size());
+    COSBase getResult = toListResult.get(0);
+    assertTrue(getResult instanceof COSFloat);
+    COSBase getResult2 = toListResult.get(1);
+    assertTrue(getResult2 instanceof COSFloat);
+    COSBase getResult3 = toListResult.get(2);
+    assertTrue(getResult3 instanceof COSFloat);
+    COSBase getResult4 = toListResult.get(3);
+    assertTrue(getResult4 instanceof COSFloat);
+    assertNull(getResult.getKey());
+    assertNull(getResult3.getKey());
+    assertNull(getResult4.getKey());
+    assertEquals(0.0f, actualRotatedMediaBox.getLowerLeftX());
+    assertEquals(0.0f, actualRotatedMediaBox.getLowerLeftY());
+    assertEquals(612.0f, actualRotatedMediaBox.getUpperRightX());
+    assertEquals(612.0f, actualRotatedMediaBox.getWidth());
+    assertEquals(792.0f, actualRotatedMediaBox.getHeight());
+    assertEquals(792.0f, actualRotatedMediaBox.getUpperRightY());
+    assertFalse(getResult.isDirect());
+    assertFalse(getResult3.isDirect());
+    assertFalse(getResult4.isDirect());
+    assertEquals(getResult, getResult2);
+    assertSame(cOSArray, actualRotatedMediaBox.getCOSObject());
+  }
+
+  /**
+   * Method under test: {@link PDFPrintable#getRotatedMediaBox(PDPage)}
+   */
+  @Test
+  void testGetRotatedMediaBox2() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDStream contents = new PDStream(new COSDocument(streamCacheCreateFunction));
+
+    PDPage page = new PDPage();
+    page.setContents(contents);
+
+    // Act
+    PDRectangle actualRotatedMediaBox = PDFPrintable.getRotatedMediaBox(page);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    COSArray cOSArray = actualRotatedMediaBox.getCOSArray();
+    List<? extends COSBase> toListResult = cOSArray.toList();
+    assertEquals(4, toListResult.size());
+    COSBase getResult = toListResult.get(0);
+    assertTrue(getResult instanceof COSFloat);
+    COSBase getResult2 = toListResult.get(1);
+    assertTrue(getResult2 instanceof COSFloat);
+    COSBase getResult3 = toListResult.get(2);
+    assertTrue(getResult3 instanceof COSFloat);
+    COSBase getResult4 = toListResult.get(3);
+    assertTrue(getResult4 instanceof COSFloat);
+    assertNull(getResult.getKey());
+    assertNull(getResult3.getKey());
+    assertNull(getResult4.getKey());
+    assertEquals(0.0f, actualRotatedMediaBox.getLowerLeftX());
+    assertEquals(0.0f, actualRotatedMediaBox.getLowerLeftY());
+    assertEquals(612.0f, actualRotatedMediaBox.getUpperRightX());
+    assertEquals(612.0f, actualRotatedMediaBox.getWidth());
+    assertEquals(792.0f, actualRotatedMediaBox.getHeight());
+    assertEquals(792.0f, actualRotatedMediaBox.getUpperRightY());
+    assertFalse(getResult.isDirect());
+    assertFalse(getResult3.isDirect());
+    assertFalse(getResult4.isDirect());
+    assertEquals(getResult, getResult2);
+    assertSame(cOSArray, actualRotatedMediaBox.getCOSObject());
+  }
+
+  /**
+   * Methods under test:
    * <ul>
-   *   <li>When {@link PDDocument#PDDocument()}.</li>
-   *   <li>Then return RenderingHints is {@code null}.</li>
+   *   <li>{@link PDFPrintable#setRenderingHints(RenderingHints)}
+   *   <li>{@link PDFPrintable#setSubsamplingAllowed(boolean)}
+   *   <li>{@link PDFPrintable#getRenderingHints()}
+   *   <li>{@link PDFPrintable#isSubsamplingAllowed()}
    * </ul>
-   * <p>
+   */
+  @Test
+  void testGettersAndSetters() {
+    // Arrange
+    PDFPrintable pdfPrintable = new PDFPrintable(new PDDocument());
+
+    // Act
+    pdfPrintable.setRenderingHints(null);
+    pdfPrintable.setSubsamplingAllowed(true);
+    pdfPrintable.getRenderingHints();
+
+    // Assert that nothing has changed
+    assertTrue(pdfPrintable.isSubsamplingAllowed());
+  }
+
+  /**
    * Method under test: {@link PDFPrintable#PDFPrintable(PDDocument)}
    */
   @Test
-  @DisplayName("Test new PDFPrintable(PDDocument); when PDDocument(); then return RenderingHints is 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFPrintable.<init>(PDDocument)"})
-  void testNewPDFPrintable_whenPDDocument_thenReturnRenderingHintsIsNull() {
+  void testNewPDFPrintable() {
     // Arrange and Act
     PDFPrintable actualPdfPrintable = new PDFPrintable(new PDDocument());
 
@@ -47,19 +363,29 @@ class PDFPrintableDiffblueTest {
   }
 
   /**
-   * Test {@link PDFPrintable#PDFPrintable(PDDocument, Scaling)}.
-   * <ul>
-   *   <li>When {@link PDDocument#PDDocument()}.</li>
-   *   <li>Then return RenderingHints is {@code null}.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PDFPrintable#PDFPrintable(PDDocument)}
+   */
+  @Test
+  void testNewPDFPrintable2() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+
+    // Act
+    PDFPrintable actualPdfPrintable = new PDFPrintable(new PDDocument(streamCacheCreateFunction));
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertNull(actualPdfPrintable.getRenderingHints());
+    assertFalse(actualPdfPrintable.isSubsamplingAllowed());
+  }
+
+  /**
    * Method under test: {@link PDFPrintable#PDFPrintable(PDDocument, Scaling)}
    */
   @Test
-  @DisplayName("Test new PDFPrintable(PDDocument, Scaling); when PDDocument(); then return RenderingHints is 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFPrintable.<init>(PDDocument, Scaling)"})
-  void testNewPDFPrintable_whenPDDocument_thenReturnRenderingHintsIsNull2() {
+  void testNewPDFPrintable3() {
     // Arrange and Act
     PDFPrintable actualPdfPrintable = new PDFPrintable(new PDDocument(), Scaling.ACTUAL_SIZE);
 
@@ -69,19 +395,30 @@ class PDFPrintableDiffblueTest {
   }
 
   /**
-   * Test {@link PDFPrintable#PDFPrintable(PDDocument, Scaling, boolean)}.
-   * <ul>
-   *   <li>When {@link PDDocument#PDDocument()}.</li>
-   *   <li>Then return RenderingHints is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDFPrintable#PDFPrintable(PDDocument, Scaling, boolean)}
+   * Method under test: {@link PDFPrintable#PDFPrintable(PDDocument, Scaling)}
    */
   @Test
-  @DisplayName("Test new PDFPrintable(PDDocument, Scaling, boolean); when PDDocument(); then return RenderingHints is 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFPrintable.<init>(PDDocument, Scaling, boolean)"})
-  void testNewPDFPrintable_whenPDDocument_thenReturnRenderingHintsIsNull3() {
+  void testNewPDFPrintable4() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+
+    // Act
+    PDFPrintable actualPdfPrintable = new PDFPrintable(new PDDocument(streamCacheCreateFunction), Scaling.ACTUAL_SIZE);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertNull(actualPdfPrintable.getRenderingHints());
+    assertFalse(actualPdfPrintable.isSubsamplingAllowed());
+  }
+
+  /**
+   * Method under test:
+   * {@link PDFPrintable#PDFPrintable(PDDocument, Scaling, boolean)}
+   */
+  @Test
+  void testNewPDFPrintable5() {
     // Arrange and Act
     PDFPrintable actualPdfPrintable = new PDFPrintable(new PDDocument(), Scaling.ACTUAL_SIZE, true);
 
@@ -91,19 +428,32 @@ class PDFPrintableDiffblueTest {
   }
 
   /**
-   * Test {@link PDFPrintable#PDFPrintable(PDDocument, Scaling, boolean, float)}.
-   * <ul>
-   *   <li>When {@link PDDocument#PDDocument()}.</li>
-   *   <li>Then return RenderingHints is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDFPrintable#PDFPrintable(PDDocument, Scaling, boolean, float)}
+   * Method under test:
+   * {@link PDFPrintable#PDFPrintable(PDDocument, Scaling, boolean)}
    */
   @Test
-  @DisplayName("Test new PDFPrintable(PDDocument, Scaling, boolean, float); when PDDocument(); then return RenderingHints is 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFPrintable.<init>(PDDocument, Scaling, boolean, float)"})
-  void testNewPDFPrintable_whenPDDocument_thenReturnRenderingHintsIsNull4() {
+  void testNewPDFPrintable6() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+
+    // Act
+    PDFPrintable actualPdfPrintable = new PDFPrintable(new PDDocument(streamCacheCreateFunction), Scaling.ACTUAL_SIZE,
+        true);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertNull(actualPdfPrintable.getRenderingHints());
+    assertFalse(actualPdfPrintable.isSubsamplingAllowed());
+  }
+
+  /**
+   * Method under test:
+   * {@link PDFPrintable#PDFPrintable(PDDocument, Scaling, boolean, float)}
+   */
+  @Test
+  void testNewPDFPrintable7() {
     // Arrange and Act
     PDFPrintable actualPdfPrintable = new PDFPrintable(new PDDocument(), Scaling.ACTUAL_SIZE, true, 10.0f);
 
@@ -113,19 +463,32 @@ class PDFPrintableDiffblueTest {
   }
 
   /**
-   * Test {@link PDFPrintable#PDFPrintable(PDDocument, Scaling, boolean, float, boolean)}.
-   * <ul>
-   *   <li>When {@link PDDocument#PDDocument()}.</li>
-   *   <li>Then return RenderingHints is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDFPrintable#PDFPrintable(PDDocument, Scaling, boolean, float, boolean)}
+   * Method under test:
+   * {@link PDFPrintable#PDFPrintable(PDDocument, Scaling, boolean, float)}
    */
   @Test
-  @DisplayName("Test new PDFPrintable(PDDocument, Scaling, boolean, float, boolean); when PDDocument(); then return RenderingHints is 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFPrintable.<init>(PDDocument, Scaling, boolean, float, boolean)"})
-  void testNewPDFPrintable_whenPDDocument_thenReturnRenderingHintsIsNull5() {
+  void testNewPDFPrintable8() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+
+    // Act
+    PDFPrintable actualPdfPrintable = new PDFPrintable(new PDDocument(streamCacheCreateFunction), Scaling.ACTUAL_SIZE,
+        true, 10.0f);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertNull(actualPdfPrintable.getRenderingHints());
+    assertFalse(actualPdfPrintable.isSubsamplingAllowed());
+  }
+
+  /**
+   * Method under test:
+   * {@link PDFPrintable#PDFPrintable(PDDocument, Scaling, boolean, float, boolean)}
+   */
+  @Test
+  void testNewPDFPrintable9() {
     // Arrange and Act
     PDFPrintable actualPdfPrintable = new PDFPrintable(new PDDocument(), Scaling.ACTUAL_SIZE, true, 10.0f, true);
 
@@ -135,19 +498,32 @@ class PDFPrintableDiffblueTest {
   }
 
   /**
-   * Test {@link PDFPrintable#PDFPrintable(PDDocument, Scaling, boolean, float, boolean, PDFRenderer)}.
-   * <ul>
-   *   <li>When {@link PDDocument#PDDocument()}.</li>
-   *   <li>Then return RenderingHints is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDFPrintable#PDFPrintable(PDDocument, Scaling, boolean, float, boolean, PDFRenderer)}
+   * Method under test:
+   * {@link PDFPrintable#PDFPrintable(PDDocument, Scaling, boolean, float, boolean)}
    */
   @Test
-  @DisplayName("Test new PDFPrintable(PDDocument, Scaling, boolean, float, boolean, PDFRenderer); when PDDocument(); then return RenderingHints is 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDFPrintable.<init>(PDDocument, Scaling, boolean, float, boolean, PDFRenderer)"})
-  void testNewPDFPrintable_whenPDDocument_thenReturnRenderingHintsIsNull6() {
+  void testNewPDFPrintable10() throws IOException {
+    // Arrange
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+
+    // Act
+    PDFPrintable actualPdfPrintable = new PDFPrintable(new PDDocument(streamCacheCreateFunction), Scaling.ACTUAL_SIZE,
+        true, 10.0f, true);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertNull(actualPdfPrintable.getRenderingHints());
+    assertFalse(actualPdfPrintable.isSubsamplingAllowed());
+  }
+
+  /**
+   * Method under test:
+   * {@link PDFPrintable#PDFPrintable(PDDocument, Scaling, boolean, float, boolean, PDFRenderer)}
+   */
+  @Test
+  void testNewPDFPrintable11() {
     // Arrange
     PDDocument document = new PDDocument();
 
@@ -161,194 +537,24 @@ class PDFPrintableDiffblueTest {
   }
 
   /**
-   * Test getters and setters.
-   * <p>
-   * Methods under test:
-   * <ul>
-   *   <li>{@link PDFPrintable#setRenderingHints(RenderingHints)}
-   *   <li>{@link PDFPrintable#setSubsamplingAllowed(boolean)}
-   *   <li>{@link PDFPrintable#getRenderingHints()}
-   *   <li>{@link PDFPrintable#isSubsamplingAllowed()}
-   * </ul>
+   * Method under test:
+   * {@link PDFPrintable#PDFPrintable(PDDocument, Scaling, boolean, float, boolean, PDFRenderer)}
    */
   @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"RenderingHints PDFPrintable.getRenderingHints()", "boolean PDFPrintable.isSubsamplingAllowed()",
-      "void PDFPrintable.setRenderingHints(RenderingHints)", "void PDFPrintable.setSubsamplingAllowed(boolean)"})
-  void testGettersAndSetters() {
+  void testNewPDFPrintable12() throws IOException {
     // Arrange
-    PDFPrintable pdfPrintable = new PDFPrintable(new PDDocument());
+    RandomAccessStreamCache.StreamCacheCreateFunction streamCacheCreateFunction = mock(
+        RandomAccessStreamCache.StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDDocument document = new PDDocument(streamCacheCreateFunction);
 
     // Act
-    pdfPrintable.setRenderingHints(null);
-    pdfPrintable.setSubsamplingAllowed(true);
-    RenderingHints actualRenderingHints = pdfPrintable.getRenderingHints();
+    PDFPrintable actualPdfPrintable = new PDFPrintable(document, Scaling.ACTUAL_SIZE, true, 10.0f, true,
+        new PDFRenderer(new PDDocument()));
 
     // Assert
-    assertNull(actualRenderingHints);
-    assertTrue(pdfPrintable.isSubsamplingAllowed());
-  }
-
-  /**
-   * Test {@link PDFPrintable#print(Graphics, PageFormat, int)}.
-   * <ul>
-   *   <li>Given {@link PDFPrintable#PDFPrintable(PDDocument)} with document is {@link PDDocument#PDDocument()}.</li>
-   *   <li>Then return one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDFPrintable#print(Graphics, PageFormat, int)}
-   */
-  @Test
-  @DisplayName("Test print(Graphics, PageFormat, int); given PDFPrintable(PDDocument) with document is PDDocument(); then return one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"int PDFPrintable.print(Graphics, PageFormat, int)"})
-  void testPrint_givenPDFPrintableWithDocumentIsPDDocument_thenReturnOne() throws PrinterException {
-    // Arrange
-    PDFPrintable pdfPrintable = new PDFPrintable(new PDDocument());
-    DebugGraphics graphics = new DebugGraphics();
-
-    // Act and Assert
-    assertEquals(1, pdfPrintable.print(graphics, new PageFormat(), 1));
-  }
-
-  /**
-   * Test {@link PDFPrintable#print(Graphics, PageFormat, int)}.
-   * <ul>
-   *   <li>Given {@link PDFPrintable#PDFPrintable(PDDocument)} with document is {@link PDDocument#PDDocument()}.</li>
-   *   <li>When minus one.</li>
-   *   <li>Then return one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDFPrintable#print(Graphics, PageFormat, int)}
-   */
-  @Test
-  @DisplayName("Test print(Graphics, PageFormat, int); given PDFPrintable(PDDocument) with document is PDDocument(); when minus one; then return one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"int PDFPrintable.print(Graphics, PageFormat, int)"})
-  void testPrint_givenPDFPrintableWithDocumentIsPDDocument_whenMinusOne_thenReturnOne() throws PrinterException {
-    // Arrange
-    PDFPrintable pdfPrintable = new PDFPrintable(new PDDocument());
-    DebugGraphics graphics = new DebugGraphics();
-
-    // Act and Assert
-    assertEquals(1, pdfPrintable.print(graphics, new PageFormat(), -1));
-  }
-
-  /**
-   * Test {@link PDFPrintable#getRotatedCropBox(PDPage)}.
-   * <ul>
-   *   <li>Given {@link PDRectangle#A0}.</li>
-   *   <li>When {@link PDPage#PDPage()} CropBox is {@link PDRectangle#A0}.</li>
-   *   <li>Then return LowerLeftX is zero.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDFPrintable#getRotatedCropBox(PDPage)}
-   */
-  @Test
-  @DisplayName("Test getRotatedCropBox(PDPage); given A0; when PDPage() CropBox is A0; then return LowerLeftX is zero")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDRectangle PDFPrintable.getRotatedCropBox(PDPage)"})
-  void testGetRotatedCropBox_givenA0_whenPDPageCropBoxIsA0_thenReturnLowerLeftXIsZero() {
-    // Arrange
-    PDPage page = new PDPage();
-    page.setCropBox(PDRectangle.A0);
-
-    // Act
-    PDRectangle actualRotatedCropBox = PDFPrintable.getRotatedCropBox(page);
-
-    // Assert
-    assertEquals(0.0f, actualRotatedCropBox.getLowerLeftX());
-    assertEquals(0.0f, actualRotatedCropBox.getLowerLeftY());
-    assertEquals(612.0f, actualRotatedCropBox.getWidth());
-    assertEquals(792.0f, actualRotatedCropBox.getHeight());
-  }
-
-  /**
-   * Test {@link PDFPrintable#getRotatedCropBox(PDPage)}.
-   * <ul>
-   *   <li>Then return Height is {@code -2.14748288E9}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDFPrintable#getRotatedCropBox(PDPage)}
-   */
-  @Test
-  @DisplayName("Test getRotatedCropBox(PDPage); then return Height is '-2.14748288E9'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDRectangle PDFPrintable.getRotatedCropBox(PDPage)"})
-  void testGetRotatedCropBox_thenReturnHeightIs214748288e9() {
-    // Arrange
-    PDPage page = new PDPage();
-    page.setCropBox(new PDRectangle(2.14748365E9f, 2.14748365E9f, 2.14748365E9f, 2.14748365E9f));
-
-    // Act
-    PDRectangle actualRotatedCropBox = PDFPrintable.getRotatedCropBox(page);
-
-    // Assert
-    assertEquals(-2.14748288E9f, actualRotatedCropBox.getHeight());
-    assertEquals(-2.14748301E9f, actualRotatedCropBox.getWidth());
-    assertEquals(2.14748365E9f, actualRotatedCropBox.getLowerLeftX());
-    assertEquals(2.14748365E9f, actualRotatedCropBox.getLowerLeftY());
-  }
-
-  /**
-   * Test {@link PDFPrintable#getRotatedCropBox(PDPage)}.
-   * <ul>
-   *   <li>When {@link PDPage#PDPage()}.</li>
-   *   <li>Then return LowerLeftX is zero.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDFPrintable#getRotatedCropBox(PDPage)}
-   */
-  @Test
-  @DisplayName("Test getRotatedCropBox(PDPage); when PDPage(); then return LowerLeftX is zero")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDRectangle PDFPrintable.getRotatedCropBox(PDPage)"})
-  void testGetRotatedCropBox_whenPDPage_thenReturnLowerLeftXIsZero() {
-    // Arrange and Act
-    PDRectangle actualRotatedCropBox = PDFPrintable.getRotatedCropBox(new PDPage());
-
-    // Assert
-    assertEquals(0.0f, actualRotatedCropBox.getLowerLeftX());
-    assertEquals(0.0f, actualRotatedCropBox.getLowerLeftY());
-    assertEquals(612.0f, actualRotatedCropBox.getWidth());
-    assertEquals(792.0f, actualRotatedCropBox.getHeight());
-  }
-
-  /**
-   * Test {@link PDFPrintable#getRotatedMediaBox(PDPage)}.
-   * <ul>
-   *   <li>When {@link PDPage#PDPage()}.</li>
-   *   <li>Then return COSArray toList size is four.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDFPrintable#getRotatedMediaBox(PDPage)}
-   */
-  @Test
-  @DisplayName("Test getRotatedMediaBox(PDPage); when PDPage(); then return COSArray toList size is four")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDRectangle PDFPrintable.getRotatedMediaBox(PDPage)"})
-  void testGetRotatedMediaBox_whenPDPage_thenReturnCOSArrayToListSizeIsFour() {
-    // Arrange and Act
-    PDRectangle actualRotatedMediaBox = PDFPrintable.getRotatedMediaBox(new PDPage());
-
-    // Assert
-    COSArray cOSArray = actualRotatedMediaBox.getCOSArray();
-    List<? extends COSBase> toListResult = cOSArray.toList();
-    assertEquals(4, toListResult.size());
-    COSBase getResult = toListResult.get(0);
-    assertTrue(getResult instanceof COSFloat);
-    COSBase getResult2 = toListResult.get(1);
-    assertTrue(getResult2 instanceof COSFloat);
-    assertTrue(toListResult.get(2) instanceof COSFloat);
-    assertTrue(toListResult.get(3) instanceof COSFloat);
-    assertEquals(0.0f, actualRotatedMediaBox.getLowerLeftX());
-    assertEquals(0.0f, actualRotatedMediaBox.getLowerLeftY());
-    assertEquals(612.0f, actualRotatedMediaBox.getUpperRightX());
-    assertEquals(612.0f, actualRotatedMediaBox.getWidth());
-    assertEquals(792.0f, actualRotatedMediaBox.getHeight());
-    assertEquals(792.0f, actualRotatedMediaBox.getUpperRightY());
-    assertEquals(getResult, getResult2);
-    assertSame(cOSArray, actualRotatedMediaBox.getCOSObject());
+    verify(streamCacheCreateFunction).create();
+    assertNull(actualPdfPrintable.getRenderingHints());
+    assertFalse(actualPdfPrintable.isSubsamplingAllowed());
   }
 }

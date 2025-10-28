@@ -5,7 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,263 +17,71 @@ import org.apache.pdfbox.cos.COSArray;
 import org.apache.pdfbox.cos.COSBase;
 import org.apache.pdfbox.cos.COSBoolean;
 import org.apache.pdfbox.cos.COSDictionary;
+import org.apache.pdfbox.cos.COSIncrement;
 import org.apache.pdfbox.cos.COSObject;
 import org.apache.pdfbox.cos.COSObjectKey;
+import org.apache.pdfbox.cos.COSUpdateState;
 import org.apache.pdfbox.pdmodel.PDStructureElementNameTreeNode;
 import org.apache.pdfbox.pdmodel.common.COSObjectable;
 import org.apache.pdfbox.pdmodel.common.PDNameTreeNode;
 import org.apache.pdfbox.pdmodel.common.PDNumberTreeNode;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class PDStructureTreeRootDiffblueTest {
   /**
-   * Test {@link PDStructureTreeRoot#PDStructureTreeRoot(COSDictionary)}.
-   * <p>
-   * Method under test: {@link PDStructureTreeRoot#PDStructureTreeRoot(COSDictionary)}
-   */
-  @Test
-  @DisplayName("Test new PDStructureTreeRoot(COSDictionary)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDStructureTreeRoot.<init>(COSDictionary)"})
-  void testNewPDStructureTreeRoot() {
-    // Arrange
-    COSDictionary dic = new COSDictionary();
-
-    // Act and Assert
-    assertSame(dic, (new PDStructureTreeRoot(dic)).getCOSObject());
-  }
-
-  /**
-   * Test {@link PDStructureTreeRoot#PDStructureTreeRoot()}.
-   * <p>
-   * Method under test: {@link PDStructureTreeRoot#PDStructureTreeRoot()}
-   */
-  @Test
-  @DisplayName("Test new PDStructureTreeRoot()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDStructureTreeRoot.<init>()"})
-  void testNewPDStructureTreeRoot2() {
-    // Arrange and Act
-    PDStructureTreeRoot actualPdStructureTreeRoot = new PDStructureTreeRoot();
-
-    // Assert
-    assertEquals("StructTreeRoot", actualPdStructureTreeRoot.getType());
-    assertNull(actualPdStructureTreeRoot.getK());
-    COSDictionary cOSObject = actualPdStructureTreeRoot.getCOSObject();
-    assertNull(cOSObject.getKey());
-    assertNull(actualPdStructureTreeRoot.getIDTree());
-    assertNull(actualPdStructureTreeRoot.getParentTree());
-    assertEquals(-1, actualPdStructureTreeRoot.getParentTreeNextKey());
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-    assertFalse(cOSObject.isDirect());
-    assertFalse(cOSObject.isNeedToBeUpdated());
-    assertTrue(actualPdStructureTreeRoot.getKids().isEmpty());
-    assertTrue(actualPdStructureTreeRoot.getClassMap().isEmpty());
-    assertTrue(actualPdStructureTreeRoot.getRoleMap().isEmpty());
-  }
-
-  /**
-   * Test {@link PDStructureTreeRoot#getK()}.
-   * <ul>
-   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
-   *   <li>Then return {@link COSBoolean#FALSE}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDStructureTreeRoot#getK()}
    */
   @Test
-  @DisplayName("Test getK(); given COSObjectKey(long, int) with num is one and gen is one; then return FALSE")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"COSBase PDStructureTreeRoot.getK()"})
-  void testGetK_givenCOSObjectKeyWithNumIsOneAndGenIsOne_thenReturnFalse() {
-    // Arrange
-    PDStructureTreeRoot pdStructureTreeRoot = new PDStructureTreeRoot();
-    pdStructureTreeRoot.appendKid(new COSObject(COSBoolean.FALSE, new COSObjectKey(1L, 1)));
-
-    // Act
-    COSBase actualK = pdStructureTreeRoot.getK();
-
-    // Assert
-    assertSame(((COSBoolean) actualK).FALSE, actualK);
-  }
-
-  /**
-   * Test {@link PDStructureTreeRoot#getK()}.
-   * <ul>
-   *   <li>Given {@link PDStructureTreeRoot#PDStructureTreeRoot()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDStructureTreeRoot#getK()}
-   */
-  @Test
-  @DisplayName("Test getK(); given PDStructureTreeRoot(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"COSBase PDStructureTreeRoot.getK()"})
-  void testGetK_givenPDStructureTreeRoot_thenReturnNull() {
+  void testGetK() {
     // Arrange, Act and Assert
     assertNull((new PDStructureTreeRoot()).getK());
   }
 
   /**
-   * Test {@link PDStructureTreeRoot#setK(COSBase)}.
-   * <ul>
-   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDStructureTreeRoot#setK(COSBase)}
+   * Method under test: {@link PDStructureTreeRoot#getK()}
    */
   @Test
-  @DisplayName("Test setK(COSBase); given COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDStructureTreeRoot.setK(COSBase)"})
-  void testSetK_givenCOSObjectKeyWithNumIsOneAndGenIsOne() {
+  void testGetK2() {
     // Arrange
-    PDStructureTreeRoot pdStructureTreeRoot = new PDStructureTreeRoot();
+    COSObjectable objectable = mock(COSObjectable.class);
+    when(objectable.getCOSObject()).thenReturn(COSBoolean.FALSE);
 
-    COSDictionary k = new COSDictionary();
-    k.setKey(new COSObjectKey(1L, 1));
+    PDStructureTreeRoot pdStructureTreeRoot = new PDStructureTreeRoot();
+    pdStructureTreeRoot.appendObjectableKid(objectable);
 
     // Act
-    pdStructureTreeRoot.setK(k);
+    COSBase actualK = pdStructureTreeRoot.getK();
 
     // Assert
-    List<Object> kids = pdStructureTreeRoot.getKids();
-    assertEquals(1, kids.size());
-    Object getResult = kids.get(0);
-    assertTrue(getResult instanceof PDStructureElement);
-    assertNull(((PDStructureElement) getResult).getActualText());
-    assertNull(((PDStructureElement) getResult).getAlternateDescription());
-    assertNull(((PDStructureElement) getResult).getElementIdentifier());
-    assertNull(((PDStructureElement) getResult).getExpandedForm());
-    assertNull(((PDStructureElement) getResult).getLanguage());
-    assertNull(((PDStructureElement) getResult).getStandardStructureType());
-    assertNull(((PDStructureElement) getResult).getStructureType());
-    assertNull(((PDStructureElement) getResult).getTitle());
-    assertNull(((PDStructureElement) getResult).getType());
-    assertNull(((PDStructureElement) getResult).getPage());
-    assertNull(((PDStructureElement) getResult).getParent());
-    assertEquals(0, ((PDStructureElement) getResult).getRevisionNumber());
-    assertTrue(((PDStructureElement) getResult).getKids().isEmpty());
-    assertSame(k, ((PDStructureElement) getResult).getCOSObject());
-    assertSame(k, pdStructureTreeRoot.getK());
+    verify(objectable).getCOSObject();
+    assertSame(((COSBoolean) actualK).FALSE, actualK);
   }
 
   /**
-   * Test {@link PDStructureTreeRoot#setK(COSBase)}.
-   * <ul>
-   *   <li>When {@link COSArray#COSArray()}.</li>
-   *   <li>Then {@link PDStructureTreeRoot#PDStructureTreeRoot()} K is {@link COSArray#COSArray()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDStructureTreeRoot#setK(COSBase)}
+   * Method under test: {@link PDStructureTreeRoot#getK()}
    */
   @Test
-  @DisplayName("Test setK(COSBase); when COSArray(); then PDStructureTreeRoot() K is COSArray()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDStructureTreeRoot.setK(COSBase)"})
-  void testSetK_whenCOSArray_thenPDStructureTreeRootKIsCOSArray() {
+  void testGetK3() {
     // Arrange
+    COSObjectable objectable = mock(COSObjectable.class);
+    when(objectable.getCOSObject()).thenReturn(new COSObject(COSBoolean.FALSE, new COSObjectKey(1L, 1)));
+
     PDStructureTreeRoot pdStructureTreeRoot = new PDStructureTreeRoot();
-    COSArray k = new COSArray();
+    pdStructureTreeRoot.appendObjectableKid(objectable);
 
     // Act
-    pdStructureTreeRoot.setK(k);
+    COSBase actualK = pdStructureTreeRoot.getK();
 
     // Assert
-    COSDictionary cOSObject = pdStructureTreeRoot.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    assertTrue(pdStructureTreeRoot.getKids().isEmpty());
-    assertSame(k, pdStructureTreeRoot.getK());
+    verify(objectable).getCOSObject();
+    assertSame(((COSBoolean) actualK).FALSE, actualK);
   }
 
   /**
-   * Test {@link PDStructureTreeRoot#setK(COSBase)}.
-   * <ul>
-   *   <li>When {@link COSDictionary#COSDictionary()}.</li>
-   *   <li>Then {@link PDStructureTreeRoot#PDStructureTreeRoot()} Kids size is one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDStructureTreeRoot#setK(COSBase)}
    */
   @Test
-  @DisplayName("Test setK(COSBase); when COSDictionary(); then PDStructureTreeRoot() Kids size is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDStructureTreeRoot.setK(COSBase)"})
-  void testSetK_whenCOSDictionary_thenPDStructureTreeRootKidsSizeIsOne() {
-    // Arrange
-    PDStructureTreeRoot pdStructureTreeRoot = new PDStructureTreeRoot();
-    COSDictionary k = new COSDictionary();
-
-    // Act
-    pdStructureTreeRoot.setK(k);
-
-    // Assert
-    List<Object> kids = pdStructureTreeRoot.getKids();
-    assertEquals(1, kids.size());
-    Object getResult = kids.get(0);
-    assertTrue(getResult instanceof PDStructureElement);
-    assertNull(((PDStructureElement) getResult).getActualText());
-    assertNull(((PDStructureElement) getResult).getAlternateDescription());
-    assertNull(((PDStructureElement) getResult).getElementIdentifier());
-    assertNull(((PDStructureElement) getResult).getExpandedForm());
-    assertNull(((PDStructureElement) getResult).getLanguage());
-    assertNull(((PDStructureElement) getResult).getStandardStructureType());
-    assertNull(((PDStructureElement) getResult).getStructureType());
-    assertNull(((PDStructureElement) getResult).getTitle());
-    assertNull(((PDStructureElement) getResult).getType());
-    assertNull(((PDStructureElement) getResult).getPage());
-    assertNull(((PDStructureElement) getResult).getParent());
-    assertEquals(0, ((PDStructureElement) getResult).getRevisionNumber());
-    assertTrue(((PDStructureElement) getResult).getKids().isEmpty());
-    assertSame(k, ((PDStructureElement) getResult).getCOSObject());
-    assertSame(k, pdStructureTreeRoot.getK());
-  }
-
-  /**
-   * Test {@link PDStructureTreeRoot#setK(COSBase)}.
-   * <ul>
-   *   <li>When {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDStructureTreeRoot#setK(COSBase)}
-   */
-  @Test
-  @DisplayName("Test setK(COSBase); when COSObjectKey(long, int) with num is one and gen is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDStructureTreeRoot.setK(COSBase)"})
-  void testSetK_whenCOSObjectKeyWithNumIsOneAndGenIsOne() {
-    // Arrange
-    PDStructureTreeRoot pdStructureTreeRoot = new PDStructureTreeRoot();
-
-    // Act
-    pdStructureTreeRoot.setK(new COSObject(COSBoolean.FALSE, new COSObjectKey(1L, 1)));
-
-    // Assert
-    COSDictionary cOSObject = pdStructureTreeRoot.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    assertTrue(pdStructureTreeRoot.getKids().isEmpty());
-  }
-
-  /**
-   * Test {@link PDStructureTreeRoot#setK(COSBase)}.
-   * <ul>
-   *   <li>When {@link COSBoolean#FALSE}.</li>
-   *   <li>Then {@link PDStructureTreeRoot#PDStructureTreeRoot()} K is {@link COSBoolean#FALSE} {@link COSBoolean#FALSE}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDStructureTreeRoot#setK(COSBase)}
-   */
-  @Test
-  @DisplayName("Test setK(COSBase); when FALSE; then PDStructureTreeRoot() K is FALSE FALSE")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDStructureTreeRoot.setK(COSBase)"})
-  void testSetK_whenFalse_thenPDStructureTreeRootKIsFalseFalse() {
+  void testSetK() {
     // Arrange
     PDStructureTreeRoot pdStructureTreeRoot = new PDStructureTreeRoot();
     COSBoolean k = COSBoolean.FALSE;
@@ -283,31 +93,124 @@ class PDStructureTreeRootDiffblueTest {
     COSDictionary cOSObject = pdStructureTreeRoot.getCOSObject();
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
+    assertTrue(pdStructureTreeRoot.getKids().isEmpty());
     COSBoolean expectedK = k.FALSE;
     assertSame(expectedK, pdStructureTreeRoot.getK());
   }
 
   /**
-   * Test {@link PDStructureTreeRoot#setK(COSBase)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then {@link PDStructureTreeRoot#PDStructureTreeRoot()} COSObject Values size is one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDStructureTreeRoot#setK(COSBase)}
    */
   @Test
-  @DisplayName("Test setK(COSBase); when 'null'; then PDStructureTreeRoot() COSObject Values size is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDStructureTreeRoot.setK(COSBase)"})
-  void testSetK_whenNull_thenPDStructureTreeRootCOSObjectValuesSizeIsOne() {
+  void testSetK2() {
     // Arrange
+    COSObjectable objectable = mock(COSObjectable.class);
+    when(objectable.getCOSObject()).thenReturn(COSBoolean.FALSE);
+
     PDStructureTreeRoot pdStructureTreeRoot = new PDStructureTreeRoot();
+    pdStructureTreeRoot.appendObjectableKid(objectable);
+    COSBoolean k = COSBoolean.FALSE;
+
+    // Act
+    pdStructureTreeRoot.setK(k);
+
+    // Assert
+    verify(objectable).getCOSObject();
+    COSDictionary cOSObject = pdStructureTreeRoot.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    assertTrue(pdStructureTreeRoot.getKids().isEmpty());
+    COSBoolean expectedK = k.FALSE;
+    assertSame(expectedK, pdStructureTreeRoot.getK());
+  }
+
+  /**
+   * Method under test: {@link PDStructureTreeRoot#setK(COSBase)}
+   */
+  @Test
+  void testSetK3() {
+    // Arrange
+    COSObjectable objectable = mock(COSObjectable.class);
+    when(objectable.getCOSObject()).thenReturn(COSBoolean.FALSE);
+
+    PDStructureTreeRoot pdStructureTreeRoot = new PDStructureTreeRoot();
+    pdStructureTreeRoot.appendObjectableKid(objectable);
+    COSDictionary k = new COSDictionary();
+
+    // Act
+    pdStructureTreeRoot.setK(k);
+
+    // Assert
+    verify(objectable).getCOSObject();
+    List<Object> kids = pdStructureTreeRoot.getKids();
+    assertEquals(1, kids.size());
+    Object getResult = kids.get(0);
+    assertTrue(getResult instanceof PDStructureElement);
+    assertNull(((PDStructureElement) getResult).getActualText());
+    assertNull(((PDStructureElement) getResult).getAlternateDescription());
+    assertNull(((PDStructureElement) getResult).getElementIdentifier());
+    assertNull(((PDStructureElement) getResult).getExpandedForm());
+    assertNull(((PDStructureElement) getResult).getLanguage());
+    assertNull(((PDStructureElement) getResult).getStandardStructureType());
+    assertNull(((PDStructureElement) getResult).getStructureType());
+    assertNull(((PDStructureElement) getResult).getTitle());
+    assertNull(((PDStructureElement) getResult).getType());
+    assertNull(((PDStructureElement) getResult).getPage());
+    assertNull(((PDStructureElement) getResult).getParent());
+    assertEquals(0, ((PDStructureElement) getResult).getRevisionNumber());
+    assertEquals(0, ((PDStructureElement) getResult).getAttributes().size());
+    assertEquals(0, ((PDStructureElement) getResult).getClassNames().size());
+    COSDictionary cOSObject = pdStructureTreeRoot.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    assertTrue(((PDStructureElement) getResult).getKids().isEmpty());
+    assertSame(k, ((PDStructureElement) getResult).getCOSObject());
+    assertSame(k, pdStructureTreeRoot.getK());
+  }
+
+  /**
+   * Method under test: {@link PDStructureTreeRoot#setK(COSBase)}
+   */
+  @Test
+  void testSetK4() {
+    // Arrange
+    COSObjectable objectable = mock(COSObjectable.class);
+    when(objectable.getCOSObject()).thenReturn(COSBoolean.FALSE);
+
+    PDStructureTreeRoot pdStructureTreeRoot = new PDStructureTreeRoot();
+    pdStructureTreeRoot.appendObjectableKid(objectable);
+    COSArray k = new COSArray();
+
+    // Act
+    pdStructureTreeRoot.setK(k);
+
+    // Assert
+    verify(objectable).getCOSObject();
+    COSDictionary cOSObject = pdStructureTreeRoot.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    assertTrue(pdStructureTreeRoot.getKids().isEmpty());
+    assertSame(k, pdStructureTreeRoot.getK());
+  }
+
+  /**
+   * Method under test: {@link PDStructureTreeRoot#setK(COSBase)}
+   */
+  @Test
+  void testSetK5() {
+    // Arrange
+    COSObjectable objectable = mock(COSObjectable.class);
+    when(objectable.getCOSObject()).thenReturn(COSBoolean.FALSE);
+
+    PDStructureTreeRoot pdStructureTreeRoot = new PDStructureTreeRoot();
+    pdStructureTreeRoot.appendObjectableKid(objectable);
 
     // Act
     pdStructureTreeRoot.setK(null);
 
-    // Assert that nothing has changed
+    // Assert
+    verify(objectable).getCOSObject();
+    assertNull(pdStructureTreeRoot.getK());
     COSDictionary cOSObject = pdStructureTreeRoot.getCOSObject();
     assertEquals(1, cOSObject.getValues().size());
     assertEquals(1, cOSObject.size());
@@ -315,36 +218,108 @@ class PDStructureTreeRootDiffblueTest {
   }
 
   /**
-   * Test {@link PDStructureTreeRoot#getIDTree()}.
-   * <ul>
-   *   <li>Given {@link PDStructureTreeRoot#PDStructureTreeRoot()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PDStructureTreeRoot#setK(COSBase)}
+   */
+  @Test
+  void testSetK6() {
+    // Arrange
+    COSObjectable objectable = mock(COSObjectable.class);
+    when(objectable.getCOSObject()).thenReturn(COSBoolean.FALSE);
+
+    PDStructureTreeRoot pdStructureTreeRoot = new PDStructureTreeRoot();
+    pdStructureTreeRoot.appendObjectableKid(objectable);
+
+    // Act
+    pdStructureTreeRoot.setK(new COSObject(COSBoolean.FALSE, new COSObjectKey(1L, 1)));
+
+    // Assert
+    verify(objectable).getCOSObject();
+    COSDictionary cOSObject = pdStructureTreeRoot.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    assertTrue(pdStructureTreeRoot.getKids().isEmpty());
+  }
+
+  /**
+   * Method under test: {@link PDStructureTreeRoot#setK(COSBase)}
+   */
+  @Test
+  void testSetK7() {
+    // Arrange
+    COSObjectable objectable = mock(COSObjectable.class);
+    when(objectable.getCOSObject()).thenReturn(COSBoolean.FALSE);
+
+    PDStructureTreeRoot pdStructureTreeRoot = new PDStructureTreeRoot();
+    pdStructureTreeRoot.appendObjectableKid(objectable);
+
+    COSDictionary k = new COSDictionary();
+    k.setKey(new COSObjectKey(1L, 1));
+
+    // Act
+    pdStructureTreeRoot.setK(k);
+
+    // Assert
+    verify(objectable).getCOSObject();
+    List<Object> kids = pdStructureTreeRoot.getKids();
+    assertEquals(1, kids.size());
+    Object getResult = kids.get(0);
+    assertTrue(getResult instanceof PDStructureElement);
+    assertNull(((PDStructureElement) getResult).getActualText());
+    assertNull(((PDStructureElement) getResult).getAlternateDescription());
+    assertNull(((PDStructureElement) getResult).getElementIdentifier());
+    assertNull(((PDStructureElement) getResult).getExpandedForm());
+    assertNull(((PDStructureElement) getResult).getLanguage());
+    assertNull(((PDStructureElement) getResult).getStandardStructureType());
+    assertNull(((PDStructureElement) getResult).getStructureType());
+    assertNull(((PDStructureElement) getResult).getTitle());
+    assertNull(((PDStructureElement) getResult).getType());
+    assertNull(((PDStructureElement) getResult).getPage());
+    assertNull(((PDStructureElement) getResult).getParent());
+    assertEquals(0, ((PDStructureElement) getResult).getRevisionNumber());
+    assertEquals(0, ((PDStructureElement) getResult).getAttributes().size());
+    assertEquals(0, ((PDStructureElement) getResult).getClassNames().size());
+    COSDictionary cOSObject = pdStructureTreeRoot.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    assertTrue(((PDStructureElement) getResult).getKids().isEmpty());
+    assertSame(k, ((PDStructureElement) getResult).getCOSObject());
+    assertSame(k, pdStructureTreeRoot.getK());
+  }
+
+  /**
    * Method under test: {@link PDStructureTreeRoot#getIDTree()}
    */
   @Test
-  @DisplayName("Test getIDTree(); given PDStructureTreeRoot(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDNameTreeNode PDStructureTreeRoot.getIDTree()"})
-  void testGetIDTree_givenPDStructureTreeRoot_thenReturnNull() {
+  void testGetIDTree() {
     // Arrange, Act and Assert
     assertNull((new PDStructureTreeRoot()).getIDTree());
   }
 
   /**
-   * Test {@link PDStructureTreeRoot#setIDTree(PDNameTreeNode)}.
-   * <ul>
-   *   <li>Then {@link PDStructureTreeRoot#PDStructureTreeRoot()} IDTree {@link PDStructureElementNameTreeNode}.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PDStructureTreeRoot#getIDTree()}
+   */
+  @Test
+  void testGetIDTree2() {
+    // Arrange
+    COSObjectable objectable = mock(COSObjectable.class);
+    when(objectable.getCOSObject()).thenReturn(COSBoolean.FALSE);
+
+    PDStructureTreeRoot pdStructureTreeRoot = new PDStructureTreeRoot();
+    pdStructureTreeRoot.appendObjectableKid(objectable);
+
+    // Act
+    PDNameTreeNode<PDStructureElement> actualIDTree = pdStructureTreeRoot.getIDTree();
+
+    // Assert
+    verify(objectable).getCOSObject();
+    assertNull(actualIDTree);
+  }
+
+  /**
    * Method under test: {@link PDStructureTreeRoot#setIDTree(PDNameTreeNode)}
    */
   @Test
-  @DisplayName("Test setIDTree(PDNameTreeNode); then PDStructureTreeRoot() IDTree PDStructureElementNameTreeNode")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDStructureTreeRoot.setIDTree(PDNameTreeNode)"})
-  void testSetIDTree_thenPDStructureTreeRootIDTreePDStructureElementNameTreeNode() throws IOException {
+  void testSetIDTree() throws IOException {
     // Arrange
     PDStructureTreeRoot pdStructureTreeRoot = new PDStructureTreeRoot();
 
@@ -366,62 +341,93 @@ class PDStructureTreeRootDiffblueTest {
   }
 
   /**
-   * Test {@link PDStructureTreeRoot#setIDTree(PDNameTreeNode)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then {@link PDStructureTreeRoot#PDStructureTreeRoot()} COSObject Values size is one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDStructureTreeRoot#setIDTree(PDNameTreeNode)}
    */
   @Test
-  @DisplayName("Test setIDTree(PDNameTreeNode); when 'null'; then PDStructureTreeRoot() COSObject Values size is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDStructureTreeRoot.setIDTree(PDNameTreeNode)"})
-  void testSetIDTree_whenNull_thenPDStructureTreeRootCOSObjectValuesSizeIsOne() {
+  void testSetIDTree2() throws IOException {
     // Arrange
+    COSObjectable objectable = mock(COSObjectable.class);
+    when(objectable.getCOSObject()).thenReturn(COSBoolean.FALSE);
+
     PDStructureTreeRoot pdStructureTreeRoot = new PDStructureTreeRoot();
+    pdStructureTreeRoot.appendObjectableKid(objectable);
+
+    // Act
+    pdStructureTreeRoot.setIDTree(new PDStructureElementNameTreeNode());
+
+    // Assert
+    verify(objectable).getCOSObject();
+    PDNameTreeNode<PDStructureElement> iDTree = pdStructureTreeRoot.getIDTree();
+    assertTrue(iDTree instanceof PDStructureElementNameTreeNode);
+    assertNull(iDTree.getLowerLimit());
+    assertNull(iDTree.getUpperLimit());
+    assertNull(iDTree.getKids());
+    assertNull(iDTree.getNames());
+    assertNull(iDTree.getParent());
+    COSDictionary cOSObject = pdStructureTreeRoot.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
+    assertTrue(iDTree.isRootNode());
+  }
+
+  /**
+   * Method under test: {@link PDStructureTreeRoot#setIDTree(PDNameTreeNode)}
+   */
+  @Test
+  void testSetIDTree3() {
+    // Arrange
+    COSObjectable objectable = mock(COSObjectable.class);
+    when(objectable.getCOSObject()).thenReturn(COSBoolean.FALSE);
+
+    PDStructureTreeRoot pdStructureTreeRoot = new PDStructureTreeRoot();
+    pdStructureTreeRoot.appendObjectableKid(objectable);
 
     // Act
     pdStructureTreeRoot.setIDTree(null);
 
-    // Assert that nothing has changed
+    // Assert
+    verify(objectable).getCOSObject();
+    assertNull(pdStructureTreeRoot.getIDTree());
     COSDictionary cOSObject = pdStructureTreeRoot.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
   }
 
   /**
-   * Test {@link PDStructureTreeRoot#getParentTree()}.
-   * <ul>
-   *   <li>Given {@link PDStructureTreeRoot#PDStructureTreeRoot()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDStructureTreeRoot#getParentTree()}
    */
   @Test
-  @DisplayName("Test getParentTree(); given PDStructureTreeRoot(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"PDNumberTreeNode PDStructureTreeRoot.getParentTree()"})
-  void testGetParentTree_givenPDStructureTreeRoot_thenReturnNull() {
+  void testGetParentTree() {
     // Arrange, Act and Assert
     assertNull((new PDStructureTreeRoot()).getParentTree());
   }
 
   /**
-   * Test {@link PDStructureTreeRoot#setParentTree(PDNumberTreeNode)}.
-   * <ul>
-   *   <li>Then {@link PDStructureTreeRoot#PDStructureTreeRoot()} ParentTree LowerLimit is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDStructureTreeRoot#setParentTree(PDNumberTreeNode)}
+   * Method under test: {@link PDStructureTreeRoot#getParentTree()}
    */
   @Test
-  @DisplayName("Test setParentTree(PDNumberTreeNode); then PDStructureTreeRoot() ParentTree LowerLimit is 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDStructureTreeRoot.setParentTree(PDNumberTreeNode)"})
-  void testSetParentTree_thenPDStructureTreeRootParentTreeLowerLimitIsNull() throws IOException {
+  void testGetParentTree2() {
+    // Arrange
+    COSObjectable objectable = mock(COSObjectable.class);
+    when(objectable.getCOSObject()).thenReturn(COSBoolean.FALSE);
+
+    PDStructureTreeRoot pdStructureTreeRoot = new PDStructureTreeRoot();
+    pdStructureTreeRoot.appendObjectableKid(objectable);
+
+    // Act
+    PDNumberTreeNode actualParentTree = pdStructureTreeRoot.getParentTree();
+
+    // Assert
+    verify(objectable).getCOSObject();
+    assertNull(actualParentTree);
+  }
+
+  /**
+   * Method under test:
+   * {@link PDStructureTreeRoot#setParentTree(PDNumberTreeNode)}
+   */
+  @Test
+  void testSetParentTree() throws IOException {
     // Arrange
     PDStructureTreeRoot pdStructureTreeRoot = new PDStructureTreeRoot();
     Class<COSObjectable> valueClass = COSObjectable.class;
@@ -441,88 +447,92 @@ class PDStructureTreeRootDiffblueTest {
   }
 
   /**
-   * Test {@link PDStructureTreeRoot#setParentTree(PDNumberTreeNode)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then {@link PDStructureTreeRoot#PDStructureTreeRoot()} COSObject Values size is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDStructureTreeRoot#setParentTree(PDNumberTreeNode)}
+   * Method under test:
+   * {@link PDStructureTreeRoot#setParentTree(PDNumberTreeNode)}
    */
   @Test
-  @DisplayName("Test setParentTree(PDNumberTreeNode); when 'null'; then PDStructureTreeRoot() COSObject Values size is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDStructureTreeRoot.setParentTree(PDNumberTreeNode)"})
-  void testSetParentTree_whenNull_thenPDStructureTreeRootCOSObjectValuesSizeIsOne() {
+  void testSetParentTree2() throws IOException {
     // Arrange
+    COSObjectable objectable = mock(COSObjectable.class);
+    when(objectable.getCOSObject()).thenReturn(COSBoolean.FALSE);
+
     PDStructureTreeRoot pdStructureTreeRoot = new PDStructureTreeRoot();
+    pdStructureTreeRoot.appendObjectableKid(objectable);
+    Class<COSObjectable> valueClass = COSObjectable.class;
+
+    // Act
+    pdStructureTreeRoot.setParentTree(new PDNumberTreeNode(valueClass));
+
+    // Assert
+    verify(objectable).getCOSObject();
+    PDNumberTreeNode parentTree = pdStructureTreeRoot.getParentTree();
+    assertNull(parentTree.getLowerLimit());
+    assertNull(parentTree.getUpperLimit());
+    assertNull(parentTree.getKids());
+    assertNull(parentTree.getNumbers());
+    COSDictionary cOSObject = pdStructureTreeRoot.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
+  }
+
+  /**
+   * Method under test:
+   * {@link PDStructureTreeRoot#setParentTree(PDNumberTreeNode)}
+   */
+  @Test
+  void testSetParentTree3() {
+    // Arrange
+    COSObjectable objectable = mock(COSObjectable.class);
+    when(objectable.getCOSObject()).thenReturn(COSBoolean.FALSE);
+
+    PDStructureTreeRoot pdStructureTreeRoot = new PDStructureTreeRoot();
+    pdStructureTreeRoot.appendObjectableKid(objectable);
 
     // Act
     pdStructureTreeRoot.setParentTree(null);
 
-    // Assert that nothing has changed
+    // Assert
+    verify(objectable).getCOSObject();
+    assertNull(pdStructureTreeRoot.getParentTree());
     COSDictionary cOSObject = pdStructureTreeRoot.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
   }
 
   /**
-   * Test {@link PDStructureTreeRoot#getParentTreeNextKey()}.
-   * <ul>
-   *   <li>Given {@link PDStructureTreeRoot#PDStructureTreeRoot()}.</li>
-   *   <li>Then return minus one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDStructureTreeRoot#getParentTreeNextKey()}
    */
   @Test
-  @DisplayName("Test getParentTreeNextKey(); given PDStructureTreeRoot(); then return minus one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"int PDStructureTreeRoot.getParentTreeNextKey()"})
-  void testGetParentTreeNextKey_givenPDStructureTreeRoot_thenReturnMinusOne() {
+  void testGetParentTreeNextKey() {
     // Arrange, Act and Assert
     assertEquals(-1, (new PDStructureTreeRoot()).getParentTreeNextKey());
   }
 
   /**
-   * Test {@link PDStructureTreeRoot#setParentTreeNextKey(int)}.
-   * <ul>
-   *   <li>Then {@link PDStructureTreeRoot#PDStructureTreeRoot()} ParentTreeNextKey is {@link Integer#MIN_VALUE}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDStructureTreeRoot#setParentTreeNextKey(int)}
+   * Method under test: {@link PDStructureTreeRoot#getParentTreeNextKey()}
    */
   @Test
-  @DisplayName("Test setParentTreeNextKey(int); then PDStructureTreeRoot() ParentTreeNextKey is MIN_VALUE")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDStructureTreeRoot.setParentTreeNextKey(int)"})
-  void testSetParentTreeNextKey_thenPDStructureTreeRootParentTreeNextKeyIsMin_value() {
+  void testGetParentTreeNextKey2() {
     // Arrange
+    COSObjectable objectable = mock(COSObjectable.class);
+    when(objectable.getCOSObject()).thenReturn(COSBoolean.FALSE);
+
     PDStructureTreeRoot pdStructureTreeRoot = new PDStructureTreeRoot();
+    pdStructureTreeRoot.appendObjectableKid(objectable);
 
     // Act
-    pdStructureTreeRoot.setParentTreeNextKey(Integer.MIN_VALUE);
+    int actualParentTreeNextKey = pdStructureTreeRoot.getParentTreeNextKey();
 
     // Assert
-    COSDictionary cOSObject = pdStructureTreeRoot.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    assertEquals(Integer.MIN_VALUE, pdStructureTreeRoot.getParentTreeNextKey());
+    verify(objectable).getCOSObject();
+    assertEquals(-1, actualParentTreeNextKey);
   }
 
   /**
-   * Test {@link PDStructureTreeRoot#setParentTreeNextKey(int)}.
-   * <ul>
-   *   <li>Then {@link PDStructureTreeRoot#PDStructureTreeRoot()} ParentTreeNextKey is one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDStructureTreeRoot#setParentTreeNextKey(int)}
    */
   @Test
-  @DisplayName("Test setParentTreeNextKey(int); then PDStructureTreeRoot() ParentTreeNextKey is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDStructureTreeRoot.setParentTreeNextKey(int)"})
-  void testSetParentTreeNextKey_thenPDStructureTreeRootParentTreeNextKeyIsOne() {
+  void testSetParentTreeNextKey() {
     // Arrange
     PDStructureTreeRoot pdStructureTreeRoot = new PDStructureTreeRoot();
 
@@ -537,101 +547,108 @@ class PDStructureTreeRootDiffblueTest {
   }
 
   /**
-   * Test {@link PDStructureTreeRoot#getRoleMap()}.
-   * <ul>
-   *   <li>Given {@link PDStructureTreeRoot#PDStructureTreeRoot()}.</li>
-   *   <li>Then return Empty.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PDStructureTreeRoot#setParentTreeNextKey(int)}
+   */
+  @Test
+  void testSetParentTreeNextKey2() {
+    // Arrange
+    COSObjectable objectable = mock(COSObjectable.class);
+    when(objectable.getCOSObject()).thenReturn(COSBoolean.FALSE);
+
+    PDStructureTreeRoot pdStructureTreeRoot = new PDStructureTreeRoot();
+    pdStructureTreeRoot.appendObjectableKid(objectable);
+
+    // Act
+    pdStructureTreeRoot.setParentTreeNextKey(1);
+
+    // Assert
+    verify(objectable).getCOSObject();
+    assertEquals(1, pdStructureTreeRoot.getParentTreeNextKey());
+    COSDictionary cOSObject = pdStructureTreeRoot.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
+  }
+
+  /**
+   * Method under test: {@link PDStructureTreeRoot#setParentTreeNextKey(int)}
+   */
+  @Test
+  void testSetParentTreeNextKey3() {
+    // Arrange
+    COSObjectable objectable = mock(COSObjectable.class);
+    when(objectable.getCOSObject()).thenReturn(COSBoolean.FALSE);
+
+    PDStructureTreeRoot pdStructureTreeRoot = new PDStructureTreeRoot();
+    pdStructureTreeRoot.appendObjectableKid(objectable);
+
+    // Act
+    pdStructureTreeRoot.setParentTreeNextKey(-100);
+
+    // Assert
+    verify(objectable).getCOSObject();
+    assertEquals(-100, pdStructureTreeRoot.getParentTreeNextKey());
+    COSDictionary cOSObject = pdStructureTreeRoot.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
+  }
+
+  /**
+   * Method under test: {@link PDStructureTreeRoot#setParentTreeNextKey(int)}
+   */
+  @Test
+  void testSetParentTreeNextKey4() {
+    // Arrange
+    COSObjectable objectable = mock(COSObjectable.class);
+    when(objectable.getCOSObject()).thenReturn(COSBoolean.FALSE);
+
+    PDStructureTreeRoot pdStructureTreeRoot = new PDStructureTreeRoot();
+    pdStructureTreeRoot.appendObjectableKid(objectable);
+
+    // Act
+    pdStructureTreeRoot.setParentTreeNextKey(Integer.MIN_VALUE);
+
+    // Assert
+    verify(objectable).getCOSObject();
+    COSDictionary cOSObject = pdStructureTreeRoot.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
+    assertEquals(Integer.MIN_VALUE, pdStructureTreeRoot.getParentTreeNextKey());
+  }
+
+  /**
    * Method under test: {@link PDStructureTreeRoot#getRoleMap()}
    */
   @Test
-  @DisplayName("Test getRoleMap(); given PDStructureTreeRoot(); then return Empty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Map PDStructureTreeRoot.getRoleMap()"})
-  void testGetRoleMap_givenPDStructureTreeRoot_thenReturnEmpty() {
+  void testGetRoleMap() {
     // Arrange, Act and Assert
     assertTrue((new PDStructureTreeRoot()).getRoleMap().isEmpty());
   }
 
   /**
-   * Test {@link PDStructureTreeRoot#setRoleMap(Map)}.
-   * <ul>
-   *   <li>Given {@code 42}.</li>
-   *   <li>When {@link HashMap#HashMap()} {@code 42} is {@code 42}.</li>
-   *   <li>Then {@link PDStructureTreeRoot#PDStructureTreeRoot()} RoleMap size is two.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDStructureTreeRoot#setRoleMap(Map)}
+   * Method under test: {@link PDStructureTreeRoot#getRoleMap()}
    */
   @Test
-  @DisplayName("Test setRoleMap(Map); given '42'; when HashMap() '42' is '42'; then PDStructureTreeRoot() RoleMap size is two")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDStructureTreeRoot.setRoleMap(Map)"})
-  void testSetRoleMap_given42_whenHashMap42Is42_thenPDStructureTreeRootRoleMapSizeIsTwo() {
+  void testGetRoleMap2() {
     // Arrange
-    PDStructureTreeRoot pdStructureTreeRoot = new PDStructureTreeRoot();
+    COSObjectable objectable = mock(COSObjectable.class);
+    when(objectable.getCOSObject()).thenReturn(COSBoolean.FALSE);
 
-    HashMap<String, String> roleMap = new HashMap<>();
-    roleMap.put("42", "42");
-    roleMap.put("foo", "foo");
+    PDStructureTreeRoot pdStructureTreeRoot = new PDStructureTreeRoot();
+    pdStructureTreeRoot.appendObjectableKid(objectable);
 
     // Act
-    pdStructureTreeRoot.setRoleMap(roleMap);
+    Map<String, Object> actualRoleMap = pdStructureTreeRoot.getRoleMap();
 
     // Assert
-    Map<String, Object> roleMap2 = pdStructureTreeRoot.getRoleMap();
-    assertEquals(2, roleMap2.size());
-    assertEquals("42", roleMap2.get("42"));
-    assertEquals("foo", roleMap2.get("foo"));
+    verify(objectable).getCOSObject();
+    assertTrue(actualRoleMap.isEmpty());
   }
 
   /**
-   * Test {@link PDStructureTreeRoot#setRoleMap(Map)}.
-   * <ul>
-   *   <li>Given {@code foo}.</li>
-   *   <li>Then {@link PDStructureTreeRoot#PDStructureTreeRoot()} RoleMap size is one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDStructureTreeRoot#setRoleMap(Map)}
    */
   @Test
-  @DisplayName("Test setRoleMap(Map); given 'foo'; then PDStructureTreeRoot() RoleMap size is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDStructureTreeRoot.setRoleMap(Map)"})
-  void testSetRoleMap_givenFoo_thenPDStructureTreeRootRoleMapSizeIsOne() {
-    // Arrange
-    PDStructureTreeRoot pdStructureTreeRoot = new PDStructureTreeRoot();
-
-    HashMap<String, String> roleMap = new HashMap<>();
-    roleMap.put("foo", "foo");
-
-    // Act
-    pdStructureTreeRoot.setRoleMap(roleMap);
-
-    // Assert
-    Map<String, Object> roleMap2 = pdStructureTreeRoot.getRoleMap();
-    assertEquals(1, roleMap2.size());
-    assertEquals("foo", roleMap2.get("foo"));
-    COSDictionary cOSObject = pdStructureTreeRoot.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-  }
-
-  /**
-   * Test {@link PDStructureTreeRoot#setRoleMap(Map)}.
-   * <ul>
-   *   <li>When {@link HashMap#HashMap()}.</li>
-   *   <li>Then {@link PDStructureTreeRoot#PDStructureTreeRoot()} RoleMap Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDStructureTreeRoot#setRoleMap(Map)}
-   */
-  @Test
-  @DisplayName("Test setRoleMap(Map); when HashMap(); then PDStructureTreeRoot() RoleMap Empty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDStructureTreeRoot.setRoleMap(Map)"})
-  void testSetRoleMap_whenHashMap_thenPDStructureTreeRootRoleMapEmpty() {
+  void testSetRoleMap() {
     // Arrange
     PDStructureTreeRoot pdStructureTreeRoot = new PDStructureTreeRoot();
 
@@ -646,39 +663,193 @@ class PDStructureTreeRootDiffblueTest {
   }
 
   /**
-   * Test {@link PDStructureTreeRoot#getClassMap()}.
-   * <ul>
-   *   <li>Given {@link PDStructureTreeRoot#PDStructureTreeRoot()}.</li>
-   *   <li>Then return Empty.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PDStructureTreeRoot#setRoleMap(Map)}
+   */
+  @Test
+  void testSetRoleMap2() {
+    // Arrange
+    COSObjectable objectable = mock(COSObjectable.class);
+    when(objectable.getCOSObject()).thenReturn(COSBoolean.FALSE);
+
+    PDStructureTreeRoot pdStructureTreeRoot = new PDStructureTreeRoot();
+    pdStructureTreeRoot.appendObjectableKid(objectable);
+
+    // Act
+    pdStructureTreeRoot.setRoleMap(new HashMap<>());
+
+    // Assert
+    verify(objectable).getCOSObject();
+    COSDictionary cOSObject = pdStructureTreeRoot.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
+    assertTrue(pdStructureTreeRoot.getRoleMap().isEmpty());
+  }
+
+  /**
+   * Method under test: {@link PDStructureTreeRoot#setRoleMap(Map)}
+   */
+  @Test
+  void testSetRoleMap3() {
+    // Arrange
+    COSObjectable objectable = mock(COSObjectable.class);
+    when(objectable.getCOSObject()).thenReturn(COSBoolean.FALSE);
+
+    PDStructureTreeRoot pdStructureTreeRoot = new PDStructureTreeRoot();
+    pdStructureTreeRoot.appendObjectableKid(objectable);
+
+    HashMap<String, String> roleMap = new HashMap<>();
+    roleMap.put("foo", "foo");
+
+    // Act
+    pdStructureTreeRoot.setRoleMap(roleMap);
+
+    // Assert
+    verify(objectable).getCOSObject();
+    Map<String, Object> roleMap2 = pdStructureTreeRoot.getRoleMap();
+    assertEquals(1, roleMap2.size());
+    assertEquals("foo", roleMap2.get("foo"));
+    COSDictionary cOSObject = pdStructureTreeRoot.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
+  }
+
+  /**
+   * Method under test: {@link PDStructureTreeRoot#setRoleMap(Map)}
+   */
+  @Test
+  void testSetRoleMap4() {
+    // Arrange
+    COSObjectable objectable = mock(COSObjectable.class);
+    when(objectable.getCOSObject()).thenReturn(COSBoolean.FALSE);
+
+    PDStructureTreeRoot pdStructureTreeRoot = new PDStructureTreeRoot();
+    pdStructureTreeRoot.appendObjectableKid(objectable);
+
+    HashMap<String, String> roleMap = new HashMap<>();
+    roleMap.put("42", "42");
+    roleMap.put("foo", "foo");
+
+    // Act
+    pdStructureTreeRoot.setRoleMap(roleMap);
+
+    // Assert
+    verify(objectable).getCOSObject();
+    Map<String, Object> roleMap2 = pdStructureTreeRoot.getRoleMap();
+    assertEquals(2, roleMap2.size());
+    assertEquals("42", roleMap2.get("42"));
+    assertEquals("foo", roleMap2.get("foo"));
+    COSDictionary cOSObject = pdStructureTreeRoot.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
+  }
+
+  /**
    * Method under test: {@link PDStructureTreeRoot#getClassMap()}
    */
   @Test
-  @DisplayName("Test getClassMap(); given PDStructureTreeRoot(); then return Empty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Map PDStructureTreeRoot.getClassMap()"})
-  void testGetClassMap_givenPDStructureTreeRoot_thenReturnEmpty() {
+  void testGetClassMap() {
     // Arrange, Act and Assert
     assertTrue((new PDStructureTreeRoot()).getClassMap().isEmpty());
   }
 
   /**
-   * Test {@link PDStructureTreeRoot#setClassMap(Map)}.
-   * <ul>
-   *   <li>Given {@code 42}.</li>
-   *   <li>When {@link HashMap#HashMap()} {@code 42} is {@code 42}.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link PDStructureTreeRoot#getClassMap()}
+   */
+  @Test
+  void testGetClassMap2() {
+    // Arrange
+    COSObjectable objectable = mock(COSObjectable.class);
+    when(objectable.getCOSObject()).thenReturn(COSBoolean.FALSE);
+
+    PDStructureTreeRoot pdStructureTreeRoot = new PDStructureTreeRoot();
+    pdStructureTreeRoot.appendObjectableKid(objectable);
+
+    // Act
+    Map<String, Object> actualClassMap = pdStructureTreeRoot.getClassMap();
+
+    // Assert
+    verify(objectable).getCOSObject();
+    assertTrue(actualClassMap.isEmpty());
+  }
+
+  /**
    * Method under test: {@link PDStructureTreeRoot#setClassMap(Map)}
    */
   @Test
-  @DisplayName("Test setClassMap(Map); given '42'; when HashMap() '42' is '42'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDStructureTreeRoot.setClassMap(Map)"})
-  void testSetClassMap_given42_whenHashMap42Is42() {
+  void testSetClassMap() {
     // Arrange
     PDStructureTreeRoot pdStructureTreeRoot = new PDStructureTreeRoot();
+
+    // Act
+    pdStructureTreeRoot.setClassMap(new HashMap<>());
+
+    // Assert
+    COSDictionary cOSObject = pdStructureTreeRoot.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+    assertTrue(pdStructureTreeRoot.getClassMap().isEmpty());
+  }
+
+  /**
+   * Method under test: {@link PDStructureTreeRoot#setClassMap(Map)}
+   */
+  @Test
+  void testSetClassMap2() {
+    // Arrange
+    COSObjectable objectable = mock(COSObjectable.class);
+    when(objectable.getCOSObject()).thenReturn(COSBoolean.FALSE);
+
+    PDStructureTreeRoot pdStructureTreeRoot = new PDStructureTreeRoot();
+    pdStructureTreeRoot.appendObjectableKid(objectable);
+
+    // Act
+    pdStructureTreeRoot.setClassMap(new HashMap<>());
+
+    // Assert
+    verify(objectable).getCOSObject();
+    COSDictionary cOSObject = pdStructureTreeRoot.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    assertTrue(pdStructureTreeRoot.getClassMap().isEmpty());
+  }
+
+  /**
+   * Method under test: {@link PDStructureTreeRoot#setClassMap(Map)}
+   */
+  @Test
+  void testSetClassMap3() {
+    // Arrange
+    COSObjectable objectable = mock(COSObjectable.class);
+    when(objectable.getCOSObject()).thenReturn(COSBoolean.FALSE);
+
+    PDStructureTreeRoot pdStructureTreeRoot = new PDStructureTreeRoot();
+    pdStructureTreeRoot.appendObjectableKid(objectable);
+
+    HashMap<String, Object> classMap = new HashMap<>();
+    classMap.put("foo", "42");
+
+    // Act
+    pdStructureTreeRoot.setClassMap(classMap);
+
+    // Assert
+    verify(objectable).getCOSObject();
+    COSDictionary cOSObject = pdStructureTreeRoot.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
+    assertTrue(pdStructureTreeRoot.getClassMap().isEmpty());
+  }
+
+  /**
+   * Method under test: {@link PDStructureTreeRoot#setClassMap(Map)}
+   */
+  @Test
+  void testSetClassMap4() {
+    // Arrange
+    COSObjectable objectable = mock(COSObjectable.class);
+    when(objectable.getCOSObject()).thenReturn(COSBoolean.FALSE);
+
+    PDStructureTreeRoot pdStructureTreeRoot = new PDStructureTreeRoot();
+    pdStructureTreeRoot.appendObjectableKid(objectable);
 
     HashMap<String, Object> classMap = new HashMap<>();
     classMap.put("42", "42");
@@ -688,91 +859,27 @@ class PDStructureTreeRootDiffblueTest {
     pdStructureTreeRoot.setClassMap(classMap);
 
     // Assert
+    verify(objectable).getCOSObject();
     COSDictionary cOSObject = pdStructureTreeRoot.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
     assertTrue(pdStructureTreeRoot.getClassMap().isEmpty());
   }
 
   /**
-   * Test {@link PDStructureTreeRoot#setClassMap(Map)}.
-   * <ul>
-   *   <li>Given {@code 42}.</li>
-   *   <li>When {@link HashMap#HashMap()} {@code foo} is {@code 42}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDStructureTreeRoot#setClassMap(Map)}
    */
   @Test
-  @DisplayName("Test setClassMap(Map); given '42'; when HashMap() 'foo' is '42'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDStructureTreeRoot.setClassMap(Map)"})
-  void testSetClassMap_given42_whenHashMapFooIs42() {
+  void testSetClassMap5() {
     // Arrange
+    COSObjectable objectable = mock(COSObjectable.class);
+    when(objectable.getCOSObject()).thenReturn(COSBoolean.FALSE);
+
     PDStructureTreeRoot pdStructureTreeRoot = new PDStructureTreeRoot();
+    pdStructureTreeRoot.appendObjectableKid(objectable);
 
     HashMap<String, Object> classMap = new HashMap<>();
-    classMap.put("foo", "42");
-
-    // Act
-    pdStructureTreeRoot.setClassMap(classMap);
-
-    // Assert
-    COSDictionary cOSObject = pdStructureTreeRoot.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    assertTrue(pdStructureTreeRoot.getClassMap().isEmpty());
-  }
-
-  /**
-   * Test {@link PDStructureTreeRoot#setClassMap(Map)}.
-   * <ul>
-   *   <li>Then {@link PDStructureTreeRoot#PDStructureTreeRoot()} ClassMap {@code foo} is {@link ArrayList#ArrayList()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDStructureTreeRoot#setClassMap(Map)}
-   */
-  @Test
-  @DisplayName("Test setClassMap(Map); then PDStructureTreeRoot() ClassMap 'foo' is ArrayList()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDStructureTreeRoot.setClassMap(Map)"})
-  void testSetClassMap_thenPDStructureTreeRootClassMapFooIsArrayList() {
-    // Arrange
-    PDStructureTreeRoot pdStructureTreeRoot = new PDStructureTreeRoot();
-
-    HashMap<String, Object> classMap = new HashMap<>();
-    ArrayList<Object> objectList = new ArrayList<>();
-    classMap.put("foo", objectList);
-
-    // Act
-    pdStructureTreeRoot.setClassMap(classMap);
-
-    // Assert
-    Map<String, Object> classMap2 = pdStructureTreeRoot.getClassMap();
-    assertEquals(1, classMap2.size());
-    COSDictionary cOSObject = pdStructureTreeRoot.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    assertEquals(objectList, classMap2.get("foo"));
-  }
-
-  /**
-   * Test {@link PDStructureTreeRoot#setClassMap(Map)}.
-   * <ul>
-   *   <li>Then {@link PDStructureTreeRoot#PDStructureTreeRoot()} ClassMap {@code foo} {@link PDDefaultAttributeObject}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link PDStructureTreeRoot#setClassMap(Map)}
-   */
-  @Test
-  @DisplayName("Test setClassMap(Map); then PDStructureTreeRoot() ClassMap 'foo' PDDefaultAttributeObject")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDStructureTreeRoot.setClassMap(Map)"})
-  void testSetClassMap_thenPDStructureTreeRootClassMapFooPDDefaultAttributeObject() {
-    // Arrange
-    PDStructureTreeRoot pdStructureTreeRoot = new PDStructureTreeRoot();
-
-    HashMap<String, Object> classMap = new HashMap<>();
+    classMap.put("42", "42");
     PDDefaultAttributeObject pdDefaultAttributeObject = new PDDefaultAttributeObject();
     classMap.put("foo", pdDefaultAttributeObject);
 
@@ -780,37 +887,89 @@ class PDStructureTreeRootDiffblueTest {
     pdStructureTreeRoot.setClassMap(classMap);
 
     // Assert
+    verify(objectable).getCOSObject();
     Map<String, Object> classMap2 = pdStructureTreeRoot.getClassMap();
     assertEquals(1, classMap2.size());
     Object getResult = classMap2.get("foo");
     assertTrue(getResult instanceof PDDefaultAttributeObject);
+    COSDictionary cOSObject = pdStructureTreeRoot.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
     assertEquals(pdDefaultAttributeObject, getResult);
   }
 
   /**
-   * Test {@link PDStructureTreeRoot#setClassMap(Map)}.
-   * <ul>
-   *   <li>When {@link HashMap#HashMap()}.</li>
-   *   <li>Then {@link PDStructureTreeRoot#PDStructureTreeRoot()} COSObject Values size is one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDStructureTreeRoot#setClassMap(Map)}
    */
   @Test
-  @DisplayName("Test setClassMap(Map); when HashMap(); then PDStructureTreeRoot() COSObject Values size is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDStructureTreeRoot.setClassMap(Map)"})
-  void testSetClassMap_whenHashMap_thenPDStructureTreeRootCOSObjectValuesSizeIsOne() {
+  void testSetClassMap6() {
     // Arrange
+    COSObjectable objectable = mock(COSObjectable.class);
+    when(objectable.getCOSObject()).thenReturn(COSBoolean.FALSE);
+
     PDStructureTreeRoot pdStructureTreeRoot = new PDStructureTreeRoot();
+    pdStructureTreeRoot.appendObjectableKid(objectable);
+
+    HashMap<String, Object> classMap = new HashMap<>();
+    classMap.put("42", "42");
+    classMap.put("foo", new ArrayList<>());
 
     // Act
-    pdStructureTreeRoot.setClassMap(new HashMap<>());
+    pdStructureTreeRoot.setClassMap(classMap);
 
-    // Assert that nothing has changed
+    // Assert
+    verify(objectable).getCOSObject();
+    Map<String, Object> classMap2 = pdStructureTreeRoot.getClassMap();
+    assertEquals(1, classMap2.size());
+    Object getResult = classMap2.get("foo");
+    assertTrue(getResult instanceof List);
     COSDictionary cOSObject = pdStructureTreeRoot.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
+    assertTrue(((List<Object>) getResult).isEmpty());
+  }
+
+  /**
+   * Method under test:
+   * {@link PDStructureTreeRoot#PDStructureTreeRoot(COSDictionary)}
+   */
+  @Test
+  void testNewPDStructureTreeRoot() {
+    // Arrange
+    COSDictionary dic = new COSDictionary();
+
+    // Act and Assert
+    assertSame(dic, (new PDStructureTreeRoot(dic)).getCOSObject());
+  }
+
+  /**
+   * Method under test: {@link PDStructureTreeRoot#PDStructureTreeRoot()}
+   */
+  @Test
+  void testNewPDStructureTreeRoot2() {
+    // Arrange and Act
+    PDStructureTreeRoot actualPdStructureTreeRoot = new PDStructureTreeRoot();
+
+    // Assert
+    assertEquals("StructTreeRoot", actualPdStructureTreeRoot.getType());
+    assertNull(actualPdStructureTreeRoot.getK());
+    COSDictionary cOSObject = actualPdStructureTreeRoot.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
+    assertNull(actualPdStructureTreeRoot.getIDTree());
+    assertNull(actualPdStructureTreeRoot.getParentTree());
+    assertEquals(-1, actualPdStructureTreeRoot.getParentTreeNextKey());
     assertEquals(1, cOSObject.getValues().size());
     assertEquals(1, cOSObject.size());
-    assertTrue(pdStructureTreeRoot.getClassMap().isEmpty());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
+    assertTrue(actualPdStructureTreeRoot.getKids().isEmpty());
+    assertTrue(actualPdStructureTreeRoot.getClassMap().isEmpty());
+    assertTrue(actualPdStructureTreeRoot.getRoleMap().isEmpty());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
   }
 }

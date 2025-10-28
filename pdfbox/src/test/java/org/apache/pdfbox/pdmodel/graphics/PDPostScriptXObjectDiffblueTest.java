@@ -4,30 +4,18 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import java.util.List;
 import org.apache.pdfbox.cos.COSStream;
 import org.apache.pdfbox.pdmodel.common.PDStream;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class PDPostScriptXObjectDiffblueTest {
   /**
-   * Test {@link PDPostScriptXObject#PDPostScriptXObject(COSStream)}.
-   * <ul>
-   *   <li>When {@link COSStream#COSStream()}.</li>
-   *   <li>Then return Stream DecodeParms is {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link PDPostScriptXObject#PDPostScriptXObject(COSStream)}
    */
   @Test
-  @DisplayName("Test new PDPostScriptXObject(COSStream); when COSStream(); then return Stream DecodeParms is 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PDPostScriptXObject.<init>(COSStream)"})
-  void testNewPDPostScriptXObject_whenCOSStream_thenReturnStreamDecodeParmsIsNull() throws IOException {
+  void testNewPDPostScriptXObject() throws IOException {
     // Arrange
     COSStream stream = new COSStream();
 

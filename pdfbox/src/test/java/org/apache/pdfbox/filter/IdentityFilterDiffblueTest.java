@@ -4,31 +4,27 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.ArgumentMatchers.isA;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import org.apache.pdfbox.cos.COSDictionary;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 class IdentityFilterDiffblueTest {
   /**
-   * Test {@link IdentityFilter#decode(InputStream, OutputStream, COSDictionary, int)} with {@code encoded}, {@code decoded}, {@code parameters}, {@code index}.
-   * <ul>
-   *   <li>Then return JPXSMask is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link IdentityFilter#decode(InputStream, OutputStream, COSDictionary, int)}
+   * Method under test:
+   * {@link IdentityFilter#decode(InputStream, OutputStream, COSDictionary, int)}
    */
   @Test
-  @DisplayName("Test decode(InputStream, OutputStream, COSDictionary, int) with 'encoded', 'decoded', 'parameters', 'index'; then return JPXSMask is 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"DecodeResult IdentityFilter.decode(InputStream, OutputStream, COSDictionary, int)"})
-  void testDecodeWithEncodedDecodedParametersIndex_thenReturnJPXSMaskIsNull() throws IOException {
+  void testDecode() throws IOException {
     // Arrange
     IdentityFilter identityFilter = new IdentityFilter();
     ByteArrayInputStream encoded = new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"));
@@ -48,15 +44,35 @@ class IdentityFilterDiffblueTest {
   }
 
   /**
-   * Test {@link IdentityFilter#encode(InputStream, OutputStream, COSDictionary)} with {@code input}, {@code encoded}, {@code parameters}.
-   * <p>
-   * Method under test: {@link IdentityFilter#encode(InputStream, OutputStream, COSDictionary)}
+   * Method under test:
+   * {@link IdentityFilter#decode(InputStream, OutputStream, COSDictionary, int)}
    */
   @Test
-  @DisplayName("Test encode(InputStream, OutputStream, COSDictionary) with 'input', 'encoded', 'parameters'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void IdentityFilter.encode(InputStream, OutputStream, COSDictionary)"})
-  void testEncodeWithInputEncodedParameters() throws IOException {
+  void testDecode2() throws IOException {
+    // Arrange
+    IdentityFilter identityFilter = new IdentityFilter();
+    DataInputStream encoded = mock(DataInputStream.class);
+    when(encoded.transferTo(Mockito.<OutputStream>any())).thenReturn(1L);
+    ByteArrayOutputStream decoded = new ByteArrayOutputStream(1);
+    COSDictionary parameters = new COSDictionary();
+
+    // Act
+    DecodeResult actualDecodeResult = identityFilter.decode(encoded, decoded, parameters, 1);
+
+    // Assert
+    verify(encoded).transferTo(isA(OutputStream.class));
+    assertNull(actualDecodeResult.getJPXSMask());
+    assertNull(actualDecodeResult.getJPXColorSpace());
+    assertEquals(0, decoded.toByteArray().length);
+    assertSame(parameters, actualDecodeResult.getParameters());
+  }
+
+  /**
+   * Method under test:
+   * {@link IdentityFilter#encode(InputStream, OutputStream, COSDictionary)}
+   */
+  @Test
+  void testEncode() throws IOException {
     // Arrange
     IdentityFilter identityFilter = new IdentityFilter();
     ByteArrayInputStream input = new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"));
@@ -65,9 +81,29 @@ class IdentityFilterDiffblueTest {
     // Act
     identityFilter.encode(input, encoded, new COSDictionary());
 
-    // Assert
+    // Assert that nothing has changed
     assertEquals(-1, input.read(new byte[]{}));
     byte[] expectedToByteArrayResult = "AXAXAXAX".getBytes("UTF-8");
     assertArrayEquals(expectedToByteArrayResult, encoded.toByteArray());
+  }
+
+  /**
+   * Method under test:
+   * {@link IdentityFilter#encode(InputStream, OutputStream, COSDictionary)}
+   */
+  @Test
+  void testEncode2() throws IOException {
+    // Arrange
+    IdentityFilter identityFilter = new IdentityFilter();
+    DataInputStream input = mock(DataInputStream.class);
+    when(input.transferTo(Mockito.<OutputStream>any())).thenReturn(1L);
+    ByteArrayOutputStream encoded = new ByteArrayOutputStream(1);
+
+    // Act
+    identityFilter.encode(input, encoded, new COSDictionary());
+
+    // Assert that nothing has changed
+    verify(input).transferTo(isA(OutputStream.class));
+    assertEquals(0, encoded.toByteArray().length);
   }
 }

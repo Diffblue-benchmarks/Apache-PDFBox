@@ -3,17 +3,12 @@ package org.apache.pdfbox.debugger.ui;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.apache.pdfbox.cos.COSArray;
 import org.apache.pdfbox.cos.COSBase;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class ArrayEntryDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link ArrayEntry}
@@ -26,11 +21,6 @@ class ArrayEntryDiffblueTest {
    * </ul>
    */
   @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ArrayEntry.<init>()", "int ArrayEntry.getIndex()", "COSBase ArrayEntry.getItem()",
-      "COSBase ArrayEntry.getValue()", "void ArrayEntry.setIndex(int)", "void ArrayEntry.setItem(COSBase)",
-      "void ArrayEntry.setValue(COSBase)"})
   void testGettersAndSetters() {
     // Arrange and Act
     ArrayEntry actualArrayEntry = new ArrayEntry();
@@ -42,7 +32,7 @@ class ArrayEntryDiffblueTest {
     int actualIndex = actualArrayEntry.getIndex();
     COSBase actualItem = actualArrayEntry.getItem();
 
-    // Assert
+    // Assert that nothing has changed
     assertTrue(actualItem instanceof COSArray);
     assertEquals(1, actualIndex);
     assertSame(val, actualItem);

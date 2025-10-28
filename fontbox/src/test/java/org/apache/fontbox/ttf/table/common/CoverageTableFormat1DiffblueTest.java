@@ -1,17 +1,38 @@
 package org.apache.fontbox.ttf.table.common;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import com.diffblue.cover.annotations.MethodsUnderTest;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class CoverageTableFormat1DiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
+   * Method under test: {@link CoverageTableFormat1#getCoverageIndex(int)}
+   */
+  @Test
+  void testGetCoverageIndex() {
+    // Arrange, Act and Assert
+    assertEquals(2, (new CoverageTableFormat1(1, new int[]{1, -1, 1, -1})).getCoverageIndex(1));
+  }
+
+  /**
+   * Method under test: {@link CoverageTableFormat1#getGlyphId(int)}
+   */
+  @Test
+  void testGetGlyphId() {
+    // Arrange, Act and Assert
+    assertEquals(-1, (new CoverageTableFormat1(1, new int[]{1, -1, 1, -1})).getGlyphId(1));
+  }
+
+  /**
+   * Method under test: {@link CoverageTableFormat1#getSize()}
+   */
+  @Test
+  void testGetSize() {
+    // Arrange, Act and Assert
+    assertEquals(4, (new CoverageTableFormat1(1, new int[]{1, -1, 1, -1})).getSize());
+  }
+
+  /**
    * Methods under test:
    * <ul>
    *   <li>{@link CoverageTableFormat1#CoverageTableFormat1(int, int[])}
@@ -20,10 +41,6 @@ class CoverageTableFormat1DiffblueTest {
    * </ul>
    */
   @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void CoverageTableFormat1.<init>(int, int[])", "int[] CoverageTableFormat1.getGlyphArray()",
-      "String CoverageTableFormat1.toString()"})
   void testGettersAndSetters() {
     // Arrange
     int[] glyphArray = new int[]{1, -1, 1, -1};
@@ -37,51 +54,5 @@ class CoverageTableFormat1DiffblueTest {
     assertEquals("CoverageTableFormat1[coverageFormat=1,glyphArray=[1, -1, 1, -1]]", actualToStringResult);
     assertEquals(1, actualCoverageTableFormat1.getCoverageFormat());
     assertSame(glyphArray, actualGlyphArray);
-    assertArrayEquals(new int[]{1, -1, 1, -1}, actualGlyphArray);
-  }
-
-  /**
-   * Test {@link CoverageTableFormat1#getCoverageIndex(int)}.
-   * <p>
-   * Method under test: {@link CoverageTableFormat1#getCoverageIndex(int)}
-   */
-  @Test
-  @DisplayName("Test getCoverageIndex(int)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"int CoverageTableFormat1.getCoverageIndex(int)"})
-  void testGetCoverageIndex() {
-    // Arrange, Act and Assert
-    assertEquals(2, (new CoverageTableFormat1(1, new int[]{1, -1, 1, -1})).getCoverageIndex(1));
-  }
-
-  /**
-   * Test {@link CoverageTableFormat1#getGlyphId(int)}.
-   * <ul>
-   *   <li>Then return minus one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link CoverageTableFormat1#getGlyphId(int)}
-   */
-  @Test
-  @DisplayName("Test getGlyphId(int); then return minus one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"int CoverageTableFormat1.getGlyphId(int)"})
-  void testGetGlyphId_thenReturnMinusOne() {
-    // Arrange, Act and Assert
-    assertEquals(-1, (new CoverageTableFormat1(1, new int[]{1, -1, 1, -1})).getGlyphId(1));
-  }
-
-  /**
-   * Test {@link CoverageTableFormat1#getSize()}.
-   * <p>
-   * Method under test: {@link CoverageTableFormat1#getSize()}
-   */
-  @Test
-  @DisplayName("Test getSize()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"int CoverageTableFormat1.getSize()"})
-  void testGetSize() {
-    // Arrange, Act and Assert
-    assertEquals(4, (new CoverageTableFormat1(1, new int[]{1, -1, 1, -1})).getSize());
   }
 }

@@ -4,23 +4,19 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.io.IOException;
 import org.apache.pdfbox.cos.COSDictionary;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
+import org.apache.pdfbox.cos.COSIncrement;
+import org.apache.pdfbox.cos.COSUpdateState;
 import org.junit.jupiter.api.Test;
 
 class FDFAnnotationSquigglyDiffblueTest {
   /**
-   * Test {@link FDFAnnotationSquiggly#FDFAnnotationSquiggly(COSDictionary)}.
-   * <p>
-   * Method under test: {@link FDFAnnotationSquiggly#FDFAnnotationSquiggly(COSDictionary)}
+   * Method under test:
+   * {@link FDFAnnotationSquiggly#FDFAnnotationSquiggly(COSDictionary)}
    */
   @Test
-  @DisplayName("Test new FDFAnnotationSquiggly(COSDictionary)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void FDFAnnotationSquiggly.<init>(COSDictionary)"})
   void testNewFDFAnnotationSquiggly() {
     // Arrange
     COSDictionary a = new COSDictionary();
@@ -30,14 +26,9 @@ class FDFAnnotationSquigglyDiffblueTest {
   }
 
   /**
-   * Test {@link FDFAnnotationSquiggly#FDFAnnotationSquiggly()}.
-   * <p>
    * Method under test: {@link FDFAnnotationSquiggly#FDFAnnotationSquiggly()}
    */
   @Test
-  @DisplayName("Test new FDFAnnotationSquiggly()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void FDFAnnotationSquiggly.<init>()"})
   void testNewFDFAnnotationSquiggly2() throws IOException {
     // Arrange and Act
     FDFAnnotationSquiggly actualFdfAnnotationSquiggly = new FDFAnnotationSquiggly();
@@ -54,10 +45,21 @@ class FDFAnnotationSquigglyDiffblueTest {
     assertNull(actualFdfAnnotationSquiggly.getSubject());
     assertNull(actualFdfAnnotationSquiggly.getTitle());
     assertNull(actualFdfAnnotationSquiggly.getCreationDate());
+    COSDictionary cOSObject = actualFdfAnnotationSquiggly.getCOSObject();
+    COSUpdateState updateState = cOSObject.getUpdateState();
+    assertNull(updateState.getOriginDocumentState());
+    assertNull(cOSObject.getKey());
     assertNull(actualFdfAnnotationSquiggly.getRectangle());
     assertNull(actualFdfAnnotationSquiggly.getBorderEffect());
     assertNull(actualFdfAnnotationSquiggly.getBorderStyle());
     assertEquals(1.0f, actualFdfAnnotationSquiggly.getOpacity());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertFalse(toIncrementResult.iterator().hasNext());
+    assertFalse(cOSObject.isDirect());
+    assertFalse(cOSObject.isNeedToBeUpdated());
+    assertFalse(updateState.isUpdated());
     assertFalse(actualFdfAnnotationSquiggly.isHidden());
     assertFalse(actualFdfAnnotationSquiggly.isInvisible());
     assertFalse(actualFdfAnnotationSquiggly.isLocked());
@@ -68,5 +70,6 @@ class FDFAnnotationSquigglyDiffblueTest {
     assertFalse(actualFdfAnnotationSquiggly.isPrinted());
     assertFalse(actualFdfAnnotationSquiggly.isReadOnly());
     assertFalse(actualFdfAnnotationSquiggly.isToggleNoView());
+    assertTrue(toIncrementResult.getObjects().isEmpty());
   }
 }

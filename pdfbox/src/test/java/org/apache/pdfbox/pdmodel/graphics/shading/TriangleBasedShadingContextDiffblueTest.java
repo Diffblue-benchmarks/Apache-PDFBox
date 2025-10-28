@@ -2,17 +2,19 @@ package org.apache.pdfbox.pdmodel.graphics.shading;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
-import java.awt.geom.Rectangle2D.Double;
 import java.awt.image.DataBuffer;
 import java.awt.image.DataBufferByte;
 import java.awt.image.DirectColorModel;
@@ -25,25 +27,16 @@ import java.util.List;
 import org.apache.pdfbox.cos.COSArray;
 import org.apache.pdfbox.pdmodel.graphics.color.PDDeviceGray;
 import org.apache.pdfbox.util.Matrix;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 class TriangleBasedShadingContextDiffblueTest {
   /**
-   * Test {@link TriangleBasedShadingContext#createPixelTable(Rectangle)}.
-   * <ul>
-   *   <li>Given {@link PDShadingType4} {@link PDShading#getBackground()} return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link TriangleBasedShadingContext#createPixelTable(Rectangle)}
+   * Method under test:
+   * {@link TriangleBasedShadingContext#createPixelTable(Rectangle)}
    */
   @Test
-  @DisplayName("Test createPixelTable(Rectangle); given PDShadingType4 getBackground() return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void TriangleBasedShadingContext.createPixelTable(Rectangle)"})
-  void testCreatePixelTable_givenPDShadingType4GetBackgroundReturnNull() throws IOException {
+  void testCreatePixelTable() throws IOException {
     // Arrange
     PDShadingType4 shading = mock(PDShadingType4.class);
     when(shading.collectTriangles(Mockito.<AffineTransform>any(), Mockito.<Matrix>any())).thenReturn(new ArrayList<>());
@@ -67,18 +60,11 @@ class TriangleBasedShadingContextDiffblueTest {
   }
 
   /**
-   * Test {@link TriangleBasedShadingContext#createPixelTable(Rectangle)}.
-   * <ul>
-   *   <li>Then calls {@link COSArray#toFloatArray()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link TriangleBasedShadingContext#createPixelTable(Rectangle)}
+   * Method under test:
+   * {@link TriangleBasedShadingContext#createPixelTable(Rectangle)}
    */
   @Test
-  @DisplayName("Test createPixelTable(Rectangle); then calls toFloatArray()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void TriangleBasedShadingContext.createPixelTable(Rectangle)"})
-  void testCreatePixelTable_thenCallsToFloatArray() throws IOException {
+  void testCreatePixelTable2() throws IOException {
     // Arrange
     COSArray cosArray = mock(COSArray.class);
     when(cosArray.toFloatArray()).thenReturn(new float[]{10.0f, 0.5f, 10.0f, 0.5f});
@@ -105,14 +91,10 @@ class TriangleBasedShadingContextDiffblueTest {
   }
 
   /**
-   * Test {@link TriangleBasedShadingContext#calcPixelTable(List, int[][], Rectangle)}.
-   * <p>
-   * Method under test: {@link TriangleBasedShadingContext#calcPixelTable(List, int[][], Rectangle)}
+   * Method under test:
+   * {@link TriangleBasedShadingContext#calcPixelTable(List, int[][], Rectangle)}
    */
   @Test
-  @DisplayName("Test calcPixelTable(List, int[][], Rectangle)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void TriangleBasedShadingContext.calcPixelTable(List, int[][], Rectangle)"})
   void testCalcPixelTable() throws IOException {
     // Arrange
     PDShadingType4 shading = mock(PDShadingType4.class);
@@ -130,7 +112,7 @@ class TriangleBasedShadingContextDiffblueTest {
     // Act
     type4ShadingContext.calcPixelTable(triangleList, new int[][]{new int[]{1, 0, 1, 0}}, new Rectangle(1, 1));
 
-    // Assert
+    // Assert that nothing has changed
     verify(shading).getBackground();
     verify(shading).getColorSpace();
     verify(shading).collectTriangles(isA(AffineTransform.class), isA(Matrix.class));
@@ -138,18 +120,11 @@ class TriangleBasedShadingContextDiffblueTest {
   }
 
   /**
-   * Test {@link TriangleBasedShadingContext#getRaster(int, int, int, int)}.
-   * <ul>
-   *   <li>Given {@link PDShadingType4} {@link PDShading#getBackground()} return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link TriangleBasedShadingContext#getRaster(int, int, int, int)}
+   * Method under test:
+   * {@link TriangleBasedShadingContext#getRaster(int, int, int, int)}
    */
   @Test
-  @DisplayName("Test getRaster(int, int, int, int); given PDShadingType4 getBackground() return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Raster TriangleBasedShadingContext.getRaster(int, int, int, int)"})
-  void testGetRaster_givenPDShadingType4GetBackgroundReturnNull() throws IOException {
+  void testGetRaster() throws IOException {
     // Arrange
     PDShadingType4 shading = mock(PDShadingType4.class);
     when(shading.collectTriangles(Mockito.<AffineTransform>any(), Mockito.<Matrix>any())).thenReturn(new ArrayList<>());
@@ -160,10 +135,10 @@ class TriangleBasedShadingContextDiffblueTest {
 
     AffineTransform xform = new AffineTransform();
     Matrix matrix = new Matrix();
+    Rectangle deviceBounds = new Rectangle(1, 1);
 
     // Act
-    Raster actualRaster = (new Type4ShadingContext(shading, cm, xform, matrix, new Rectangle(1, 1))).getRaster(2, 3, 1,
-        1);
+    Raster actualRaster = (new Type4ShadingContext(shading, cm, xform, matrix, deviceBounds)).getRaster(2, 3, 1, 1);
 
     // Assert
     verify(shading).getBackground();
@@ -174,7 +149,34 @@ class TriangleBasedShadingContextDiffblueTest {
     assertTrue(dataBuffer instanceof DataBufferByte);
     SampleModel sampleModel = actualRaster.getSampleModel();
     assertTrue(sampleModel instanceof PixelInterleavedSampleModel);
-    assertArrayEquals(new byte[]{0, 0, 0, 0}, ((DataBufferByte) dataBuffer).getData());
+    assertNull(actualRaster.getParent());
+    assertEquals(0, dataBuffer.getDataType());
+    assertEquals(0, dataBuffer.getOffset());
+    assertEquals(0, actualRaster.getMinX());
+    assertEquals(0, actualRaster.getMinY());
+    assertEquals(0, actualRaster.getSampleModelTranslateX());
+    assertEquals(0, actualRaster.getSampleModelTranslateY());
+    assertEquals(0, actualRaster.getTransferType());
+    assertEquals(0, sampleModel.getDataType());
+    assertEquals(0, sampleModel.getTransferType());
+    assertEquals(1, dataBuffer.getNumBanks());
+    assertEquals(1, actualRaster.getHeight());
+    assertEquals(1, actualRaster.getWidth());
+    assertEquals(1, sampleModel.getHeight());
+    assertEquals(1, sampleModel.getWidth());
+    byte[][] bankData = ((DataBufferByte) dataBuffer).getBankData();
+    assertEquals(1, bankData.length);
+    assertEquals(4, ((PixelInterleavedSampleModel) sampleModel).getPixelStride());
+    assertEquals(4, ((PixelInterleavedSampleModel) sampleModel).getScanlineStride());
+    assertEquals(4, dataBuffer.getSize());
+    assertEquals(4, actualRaster.getNumBands());
+    assertEquals(4, actualRaster.getNumDataElements());
+    assertEquals(4, sampleModel.getNumBands());
+    assertEquals(4, sampleModel.getNumDataElements());
+    assertEquals(deviceBounds, actualRaster.getBounds());
+    byte[] data = ((DataBufferByte) dataBuffer).getData();
+    assertSame(data, bankData[0]);
+    assertArrayEquals(new byte[]{0, 0, 0, 0}, data);
     assertArrayEquals(new int[]{0}, dataBuffer.getOffsets());
     assertArrayEquals(new int[]{0, 0, 0, 0}, ((PixelInterleavedSampleModel) sampleModel).getBankIndices());
     assertArrayEquals(new int[]{0, 1, 2, 3}, ((PixelInterleavedSampleModel) sampleModel).getBandOffsets());
@@ -182,18 +184,11 @@ class TriangleBasedShadingContextDiffblueTest {
   }
 
   /**
-   * Test {@link TriangleBasedShadingContext#getRaster(int, int, int, int)}.
-   * <ul>
-   *   <li>Given {@link Rectangle#Rectangle(int, int, int, int)} with four and four and four and four.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link TriangleBasedShadingContext#getRaster(int, int, int, int)}
+   * Method under test:
+   * {@link TriangleBasedShadingContext#getRaster(int, int, int, int)}
    */
   @Test
-  @DisplayName("Test getRaster(int, int, int, int); given Rectangle(int, int, int, int) with four and four and four and four")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Raster TriangleBasedShadingContext.getRaster(int, int, int, int)"})
-  void testGetRaster_givenRectangleWithFourAndFourAndFourAndFour() throws IOException {
+  void testGetRaster2() throws IOException {
     // Arrange
     COSArray cosArray = mock(COSArray.class);
     when(cosArray.toFloatArray()).thenReturn(new float[]{10.0f, 0.5f, 10.0f, 0.5f});
@@ -206,10 +201,10 @@ class TriangleBasedShadingContextDiffblueTest {
 
     AffineTransform xform = new AffineTransform();
     Matrix matrix = new Matrix();
+    Rectangle deviceBounds = new Rectangle(1, 1);
 
     // Act
-    Raster actualRaster = (new Type4ShadingContext(shading, cm, xform, matrix, new Rectangle(4, 4, 4, 4))).getRaster(2,
-        3, 1, 1);
+    Raster actualRaster = (new Type4ShadingContext(shading, cm, xform, matrix, deviceBounds)).getRaster(2, 3, 1, 1);
 
     // Assert
     verify(cosArray).toFloatArray();
@@ -217,19 +212,38 @@ class TriangleBasedShadingContextDiffblueTest {
     verify(shading).getColorSpace();
     verify(shading).collectTriangles(isA(AffineTransform.class), isA(Matrix.class));
     verify(shading).getBitsPerFlag();
-    Rectangle bounds = actualRaster.getBounds();
-    Rectangle2D bounds2D = bounds.getBounds2D();
-    assertTrue(bounds2D instanceof Rectangle);
-    Rectangle2D frame = bounds.getFrame();
-    assertTrue(frame instanceof Double);
     DataBuffer dataBuffer = actualRaster.getDataBuffer();
     assertTrue(dataBuffer instanceof DataBufferByte);
     SampleModel sampleModel = actualRaster.getSampleModel();
     assertTrue(sampleModel instanceof PixelInterleavedSampleModel);
-    assertEquals(bounds, bounds.getBounds());
-    assertEquals(bounds, bounds2D);
-    assertEquals(bounds, frame);
-    assertArrayEquals(new byte[]{0, 0, 0, 0}, ((DataBufferByte) dataBuffer).getData());
+    assertNull(actualRaster.getParent());
+    assertEquals(0, dataBuffer.getDataType());
+    assertEquals(0, dataBuffer.getOffset());
+    assertEquals(0, actualRaster.getMinX());
+    assertEquals(0, actualRaster.getMinY());
+    assertEquals(0, actualRaster.getSampleModelTranslateX());
+    assertEquals(0, actualRaster.getSampleModelTranslateY());
+    assertEquals(0, actualRaster.getTransferType());
+    assertEquals(0, sampleModel.getDataType());
+    assertEquals(0, sampleModel.getTransferType());
+    assertEquals(1, dataBuffer.getNumBanks());
+    assertEquals(1, actualRaster.getHeight());
+    assertEquals(1, actualRaster.getWidth());
+    assertEquals(1, sampleModel.getHeight());
+    assertEquals(1, sampleModel.getWidth());
+    byte[][] bankData = ((DataBufferByte) dataBuffer).getBankData();
+    assertEquals(1, bankData.length);
+    assertEquals(4, ((PixelInterleavedSampleModel) sampleModel).getPixelStride());
+    assertEquals(4, ((PixelInterleavedSampleModel) sampleModel).getScanlineStride());
+    assertEquals(4, dataBuffer.getSize());
+    assertEquals(4, actualRaster.getNumBands());
+    assertEquals(4, actualRaster.getNumDataElements());
+    assertEquals(4, sampleModel.getNumBands());
+    assertEquals(4, sampleModel.getNumDataElements());
+    assertEquals(deviceBounds, actualRaster.getBounds());
+    byte[] data = ((DataBufferByte) dataBuffer).getData();
+    assertSame(data, bankData[0]);
+    assertArrayEquals(new byte[]{0, 0, 0, 0}, data);
     assertArrayEquals(new int[]{0}, dataBuffer.getOffsets());
     assertArrayEquals(new int[]{0, 0, 0, 0}, ((PixelInterleavedSampleModel) sampleModel).getBankIndices());
     assertArrayEquals(new int[]{0, 1, 2, 3}, ((PixelInterleavedSampleModel) sampleModel).getBandOffsets());
@@ -237,19 +251,11 @@ class TriangleBasedShadingContextDiffblueTest {
   }
 
   /**
-   * Test {@link TriangleBasedShadingContext#getRaster(int, int, int, int)}.
-   * <ul>
-   *   <li>Given {@link Rectangle#Rectangle(int, int)} with four and one.</li>
-   *   <li>Then Bounds Bounds2D return {@link Rectangle}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link TriangleBasedShadingContext#getRaster(int, int, int, int)}
+   * Method under test:
+   * {@link TriangleBasedShadingContext#getRaster(int, int, int, int)}
    */
   @Test
-  @DisplayName("Test getRaster(int, int, int, int); given Rectangle(int, int) with four and one; then Bounds Bounds2D return Rectangle")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Raster TriangleBasedShadingContext.getRaster(int, int, int, int)"})
-  void testGetRaster_givenRectangleWithFourAndOne_thenBoundsBounds2DReturnRectangle() throws IOException {
+  void testGetRaster3() throws IOException {
     // Arrange
     COSArray cosArray = mock(COSArray.class);
     when(cosArray.toFloatArray()).thenReturn(new float[]{10.0f, 0.5f, 10.0f, 0.5f});
@@ -277,15 +283,68 @@ class TriangleBasedShadingContextDiffblueTest {
     Rectangle2D bounds2D = bounds.getBounds2D();
     assertTrue(bounds2D instanceof Rectangle);
     Rectangle2D frame = bounds.getFrame();
-    assertTrue(frame instanceof Double);
+    assertTrue(frame instanceof Rectangle2D.Double);
     DataBuffer dataBuffer = actualRaster.getDataBuffer();
     assertTrue(dataBuffer instanceof DataBufferByte);
     SampleModel sampleModel = actualRaster.getSampleModel();
     assertTrue(sampleModel instanceof PixelInterleavedSampleModel);
+    assertNull(actualRaster.getParent());
+    assertEquals(0, dataBuffer.getDataType());
+    assertEquals(0, dataBuffer.getOffset());
+    assertEquals(0, actualRaster.getMinX());
+    assertEquals(0, actualRaster.getMinY());
+    assertEquals(0, actualRaster.getSampleModelTranslateX());
+    assertEquals(0, actualRaster.getSampleModelTranslateY());
+    assertEquals(0, actualRaster.getTransferType());
+    assertEquals(0, sampleModel.getDataType());
+    assertEquals(0, sampleModel.getTransferType());
+    Point location = bounds.getLocation();
+    assertEquals(0, location.x);
+    assertEquals(0, location.y);
+    assertEquals(0, bounds.x);
+    assertEquals(0, bounds.y);
+    assertEquals(0.0d, location.getX());
+    assertEquals(0.0d, location.getY());
+    assertEquals(0.0d, bounds.getX());
+    assertEquals(0.0d, bounds.getY());
+    assertEquals(0.0d, bounds.getMinX());
+    assertEquals(0.0d, bounds.getMinY());
+    assertEquals(0.5d, bounds.getCenterX());
+    assertEquals(0.5d, bounds.getCenterY());
+    assertEquals(1, dataBuffer.getNumBanks());
+    assertEquals(1, actualRaster.getHeight());
+    assertEquals(1, actualRaster.getWidth());
+    assertEquals(1, sampleModel.getHeight());
+    assertEquals(1, sampleModel.getWidth());
+    byte[][] bankData = ((DataBufferByte) dataBuffer).getBankData();
+    assertEquals(1, bankData.length);
+    Dimension size = bounds.getSize();
+    assertEquals(1, size.height);
+    assertEquals(1, size.width);
+    assertEquals(1, bounds.height);
+    assertEquals(1, bounds.width);
+    assertEquals(1.0d, size.getHeight());
+    assertEquals(1.0d, size.getWidth());
+    assertEquals(1.0d, bounds.getHeight());
+    assertEquals(1.0d, bounds.getWidth());
+    assertEquals(1.0d, bounds.getMaxX());
+    assertEquals(1.0d, bounds.getMaxY());
+    assertEquals(4, ((PixelInterleavedSampleModel) sampleModel).getPixelStride());
+    assertEquals(4, ((PixelInterleavedSampleModel) sampleModel).getScanlineStride());
+    assertEquals(4, dataBuffer.getSize());
+    assertEquals(4, actualRaster.getNumBands());
+    assertEquals(4, actualRaster.getNumDataElements());
+    assertEquals(4, sampleModel.getNumBands());
+    assertEquals(4, sampleModel.getNumDataElements());
+    assertFalse(bounds.isEmpty());
+    assertEquals(location, location.getLocation());
+    assertEquals(size, size.getSize());
     assertEquals(bounds, bounds.getBounds());
     assertEquals(bounds, bounds2D);
     assertEquals(bounds, frame);
-    assertArrayEquals(new byte[]{0, 0, 0, 0}, ((DataBufferByte) dataBuffer).getData());
+    byte[] data = ((DataBufferByte) dataBuffer).getData();
+    assertSame(data, bankData[0]);
+    assertArrayEquals(new byte[]{0, 0, 0, 0}, data);
     assertArrayEquals(new int[]{0}, dataBuffer.getOffsets());
     assertArrayEquals(new int[]{0, 0, 0, 0}, ((PixelInterleavedSampleModel) sampleModel).getBankIndices());
     assertArrayEquals(new int[]{0, 1, 2, 3}, ((PixelInterleavedSampleModel) sampleModel).getBandOffsets());
@@ -293,18 +352,112 @@ class TriangleBasedShadingContextDiffblueTest {
   }
 
   /**
-   * Test {@link TriangleBasedShadingContext#getRaster(int, int, int, int)}.
-   * <ul>
-   *   <li>Then return DataBuffer Data is array of {@code byte} with minus ten and minus one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link TriangleBasedShadingContext#getRaster(int, int, int, int)}
+   * Method under test:
+   * {@link TriangleBasedShadingContext#getRaster(int, int, int, int)}
    */
   @Test
-  @DisplayName("Test getRaster(int, int, int, int); then return DataBuffer Data is array of byte with minus ten and minus one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Raster TriangleBasedShadingContext.getRaster(int, int, int, int)"})
-  void testGetRaster_thenReturnDataBufferDataIsArrayOfByteWithMinusTenAndMinusOne() throws IOException {
+  void testGetRaster4() throws IOException {
+    // Arrange
+    COSArray cosArray = mock(COSArray.class);
+    when(cosArray.toFloatArray()).thenReturn(new float[]{10.0f, 0.5f, 10.0f, 0.5f});
+    PDShadingType4 shading = mock(PDShadingType4.class);
+    when(shading.collectTriangles(Mockito.<AffineTransform>any(), Mockito.<Matrix>any())).thenReturn(new ArrayList<>());
+    when(shading.getBitsPerFlag()).thenReturn(1);
+    when(shading.getBackground()).thenReturn(cosArray);
+    when(shading.getColorSpace()).thenReturn(PDDeviceGray.INSTANCE);
+    DirectColorModel cm = new DirectColorModel(1, 1, 1, 1);
+
+    AffineTransform xform = new AffineTransform();
+    Matrix matrix = new Matrix();
+
+    // Act
+    Raster actualRaster = (new Type4ShadingContext(shading, cm, xform, matrix, new Rectangle(4, 4, 4, 4))).getRaster(2,
+        3, 1, 1);
+
+    // Assert
+    verify(cosArray).toFloatArray();
+    verify(shading).getBackground();
+    verify(shading).getColorSpace();
+    verify(shading).collectTriangles(isA(AffineTransform.class), isA(Matrix.class));
+    verify(shading).getBitsPerFlag();
+    Rectangle bounds = actualRaster.getBounds();
+    Rectangle2D bounds2D = bounds.getBounds2D();
+    assertTrue(bounds2D instanceof Rectangle);
+    Rectangle2D frame = bounds.getFrame();
+    assertTrue(frame instanceof Rectangle2D.Double);
+    DataBuffer dataBuffer = actualRaster.getDataBuffer();
+    assertTrue(dataBuffer instanceof DataBufferByte);
+    SampleModel sampleModel = actualRaster.getSampleModel();
+    assertTrue(sampleModel instanceof PixelInterleavedSampleModel);
+    assertNull(actualRaster.getParent());
+    assertEquals(0, dataBuffer.getDataType());
+    assertEquals(0, dataBuffer.getOffset());
+    assertEquals(0, actualRaster.getMinX());
+    assertEquals(0, actualRaster.getMinY());
+    assertEquals(0, actualRaster.getSampleModelTranslateX());
+    assertEquals(0, actualRaster.getSampleModelTranslateY());
+    assertEquals(0, actualRaster.getTransferType());
+    assertEquals(0, sampleModel.getDataType());
+    assertEquals(0, sampleModel.getTransferType());
+    Point location = bounds.getLocation();
+    assertEquals(0, location.x);
+    assertEquals(0, location.y);
+    assertEquals(0, bounds.x);
+    assertEquals(0, bounds.y);
+    assertEquals(0.0d, location.getX());
+    assertEquals(0.0d, location.getY());
+    assertEquals(0.0d, bounds.getX());
+    assertEquals(0.0d, bounds.getY());
+    assertEquals(0.0d, bounds.getMinX());
+    assertEquals(0.0d, bounds.getMinY());
+    assertEquals(0.5d, bounds.getCenterX());
+    assertEquals(0.5d, bounds.getCenterY());
+    assertEquals(1, dataBuffer.getNumBanks());
+    assertEquals(1, actualRaster.getHeight());
+    assertEquals(1, actualRaster.getWidth());
+    assertEquals(1, sampleModel.getHeight());
+    assertEquals(1, sampleModel.getWidth());
+    byte[][] bankData = ((DataBufferByte) dataBuffer).getBankData();
+    assertEquals(1, bankData.length);
+    Dimension size = bounds.getSize();
+    assertEquals(1, size.height);
+    assertEquals(1, size.width);
+    assertEquals(1, bounds.height);
+    assertEquals(1, bounds.width);
+    assertEquals(1.0d, size.getHeight());
+    assertEquals(1.0d, size.getWidth());
+    assertEquals(1.0d, bounds.getHeight());
+    assertEquals(1.0d, bounds.getWidth());
+    assertEquals(1.0d, bounds.getMaxX());
+    assertEquals(1.0d, bounds.getMaxY());
+    assertEquals(4, ((PixelInterleavedSampleModel) sampleModel).getPixelStride());
+    assertEquals(4, ((PixelInterleavedSampleModel) sampleModel).getScanlineStride());
+    assertEquals(4, dataBuffer.getSize());
+    assertEquals(4, actualRaster.getNumBands());
+    assertEquals(4, actualRaster.getNumDataElements());
+    assertEquals(4, sampleModel.getNumBands());
+    assertEquals(4, sampleModel.getNumDataElements());
+    assertFalse(bounds.isEmpty());
+    assertEquals(location, location.getLocation());
+    assertEquals(size, size.getSize());
+    assertEquals(bounds, bounds.getBounds());
+    assertEquals(bounds, bounds2D);
+    assertEquals(bounds, frame);
+    byte[] data = ((DataBufferByte) dataBuffer).getData();
+    assertSame(data, bankData[0]);
+    assertArrayEquals(new byte[]{0, 0, 0, 0}, data);
+    assertArrayEquals(new int[]{0}, dataBuffer.getOffsets());
+    assertArrayEquals(new int[]{0, 0, 0, 0}, ((PixelInterleavedSampleModel) sampleModel).getBankIndices());
+    assertArrayEquals(new int[]{0, 1, 2, 3}, ((PixelInterleavedSampleModel) sampleModel).getBandOffsets());
+    assertArrayEquals(new int[]{8, 8, 8, 8}, sampleModel.getSampleSize());
+  }
+
+  /**
+   * Method under test:
+   * {@link TriangleBasedShadingContext#getRaster(int, int, int, int)}
+   */
+  @Test
+  void testGetRaster5() throws IOException {
     // Arrange
     COSArray cosArray = mock(COSArray.class);
     when(cosArray.toFloatArray()).thenReturn(new float[]{10.0f, 0.5f, 10.0f, 0.5f});
@@ -334,15 +487,68 @@ class TriangleBasedShadingContextDiffblueTest {
     Rectangle2D bounds2D = bounds.getBounds2D();
     assertTrue(bounds2D instanceof Rectangle);
     Rectangle2D frame = bounds.getFrame();
-    assertTrue(frame instanceof Double);
+    assertTrue(frame instanceof Rectangle2D.Double);
     DataBuffer dataBuffer = actualRaster.getDataBuffer();
     assertTrue(dataBuffer instanceof DataBufferByte);
     SampleModel sampleModel = actualRaster.getSampleModel();
     assertTrue(sampleModel instanceof PixelInterleavedSampleModel);
+    assertNull(actualRaster.getParent());
+    assertEquals(0, dataBuffer.getDataType());
+    assertEquals(0, dataBuffer.getOffset());
+    assertEquals(0, actualRaster.getMinX());
+    assertEquals(0, actualRaster.getMinY());
+    assertEquals(0, actualRaster.getSampleModelTranslateX());
+    assertEquals(0, actualRaster.getSampleModelTranslateY());
+    assertEquals(0, actualRaster.getTransferType());
+    assertEquals(0, sampleModel.getDataType());
+    assertEquals(0, sampleModel.getTransferType());
+    Point location = bounds.getLocation();
+    assertEquals(0, location.x);
+    assertEquals(0, location.y);
+    assertEquals(0, bounds.x);
+    assertEquals(0, bounds.y);
+    assertEquals(0.0d, location.getX());
+    assertEquals(0.0d, location.getY());
+    assertEquals(0.0d, bounds.getX());
+    assertEquals(0.0d, bounds.getY());
+    assertEquals(0.0d, bounds.getMinX());
+    assertEquals(0.0d, bounds.getMinY());
+    assertEquals(0.5d, bounds.getCenterX());
+    assertEquals(0.5d, bounds.getCenterY());
+    assertEquals(1, dataBuffer.getNumBanks());
+    assertEquals(1, actualRaster.getHeight());
+    assertEquals(1, actualRaster.getWidth());
+    assertEquals(1, sampleModel.getHeight());
+    assertEquals(1, sampleModel.getWidth());
+    byte[][] bankData = ((DataBufferByte) dataBuffer).getBankData();
+    assertEquals(1, bankData.length);
+    Dimension size = bounds.getSize();
+    assertEquals(1, size.height);
+    assertEquals(1, size.width);
+    assertEquals(1, bounds.height);
+    assertEquals(1, bounds.width);
+    assertEquals(1.0d, size.getHeight());
+    assertEquals(1.0d, size.getWidth());
+    assertEquals(1.0d, bounds.getHeight());
+    assertEquals(1.0d, bounds.getWidth());
+    assertEquals(1.0d, bounds.getMaxX());
+    assertEquals(1.0d, bounds.getMaxY());
+    assertEquals(4, ((PixelInterleavedSampleModel) sampleModel).getPixelStride());
+    assertEquals(4, ((PixelInterleavedSampleModel) sampleModel).getScanlineStride());
+    assertEquals(4, dataBuffer.getSize());
+    assertEquals(4, actualRaster.getNumBands());
+    assertEquals(4, actualRaster.getNumDataElements());
+    assertEquals(4, sampleModel.getNumBands());
+    assertEquals(4, sampleModel.getNumDataElements());
+    assertFalse(bounds.isEmpty());
+    assertEquals(location, location.getLocation());
+    assertEquals(size, size.getSize());
     assertEquals(bounds, bounds.getBounds());
     assertEquals(bounds, bounds2D);
     assertEquals(bounds, frame);
-    assertArrayEquals(new byte[]{-10, -1, -1, -1}, ((DataBufferByte) dataBuffer).getData());
+    byte[] data = ((DataBufferByte) dataBuffer).getData();
+    assertSame(data, bankData[0]);
+    assertArrayEquals(new byte[]{-10, -1, -1, -1}, data);
     assertArrayEquals(new int[]{0}, dataBuffer.getOffsets());
     assertArrayEquals(new int[]{0, 0, 0, 0}, ((PixelInterleavedSampleModel) sampleModel).getBankIndices());
     assertArrayEquals(new int[]{0, 1, 2, 3}, ((PixelInterleavedSampleModel) sampleModel).getBandOffsets());
@@ -350,18 +556,11 @@ class TriangleBasedShadingContextDiffblueTest {
   }
 
   /**
-   * Test {@link TriangleBasedShadingContext#getRaster(int, int, int, int)}.
-   * <ul>
-   *   <li>Then return DataBuffer Data is array of {@code byte} with zero and zero.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link TriangleBasedShadingContext#getRaster(int, int, int, int)}
+   * Method under test:
+   * {@link TriangleBasedShadingContext#getRaster(int, int, int, int)}
    */
   @Test
-  @DisplayName("Test getRaster(int, int, int, int); then return DataBuffer Data is array of byte with zero and zero")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Raster TriangleBasedShadingContext.getRaster(int, int, int, int)"})
-  void testGetRaster_thenReturnDataBufferDataIsArrayOfByteWithZeroAndZero() throws IOException {
+  void testGetRaster6() throws IOException {
     // Arrange
     COSArray cosArray = mock(COSArray.class);
     when(cosArray.toFloatArray()).thenReturn(new float[]{10.0f, 0.5f, 10.0f, 0.5f});
@@ -374,10 +573,10 @@ class TriangleBasedShadingContextDiffblueTest {
 
     AffineTransform xform = new AffineTransform();
     Matrix matrix = new Matrix();
+    Rectangle deviceBounds = new Rectangle(1, 1);
 
     // Act
-    Raster actualRaster = (new Type4ShadingContext(shading, cm, xform, matrix, new Rectangle(1, 1))).getRaster(2, 3, 1,
-        1);
+    Raster actualRaster = (new Type4ShadingContext(shading, cm, xform, matrix, deviceBounds)).getRaster(2, -1, 1, 1);
 
     // Assert
     verify(cosArray).toFloatArray();
@@ -389,55 +588,34 @@ class TriangleBasedShadingContextDiffblueTest {
     assertTrue(dataBuffer instanceof DataBufferByte);
     SampleModel sampleModel = actualRaster.getSampleModel();
     assertTrue(sampleModel instanceof PixelInterleavedSampleModel);
-    assertArrayEquals(new byte[]{0, 0, 0, 0}, ((DataBufferByte) dataBuffer).getData());
-    assertArrayEquals(new int[]{0}, dataBuffer.getOffsets());
-    assertArrayEquals(new int[]{0, 0, 0, 0}, ((PixelInterleavedSampleModel) sampleModel).getBankIndices());
-    assertArrayEquals(new int[]{0, 1, 2, 3}, ((PixelInterleavedSampleModel) sampleModel).getBandOffsets());
-    assertArrayEquals(new int[]{8, 8, 8, 8}, sampleModel.getSampleSize());
-  }
-
-  /**
-   * Test {@link TriangleBasedShadingContext#getRaster(int, int, int, int)}.
-   * <ul>
-   *   <li>When minus one.</li>
-   *   <li>Then return DataBuffer Data is array of {@code byte} with zero and zero.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link TriangleBasedShadingContext#getRaster(int, int, int, int)}
-   */
-  @Test
-  @DisplayName("Test getRaster(int, int, int, int); when minus one; then return DataBuffer Data is array of byte with zero and zero")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Raster TriangleBasedShadingContext.getRaster(int, int, int, int)"})
-  void testGetRaster_whenMinusOne_thenReturnDataBufferDataIsArrayOfByteWithZeroAndZero() throws IOException {
-    // Arrange
-    COSArray cosArray = mock(COSArray.class);
-    when(cosArray.toFloatArray()).thenReturn(new float[]{10.0f, 0.5f, 10.0f, 0.5f});
-    PDShadingType4 shading = mock(PDShadingType4.class);
-    when(shading.collectTriangles(Mockito.<AffineTransform>any(), Mockito.<Matrix>any())).thenReturn(new ArrayList<>());
-    when(shading.getBitsPerFlag()).thenReturn(1);
-    when(shading.getBackground()).thenReturn(cosArray);
-    when(shading.getColorSpace()).thenReturn(PDDeviceGray.INSTANCE);
-    DirectColorModel cm = new DirectColorModel(1, 1, 1, 1);
-
-    AffineTransform xform = new AffineTransform();
-    Matrix matrix = new Matrix();
-
-    // Act
-    Raster actualRaster = (new Type4ShadingContext(shading, cm, xform, matrix, new Rectangle(1, 1))).getRaster(2, -1, 1,
-        1);
-
-    // Assert
-    verify(cosArray).toFloatArray();
-    verify(shading).getBackground();
-    verify(shading).getColorSpace();
-    verify(shading).collectTriangles(isA(AffineTransform.class), isA(Matrix.class));
-    verify(shading).getBitsPerFlag();
-    DataBuffer dataBuffer = actualRaster.getDataBuffer();
-    assertTrue(dataBuffer instanceof DataBufferByte);
-    SampleModel sampleModel = actualRaster.getSampleModel();
-    assertTrue(sampleModel instanceof PixelInterleavedSampleModel);
-    assertArrayEquals(new byte[]{0, 0, 0, 0}, ((DataBufferByte) dataBuffer).getData());
+    assertNull(actualRaster.getParent());
+    assertEquals(0, dataBuffer.getDataType());
+    assertEquals(0, dataBuffer.getOffset());
+    assertEquals(0, actualRaster.getMinX());
+    assertEquals(0, actualRaster.getMinY());
+    assertEquals(0, actualRaster.getSampleModelTranslateX());
+    assertEquals(0, actualRaster.getSampleModelTranslateY());
+    assertEquals(0, actualRaster.getTransferType());
+    assertEquals(0, sampleModel.getDataType());
+    assertEquals(0, sampleModel.getTransferType());
+    assertEquals(1, dataBuffer.getNumBanks());
+    assertEquals(1, actualRaster.getHeight());
+    assertEquals(1, actualRaster.getWidth());
+    assertEquals(1, sampleModel.getHeight());
+    assertEquals(1, sampleModel.getWidth());
+    byte[][] bankData = ((DataBufferByte) dataBuffer).getBankData();
+    assertEquals(1, bankData.length);
+    assertEquals(4, ((PixelInterleavedSampleModel) sampleModel).getPixelStride());
+    assertEquals(4, ((PixelInterleavedSampleModel) sampleModel).getScanlineStride());
+    assertEquals(4, dataBuffer.getSize());
+    assertEquals(4, actualRaster.getNumBands());
+    assertEquals(4, actualRaster.getNumDataElements());
+    assertEquals(4, sampleModel.getNumBands());
+    assertEquals(4, sampleModel.getNumDataElements());
+    assertEquals(deviceBounds, actualRaster.getBounds());
+    byte[] data = ((DataBufferByte) dataBuffer).getData();
+    assertSame(data, bankData[0]);
+    assertArrayEquals(new byte[]{0, 0, 0, 0}, data);
     assertArrayEquals(new int[]{0}, dataBuffer.getOffsets());
     assertArrayEquals(new int[]{0, 0, 0, 0}, ((PixelInterleavedSampleModel) sampleModel).getBankIndices());
     assertArrayEquals(new int[]{0, 1, 2, 3}, ((PixelInterleavedSampleModel) sampleModel).getBandOffsets());
