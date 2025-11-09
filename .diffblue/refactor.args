@@ -1,0 +1,1 @@
+--exclude-modules org.apache.pdfbox:pdfbox-parent,org.apache.pdfbox:pdfbox-app,org.apache.pdfbox:debugger-app
