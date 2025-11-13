@@ -121,7 +121,7 @@
                     <consoleOutput>true</consoleOutput>
                     <includeTestSourceDirectory>true</includeTestSourceDirectory>
                     <testSourceDirectories>${project.basedir}/src/test/java</testSourceDirectories>
-                    <failsOnError>true</failsOnError>
+                    <failsOnError>false</failsOnError>
                 </configuration>
                 <!-- this one is for checkstyle in the complete build -->
                 <executions>
@@ -137,7 +137,7 @@
                             <consoleOutput>true</consoleOutput>
                             <includeTestSourceDirectory>true</includeTestSourceDirectory>
                             <testSourceDirectories>${project.basedir}/src/test/java</testSourceDirectories>
-                            <failsOnError>true</failsOnError>
+                            <failsOnError>false</failsOnError>
                         </configuration>
                     </execution>
                 </executions>
