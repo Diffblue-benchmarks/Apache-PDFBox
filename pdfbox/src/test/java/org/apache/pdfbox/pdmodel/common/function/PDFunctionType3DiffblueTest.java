@@ -1,0 +1,303 @@
+package org.apache.pdfbox.pdmodel.common.function;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.anyInt;
+import static org.mockito.Mockito.atLeast;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
+import java.io.IOException;
+import java.util.List;
+import org.apache.pdfbox.cos.COSArray;
+import org.apache.pdfbox.cos.COSBase;
+import org.apache.pdfbox.cos.COSBoolean;
+import org.apache.pdfbox.cos.COSDictionary;
+import org.apache.pdfbox.cos.COSFloat;
+import org.apache.pdfbox.cos.COSName;
+import org.apache.pdfbox.cos.COSStream;
+import org.apache.pdfbox.pdmodel.common.PDStream;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+
+class PDFunctionType3DiffblueTest {
+  /**
+   * Test {@link PDFunctionType3#PDFunctionType3(COSBase)}.
+   *
+   * <ul>
+   *   <li>When {@link COSDictionary#COSDictionary()}.
+   *   <li>Then return RangeValues is {@code null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDFunctionType3#PDFunctionType3(COSBase)}
+   */
+  @Test
+  @DisplayName(
+      "Test new PDFunctionType3(COSBase); when COSDictionary(); then return RangeValues is 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDFunctionType3.<init>(COSBase)"})
+  void testNewPDFunctionType3_whenCOSDictionary_thenReturnRangeValuesIsNull() {
+    // Arrange
+    COSDictionary functionStream = new COSDictionary();
+
+    // Act
+    PDFunctionType3 actualPdFunctionType3 = new PDFunctionType3(functionStream);
+
+    // Assert
+    assertNull(actualPdFunctionType3.getRangeValues());
+    assertNull(actualPdFunctionType3.getBounds());
+    assertNull(actualPdFunctionType3.getEncode());
+    assertNull(actualPdFunctionType3.getFunctions());
+    assertEquals(0, actualPdFunctionType3.getNumberOfOutputParameters());
+    assertSame(functionStream, actualPdFunctionType3.getCOSObject());
+  }
+
+  /**
+   * Test {@link PDFunctionType3#PDFunctionType3(COSBase)}.
+   *
+   * <ul>
+   *   <li>When {@link COSStream#COSStream()}.
+   *   <li>Then return PDStream DecodeParms is {@code null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDFunctionType3#PDFunctionType3(COSBase)}
+   */
+  @Test
+  @DisplayName(
+      "Test new PDFunctionType3(COSBase); when COSStream(); then return PDStream DecodeParms is 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDFunctionType3.<init>(COSBase)"})
+  void testNewPDFunctionType3_whenCOSStream_thenReturnPDStreamDecodeParmsIsNull()
+      throws IOException {
+    // Arrange
+    COSStream functionStream = new COSStream();
+
+    // Act
+    PDFunctionType3 actualPdFunctionType3 = new PDFunctionType3(functionStream);
+
+    // Assert
+    PDStream pDStream = actualPdFunctionType3.getPDStream();
+    assertNull(pDStream.getDecodeParms());
+    assertNull(pDStream.getFileDecodeParams());
+    assertNull(pDStream.getMetadata());
+    assertNull(pDStream.getFile());
+    assertEquals(-1, pDStream.getDecodedStreamLength());
+    assertEquals(0, pDStream.getLength());
+    assertEquals(2, functionStream.size());
+    List<String> fileFilters = pDStream.getFileFilters();
+    assertTrue(fileFilters.isEmpty());
+    assertSame(functionStream, pDStream.getCOSObject());
+    assertSame(functionStream, actualPdFunctionType3.getCOSObject());
+    assertSame(fileFilters, pDStream.getFilters());
+  }
+
+  /**
+   * Test {@link PDFunctionType3#PDFunctionType3(COSBase)}.
+   *
+   * <ul>
+   *   <li>When {@link COSBoolean#FALSE}.
+   *   <li>Then return COSObject is {@code null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDFunctionType3#PDFunctionType3(COSBase)}
+   */
+  @Test
+  @DisplayName("Test new PDFunctionType3(COSBase); when FALSE; then return COSObject is 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDFunctionType3.<init>(COSBase)"})
+  void testNewPDFunctionType3_whenFalse_thenReturnCOSObjectIsNull() {
+    // Arrange and Act
+    PDFunctionType3 actualPdFunctionType3 = new PDFunctionType3(COSBoolean.FALSE);
+
+    // Assert
+    assertNull(actualPdFunctionType3.getCOSObject());
+    assertNull(actualPdFunctionType3.getPDStream());
+    assertEquals(3, actualPdFunctionType3.getFunctionType());
+  }
+
+  /**
+   * Test {@link PDFunctionType3#getFunctionType()}.
+   *
+   * <p>Method under test: {@link PDFunctionType3#getFunctionType()}
+   */
+  @Test
+  @DisplayName("Test getFunctionType()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"int PDFunctionType3.getFunctionType()"})
+  void testGetFunctionType() {
+    // Arrange, Act and Assert
+    assertEquals(3, new PDFunctionType3(COSBoolean.FALSE).getFunctionType());
+  }
+
+  /**
+   * Test {@link PDFunctionType3#eval(float[])}.
+   *
+   * <ul>
+   *   <li>Given {@link COSArray} {@link COSArray#size()} return one.
+   *   <li>Then throw {@link IOException}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDFunctionType3#eval(float[])}
+   */
+  @Test
+  @DisplayName("Test eval(float[]); given COSArray size() return one; then throw IOException")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"float[] PDFunctionType3.eval(float[])"})
+  void testEval_givenCOSArraySizeReturnOne_thenThrowIOException() throws IOException {
+    // Arrange
+    COSArray cosArray = mock(COSArray.class);
+    when(cosArray.size()).thenReturn(1);
+    when(cosArray.getObject(anyInt())).thenReturn(COSFloat.ONE);
+
+    COSDictionary functionStream = mock(COSDictionary.class);
+    when(functionStream.getCOSArray(Mockito.<COSName>any())).thenReturn(cosArray);
+
+    // Act and Assert
+    assertThrows(
+        IOException.class,
+        () -> new PDFunctionType3(functionStream).eval(new float[] {10.0f, 0.5f, 10.0f, 0.5f}));
+    verify(cosArray, atLeast(1)).getObject(anyInt());
+    verify(cosArray, atLeast(1)).size();
+    verify(functionStream, atLeast(1)).getCOSArray(Mockito.<COSName>any());
+  }
+
+  /**
+   * Test {@link PDFunctionType3#getFunctions()}.
+   *
+   * <ul>
+   *   <li>Given {@link PDFunctionType3#PDFunctionType3(COSBase)} with functionStream is {@link
+   *       COSDictionary#COSDictionary()}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDFunctionType3#getFunctions()}
+   */
+  @Test
+  @DisplayName(
+      "Test getFunctions(); given PDFunctionType3(COSBase) with functionStream is COSDictionary()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"COSArray PDFunctionType3.getFunctions()"})
+  void testGetFunctions_givenPDFunctionType3WithFunctionStreamIsCOSDictionary() {
+    // Arrange, Act and Assert
+    assertNull(new PDFunctionType3(new COSDictionary()).getFunctions());
+  }
+
+  /**
+   * Test {@link PDFunctionType3#getFunctions()}.
+   *
+   * <ul>
+   *   <li>Given {@link PDFunctionType3#PDFunctionType3(COSBase)} with functionStream is {@link
+   *       COSStream#COSStream()}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDFunctionType3#getFunctions()}
+   */
+  @Test
+  @DisplayName(
+      "Test getFunctions(); given PDFunctionType3(COSBase) with functionStream is COSStream()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"COSArray PDFunctionType3.getFunctions()"})
+  void testGetFunctions_givenPDFunctionType3WithFunctionStreamIsCOSStream() {
+    // Arrange, Act and Assert
+    assertNull(new PDFunctionType3(new COSStream()).getFunctions());
+  }
+
+  /**
+   * Test {@link PDFunctionType3#getBounds()}.
+   *
+   * <ul>
+   *   <li>Given {@link PDFunctionType3#PDFunctionType3(COSBase)} with functionStream is {@link
+   *       COSDictionary#COSDictionary()}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDFunctionType3#getBounds()}
+   */
+  @Test
+  @DisplayName(
+      "Test getBounds(); given PDFunctionType3(COSBase) with functionStream is COSDictionary()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"COSArray PDFunctionType3.getBounds()"})
+  void testGetBounds_givenPDFunctionType3WithFunctionStreamIsCOSDictionary() {
+    // Arrange, Act and Assert
+    assertNull(new PDFunctionType3(new COSDictionary()).getBounds());
+  }
+
+  /**
+   * Test {@link PDFunctionType3#getBounds()}.
+   *
+   * <ul>
+   *   <li>Given {@link PDFunctionType3#PDFunctionType3(COSBase)} with functionStream is {@link
+   *       COSStream#COSStream()}.
+   *   <li>Then return {@code null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDFunctionType3#getBounds()}
+   */
+  @Test
+  @DisplayName(
+      "Test getBounds(); given PDFunctionType3(COSBase) with functionStream is COSStream(); then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"COSArray PDFunctionType3.getBounds()"})
+  void testGetBounds_givenPDFunctionType3WithFunctionStreamIsCOSStream_thenReturnNull() {
+    // Arrange, Act and Assert
+    assertNull(new PDFunctionType3(new COSStream()).getBounds());
+  }
+
+  /**
+   * Test {@link PDFunctionType3#getEncode()}.
+   *
+   * <ul>
+   *   <li>Given {@link PDFunctionType3#PDFunctionType3(COSBase)} with functionStream is {@link
+   *       COSDictionary#COSDictionary()}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDFunctionType3#getEncode()}
+   */
+  @Test
+  @DisplayName(
+      "Test getEncode(); given PDFunctionType3(COSBase) with functionStream is COSDictionary()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"COSArray PDFunctionType3.getEncode()"})
+  void testGetEncode_givenPDFunctionType3WithFunctionStreamIsCOSDictionary() {
+    // Arrange, Act and Assert
+    assertNull(new PDFunctionType3(new COSDictionary()).getEncode());
+  }
+
+  /**
+   * Test {@link PDFunctionType3#getEncode()}.
+   *
+   * <ul>
+   *   <li>Given {@link PDFunctionType3#PDFunctionType3(COSBase)} with functionStream is {@link
+   *       COSStream#COSStream()}.
+   *   <li>Then return {@code null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDFunctionType3#getEncode()}
+   */
+  @Test
+  @DisplayName(
+      "Test getEncode(); given PDFunctionType3(COSBase) with functionStream is COSStream(); then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"COSArray PDFunctionType3.getEncode()"})
+  void testGetEncode_givenPDFunctionType3WithFunctionStreamIsCOSStream_thenReturnNull() {
+    // Arrange, Act and Assert
+    assertNull(new PDFunctionType3(new COSStream()).getEncode());
+  }
+}

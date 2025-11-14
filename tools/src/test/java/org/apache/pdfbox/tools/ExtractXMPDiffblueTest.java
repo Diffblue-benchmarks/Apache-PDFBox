@@ -1,0 +1,107 @@
+package org.apache.pdfbox.tools;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
+import java.io.File;
+import java.nio.file.Paths;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+@ExtendWith(MockitoExtension.class)
+class ExtractXMPDiffblueTest {
+  @InjectMocks private ExtractXMP extractXMP;
+
+  @Mock private File file;
+
+  /**
+   * Test {@link ExtractXMP#call()}.
+   *
+   * <p>Method under test: {@link ExtractXMP#call()}
+   */
+  @Test
+  @DisplayName("Test call()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Integer ExtractXMP.call()"})
+  void testCall() {
+    // Arrange
+    when(file.getAbsolutePath()).thenReturn("Absolute Path");
+    when(file.toPath()).thenReturn(Paths.get(System.getProperty("java.io.tmpdir"), ""));
+
+    // Act
+    Integer actualCallResult = extractXMP.call();
+
+    // Assert
+    verify(file).getAbsolutePath();
+    verify(file).toPath();
+    assertEquals(4, actualCallResult.intValue());
+  }
+
+  /**
+   * Test {@link ExtractXMP#call()}.
+   *
+   * <ul>
+   *   <li>Given {@link File} {@link File#getAbsolutePath()} return {@code null}.
+   *   <li>Then return intValue is four.
+   * </ul>
+   *
+   * <p>Method under test: {@link ExtractXMP#call()}
+   */
+  @Test
+  @DisplayName(
+      "Test call(); given File getAbsolutePath() return 'null'; then return intValue is four")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Integer ExtractXMP.call()"})
+  void testCall_givenFileGetAbsolutePathReturnNull_thenReturnIntValueIsFour() {
+    // Arrange
+    when(file.getAbsolutePath()).thenReturn(null);
+    when(file.toPath()).thenReturn(Paths.get(System.getProperty("java.io.tmpdir"), "test.txt"));
+
+    // Act
+    Integer actualCallResult = extractXMP.call();
+
+    // Assert
+    verify(file).getAbsolutePath();
+    verify(file).toPath();
+    assertEquals(4, actualCallResult.intValue());
+  }
+
+  /**
+   * Test {@link ExtractXMP#call()}.
+   *
+   * <ul>
+   *   <li>Given {@link File} {@link File#toPath()} return Property is {@code java.io.tmpdir} is
+   *       array of {@link String} with {@code test.txt}.
+   * </ul>
+   *
+   * <p>Method under test: {@link ExtractXMP#call()}
+   */
+  @Test
+  @DisplayName(
+      "Test call(); given File toPath() return Property is 'java.io.tmpdir' is array of String with 'test.txt'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Integer ExtractXMP.call()"})
+  void testCall_givenFileToPathReturnPropertyIsJavaIoTmpdirIsArrayOfStringWithTestTxt() {
+    // Arrange
+    when(file.getAbsolutePath()).thenReturn("Absolute Path");
+    when(file.toPath()).thenReturn(Paths.get(System.getProperty("java.io.tmpdir"), "test.txt"));
+
+    // Act
+    Integer actualCallResult = extractXMP.call();
+
+    // Assert
+    verify(file).getAbsolutePath();
+    verify(file).toPath();
+    assertEquals(4, actualCallResult.intValue());
+  }
+}
