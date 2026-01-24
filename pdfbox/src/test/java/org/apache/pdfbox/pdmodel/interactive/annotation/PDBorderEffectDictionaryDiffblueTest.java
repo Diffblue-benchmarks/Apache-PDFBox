@@ -9,7 +9,6 @@ import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.cos.COSIncrement;
-import org.apache.pdfbox.cos.COSStream;
 import org.apache.pdfbox.cos.COSUpdateState;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -127,28 +126,6 @@ class PDBorderEffectDictionaryDiffblueTest {
    * Test {@link PDBorderEffectDictionary#getIntensity()}.
    *
    * <ul>
-   *   <li>Given {@link PDBorderEffectDictionary#PDBorderEffectDictionary(COSDictionary)} with dict
-   *       is {@link COSStream#COSStream()}.
-   *   <li>Then return zero.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDBorderEffectDictionary#getIntensity()}
-   */
-  @Test
-  @DisplayName(
-      "Test getIntensity(); given PDBorderEffectDictionary(COSDictionary) with dict is COSStream(); then return zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"float PDBorderEffectDictionary.getIntensity()"})
-  void testGetIntensity_givenPDBorderEffectDictionaryWithDictIsCOSStream_thenReturnZero() {
-    // Arrange, Act and Assert
-    assertEquals(0.0f, new PDBorderEffectDictionary(new COSStream()).getIntensity());
-  }
-
-  /**
-   * Test {@link PDBorderEffectDictionary#getIntensity()}.
-   *
-   * <ul>
    *   <li>Given {@link PDBorderEffectDictionary#PDBorderEffectDictionary()}.
    *   <li>Then return zero.
    * </ul>
@@ -252,29 +229,6 @@ class PDBorderEffectDictionaryDiffblueTest {
     COSDictionary cOSObject = pdBorderEffectDictionary.getCOSObject();
     assertEquals(1, cOSObject.getValues().size());
     assertEquals(1, cOSObject.size());
-  }
-
-  /**
-   * Test {@link PDBorderEffectDictionary#getStyle()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDBorderEffectDictionary#PDBorderEffectDictionary(COSDictionary)} with dict
-   *       is {@link COSStream#COSStream()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDBorderEffectDictionary#getStyle()}
-   */
-  @Test
-  @DisplayName(
-      "Test getStyle(); given PDBorderEffectDictionary(COSDictionary) with dict is COSStream()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String PDBorderEffectDictionary.getStyle()"})
-  void testGetStyle_givenPDBorderEffectDictionaryWithDictIsCOSStream() {
-    // Arrange, Act and Assert
-    assertEquals(
-        PDBorderEffectDictionary.STYLE_SOLID,
-        new PDBorderEffectDictionary(new COSStream()).getStyle());
   }
 
   /**

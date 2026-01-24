@@ -109,28 +109,6 @@ class PDActionLaunchDiffblueTest {
    * Test {@link PDActionLaunch#getFile()}.
    *
    * <ul>
-   *   <li>Given {@link PDActionLaunch#PDActionLaunch(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDActionLaunch#getFile()}
-   */
-  @Test
-  @DisplayName(
-      "Test getFile(); given PDActionLaunch(COSDictionary) with a is COSDictionary(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDFileSpecification PDActionLaunch.getFile()"})
-  void testGetFile_givenPDActionLaunchWithAIsCOSDictionary_thenReturnNull() throws IOException {
-    // Arrange, Act and Assert
-    assertNull(new PDActionLaunch(new COSDictionary()).getFile());
-  }
-
-  /**
-   * Test {@link PDActionLaunch#getFile()}.
-   *
-   * <ul>
    *   <li>Given {@link PDActionLaunch#PDActionLaunch()}.
    *   <li>Then return {@code null}.
    * </ul>
@@ -337,28 +315,6 @@ class PDActionLaunchDiffblueTest {
    * Test {@link PDActionLaunch#getWinLaunchParams()}.
    *
    * <ul>
-   *   <li>Given {@link PDActionLaunch#PDActionLaunch(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDActionLaunch#getWinLaunchParams()}
-   */
-  @Test
-  @DisplayName(
-      "Test getWinLaunchParams(); given PDActionLaunch(COSDictionary) with a is COSDictionary(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDWindowsLaunchParams PDActionLaunch.getWinLaunchParams()"})
-  void testGetWinLaunchParams_givenPDActionLaunchWithAIsCOSDictionary_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull(new PDActionLaunch(new COSDictionary()).getWinLaunchParams());
-  }
-
-  /**
-   * Test {@link PDActionLaunch#getWinLaunchParams()}.
-   *
-   * <ul>
    *   <li>Given {@link PDActionLaunch#PDActionLaunch()}.
    *   <li>Then return {@code null}.
    * </ul>
@@ -373,6 +329,33 @@ class PDActionLaunchDiffblueTest {
   void testGetWinLaunchParams_givenPDActionLaunch_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull(new PDActionLaunch().getWinLaunchParams());
+  }
+
+  /**
+   * Test {@link PDActionLaunch#getWinLaunchParams()}.
+   *
+   * <ul>
+   *   <li>Then return COSObject is {@link COSDictionary#COSDictionary()}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDActionLaunch#getWinLaunchParams()}
+   */
+  @Test
+  @DisplayName("Test getWinLaunchParams(); then return COSObject is COSDictionary()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDWindowsLaunchParams PDActionLaunch.getWinLaunchParams()"})
+  void testGetWinLaunchParams_thenReturnCOSObjectIsCOSDictionary() {
+    // Arrange
+    COSDictionary p = new COSDictionary();
+    p.setKey(new COSObjectKey(1L, 1));
+    PDWindowsLaunchParams win = new PDWindowsLaunchParams(p);
+
+    PDActionLaunch pdActionLaunch = new PDActionLaunch();
+    pdActionLaunch.setWinLaunchParams(win);
+
+    // Act and Assert
+    assertSame(p, pdActionLaunch.getWinLaunchParams().getCOSObject());
   }
 
   /**
@@ -604,28 +587,6 @@ class PDActionLaunchDiffblueTest {
    * Test {@link PDActionLaunch#getF()}.
    *
    * <ul>
-   *   <li>Given {@link PDActionLaunch#PDActionLaunch(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDActionLaunch#getF()}
-   */
-  @Test
-  @DisplayName(
-      "Test getF(); given PDActionLaunch(COSDictionary) with a is COSDictionary(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String PDActionLaunch.getF()"})
-  void testGetF_givenPDActionLaunchWithAIsCOSDictionary_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull(new PDActionLaunch(new COSDictionary()).getF());
-  }
-
-  /**
-   * Test {@link PDActionLaunch#getF()}.
-   *
-   * <ul>
    *   <li>Given {@link PDActionLaunch#PDActionLaunch()}.
    *   <li>Then return {@code null}.
    * </ul>
@@ -768,28 +729,6 @@ class PDActionLaunchDiffblueTest {
    * Test {@link PDActionLaunch#getD()}.
    *
    * <ul>
-   *   <li>Given {@link PDActionLaunch#PDActionLaunch(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDActionLaunch#getD()}
-   */
-  @Test
-  @DisplayName(
-      "Test getD(); given PDActionLaunch(COSDictionary) with a is COSDictionary(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String PDActionLaunch.getD()"})
-  void testGetD_givenPDActionLaunchWithAIsCOSDictionary_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull(new PDActionLaunch(new COSDictionary()).getD());
-  }
-
-  /**
-   * Test {@link PDActionLaunch#getD()}.
-   *
-   * <ul>
    *   <li>Given {@link PDActionLaunch#PDActionLaunch()}.
    *   <li>Then return {@code null}.
    * </ul>
@@ -913,28 +852,6 @@ class PDActionLaunchDiffblueTest {
 
     // Act and Assert
     assertEquals("foo", pdActionLaunch.getO());
-  }
-
-  /**
-   * Test {@link PDActionLaunch#getO()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDActionLaunch#PDActionLaunch(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDActionLaunch#getO()}
-   */
-  @Test
-  @DisplayName(
-      "Test getO(); given PDActionLaunch(COSDictionary) with a is COSDictionary(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String PDActionLaunch.getO()"})
-  void testGetO_givenPDActionLaunchWithAIsCOSDictionary_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull(new PDActionLaunch(new COSDictionary()).getO());
   }
 
   /**
@@ -1070,28 +987,6 @@ class PDActionLaunchDiffblueTest {
    * Test {@link PDActionLaunch#getP()}.
    *
    * <ul>
-   *   <li>Given {@link PDActionLaunch#PDActionLaunch(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDActionLaunch#getP()}
-   */
-  @Test
-  @DisplayName(
-      "Test getP(); given PDActionLaunch(COSDictionary) with a is COSDictionary(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String PDActionLaunch.getP()"})
-  void testGetP_givenPDActionLaunchWithAIsCOSDictionary_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull(new PDActionLaunch(new COSDictionary()).getP());
-  }
-
-  /**
-   * Test {@link PDActionLaunch#getP()}.
-   *
-   * <ul>
    *   <li>Given {@link PDActionLaunch#PDActionLaunch()}.
    *   <li>Then return {@code null}.
    * </ul>
@@ -1167,28 +1062,6 @@ class PDActionLaunchDiffblueTest {
     COSDictionary cOSObject = pdActionLaunch.getCOSObject();
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
-  }
-
-  /**
-   * Test {@link PDActionLaunch#getOpenInNewWindow()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDActionLaunch#PDActionLaunch(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDActionLaunch#getOpenInNewWindow()}
-   */
-  @Test
-  @DisplayName(
-      "Test getOpenInNewWindow(); given PDActionLaunch(COSDictionary) with a is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"OpenMode PDActionLaunch.getOpenInNewWindow()"})
-  void testGetOpenInNewWindow_givenPDActionLaunchWithAIsCOSDictionary() {
-    // Arrange, Act and Assert
-    assertEquals(
-        OpenMode.USER_PREFERENCE, new PDActionLaunch(new COSDictionary()).getOpenInNewWindow());
   }
 
   /**

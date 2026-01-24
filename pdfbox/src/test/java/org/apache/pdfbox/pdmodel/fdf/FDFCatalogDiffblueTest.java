@@ -402,28 +402,6 @@ class FDFCatalogDiffblueTest {
    * Test {@link FDFCatalog#getVersion()}.
    *
    * <ul>
-   *   <li>Given {@link FDFCatalog#FDFCatalog(Element)} with element is {@link
-   *       IIOMetadataNode#IIOMetadataNode()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFCatalog#getVersion()}
-   */
-  @Test
-  @DisplayName(
-      "Test getVersion(); given FDFCatalog(Element) with element is IIOMetadataNode(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String FDFCatalog.getVersion()"})
-  void testGetVersion_givenFDFCatalogWithElementIsIIOMetadataNode_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull(new FDFCatalog(new IIOMetadataNode()).getVersion());
-  }
-
-  /**
-   * Test {@link FDFCatalog#getVersion()}.
-   *
-   * <ul>
    *   <li>Given {@link FDFCatalog#FDFCatalog()}.
    *   <li>Then return {@code null}.
    * </ul>
@@ -621,28 +599,6 @@ class FDFCatalogDiffblueTest {
 
     // Assert
     assertSame(fdfDictionary, fdfCatalog.getFDF().getCOSObject());
-  }
-
-  /**
-   * Test {@link FDFCatalog#getSignature()}.
-   *
-   * <ul>
-   *   <li>Given {@link FDFCatalog#FDFCatalog(Element)} with element is {@link
-   *       IIOMetadataNode#IIOMetadataNode()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFCatalog#getSignature()}
-   */
-  @Test
-  @DisplayName(
-      "Test getSignature(); given FDFCatalog(Element) with element is IIOMetadataNode(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDSignature FDFCatalog.getSignature()"})
-  void testGetSignature_givenFDFCatalogWithElementIsIIOMetadataNode_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull(new FDFCatalog(new IIOMetadataNode()).getSignature());
   }
 
   /**

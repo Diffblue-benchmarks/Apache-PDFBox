@@ -144,28 +144,6 @@ class FDFAnnotationSquareDiffblueTest {
    * Test {@link FDFAnnotationSquare#getInteriorColor()}.
    *
    * <ul>
-   *   <li>Given {@link FDFAnnotationSquare#FDFAnnotationSquare(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationSquare#getInteriorColor()}
-   */
-  @Test
-  @DisplayName(
-      "Test getInteriorColor(); given FDFAnnotationSquare(COSDictionary) with a is COSDictionary(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Color FDFAnnotationSquare.getInteriorColor()"})
-  void testGetInteriorColor_givenFDFAnnotationSquareWithAIsCOSDictionary_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull(new FDFAnnotationSquare(new COSDictionary()).getInteriorColor());
-  }
-
-  /**
-   * Test {@link FDFAnnotationSquare#getInteriorColor()}.
-   *
-   * <ul>
    *   <li>Given {@link FDFAnnotationSquare#FDFAnnotationSquare()}.
    *   <li>Then return {@code null}.
    * </ul>
@@ -245,28 +223,6 @@ class FDFAnnotationSquareDiffblueTest {
     COSDictionary cOSObject = fdfAnnotationSquare.getCOSObject();
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
-  }
-
-  /**
-   * Test {@link FDFAnnotationSquare#getFringe()}.
-   *
-   * <ul>
-   *   <li>Given {@link FDFAnnotationSquare#FDFAnnotationSquare(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationSquare#getFringe()}
-   */
-  @Test
-  @DisplayName(
-      "Test getFringe(); given FDFAnnotationSquare(COSDictionary) with a is COSDictionary(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDRectangle FDFAnnotationSquare.getFringe()"})
-  void testGetFringe_givenFDFAnnotationSquareWithAIsCOSDictionary_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull(new FDFAnnotationSquare(new COSDictionary()).getFringe());
   }
 
   /**

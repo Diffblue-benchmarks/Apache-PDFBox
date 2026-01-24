@@ -921,32 +921,6 @@ class PDFormFieldAdditionalActionsDiffblueTest {
    * Test {@link PDFormFieldAdditionalActions#getF()}.
    *
    * <ul>
-   *   <li>Given {@link PDFormFieldAdditionalActions#PDFormFieldAdditionalActions()} K is {@link
-   *       PDActionEmbeddedGoTo#PDActionEmbeddedGoTo()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDFormFieldAdditionalActions#getF()}
-   */
-  @Test
-  @DisplayName(
-      "Test getF(); given PDFormFieldAdditionalActions() K is PDActionEmbeddedGoTo(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDAction PDFormFieldAdditionalActions.getF()"})
-  void testGetF_givenPDFormFieldAdditionalActionsKIsPDActionEmbeddedGoTo_thenReturnNull() {
-    // Arrange
-    PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
-    pdFormFieldAdditionalActions.setK(new PDActionEmbeddedGoTo());
-
-    // Act and Assert
-    assertNull(pdFormFieldAdditionalActions.getF());
-  }
-
-  /**
-   * Test {@link PDFormFieldAdditionalActions#getF()}.
-   *
-   * <ul>
    *   <li>Given {@link PDFormFieldAdditionalActions#PDFormFieldAdditionalActions()}.
    *   <li>Then return {@code null}.
    * </ul>
@@ -1459,32 +1433,6 @@ class PDFormFieldAdditionalActionsDiffblueTest {
 
     PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
     pdFormFieldAdditionalActions.setV(v);
-
-    // Act and Assert
-    assertNull(pdFormFieldAdditionalActions.getV());
-  }
-
-  /**
-   * Test {@link PDFormFieldAdditionalActions#getV()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDFormFieldAdditionalActions#PDFormFieldAdditionalActions()} K is {@link
-   *       PDActionEmbeddedGoTo#PDActionEmbeddedGoTo()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDFormFieldAdditionalActions#getV()}
-   */
-  @Test
-  @DisplayName(
-      "Test getV(); given PDFormFieldAdditionalActions() K is PDActionEmbeddedGoTo(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDAction PDFormFieldAdditionalActions.getV()"})
-  void testGetV_givenPDFormFieldAdditionalActionsKIsPDActionEmbeddedGoTo_thenReturnNull() {
-    // Arrange
-    PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
-    pdFormFieldAdditionalActions.setK(new PDActionEmbeddedGoTo());
 
     // Act and Assert
     assertNull(pdFormFieldAdditionalActions.getV());
@@ -2231,32 +2179,6 @@ class PDFormFieldAdditionalActionsDiffblueTest {
     assertFalse(cOSObject.isNeedToBeUpdated());
     assertEquals(PDAction.TYPE, actualC.getType());
     assertEquals(PDActionURI.SUB_TYPE, actualC.getSubType());
-  }
-
-  /**
-   * Test {@link PDFormFieldAdditionalActions#getC()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDFormFieldAdditionalActions#PDFormFieldAdditionalActions()} K is {@link
-   *       PDActionEmbeddedGoTo#PDActionEmbeddedGoTo()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDFormFieldAdditionalActions#getC()}
-   */
-  @Test
-  @DisplayName(
-      "Test getC(); given PDFormFieldAdditionalActions() K is PDActionEmbeddedGoTo(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDAction PDFormFieldAdditionalActions.getC()"})
-  void testGetC_givenPDFormFieldAdditionalActionsKIsPDActionEmbeddedGoTo_thenReturnNull() {
-    // Arrange
-    PDFormFieldAdditionalActions pdFormFieldAdditionalActions = new PDFormFieldAdditionalActions();
-    pdFormFieldAdditionalActions.setK(new PDActionEmbeddedGoTo());
-
-    // Act and Assert
-    assertNull(pdFormFieldAdditionalActions.getC());
   }
 
   /**

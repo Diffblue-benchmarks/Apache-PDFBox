@@ -14,6 +14,7 @@ import static org.mockito.Mockito.when;
 import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Map;
 import org.apache.fontbox.FontBoxFont;
@@ -321,6 +322,7 @@ class FontMapperImplDiffblueTest {
 
     // Act and Assert
     TrueTypeFont font = fontMapperImpl.getTrueTypeFont("Base Font", fontDescriptor).getFont();
+    assertTrue(font.getHeader().getModified() instanceof GregorianCalendar);
     Map<String, TTFTable> tableMap = font.getTableMap();
     assertEquals(19, tableMap.size());
     assertEquals(3, font.getCmap().getCmaps().length);
@@ -358,6 +360,7 @@ class FontMapperImplDiffblueTest {
     verify(fontInfo, atLeast(1)).getFont();
     verify(fontInfo, atLeast(1)).getFormat();
     TrueTypeFont font = actualTrueTypeFont.getFont();
+    assertTrue(font.getHeader().getModified() instanceof GregorianCalendar);
     Map<String, TTFTable> tableMap = font.getTableMap();
     assertEquals(19, tableMap.size());
     assertEquals(3, font.getCmap().getCmaps().length);
@@ -459,6 +462,7 @@ class FontMapperImplDiffblueTest {
     verify(map, atLeast(1)).get(Mockito.<Object>any());
     verify(fontInfo, atLeast(1)).getFormat();
     TrueTypeFont font = actualTrueTypeFont.getFont();
+    assertTrue(font.getHeader().getModified() instanceof GregorianCalendar);
     Map<String, TTFTable> tableMap = font.getTableMap();
     assertEquals(19, tableMap.size());
     assertEquals(3, font.getCmap().getCmaps().length);
@@ -503,65 +507,6 @@ class FontMapperImplDiffblueTest {
    *
    * <ul>
    *   <li>Given {@link FontMapperImpl} (default constructor).
-   *   <li>Then return array length is three.
-   * </ul>
-   *
-   * <p>Method under test: {@link FontMapperImpl#getTrueTypeFont(String, PDFontDescriptor)}
-   */
-  @Test
-  @DisplayName(
-      "Test getTrueTypeFont(String, PDFontDescriptor); given FontMapperImpl (default constructor); then return array length is three")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"FontMapping FontMapperImpl.getTrueTypeFont(String, PDFontDescriptor)"})
-  void testGetTrueTypeFont_givenFontMapperImpl_thenReturnArrayLengthIsThree() throws IOException {
-    // Arrange
-    FontMapperImpl fontMapperImpl = new FontMapperImpl();
-
-    // Act and Assert
-    TrueTypeFont font =
-        fontMapperImpl.getTrueTypeFont("Base Font", new PDFontDescriptor()).getFont();
-    Map<String, TTFTable> tableMap = font.getTableMap();
-    assertEquals(19, tableMap.size());
-    assertEquals(3, font.getCmap().getCmaps().length);
-    assertTrue(tableMap.containsKey("fpgm"));
-  }
-
-  /**
-   * Test {@link FontMapperImpl#getTrueTypeFont(String, PDFontDescriptor)}.
-   *
-   * <ul>
-   *   <li>Given {@link FontMapperImpl} (default constructor).
-   *   <li>When {@code ,}.
-   *   <li>Then return array length is three.
-   * </ul>
-   *
-   * <p>Method under test: {@link FontMapperImpl#getTrueTypeFont(String, PDFontDescriptor)}
-   */
-  @Test
-  @DisplayName(
-      "Test getTrueTypeFont(String, PDFontDescriptor); given FontMapperImpl (default constructor); when ','; then return array length is three")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"FontMapping FontMapperImpl.getTrueTypeFont(String, PDFontDescriptor)"})
-  void testGetTrueTypeFont_givenFontMapperImpl_whenComma_thenReturnArrayLengthIsThree()
-      throws IOException {
-    // Arrange
-    FontMapperImpl fontMapperImpl = new FontMapperImpl();
-
-    // Act and Assert
-    TrueTypeFont font = fontMapperImpl.getTrueTypeFont(",", new PDFontDescriptor()).getFont();
-    Map<String, TTFTable> tableMap = font.getTableMap();
-    assertEquals(19, tableMap.size());
-    assertEquals(3, font.getCmap().getCmaps().length);
-    assertTrue(tableMap.containsKey("fpgm"));
-  }
-
-  /**
-   * Test {@link FontMapperImpl#getTrueTypeFont(String, PDFontDescriptor)}.
-   *
-   * <ul>
-   *   <li>Given {@link FontMapperImpl} (default constructor).
    *   <li>When {@code Helvetica}.
    *   <li>Then return not Fallback.
    * </ul>
@@ -585,40 +530,11 @@ class FontMapperImplDiffblueTest {
 
     // Assert
     TrueTypeFont font = actualTrueTypeFont.getFont();
+    assertTrue(font.getHeader().getModified() instanceof GregorianCalendar);
     Map<String, TTFTable> tableMap = font.getTableMap();
     assertEquals(19, tableMap.size());
     assertEquals(3, font.getCmap().getCmaps().length);
     assertFalse(actualTrueTypeFont.isFallback());
-    assertTrue(tableMap.containsKey("fpgm"));
-  }
-
-  /**
-   * Test {@link FontMapperImpl#getTrueTypeFont(String, PDFontDescriptor)}.
-   *
-   * <ul>
-   *   <li>Given {@link FontMapperImpl} (default constructor).
-   *   <li>When {@code null}.
-   *   <li>Then return array length is three.
-   * </ul>
-   *
-   * <p>Method under test: {@link FontMapperImpl#getTrueTypeFont(String, PDFontDescriptor)}
-   */
-  @Test
-  @DisplayName(
-      "Test getTrueTypeFont(String, PDFontDescriptor); given FontMapperImpl (default constructor); when 'null'; then return array length is three")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"FontMapping FontMapperImpl.getTrueTypeFont(String, PDFontDescriptor)"})
-  void testGetTrueTypeFont_givenFontMapperImpl_whenNull_thenReturnArrayLengthIsThree()
-      throws IOException {
-    // Arrange
-    FontMapperImpl fontMapperImpl = new FontMapperImpl();
-
-    // Act and Assert
-    TrueTypeFont font = fontMapperImpl.getTrueTypeFont(null, new PDFontDescriptor()).getFont();
-    Map<String, TTFTable> tableMap = font.getTableMap();
-    assertEquals(19, tableMap.size());
-    assertEquals(3, font.getCmap().getCmaps().length);
     assertTrue(tableMap.containsKey("fpgm"));
   }
 
@@ -670,6 +586,65 @@ class FontMapperImplDiffblueTest {
    * Test {@link FontMapperImpl#getTrueTypeFont(String, PDFontDescriptor)}.
    *
    * <ul>
+   *   <li>Then Font Header Modified return {@link GregorianCalendar}.
+   * </ul>
+   *
+   * <p>Method under test: {@link FontMapperImpl#getTrueTypeFont(String, PDFontDescriptor)}
+   */
+  @Test
+  @DisplayName(
+      "Test getTrueTypeFont(String, PDFontDescriptor); then Font Header Modified return GregorianCalendar")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"FontMapping FontMapperImpl.getTrueTypeFont(String, PDFontDescriptor)"})
+  void testGetTrueTypeFont_thenFontHeaderModifiedReturnGregorianCalendar() throws IOException {
+    // Arrange
+    FontMapperImpl fontMapperImpl = new FontMapperImpl();
+
+    // Act and Assert
+    TrueTypeFont font =
+        fontMapperImpl.getTrueTypeFont("Base Font", new PDFontDescriptor()).getFont();
+    assertTrue(font.getHeader().getModified() instanceof GregorianCalendar);
+    Map<String, TTFTable> tableMap = font.getTableMap();
+    assertEquals(19, tableMap.size());
+    assertEquals(3, font.getCmap().getCmaps().length);
+    assertTrue(tableMap.containsKey("fpgm"));
+  }
+
+  /**
+   * Test {@link FontMapperImpl#getTrueTypeFont(String, PDFontDescriptor)}.
+   *
+   * <ul>
+   *   <li>When {@code ,}.
+   *   <li>Then Font Header Modified return {@link GregorianCalendar}.
+   * </ul>
+   *
+   * <p>Method under test: {@link FontMapperImpl#getTrueTypeFont(String, PDFontDescriptor)}
+   */
+  @Test
+  @DisplayName(
+      "Test getTrueTypeFont(String, PDFontDescriptor); when ','; then Font Header Modified return GregorianCalendar")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"FontMapping FontMapperImpl.getTrueTypeFont(String, PDFontDescriptor)"})
+  void testGetTrueTypeFont_whenComma_thenFontHeaderModifiedReturnGregorianCalendar()
+      throws IOException {
+    // Arrange
+    FontMapperImpl fontMapperImpl = new FontMapperImpl();
+
+    // Act and Assert
+    TrueTypeFont font = fontMapperImpl.getTrueTypeFont(",", new PDFontDescriptor()).getFont();
+    assertTrue(font.getHeader().getModified() instanceof GregorianCalendar);
+    Map<String, TTFTable> tableMap = font.getTableMap();
+    assertEquals(19, tableMap.size());
+    assertEquals(3, font.getCmap().getCmaps().length);
+    assertTrue(tableMap.containsKey("fpgm"));
+  }
+
+  /**
+   * Test {@link FontMapperImpl#getTrueTypeFont(String, PDFontDescriptor)}.
+   *
+   * <ul>
    *   <li>When {@code ,}.
    *   <li>Then return Font Name is {@code LiberationSerif}.
    * </ul>
@@ -703,24 +678,56 @@ class FontMapperImplDiffblueTest {
    * Test {@link FontMapperImpl#getTrueTypeFont(String, PDFontDescriptor)}.
    *
    * <ul>
-   *   <li>When {@code +}.
-   *   <li>Then return array length is three.
+   *   <li>When {@code null}.
+   *   <li>Then Font Header Modified return {@link GregorianCalendar}.
    * </ul>
    *
    * <p>Method under test: {@link FontMapperImpl#getTrueTypeFont(String, PDFontDescriptor)}
    */
   @Test
   @DisplayName(
-      "Test getTrueTypeFont(String, PDFontDescriptor); when '+'; then return array length is three")
+      "Test getTrueTypeFont(String, PDFontDescriptor); when 'null'; then Font Header Modified return GregorianCalendar")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"FontMapping FontMapperImpl.getTrueTypeFont(String, PDFontDescriptor)"})
-  void testGetTrueTypeFont_whenPlusSign_thenReturnArrayLengthIsThree() throws IOException {
+  void testGetTrueTypeFont_whenNull_thenFontHeaderModifiedReturnGregorianCalendar()
+      throws IOException {
+    // Arrange
+    FontMapperImpl fontMapperImpl = new FontMapperImpl();
+
+    // Act and Assert
+    TrueTypeFont font = fontMapperImpl.getTrueTypeFont(null, new PDFontDescriptor()).getFont();
+    assertTrue(font.getHeader().getModified() instanceof GregorianCalendar);
+    Map<String, TTFTable> tableMap = font.getTableMap();
+    assertEquals(19, tableMap.size());
+    assertEquals(3, font.getCmap().getCmaps().length);
+    assertTrue(tableMap.containsKey("fpgm"));
+  }
+
+  /**
+   * Test {@link FontMapperImpl#getTrueTypeFont(String, PDFontDescriptor)}.
+   *
+   * <ul>
+   *   <li>When {@code +}.
+   *   <li>Then Font Header Modified return {@link GregorianCalendar}.
+   * </ul>
+   *
+   * <p>Method under test: {@link FontMapperImpl#getTrueTypeFont(String, PDFontDescriptor)}
+   */
+  @Test
+  @DisplayName(
+      "Test getTrueTypeFont(String, PDFontDescriptor); when '+'; then Font Header Modified return GregorianCalendar")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"FontMapping FontMapperImpl.getTrueTypeFont(String, PDFontDescriptor)"})
+  void testGetTrueTypeFont_whenPlusSign_thenFontHeaderModifiedReturnGregorianCalendar()
+      throws IOException {
     // Arrange
     FontMapperImpl fontMapperImpl = new FontMapperImpl();
 
     // Act and Assert
     TrueTypeFont font = fontMapperImpl.getTrueTypeFont("+", new PDFontDescriptor()).getFont();
+    assertTrue(font.getHeader().getModified() instanceof GregorianCalendar);
     Map<String, TTFTable> tableMap = font.getTableMap();
     assertEquals(19, tableMap.size());
     assertEquals(3, font.getCmap().getCmaps().length);
@@ -842,6 +849,7 @@ class FontMapperImplDiffblueTest {
 
     // Act and Assert
     FontBoxFont font = fontMapperImpl.getFontBoxFont("Base Font", fontDescriptor).getFont();
+    assertTrue(((TrueTypeFont) font).getHeader().getModified() instanceof GregorianCalendar);
     assertTrue(font instanceof TrueTypeFont);
     Map<String, TTFTable> tableMap = ((TrueTypeFont) font).getTableMap();
     assertEquals(19, tableMap.size());
@@ -970,68 +978,7 @@ class FontMapperImplDiffblueTest {
 
     // Act and Assert
     FontBoxFont font = fontMapperImpl.getFontBoxFont(null, new PDFontDescriptor()).getFont();
-    assertTrue(font instanceof TrueTypeFont);
-    Map<String, TTFTable> tableMap = ((TrueTypeFont) font).getTableMap();
-    assertEquals(19, tableMap.size());
-    assertEquals(3, ((TrueTypeFont) font).getCmap().getCmaps().length);
-    assertTrue(tableMap.containsKey("fpgm"));
-  }
-
-  /**
-   * Test {@link FontMapperImpl#getFontBoxFont(String, PDFontDescriptor)}.
-   *
-   * <ul>
-   *   <li>Given {@link FontMapperImpl} (default constructor).
-   *   <li>When {@code Base Font}.
-   *   <li>Then return array length is three.
-   * </ul>
-   *
-   * <p>Method under test: {@link FontMapperImpl#getFontBoxFont(String, PDFontDescriptor)}
-   */
-  @Test
-  @DisplayName(
-      "Test getFontBoxFont(String, PDFontDescriptor); given FontMapperImpl (default constructor); when 'Base Font'; then return array length is three")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"FontMapping FontMapperImpl.getFontBoxFont(String, PDFontDescriptor)"})
-  void testGetFontBoxFont_givenFontMapperImpl_whenBaseFont_thenReturnArrayLengthIsThree()
-      throws IOException {
-    // Arrange
-    FontMapperImpl fontMapperImpl = new FontMapperImpl();
-
-    // Act and Assert
-    FontBoxFont font = fontMapperImpl.getFontBoxFont("Base Font", new PDFontDescriptor()).getFont();
-    assertTrue(font instanceof TrueTypeFont);
-    Map<String, TTFTable> tableMap = ((TrueTypeFont) font).getTableMap();
-    assertEquals(19, tableMap.size());
-    assertEquals(3, ((TrueTypeFont) font).getCmap().getCmaps().length);
-    assertTrue(tableMap.containsKey("fpgm"));
-  }
-
-  /**
-   * Test {@link FontMapperImpl#getFontBoxFont(String, PDFontDescriptor)}.
-   *
-   * <ul>
-   *   <li>Given {@link FontMapperImpl} (default constructor).
-   *   <li>When {@code ,}.
-   *   <li>Then return array length is three.
-   * </ul>
-   *
-   * <p>Method under test: {@link FontMapperImpl#getFontBoxFont(String, PDFontDescriptor)}
-   */
-  @Test
-  @DisplayName(
-      "Test getFontBoxFont(String, PDFontDescriptor); given FontMapperImpl (default constructor); when ','; then return array length is three")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"FontMapping FontMapperImpl.getFontBoxFont(String, PDFontDescriptor)"})
-  void testGetFontBoxFont_givenFontMapperImpl_whenComma_thenReturnArrayLengthIsThree()
-      throws IOException {
-    // Arrange
-    FontMapperImpl fontMapperImpl = new FontMapperImpl();
-
-    // Act and Assert
-    FontBoxFont font = fontMapperImpl.getFontBoxFont(",", new PDFontDescriptor()).getFont();
+    assertTrue(((TrueTypeFont) font).getHeader().getModified() instanceof GregorianCalendar);
     assertTrue(font instanceof TrueTypeFont);
     Map<String, TTFTable> tableMap = ((TrueTypeFont) font).getTableMap();
     assertEquals(19, tableMap.size());
@@ -1067,42 +1014,12 @@ class FontMapperImplDiffblueTest {
 
     // Assert
     FontBoxFont font = actualFontBoxFont.getFont();
+    assertTrue(((TrueTypeFont) font).getHeader().getModified() instanceof GregorianCalendar);
     assertTrue(font instanceof TrueTypeFont);
     Map<String, TTFTable> tableMap = ((TrueTypeFont) font).getTableMap();
     assertEquals(19, tableMap.size());
     assertEquals(3, ((TrueTypeFont) font).getCmap().getCmaps().length);
     assertFalse(actualFontBoxFont.isFallback());
-    assertTrue(tableMap.containsKey("fpgm"));
-  }
-
-  /**
-   * Test {@link FontMapperImpl#getFontBoxFont(String, PDFontDescriptor)}.
-   *
-   * <ul>
-   *   <li>Given {@link FontMapperImpl} (default constructor).
-   *   <li>When {@code null}.
-   *   <li>Then return array length is three.
-   * </ul>
-   *
-   * <p>Method under test: {@link FontMapperImpl#getFontBoxFont(String, PDFontDescriptor)}
-   */
-  @Test
-  @DisplayName(
-      "Test getFontBoxFont(String, PDFontDescriptor); given FontMapperImpl (default constructor); when 'null'; then return array length is three")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"FontMapping FontMapperImpl.getFontBoxFont(String, PDFontDescriptor)"})
-  void testGetFontBoxFont_givenFontMapperImpl_whenNull_thenReturnArrayLengthIsThree()
-      throws IOException {
-    // Arrange
-    FontMapperImpl fontMapperImpl = new FontMapperImpl();
-
-    // Act and Assert
-    FontBoxFont font = fontMapperImpl.getFontBoxFont(null, new PDFontDescriptor()).getFont();
-    assertTrue(font instanceof TrueTypeFont);
-    Map<String, TTFTable> tableMap = ((TrueTypeFont) font).getTableMap();
-    assertEquals(19, tableMap.size());
-    assertEquals(3, ((TrueTypeFont) font).getCmap().getCmaps().length);
     assertTrue(tableMap.containsKey("fpgm"));
   }
 
@@ -1155,6 +1072,35 @@ class FontMapperImplDiffblueTest {
    * Test {@link FontMapperImpl#getFontBoxFont(String, PDFontDescriptor)}.
    *
    * <ul>
+   *   <li>Then Font Header Modified return {@link GregorianCalendar}.
+   * </ul>
+   *
+   * <p>Method under test: {@link FontMapperImpl#getFontBoxFont(String, PDFontDescriptor)}
+   */
+  @Test
+  @DisplayName(
+      "Test getFontBoxFont(String, PDFontDescriptor); then Font Header Modified return GregorianCalendar")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"FontMapping FontMapperImpl.getFontBoxFont(String, PDFontDescriptor)"})
+  void testGetFontBoxFont_thenFontHeaderModifiedReturnGregorianCalendar() throws IOException {
+    // Arrange
+    FontMapperImpl fontMapperImpl = new FontMapperImpl();
+
+    // Act and Assert
+    FontBoxFont font = fontMapperImpl.getFontBoxFont("Base Font", new PDFontDescriptor()).getFont();
+    assertTrue(((TrueTypeFont) font).getHeader().getModified() instanceof GregorianCalendar);
+    assertTrue(font instanceof TrueTypeFont);
+    Map<String, TTFTable> tableMap = ((TrueTypeFont) font).getTableMap();
+    assertEquals(19, tableMap.size());
+    assertEquals(3, ((TrueTypeFont) font).getCmap().getCmaps().length);
+    assertTrue(tableMap.containsKey("fpgm"));
+  }
+
+  /**
+   * Test {@link FontMapperImpl#getFontBoxFont(String, PDFontDescriptor)}.
+   *
+   * <ul>
    *   <li>Then return Font TableMap {@code OS/2} is Font OS2Windows.
    * </ul>
    *
@@ -1182,6 +1128,7 @@ class FontMapperImplDiffblueTest {
     verify(fontInfo, atLeast(1)).getFont();
     verify(fontInfo, atLeast(1)).getFormat();
     FontBoxFont font = actualFontBoxFont.getFont();
+    assertTrue(((TrueTypeFont) font).getHeader().getModified() instanceof GregorianCalendar);
     assertTrue(font instanceof TrueTypeFont);
     Map<String, TTFTable> tableMap = ((TrueTypeFont) font).getTableMap();
     assertEquals(19, tableMap.size());
@@ -1190,6 +1137,37 @@ class FontMapperImplDiffblueTest {
     OS2WindowsMetricsTable oS2Windows = ((TrueTypeFont) font).getOS2Windows();
     assertSame(oS2Windows, tableMap.get("OS/2"));
     assertArrayEquals(new byte[] {2, 11, 6, 4, 2, 2, 2, 2, 2, 4}, oS2Windows.getPanose());
+  }
+
+  /**
+   * Test {@link FontMapperImpl#getFontBoxFont(String, PDFontDescriptor)}.
+   *
+   * <ul>
+   *   <li>When {@code ,}.
+   *   <li>Then Font Header Modified return {@link GregorianCalendar}.
+   * </ul>
+   *
+   * <p>Method under test: {@link FontMapperImpl#getFontBoxFont(String, PDFontDescriptor)}
+   */
+  @Test
+  @DisplayName(
+      "Test getFontBoxFont(String, PDFontDescriptor); when ','; then Font Header Modified return GregorianCalendar")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"FontMapping FontMapperImpl.getFontBoxFont(String, PDFontDescriptor)"})
+  void testGetFontBoxFont_whenComma_thenFontHeaderModifiedReturnGregorianCalendar()
+      throws IOException {
+    // Arrange
+    FontMapperImpl fontMapperImpl = new FontMapperImpl();
+
+    // Act and Assert
+    FontBoxFont font = fontMapperImpl.getFontBoxFont(",", new PDFontDescriptor()).getFont();
+    assertTrue(((TrueTypeFont) font).getHeader().getModified() instanceof GregorianCalendar);
+    assertTrue(font instanceof TrueTypeFont);
+    Map<String, TTFTable> tableMap = ((TrueTypeFont) font).getTableMap();
+    assertEquals(19, tableMap.size());
+    assertEquals(3, ((TrueTypeFont) font).getCmap().getCmaps().length);
+    assertTrue(tableMap.containsKey("fpgm"));
   }
 
   /**
@@ -1224,6 +1202,37 @@ class FontMapperImplDiffblueTest {
           'P', 'O', 'S', '\b', -35, -11
         },
         byteArray);
+  }
+
+  /**
+   * Test {@link FontMapperImpl#getFontBoxFont(String, PDFontDescriptor)}.
+   *
+   * <ul>
+   *   <li>When {@code null}.
+   *   <li>Then Font Header Modified return {@link GregorianCalendar}.
+   * </ul>
+   *
+   * <p>Method under test: {@link FontMapperImpl#getFontBoxFont(String, PDFontDescriptor)}
+   */
+  @Test
+  @DisplayName(
+      "Test getFontBoxFont(String, PDFontDescriptor); when 'null'; then Font Header Modified return GregorianCalendar")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"FontMapping FontMapperImpl.getFontBoxFont(String, PDFontDescriptor)"})
+  void testGetFontBoxFont_whenNull_thenFontHeaderModifiedReturnGregorianCalendar()
+      throws IOException {
+    // Arrange
+    FontMapperImpl fontMapperImpl = new FontMapperImpl();
+
+    // Act and Assert
+    FontBoxFont font = fontMapperImpl.getFontBoxFont(null, new PDFontDescriptor()).getFont();
+    assertTrue(((TrueTypeFont) font).getHeader().getModified() instanceof GregorianCalendar);
+    assertTrue(font instanceof TrueTypeFont);
+    Map<String, TTFTable> tableMap = ((TrueTypeFont) font).getTableMap();
+    assertEquals(19, tableMap.size());
+    assertEquals(3, ((TrueTypeFont) font).getCmap().getCmaps().length);
+    assertTrue(tableMap.containsKey("fpgm"));
   }
 
   /**
@@ -1265,6 +1274,8 @@ class FontMapperImplDiffblueTest {
     verify(fontInfo).getFont();
     verify(fontInfo, atLeast(1)).getFormat();
     FontBoxFont trueTypeFont = actualCIDFont.getTrueTypeFont();
+    assertTrue(
+        ((TrueTypeFont) trueTypeFont).getHeader().getModified() instanceof GregorianCalendar);
     assertTrue(trueTypeFont instanceof TrueTypeFont);
     Map<String, TTFTable> tableMap = ((TrueTypeFont) trueTypeFont).getTableMap();
     assertEquals(19, tableMap.size());
@@ -1376,6 +1387,8 @@ class FontMapperImplDiffblueTest {
     // Act and Assert
     FontBoxFont trueTypeFont =
         fontMapperImpl.getCIDFont(",", fontDescriptor, cidSystemInfo).getTrueTypeFont();
+    assertTrue(
+        ((TrueTypeFont) trueTypeFont).getHeader().getModified() instanceof GregorianCalendar);
     assertTrue(trueTypeFont instanceof TrueTypeFont);
     Map<String, TTFTable> tableMap = ((TrueTypeFont) trueTypeFont).getTableMap();
     assertEquals(19, tableMap.size());
@@ -1417,6 +1430,8 @@ class FontMapperImplDiffblueTest {
     // Act and Assert
     FontBoxFont trueTypeFont =
         fontMapperImpl.getCIDFont(",", fontDescriptor, cidSystemInfo).getTrueTypeFont();
+    assertTrue(
+        ((TrueTypeFont) trueTypeFont).getHeader().getModified() instanceof GregorianCalendar);
     assertTrue(trueTypeFont instanceof TrueTypeFont);
     Map<String, TTFTable> tableMap = ((TrueTypeFont) trueTypeFont).getTableMap();
     assertEquals(19, tableMap.size());
@@ -1455,6 +1470,8 @@ class FontMapperImplDiffblueTest {
     // Act and Assert
     FontBoxFont trueTypeFont =
         fontMapperImpl.getCIDFont("Base Font", fontDescriptor, cidSystemInfo).getTrueTypeFont();
+    assertTrue(
+        ((TrueTypeFont) trueTypeFont).getHeader().getModified() instanceof GregorianCalendar);
     assertTrue(trueTypeFont instanceof TrueTypeFont);
     Map<String, TTFTable> tableMap = ((TrueTypeFont) trueTypeFont).getTableMap();
     assertEquals(19, tableMap.size());
@@ -1493,6 +1510,8 @@ class FontMapperImplDiffblueTest {
     // Act and Assert
     FontBoxFont trueTypeFont =
         fontMapperImpl.getCIDFont(",", fontDescriptor, cidSystemInfo).getTrueTypeFont();
+    assertTrue(
+        ((TrueTypeFont) trueTypeFont).getHeader().getModified() instanceof GregorianCalendar);
     assertTrue(trueTypeFont instanceof TrueTypeFont);
     Map<String, TTFTable> tableMap = ((TrueTypeFont) trueTypeFont).getTableMap();
     assertEquals(19, tableMap.size());
@@ -1529,6 +1548,8 @@ class FontMapperImplDiffblueTest {
     // Act and Assert
     FontBoxFont trueTypeFont =
         fontMapperImpl.getCIDFont(",", new PDFontDescriptor(), null).getTrueTypeFont();
+    assertTrue(
+        ((TrueTypeFont) trueTypeFont).getHeader().getModified() instanceof GregorianCalendar);
     assertTrue(trueTypeFont instanceof TrueTypeFont);
     Map<String, TTFTable> tableMap = ((TrueTypeFont) trueTypeFont).getTableMap();
     assertEquals(19, tableMap.size());
@@ -1567,6 +1588,8 @@ class FontMapperImplDiffblueTest {
     // Act and Assert
     FontBoxFont trueTypeFont =
         fontMapperImpl.getCIDFont(null, fontDescriptor, cidSystemInfo).getTrueTypeFont();
+    assertTrue(
+        ((TrueTypeFont) trueTypeFont).getHeader().getModified() instanceof GregorianCalendar);
     assertTrue(trueTypeFont instanceof TrueTypeFont);
     Map<String, TTFTable> tableMap = ((TrueTypeFont) trueTypeFont).getTableMap();
     assertEquals(19, tableMap.size());

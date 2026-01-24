@@ -491,6 +491,38 @@ class PDFObjectStreamParserDiffblueTest {
     // Arrange
     COSStream stream = mock(COSStream.class);
     when(stream.getInt(Mockito.<COSName>any())).thenReturn(1);
+    when(stream.createView())
+        .thenReturn(new RandomAccessReadView(new RandomAccessReadWriteBuffer(), 1L, 3L));
+    PDFObjectStreamParser pdfObjectStreamParser =
+        new PDFObjectStreamParser(stream, new COSDocument());
+
+    // Act
+    Map<Long, Integer> actualReadObjectNumbersResult = pdfObjectStreamParser.readObjectNumbers();
+
+    // Assert
+    verify(stream, atLeast(1)).getInt(Mockito.<COSName>any());
+    verify(stream).createView();
+    RandomAccessRead randomAccessRead = pdfObjectStreamParser.source;
+    assertTrue(randomAccessRead instanceof RandomAccessReadView);
+    assertNull(pdfObjectStreamParser.document);
+    assertTrue(actualReadObjectNumbersResult.isEmpty());
+    assertTrue(randomAccessRead.isClosed());
+  }
+
+  /**
+   * Test {@link PDFObjectStreamParser#readObjectNumbers()}.
+   *
+   * <p>Method under test: {@link PDFObjectStreamParser#readObjectNumbers()}
+   */
+  @Test
+  @DisplayName("Test readObjectNumbers()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Map PDFObjectStreamParser.readObjectNumbers()"})
+  void testReadObjectNumbers4() throws IOException {
+    // Arrange
+    COSStream stream = mock(COSStream.class);
+    when(stream.getInt(Mockito.<COSName>any())).thenReturn(1);
     RandomAccessReadView randomAccessReadView =
         new RandomAccessReadView(new RandomAccessReadWriteBuffer(), 1L, 3L, true);
     when(stream.createView()).thenReturn(randomAccessReadView);
@@ -520,7 +552,7 @@ class PDFObjectStreamParserDiffblueTest {
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"Map PDFObjectStreamParser.readObjectNumbers()"})
-  void testReadObjectNumbers4() throws IOException {
+  void testReadObjectNumbers5() throws IOException {
     // Arrange
     COSStream stream = mock(COSStream.class);
     when(stream.getInt(Mockito.<COSName>any())).thenReturn(1);

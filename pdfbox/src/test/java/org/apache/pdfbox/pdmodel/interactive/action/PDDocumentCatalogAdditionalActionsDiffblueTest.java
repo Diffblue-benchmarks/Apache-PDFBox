@@ -820,32 +820,6 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
    * Test {@link PDDocumentCatalogAdditionalActions#getWS()}.
    *
    * <ul>
-   *   <li>Given {@link PDDocumentCatalogAdditionalActions#PDDocumentCatalogAdditionalActions()} WC
-   *       is {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getWS()}
-   */
-  @Test
-  @DisplayName(
-      "Test getWS(); given PDDocumentCatalogAdditionalActions() WC is PDActionEmbeddedGoTo()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getWS()"})
-  void testGetWS_givenPDDocumentCatalogAdditionalActionsWcIsPDActionEmbeddedGoTo() {
-    // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
-        new PDDocumentCatalogAdditionalActions();
-    pdDocumentCatalogAdditionalActions.setWC(new PDActionEmbeddedGoTo());
-
-    // Act and Assert
-    assertNull(pdDocumentCatalogAdditionalActions.getWS());
-  }
-
-  /**
-   * Test {@link PDDocumentCatalogAdditionalActions#getWS()}.
-   *
-   * <ul>
    *   <li>Given {@link PDDocumentCatalogAdditionalActions#PDDocumentCatalogAdditionalActions()}.
    *   <li>Then return {@code null}.
    * </ul>
@@ -1479,32 +1453,6 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
     PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
         new PDDocumentCatalogAdditionalActions();
     pdDocumentCatalogAdditionalActions.setDS(ds);
-
-    // Act and Assert
-    assertNull(pdDocumentCatalogAdditionalActions.getDS());
-  }
-
-  /**
-   * Test {@link PDDocumentCatalogAdditionalActions#getDS()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDDocumentCatalogAdditionalActions#PDDocumentCatalogAdditionalActions()} WC
-   *       is {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getDS()}
-   */
-  @Test
-  @DisplayName(
-      "Test getDS(); given PDDocumentCatalogAdditionalActions() WC is PDActionEmbeddedGoTo()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getDS()"})
-  void testGetDS_givenPDDocumentCatalogAdditionalActionsWcIsPDActionEmbeddedGoTo() {
-    // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
-        new PDDocumentCatalogAdditionalActions();
-    pdDocumentCatalogAdditionalActions.setWC(new PDActionEmbeddedGoTo());
 
     // Act and Assert
     assertNull(pdDocumentCatalogAdditionalActions.getDS());
@@ -2156,32 +2104,6 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
    * Test {@link PDDocumentCatalogAdditionalActions#getWP()}.
    *
    * <ul>
-   *   <li>Given {@link PDDocumentCatalogAdditionalActions#PDDocumentCatalogAdditionalActions()} WC
-   *       is {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getWP()}
-   */
-  @Test
-  @DisplayName(
-      "Test getWP(); given PDDocumentCatalogAdditionalActions() WC is PDActionEmbeddedGoTo()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getWP()"})
-  void testGetWP_givenPDDocumentCatalogAdditionalActionsWcIsPDActionEmbeddedGoTo() {
-    // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
-        new PDDocumentCatalogAdditionalActions();
-    pdDocumentCatalogAdditionalActions.setWC(new PDActionEmbeddedGoTo());
-
-    // Act and Assert
-    assertNull(pdDocumentCatalogAdditionalActions.getWP());
-  }
-
-  /**
-   * Test {@link PDDocumentCatalogAdditionalActions#getWP()}.
-   *
-   * <ul>
    *   <li>Given {@link PDDocumentCatalogAdditionalActions#PDDocumentCatalogAdditionalActions()}.
    *   <li>Then return {@code null}.
    * </ul>
@@ -2815,32 +2737,6 @@ class PDDocumentCatalogAdditionalActionsDiffblueTest {
     PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
         new PDDocumentCatalogAdditionalActions();
     pdDocumentCatalogAdditionalActions.setDP(dp);
-
-    // Act and Assert
-    assertNull(pdDocumentCatalogAdditionalActions.getDP());
-  }
-
-  /**
-   * Test {@link PDDocumentCatalogAdditionalActions#getDP()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDDocumentCatalogAdditionalActions#PDDocumentCatalogAdditionalActions()} WC
-   *       is {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentCatalogAdditionalActions#getDP()}
-   */
-  @Test
-  @DisplayName(
-      "Test getDP(); given PDDocumentCatalogAdditionalActions() WC is PDActionEmbeddedGoTo()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDAction PDDocumentCatalogAdditionalActions.getDP()"})
-  void testGetDP_givenPDDocumentCatalogAdditionalActionsWcIsPDActionEmbeddedGoTo() {
-    // Arrange
-    PDDocumentCatalogAdditionalActions pdDocumentCatalogAdditionalActions =
-        new PDDocumentCatalogAdditionalActions();
-    pdDocumentCatalogAdditionalActions.setWC(new PDActionEmbeddedGoTo());
 
     // Act and Assert
     assertNull(pdDocumentCatalogAdditionalActions.getDP());

@@ -322,30 +322,6 @@ class FDFPageDiffblueTest {
    * Test {@link FDFPage#getPageInfo()}.
    *
    * <ul>
-   *   <li>Given {@link FDFPage#FDFPage()} Templates is {@link ArrayList#ArrayList()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFPage#getPageInfo()}
-   */
-  @Test
-  @DisplayName("Test getPageInfo(); given FDFPage() Templates is ArrayList(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"FDFPageInfo FDFPage.getPageInfo()"})
-  void testGetPageInfo_givenFDFPageTemplatesIsArrayList_thenReturnNull() {
-    // Arrange
-    FDFPage fdfPage = new FDFPage();
-    fdfPage.setTemplates(new ArrayList<>());
-
-    // Act and Assert
-    assertNull(fdfPage.getPageInfo());
-  }
-
-  /**
-   * Test {@link FDFPage#getPageInfo()}.
-   *
-   * <ul>
    *   <li>Given {@link FDFPage#FDFPage()}.
    *   <li>Then return {@code null}.
    * </ul>

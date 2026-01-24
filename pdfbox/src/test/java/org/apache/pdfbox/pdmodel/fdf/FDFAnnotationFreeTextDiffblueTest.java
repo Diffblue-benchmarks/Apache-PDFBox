@@ -115,40 +115,6 @@ class FDFAnnotationFreeTextDiffblueTest {
    * Test {@link FDFAnnotationFreeText#setCallout(float[])}.
    *
    * <ul>
-   *   <li>Then {@link FDFAnnotationFreeText#FDFAnnotationFreeText()} COSObject Values size is four.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationFreeText#setCallout(float[])}
-   */
-  @Test
-  @DisplayName(
-      "Test setCallout(float[]); then FDFAnnotationFreeText() COSObject Values size is four")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void FDFAnnotationFreeText.setCallout(float[])"})
-  void testSetCallout_thenFDFAnnotationFreeTextCOSObjectValuesSizeIsFour() {
-    // Arrange
-    FDFAnnotationFreeText fdfAnnotationFreeText = new FDFAnnotationFreeText();
-    fdfAnnotationFreeText.setPage(4);
-
-    // Act
-    fdfAnnotationFreeText.setCallout(
-        new float[] {10.0f, 0.5f, 10.0f, 0.5f, 10.0f, 0.5f, 10.0f, 0.5f});
-
-    // Assert
-    COSDictionary cOSObject = fdfAnnotationFreeText.getCOSObject();
-    assertEquals(4, cOSObject.getValues().size());
-    assertEquals(4, cOSObject.size());
-    assertArrayEquals(
-        new float[] {10.0f, 0.5f, 10.0f, 0.5f, 10.0f, 0.5f, 10.0f, 0.5f},
-        fdfAnnotationFreeText.getCallout(),
-        0.0f);
-  }
-
-  /**
-   * Test {@link FDFAnnotationFreeText#setCallout(float[])}.
-   *
-   * <ul>
    *   <li>Then {@link FDFAnnotationFreeText#FDFAnnotationFreeText()} COSObject Values size is
    *       three.
    * </ul>
@@ -174,28 +140,6 @@ class FDFAnnotationFreeTextDiffblueTest {
     assertEquals(3, cOSObject.size());
     assertArrayEquals(
         new float[] {10.0f, 0.5f, 10.0f, 0.5f}, fdfAnnotationFreeText.getCallout(), 0.0f);
-  }
-
-  /**
-   * Test {@link FDFAnnotationFreeText#getCallout()}.
-   *
-   * <ul>
-   *   <li>Given {@link FDFAnnotationFreeText#FDFAnnotationFreeText(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationFreeText#getCallout()}
-   */
-  @Test
-  @DisplayName(
-      "Test getCallout(); given FDFAnnotationFreeText(COSDictionary) with a is COSDictionary(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"float[] FDFAnnotationFreeText.getCallout()"})
-  void testGetCallout_givenFDFAnnotationFreeTextWithAIsCOSDictionary_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull(new FDFAnnotationFreeText(new COSDictionary()).getCallout());
   }
 
   /**
@@ -361,28 +305,6 @@ class FDFAnnotationFreeTextDiffblueTest {
    * Test {@link FDFAnnotationFreeText#getJustification()}.
    *
    * <ul>
-   *   <li>Given {@link FDFAnnotationFreeText#FDFAnnotationFreeText(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code 0}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationFreeText#getJustification()}
-   */
-  @Test
-  @DisplayName(
-      "Test getJustification(); given FDFAnnotationFreeText(COSDictionary) with a is COSDictionary(); then return '0'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String FDFAnnotationFreeText.getJustification()"})
-  void testGetJustification_givenFDFAnnotationFreeTextWithAIsCOSDictionary_thenReturn0() {
-    // Arrange, Act and Assert
-    assertEquals("0", new FDFAnnotationFreeText(new COSDictionary()).getJustification());
-  }
-
-  /**
-   * Test {@link FDFAnnotationFreeText#getJustification()}.
-   *
-   * <ul>
    *   <li>Given {@link FDFAnnotationFreeText#FDFAnnotationFreeText()}.
    *   <li>Then return {@code 0}.
    * </ul>
@@ -452,28 +374,6 @@ class FDFAnnotationFreeTextDiffblueTest {
     COSDictionary cOSObject = fdfAnnotationFreeText.getCOSObject();
     assertEquals(3, cOSObject.getValues().size());
     assertEquals(3, cOSObject.size());
-  }
-
-  /**
-   * Test {@link FDFAnnotationFreeText#getRotation()}.
-   *
-   * <ul>
-   *   <li>Given {@link FDFAnnotationFreeText#FDFAnnotationFreeText(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationFreeText#getRotation()}
-   */
-  @Test
-  @DisplayName(
-      "Test getRotation(); given FDFAnnotationFreeText(COSDictionary) with a is COSDictionary(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String FDFAnnotationFreeText.getRotation()"})
-  void testGetRotation_givenFDFAnnotationFreeTextWithAIsCOSDictionary_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull(new FDFAnnotationFreeText(new COSDictionary()).getRotation());
   }
 
   /**
@@ -552,27 +452,6 @@ class FDFAnnotationFreeTextDiffblueTest {
     COSDictionary cOSObject = fdfAnnotationFreeText.getCOSObject();
     assertEquals(3, cOSObject.getValues().size());
     assertEquals(3, cOSObject.size());
-  }
-
-  /**
-   * Test {@link FDFAnnotationFreeText#getDefaultAppearance()}.
-   *
-   * <ul>
-   *   <li>Given {@link FDFAnnotationFreeText#FDFAnnotationFreeText(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationFreeText#getDefaultAppearance()}
-   */
-  @Test
-  @DisplayName(
-      "Test getDefaultAppearance(); given FDFAnnotationFreeText(COSDictionary) with a is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String FDFAnnotationFreeText.getDefaultAppearance()"})
-  void testGetDefaultAppearance_givenFDFAnnotationFreeTextWithAIsCOSDictionary() {
-    // Arrange, Act and Assert
-    assertNull(new FDFAnnotationFreeText(new COSDictionary()).getDefaultAppearance());
   }
 
   /**
@@ -696,27 +575,6 @@ class FDFAnnotationFreeTextDiffblueTest {
     COSDictionary cOSObject = fdfAnnotationFreeText.getCOSObject();
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
-  }
-
-  /**
-   * Test {@link FDFAnnotationFreeText#getDefaultStyle()}.
-   *
-   * <ul>
-   *   <li>Given {@link FDFAnnotationFreeText#FDFAnnotationFreeText(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationFreeText#getDefaultStyle()}
-   */
-  @Test
-  @DisplayName(
-      "Test getDefaultStyle(); given FDFAnnotationFreeText(COSDictionary) with a is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String FDFAnnotationFreeText.getDefaultStyle()"})
-  void testGetDefaultStyle_givenFDFAnnotationFreeTextWithAIsCOSDictionary() {
-    // Arrange, Act and Assert
-    assertNull(new FDFAnnotationFreeText(new COSDictionary()).getDefaultStyle());
   }
 
   /**
@@ -883,28 +741,6 @@ class FDFAnnotationFreeTextDiffblueTest {
     COSIncrement toIncrementResult = fdfAnnotationFreeText.getCOSObject().toIncrement();
     assertFalse(toIncrementResult.iterator().hasNext());
     assertTrue(toIncrementResult.getObjects().isEmpty());
-  }
-
-  /**
-   * Test {@link FDFAnnotationFreeText#getFringe()}.
-   *
-   * <ul>
-   *   <li>Given {@link FDFAnnotationFreeText#FDFAnnotationFreeText(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationFreeText#getFringe()}
-   */
-  @Test
-  @DisplayName(
-      "Test getFringe(); given FDFAnnotationFreeText(COSDictionary) with a is COSDictionary(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDRectangle FDFAnnotationFreeText.getFringe()"})
-  void testGetFringe_givenFDFAnnotationFreeTextWithAIsCOSDictionary_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull(new FDFAnnotationFreeText(new COSDictionary()).getFringe());
   }
 
   /**
@@ -1097,27 +933,6 @@ class FDFAnnotationFreeTextDiffblueTest {
     COSDictionary cOSObject = fdfAnnotationFreeText.getCOSObject();
     assertEquals(3, cOSObject.getValues().size());
     assertEquals(3, cOSObject.size());
-  }
-
-  /**
-   * Test {@link FDFAnnotationFreeText#getLineEndingStyle()}.
-   *
-   * <ul>
-   *   <li>Given {@link FDFAnnotationFreeText#FDFAnnotationFreeText(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationFreeText#getLineEndingStyle()}
-   */
-  @Test
-  @DisplayName(
-      "Test getLineEndingStyle(); given FDFAnnotationFreeText(COSDictionary) with a is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String FDFAnnotationFreeText.getLineEndingStyle()"})
-  void testGetLineEndingStyle_givenFDFAnnotationFreeTextWithAIsCOSDictionary() {
-    // Arrange, Act and Assert
-    assertNull(new FDFAnnotationFreeText(new COSDictionary()).getLineEndingStyle());
   }
 
   /**

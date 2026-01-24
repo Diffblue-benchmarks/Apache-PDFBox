@@ -8,9 +8,14 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
+import java.io.IOException;
 import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.cos.COSIncrement;
+import org.apache.pdfbox.cos.COSStream;
 import org.apache.pdfbox.cos.COSUpdateState;
+import org.apache.pdfbox.io.RandomAccessReadView;
+import org.apache.pdfbox.io.RandomAccessReadWriteBuffer;
+import org.apache.pdfbox.io.RandomAccessStreamCacheImpl;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -111,27 +116,6 @@ class PDNumberFormatDictionaryDiffblueTest {
    * Test {@link PDNumberFormatDictionary#getUnits()}.
    *
    * <ul>
-   *   <li>Given {@link PDNumberFormatDictionary#PDNumberFormatDictionary(COSDictionary)} with
-   *       dictionary is {@link COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDNumberFormatDictionary#getUnits()}
-   */
-  @Test
-  @DisplayName(
-      "Test getUnits(); given PDNumberFormatDictionary(COSDictionary) with dictionary is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String PDNumberFormatDictionary.getUnits()"})
-  void testGetUnits_givenPDNumberFormatDictionaryWithDictionaryIsCOSDictionary() {
-    // Arrange, Act and Assert
-    assertNull(new PDNumberFormatDictionary(new COSDictionary()).getUnits());
-  }
-
-  /**
-   * Test {@link PDNumberFormatDictionary#getUnits()}.
-   *
-   * <ul>
    *   <li>Given {@link PDNumberFormatDictionary#PDNumberFormatDictionary()}.
    *   <li>Then return {@code null}.
    * </ul>
@@ -209,21 +193,6 @@ class PDNumberFormatDictionaryDiffblueTest {
   /**
    * Test {@link PDNumberFormatDictionary#getConversionFactor()}.
    *
-   * <p>Method under test: {@link PDNumberFormatDictionary#getConversionFactor()}
-   */
-  @Test
-  @DisplayName("Test getConversionFactor()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"float PDNumberFormatDictionary.getConversionFactor()"})
-  void testGetConversionFactor() {
-    // Arrange, Act and Assert
-    assertEquals(-1.0f, new PDNumberFormatDictionary(new COSDictionary()).getConversionFactor());
-  }
-
-  /**
-   * Test {@link PDNumberFormatDictionary#getConversionFactor()}.
-   *
    * <ul>
    *   <li>Given {@link PDNumberFormatDictionary#PDNumberFormatDictionary()}.
    *   <li>Then return minus one.
@@ -274,35 +243,18 @@ class PDNumberFormatDictionaryDiffblueTest {
   /**
    * Test {@link PDNumberFormatDictionary#getFractionalDisplay()}.
    *
-   * <p>Method under test: {@link PDNumberFormatDictionary#getFractionalDisplay()}
-   */
-  @Test
-  @DisplayName("Test getFractionalDisplay()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String PDNumberFormatDictionary.getFractionalDisplay()"})
-  void testGetFractionalDisplay() {
-    // Arrange, Act and Assert
-    assertEquals(
-        PDNumberFormatDictionary.FRACTIONAL_DISPLAY_DECIMAL,
-        new PDNumberFormatDictionary(new COSDictionary()).getFractionalDisplay());
-  }
-
-  /**
-   * Test {@link PDNumberFormatDictionary#getFractionalDisplay()}.
-   *
    * <ul>
-   *   <li>Given {@link PDNumberFormatDictionary#PDNumberFormatDictionary()}.
+   *   <li>Then return {@link PDNumberFormatDictionary#FRACTIONAL_DISPLAY_DECIMAL}.
    * </ul>
    *
    * <p>Method under test: {@link PDNumberFormatDictionary#getFractionalDisplay()}
    */
   @Test
-  @DisplayName("Test getFractionalDisplay(); given PDNumberFormatDictionary()")
+  @DisplayName("Test getFractionalDisplay(); then return FRACTIONAL_DISPLAY_DECIMAL")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"String PDNumberFormatDictionary.getFractionalDisplay()"})
-  void testGetFractionalDisplay_givenPDNumberFormatDictionary() {
+  void testGetFractionalDisplay_thenReturnFractional_display_decimal() {
     // Arrange, Act and Assert
     assertEquals(
         PDNumberFormatDictionary.FRACTIONAL_DISPLAY_DECIMAL,
@@ -476,27 +428,6 @@ class PDNumberFormatDictionaryDiffblueTest {
    * Test {@link PDNumberFormatDictionary#getDenominator()}.
    *
    * <ul>
-   *   <li>Given {@link PDNumberFormatDictionary#PDNumberFormatDictionary(COSDictionary)} with
-   *       dictionary is {@link COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDNumberFormatDictionary#getDenominator()}
-   */
-  @Test
-  @DisplayName(
-      "Test getDenominator(); given PDNumberFormatDictionary(COSDictionary) with dictionary is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"int PDNumberFormatDictionary.getDenominator()"})
-  void testGetDenominator_givenPDNumberFormatDictionaryWithDictionaryIsCOSDictionary() {
-    // Arrange, Act and Assert
-    assertEquals(-1, new PDNumberFormatDictionary(new COSDictionary()).getDenominator());
-  }
-
-  /**
-   * Test {@link PDNumberFormatDictionary#getDenominator()}.
-   *
-   * <ul>
    *   <li>Given {@link PDNumberFormatDictionary#PDNumberFormatDictionary()}.
    *   <li>Then return minus one.
    * </ul>
@@ -574,21 +505,22 @@ class PDNumberFormatDictionaryDiffblueTest {
    * Test {@link PDNumberFormatDictionary#isFD()}.
    *
    * <ul>
-   *   <li>Given {@link PDNumberFormatDictionary#PDNumberFormatDictionary(COSDictionary)} with
-   *       dictionary is {@link COSDictionary#COSDictionary()}.
+   *   <li>Given {@link COSStream#COSStream(RandomAccessStreamCache)} with streamCache is {@link
+   *       RandomAccessStreamCacheImpl} (default constructor).
    * </ul>
    *
    * <p>Method under test: {@link PDNumberFormatDictionary#isFD()}
    */
   @Test
   @DisplayName(
-      "Test isFD(); given PDNumberFormatDictionary(COSDictionary) with dictionary is COSDictionary()")
+      "Test isFD(); given COSStream(RandomAccessStreamCache) with streamCache is RandomAccessStreamCacheImpl (default constructor)")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"boolean PDNumberFormatDictionary.isFD()"})
-  void testIsFD_givenPDNumberFormatDictionaryWithDictionaryIsCOSDictionary() {
+  void testIsFD_givenCOSStreamWithStreamCacheIsRandomAccessStreamCacheImpl() {
     // Arrange, Act and Assert
-    assertFalse(new PDNumberFormatDictionary(new COSDictionary()).isFD());
+    assertFalse(
+        new PDNumberFormatDictionary(new COSStream(new RandomAccessStreamCacheImpl())).isFD());
   }
 
   /**
@@ -674,21 +606,6 @@ class PDNumberFormatDictionaryDiffblueTest {
   /**
    * Test {@link PDNumberFormatDictionary#getThousandsSeparator()}.
    *
-   * <p>Method under test: {@link PDNumberFormatDictionary#getThousandsSeparator()}
-   */
-  @Test
-  @DisplayName("Test getThousandsSeparator()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String PDNumberFormatDictionary.getThousandsSeparator()"})
-  void testGetThousandsSeparator() {
-    // Arrange, Act and Assert
-    assertEquals(",", new PDNumberFormatDictionary(new COSDictionary()).getThousandsSeparator());
-  }
-
-  /**
-   * Test {@link PDNumberFormatDictionary#getThousandsSeparator()}.
-   *
    * <ul>
    *   <li>Given {@link PDNumberFormatDictionary#PDNumberFormatDictionary()}.
    *   <li>Then return {@code ,}.
@@ -763,21 +680,6 @@ class PDNumberFormatDictionaryDiffblueTest {
   /**
    * Test {@link PDNumberFormatDictionary#getDecimalSeparator()}.
    *
-   * <p>Method under test: {@link PDNumberFormatDictionary#getDecimalSeparator()}
-   */
-  @Test
-  @DisplayName("Test getDecimalSeparator()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String PDNumberFormatDictionary.getDecimalSeparator()"})
-  void testGetDecimalSeparator() {
-    // Arrange, Act and Assert
-    assertEquals(".", new PDNumberFormatDictionary(new COSDictionary()).getDecimalSeparator());
-  }
-
-  /**
-   * Test {@link PDNumberFormatDictionary#getDecimalSeparator()}.
-   *
    * <ul>
    *   <li>Given {@link PDNumberFormatDictionary#PDNumberFormatDictionary()}.
    *   <li>Then return {@code .}.
@@ -822,6 +724,32 @@ class PDNumberFormatDictionaryDiffblueTest {
   /**
    * Test {@link PDNumberFormatDictionary#setDecimalSeparator(String)}.
    *
+   * <p>Method under test: {@link PDNumberFormatDictionary#setDecimalSeparator(String)}
+   */
+  @Test
+  @DisplayName("Test setDecimalSeparator(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDNumberFormatDictionary.setDecimalSeparator(String)"})
+  void testSetDecimalSeparator2() {
+    // Arrange
+    PDNumberFormatDictionary pdNumberFormatDictionary =
+        new PDNumberFormatDictionary(new COSStream());
+
+    // Act
+    pdNumberFormatDictionary.setDecimalSeparator("RT");
+
+    // Assert
+    COSDictionary cOSObject = pdNumberFormatDictionary.getCOSObject();
+    assertTrue(cOSObject instanceof COSStream);
+    assertEquals("RT", pdNumberFormatDictionary.getDecimalSeparator());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+  }
+
+  /**
+   * Test {@link PDNumberFormatDictionary#setDecimalSeparator(String)}.
+   *
    * <ul>
    *   <li>Then {@link PDNumberFormatDictionary#PDNumberFormatDictionary()} DecimalSeparator is
    *       {@code .}.
@@ -847,21 +775,6 @@ class PDNumberFormatDictionaryDiffblueTest {
     COSDictionary cOSObject = pdNumberFormatDictionary.getCOSObject();
     assertEquals(1, cOSObject.getValues().size());
     assertEquals(1, cOSObject.size());
-  }
-
-  /**
-   * Test {@link PDNumberFormatDictionary#getLabelPrefixString()}.
-   *
-   * <p>Method under test: {@link PDNumberFormatDictionary#getLabelPrefixString()}
-   */
-  @Test
-  @DisplayName("Test getLabelPrefixString()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String PDNumberFormatDictionary.getLabelPrefixString()"})
-  void testGetLabelPrefixString() {
-    // Arrange, Act and Assert
-    assertEquals(" ", new PDNumberFormatDictionary(new COSDictionary()).getLabelPrefixString());
   }
 
   /**
@@ -911,6 +824,35 @@ class PDNumberFormatDictionaryDiffblueTest {
   /**
    * Test {@link PDNumberFormatDictionary#setLabelPrefixString(String)}.
    *
+   * <p>Method under test: {@link PDNumberFormatDictionary#setLabelPrefixString(String)}
+   */
+  @Test
+  @DisplayName("Test setLabelPrefixString(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDNumberFormatDictionary.setLabelPrefixString(String)"})
+  void testSetLabelPrefixString2() throws IOException {
+    // Arrange
+    RandomAccessStreamCacheImpl streamCache = new RandomAccessStreamCacheImpl();
+    COSStream dictionary =
+        new COSStream(
+            streamCache, new RandomAccessReadView(new RandomAccessReadWriteBuffer(), 1L, 3L));
+    PDNumberFormatDictionary pdNumberFormatDictionary = new PDNumberFormatDictionary(dictionary);
+
+    // Act
+    pdNumberFormatDictionary.setLabelPrefixString("PSP");
+
+    // Assert
+    COSDictionary cOSObject = pdNumberFormatDictionary.getCOSObject();
+    assertTrue(cOSObject instanceof COSStream);
+    assertEquals("PSP", pdNumberFormatDictionary.getLabelPrefixString());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+  }
+
+  /**
+   * Test {@link PDNumberFormatDictionary#setLabelPrefixString(String)}.
+   *
    * <ul>
    *   <li>Then {@link PDNumberFormatDictionary#PDNumberFormatDictionary()} LabelPrefixString is
    *       space.
@@ -936,21 +878,6 @@ class PDNumberFormatDictionaryDiffblueTest {
     COSDictionary cOSObject = pdNumberFormatDictionary.getCOSObject();
     assertEquals(1, cOSObject.getValues().size());
     assertEquals(1, cOSObject.size());
-  }
-
-  /**
-   * Test {@link PDNumberFormatDictionary#getLabelSuffixString()}.
-   *
-   * <p>Method under test: {@link PDNumberFormatDictionary#getLabelSuffixString()}
-   */
-  @Test
-  @DisplayName("Test getLabelSuffixString()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String PDNumberFormatDictionary.getLabelSuffixString()"})
-  void testGetLabelSuffixString() {
-    // Arrange, Act and Assert
-    assertEquals(" ", new PDNumberFormatDictionary(new COSDictionary()).getLabelSuffixString());
   }
 
   /**
@@ -1000,6 +927,36 @@ class PDNumberFormatDictionaryDiffblueTest {
   /**
    * Test {@link PDNumberFormatDictionary#setLabelSuffixString(String)}.
    *
+   * <p>Method under test: {@link PDNumberFormatDictionary#setLabelSuffixString(String)}
+   */
+  @Test
+  @DisplayName("Test setLabelSuffixString(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDNumberFormatDictionary.setLabelSuffixString(String)"})
+  void testSetLabelSuffixString2() throws IOException {
+    // Arrange
+    RandomAccessStreamCacheImpl streamCache = new RandomAccessStreamCacheImpl();
+    COSStream dictionary =
+        new COSStream(
+            streamCache, new RandomAccessReadView(new RandomAccessReadWriteBuffer(), 1L, 3L));
+    PDNumberFormatDictionary pdNumberFormatDictionary = new PDNumberFormatDictionary(dictionary);
+
+    // Act
+    pdNumberFormatDictionary.setLabelSuffixString("Label Suffix StringLabel Suffix String");
+
+    // Assert
+    COSDictionary cOSObject = pdNumberFormatDictionary.getCOSObject();
+    assertTrue(cOSObject instanceof COSStream);
+    assertEquals(
+        "Label Suffix StringLabel Suffix String", pdNumberFormatDictionary.getLabelSuffixString());
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+  }
+
+  /**
+   * Test {@link PDNumberFormatDictionary#setLabelSuffixString(String)}.
+   *
    * <ul>
    *   <li>Then {@link PDNumberFormatDictionary#PDNumberFormatDictionary()} LabelSuffixString is
    *       space.
@@ -1030,35 +987,18 @@ class PDNumberFormatDictionaryDiffblueTest {
   /**
    * Test {@link PDNumberFormatDictionary#getLabelPositionToValue()}.
    *
-   * <p>Method under test: {@link PDNumberFormatDictionary#getLabelPositionToValue()}
-   */
-  @Test
-  @DisplayName("Test getLabelPositionToValue()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String PDNumberFormatDictionary.getLabelPositionToValue()"})
-  void testGetLabelPositionToValue() {
-    // Arrange, Act and Assert
-    assertEquals(
-        PDNumberFormatDictionary.LABEL_SUFFIX_TO_VALUE,
-        new PDNumberFormatDictionary(new COSDictionary()).getLabelPositionToValue());
-  }
-
-  /**
-   * Test {@link PDNumberFormatDictionary#getLabelPositionToValue()}.
-   *
    * <ul>
-   *   <li>Given {@link PDNumberFormatDictionary#PDNumberFormatDictionary()}.
+   *   <li>Then return {@link PDNumberFormatDictionary#LABEL_SUFFIX_TO_VALUE}.
    * </ul>
    *
    * <p>Method under test: {@link PDNumberFormatDictionary#getLabelPositionToValue()}
    */
   @Test
-  @DisplayName("Test getLabelPositionToValue(); given PDNumberFormatDictionary()")
+  @DisplayName("Test getLabelPositionToValue(); then return LABEL_SUFFIX_TO_VALUE")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"String PDNumberFormatDictionary.getLabelPositionToValue()"})
-  void testGetLabelPositionToValue_givenPDNumberFormatDictionary() {
+  void testGetLabelPositionToValue_thenReturnLabel_suffix_to_value() {
     // Arrange, Act and Assert
     assertEquals(
         PDNumberFormatDictionary.LABEL_SUFFIX_TO_VALUE,

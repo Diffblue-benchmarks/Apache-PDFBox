@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -14,13 +13,11 @@ import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.cos.COSName;
-import org.apache.pdfbox.cos.COSStream;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -53,6 +50,8 @@ class CCITTFaxFilterDiffblueTest {
     DecodeResult actualDecodeResult = ccittFaxFilter.decode(encoded, decoded, parameters, 1);
 
     // Assert
+    assertNull(actualDecodeResult.getJPXSMask());
+    assertNull(actualDecodeResult.getJPXColorSpace());
     int actualReadResult = encoded.read(new byte[] {});
     assertEquals(-1, actualReadResult);
     assertSame(parameters, actualDecodeResult.getParameters());
@@ -85,6 +84,8 @@ class CCITTFaxFilterDiffblueTest {
     DecodeResult actualDecodeResult = ccittFaxFilter.decode(encoded, decoded, parameters, 1);
 
     // Assert
+    assertNull(actualDecodeResult.getJPXSMask());
+    assertNull(actualDecodeResult.getJPXColorSpace());
     int actualReadResult = encoded.read(new byte[] {});
     assertEquals(-1, actualReadResult);
     assertSame(parameters, actualDecodeResult.getParameters());
@@ -116,6 +117,8 @@ class CCITTFaxFilterDiffblueTest {
     DecodeResult actualDecodeResult = ccittFaxFilter.decode(encoded, decoded, parameters, 1);
 
     // Assert
+    assertNull(actualDecodeResult.getJPXSMask());
+    assertNull(actualDecodeResult.getJPXColorSpace());
     int actualReadResult = encoded.read(new byte[] {});
     assertEquals(-1, actualReadResult);
     assertSame(parameters, actualDecodeResult.getParameters());
@@ -148,6 +151,8 @@ class CCITTFaxFilterDiffblueTest {
     DecodeResult actualDecodeResult = ccittFaxFilter.decode(encoded, decoded, parameters, 1);
 
     // Assert
+    assertNull(actualDecodeResult.getJPXSMask());
+    assertNull(actualDecodeResult.getJPXColorSpace());
     int actualReadResult = encoded.read(new byte[] {});
     assertEquals(-1, actualReadResult);
     assertSame(parameters, actualDecodeResult.getParameters());
@@ -180,6 +185,8 @@ class CCITTFaxFilterDiffblueTest {
     DecodeResult actualDecodeResult = ccittFaxFilter.decode(encoded, decoded, parameters, 1);
 
     // Assert
+    assertNull(actualDecodeResult.getJPXSMask());
+    assertNull(actualDecodeResult.getJPXColorSpace());
     int actualReadResult = encoded.read(new byte[] {});
     assertEquals(-1, actualReadResult);
     assertSame(parameters, actualDecodeResult.getParameters());
@@ -189,39 +196,33 @@ class CCITTFaxFilterDiffblueTest {
    * Test {@link CCITTFaxFilter#decode(InputStream, OutputStream, COSDictionary, int)} with {@code
    * encoded}, {@code decoded}, {@code parameters}, {@code index}.
    *
-   * <ul>
-   *   <li>Then return JPXSMask is {@code null}.
-   * </ul>
-   *
    * <p>Method under test: {@link CCITTFaxFilter#decode(InputStream, OutputStream, COSDictionary,
    * int)}
    */
   @Test
   @DisplayName(
-      "Test decode(InputStream, OutputStream, COSDictionary, int) with 'encoded', 'decoded', 'parameters', 'index'; then return JPXSMask is 'null'")
+      "Test decode(InputStream, OutputStream, COSDictionary, int) with 'encoded', 'decoded', 'parameters', 'index'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({
     "DecodeResult CCITTFaxFilter.decode(InputStream, OutputStream, COSDictionary, int)"
   })
-  void testDecodeWithEncodedDecodedParametersIndex_thenReturnJPXSMaskIsNull() throws IOException {
+  void testDecodeWithEncodedDecodedParametersIndex6() throws IOException {
     // Arrange
     CCITTFaxFilter ccittFaxFilter = new CCITTFaxFilter();
-
-    DataInputStream encoded = mock(DataInputStream.class);
-    when(encoded.read(Mockito.<byte[]>any())).thenReturn(1);
-    when(encoded.read()).thenReturn(1);
+    ByteArrayInputStream encoded =
+        new ByteArrayInputStream(new byte[] {0, 0, 'A', 'X', 'A', 'X', 'A', 'X'});
     ByteArrayOutputStream decoded = new ByteArrayOutputStream();
-    COSDictionary parameters = new COSDictionary(new COSDictionary());
+    COSDictionary parameters = new COSDictionary();
 
     // Act
     DecodeResult actualDecodeResult = ccittFaxFilter.decode(encoded, decoded, parameters, 1);
 
     // Assert
-    verify(encoded).read(isA(byte[].class));
-    verify(encoded).read();
     assertNull(actualDecodeResult.getJPXSMask());
     assertNull(actualDecodeResult.getJPXColorSpace());
+    int actualReadResult = encoded.read(new byte[] {});
+    assertEquals(-1, actualReadResult);
     assertSame(parameters, actualDecodeResult.getParameters());
   }
 
@@ -229,31 +230,34 @@ class CCITTFaxFilterDiffblueTest {
    * Test {@link CCITTFaxFilter#decode(InputStream, OutputStream, COSDictionary, int)} with {@code
    * encoded}, {@code decoded}, {@code parameters}, {@code index}.
    *
-   * <ul>
-   *   <li>Then return Parameters is {@link COSStream#COSStream()}.
-   * </ul>
-   *
    * <p>Method under test: {@link CCITTFaxFilter#decode(InputStream, OutputStream, COSDictionary,
    * int)}
    */
   @Test
   @DisplayName(
-      "Test decode(InputStream, OutputStream, COSDictionary, int) with 'encoded', 'decoded', 'parameters', 'index'; then return Parameters is COSStream()")
+      "Test decode(InputStream, OutputStream, COSDictionary, int) with 'encoded', 'decoded', 'parameters', 'index'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({
     "DecodeResult CCITTFaxFilter.decode(InputStream, OutputStream, COSDictionary, int)"
   })
-  void testDecodeWithEncodedDecodedParametersIndex_thenReturnParametersIsCOSStream()
-      throws IOException {
+  void testDecodeWithEncodedDecodedParametersIndex7() throws IOException {
     // Arrange
     CCITTFaxFilter ccittFaxFilter = new CCITTFaxFilter();
-    ByteArrayInputStream encoded = new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"));
+    ByteArrayInputStream encoded =
+        new ByteArrayInputStream(new byte[] {'A', 'X', 0, 'X', 'A', 'X', 0, 'X'});
     ByteArrayOutputStream decoded = new ByteArrayOutputStream();
-    COSStream parameters = new COSStream();
+    COSDictionary parameters = new COSDictionary();
 
-    // Act and Assert
-    assertSame(parameters, ccittFaxFilter.decode(encoded, decoded, parameters, 1).getParameters());
+    // Act
+    DecodeResult actualDecodeResult = ccittFaxFilter.decode(encoded, decoded, parameters, 1);
+
+    // Assert
+    assertNull(actualDecodeResult.getJPXSMask());
+    assertNull(actualDecodeResult.getJPXColorSpace());
+    int actualReadResult = encoded.read(new byte[] {});
+    assertEquals(-1, actualReadResult);
+    assertSame(parameters, actualDecodeResult.getParameters());
   }
 
   /**

@@ -104,28 +104,6 @@ class PDActionThreadDiffblueTest {
    * Test {@link PDActionThread#getD()}.
    *
    * <ul>
-   *   <li>Given {@link PDActionThread#PDActionThread(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDActionThread#getD()}
-   */
-  @Test
-  @DisplayName(
-      "Test getD(); given PDActionThread(COSDictionary) with a is COSDictionary(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"COSBase PDActionThread.getD()"})
-  void testGetD_givenPDActionThreadWithAIsCOSDictionary_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull(new PDActionThread(new COSDictionary()).getD());
-  }
-
-  /**
-   * Test {@link PDActionThread#getD()}.
-   *
-   * <ul>
    *   <li>Given {@link PDActionThread#PDActionThread()}.
    *   <li>Then return {@code null}.
    * </ul>
@@ -323,28 +301,6 @@ class PDActionThreadDiffblueTest {
     COSDictionary cOSObject = pdActionThread.getCOSObject();
     assertEquals(3, cOSObject.getValues().size());
     assertEquals(3, cOSObject.size());
-  }
-
-  /**
-   * Test {@link PDActionThread#getFile()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDActionThread#PDActionThread(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDActionThread#getFile()}
-   */
-  @Test
-  @DisplayName(
-      "Test getFile(); given PDActionThread(COSDictionary) with a is COSDictionary(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDFileSpecification PDActionThread.getFile()"})
-  void testGetFile_givenPDActionThreadWithAIsCOSDictionary_thenReturnNull() throws IOException {
-    // Arrange, Act and Assert
-    assertNull(new PDActionThread(new COSDictionary()).getFile());
   }
 
   /**
@@ -569,28 +525,6 @@ class PDActionThreadDiffblueTest {
 
     // Assert
     assertSame(((COSBoolean) actualB).FALSE, actualB);
-  }
-
-  /**
-   * Test {@link PDActionThread#getB()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDActionThread#PDActionThread(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDActionThread#getB()}
-   */
-  @Test
-  @DisplayName(
-      "Test getB(); given PDActionThread(COSDictionary) with a is COSDictionary(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"COSBase PDActionThread.getB()"})
-  void testGetB_givenPDActionThreadWithAIsCOSDictionary_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull(new PDActionThread(new COSDictionary()).getB());
   }
 
   /**

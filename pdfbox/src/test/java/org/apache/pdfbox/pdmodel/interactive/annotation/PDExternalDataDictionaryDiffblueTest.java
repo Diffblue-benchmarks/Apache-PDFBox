@@ -137,27 +137,6 @@ class PDExternalDataDictionaryDiffblueTest {
    * Test {@link PDExternalDataDictionary#getSubtype()}.
    *
    * <ul>
-   *   <li>Given {@link PDExternalDataDictionary#PDExternalDataDictionary(COSDictionary)} with
-   *       dictionary is {@link COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDExternalDataDictionary#getSubtype()}
-   */
-  @Test
-  @DisplayName(
-      "Test getSubtype(); given PDExternalDataDictionary(COSDictionary) with dictionary is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String PDExternalDataDictionary.getSubtype()"})
-  void testGetSubtype_givenPDExternalDataDictionaryWithDictionaryIsCOSDictionary() {
-    // Arrange, Act and Assert
-    assertNull(new PDExternalDataDictionary(new COSDictionary()).getSubtype());
-  }
-
-  /**
-   * Test {@link PDExternalDataDictionary#getSubtype()}.
-   *
-   * <ul>
    *   <li>Given {@link PDExternalDataDictionary#PDExternalDataDictionary()}.
    *   <li>Then return {@code null}.
    * </ul>

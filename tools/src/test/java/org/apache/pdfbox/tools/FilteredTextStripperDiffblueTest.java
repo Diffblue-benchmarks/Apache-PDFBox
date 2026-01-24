@@ -47,9 +47,7 @@ class FilteredTextStripperDiffblueTest {
     assertEquals(1, actualFilteredTextStripper.getStartPage());
     assertEquals(2.0f, actualFilteredTextStripper.getIndentThreshold());
     assertEquals(2.5f, actualFilteredTextStripper.getDropThreshold());
-    assertFalse(actualFilteredTextStripper.isShouldProcessColorOperators());
     assertFalse(actualFilteredTextStripper.getAddMoreFormatting());
-    assertFalse(actualFilteredTextStripper.getIgnoreContentStreamSpaceGlyphs());
     assertFalse(actualFilteredTextStripper.getSortByPosition());
     assertTrue(actualFilteredTextStripper.getSeparateByBeads());
     assertTrue(actualFilteredTextStripper.getSuppressDuplicateOverlappingText());

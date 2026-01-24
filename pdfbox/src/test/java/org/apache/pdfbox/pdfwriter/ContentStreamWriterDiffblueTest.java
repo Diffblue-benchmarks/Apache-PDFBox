@@ -72,16 +72,17 @@ class ContentStreamWriterDiffblueTest {
    *
    * <ul>
    *   <li>When {@link COSName#A}.
+   *   <li>Then does not throw.
    * </ul>
    *
    * <p>Method under test: {@link ContentStreamWriter#writeToken(COSBase)}
    */
   @Test
-  @DisplayName("Test writeToken(COSBase) with 'base'; when A")
+  @DisplayName("Test writeToken(COSBase) with 'base'; when A; then does not throw")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void ContentStreamWriter.writeToken(COSBase)"})
-  void testWriteTokenWithBase_whenA() throws IOException {
+  void testWriteTokenWithBase_whenA_thenDoesNotThrow() throws IOException {
     // Arrange, Act and Assert
     assertDoesNotThrow(
         () -> new ContentStreamWriter(new ByteArrayOutputStream()).writeToken(COSName.A));
@@ -91,39 +92,19 @@ class ContentStreamWriterDiffblueTest {
    * Test {@link ContentStreamWriter#writeToken(COSBase)} with {@code base}.
    *
    * <ul>
-   *   <li>When {@link COSName#AA}.
-   * </ul>
-   *
-   * <p>Method under test: {@link ContentStreamWriter#writeToken(COSBase)}
-   */
-  @Test
-  @DisplayName("Test writeToken(COSBase) with 'base'; when AA")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void ContentStreamWriter.writeToken(COSBase)"})
-  void testWriteTokenWithBase_whenAa() throws IOException {
-    // Arrange, Act and Assert
-    assertDoesNotThrow(
-        () ->
-            new ContentStreamWriter(new COSStandardOutputStream(new ByteArrayOutputStream(), 1L))
-                .writeToken(COSName.AA));
-  }
-
-  /**
-   * Test {@link ContentStreamWriter#writeToken(COSBase)} with {@code base}.
-   *
-   * <ul>
    *   <li>When {@link COSName#ABSOLUTE_COLORIMETRIC}.
+   *   <li>Then does not throw.
    * </ul>
    *
    * <p>Method under test: {@link ContentStreamWriter#writeToken(COSBase)}
    */
   @Test
-  @DisplayName("Test writeToken(COSBase) with 'base'; when ABSOLUTE_COLORIMETRIC")
+  @DisplayName(
+      "Test writeToken(COSBase) with 'base'; when ABSOLUTE_COLORIMETRIC; then does not throw")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void ContentStreamWriter.writeToken(COSBase)"})
-  void testWriteTokenWithBase_whenAbsolute_colorimetric() throws IOException {
+  void testWriteTokenWithBase_whenAbsolute_colorimetric_thenDoesNotThrow() throws IOException {
     // Arrange, Act and Assert
     assertDoesNotThrow(
         () ->
@@ -136,16 +117,18 @@ class ContentStreamWriterDiffblueTest {
    *
    * <ul>
    *   <li>When {@link COSName#ADBE_PKCS7_DETACHED}.
+   *   <li>Then does not throw.
    * </ul>
    *
    * <p>Method under test: {@link ContentStreamWriter#writeToken(COSBase)}
    */
   @Test
-  @DisplayName("Test writeToken(COSBase) with 'base'; when ADBE_PKCS7_DETACHED")
+  @DisplayName(
+      "Test writeToken(COSBase) with 'base'; when ADBE_PKCS7_DETACHED; then does not throw")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void ContentStreamWriter.writeToken(COSBase)"})
-  void testWriteTokenWithBase_whenAdbe_pkcs7_detached() throws IOException {
+  void testWriteTokenWithBase_whenAdbe_pkcs7_detached_thenDoesNotThrow() throws IOException {
     // Arrange, Act and Assert
     assertDoesNotThrow(
         () ->
@@ -158,16 +141,17 @@ class ContentStreamWriterDiffblueTest {
    *
    * <ul>
    *   <li>When {@link COSName#ADBE_X509_RSA_SHA1}.
+   *   <li>Then does not throw.
    * </ul>
    *
    * <p>Method under test: {@link ContentStreamWriter#writeToken(COSBase)}
    */
   @Test
-  @DisplayName("Test writeToken(COSBase) with 'base'; when ADBE_X509_RSA_SHA1")
+  @DisplayName("Test writeToken(COSBase) with 'base'; when ADBE_X509_RSA_SHA1; then does not throw")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void ContentStreamWriter.writeToken(COSBase)"})
-  void testWriteTokenWithBase_whenAdbe_x509_rsa_sha1() throws IOException {
+  void testWriteTokenWithBase_whenAdbe_x509_rsa_sha1_thenDoesNotThrow() throws IOException {
     // Arrange, Act and Assert
     assertDoesNotThrow(
         () ->
@@ -180,16 +164,17 @@ class ContentStreamWriterDiffblueTest {
    *
    * <ul>
    *   <li>When {@link COSArray#COSArray()}.
+   *   <li>Then does not throw.
    * </ul>
    *
    * <p>Method under test: {@link ContentStreamWriter#writeToken(COSBase)}
    */
   @Test
-  @DisplayName("Test writeToken(COSBase) with 'base'; when COSArray()")
+  @DisplayName("Test writeToken(COSBase) with 'base'; when COSArray(); then does not throw")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void ContentStreamWriter.writeToken(COSBase)"})
-  void testWriteTokenWithBase_whenCOSArray() throws IOException {
+  void testWriteTokenWithBase_whenCOSArray_thenDoesNotThrow() throws IOException {
     // Arrange
     ContentStreamWriter contentStreamWriter = new ContentStreamWriter(new ByteArrayOutputStream());
 
@@ -201,42 +186,18 @@ class ContentStreamWriterDiffblueTest {
    * Test {@link ContentStreamWriter#writeToken(COSBase)} with {@code base}.
    *
    * <ul>
-   *   <li>When {@link COSArray#COSArray(List)} with cosObjectables is {@link
-   *       ArrayList#ArrayList()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link ContentStreamWriter#writeToken(COSBase)}
-   */
-  @Test
-  @DisplayName(
-      "Test writeToken(COSBase) with 'base'; when COSArray(List) with cosObjectables is ArrayList()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void ContentStreamWriter.writeToken(COSBase)"})
-  void testWriteTokenWithBase_whenCOSArrayWithCosObjectablesIsArrayList() throws IOException {
-    // Arrange
-    ContentStreamWriter contentStreamWriter =
-        new ContentStreamWriter(new COSStandardOutputStream(new ByteArrayOutputStream(), 1L));
-
-    // Act and Assert
-    assertDoesNotThrow(() -> contentStreamWriter.writeToken(new COSArray(new ArrayList<>())));
-  }
-
-  /**
-   * Test {@link ContentStreamWriter#writeToken(COSBase)} with {@code base}.
-   *
-   * <ul>
    *   <li>When {@link COSDictionary#COSDictionary()}.
+   *   <li>Then does not throw.
    * </ul>
    *
    * <p>Method under test: {@link ContentStreamWriter#writeToken(COSBase)}
    */
   @Test
-  @DisplayName("Test writeToken(COSBase) with 'base'; when COSDictionary()")
+  @DisplayName("Test writeToken(COSBase) with 'base'; when COSDictionary(); then does not throw")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void ContentStreamWriter.writeToken(COSBase)"})
-  void testWriteTokenWithBase_whenCOSDictionary() throws IOException {
+  void testWriteTokenWithBase_whenCOSDictionary_thenDoesNotThrow() throws IOException {
     // Arrange
     ContentStreamWriter contentStreamWriter = new ContentStreamWriter(new ByteArrayOutputStream());
 
@@ -249,17 +210,19 @@ class ContentStreamWriterDiffblueTest {
    *
    * <ul>
    *   <li>When {@link COSFloat#COSFloat(float)} with aFloat is {@code -3.4028235E38}.
+   *   <li>Then does not throw.
    * </ul>
    *
    * <p>Method under test: {@link ContentStreamWriter#writeToken(COSBase)}
    */
   @Test
   @DisplayName(
-      "Test writeToken(COSBase) with 'base'; when COSFloat(float) with aFloat is '-3.4028235E38'")
+      "Test writeToken(COSBase) with 'base'; when COSFloat(float) with aFloat is '-3.4028235E38'; then does not throw")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void ContentStreamWriter.writeToken(COSBase)"})
-  void testWriteTokenWithBase_whenCOSFloatWithAFloatIs34028235e38() throws IOException {
+  void testWriteTokenWithBase_whenCOSFloatWithAFloatIs34028235e38_thenDoesNotThrow()
+      throws IOException {
     // Arrange
     ContentStreamWriter contentStreamWriter = new ContentStreamWriter(new ByteArrayOutputStream());
 
@@ -272,16 +235,18 @@ class ContentStreamWriterDiffblueTest {
    *
    * <ul>
    *   <li>When {@link COSFloat#COSFloat(float)} with aFloat is ten.
+   *   <li>Then does not throw.
    * </ul>
    *
    * <p>Method under test: {@link ContentStreamWriter#writeToken(COSBase)}
    */
   @Test
-  @DisplayName("Test writeToken(COSBase) with 'base'; when COSFloat(float) with aFloat is ten")
+  @DisplayName(
+      "Test writeToken(COSBase) with 'base'; when COSFloat(float) with aFloat is ten; then does not throw")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void ContentStreamWriter.writeToken(COSBase)"})
-  void testWriteTokenWithBase_whenCOSFloatWithAFloatIsTen() throws IOException {
+  void testWriteTokenWithBase_whenCOSFloatWithAFloatIsTen_thenDoesNotThrow() throws IOException {
     // Arrange
     ContentStreamWriter contentStreamWriter = new ContentStreamWriter(new ByteArrayOutputStream());
 
@@ -293,17 +258,45 @@ class ContentStreamWriterDiffblueTest {
    * Test {@link ContentStreamWriter#writeToken(COSBase)} with {@code base}.
    *
    * <ul>
-   *   <li>When {@link COSString#COSString(String)} with {@code Text}.
+   *   <li>When {@link COSString#COSString(String, boolean)} with {@code Text} and forceHex is
+   *       {@code true}.
+   *   <li>Then does not throw.
    * </ul>
    *
    * <p>Method under test: {@link ContentStreamWriter#writeToken(COSBase)}
    */
   @Test
-  @DisplayName("Test writeToken(COSBase) with 'base'; when COSString(String) with 'Text'")
+  @DisplayName(
+      "Test writeToken(COSBase) with 'base'; when COSString(String, boolean) with 'Text' and forceHex is 'true'; then does not throw")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void ContentStreamWriter.writeToken(COSBase)"})
-  void testWriteTokenWithBase_whenCOSStringWithText() throws IOException {
+  void testWriteTokenWithBase_whenCOSStringWithTextAndForceHexIsTrue_thenDoesNotThrow()
+      throws IOException {
+    // Arrange
+    ContentStreamWriter contentStreamWriter = new ContentStreamWriter(new ByteArrayOutputStream());
+
+    // Act and Assert
+    assertDoesNotThrow(() -> contentStreamWriter.writeToken(new COSString("Text", true)));
+  }
+
+  /**
+   * Test {@link ContentStreamWriter#writeToken(COSBase)} with {@code base}.
+   *
+   * <ul>
+   *   <li>When {@link COSString#COSString(String)} with {@code Text}.
+   *   <li>Then does not throw.
+   * </ul>
+   *
+   * <p>Method under test: {@link ContentStreamWriter#writeToken(COSBase)}
+   */
+  @Test
+  @DisplayName(
+      "Test writeToken(COSBase) with 'base'; when COSString(String) with 'Text'; then does not throw")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void ContentStreamWriter.writeToken(COSBase)"})
+  void testWriteTokenWithBase_whenCOSStringWithText_thenDoesNotThrow() throws IOException {
     // Arrange
     ContentStreamWriter contentStreamWriter = new ContentStreamWriter(new ByteArrayOutputStream());
 
@@ -315,66 +308,18 @@ class ContentStreamWriterDiffblueTest {
    * Test {@link ContentStreamWriter#writeToken(COSBase)} with {@code base}.
    *
    * <ul>
-   *   <li>When {@link COSString#COSString(String, boolean)} with {@code Text} and forceHex is
-   *       {@code true}.
-   * </ul>
-   *
-   * <p>Method under test: {@link ContentStreamWriter#writeToken(COSBase)}
-   */
-  @Test
-  @DisplayName(
-      "Test writeToken(COSBase) with 'base'; when COSString(String, boolean) with 'Text' and forceHex is 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void ContentStreamWriter.writeToken(COSBase)"})
-  void testWriteTokenWithBase_whenCOSStringWithTextAndForceHexIsTrue() throws IOException {
-    // Arrange
-    ContentStreamWriter contentStreamWriter = new ContentStreamWriter(new ByteArrayOutputStream());
-
-    // Act and Assert
-    assertDoesNotThrow(() -> contentStreamWriter.writeToken(new COSString("Text", true)));
-  }
-
-  /**
-   * Test {@link ContentStreamWriter#writeToken(COSBase)} with {@code base}.
-   *
-   * <ul>
-   *   <li>When {@link COSString#COSString(String, boolean)} with {@code Text} and forceHex is
-   *       {@code true}.
-   * </ul>
-   *
-   * <p>Method under test: {@link ContentStreamWriter#writeToken(COSBase)}
-   */
-  @Test
-  @DisplayName(
-      "Test writeToken(COSBase) with 'base'; when COSString(String, boolean) with 'Text' and forceHex is 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void ContentStreamWriter.writeToken(COSBase)"})
-  void testWriteTokenWithBase_whenCOSStringWithTextAndForceHexIsTrue2() throws IOException {
-    // Arrange
-    ContentStreamWriter contentStreamWriter =
-        new ContentStreamWriter(new COSStandardOutputStream(new ByteArrayOutputStream(), 1L));
-
-    // Act and Assert
-    assertDoesNotThrow(() -> contentStreamWriter.writeToken(new COSString("Text", true)));
-  }
-
-  /**
-   * Test {@link ContentStreamWriter#writeToken(COSBase)} with {@code base}.
-   *
-   * <ul>
    *   <li>When {@link COSBoolean#FALSE}.
+   *   <li>Then does not throw.
    * </ul>
    *
    * <p>Method under test: {@link ContentStreamWriter#writeToken(COSBase)}
    */
   @Test
-  @DisplayName("Test writeToken(COSBase) with 'base'; when FALSE")
+  @DisplayName("Test writeToken(COSBase) with 'base'; when FALSE; then does not throw")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void ContentStreamWriter.writeToken(COSBase)"})
-  void testWriteTokenWithBase_whenFalse() throws IOException {
+  void testWriteTokenWithBase_whenFalse_thenDoesNotThrow() throws IOException {
     // Arrange, Act and Assert
     assertDoesNotThrow(
         () -> new ContentStreamWriter(new ByteArrayOutputStream()).writeToken(COSBoolean.FALSE));
@@ -407,16 +352,17 @@ class ContentStreamWriterDiffblueTest {
    *
    * <ul>
    *   <li>When {@link COSFloat#ONE}.
+   *   <li>Then does not throw.
    * </ul>
    *
    * <p>Method under test: {@link ContentStreamWriter#writeToken(COSBase)}
    */
   @Test
-  @DisplayName("Test writeToken(COSBase) with 'base'; when ONE")
+  @DisplayName("Test writeToken(COSBase) with 'base'; when ONE; then does not throw")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void ContentStreamWriter.writeToken(COSBase)"})
-  void testWriteTokenWithBase_whenOne() throws IOException {
+  void testWriteTokenWithBase_whenOne_thenDoesNotThrow() throws IOException {
     // Arrange, Act and Assert
     assertDoesNotThrow(
         () -> new ContentStreamWriter(new ByteArrayOutputStream()).writeToken(COSFloat.ONE));
@@ -427,16 +373,17 @@ class ContentStreamWriterDiffblueTest {
    *
    * <ul>
    *   <li>When {@link COSInteger#ONE}.
+   *   <li>Then does not throw.
    * </ul>
    *
    * <p>Method under test: {@link ContentStreamWriter#writeToken(COSBase)}
    */
   @Test
-  @DisplayName("Test writeToken(COSBase) with 'base'; when ONE")
+  @DisplayName("Test writeToken(COSBase) with 'base'; when ONE; then does not throw")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void ContentStreamWriter.writeToken(COSBase)"})
-  void testWriteTokenWithBase_whenOne2() throws IOException {
+  void testWriteTokenWithBase_whenOne_thenDoesNotThrow2() throws IOException {
     // Arrange, Act and Assert
     assertDoesNotThrow(
         () -> new ContentStreamWriter(new ByteArrayOutputStream()).writeToken(COSInteger.ONE));
@@ -447,16 +394,18 @@ class ContentStreamWriterDiffblueTest {
    *
    * <ul>
    *   <li>When parseHex {@code 0123456789ABCDEF}.
+   *   <li>Then does not throw.
    * </ul>
    *
    * <p>Method under test: {@link ContentStreamWriter#writeToken(COSBase)}
    */
   @Test
-  @DisplayName("Test writeToken(COSBase) with 'base'; when parseHex '0123456789ABCDEF'")
+  @DisplayName(
+      "Test writeToken(COSBase) with 'base'; when parseHex '0123456789ABCDEF'; then does not throw")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void ContentStreamWriter.writeToken(COSBase)"})
-  void testWriteTokenWithBase_whenParseHex0123456789abcdef() throws IOException {
+  void testWriteTokenWithBase_whenParseHex0123456789abcdef_thenDoesNotThrow() throws IOException {
     // Arrange
     ContentStreamWriter contentStreamWriter = new ContentStreamWriter(new ByteArrayOutputStream());
 
@@ -469,86 +418,21 @@ class ContentStreamWriterDiffblueTest {
    * Test {@link ContentStreamWriter#writeToken(COSBase)} with {@code base}.
    *
    * <ul>
-   *   <li>When {@link COSInteger#THREE}.
-   * </ul>
-   *
-   * <p>Method under test: {@link ContentStreamWriter#writeToken(COSBase)}
-   */
-  @Test
-  @DisplayName("Test writeToken(COSBase) with 'base'; when THREE")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void ContentStreamWriter.writeToken(COSBase)"})
-  void testWriteTokenWithBase_whenThree() throws IOException {
-    // Arrange, Act and Assert
-    assertDoesNotThrow(
-        () ->
-            new ContentStreamWriter(new COSStandardOutputStream(new ByteArrayOutputStream(), 1L))
-                .writeToken(COSInteger.THREE));
-  }
-
-  /**
-   * Test {@link ContentStreamWriter#writeToken(COSBase)} with {@code base}.
-   *
-   * <ul>
    *   <li>When {@link COSBoolean#TRUE}.
+   *   <li>Then does not throw.
    * </ul>
    *
    * <p>Method under test: {@link ContentStreamWriter#writeToken(COSBase)}
    */
   @Test
-  @DisplayName("Test writeToken(COSBase) with 'base'; when TRUE")
+  @DisplayName("Test writeToken(COSBase) with 'base'; when TRUE; then does not throw")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void ContentStreamWriter.writeToken(COSBase)"})
-  void testWriteTokenWithBase_whenTrue() throws IOException {
+  void testWriteTokenWithBase_whenTrue_thenDoesNotThrow() throws IOException {
     // Arrange, Act and Assert
     assertDoesNotThrow(
         () -> new ContentStreamWriter(new ByteArrayOutputStream()).writeToken(COSBoolean.TRUE));
-  }
-
-  /**
-   * Test {@link ContentStreamWriter#writeToken(COSBase)} with {@code base}.
-   *
-   * <ul>
-   *   <li>When {@link COSBoolean#TRUE}.
-   * </ul>
-   *
-   * <p>Method under test: {@link ContentStreamWriter#writeToken(COSBase)}
-   */
-  @Test
-  @DisplayName("Test writeToken(COSBase) with 'base'; when TRUE")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void ContentStreamWriter.writeToken(COSBase)"})
-  void testWriteTokenWithBase_whenTrue2() throws IOException {
-    // Arrange, Act and Assert
-    assertDoesNotThrow(
-        () ->
-            new ContentStreamWriter(new COSStandardOutputStream(new ByteArrayOutputStream(), 1L))
-                .writeToken(COSBoolean.TRUE));
-  }
-
-  /**
-   * Test {@link ContentStreamWriter#writeToken(COSBase)} with {@code base}.
-   *
-   * <ul>
-   *   <li>When {@link COSFloat#ZERO}.
-   * </ul>
-   *
-   * <p>Method under test: {@link ContentStreamWriter#writeToken(COSBase)}
-   */
-  @Test
-  @DisplayName("Test writeToken(COSBase) with 'base'; when ZERO")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void ContentStreamWriter.writeToken(COSBase)"})
-  void testWriteTokenWithBase_whenZero() throws IOException {
-    // Arrange, Act and Assert
-    assertDoesNotThrow(
-        () ->
-            new ContentStreamWriter(new COSStandardOutputStream(new ByteArrayOutputStream(), 1L))
-                .writeToken(COSFloat.ZERO));
   }
 
   /**
@@ -790,197 +674,18 @@ class ContentStreamWriterDiffblueTest {
   void testWriteTokenWithOp7() throws IOException {
     // Arrange
     ContentStreamWriter contentStreamWriter =
-        new ContentStreamWriter(new COSStandardOutputStream(new ByteArrayOutputStream(), 1L));
-
-    COSName cosName = mock(COSName.class);
-    doThrow(new IOException()).when(cosName).writePDF(Mockito.<OutputStream>any());
-
-    HashSet<COSName> cosNameSet = new HashSet<>();
-    cosNameSet.add(cosName);
-
-    COSDictionary cosDictionary = mock(COSDictionary.class);
-    when(cosDictionary.getDictionaryObject(Mockito.<COSName>any())).thenReturn(mock(COSName.class));
-    when(cosDictionary.keySet()).thenReturn(cosNameSet);
+        new ContentStreamWriter(
+            new COSStandardOutputStream(
+                new COSStandardOutputStream(new ByteArrayOutputStream(), 1L), 1L));
 
     Operator op = mock(Operator.class);
-    when(op.getImageParameters()).thenReturn(cosDictionary);
-    when(op.getName()).thenReturn("BI");
-
-    // Act and Assert
-    assertThrows(IOException.class, () -> contentStreamWriter.writeToken(op));
-    verify(op).getImageParameters();
-    verify(op).getName();
-    verify(cosDictionary).getDictionaryObject(isA(COSName.class));
-    verify(cosDictionary).keySet();
-    verify(cosName).writePDF(isA(OutputStream.class));
-  }
-
-  /**
-   * Test {@link ContentStreamWriter#writeToken(Operator)} with {@code op}.
-   *
-   * <p>Method under test: {@link ContentStreamWriter#writeToken(Operator)}
-   */
-  @Test
-  @DisplayName("Test writeToken(Operator) with 'op'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void ContentStreamWriter.writeToken(Operator)"})
-  void testWriteTokenWithOp8() throws IOException {
-    // Arrange
-    ContentStreamWriter contentStreamWriter =
-        new ContentStreamWriter(new COSStandardOutputStream(new ByteArrayOutputStream(), 1L));
-
-    COSName cosName = mock(COSName.class);
-    doThrow(new IOException()).when(cosName).writePDF(Mockito.<OutputStream>any());
-
-    HashSet<COSName> cosNameSet = new HashSet<>();
-    cosNameSet.add(COSName.A);
-    cosNameSet.add(cosName);
-
-    COSName cosName2 = mock(COSName.class);
-    doNothing().when(cosName2).writePDF(Mockito.<OutputStream>any());
-
-    COSDictionary cosDictionary = mock(COSDictionary.class);
-    when(cosDictionary.getDictionaryObject(Mockito.<COSName>any())).thenReturn(cosName2);
-    when(cosDictionary.keySet()).thenReturn(cosNameSet);
-
-    Operator op = mock(Operator.class);
-    when(op.getImageParameters()).thenReturn(cosDictionary);
-    when(op.getName()).thenReturn("BI");
-
-    // Act and Assert
-    assertThrows(IOException.class, () -> contentStreamWriter.writeToken(op));
-    verify(op).getImageParameters();
-    verify(op).getName();
-    verify(cosDictionary, atLeast(1)).getDictionaryObject(Mockito.<COSName>any());
-    verify(cosDictionary).keySet();
-    verify(cosName2).writePDF(isA(OutputStream.class));
-    verify(cosName).writePDF(isA(OutputStream.class));
-  }
-
-  /**
-   * Test {@link ContentStreamWriter#writeToken(Operator)} with {@code op}.
-   *
-   * <p>Method under test: {@link ContentStreamWriter#writeToken(Operator)}
-   */
-  @Test
-  @DisplayName("Test writeToken(Operator) with 'op'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void ContentStreamWriter.writeToken(Operator)"})
-  void testWriteTokenWithOp9() throws IOException {
-    // Arrange
-    COSStandardOutputStream out =
-        new COSStandardOutputStream(
-            new COSStandardOutputStream(new ByteArrayOutputStream(), 1L), 1L);
-    out.setOnNewLine(true);
-    ContentStreamWriter contentStreamWriter = new ContentStreamWriter(out);
-
-    COSName cosName = mock(COSName.class);
-    doThrow(new IOException()).when(cosName).writePDF(Mockito.<OutputStream>any());
-
-    HashSet<COSName> cosNameSet = new HashSet<>();
-    cosNameSet.add(cosName);
-
-    COSDictionary cosDictionary = mock(COSDictionary.class);
-    when(cosDictionary.getDictionaryObject(Mockito.<COSName>any())).thenReturn(mock(COSName.class));
-    when(cosDictionary.keySet()).thenReturn(cosNameSet);
-
-    Operator op = mock(Operator.class);
-    when(op.getImageParameters()).thenReturn(cosDictionary);
-    when(op.getName()).thenReturn("BI");
-
-    // Act and Assert
-    assertThrows(IOException.class, () -> contentStreamWriter.writeToken(op));
-    verify(op).getImageParameters();
-    verify(op).getName();
-    verify(cosDictionary).getDictionaryObject(isA(COSName.class));
-    verify(cosDictionary).keySet();
-    verify(cosName).writePDF(isA(OutputStream.class));
-  }
-
-  /**
-   * Test {@link ContentStreamWriter#writeToken(Operator)} with {@code op}.
-   *
-   * <p>Method under test: {@link ContentStreamWriter#writeToken(Operator)}
-   */
-  @Test
-  @DisplayName("Test writeToken(Operator) with 'op'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void ContentStreamWriter.writeToken(Operator)"})
-  void testWriteTokenWithOp10() throws IOException {
-    // Arrange
-    COSStandardOutputStream out =
-        new COSStandardOutputStream(
-            new COSStandardOutputStream(new ByteArrayOutputStream(), 1L), 1L);
-    out.setOnNewLine(true);
-    ContentStreamWriter contentStreamWriter = new ContentStreamWriter(out);
-
-    Operator op = mock(Operator.class);
-
-    COSName cosName = mock(COSName.class);
-    doNothing().when(cosName).writePDF(Mockito.<OutputStream>any());
-
-    COSDictionary cosDictionary = mock(COSDictionary.class);
-    when(cosDictionary.getDictionaryObject(Mockito.<COSName>any())).thenReturn(cosName);
-
-    HashSet<COSName> cosNameSet = new HashSet<>();
-    cosNameSet.add(COSName.A);
-
-    COSName cosName2 = mock(COSName.class);
-    doThrow(new IOException()).when(cosName2).writePDF(Mockito.<OutputStream>any());
-    cosNameSet.add(cosName2);
-    when(cosDictionary.keySet()).thenReturn(cosNameSet);
-    when(op.getImageParameters()).thenReturn(cosDictionary);
-    when(op.getName()).thenReturn("BI");
-
-    // Act and Assert
-    assertThrows(IOException.class, () -> contentStreamWriter.writeToken(op));
-    verify(op).getImageParameters();
-    verify(op).getName();
-    verify(cosDictionary, atLeast(1)).getDictionaryObject(Mockito.<COSName>any());
-    verify(cosDictionary).keySet();
-    verify(cosName).writePDF(isA(OutputStream.class));
-    verify(cosName2).writePDF(isA(OutputStream.class));
-  }
-
-  /**
-   * Test {@link ContentStreamWriter#writeToken(Operator)} with {@code op}.
-   *
-   * <ul>
-   *   <li>Given {@code AXAXAXAX} Bytes is {@code UTF-8}.
-   *   <li>Then calls {@link Operator#getImageData()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link ContentStreamWriter#writeToken(Operator)}
-   */
-  @Test
-  @DisplayName(
-      "Test writeToken(Operator) with 'op'; given 'AXAXAXAX' Bytes is 'UTF-8'; then calls getImageData()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void ContentStreamWriter.writeToken(Operator)"})
-  void testWriteTokenWithOp_givenAxaxaxaxBytesIsUtf8_thenCallsGetImageData() throws IOException {
-    // Arrange
-    ContentStreamWriter contentStreamWriter = new ContentStreamWriter(new ByteArrayOutputStream());
-
-    COSDictionary cosDictionary = mock(COSDictionary.class);
-    when(cosDictionary.keySet()).thenReturn(new HashSet<>());
-
-    Operator op = mock(Operator.class);
-    when(op.getImageData()).thenReturn("AXAXAXAX".getBytes("UTF-8"));
-    when(op.getImageParameters()).thenReturn(cosDictionary);
-    when(op.getName()).thenReturn("BI");
+    when(op.getName()).thenReturn("foo");
 
     // Act
     contentStreamWriter.writeToken(op);
 
     // Assert
-    verify(op).getImageData();
-    verify(op).getImageParameters();
-    verify(op).getName();
-    verify(cosDictionary).keySet();
+    verify(op, atLeast(1)).getName();
   }
 
   /**
@@ -1274,6 +979,46 @@ class ContentStreamWriterDiffblueTest {
    * Test {@link ContentStreamWriter#writeToken(Operator)} with {@code op}.
    *
    * <ul>
+   *   <li>Given {@link COSDictionary} {@link COSDictionary#keySet()} return {@link
+   *       HashSet#HashSet()}.
+   *   <li>Then calls {@link Operator#getImageData()}.
+   * </ul>
+   *
+   * <p>Method under test: {@link ContentStreamWriter#writeToken(Operator)}
+   */
+  @Test
+  @DisplayName(
+      "Test writeToken(Operator) with 'op'; given COSDictionary keySet() return HashSet(); then calls getImageData()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void ContentStreamWriter.writeToken(Operator)"})
+  void testWriteTokenWithOp_givenCOSDictionaryKeySetReturnHashSet_thenCallsGetImageData()
+      throws IOException {
+    // Arrange
+    ContentStreamWriter contentStreamWriter = new ContentStreamWriter(new ByteArrayOutputStream());
+
+    COSDictionary cosDictionary = mock(COSDictionary.class);
+    when(cosDictionary.keySet()).thenReturn(new HashSet<>());
+
+    Operator op = mock(Operator.class);
+    when(op.getImageData()).thenReturn("AXAXAXAX".getBytes("UTF-8"));
+    when(op.getImageParameters()).thenReturn(cosDictionary);
+    when(op.getName()).thenReturn("BI");
+
+    // Act
+    contentStreamWriter.writeToken(op);
+
+    // Assert
+    verify(op).getImageData();
+    verify(op).getImageParameters();
+    verify(op).getName();
+    verify(cosDictionary).keySet();
+  }
+
+  /**
+   * Test {@link ContentStreamWriter#writeToken(Operator)} with {@code op}.
+   *
+   * <ul>
    *   <li>Given {@link COSName} {@link COSName#writePDF(OutputStream)} does nothing.
    *   <li>Then calls {@link COSName#writePDF(OutputStream)}.
    * </ul>
@@ -1314,58 +1059,6 @@ class ContentStreamWriterDiffblueTest {
     verify(op).getName();
     verify(cosDictionary).getDictionaryObject(isA(COSName.class));
     verify(cosDictionary).keySet();
-    verify(cosName).writePDF(isA(OutputStream.class));
-  }
-
-  /**
-   * Test {@link ContentStreamWriter#writeToken(Operator)} with {@code op}.
-   *
-   * <ul>
-   *   <li>Given {@link COSName} {@link COSName#writePDF(OutputStream)} does nothing.
-   *   <li>Then calls {@link COSName#writePDF(OutputStream)}.
-   * </ul>
-   *
-   * <p>Method under test: {@link ContentStreamWriter#writeToken(Operator)}
-   */
-  @Test
-  @DisplayName(
-      "Test writeToken(Operator) with 'op'; given COSName writePDF(OutputStream) does nothing; then calls writePDF(OutputStream)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void ContentStreamWriter.writeToken(Operator)"})
-  void testWriteTokenWithOp_givenCOSNameWritePDFDoesNothing_thenCallsWritePDF2()
-      throws IOException {
-    // Arrange
-    ContentStreamWriter contentStreamWriter = new ContentStreamWriter(new ByteArrayOutputStream());
-
-    COSName cosName = mock(COSName.class);
-    doNothing().when(cosName).writePDF(Mockito.<OutputStream>any());
-
-    HashSet<COSName> cosNameSet = new HashSet<>();
-    cosNameSet.add(cosName);
-
-    COSName cosName2 = mock(COSName.class);
-    doNothing().when(cosName2).writePDF(Mockito.<OutputStream>any());
-
-    COSDictionary cosDictionary = mock(COSDictionary.class);
-    when(cosDictionary.getDictionaryObject(Mockito.<COSName>any())).thenReturn(cosName2);
-    when(cosDictionary.keySet()).thenReturn(cosNameSet);
-
-    Operator op = mock(Operator.class);
-    when(op.getImageData()).thenReturn("AXAXAXAX".getBytes("UTF-8"));
-    when(op.getImageParameters()).thenReturn(cosDictionary);
-    when(op.getName()).thenReturn("BI");
-
-    // Act
-    contentStreamWriter.writeToken(op);
-
-    // Assert
-    verify(op).getImageData();
-    verify(op).getImageParameters();
-    verify(op).getName();
-    verify(cosDictionary).getDictionaryObject(isA(COSName.class));
-    verify(cosDictionary).keySet();
-    verify(cosName2).writePDF(isA(OutputStream.class));
     verify(cosName).writePDF(isA(OutputStream.class));
   }
 
@@ -1477,6 +1170,99 @@ class ContentStreamWriterDiffblueTest {
 
     // Assert
     verify(op, atLeast(1)).getName();
+  }
+
+  /**
+   * Test {@link ContentStreamWriter#writeToken(Operator)} with {@code op}.
+   *
+   * <ul>
+   *   <li>Given {@link HashSet#HashSet()} add {@link COSName}.
+   *   <li>Then calls {@link COSName#writePDF(OutputStream)}.
+   * </ul>
+   *
+   * <p>Method under test: {@link ContentStreamWriter#writeToken(Operator)}
+   */
+  @Test
+  @DisplayName(
+      "Test writeToken(Operator) with 'op'; given HashSet() add COSName; then calls writePDF(OutputStream)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void ContentStreamWriter.writeToken(Operator)"})
+  void testWriteTokenWithOp_givenHashSetAddCOSName_thenCallsWritePDF() throws IOException {
+    // Arrange
+    ContentStreamWriter contentStreamWriter = new ContentStreamWriter(new ByteArrayOutputStream());
+
+    COSName cosName = mock(COSName.class);
+    doNothing().when(cosName).writePDF(Mockito.<OutputStream>any());
+
+    HashSet<COSName> cosNameSet = new HashSet<>();
+    cosNameSet.add(cosName);
+
+    COSName cosName2 = mock(COSName.class);
+    doNothing().when(cosName2).writePDF(Mockito.<OutputStream>any());
+
+    COSDictionary cosDictionary = mock(COSDictionary.class);
+    when(cosDictionary.getDictionaryObject(Mockito.<COSName>any())).thenReturn(cosName2);
+    when(cosDictionary.keySet()).thenReturn(cosNameSet);
+
+    Operator op = mock(Operator.class);
+    when(op.getImageData()).thenReturn("AXAXAXAX".getBytes("UTF-8"));
+    when(op.getImageParameters()).thenReturn(cosDictionary);
+    when(op.getName()).thenReturn("BI");
+
+    // Act
+    contentStreamWriter.writeToken(op);
+
+    // Assert
+    verify(op).getImageData();
+    verify(op).getImageParameters();
+    verify(op).getName();
+    verify(cosDictionary).getDictionaryObject(isA(COSName.class));
+    verify(cosDictionary).keySet();
+    verify(cosName2).writePDF(isA(OutputStream.class));
+    verify(cosName).writePDF(isA(OutputStream.class));
+  }
+
+  /**
+   * Test {@link ContentStreamWriter#writeToken(Operator)} with {@code op}.
+   *
+   * <ul>
+   *   <li>Then throw {@link IOException}.
+   * </ul>
+   *
+   * <p>Method under test: {@link ContentStreamWriter#writeToken(Operator)}
+   */
+  @Test
+  @DisplayName("Test writeToken(Operator) with 'op'; then throw IOException")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void ContentStreamWriter.writeToken(Operator)"})
+  void testWriteTokenWithOp_thenThrowIOException() throws IOException {
+    // Arrange
+    ContentStreamWriter contentStreamWriter =
+        new ContentStreamWriter(new COSStandardOutputStream(new ByteArrayOutputStream(), 1L));
+
+    COSName cosName = mock(COSName.class);
+    doThrow(new IOException()).when(cosName).writePDF(Mockito.<OutputStream>any());
+
+    HashSet<COSName> cosNameSet = new HashSet<>();
+    cosNameSet.add(cosName);
+
+    COSDictionary cosDictionary = mock(COSDictionary.class);
+    when(cosDictionary.getDictionaryObject(Mockito.<COSName>any())).thenReturn(mock(COSName.class));
+    when(cosDictionary.keySet()).thenReturn(cosNameSet);
+
+    Operator op = mock(Operator.class);
+    when(op.getImageParameters()).thenReturn(cosDictionary);
+    when(op.getName()).thenReturn("BI");
+
+    // Act and Assert
+    assertThrows(IOException.class, () -> contentStreamWriter.writeToken(op));
+    verify(op).getImageParameters();
+    verify(op).getName();
+    verify(cosDictionary).getDictionaryObject(isA(COSName.class));
+    verify(cosDictionary).keySet();
+    verify(cosName).writePDF(isA(OutputStream.class));
   }
 
   /**

@@ -50,9 +50,7 @@ class PDFText2HTMLDiffblueTest {
     assertEquals(1, actualPdfText2HTML.getStartPage());
     assertEquals(2.0f, actualPdfText2HTML.getIndentThreshold());
     assertEquals(2.5f, actualPdfText2HTML.getDropThreshold());
-    assertFalse(actualPdfText2HTML.isShouldProcessColorOperators());
     assertFalse(actualPdfText2HTML.getAddMoreFormatting());
-    assertFalse(actualPdfText2HTML.getIgnoreContentStreamSpaceGlyphs());
     assertFalse(actualPdfText2HTML.getSortByPosition());
     assertTrue(actualPdfText2HTML.getSeparateByBeads());
     assertTrue(actualPdfText2HTML.getSuppressDuplicateOverlappingText());

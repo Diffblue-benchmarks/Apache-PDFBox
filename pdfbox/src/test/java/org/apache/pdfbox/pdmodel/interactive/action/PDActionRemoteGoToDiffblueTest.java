@@ -75,28 +75,6 @@ class PDActionRemoteGoToDiffblueTest {
    * Test {@link PDActionRemoteGoTo#getFile()}.
    *
    * <ul>
-   *   <li>Given {@link PDActionRemoteGoTo#PDActionRemoteGoTo(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDActionRemoteGoTo#getFile()}
-   */
-  @Test
-  @DisplayName(
-      "Test getFile(); given PDActionRemoteGoTo(COSDictionary) with a is COSDictionary(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDFileSpecification PDActionRemoteGoTo.getFile()"})
-  void testGetFile_givenPDActionRemoteGoToWithAIsCOSDictionary_thenReturnNull() throws IOException {
-    // Arrange, Act and Assert
-    assertNull(new PDActionRemoteGoTo(new COSDictionary()).getFile());
-  }
-
-  /**
-   * Test {@link PDActionRemoteGoTo#getFile()}.
-   *
-   * <ul>
    *   <li>Given {@link PDActionRemoteGoTo#PDActionRemoteGoTo()}.
    *   <li>Then return {@code null}.
    * </ul>
@@ -410,28 +388,6 @@ class PDActionRemoteGoToDiffblueTest {
    * Test {@link PDActionRemoteGoTo#getD()}.
    *
    * <ul>
-   *   <li>Given {@link PDActionRemoteGoTo#PDActionRemoteGoTo(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDActionRemoteGoTo#getD()}
-   */
-  @Test
-  @DisplayName(
-      "Test getD(); given PDActionRemoteGoTo(COSDictionary) with a is COSDictionary(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"COSBase PDActionRemoteGoTo.getD()"})
-  void testGetD_givenPDActionRemoteGoToWithAIsCOSDictionary_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull(new PDActionRemoteGoTo(new COSDictionary()).getD());
-  }
-
-  /**
-   * Test {@link PDActionRemoteGoTo#getD()}.
-   *
-   * <ul>
    *   <li>Given {@link PDActionRemoteGoTo#PDActionRemoteGoTo()}.
    *   <li>Then return {@code null}.
    * </ul>
@@ -629,28 +585,6 @@ class PDActionRemoteGoToDiffblueTest {
     COSDictionary cOSObject = pdActionRemoteGoTo.getCOSObject();
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
-  }
-
-  /**
-   * Test {@link PDActionRemoteGoTo#getOpenInNewWindow()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDActionRemoteGoTo#PDActionRemoteGoTo(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDActionRemoteGoTo#getOpenInNewWindow()}
-   */
-  @Test
-  @DisplayName(
-      "Test getOpenInNewWindow(); given PDActionRemoteGoTo(COSDictionary) with a is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"OpenMode PDActionRemoteGoTo.getOpenInNewWindow()"})
-  void testGetOpenInNewWindow_givenPDActionRemoteGoToWithAIsCOSDictionary() {
-    // Arrange, Act and Assert
-    assertEquals(
-        OpenMode.USER_PREFERENCE, new PDActionRemoteGoTo(new COSDictionary()).getOpenInNewWindow());
   }
 
   /**

@@ -3484,7 +3484,6 @@ class PhotoshopSchemaDiffblueTest {
     photoshopSchema.setDateCreatedProperty(text);
 
     // Assert
-    assertNull(photoshopSchema.getDocumentAncestors());
     List<AbstractField> allProperties = photoshopSchema.getAllProperties();
     assertEquals(1, allProperties.size());
     assertSame(text, allProperties.get(0));
@@ -3503,7 +3502,7 @@ class PhotoshopSchemaDiffblueTest {
   void testSetDateCreatedProperty2() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
-    photoshopSchema.addDocumentAncestors("42");
+    photoshopSchema.addDocumentAncestors(PhotoshopSchema.DOCUMENT_ANCESTORS);
     DateType text =
         new DateType(
             XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "");
@@ -3512,7 +3511,6 @@ class PhotoshopSchemaDiffblueTest {
     photoshopSchema.setDateCreatedProperty(text);
 
     // Assert
-    assertEquals(1, photoshopSchema.getDocumentAncestors().size());
     List<AbstractField> allProperties = photoshopSchema.getAllProperties();
     assertEquals(2, allProperties.size());
     assertSame(text, allProperties.get(1));
@@ -3531,9 +3529,8 @@ class PhotoshopSchemaDiffblueTest {
   void testSetDateCreatedProperty3() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
-    photoshopSchema.addTextLayers(
-        PhotoshopSchema.DOCUMENT_ANCESTORS, PhotoshopSchema.DOCUMENT_ANCESTORS);
-    photoshopSchema.addDocumentAncestors("42");
+    photoshopSchema.addTextLayers("Layer Name", "Layer Text");
+    photoshopSchema.addDocumentAncestors(PhotoshopSchema.DOCUMENT_ANCESTORS);
     DateType text =
         new DateType(
             XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "");
@@ -3544,8 +3541,11 @@ class PhotoshopSchemaDiffblueTest {
     // Assert
     List<AbstractField> allProperties = photoshopSchema.getAllProperties();
     assertEquals(3, allProperties.size());
-    assertTrue(allProperties.get(0) instanceof ArrayProperty);
-    assertEquals(1, photoshopSchema.getDocumentAncestors().size());
+    AbstractField getResult = allProperties.get(0);
+    assertTrue(getResult instanceof ArrayProperty);
+    assertEquals(1, ((ArrayProperty) getResult).getAllProperties().size());
+    assertEquals(Cardinality.Seq, ((ArrayProperty) getResult).getArrayType());
+    assertEquals(PhotoshopSchema.TEXT_LAYERS, getResult.getPropertyName());
     assertSame(text, allProperties.get(2));
   }
 
@@ -3562,23 +3562,24 @@ class PhotoshopSchemaDiffblueTest {
   void testSetDateCreatedProperty4() {
     // Arrange
     PhotoshopSchema photoshopSchema = new PhotoshopSchema(XMPMetadata.createXMPMetadata());
-    photoshopSchema.addDocumentAncestors("42");
+    photoshopSchema.addBagValueAsSimple("Property Name", PhotoshopSchema.TEXT_LAYERS);
+    photoshopSchema.addTextLayers("Layer Name", "Layer Text");
+    photoshopSchema.addDocumentAncestors(PhotoshopSchema.DOCUMENT_ANCESTORS);
     DateType text =
         new DateType(
-            XMPMetadata.createXMPMetadata(),
-            "Namespace URI",
-            "Prefix",
-            PhotoshopSchema.DOCUMENT_ANCESTORS,
-            "");
+            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "");
 
     // Act
     photoshopSchema.setDateCreatedProperty(text);
 
     // Assert
-    assertNull(photoshopSchema.getDocumentAncestors());
     List<AbstractField> allProperties = photoshopSchema.getAllProperties();
-    assertEquals(1, allProperties.size());
-    assertSame(text, allProperties.get(0));
+    assertEquals(3, allProperties.size());
+    AbstractField getResult = allProperties.get(0);
+    assertTrue(getResult instanceof ArrayProperty);
+    assertEquals(1, ((ArrayProperty) getResult).getAllProperties().size());
+    assertEquals(Cardinality.Seq, ((ArrayProperty) getResult).getArrayType());
+    assertEquals(PhotoshopSchema.TEXT_LAYERS, getResult.getPropertyName());
   }
 
   /**

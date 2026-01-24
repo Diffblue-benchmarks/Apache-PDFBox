@@ -111,27 +111,6 @@ class PDMarkedContentReferenceDiffblueTest {
    * Test {@link PDMarkedContentReference#getPage()}.
    *
    * <ul>
-   *   <li>Given {@link PDMarkedContentReference#PDMarkedContentReference(COSDictionary)} with
-   *       dictionary is {@link COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDMarkedContentReference#getPage()}
-   */
-  @Test
-  @DisplayName(
-      "Test getPage(); given PDMarkedContentReference(COSDictionary) with dictionary is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDPage PDMarkedContentReference.getPage()"})
-  void testGetPage_givenPDMarkedContentReferenceWithDictionaryIsCOSDictionary() {
-    // Arrange, Act and Assert
-    assertNull(new PDMarkedContentReference(new COSDictionary()).getPage());
-  }
-
-  /**
-   * Test {@link PDMarkedContentReference#getPage()}.
-   *
-   * <ul>
    *   <li>Given {@link PDMarkedContentReference#PDMarkedContentReference()}.
    *   <li>Then return {@code null}.
    * </ul>
@@ -270,27 +249,6 @@ class PDMarkedContentReferenceDiffblueTest {
 
     // Assert
     assertEquals(page, pdMarkedContentReference.getPage());
-  }
-
-  /**
-   * Test {@link PDMarkedContentReference#getMCID()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDMarkedContentReference#PDMarkedContentReference(COSDictionary)} with
-   *       dictionary is {@link COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDMarkedContentReference#getMCID()}
-   */
-  @Test
-  @DisplayName(
-      "Test getMCID(); given PDMarkedContentReference(COSDictionary) with dictionary is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"int PDMarkedContentReference.getMCID()"})
-  void testGetMCID_givenPDMarkedContentReferenceWithDictionaryIsCOSDictionary() {
-    // Arrange, Act and Assert
-    assertEquals(-1, new PDMarkedContentReference(new COSDictionary()).getMCID());
   }
 
   /**

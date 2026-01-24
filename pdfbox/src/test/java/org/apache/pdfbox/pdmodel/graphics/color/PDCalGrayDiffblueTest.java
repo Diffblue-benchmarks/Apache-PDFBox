@@ -17,7 +17,6 @@ import org.apache.pdfbox.cos.COSArray;
 import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.cos.COSIncrement;
 import org.apache.pdfbox.cos.COSName;
-import org.apache.pdfbox.cos.COSStream;
 import org.apache.pdfbox.cos.COSUpdateState;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -87,41 +86,6 @@ class PDCalGrayDiffblueTest {
     assertEquals(1.0f, actualPdCalGray.wpY);
     assertEquals(1.0f, actualPdCalGray.wpZ);
     assertSame(array, actualPdCalGray.getCOSObject());
-  }
-
-  /**
-   * Test {@link PDCalGray#PDCalGray(COSArray)}.
-   *
-   * <ul>
-   *   <li>Given {@link COSStream#COSStream()}.
-   *   <li>Then {@link PDCIEDictionaryBasedColorSpace#dictionary} return {@link COSStream}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDCalGray#PDCalGray(COSArray)}
-   */
-  @Test
-  @DisplayName("Test new PDCalGray(COSArray); given COSStream(); then dictionary return COSStream")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDCalGray.<init>(COSArray)"})
-  void testNewPDCalGray_givenCOSStream_thenDictionaryReturnCOSStream() {
-    // Arrange
-    COSArray array = mock(COSArray.class);
-    when(array.getObject(anyInt())).thenReturn(new COSStream());
-
-    // Act
-    PDCalGray actualPdCalGray = new PDCalGray(array);
-
-    // Assert
-    verify(array).getObject(1);
-    COSDictionary cosDictionary = actualPdCalGray.dictionary;
-    assertTrue(cosDictionary instanceof COSStream);
-    assertNull(((COSStream) cosDictionary).getFilters());
-    assertEquals(0L, ((COSStream) cosDictionary).getLength());
-    assertEquals(1, cosDictionary.getValues().size());
-    assertEquals(1, cosDictionary.size());
-    assertFalse(((COSStream) cosDictionary).hasData());
-    assertArrayEquals(new float[] {0.0f}, actualPdCalGray.getInitialColor().getComponents(), 0.0f);
   }
 
   /**

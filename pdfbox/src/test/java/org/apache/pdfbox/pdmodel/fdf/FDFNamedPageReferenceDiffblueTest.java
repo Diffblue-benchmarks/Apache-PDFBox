@@ -232,32 +232,6 @@ class FDFNamedPageReferenceDiffblueTest {
    * Test {@link FDFNamedPageReference#getFileSpecification()}.
    *
    * <ul>
-   *   <li>Given {@link FDFNamedPageReference#FDFNamedPageReference()} Name is {@code Name}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFNamedPageReference#getFileSpecification()}
-   */
-  @Test
-  @DisplayName(
-      "Test getFileSpecification(); given FDFNamedPageReference() Name is 'Name'; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDFileSpecification FDFNamedPageReference.getFileSpecification()"})
-  void testGetFileSpecification_givenFDFNamedPageReferenceNameIsName_thenReturnNull()
-      throws IOException {
-    // Arrange
-    FDFNamedPageReference fdfNamedPageReference = new FDFNamedPageReference();
-    fdfNamedPageReference.setName("Name");
-
-    // Act and Assert
-    assertNull(fdfNamedPageReference.getFileSpecification());
-  }
-
-  /**
-   * Test {@link FDFNamedPageReference#getFileSpecification()}.
-   *
-   * <ul>
    *   <li>Given {@link FDFNamedPageReference#FDFNamedPageReference()}.
    *   <li>Then return {@code null}.
    * </ul>

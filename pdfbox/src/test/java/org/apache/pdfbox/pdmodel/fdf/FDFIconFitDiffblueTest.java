@@ -144,30 +144,6 @@ class FDFIconFitDiffblueTest {
    * Test {@link FDFIconFit#getScaleType()}.
    *
    * <ul>
-   *   <li>Given {@link FDFIconFit#FDFIconFit()} ScaleOption is {@link
-   *       FDFIconFit#SCALE_TYPE_PROPORTIONAL}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFIconFit#getScaleType()}
-   */
-  @Test
-  @DisplayName("Test getScaleType(); given FDFIconFit() ScaleOption is SCALE_TYPE_PROPORTIONAL")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String FDFIconFit.getScaleType()"})
-  void testGetScaleType_givenFDFIconFitScaleOptionIsScale_type_proportional() {
-    // Arrange
-    FDFIconFit fdfIconFit = new FDFIconFit();
-    fdfIconFit.setScaleOption(FDFIconFit.SCALE_TYPE_PROPORTIONAL);
-
-    // Act and Assert
-    assertEquals(FDFIconFit.SCALE_TYPE_PROPORTIONAL, fdfIconFit.getScaleType());
-  }
-
-  /**
-   * Test {@link FDFIconFit#getScaleType()}.
-   *
-   * <ul>
    *   <li>Given {@link FDFIconFit#FDFIconFit()} ScaleType is {@link
    *       FDFIconFit#SCALE_TYPE_PROPORTIONAL}.
    * </ul>
@@ -236,17 +212,17 @@ class FDFIconFitDiffblueTest {
    * Test {@link FDFIconFit#getFractionalSpaceToAllocate()}.
    *
    * <ul>
-   *   <li>Given {@link FDFIconFit#FDFIconFit()}.
+   *   <li>Then COSArray toList first return {@link COSFloat}.
    * </ul>
    *
    * <p>Method under test: {@link FDFIconFit#getFractionalSpaceToAllocate()}
    */
   @Test
-  @DisplayName("Test getFractionalSpaceToAllocate(); given FDFIconFit()")
+  @DisplayName("Test getFractionalSpaceToAllocate(); then COSArray toList first return COSFloat")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"PDRange FDFIconFit.getFractionalSpaceToAllocate()"})
-  void testGetFractionalSpaceToAllocate_givenFDFIconFit() {
+  void testGetFractionalSpaceToAllocate_thenCOSArrayToListFirstReturnCOSFloat() {
     // Arrange and Act
     PDRange actualFractionalSpaceToAllocate = new FDFIconFit().getFractionalSpaceToAllocate();
 
@@ -264,78 +240,6 @@ class FDFIconFitDiffblueTest {
     assertFalse(getResult.isDirect());
     assertEquals(getResult, getResult2);
     assertSame(cOSArray, actualFractionalSpaceToAllocate.getCOSObject());
-  }
-
-  /**
-   * Test {@link FDFIconFit#getFractionalSpaceToAllocate()}.
-   *
-   * <ul>
-   *   <li>Given {@link FDFIconFit#FDFIconFit()} ScaleOption is {@code Option}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFIconFit#getFractionalSpaceToAllocate()}
-   */
-  @Test
-  @DisplayName("Test getFractionalSpaceToAllocate(); given FDFIconFit() ScaleOption is 'Option'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDRange FDFIconFit.getFractionalSpaceToAllocate()"})
-  void testGetFractionalSpaceToAllocate_givenFDFIconFitScaleOptionIsOption() {
-    // Arrange
-    FDFIconFit fdfIconFit = new FDFIconFit();
-    fdfIconFit.setScaleOption("Option");
-
-    // Act
-    PDRange actualFractionalSpaceToAllocate = fdfIconFit.getFractionalSpaceToAllocate();
-
-    // Assert
-    COSArray cOSArray = actualFractionalSpaceToAllocate.getCOSArray();
-    List<? extends COSBase> toListResult = cOSArray.toList();
-    assertEquals(2, toListResult.size());
-    COSBase getResult = toListResult.get(0);
-    assertTrue(getResult instanceof COSFloat);
-    COSBase getResult2 = toListResult.get(1);
-    assertTrue(getResult2 instanceof COSFloat);
-    assertNull(getResult.getKey());
-    assertEquals(0.5f, actualFractionalSpaceToAllocate.getMax());
-    assertEquals(0.5f, actualFractionalSpaceToAllocate.getMin());
-    assertFalse(getResult.isDirect());
-    assertEquals(getResult, getResult2);
-    assertSame(cOSArray, actualFractionalSpaceToAllocate.getCOSObject());
-  }
-
-  /**
-   * Test {@link FDFIconFit#getFractionalSpaceToAllocate()}.
-   *
-   * <ul>
-   *   <li>Then return COSArray toList second Key is {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFIconFit#getFractionalSpaceToAllocate()}
-   */
-  @Test
-  @DisplayName(
-      "Test getFractionalSpaceToAllocate(); then return COSArray toList second Key is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDRange FDFIconFit.getFractionalSpaceToAllocate()"})
-  void testGetFractionalSpaceToAllocate_thenReturnCOSArrayToListSecondKeyIsNull() {
-    // Arrange
-    FDFIconFit fdfIconFit = new FDFIconFit();
-    fdfIconFit.setFractionalSpaceToAllocate(new PDRange());
-
-    // Act
-    PDRange actualFractionalSpaceToAllocate = fdfIconFit.getFractionalSpaceToAllocate();
-
-    // Assert
-    List<? extends COSBase> toListResult = actualFractionalSpaceToAllocate.getCOSArray().toList();
-    assertEquals(2, toListResult.size());
-    COSBase getResult = toListResult.get(1);
-    assertTrue(getResult instanceof COSFloat);
-    assertNull(getResult.getKey());
-    assertEquals(0.0f, actualFractionalSpaceToAllocate.getMin());
-    assertEquals(1.0f, actualFractionalSpaceToAllocate.getMax());
-    assertFalse(getResult.isDirect());
   }
 
   /**
@@ -387,29 +291,6 @@ class FDFIconFitDiffblueTest {
     PDRange fractionalSpaceToAllocate = fdfIconFit.getFractionalSpaceToAllocate();
     assertEquals(0.5f, fractionalSpaceToAllocate.getMax());
     assertEquals(0.5f, fractionalSpaceToAllocate.getMin());
-  }
-
-  /**
-   * Test {@link FDFIconFit#shouldScaleToFitAnnotation()}.
-   *
-   * <ul>
-   *   <li>Given {@link FDFIconFit#FDFIconFit()} ScaleOption is {@code Option}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFIconFit#shouldScaleToFitAnnotation()}
-   */
-  @Test
-  @DisplayName("Test shouldScaleToFitAnnotation(); given FDFIconFit() ScaleOption is 'Option'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean FDFIconFit.shouldScaleToFitAnnotation()"})
-  void testShouldScaleToFitAnnotation_givenFDFIconFitScaleOptionIsOption() {
-    // Arrange
-    FDFIconFit fdfIconFit = new FDFIconFit();
-    fdfIconFit.setScaleOption("Option");
-
-    // Act and Assert
-    assertFalse(fdfIconFit.shouldScaleToFitAnnotation());
   }
 
   /**

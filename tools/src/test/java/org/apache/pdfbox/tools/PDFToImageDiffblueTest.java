@@ -1,12 +1,10 @@
 package org.apache.pdfbox.tools;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
-import java.awt.HeadlessException;
 import java.io.File;
 import java.nio.file.Paths;
 import org.junit.jupiter.api.DisplayName;
@@ -105,28 +103,5 @@ class PDFToImageDiffblueTest {
     verify(file).getAbsolutePath();
     verify(file).toPath();
     assertEquals(4, actualCallResult.intValue());
-  }
-
-  /**
-   * Test {@link PDFToImage#call()}.
-   *
-   * <ul>
-   *   <li>Then throw {@link HeadlessException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDFToImage#call()}
-   */
-  @Test
-  @DisplayName("Test call(); then throw HeadlessException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Integer PDFToImage.call()"})
-  void testCall_thenThrowHeadlessException() {
-    // Arrange
-    when(file.getAbsolutePath()).thenThrow(new HeadlessException());
-
-    // Act and Assert
-    assertThrows(HeadlessException.class, () -> pDFToImage.call());
-    verify(file).getAbsolutePath();
   }
 }

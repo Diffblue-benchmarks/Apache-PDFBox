@@ -13,7 +13,6 @@ import org.apache.pdfbox.cos.COSArray;
 import org.apache.pdfbox.cos.COSBase;
 import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.cos.COSFloat;
-import org.apache.pdfbox.cos.COSStream;
 import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDMMType1Font;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
@@ -149,36 +148,6 @@ class PDFontSettingDiffblueTest {
     // Arrange
     PDFontSetting pdFontSetting = new PDFontSetting();
     PDMMType1Font font = new PDMMType1Font(new COSDictionary(new COSDictionary()));
-    pdFontSetting.setFont(font);
-
-    // Act
-    PDFont actualFont = pdFontSetting.getFont();
-
-    // Assert
-    assertTrue(actualFont instanceof PDType1Font);
-    assertEquals(font, actualFont);
-  }
-
-  /**
-   * Test {@link PDFontSetting#getFont()}.
-   *
-   * <ul>
-   *   <li>Then return {@link PDMMType1Font#PDMMType1Font(COSDictionary)} with fontDictionary is
-   *       {@link COSStream#COSStream()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDFontSetting#getFont()}
-   */
-  @Test
-  @DisplayName(
-      "Test getFont(); then return PDMMType1Font(COSDictionary) with fontDictionary is COSStream()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDFont PDFontSetting.getFont()"})
-  void testGetFont_thenReturnPDMMType1FontWithFontDictionaryIsCOSStream() throws IOException {
-    // Arrange
-    PDFontSetting pdFontSetting = new PDFontSetting();
-    PDMMType1Font font = new PDMMType1Font(new COSStream());
     pdFontSetting.setFont(font);
 
     // Act

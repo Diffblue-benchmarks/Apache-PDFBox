@@ -9,7 +9,6 @@ import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.cos.COSIncrement;
-import org.apache.pdfbox.cos.COSStream;
 import org.apache.pdfbox.cos.COSUpdateState;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -90,50 +89,6 @@ class PDURIDictionaryDiffblueTest {
     assertFalse(updateState.isUpdated());
     assertTrue(actualCOSObject.getValues().isEmpty());
     assertTrue(toIncrementResult.getObjects().isEmpty());
-  }
-
-  /**
-   * Test {@link PDURIDictionary#getBase()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDURIDictionary#PDURIDictionary(COSDictionary)} with dictionary is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDURIDictionary#getBase()}
-   */
-  @Test
-  @DisplayName(
-      "Test getBase(); given PDURIDictionary(COSDictionary) with dictionary is COSDictionary(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String PDURIDictionary.getBase()"})
-  void testGetBase_givenPDURIDictionaryWithDictionaryIsCOSDictionary_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull(new PDURIDictionary(new COSDictionary()).getBase());
-  }
-
-  /**
-   * Test {@link PDURIDictionary#getBase()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDURIDictionary#PDURIDictionary(COSDictionary)} with dictionary is {@link
-   *       COSStream#COSStream()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDURIDictionary#getBase()}
-   */
-  @Test
-  @DisplayName(
-      "Test getBase(); given PDURIDictionary(COSDictionary) with dictionary is COSStream(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String PDURIDictionary.getBase()"})
-  void testGetBase_givenPDURIDictionaryWithDictionaryIsCOSStream_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull(new PDURIDictionary(new COSStream()).getBase());
   }
 
   /**

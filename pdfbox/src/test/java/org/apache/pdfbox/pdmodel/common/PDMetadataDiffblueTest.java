@@ -3,15 +3,21 @@ package org.apache.pdfbox.pdmodel.common;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.isA;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.ByteArrayInputStream;
+import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.pdfbox.cos.COSStream;
@@ -24,6 +30,7 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 class PDMetadataDiffblueTest {
   /**
@@ -42,6 +49,39 @@ class PDMetadataDiffblueTest {
 
     // Act and Assert
     assertSame(str, new PDMetadata(str).getCOSObject());
+  }
+
+  /**
+   * Test {@link PDMetadata#PDMetadata(PDDocument, InputStream)}.
+   *
+   * <ul>
+   *   <li>Given {@link IOException#IOException()}.
+   *   <li>Then throw {@link IOException}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDMetadata#PDMetadata(PDDocument, InputStream)}
+   */
+  @Test
+  @DisplayName(
+      "Test new PDMetadata(PDDocument, InputStream); given IOException(); then throw IOException")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDMetadata.<init>(PDDocument, InputStream)"})
+  void testNewPDMetadata_givenIOException_thenThrowIOException() throws IOException {
+    // Arrange
+    StreamCacheCreateFunction streamCacheCreateFunction = mock(StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDDocument doc = new PDDocument(streamCacheCreateFunction);
+
+    DataInputStream str = mock(DataInputStream.class);
+    when(str.transferTo(Mockito.<OutputStream>any())).thenThrow(new IOException());
+    doThrow(new IOException()).when(str).close();
+
+    // Act and Assert
+    assertThrows(IOException.class, () -> new PDMetadata(doc, str));
+    verify(str).close();
+    verify(str).transferTo(isA(OutputStream.class));
+    verify(streamCacheCreateFunction).create();
   }
 
   /**
@@ -84,6 +124,50 @@ class PDMetadataDiffblueTest {
    * Test {@link PDMetadata#PDMetadata(PDDocument, InputStream)}.
    *
    * <ul>
+   *   <li>Given one.
+   *   <li>Then return DecodeParms is {@code null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDMetadata#PDMetadata(PDDocument, InputStream)}
+   */
+  @Test
+  @DisplayName(
+      "Test new PDMetadata(PDDocument, InputStream); given one; then return DecodeParms is 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDMetadata.<init>(PDDocument, InputStream)"})
+  void testNewPDMetadata_givenOne_thenReturnDecodeParmsIsNull() throws IOException {
+    // Arrange
+    StreamCacheCreateFunction streamCacheCreateFunction = mock(StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDDocument doc = new PDDocument(streamCacheCreateFunction);
+
+    DataInputStream str = mock(DataInputStream.class);
+    when(str.transferTo(Mockito.<OutputStream>any())).thenReturn(1L);
+    doNothing().when(str).close();
+
+    // Act
+    PDMetadata actualPdMetadata = new PDMetadata(doc, str);
+
+    // Assert
+    verify(str).close();
+    verify(str).transferTo(isA(OutputStream.class));
+    verify(streamCacheCreateFunction).create();
+    assertNull(actualPdMetadata.getDecodeParms());
+    assertNull(actualPdMetadata.getFileDecodeParams());
+    assertNull(actualPdMetadata.getMetadata());
+    assertNull(actualPdMetadata.getFile());
+    assertEquals(-1, actualPdMetadata.getDecodedStreamLength());
+    assertEquals(0, actualPdMetadata.getLength());
+    List<String> fileFilters = actualPdMetadata.getFileFilters();
+    assertTrue(fileFilters.isEmpty());
+    assertSame(fileFilters, actualPdMetadata.getFilters());
+  }
+
+  /**
+   * Test {@link PDMetadata#PDMetadata(PDDocument, InputStream)}.
+   *
+   * <ul>
    *   <li>Then {@link ByteArrayInputStream#ByteArrayInputStream(byte[])} with {@code AXAXAXAX}
    *       Bytes is {@code UTF-8} read is minus one.
    * </ul>
@@ -110,41 +194,6 @@ class PDMetadataDiffblueTest {
     assertEquals(-1, actualReadResult);
     assertEquals(8, actualPdMetadata.getLength());
     assertEquals(8L, actualPdMetadata.getCOSObject().getLength());
-  }
-
-  /**
-   * Test {@link PDMetadata#PDMetadata(PDDocument, InputStream)}.
-   *
-   * <ul>
-   *   <li>Then {@link ByteArrayInputStream#ByteArrayInputStream(byte[])} with empty array of {@code
-   *       byte} read is minus one.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDMetadata#PDMetadata(PDDocument, InputStream)}
-   */
-  @Test
-  @DisplayName(
-      "Test new PDMetadata(PDDocument, InputStream); then ByteArrayInputStream(byte[]) with empty array of byte read is minus one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDMetadata.<init>(PDDocument, InputStream)"})
-  void testNewPDMetadata_thenByteArrayInputStreamWithEmptyArrayOfByteReadIsMinusOne()
-      throws IOException {
-    // Arrange
-    StreamCacheCreateFunction streamCacheCreateFunction = mock(StreamCacheCreateFunction.class);
-    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
-    PDDocument doc = new PDDocument(streamCacheCreateFunction);
-    ByteArrayInputStream str = new ByteArrayInputStream(new byte[] {});
-
-    // Act
-    PDMetadata actualPdMetadata = new PDMetadata(doc, str);
-
-    // Assert
-    verify(streamCacheCreateFunction).create();
-    int actualReadResult = str.read(new byte[] {});
-    assertEquals(-1, actualReadResult);
-    assertEquals(0, actualPdMetadata.getLength());
-    assertEquals(0L, actualPdMetadata.getCOSObject().getLength());
   }
 
   /**

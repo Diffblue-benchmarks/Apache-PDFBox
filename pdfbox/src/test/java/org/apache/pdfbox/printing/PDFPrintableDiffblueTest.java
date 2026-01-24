@@ -3,7 +3,6 @@ package org.apache.pdfbox.printing;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
@@ -11,15 +10,9 @@ import java.awt.Graphics;
 import java.awt.RenderingHints;
 import java.awt.print.PageFormat;
 import java.awt.print.PrinterException;
-import java.util.List;
 import javax.swing.DebugGraphics;
-import org.apache.pdfbox.cos.COSArray;
-import org.apache.pdfbox.cos.COSBase;
-import org.apache.pdfbox.cos.COSDictionary;
-import org.apache.pdfbox.cos.COSFloat;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
-import org.apache.pdfbox.pdmodel.common.PDImmutableRectangle;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.rendering.PDFRenderer;
 import org.junit.jupiter.api.DisplayName;
@@ -302,17 +295,10 @@ class PDFPrintableDiffblueTest {
     PDRectangle actualRotatedCropBox = PDFPrintable.getRotatedCropBox(page);
 
     // Assert
-    COSArray cOSArray = actualRotatedCropBox.getCOSArray();
-    List<? extends COSBase> toListResult = cOSArray.toList();
-    assertEquals(4, toListResult.size());
-    COSBase getResult = toListResult.get(1);
-    assertTrue(getResult instanceof COSFloat);
     assertEquals(0.0f, actualRotatedCropBox.getLowerLeftX());
     assertEquals(0.0f, actualRotatedCropBox.getLowerLeftY());
     assertEquals(612.0f, actualRotatedCropBox.getWidth());
     assertEquals(792.0f, actualRotatedCropBox.getHeight());
-    assertEquals(toListResult.get(0), getResult);
-    assertSame(cOSArray, actualRotatedCropBox.getCOSObject());
   }
 
   /**
@@ -350,44 +336,6 @@ class PDFPrintableDiffblueTest {
    * Test {@link PDFPrintable#getRotatedCropBox(PDPage)}.
    *
    * <ul>
-   *   <li>Then return {@link PDImmutableRectangle}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDFPrintable#getRotatedCropBox(PDPage)}
-   */
-  @Test
-  @DisplayName("Test getRotatedCropBox(PDPage); then return PDImmutableRectangle")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDRectangle PDFPrintable.getRotatedCropBox(PDPage)"})
-  void testGetRotatedCropBox_thenReturnPDImmutableRectangle() {
-    // Arrange
-    PDPage page = new PDPage(new COSDictionary());
-
-    // Act
-    PDRectangle actualRotatedCropBox = PDFPrintable.getRotatedCropBox(page);
-
-    // Assert
-    COSArray cOSArray = actualRotatedCropBox.getCOSArray();
-    List<? extends COSBase> toListResult = cOSArray.toList();
-    assertEquals(4, toListResult.size());
-    COSBase getResult = toListResult.get(1);
-    assertTrue(getResult instanceof COSFloat);
-    assertTrue(actualRotatedCropBox instanceof PDImmutableRectangle);
-    assertEquals(toListResult.get(0), getResult);
-    assertSame(cOSArray, actualRotatedCropBox.getCOSObject());
-    PDRectangle pdRectangle = PDRectangle.LETTER;
-    assertSame(pdRectangle, page.getArtBox());
-    assertSame(pdRectangle, page.getBBox());
-    assertSame(pdRectangle, page.getBleedBox());
-    assertSame(pdRectangle, page.getCropBox());
-    assertSame(pdRectangle, page.getMediaBox());
-  }
-
-  /**
-   * Test {@link PDFPrintable#getRotatedCropBox(PDPage)}.
-   *
-   * <ul>
    *   <li>When {@link PDPage#PDPage()}.
    *   <li>Then return LowerLeftX is zero.
    * </ul>
@@ -404,55 +352,41 @@ class PDFPrintableDiffblueTest {
     PDRectangle actualRotatedCropBox = PDFPrintable.getRotatedCropBox(new PDPage());
 
     // Assert
-    COSArray cOSArray = actualRotatedCropBox.getCOSArray();
-    List<? extends COSBase> toListResult = cOSArray.toList();
-    assertEquals(4, toListResult.size());
-    COSBase getResult = toListResult.get(1);
-    assertTrue(getResult instanceof COSFloat);
     assertEquals(0.0f, actualRotatedCropBox.getLowerLeftX());
     assertEquals(0.0f, actualRotatedCropBox.getLowerLeftY());
     assertEquals(612.0f, actualRotatedCropBox.getWidth());
     assertEquals(792.0f, actualRotatedCropBox.getHeight());
-    assertEquals(toListResult.get(0), getResult);
-    assertSame(cOSArray, actualRotatedCropBox.getCOSObject());
   }
 
   /**
    * Test {@link PDFPrintable#getRotatedMediaBox(PDPage)}.
    *
    * <ul>
-   *   <li>Then return {@link PDImmutableRectangle}.
+   *   <li>Given ninety.
+   *   <li>Then return Height is six hundred twelve.
    * </ul>
    *
    * <p>Method under test: {@link PDFPrintable#getRotatedMediaBox(PDPage)}
    */
   @Test
-  @DisplayName("Test getRotatedMediaBox(PDPage); then return PDImmutableRectangle")
+  @DisplayName(
+      "Test getRotatedMediaBox(PDPage); given ninety; then return Height is six hundred twelve")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"PDRectangle PDFPrintable.getRotatedMediaBox(PDPage)"})
-  void testGetRotatedMediaBox_thenReturnPDImmutableRectangle() {
+  void testGetRotatedMediaBox_givenNinety_thenReturnHeightIsSixHundredTwelve() {
     // Arrange
-    PDPage page = new PDPage(new COSDictionary());
+    PDPage page = new PDPage();
+    page.setRotation(90);
 
     // Act
     PDRectangle actualRotatedMediaBox = PDFPrintable.getRotatedMediaBox(page);
 
     // Assert
-    COSArray cOSArray = actualRotatedMediaBox.getCOSArray();
-    List<? extends COSBase> toListResult = cOSArray.toList();
-    assertEquals(4, toListResult.size());
-    COSBase getResult = toListResult.get(1);
-    assertTrue(getResult instanceof COSFloat);
-    assertTrue(actualRotatedMediaBox instanceof PDImmutableRectangle);
-    assertEquals(toListResult.get(0), getResult);
-    assertSame(cOSArray, actualRotatedMediaBox.getCOSObject());
-    PDRectangle pdRectangle = PDRectangle.LETTER;
-    assertSame(pdRectangle, page.getArtBox());
-    assertSame(pdRectangle, page.getBBox());
-    assertSame(pdRectangle, page.getBleedBox());
-    assertSame(pdRectangle, page.getCropBox());
-    assertSame(pdRectangle, page.getMediaBox());
+    assertEquals(612.0f, actualRotatedMediaBox.getHeight());
+    assertEquals(612.0f, actualRotatedMediaBox.getUpperRightY());
+    assertEquals(792.0f, actualRotatedMediaBox.getUpperRightX());
+    assertEquals(792.0f, actualRotatedMediaBox.getWidth());
   }
 
   /**
@@ -460,38 +394,25 @@ class PDFPrintableDiffblueTest {
    *
    * <ul>
    *   <li>When {@link PDPage#PDPage()}.
-   *   <li>Then COSArray toList first return {@link COSFloat}.
+   *   <li>Then return UpperRightX is six hundred twelve.
    * </ul>
    *
    * <p>Method under test: {@link PDFPrintable#getRotatedMediaBox(PDPage)}
    */
   @Test
   @DisplayName(
-      "Test getRotatedMediaBox(PDPage); when PDPage(); then COSArray toList first return COSFloat")
+      "Test getRotatedMediaBox(PDPage); when PDPage(); then return UpperRightX is six hundred twelve")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"PDRectangle PDFPrintable.getRotatedMediaBox(PDPage)"})
-  void testGetRotatedMediaBox_whenPDPage_thenCOSArrayToListFirstReturnCOSFloat() {
+  void testGetRotatedMediaBox_whenPDPage_thenReturnUpperRightXIsSixHundredTwelve() {
     // Arrange and Act
     PDRectangle actualRotatedMediaBox = PDFPrintable.getRotatedMediaBox(new PDPage());
 
     // Assert
-    COSArray cOSArray = actualRotatedMediaBox.getCOSArray();
-    List<? extends COSBase> toListResult = cOSArray.toList();
-    assertEquals(4, toListResult.size());
-    COSBase getResult = toListResult.get(0);
-    assertTrue(getResult instanceof COSFloat);
-    COSBase getResult2 = toListResult.get(1);
-    assertTrue(getResult2 instanceof COSFloat);
-    assertTrue(toListResult.get(2) instanceof COSFloat);
-    assertTrue(toListResult.get(3) instanceof COSFloat);
-    assertEquals(0.0f, actualRotatedMediaBox.getLowerLeftX());
-    assertEquals(0.0f, actualRotatedMediaBox.getLowerLeftY());
     assertEquals(612.0f, actualRotatedMediaBox.getUpperRightX());
     assertEquals(612.0f, actualRotatedMediaBox.getWidth());
     assertEquals(792.0f, actualRotatedMediaBox.getHeight());
     assertEquals(792.0f, actualRotatedMediaBox.getUpperRightY());
-    assertEquals(getResult, getResult2);
-    assertSame(cOSArray, actualRotatedMediaBox.getCOSObject());
   }
 }

@@ -78,29 +78,6 @@ class PDActionGoToDiffblueTest {
    * Test {@link PDActionGoTo#getDestination()}.
    *
    * <ul>
-   *   <li>Given {@link PDActionGoTo#PDActionGoTo(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDActionGoTo#getDestination()}
-   */
-  @Test
-  @DisplayName(
-      "Test getDestination(); given PDActionGoTo(COSDictionary) with a is COSDictionary(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDDestination PDActionGoTo.getDestination()"})
-  void testGetDestination_givenPDActionGoToWithAIsCOSDictionary_thenReturnNull()
-      throws IOException {
-    // Arrange, Act and Assert
-    assertNull(new PDActionGoTo(new COSDictionary()).getDestination());
-  }
-
-  /**
-   * Test {@link PDActionGoTo#getDestination()}.
-   *
-   * <ul>
    *   <li>Given {@link PDActionGoTo#PDActionGoTo()}.
    *   <li>Then return {@code null}.
    * </ul>

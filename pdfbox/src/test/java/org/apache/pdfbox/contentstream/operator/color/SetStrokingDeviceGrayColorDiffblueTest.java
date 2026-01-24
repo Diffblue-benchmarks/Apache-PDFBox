@@ -27,8 +27,6 @@ import org.apache.pdfbox.cos.COSName;
 import org.apache.pdfbox.pdmodel.DefaultResourceCache;
 import org.apache.pdfbox.pdmodel.PDResources;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
-import org.apache.pdfbox.pdmodel.font.PDFont;
-import org.apache.pdfbox.pdmodel.font.PDMMType1Font;
 import org.apache.pdfbox.pdmodel.graphics.color.PDColor;
 import org.apache.pdfbox.pdmodel.graphics.color.PDColorSpace;
 import org.apache.pdfbox.pdmodel.graphics.color.PDDeviceGray;
@@ -104,14 +102,9 @@ class SetStrokingDeviceGrayColorDiffblueTest {
   @MethodsUnderTest({"void SetStrokingDeviceGrayColor.process(Operator, List)"})
   void testProcess2() throws IOException {
     // Arrange
-    PDResources pdResources = mock(PDResources.class);
-    when(pdResources.add(Mockito.<PDFont>any())).thenReturn(COSName.A);
-    when(pdResources.getColorSpace(Mockito.<COSName>any())).thenReturn(PDDeviceGray.INSTANCE);
-    pdResources.add(new PDMMType1Font(new COSDictionary()));
-
     PageDrawer context = mock(PageDrawer.class);
     when(context.getGraphicsState()).thenReturn(new PDGraphicsState(PDRectangle.A0));
-    when(context.getResources()).thenReturn(pdResources);
+    when(context.getResources()).thenReturn(new PDResources());
     SetStrokingDeviceGrayColor setStrokingDeviceGrayColor = new SetStrokingDeviceGrayColor(context);
     Operator operator = Operator.getOperator("Operator");
 
@@ -124,8 +117,6 @@ class SetStrokingDeviceGrayColorDiffblueTest {
     // Assert
     verify(context, atLeast(1)).getGraphicsState();
     verify(context).getResources();
-    verify(pdResources).add(isA(PDFont.class));
-    verify(pdResources).getColorSpace(isA(COSName.class));
     PDColorSpace colorSpace = setStrokingDeviceGrayColor.getColorSpace();
     assertTrue(colorSpace instanceof PDDeviceGray);
     PDColor initialColor = colorSpace.getInitialColor();
@@ -150,14 +141,9 @@ class SetStrokingDeviceGrayColorDiffblueTest {
   @MethodsUnderTest({"void SetStrokingDeviceGrayColor.process(Operator, List)"})
   void testProcess3() throws IOException {
     // Arrange
-    PDResources pdResources = mock(PDResources.class);
-    when(pdResources.add(Mockito.<PDFont>any())).thenReturn(COSName.A);
-    when(pdResources.getColorSpace(Mockito.<COSName>any())).thenReturn(PDDeviceGray.INSTANCE);
-    pdResources.add(new PDMMType1Font(new COSDictionary()));
-
     PageDrawer context = mock(PageDrawer.class);
     when(context.getGraphicsState()).thenReturn(new PDGraphicsState(PDRectangle.A0));
-    when(context.getResources()).thenReturn(pdResources);
+    when(context.getResources()).thenReturn(new PDResources());
     SetStrokingDeviceGrayColor setStrokingDeviceGrayColor = new SetStrokingDeviceGrayColor(context);
     Operator operator = Operator.getOperator("Operator");
 
@@ -171,8 +157,6 @@ class SetStrokingDeviceGrayColorDiffblueTest {
     // Assert
     verify(context, atLeast(1)).getGraphicsState();
     verify(context).getResources();
-    verify(pdResources).add(isA(PDFont.class));
-    verify(pdResources).getColorSpace(isA(COSName.class));
     PDColorSpace colorSpace = setStrokingDeviceGrayColor.getColorSpace();
     assertTrue(colorSpace instanceof PDDeviceGray);
     PDColor initialColor = colorSpace.getInitialColor();
@@ -225,62 +209,24 @@ class SetStrokingDeviceGrayColorDiffblueTest {
    * Test {@link SetStrokingDeviceGrayColor#process(Operator, List)}.
    *
    * <ul>
-   *   <li>Given {@link PDResources#PDResources()} add {@link
-   *       PDMMType1Font#PDMMType1Font(COSDictionary)} with fontDictionary is {@link
-   *       COSDictionary#COSDictionary()}.
+   *   <li>Given {@link PDResources} {@link PDResources#getColorSpace(COSName)} return {@link
+   *       PDDeviceGray#INSTANCE}.
+   *   <li>Then calls {@link PDResources#getColorSpace(COSName)}.
    * </ul>
    *
    * <p>Method under test: {@link SetStrokingDeviceGrayColor#process(Operator, List)}
    */
   @Test
   @DisplayName(
-      "Test process(Operator, List); given PDResources() add PDMMType1Font(COSDictionary) with fontDictionary is COSDictionary()")
+      "Test process(Operator, List); given PDResources getColorSpace(COSName) return INSTANCE; then calls getColorSpace(COSName)")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void SetStrokingDeviceGrayColor.process(Operator, List)"})
-  void testProcess_givenPDResourcesAddPDMMType1FontWithFontDictionaryIsCOSDictionary()
+  void testProcess_givenPDResourcesGetColorSpaceReturnInstance_thenCallsGetColorSpace()
       throws IOException {
     // Arrange
-    PDResources pdResources = new PDResources();
-    pdResources.add(new PDMMType1Font(new COSDictionary()));
-
-    PageDrawer context = mock(PageDrawer.class);
-    when(context.getGraphicsState()).thenReturn(new PDGraphicsState(PDRectangle.A0));
-    when(context.getResources()).thenReturn(pdResources);
-    SetStrokingDeviceGrayColor setStrokingDeviceGrayColor = new SetStrokingDeviceGrayColor(context);
-    Operator operator = Operator.getOperator("Operator");
-
-    // Act and Assert
-    assertThrows(
-        MissingOperandException.class,
-        () -> setStrokingDeviceGrayColor.process(operator, new ArrayList<>()));
-    verify(context, atLeast(1)).getGraphicsState();
-    verify(context).getResources();
-  }
-
-  /**
-   * Test {@link SetStrokingDeviceGrayColor#process(Operator, List)}.
-   *
-   * <ul>
-   *   <li>Given {@link PDResources} {@link PDResources#add(PDFont)} return {@link COSName#A}.
-   *   <li>When {@link ArrayList#ArrayList()}.
-   *   <li>Then calls {@link PDResources#add(PDFont)}.
-   * </ul>
-   *
-   * <p>Method under test: {@link SetStrokingDeviceGrayColor#process(Operator, List)}
-   */
-  @Test
-  @DisplayName(
-      "Test process(Operator, List); given PDResources add(PDFont) return A; when ArrayList(); then calls add(PDFont)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void SetStrokingDeviceGrayColor.process(Operator, List)"})
-  void testProcess_givenPDResourcesAddReturnA_whenArrayList_thenCallsAdd() throws IOException {
-    // Arrange
     PDResources pdResources = mock(PDResources.class);
-    when(pdResources.add(Mockito.<PDFont>any())).thenReturn(COSName.A);
     when(pdResources.getColorSpace(Mockito.<COSName>any())).thenReturn(PDDeviceGray.INSTANCE);
-    pdResources.add(new PDMMType1Font(new COSDictionary()));
 
     PageDrawer context = mock(PageDrawer.class);
     when(context.getGraphicsState()).thenReturn(new PDGraphicsState(PDRectangle.A0));
@@ -294,7 +240,6 @@ class SetStrokingDeviceGrayColorDiffblueTest {
         () -> setStrokingDeviceGrayColor.process(operator, new ArrayList<>()));
     verify(context, atLeast(1)).getGraphicsState();
     verify(context).getResources();
-    verify(pdResources).add(isA(PDFont.class));
     verify(pdResources).getColorSpace(isA(COSName.class));
   }
 
@@ -302,18 +247,17 @@ class SetStrokingDeviceGrayColorDiffblueTest {
    * Test {@link SetStrokingDeviceGrayColor#process(Operator, List)}.
    *
    * <ul>
-   *   <li>Given {@link PageDrawer} {@link PageDrawer#getResources()} return {@link
-   *       PDResources#PDResources()}.
+   *   <li>Then throw {@link MissingOperandException}.
    * </ul>
    *
    * <p>Method under test: {@link SetStrokingDeviceGrayColor#process(Operator, List)}
    */
   @Test
-  @DisplayName("Test process(Operator, List); given PageDrawer getResources() return PDResources()")
+  @DisplayName("Test process(Operator, List); then throw MissingOperandException")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void SetStrokingDeviceGrayColor.process(Operator, List)"})
-  void testProcess_givenPageDrawerGetResourcesReturnPDResources() throws IOException {
+  void testProcess_thenThrowMissingOperandException() throws IOException {
     // Arrange
     PageDrawer context = mock(PageDrawer.class);
     when(context.getGraphicsState()).thenReturn(new PDGraphicsState(PDRectangle.A0));

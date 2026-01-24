@@ -1,10 +1,15 @@
 package org.apache.pdfbox.pdmodel.interactive.form;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.isA;
+import static org.mockito.Mockito.anyInt;
+import static org.mockito.Mockito.atLeast;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -13,10 +18,14 @@ import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import java.util.Set;
 import org.apache.pdfbox.cos.COSArray;
+import org.apache.pdfbox.cos.COSBase;
+import org.apache.pdfbox.cos.COSBoolean;
 import org.apache.pdfbox.cos.COSDictionary;
+import org.apache.pdfbox.cos.COSInteger;
 import org.apache.pdfbox.cos.COSName;
-import org.apache.pdfbox.io.RandomAccessStreamCache;
-import org.apache.pdfbox.io.RandomAccessStreamCache.StreamCacheCreateFunction;
+import org.apache.pdfbox.cos.COSStream;
+import org.apache.pdfbox.io.RandomAccessReadView;
+import org.apache.pdfbox.io.RandomAccessReadWriteBuffer;
 import org.apache.pdfbox.io.RandomAccessStreamCacheImpl;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.junit.jupiter.api.DisplayName;
@@ -25,28 +34,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 class PDButtonDiffblueTest {
-  /**
-   * Test {@link PDButton#isPushButton()}.
-   *
-   * <p>Method under test: {@link PDButton#isPushButton()}
-   */
-  @Test
-  @DisplayName("Test isPushButton()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean PDButton.isPushButton()"})
-  void testIsPushButton() {
-    // Arrange
-    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
-    COSDictionary field = new COSDictionary();
-    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
-
-    PDCheckBox pdCheckBox = new PDCheckBox(acroForm, field, parent);
-
-    // Act and Assert
-    assertFalse(pdCheckBox.isPushButton());
-  }
-
   /**
    * Test {@link PDButton#isPushButton()}.
    *
@@ -115,28 +102,6 @@ class PDButtonDiffblueTest {
 
     // Act and Assert
     assertTrue(pdCheckBox.isPushButton());
-  }
-
-  /**
-   * Test {@link PDButton#isRadioButton()}.
-   *
-   * <p>Method under test: {@link PDButton#isRadioButton()}
-   */
-  @Test
-  @DisplayName("Test isRadioButton()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean PDButton.isRadioButton()"})
-  void testIsRadioButton() {
-    // Arrange
-    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
-    COSDictionary field = new COSDictionary();
-    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
-
-    PDCheckBox pdCheckBox = new PDCheckBox(acroForm, field, parent);
-
-    // Act and Assert
-    assertFalse(pdCheckBox.isRadioButton());
   }
 
   /**
@@ -213,31 +178,6 @@ class PDButtonDiffblueTest {
    * Test {@link PDButton#getValue()}.
    *
    * <ul>
-   *   <li>Given {@link PDAcroForm#PDAcroForm(PDDocument, COSDictionary)} with doc is {@link
-   *       PDDocument#PDDocument()} and form is {@link COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDButton#getValue()}
-   */
-  @Test
-  @DisplayName(
-      "Test getValue(); given PDAcroForm(PDDocument, COSDictionary) with doc is PDDocument() and form is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String PDButton.getValue()"})
-  void testGetValue_givenPDAcroFormWithDocIsPDDocumentAndFormIsCOSDictionary() {
-    // Arrange
-    PDDocument doc = new PDDocument();
-    PDAcroForm acroForm = new PDAcroForm(doc, new COSDictionary());
-
-    // Act and Assert
-    assertEquals("Off", new PDCheckBox(acroForm).getValue());
-  }
-
-  /**
-   * Test {@link PDButton#getValue()}.
-   *
-   * <ul>
    *   <li>Given {@link PDCheckBox#PDCheckBox(PDAcroForm)} with acroForm is {@link
    *       PDAcroForm#PDAcroForm(PDDocument)}.
    *   <li>Then return {@code Off}.
@@ -288,27 +228,65 @@ class PDButtonDiffblueTest {
   /**
    * Test {@link PDButton#setValue(int)} with {@code index}.
    *
-   * <ul>
-   *   <li>Given {@link PDAcroForm#PDAcroForm(PDDocument, COSDictionary)} with doc is {@link
-   *       PDDocument#PDDocument()} and form is {@link COSDictionary#COSDictionary()}.
-   * </ul>
+   * <p>Method under test: {@link PDButton#setValue(int)}
+   */
+  @Test
+  @DisplayName("Test setValue(int) with 'index'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDButton.setValue(int)"})
+  void testSetValueWithIndex() throws IOException {
+    // Arrange
+    PDCheckBox pdCheckBox = new PDCheckBox(new PDAcroForm(new PDDocument()));
+    pdCheckBox.setPartialName("");
+
+    // Act and Assert
+    assertThrows(IllegalArgumentException.class, () -> pdCheckBox.setValue(1));
+  }
+
+  /**
+   * Test {@link PDButton#setValue(int)} with {@code index}.
    *
    * <p>Method under test: {@link PDButton#setValue(int)}
    */
   @Test
-  @DisplayName(
-      "Test setValue(int) with 'index'; given PDAcroForm(PDDocument, COSDictionary) with doc is PDDocument() and form is COSDictionary()")
+  @DisplayName("Test setValue(int) with 'index'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void PDButton.setValue(int)"})
-  void testSetValueWithIndex_givenPDAcroFormWithDocIsPDDocumentAndFormIsCOSDictionary()
-      throws IOException {
+  void testSetValueWithIndex2() throws IOException {
     // Arrange
-    PDDocument doc = new PDDocument();
-    PDAcroForm acroForm = new PDAcroForm(doc, new COSDictionary());
+    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
+    parent.setPartialName("Name");
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+
+    PDCheckBox pdCheckBox = new PDCheckBox(acroForm, new COSDictionary(), parent);
 
     // Act and Assert
-    assertThrows(IllegalArgumentException.class, () -> new PDCheckBox(acroForm).setValue(1));
+    assertThrows(IllegalArgumentException.class, () -> pdCheckBox.setValue(1));
+  }
+
+  /**
+   * Test {@link PDButton#setValue(int)} with {@code index}.
+   *
+   * <p>Method under test: {@link PDButton#setValue(int)}
+   */
+  @Test
+  @DisplayName("Test setValue(int) with 'index'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDButton.setValue(int)"})
+  void testSetValueWithIndex3() throws IOException {
+    // Arrange
+    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
+    parent.setPartialName("Name");
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+
+    PDCheckBox pdCheckBox = new PDCheckBox(acroForm, new COSDictionary(), parent);
+    pdCheckBox.setPartialName("Name");
+
+    // Act and Assert
+    assertThrows(IllegalArgumentException.class, () -> pdCheckBox.setValue(1));
   }
 
   /**
@@ -364,6 +342,36 @@ class PDButtonDiffblueTest {
    * Test {@link PDButton#setValue(int)} with {@code index}.
    *
    * <ul>
+   *   <li>Given {@link PDDocument#PDDocument()} AllSecurityToBeRemoved is {@code true}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDButton#setValue(int)}
+   */
+  @Test
+  @DisplayName(
+      "Test setValue(int) with 'index'; given PDDocument() AllSecurityToBeRemoved is 'true'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDButton.setValue(int)"})
+  void testSetValueWithIndex_givenPDDocumentAllSecurityToBeRemovedIsTrue() throws IOException {
+    // Arrange
+    PDDocument doc = new PDDocument();
+    doc.setAllSecurityToBeRemoved(true);
+    PDAcroForm acroForm = new PDAcroForm(doc);
+
+    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
+    parent.setPartialName("Name");
+
+    PDCheckBox pdCheckBox = new PDCheckBox(acroForm, new COSDictionary(), parent);
+
+    // Act and Assert
+    assertThrows(IllegalArgumentException.class, () -> pdCheckBox.setValue(1));
+  }
+
+  /**
+   * Test {@link PDButton#setValue(int)} with {@code index}.
+   *
+   * <ul>
    *   <li>Given {@link PDNonTerminalField#PDNonTerminalField(PDAcroForm)} with acroForm is {@link
    *       PDAcroForm#PDAcroForm(PDDocument)}.
    * </ul>
@@ -389,35 +397,6 @@ class PDButtonDiffblueTest {
   }
 
   /**
-   * Test {@link PDButton#setValue(int)} with {@code index}.
-   *
-   * <ul>
-   *   <li>Then calls {@link RandomAccessStreamCache.StreamCacheCreateFunction#create()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDButton#setValue(int)}
-   */
-  @Test
-  @DisplayName("Test setValue(int) with 'index'; then calls create()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDButton.setValue(int)"})
-  void testSetValueWithIndex_thenCallsCreate() throws IOException {
-    // Arrange
-    StreamCacheCreateFunction streamCacheCreateFunction = mock(StreamCacheCreateFunction.class);
-    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
-    PDDocument doc = new PDDocument(streamCacheCreateFunction);
-    PDAcroForm acroForm = new PDAcroForm(doc);
-
-    PDCheckBox pdCheckBox = new PDCheckBox(acroForm);
-    pdCheckBox.setPartialName("");
-
-    // Act and Assert
-    assertThrows(IllegalArgumentException.class, () -> pdCheckBox.setValue(1));
-    verify(streamCacheCreateFunction).create();
-  }
-
-  /**
    * Test {@link PDButton#setValue(String)} with {@code value}.
    *
    * <p>Method under test: {@link PDButton#setValue(String)}
@@ -439,27 +418,69 @@ class PDButtonDiffblueTest {
   /**
    * Test {@link PDButton#setValue(String)} with {@code value}.
    *
-   * <ul>
-   *   <li>Given {@link PDAcroForm#PDAcroForm(PDDocument, COSDictionary)} with doc is {@link
-   *       PDDocument#PDDocument()} and form is {@link COSDictionary#COSDictionary()}.
-   * </ul>
+   * <p>Method under test: {@link PDButton#setValue(String)}
+   */
+  @Test
+  @DisplayName("Test setValue(String) with 'value'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDButton.setValue(String)"})
+  void testSetValueWithValue2() throws IOException {
+    // Arrange
+    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
+    parent.setPartialName("Widget");
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+
+    PDCheckBox pdCheckBox = new PDCheckBox(acroForm, new COSDictionary(), parent);
+
+    // Act and Assert
+    assertThrows(IllegalArgumentException.class, () -> pdCheckBox.setValue("42"));
+  }
+
+  /**
+   * Test {@link PDButton#setValue(String)} with {@code value}.
    *
    * <p>Method under test: {@link PDButton#setValue(String)}
    */
   @Test
-  @DisplayName(
-      "Test setValue(String) with 'value'; given PDAcroForm(PDDocument, COSDictionary) with doc is PDDocument() and form is COSDictionary()")
+  @DisplayName("Test setValue(String) with 'value'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void PDButton.setValue(String)"})
-  void testSetValueWithValue_givenPDAcroFormWithDocIsPDDocumentAndFormIsCOSDictionary()
-      throws IOException {
+  void testSetValueWithValue3() throws IOException {
     // Arrange
-    PDDocument doc = new PDDocument();
-    PDAcroForm acroForm = new PDAcroForm(doc, new COSDictionary());
+    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
+    parent.setPartialName("Widget");
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+
+    PDCheckBox pdCheckBox = new PDCheckBox(acroForm, new COSDictionary(), parent);
+    pdCheckBox.setPartialName("Widget");
 
     // Act and Assert
-    assertThrows(IllegalArgumentException.class, () -> new PDCheckBox(acroForm).setValue("42"));
+    assertThrows(IllegalArgumentException.class, () -> pdCheckBox.setValue("42"));
+  }
+
+  /**
+   * Test {@link PDButton#setValue(String)} with {@code value}.
+   *
+   * <p>Method under test: {@link PDButton#setValue(String)}
+   */
+  @Test
+  @DisplayName("Test setValue(String) with 'value'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDButton.setValue(String)"})
+  void testSetValueWithValue4() throws IOException {
+    // Arrange
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    acroForm.setScriptingHandler(mock(ScriptingHandler.class));
+    COSDictionary field = new COSDictionary();
+    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
+
+    PDCheckBox pdCheckBox = new PDCheckBox(acroForm, field, parent);
+
+    // Act and Assert
+    assertThrows(IllegalArgumentException.class, () -> pdCheckBox.setValue("42"));
   }
 
   /**
@@ -540,28 +561,35 @@ class PDButtonDiffblueTest {
   }
 
   /**
-   * Test {@link PDButton#getDefaultValue()}.
+   * Test {@link PDButton#setValue(String)} with {@code value}.
    *
    * <ul>
-   *   <li>Given {@link PDAcroForm#PDAcroForm(PDDocument, COSDictionary)} with doc is {@link
-   *       PDDocument#PDDocument()} and form is {@link COSDictionary#COSDictionary()}.
+   *   <li>Then {@link PDCheckBox#PDCheckBox(PDAcroForm)} with acroForm is {@link
+   *       PDAcroForm#PDAcroForm(PDDocument)} Value is empty string.
    * </ul>
    *
-   * <p>Method under test: {@link PDButton#getDefaultValue()}
+   * <p>Method under test: {@link PDButton#setValue(String)}
    */
   @Test
   @DisplayName(
-      "Test getDefaultValue(); given PDAcroForm(PDDocument, COSDictionary) with doc is PDDocument() and form is COSDictionary()")
+      "Test setValue(String) with 'value'; then PDCheckBox(PDAcroForm) with acroForm is PDAcroForm(PDDocument) Value is empty string")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
-  @MethodsUnderTest({"String PDButton.getDefaultValue()"})
-  void testGetDefaultValue_givenPDAcroFormWithDocIsPDDocumentAndFormIsCOSDictionary() {
+  @MethodsUnderTest({"void PDButton.setValue(String)"})
+  void testSetValueWithValue_thenPDCheckBoxWithAcroFormIsPDAcroFormValueIsEmptyString()
+      throws IOException {
     // Arrange
-    PDDocument doc = new PDDocument();
-    PDAcroForm acroForm = new PDAcroForm(doc, new COSDictionary());
+    PDCheckBox pdCheckBox = new PDCheckBox(new PDAcroForm(new PDDocument()));
 
-    // Act and Assert
-    assertEquals("", new PDCheckBox(acroForm).getDefaultValue());
+    // Act
+    pdCheckBox.setValue("");
+
+    // Assert
+    assertEquals("", pdCheckBox.getValue());
+    assertEquals("", pdCheckBox.getValueAsString());
+    COSDictionary cOSObject = pdCheckBox.getCOSObject();
+    assertEquals(4, cOSObject.getValues().size());
+    assertEquals(4, cOSObject.size());
   }
 
   /**
@@ -589,19 +617,17 @@ class PDButtonDiffblueTest {
    * Test {@link PDButton#getDefaultValue()}.
    *
    * <ul>
-   *   <li>Given {@link PDNonTerminalField#PDNonTerminalField(PDAcroForm)} with acroForm is {@link
-   *       PDAcroForm#PDAcroForm(PDDocument)}.
+   *   <li>Then return empty string.
    * </ul>
    *
    * <p>Method under test: {@link PDButton#getDefaultValue()}
    */
   @Test
-  @DisplayName(
-      "Test getDefaultValue(); given PDNonTerminalField(PDAcroForm) with acroForm is PDAcroForm(PDDocument)")
+  @DisplayName("Test getDefaultValue(); then return empty string")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"String PDButton.getDefaultValue()"})
-  void testGetDefaultValue_givenPDNonTerminalFieldWithAcroFormIsPDAcroForm() {
+  void testGetDefaultValue_thenReturnEmptyString() {
     // Arrange
     PDAcroForm acroForm = new PDAcroForm(new PDDocument());
     COSDictionary field = new COSDictionary();
@@ -635,27 +661,69 @@ class PDButtonDiffblueTest {
   /**
    * Test {@link PDButton#setDefaultValue(String)}.
    *
-   * <ul>
-   *   <li>Given {@link PDAcroForm#PDAcroForm(PDDocument, COSDictionary)} with doc is {@link
-   *       PDDocument#PDDocument()} and form is {@link COSDictionary#COSDictionary()}.
-   * </ul>
+   * <p>Method under test: {@link PDButton#setDefaultValue(String)}
+   */
+  @Test
+  @DisplayName("Test setDefaultValue(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDButton.setDefaultValue(String)"})
+  void testSetDefaultValue2() {
+    // Arrange
+    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
+    parent.setPartialName("Widget");
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+
+    PDCheckBox pdCheckBox = new PDCheckBox(acroForm, new COSDictionary(), parent);
+
+    // Act and Assert
+    assertThrows(IllegalArgumentException.class, () -> pdCheckBox.setDefaultValue("42"));
+  }
+
+  /**
+   * Test {@link PDButton#setDefaultValue(String)}.
    *
    * <p>Method under test: {@link PDButton#setDefaultValue(String)}
    */
   @Test
-  @DisplayName(
-      "Test setDefaultValue(String); given PDAcroForm(PDDocument, COSDictionary) with doc is PDDocument() and form is COSDictionary()")
+  @DisplayName("Test setDefaultValue(String)")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void PDButton.setDefaultValue(String)"})
-  void testSetDefaultValue_givenPDAcroFormWithDocIsPDDocumentAndFormIsCOSDictionary() {
+  void testSetDefaultValue3() {
     // Arrange
-    PDDocument doc = new PDDocument();
-    PDAcroForm acroForm = new PDAcroForm(doc, new COSDictionary());
+    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
+    parent.setPartialName("Widget");
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+
+    PDCheckBox pdCheckBox = new PDCheckBox(acroForm, new COSDictionary(), parent);
+    pdCheckBox.setPartialName("Widget");
 
     // Act and Assert
-    assertThrows(
-        IllegalArgumentException.class, () -> new PDCheckBox(acroForm).setDefaultValue("42"));
+    assertThrows(IllegalArgumentException.class, () -> pdCheckBox.setDefaultValue("42"));
+  }
+
+  /**
+   * Test {@link PDButton#setDefaultValue(String)}.
+   *
+   * <p>Method under test: {@link PDButton#setDefaultValue(String)}
+   */
+  @Test
+  @DisplayName("Test setDefaultValue(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDButton.setDefaultValue(String)"})
+  void testSetDefaultValue4() {
+    // Arrange
+    PDCheckBox pdCheckBox = new PDCheckBox(new PDAcroForm(new PDDocument()));
+
+    // Act
+    pdCheckBox.setDefaultValue("");
+
+    // Assert
+    COSDictionary cOSObject = pdCheckBox.getCOSObject();
+    assertEquals(4, cOSObject.getValues().size());
+    assertEquals(4, cOSObject.size());
   }
 
   /**
@@ -738,31 +806,6 @@ class PDButtonDiffblueTest {
    * Test {@link PDButton#getValueAsString()}.
    *
    * <ul>
-   *   <li>Given {@link PDAcroForm#PDAcroForm(PDDocument, COSDictionary)} with doc is {@link
-   *       PDDocument#PDDocument()} and form is {@link COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDButton#getValueAsString()}
-   */
-  @Test
-  @DisplayName(
-      "Test getValueAsString(); given PDAcroForm(PDDocument, COSDictionary) with doc is PDDocument() and form is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String PDButton.getValueAsString()"})
-  void testGetValueAsString_givenPDAcroFormWithDocIsPDDocumentAndFormIsCOSDictionary() {
-    // Arrange
-    PDDocument doc = new PDDocument();
-    PDAcroForm acroForm = new PDAcroForm(doc, new COSDictionary());
-
-    // Act and Assert
-    assertEquals("Off", new PDCheckBox(acroForm).getValueAsString());
-  }
-
-  /**
-   * Test {@link PDButton#getValueAsString()}.
-   *
-   * <ul>
    *   <li>Given {@link PDCheckBox#PDCheckBox(PDAcroForm)} with acroForm is {@link
    *       PDAcroForm#PDAcroForm(PDDocument)}.
    *   <li>Then return {@code Off}.
@@ -785,19 +828,17 @@ class PDButtonDiffblueTest {
    * Test {@link PDButton#getValueAsString()}.
    *
    * <ul>
-   *   <li>Given {@link PDNonTerminalField#PDNonTerminalField(PDAcroForm)} with acroForm is {@link
-   *       PDAcroForm#PDAcroForm(PDDocument)}.
+   *   <li>Then return {@code Off}.
    * </ul>
    *
    * <p>Method under test: {@link PDButton#getValueAsString()}
    */
   @Test
-  @DisplayName(
-      "Test getValueAsString(); given PDNonTerminalField(PDAcroForm) with acroForm is PDAcroForm(PDDocument)")
+  @DisplayName("Test getValueAsString(); then return 'Off'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"String PDButton.getValueAsString()"})
-  void testGetValueAsString_givenPDNonTerminalFieldWithAcroFormIsPDAcroForm() {
+  void testGetValueAsString_thenReturnOff() {
     // Arrange
     PDAcroForm acroForm = new PDAcroForm(new PDDocument());
     COSDictionary field = new COSDictionary();
@@ -807,31 +848,6 @@ class PDButtonDiffblueTest {
 
     // Act and Assert
     assertEquals("Off", pdCheckBox.getValueAsString());
-  }
-
-  /**
-   * Test {@link PDButton#getExportValues()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDAcroForm#PDAcroForm(PDDocument, COSDictionary)} with doc is {@link
-   *       PDDocument#PDDocument()} and form is {@link COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDButton#getExportValues()}
-   */
-  @Test
-  @DisplayName(
-      "Test getExportValues(); given PDAcroForm(PDDocument, COSDictionary) with doc is PDDocument() and form is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"java.util.List PDButton.getExportValues()"})
-  void testGetExportValues_givenPDAcroFormWithDocIsPDDocumentAndFormIsCOSDictionary() {
-    // Arrange
-    PDDocument doc = new PDDocument();
-    PDAcroForm acroForm = new PDAcroForm(doc, new COSDictionary());
-
-    // Act and Assert
-    assertTrue(new PDCheckBox(acroForm).getExportValues().isEmpty());
   }
 
   /**
@@ -860,19 +876,17 @@ class PDButtonDiffblueTest {
    * Test {@link PDButton#getExportValues()}.
    *
    * <ul>
-   *   <li>Given {@link PDNonTerminalField#PDNonTerminalField(PDAcroForm)} with acroForm is {@link
-   *       PDAcroForm#PDAcroForm(PDDocument)}.
+   *   <li>Then return Empty.
    * </ul>
    *
    * <p>Method under test: {@link PDButton#getExportValues()}
    */
   @Test
-  @DisplayName(
-      "Test getExportValues(); given PDNonTerminalField(PDAcroForm) with acroForm is PDAcroForm(PDDocument)")
+  @DisplayName("Test getExportValues(); then return Empty")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"java.util.List PDButton.getExportValues()"})
-  void testGetExportValues_givenPDNonTerminalFieldWithAcroFormIsPDAcroForm() {
+  void testGetExportValues_thenReturnEmpty() {
     // Arrange
     PDAcroForm acroForm = new PDAcroForm(new PDDocument());
     COSDictionary field = new COSDictionary();
@@ -882,6 +896,308 @@ class PDButtonDiffblueTest {
 
     // Act and Assert
     assertTrue(pdCheckBox.getExportValues().isEmpty());
+  }
+
+  /**
+   * Test {@link PDButton#constructAppearances()}.
+   *
+   * <p>Method under test: {@link PDButton#constructAppearances()}
+   */
+  @Test
+  @DisplayName("Test constructAppearances()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDButton.constructAppearances()"})
+  void testConstructAppearances() throws IOException {
+    // Arrange
+    COSDictionary cosDictionary = mock(COSDictionary.class);
+    when(cosDictionary.getDictionaryObject(Mockito.<COSName>any()))
+        .thenThrow(new NumberFormatException());
+
+    COSArray cosArray = mock(COSArray.class);
+    when(cosArray.getObject(anyInt())).thenReturn(cosDictionary);
+    when(cosArray.isEmpty()).thenReturn(false);
+    when(cosArray.size()).thenReturn(3);
+
+    COSDictionary field = mock(COSDictionary.class);
+    when(field.getCOSArray(Mockito.<COSName>any())).thenReturn(cosArray);
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
+
+    PDCheckBox pdCheckBox = new PDCheckBox(acroForm, field, parent);
+
+    // Act and Assert
+    assertThrows(NumberFormatException.class, () -> pdCheckBox.constructAppearances());
+    verify(cosArray).getObject(0);
+    verify(cosArray).isEmpty();
+    verify(cosArray).size();
+    verify(field).getCOSArray(isA(COSName.class));
+    verify(cosDictionary).getDictionaryObject(isA(COSName.class));
+  }
+
+  /**
+   * Test {@link PDButton#constructAppearances()}.
+   *
+   * <p>Method under test: {@link PDButton#constructAppearances()}
+   */
+  @Test
+  @DisplayName("Test constructAppearances()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDButton.constructAppearances()"})
+  void testConstructAppearances2() throws IOException {
+    // Arrange
+    COSDictionary cosDictionary = mock(COSDictionary.class);
+    when(cosDictionary.getCOSDictionary(Mockito.<COSName>any()))
+        .thenThrow(new NumberFormatException());
+
+    COSDictionary cosDictionary2 = mock(COSDictionary.class);
+    when(cosDictionary2.getDictionaryObject(Mockito.<COSName>any())).thenReturn(COSBoolean.FALSE);
+    when(cosDictionary2.getCOSDictionary(Mockito.<COSName>any())).thenReturn(cosDictionary);
+    doNothing().when(cosDictionary2).setName(Mockito.<COSName>any(), Mockito.<String>any());
+
+    COSArray cosArray = mock(COSArray.class);
+    when(cosArray.getObject(anyInt())).thenReturn(cosDictionary2);
+    when(cosArray.isEmpty()).thenReturn(false);
+    when(cosArray.size()).thenReturn(3);
+
+    COSDictionary field = mock(COSDictionary.class);
+    when(field.getCOSArray(Mockito.<COSName>any())).thenReturn(cosArray);
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
+
+    PDCheckBox pdCheckBox = new PDCheckBox(acroForm, field, parent);
+
+    // Act and Assert
+    assertThrows(NumberFormatException.class, () -> pdCheckBox.constructAppearances());
+    verify(cosArray, atLeast(1)).getObject(anyInt());
+    verify(cosArray).isEmpty();
+    verify(cosArray, atLeast(1)).size();
+    verify(field).getCOSArray(isA(COSName.class));
+    verify(cosDictionary2).getCOSDictionary(isA(COSName.class));
+    verify(cosDictionary).getCOSDictionary(isA(COSName.class));
+    verify(cosDictionary2, atLeast(1)).getDictionaryObject(isA(COSName.class));
+    verify(cosDictionary2, atLeast(1)).setName(isA(COSName.class), eq("Widget"));
+  }
+
+  /**
+   * Test {@link PDButton#constructAppearances()}.
+   *
+   * <p>Method under test: {@link PDButton#constructAppearances()}
+   */
+  @Test
+  @DisplayName("Test constructAppearances()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDButton.constructAppearances()"})
+  void testConstructAppearances3() throws IOException {
+    // Arrange
+    COSDictionary cosDictionary = mock(COSDictionary.class);
+    when(cosDictionary.getCOSDictionary(Mockito.<COSName>any())).thenReturn(new COSDictionary());
+
+    COSDictionary cosDictionary2 = mock(COSDictionary.class);
+    when(cosDictionary2.getDictionaryObject(Mockito.<COSName>any()))
+        .thenReturn(new COSDictionary());
+    when(cosDictionary2.getCOSDictionary(Mockito.<COSName>any())).thenReturn(cosDictionary);
+    doNothing().when(cosDictionary2).setName(Mockito.<COSName>any(), Mockito.<String>any());
+
+    COSArray cosArray = mock(COSArray.class);
+    when(cosArray.getObject(anyInt())).thenReturn(cosDictionary2);
+    when(cosArray.isEmpty()).thenReturn(false);
+    when(cosArray.size()).thenReturn(3);
+
+    COSDictionary field = mock(COSDictionary.class);
+    when(field.getCOSName(Mockito.<COSName>any())).thenReturn(COSName.A);
+    when(field.getCOSArray(Mockito.<COSName>any())).thenReturn(cosArray);
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
+
+    PDCheckBox pdCheckBox = new PDCheckBox(acroForm, field, parent);
+
+    // Act
+    pdCheckBox.constructAppearances();
+
+    // Assert
+    verify(cosArray, atLeast(1)).getObject(anyInt());
+    verify(cosArray).isEmpty();
+    verify(cosArray, atLeast(1)).size();
+    verify(field).getCOSArray(isA(COSName.class));
+    verify(cosDictionary2, atLeast(1)).getCOSDictionary(isA(COSName.class));
+    verify(cosDictionary, atLeast(1)).getCOSDictionary(isA(COSName.class));
+    verify(field, atLeast(1)).getCOSName(isA(COSName.class));
+    verify(cosDictionary2, atLeast(1)).getDictionaryObject(isA(COSName.class));
+    verify(cosDictionary2, atLeast(1)).setName(Mockito.<COSName>any(), Mockito.<String>any());
+  }
+
+  /**
+   * Test {@link PDButton#constructAppearances()}.
+   *
+   * <p>Method under test: {@link PDButton#constructAppearances()}
+   */
+  @Test
+  @DisplayName("Test constructAppearances()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDButton.constructAppearances()"})
+  void testConstructAppearances4() throws IOException {
+    // Arrange
+    COSDictionary cosDictionary = mock(COSDictionary.class);
+    when(cosDictionary.getCOSDictionary(Mockito.<COSName>any())).thenReturn(new COSDictionary());
+
+    COSDictionary cosDictionary2 = mock(COSDictionary.class);
+    RandomAccessStreamCacheImpl streamCache = new RandomAccessStreamCacheImpl();
+    COSStream cosStream =
+        new COSStream(
+            streamCache, new RandomAccessReadView(new RandomAccessReadWriteBuffer(), 1L, 3L));
+    when(cosDictionary2.getDictionaryObject(Mockito.<COSName>any())).thenReturn(cosStream);
+    when(cosDictionary2.getCOSDictionary(Mockito.<COSName>any())).thenReturn(cosDictionary);
+    doNothing().when(cosDictionary2).setName(Mockito.<COSName>any(), Mockito.<String>any());
+
+    COSArray cosArray = mock(COSArray.class);
+    when(cosArray.getObject(anyInt())).thenReturn(cosDictionary2);
+    when(cosArray.isEmpty()).thenReturn(false);
+    when(cosArray.size()).thenReturn(3);
+
+    COSDictionary field = mock(COSDictionary.class);
+    when(field.getCOSName(Mockito.<COSName>any())).thenReturn(COSName.A);
+    when(field.getCOSArray(Mockito.<COSName>any())).thenReturn(cosArray);
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
+
+    PDCheckBox pdCheckBox = new PDCheckBox(acroForm, field, parent);
+
+    // Act
+    pdCheckBox.constructAppearances();
+
+    // Assert
+    verify(cosArray, atLeast(1)).getObject(anyInt());
+    verify(cosArray).isEmpty();
+    verify(cosArray, atLeast(1)).size();
+    verify(field).getCOSArray(isA(COSName.class));
+    verify(cosDictionary2, atLeast(1)).getCOSDictionary(isA(COSName.class));
+    verify(cosDictionary, atLeast(1)).getCOSDictionary(isA(COSName.class));
+    verify(field, atLeast(1)).getCOSName(isA(COSName.class));
+    verify(cosDictionary2, atLeast(1)).getDictionaryObject(isA(COSName.class));
+    verify(cosDictionary2, atLeast(1)).setName(Mockito.<COSName>any(), Mockito.<String>any());
+  }
+
+  /**
+   * Test {@link PDButton#constructAppearances()}.
+   *
+   * <ul>
+   *   <li>Given {@link COSArray} {@link COSArray#getObject(int)} return {@link
+   *       COSDictionary#COSDictionary()}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDButton#constructAppearances()}
+   */
+  @Test
+  @DisplayName("Test constructAppearances(); given COSArray getObject(int) return COSDictionary()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDButton.constructAppearances()"})
+  void testConstructAppearances_givenCOSArrayGetObjectReturnCOSDictionary() throws IOException {
+    // Arrange
+    COSArray cosArray = mock(COSArray.class);
+    when(cosArray.getObject(anyInt())).thenReturn(new COSDictionary());
+    when(cosArray.isEmpty()).thenReturn(false);
+    when(cosArray.size()).thenReturn(3);
+
+    COSDictionary field = mock(COSDictionary.class);
+    when(field.getCOSArray(Mockito.<COSName>any())).thenReturn(cosArray);
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
+
+    PDCheckBox pdCheckBox = new PDCheckBox(acroForm, field, parent);
+
+    // Act
+    pdCheckBox.constructAppearances();
+
+    // Assert
+    verify(cosArray, atLeast(1)).getObject(anyInt());
+    verify(cosArray).isEmpty();
+    verify(cosArray, atLeast(1)).size();
+    verify(field).getCOSArray(isA(COSName.class));
+  }
+
+  /**
+   * Test {@link PDButton#constructAppearances()}.
+   *
+   * <ul>
+   *   <li>Given {@link COSArray} {@link COSArray#getObject(int)} return {@link COSBoolean#FALSE}.
+   *   <li>Then calls {@link COSArray#getObject(int)}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDButton#constructAppearances()}
+   */
+  @Test
+  @DisplayName(
+      "Test constructAppearances(); given COSArray getObject(int) return FALSE; then calls getObject(int)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDButton.constructAppearances()"})
+  void testConstructAppearances_givenCOSArrayGetObjectReturnFalse_thenCallsGetObject()
+      throws IOException {
+    // Arrange
+    COSArray cosArray = mock(COSArray.class);
+    when(cosArray.getObject(anyInt())).thenReturn(COSBoolean.FALSE);
+    when(cosArray.isEmpty()).thenReturn(false);
+    when(cosArray.size()).thenReturn(3);
+
+    COSDictionary field = mock(COSDictionary.class);
+    when(field.getCOSArray(Mockito.<COSName>any())).thenReturn(cosArray);
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
+
+    PDCheckBox pdCheckBox = new PDCheckBox(acroForm, field, parent);
+
+    // Act
+    pdCheckBox.constructAppearances();
+
+    // Assert
+    verify(cosArray, atLeast(1)).getObject(anyInt());
+    verify(cosArray).isEmpty();
+    verify(cosArray, atLeast(1)).size();
+    verify(field).getCOSArray(isA(COSName.class));
+  }
+
+  /**
+   * Test {@link PDButton#constructAppearances()}.
+   *
+   * <ul>
+   *   <li>Given {@link COSArray} {@link COSArray#getObject(int)} throw {@link
+   *       NumberFormatException#NumberFormatException()}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDButton#constructAppearances()}
+   */
+  @Test
+  @DisplayName(
+      "Test constructAppearances(); given COSArray getObject(int) throw NumberFormatException()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDButton.constructAppearances()"})
+  void testConstructAppearances_givenCOSArrayGetObjectThrowNumberFormatException()
+      throws IOException {
+    // Arrange
+    COSArray cosArray = mock(COSArray.class);
+    when(cosArray.getObject(anyInt())).thenThrow(new NumberFormatException());
+    when(cosArray.isEmpty()).thenReturn(false);
+    when(cosArray.size()).thenReturn(3);
+
+    COSDictionary field = mock(COSDictionary.class);
+    when(field.getCOSArray(Mockito.<COSName>any())).thenReturn(cosArray);
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
+
+    PDCheckBox pdCheckBox = new PDCheckBox(acroForm, field, parent);
+
+    // Act and Assert
+    assertThrows(NumberFormatException.class, () -> pdCheckBox.constructAppearances());
+    verify(cosArray).getObject(0);
+    verify(cosArray).isEmpty();
+    verify(cosArray).size();
+    verify(field).getCOSArray(isA(COSName.class));
   }
 
   /**
@@ -925,6 +1241,179 @@ class PDButtonDiffblueTest {
    * Test {@link PDButton#constructAppearances()}.
    *
    * <ul>
+   *   <li>Given {@link COSDictionary} {@link COSDictionary#containsKey(COSName)} return {@code
+   *       false}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDButton#constructAppearances()}
+   */
+  @Test
+  @DisplayName(
+      "Test constructAppearances(); given COSDictionary containsKey(COSName) return 'false'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDButton.constructAppearances()"})
+  void testConstructAppearances_givenCOSDictionaryContainsKeyReturnFalse() throws IOException {
+    // Arrange
+    COSDictionary cosDictionary = mock(COSDictionary.class);
+    when(cosDictionary.containsKey(Mockito.<COSName>any())).thenReturn(false);
+
+    COSDictionary cosDictionary2 = mock(COSDictionary.class);
+    when(cosDictionary2.getCOSDictionary(Mockito.<COSName>any())).thenReturn(cosDictionary);
+
+    COSDictionary cosDictionary3 = mock(COSDictionary.class);
+    when(cosDictionary3.getDictionaryObject(Mockito.<COSName>any())).thenReturn(COSBoolean.FALSE);
+    when(cosDictionary3.getCOSDictionary(Mockito.<COSName>any())).thenReturn(cosDictionary2);
+    doNothing().when(cosDictionary3).setName(Mockito.<COSName>any(), Mockito.<String>any());
+
+    COSArray cosArray = mock(COSArray.class);
+    when(cosArray.getObject(anyInt())).thenReturn(cosDictionary3);
+    when(cosArray.isEmpty()).thenReturn(false);
+    when(cosArray.size()).thenReturn(3);
+
+    COSDictionary field = mock(COSDictionary.class);
+    when(field.getCOSName(Mockito.<COSName>any())).thenReturn(COSName.A);
+    when(field.getCOSArray(Mockito.<COSName>any())).thenReturn(cosArray);
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
+
+    PDCheckBox pdCheckBox = new PDCheckBox(acroForm, field, parent);
+
+    // Act
+    pdCheckBox.constructAppearances();
+
+    // Assert
+    verify(cosArray, atLeast(1)).getObject(anyInt());
+    verify(cosArray).isEmpty();
+    verify(cosArray, atLeast(1)).size();
+    verify(cosDictionary, atLeast(1)).containsKey(isA(COSName.class));
+    verify(field).getCOSArray(isA(COSName.class));
+    verify(cosDictionary3, atLeast(1)).getCOSDictionary(isA(COSName.class));
+    verify(cosDictionary2, atLeast(1)).getCOSDictionary(isA(COSName.class));
+    verify(field, atLeast(1)).getCOSName(isA(COSName.class));
+    verify(cosDictionary3, atLeast(1)).getDictionaryObject(isA(COSName.class));
+    verify(cosDictionary3, atLeast(1)).setName(Mockito.<COSName>any(), Mockito.<String>any());
+  }
+
+  /**
+   * Test {@link PDButton#constructAppearances()}.
+   *
+   * <ul>
+   *   <li>Given {@link COSDictionary} {@link COSDictionary#containsKey(COSName)} return {@code
+   *       true}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDButton#constructAppearances()}
+   */
+  @Test
+  @DisplayName(
+      "Test constructAppearances(); given COSDictionary containsKey(COSName) return 'true'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDButton.constructAppearances()"})
+  void testConstructAppearances_givenCOSDictionaryContainsKeyReturnTrue() throws IOException {
+    // Arrange
+    COSDictionary cosDictionary = mock(COSDictionary.class);
+    when(cosDictionary.containsKey(Mockito.<COSName>any())).thenReturn(true);
+
+    COSDictionary cosDictionary2 = mock(COSDictionary.class);
+    when(cosDictionary2.getCOSDictionary(Mockito.<COSName>any())).thenReturn(cosDictionary);
+
+    COSDictionary cosDictionary3 = mock(COSDictionary.class);
+    when(cosDictionary3.getDictionaryObject(Mockito.<COSName>any())).thenReturn(COSBoolean.FALSE);
+    when(cosDictionary3.getCOSDictionary(Mockito.<COSName>any())).thenReturn(cosDictionary2);
+    doNothing().when(cosDictionary3).setName(Mockito.<COSName>any(), Mockito.<String>any());
+
+    COSArray cosArray = mock(COSArray.class);
+    when(cosArray.getObject(anyInt())).thenReturn(cosDictionary3);
+    when(cosArray.isEmpty()).thenReturn(false);
+    when(cosArray.size()).thenReturn(3);
+
+    COSDictionary field = mock(COSDictionary.class);
+    when(field.getCOSName(Mockito.<COSName>any())).thenReturn(COSName.A);
+    when(field.getCOSArray(Mockito.<COSName>any())).thenReturn(cosArray);
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
+
+    PDCheckBox pdCheckBox = new PDCheckBox(acroForm, field, parent);
+
+    // Act
+    pdCheckBox.constructAppearances();
+
+    // Assert
+    verify(cosArray, atLeast(1)).getObject(anyInt());
+    verify(cosArray).isEmpty();
+    verify(cosArray, atLeast(1)).size();
+    verify(cosDictionary, atLeast(1)).containsKey(isA(COSName.class));
+    verify(field).getCOSArray(isA(COSName.class));
+    verify(cosDictionary3, atLeast(1)).getCOSDictionary(isA(COSName.class));
+    verify(cosDictionary2, atLeast(1)).getCOSDictionary(isA(COSName.class));
+    verify(field, atLeast(1)).getCOSName(isA(COSName.class));
+    verify(cosDictionary3, atLeast(1)).getDictionaryObject(isA(COSName.class));
+    verify(cosDictionary3, atLeast(1)).setName(Mockito.<COSName>any(), Mockito.<String>any());
+  }
+
+  /**
+   * Test {@link PDButton#constructAppearances()}.
+   *
+   * <ul>
+   *   <li>Given {@link COSDictionary} {@link COSDictionary#containsKey(COSName)} throw {@link
+   *       NumberFormatException#NumberFormatException()}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDButton#constructAppearances()}
+   */
+  @Test
+  @DisplayName(
+      "Test constructAppearances(); given COSDictionary containsKey(COSName) throw NumberFormatException()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDButton.constructAppearances()"})
+  void testConstructAppearances_givenCOSDictionaryContainsKeyThrowNumberFormatException()
+      throws IOException {
+    // Arrange
+    COSDictionary cosDictionary = mock(COSDictionary.class);
+    when(cosDictionary.containsKey(Mockito.<COSName>any())).thenThrow(new NumberFormatException());
+
+    COSDictionary cosDictionary2 = mock(COSDictionary.class);
+    when(cosDictionary2.getCOSDictionary(Mockito.<COSName>any())).thenReturn(cosDictionary);
+
+    COSDictionary cosDictionary3 = mock(COSDictionary.class);
+    when(cosDictionary3.getDictionaryObject(Mockito.<COSName>any())).thenReturn(COSBoolean.FALSE);
+    when(cosDictionary3.getCOSDictionary(Mockito.<COSName>any())).thenReturn(cosDictionary2);
+    doNothing().when(cosDictionary3).setName(Mockito.<COSName>any(), Mockito.<String>any());
+
+    COSArray cosArray = mock(COSArray.class);
+    when(cosArray.getObject(anyInt())).thenReturn(cosDictionary3);
+    when(cosArray.isEmpty()).thenReturn(false);
+    when(cosArray.size()).thenReturn(3);
+
+    COSDictionary field = mock(COSDictionary.class);
+    when(field.getCOSName(Mockito.<COSName>any())).thenReturn(COSName.A);
+    when(field.getCOSArray(Mockito.<COSName>any())).thenReturn(cosArray);
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
+
+    PDCheckBox pdCheckBox = new PDCheckBox(acroForm, field, parent);
+
+    // Act and Assert
+    assertThrows(NumberFormatException.class, () -> pdCheckBox.constructAppearances());
+    verify(cosArray, atLeast(1)).getObject(anyInt());
+    verify(cosArray).isEmpty();
+    verify(cosArray, atLeast(1)).size();
+    verify(cosDictionary).containsKey(isA(COSName.class));
+    verify(field).getCOSArray(isA(COSName.class));
+    verify(cosDictionary3).getCOSDictionary(isA(COSName.class));
+    verify(cosDictionary2).getCOSDictionary(isA(COSName.class));
+    verify(field).getCOSName(isA(COSName.class));
+    verify(cosDictionary3, atLeast(1)).getDictionaryObject(isA(COSName.class));
+    verify(cosDictionary3, atLeast(1)).setName(isA(COSName.class), eq("Widget"));
+  }
+
+  /**
+   * Test {@link PDButton#constructAppearances()}.
+   *
+   * <ul>
    *   <li>Given {@link COSDictionary} {@link COSDictionary#getCOSArray(COSName)} return {@link
    *       COSArray#COSArray()}.
    * </ul>
@@ -954,32 +1443,505 @@ class PDButtonDiffblueTest {
   }
 
   /**
-   * Test {@link PDButton#getOnValues()}.
+   * Test {@link PDButton#constructAppearances()}.
    *
    * <ul>
-   *   <li>Given {@link PDAcroForm#PDAcroForm(PDDocument, COSDictionary)} with doc is {@link
-   *       PDDocument#PDDocument()} and form is {@link COSDictionary#COSDictionary()}.
+   *   <li>Given {@link COSDictionary} {@link COSDictionary#getCOSDictionary(COSName)} return {@code
+   *       null}.
    * </ul>
    *
-   * <p>Method under test: {@link PDButton#getOnValues()}
+   * <p>Method under test: {@link PDButton#constructAppearances()}
    */
   @Test
   @DisplayName(
-      "Test getOnValues(); given PDAcroForm(PDDocument, COSDictionary) with doc is PDDocument() and form is COSDictionary()")
+      "Test constructAppearances(); given COSDictionary getCOSDictionary(COSName) return 'null'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
-  @MethodsUnderTest({"Set PDButton.getOnValues()"})
-  void testGetOnValues_givenPDAcroFormWithDocIsPDDocumentAndFormIsCOSDictionary() {
+  @MethodsUnderTest({"void PDButton.constructAppearances()"})
+  void testConstructAppearances_givenCOSDictionaryGetCOSDictionaryReturnNull() throws IOException {
     // Arrange
-    PDDocument doc = new PDDocument();
-    PDAcroForm acroForm = new PDAcroForm(doc, new COSDictionary());
+    COSDictionary cosDictionary = mock(COSDictionary.class);
+    when(cosDictionary.getDictionaryObject(Mockito.<COSName>any())).thenReturn(COSBoolean.FALSE);
+    when(cosDictionary.getCOSDictionary(Mockito.<COSName>any())).thenReturn(null);
+    doNothing().when(cosDictionary).setName(Mockito.<COSName>any(), Mockito.<String>any());
+
+    COSArray cosArray = mock(COSArray.class);
+    when(cosArray.getObject(anyInt())).thenReturn(cosDictionary);
+    when(cosArray.isEmpty()).thenReturn(false);
+    when(cosArray.size()).thenReturn(3);
+
+    COSDictionary field = mock(COSDictionary.class);
+    when(field.getCOSArray(Mockito.<COSName>any())).thenReturn(cosArray);
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
+
+    PDCheckBox pdCheckBox = new PDCheckBox(acroForm, field, parent);
 
     // Act
-    Set<String> actualOnValues = new PDCheckBox(acroForm).getOnValues();
+    pdCheckBox.constructAppearances();
 
     // Assert
-    assertEquals(1, actualOnValues.size());
-    assertTrue(actualOnValues.contains(""));
+    verify(cosArray, atLeast(1)).getObject(anyInt());
+    verify(cosArray).isEmpty();
+    verify(cosArray, atLeast(1)).size();
+    verify(field).getCOSArray(isA(COSName.class));
+    verify(cosDictionary, atLeast(1)).getCOSDictionary(isA(COSName.class));
+    verify(cosDictionary, atLeast(1)).getDictionaryObject(isA(COSName.class));
+    verify(cosDictionary, atLeast(1)).setName(isA(COSName.class), eq("Widget"));
+  }
+
+  /**
+   * Test {@link PDButton#constructAppearances()}.
+   *
+   * <ul>
+   *   <li>Given {@link COSDictionary} {@link COSDictionary#getCOSName(COSName)} return {@code
+   *       null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDButton#constructAppearances()}
+   */
+  @Test
+  @DisplayName("Test constructAppearances(); given COSDictionary getCOSName(COSName) return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDButton.constructAppearances()"})
+  void testConstructAppearances_givenCOSDictionaryGetCOSNameReturnNull() throws IOException {
+    // Arrange
+    COSDictionary cosDictionary = mock(COSDictionary.class);
+    when(cosDictionary.getCOSDictionary(Mockito.<COSName>any())).thenReturn(new COSDictionary());
+
+    COSDictionary cosDictionary2 = mock(COSDictionary.class);
+    when(cosDictionary2.getDictionaryObject(Mockito.<COSName>any())).thenReturn(COSBoolean.FALSE);
+    when(cosDictionary2.getCOSDictionary(Mockito.<COSName>any())).thenReturn(cosDictionary);
+    doNothing().when(cosDictionary2).setName(Mockito.<COSName>any(), Mockito.<String>any());
+
+    COSArray cosArray = mock(COSArray.class);
+    when(cosArray.getObject(anyInt())).thenReturn(cosDictionary2);
+    when(cosArray.isEmpty()).thenReturn(false);
+    when(cosArray.size()).thenReturn(3);
+
+    COSDictionary field = mock(COSDictionary.class);
+    when(field.getCOSName(Mockito.<COSName>any())).thenReturn(null);
+    when(field.getCOSArray(Mockito.<COSName>any())).thenReturn(cosArray);
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
+
+    PDCheckBox pdCheckBox = new PDCheckBox(acroForm, field, parent);
+
+    // Act
+    pdCheckBox.constructAppearances();
+
+    // Assert
+    verify(cosArray, atLeast(1)).getObject(anyInt());
+    verify(cosArray).isEmpty();
+    verify(cosArray, atLeast(1)).size();
+    verify(field).getCOSArray(isA(COSName.class));
+    verify(cosDictionary2, atLeast(1)).getCOSDictionary(isA(COSName.class));
+    verify(cosDictionary, atLeast(1)).getCOSDictionary(isA(COSName.class));
+    verify(field, atLeast(1)).getCOSName(isA(COSName.class));
+    verify(cosDictionary2, atLeast(1)).getDictionaryObject(isA(COSName.class));
+    verify(cosDictionary2, atLeast(1)).setName(Mockito.<COSName>any(), Mockito.<String>any());
+  }
+
+  /**
+   * Test {@link PDButton#constructAppearances()}.
+   *
+   * <ul>
+   *   <li>Given {@link COSDictionary} {@link COSDictionary#getCOSName(COSName)} throw {@link
+   *       NumberFormatException#NumberFormatException()}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDButton#constructAppearances()}
+   */
+  @Test
+  @DisplayName(
+      "Test constructAppearances(); given COSDictionary getCOSName(COSName) throw NumberFormatException()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDButton.constructAppearances()"})
+  void testConstructAppearances_givenCOSDictionaryGetCOSNameThrowNumberFormatException()
+      throws IOException {
+    // Arrange
+    COSDictionary cosDictionary = mock(COSDictionary.class);
+    when(cosDictionary.getCOSDictionary(Mockito.<COSName>any())).thenReturn(new COSDictionary());
+
+    COSDictionary cosDictionary2 = mock(COSDictionary.class);
+    when(cosDictionary2.getDictionaryObject(Mockito.<COSName>any())).thenReturn(COSBoolean.FALSE);
+    when(cosDictionary2.getCOSDictionary(Mockito.<COSName>any())).thenReturn(cosDictionary);
+    doNothing().when(cosDictionary2).setName(Mockito.<COSName>any(), Mockito.<String>any());
+
+    COSArray cosArray = mock(COSArray.class);
+    when(cosArray.getObject(anyInt())).thenReturn(cosDictionary2);
+    when(cosArray.isEmpty()).thenReturn(false);
+    when(cosArray.size()).thenReturn(3);
+
+    COSDictionary field = mock(COSDictionary.class);
+    when(field.getCOSName(Mockito.<COSName>any())).thenThrow(new NumberFormatException());
+    when(field.getCOSArray(Mockito.<COSName>any())).thenReturn(cosArray);
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
+
+    PDCheckBox pdCheckBox = new PDCheckBox(acroForm, field, parent);
+
+    // Act and Assert
+    assertThrows(NumberFormatException.class, () -> pdCheckBox.constructAppearances());
+    verify(cosArray, atLeast(1)).getObject(anyInt());
+    verify(cosArray).isEmpty();
+    verify(cosArray, atLeast(1)).size();
+    verify(field).getCOSArray(isA(COSName.class));
+    verify(cosDictionary2).getCOSDictionary(isA(COSName.class));
+    verify(cosDictionary).getCOSDictionary(isA(COSName.class));
+    verify(field).getCOSName(isA(COSName.class));
+    verify(cosDictionary2, atLeast(1)).getDictionaryObject(isA(COSName.class));
+    verify(cosDictionary2, atLeast(1)).setName(isA(COSName.class), eq("Widget"));
+  }
+
+  /**
+   * Test {@link PDButton#constructAppearances()}.
+   *
+   * <ul>
+   *   <li>Given {@link COSDictionary} {@link COSDictionary#getDictionaryObject(COSName)} return
+   *       {@link COSName#A}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDButton#constructAppearances()}
+   */
+  @Test
+  @DisplayName(
+      "Test constructAppearances(); given COSDictionary getDictionaryObject(COSName) return A")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDButton.constructAppearances()"})
+  void testConstructAppearances_givenCOSDictionaryGetDictionaryObjectReturnA() throws IOException {
+    // Arrange
+    COSDictionary cosDictionary = mock(COSDictionary.class);
+    when(cosDictionary.getCOSDictionary(Mockito.<COSName>any())).thenReturn(new COSDictionary());
+
+    COSDictionary cosDictionary2 = mock(COSDictionary.class);
+    when(cosDictionary2.getDictionaryObject(Mockito.<COSName>any())).thenReturn(COSName.A);
+    when(cosDictionary2.getCOSDictionary(Mockito.<COSName>any())).thenReturn(cosDictionary);
+    doNothing().when(cosDictionary2).setName(Mockito.<COSName>any(), Mockito.<String>any());
+
+    COSArray cosArray = mock(COSArray.class);
+    when(cosArray.getObject(anyInt())).thenReturn(cosDictionary2);
+    when(cosArray.isEmpty()).thenReturn(false);
+    when(cosArray.size()).thenReturn(3);
+
+    COSDictionary field = mock(COSDictionary.class);
+    when(field.getCOSName(Mockito.<COSName>any())).thenReturn(COSName.A);
+    when(field.getCOSArray(Mockito.<COSName>any())).thenReturn(cosArray);
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
+
+    PDCheckBox pdCheckBox = new PDCheckBox(acroForm, field, parent);
+
+    // Act
+    pdCheckBox.constructAppearances();
+
+    // Assert
+    verify(cosArray, atLeast(1)).getObject(anyInt());
+    verify(cosArray).isEmpty();
+    verify(cosArray, atLeast(1)).size();
+    verify(field).getCOSArray(isA(COSName.class));
+    verify(cosDictionary2, atLeast(1)).getCOSDictionary(isA(COSName.class));
+    verify(cosDictionary, atLeast(1)).getCOSDictionary(isA(COSName.class));
+    verify(field, atLeast(1)).getCOSName(isA(COSName.class));
+    verify(cosDictionary2, atLeast(1)).getDictionaryObject(isA(COSName.class));
+    verify(cosDictionary2, atLeast(1)).setName(Mockito.<COSName>any(), Mockito.<String>any());
+  }
+
+  /**
+   * Test {@link PDButton#constructAppearances()}.
+   *
+   * <ul>
+   *   <li>Given {@link COSDictionary} {@link COSDictionary#getDictionaryObject(COSName)} return
+   *       {@link COSArray#COSArray()}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDButton#constructAppearances()}
+   */
+  @Test
+  @DisplayName(
+      "Test constructAppearances(); given COSDictionary getDictionaryObject(COSName) return COSArray()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDButton.constructAppearances()"})
+  void testConstructAppearances_givenCOSDictionaryGetDictionaryObjectReturnCOSArray()
+      throws IOException {
+    // Arrange
+    COSDictionary cosDictionary = mock(COSDictionary.class);
+    when(cosDictionary.getCOSDictionary(Mockito.<COSName>any())).thenReturn(new COSDictionary());
+
+    COSDictionary cosDictionary2 = mock(COSDictionary.class);
+    when(cosDictionary2.getDictionaryObject(Mockito.<COSName>any())).thenReturn(new COSArray());
+    when(cosDictionary2.getCOSDictionary(Mockito.<COSName>any())).thenReturn(cosDictionary);
+    doNothing().when(cosDictionary2).setName(Mockito.<COSName>any(), Mockito.<String>any());
+
+    COSArray cosArray = mock(COSArray.class);
+    when(cosArray.getObject(anyInt())).thenReturn(cosDictionary2);
+    when(cosArray.isEmpty()).thenReturn(false);
+    when(cosArray.size()).thenReturn(3);
+
+    COSDictionary field = mock(COSDictionary.class);
+    when(field.getCOSName(Mockito.<COSName>any())).thenReturn(COSName.A);
+    when(field.getCOSArray(Mockito.<COSName>any())).thenReturn(cosArray);
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
+
+    PDCheckBox pdCheckBox = new PDCheckBox(acroForm, field, parent);
+
+    // Act
+    pdCheckBox.constructAppearances();
+
+    // Assert
+    verify(cosArray, atLeast(1)).getObject(anyInt());
+    verify(cosArray).isEmpty();
+    verify(cosArray, atLeast(1)).size();
+    verify(field).getCOSArray(isA(COSName.class));
+    verify(cosDictionary2, atLeast(1)).getCOSDictionary(isA(COSName.class));
+    verify(cosDictionary, atLeast(1)).getCOSDictionary(isA(COSName.class));
+    verify(field, atLeast(1)).getCOSName(isA(COSName.class));
+    verify(cosDictionary2, atLeast(1)).getDictionaryObject(isA(COSName.class));
+    verify(cosDictionary2, atLeast(1)).setName(Mockito.<COSName>any(), Mockito.<String>any());
+  }
+
+  /**
+   * Test {@link PDButton#constructAppearances()}.
+   *
+   * <ul>
+   *   <li>Given {@link COSDictionary} {@link COSDictionary#getDictionaryObject(COSName)} return
+   *       {@link COSStream#COSStream()}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDButton#constructAppearances()}
+   */
+  @Test
+  @DisplayName(
+      "Test constructAppearances(); given COSDictionary getDictionaryObject(COSName) return COSStream()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDButton.constructAppearances()"})
+  void testConstructAppearances_givenCOSDictionaryGetDictionaryObjectReturnCOSStream()
+      throws IOException {
+    // Arrange
+    COSDictionary cosDictionary = mock(COSDictionary.class);
+    when(cosDictionary.getCOSDictionary(Mockito.<COSName>any())).thenReturn(new COSDictionary());
+
+    COSDictionary cosDictionary2 = mock(COSDictionary.class);
+    when(cosDictionary2.getDictionaryObject(Mockito.<COSName>any())).thenReturn(new COSStream());
+    when(cosDictionary2.getCOSDictionary(Mockito.<COSName>any())).thenReturn(cosDictionary);
+    doNothing().when(cosDictionary2).setName(Mockito.<COSName>any(), Mockito.<String>any());
+
+    COSArray cosArray = mock(COSArray.class);
+    when(cosArray.getObject(anyInt())).thenReturn(cosDictionary2);
+    when(cosArray.isEmpty()).thenReturn(false);
+    when(cosArray.size()).thenReturn(3);
+
+    COSDictionary field = mock(COSDictionary.class);
+    when(field.getCOSName(Mockito.<COSName>any())).thenReturn(COSName.A);
+    when(field.getCOSArray(Mockito.<COSName>any())).thenReturn(cosArray);
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
+
+    PDCheckBox pdCheckBox = new PDCheckBox(acroForm, field, parent);
+
+    // Act
+    pdCheckBox.constructAppearances();
+
+    // Assert
+    verify(cosArray, atLeast(1)).getObject(anyInt());
+    verify(cosArray).isEmpty();
+    verify(cosArray, atLeast(1)).size();
+    verify(field).getCOSArray(isA(COSName.class));
+    verify(cosDictionary2, atLeast(1)).getCOSDictionary(isA(COSName.class));
+    verify(cosDictionary, atLeast(1)).getCOSDictionary(isA(COSName.class));
+    verify(field, atLeast(1)).getCOSName(isA(COSName.class));
+    verify(cosDictionary2, atLeast(1)).getDictionaryObject(isA(COSName.class));
+    verify(cosDictionary2, atLeast(1)).setName(Mockito.<COSName>any(), Mockito.<String>any());
+  }
+
+  /**
+   * Test {@link PDButton#constructAppearances()}.
+   *
+   * <ul>
+   *   <li>Given {@link COSDictionary} {@link COSDictionary#getDictionaryObject(COSName)} return
+   *       {@link COSBoolean#FALSE}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDButton#constructAppearances()}
+   */
+  @Test
+  @DisplayName(
+      "Test constructAppearances(); given COSDictionary getDictionaryObject(COSName) return FALSE")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDButton.constructAppearances()"})
+  void testConstructAppearances_givenCOSDictionaryGetDictionaryObjectReturnFalse()
+      throws IOException {
+    // Arrange
+    COSDictionary cosDictionary = mock(COSDictionary.class);
+    when(cosDictionary.getCOSDictionary(Mockito.<COSName>any())).thenReturn(new COSDictionary());
+
+    COSDictionary cosDictionary2 = mock(COSDictionary.class);
+    when(cosDictionary2.getDictionaryObject(Mockito.<COSName>any())).thenReturn(COSBoolean.FALSE);
+    when(cosDictionary2.getCOSDictionary(Mockito.<COSName>any())).thenReturn(cosDictionary);
+    doNothing().when(cosDictionary2).setName(Mockito.<COSName>any(), Mockito.<String>any());
+
+    COSArray cosArray = mock(COSArray.class);
+    when(cosArray.getObject(anyInt())).thenReturn(cosDictionary2);
+    when(cosArray.isEmpty()).thenReturn(false);
+    when(cosArray.size()).thenReturn(3);
+
+    COSDictionary field = mock(COSDictionary.class);
+    when(field.getCOSName(Mockito.<COSName>any())).thenReturn(COSName.A);
+    when(field.getCOSArray(Mockito.<COSName>any())).thenReturn(cosArray);
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
+
+    PDCheckBox pdCheckBox = new PDCheckBox(acroForm, field, parent);
+
+    // Act
+    pdCheckBox.constructAppearances();
+
+    // Assert
+    verify(cosArray, atLeast(1)).getObject(anyInt());
+    verify(cosArray).isEmpty();
+    verify(cosArray, atLeast(1)).size();
+    verify(field).getCOSArray(isA(COSName.class));
+    verify(cosDictionary2, atLeast(1)).getCOSDictionary(isA(COSName.class));
+    verify(cosDictionary, atLeast(1)).getCOSDictionary(isA(COSName.class));
+    verify(field, atLeast(1)).getCOSName(isA(COSName.class));
+    verify(cosDictionary2, atLeast(1)).getDictionaryObject(isA(COSName.class));
+    verify(cosDictionary2, atLeast(1)).setName(Mockito.<COSName>any(), Mockito.<String>any());
+  }
+
+  /**
+   * Test {@link PDButton#constructAppearances()}.
+   *
+   * <ul>
+   *   <li>Given {@link COSDictionary} {@link COSDictionary#getDictionaryObject(COSName)} return
+   *       {@link COSInteger#ONE}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDButton#constructAppearances()}
+   */
+  @Test
+  @DisplayName(
+      "Test constructAppearances(); given COSDictionary getDictionaryObject(COSName) return ONE")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDButton.constructAppearances()"})
+  void testConstructAppearances_givenCOSDictionaryGetDictionaryObjectReturnOne()
+      throws IOException {
+    // Arrange
+    COSDictionary cosDictionary = mock(COSDictionary.class);
+    when(cosDictionary.getCOSDictionary(Mockito.<COSName>any())).thenReturn(new COSDictionary());
+
+    COSDictionary cosDictionary2 = mock(COSDictionary.class);
+    when(cosDictionary2.getDictionaryObject(Mockito.<COSName>any())).thenReturn(COSInteger.ONE);
+    when(cosDictionary2.getCOSDictionary(Mockito.<COSName>any())).thenReturn(cosDictionary);
+    doNothing().when(cosDictionary2).setName(Mockito.<COSName>any(), Mockito.<String>any());
+
+    COSArray cosArray = mock(COSArray.class);
+    when(cosArray.getObject(anyInt())).thenReturn(cosDictionary2);
+    when(cosArray.isEmpty()).thenReturn(false);
+    when(cosArray.size()).thenReturn(3);
+
+    COSDictionary field = mock(COSDictionary.class);
+    when(field.getCOSName(Mockito.<COSName>any())).thenReturn(COSName.A);
+    when(field.getCOSArray(Mockito.<COSName>any())).thenReturn(cosArray);
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
+
+    PDCheckBox pdCheckBox = new PDCheckBox(acroForm, field, parent);
+
+    // Act
+    pdCheckBox.constructAppearances();
+
+    // Assert
+    verify(cosArray, atLeast(1)).getObject(anyInt());
+    verify(cosArray).isEmpty();
+    verify(cosArray, atLeast(1)).size();
+    verify(field).getCOSArray(isA(COSName.class));
+    verify(cosDictionary2, atLeast(1)).getCOSDictionary(isA(COSName.class));
+    verify(cosDictionary, atLeast(1)).getCOSDictionary(isA(COSName.class));
+    verify(field, atLeast(1)).getCOSName(isA(COSName.class));
+    verify(cosDictionary2, atLeast(1)).getDictionaryObject(isA(COSName.class));
+    verify(cosDictionary2, atLeast(1)).setName(Mockito.<COSName>any(), Mockito.<String>any());
+  }
+
+  /**
+   * Test {@link PDButton#constructAppearances()}.
+   *
+   * <ul>
+   *   <li>Then calls {@link COSDictionary#setItem(COSName, COSBase)}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDButton#constructAppearances()}
+   */
+  @Test
+  @DisplayName("Test constructAppearances(); then calls setItem(COSName, COSBase)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDButton.constructAppearances()"})
+  void testConstructAppearances_thenCallsSetItem() throws IOException {
+    // Arrange
+    COSDictionary cosDictionary = mock(COSDictionary.class);
+    when(cosDictionary.getCOSDictionary(Mockito.<COSName>any())).thenReturn(new COSDictionary());
+
+    COSDictionary cosDictionary2 = mock(COSDictionary.class);
+    when(cosDictionary2.getDictionaryObject(Mockito.<COSName>any())).thenReturn(null);
+    when(cosDictionary2.getCOSDictionary(Mockito.<COSName>any())).thenReturn(cosDictionary);
+    doNothing().when(cosDictionary2).setItem(Mockito.<COSName>any(), Mockito.<COSBase>any());
+    doNothing().when(cosDictionary2).setName(Mockito.<COSName>any(), Mockito.<String>any());
+
+    COSArray cosArray = mock(COSArray.class);
+    when(cosArray.getObject(anyInt())).thenReturn(cosDictionary2);
+    when(cosArray.isEmpty()).thenReturn(false);
+    when(cosArray.size()).thenReturn(3);
+
+    COSDictionary field = mock(COSDictionary.class);
+    when(field.getCOSName(Mockito.<COSName>any())).thenReturn(COSName.A);
+    when(field.getCOSArray(Mockito.<COSName>any())).thenReturn(cosArray);
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
+
+    PDCheckBox pdCheckBox = new PDCheckBox(acroForm, field, parent);
+
+    // Act
+    pdCheckBox.constructAppearances();
+
+    // Assert
+    verify(cosArray, atLeast(1)).getObject(anyInt());
+    verify(cosArray).isEmpty();
+    verify(cosArray, atLeast(1)).size();
+    verify(field).getCOSArray(isA(COSName.class));
+    verify(cosDictionary2, atLeast(1)).getCOSDictionary(isA(COSName.class));
+    verify(cosDictionary, atLeast(1)).getCOSDictionary(isA(COSName.class));
+    verify(field, atLeast(1)).getCOSName(isA(COSName.class));
+    verify(cosDictionary2, atLeast(1)).getDictionaryObject(isA(COSName.class));
+    verify(cosDictionary2, atLeast(1)).setItem(isA(COSName.class), isA(COSBase.class));
+    verify(cosDictionary2, atLeast(1)).setName(Mockito.<COSName>any(), Mockito.<String>any());
+  }
+
+  /**
+   * Test {@link PDButton#constructAppearances()}.
+   *
+   * <ul>
+   *   <li>Then does not throw.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDButton#constructAppearances()}
+   */
+  @Test
+  @DisplayName("Test constructAppearances(); then does not throw")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDButton.constructAppearances()"})
+  void testConstructAppearances_thenDoesNotThrow() throws IOException {
+    // Arrange, Act and Assert
+    assertDoesNotThrow(
+        () -> new PDCheckBox(new PDAcroForm(new PDDocument())).constructAppearances());
   }
 
   /**
@@ -1012,19 +1974,17 @@ class PDButtonDiffblueTest {
    * Test {@link PDButton#getOnValues()}.
    *
    * <ul>
-   *   <li>Given {@link PDNonTerminalField#PDNonTerminalField(PDAcroForm)} with acroForm is {@link
-   *       PDAcroForm#PDAcroForm(PDDocument)}.
+   *   <li>Then return size is one.
    * </ul>
    *
    * <p>Method under test: {@link PDButton#getOnValues()}
    */
   @Test
-  @DisplayName(
-      "Test getOnValues(); given PDNonTerminalField(PDAcroForm) with acroForm is PDAcroForm(PDDocument)")
+  @DisplayName("Test getOnValues(); then return size is one")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"Set PDButton.getOnValues()"})
-  void testGetOnValues_givenPDNonTerminalFieldWithAcroFormIsPDAcroForm() {
+  void testGetOnValues_thenReturnSizeIsOne() {
     // Arrange
     PDAcroForm acroForm = new PDAcroForm(new PDDocument());
     COSDictionary field = new COSDictionary();
@@ -1043,26 +2003,46 @@ class PDButtonDiffblueTest {
   /**
    * Test {@link PDButton#checkValue(String)}.
    *
-   * <ul>
-   *   <li>Given {@link PDAcroForm#PDAcroForm(PDDocument, COSDictionary)} with doc is {@link
-   *       PDDocument#PDDocument()} and form is {@link COSDictionary#COSDictionary()}.
-   * </ul>
+   * <p>Method under test: {@link PDButton#checkValue(String)}
+   */
+  @Test
+  @DisplayName("Test checkValue(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDButton.checkValue(String)"})
+  void testCheckValue() {
+    // Arrange
+    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
+    parent.setPartialName("Widget");
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+
+    PDCheckBox pdCheckBox = new PDCheckBox(acroForm, new COSDictionary(), parent);
+
+    // Act and Assert
+    assertThrows(IllegalArgumentException.class, () -> pdCheckBox.checkValue("42"));
+  }
+
+  /**
+   * Test {@link PDButton#checkValue(String)}.
    *
    * <p>Method under test: {@link PDButton#checkValue(String)}
    */
   @Test
-  @DisplayName(
-      "Test checkValue(String); given PDAcroForm(PDDocument, COSDictionary) with doc is PDDocument() and form is COSDictionary()")
+  @DisplayName("Test checkValue(String)")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void PDButton.checkValue(String)"})
-  void testCheckValue_givenPDAcroFormWithDocIsPDDocumentAndFormIsCOSDictionary() {
+  void testCheckValue2() {
     // Arrange
-    PDDocument doc = new PDDocument();
-    PDAcroForm acroForm = new PDAcroForm(doc, new COSDictionary());
+    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
+    parent.setPartialName("Widget");
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+
+    PDCheckBox pdCheckBox = new PDCheckBox(acroForm, new COSDictionary(), parent);
+    pdCheckBox.setPartialName("Widget");
 
     // Act and Assert
-    assertThrows(IllegalArgumentException.class, () -> new PDCheckBox(acroForm).checkValue("42"));
+    assertThrows(IllegalArgumentException.class, () -> pdCheckBox.checkValue("42"));
   }
 
   /**
@@ -1164,5 +2144,25 @@ class PDButtonDiffblueTest {
 
     // Act and Assert
     assertThrows(IllegalArgumentException.class, () -> pdCheckBox.checkValue("42"));
+  }
+
+  /**
+   * Test {@link PDButton#checkValue(String)}.
+   *
+   * <ul>
+   *   <li>When empty string.
+   *   <li>Then does not throw.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDButton#checkValue(String)}
+   */
+  @Test
+  @DisplayName("Test checkValue(String); when empty string; then does not throw")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDButton.checkValue(String)"})
+  void testCheckValue_whenEmptyString_thenDoesNotThrow() {
+    // Arrange, Act and Assert
+    assertDoesNotThrow(() -> new PDCheckBox(new PDAcroForm(new PDDocument())).checkValue(""));
   }
 }

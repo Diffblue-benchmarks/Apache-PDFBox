@@ -16,7 +16,6 @@ import static org.mockito.Mockito.when;
 import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
-import java.util.List;
 import org.apache.pdfbox.cos.COSArray;
 import org.apache.pdfbox.cos.COSBase;
 import org.apache.pdfbox.cos.COSBoolean;
@@ -33,10 +32,13 @@ import org.apache.pdfbox.io.RandomAccessStreamCacheImpl;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.graphics.color.PDColor;
+import org.apache.pdfbox.pdmodel.graphics.color.PDColorSpace;
+import org.apache.pdfbox.pdmodel.graphics.color.PDDeviceCMYK;
 import org.apache.pdfbox.pdmodel.graphics.color.PDDeviceGray;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 
 class PDAnnotationLineDiffblueTest {
@@ -107,18 +109,18 @@ class PDAnnotationLineDiffblueTest {
    *
    * <ul>
    *   <li>When {@link COSDictionary#COSDictionary()}.
-   *   <li>Then {@link COSDictionary#COSDictionary()} size is one.
+   *   <li>Then return Line is {@code null}.
    * </ul>
    *
    * <p>Method under test: {@link PDAnnotationLine#PDAnnotationLine(COSDictionary)}
    */
   @Test
   @DisplayName(
-      "Test new PDAnnotationLine(COSDictionary); when COSDictionary(); then COSDictionary() size is one")
+      "Test new PDAnnotationLine(COSDictionary); when COSDictionary(); then return Line is 'null'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void PDAnnotationLine.<init>(COSDictionary)"})
-  void testNewPDAnnotationLine_whenCOSDictionary_thenCOSDictionarySizeIsOne() {
+  void testNewPDAnnotationLine_whenCOSDictionary_thenReturnLineIsNull() throws IOException {
     // Arrange
     COSDictionary field = new COSDictionary();
 
@@ -126,44 +128,53 @@ class PDAnnotationLineDiffblueTest {
     PDAnnotationLine actualPdAnnotationLine = new PDAnnotationLine(field);
 
     // Assert
+    assertNull(actualPdAnnotationLine.getLine());
+    assertNull(actualPdAnnotationLine.getAnnotationName());
+    assertNull(actualPdAnnotationLine.getContents());
+    assertNull(actualPdAnnotationLine.getModifiedDate());
+    assertNull(actualPdAnnotationLine.getSubtype());
+    assertNull(actualPdAnnotationLine.getCaptionPositioning());
+    assertNull(actualPdAnnotationLine.getIntent());
+    assertNull(actualPdAnnotationLine.getRichContents());
+    assertNull(actualPdAnnotationLine.getSubject());
+    assertNull(actualPdAnnotationLine.getTitlePopup());
+    assertNull(actualPdAnnotationLine.getCreationDate());
+    assertNull(actualPdAnnotationLine.getAppearanceState());
+    assertNull(actualPdAnnotationLine.getPage());
+    assertNull(actualPdAnnotationLine.getRectangle());
+    assertNull(actualPdAnnotationLine.getOptionalContent());
+    assertNull(actualPdAnnotationLine.getColor());
+    assertNull(actualPdAnnotationLine.getInteriorColor());
+    assertNull(actualPdAnnotationLine.getInReplyTo());
+    assertNull(actualPdAnnotationLine.getPopup());
+    assertNull(actualPdAnnotationLine.getAppearance());
+    assertNull(actualPdAnnotationLine.getNormalAppearanceStream());
+    assertNull(actualPdAnnotationLine.getBorderStyle());
+    assertNull(actualPdAnnotationLine.getExternalData());
+    assertEquals(-1, actualPdAnnotationLine.getStructParent());
+    assertEquals(0, actualPdAnnotationLine.getAnnotationFlags());
+    assertEquals(0.0f, actualPdAnnotationLine.getCaptionHorizontalOffset());
+    assertEquals(0.0f, actualPdAnnotationLine.getCaptionVerticalOffset());
+    assertEquals(0.0f, actualPdAnnotationLine.getLeaderLineExtensionLength());
+    assertEquals(0.0f, actualPdAnnotationLine.getLeaderLineLength());
+    assertEquals(0.0f, actualPdAnnotationLine.getLeaderLineOffsetLength());
     assertEquals(1, field.size());
-    List<? extends COSBase> toListResult = actualPdAnnotationLine.getBorder().toList();
-    assertEquals(3, toListResult.size());
+    assertEquals(1.0f, actualPdAnnotationLine.getConstantOpacity());
+    assertFalse(actualPdAnnotationLine.isHidden());
+    assertFalse(actualPdAnnotationLine.isInvisible());
+    assertFalse(actualPdAnnotationLine.isLocked());
+    assertFalse(actualPdAnnotationLine.isLockedContents());
+    assertFalse(actualPdAnnotationLine.isNoRotate());
+    assertFalse(actualPdAnnotationLine.isNoView());
+    assertFalse(actualPdAnnotationLine.isNoZoom());
+    assertFalse(actualPdAnnotationLine.isPrinted());
+    assertFalse(actualPdAnnotationLine.isReadOnly());
+    assertFalse(actualPdAnnotationLine.isToggleNoView());
+    assertFalse(actualPdAnnotationLine.hasCaption());
+    assertEquals(PDAnnotationLine.LE_NONE, actualPdAnnotationLine.getEndPointEndingStyle());
+    assertEquals(PDAnnotationLine.LE_NONE, actualPdAnnotationLine.getStartPointEndingStyle());
+    assertEquals(PDAnnotationMarkup.RT_REPLY, actualPdAnnotationLine.getReplyType());
     assertSame(field, actualPdAnnotationLine.getCOSObject());
-    COSBase expectedGetResult = toListResult.get(0);
-    assertSame(expectedGetResult, toListResult.get(1));
-  }
-
-  /**
-   * Test {@link PDAnnotationLine#PDAnnotationLine(COSDictionary)}.
-   *
-   * <ul>
-   *   <li>When {@link COSStream#COSStream()}.
-   *   <li>Then {@link COSStream#COSStream()} size is two.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationLine#PDAnnotationLine(COSDictionary)}
-   */
-  @Test
-  @DisplayName(
-      "Test new PDAnnotationLine(COSDictionary); when COSStream(); then COSStream() size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDAnnotationLine.<init>(COSDictionary)"})
-  void testNewPDAnnotationLine_whenCOSStream_thenCOSStreamSizeIsTwo() {
-    // Arrange
-    COSStream field = new COSStream();
-
-    // Act
-    PDAnnotationLine actualPdAnnotationLine = new PDAnnotationLine(field);
-
-    // Assert
-    assertEquals(2, field.size());
-    List<? extends COSBase> toListResult = actualPdAnnotationLine.getBorder().toList();
-    assertEquals(3, toListResult.size());
-    assertSame(field, actualPdAnnotationLine.getCOSObject());
-    COSBase expectedGetResult = toListResult.get(0);
-    assertSame(expectedGetResult, toListResult.get(1));
   }
 
   /**
@@ -883,7 +894,7 @@ class PDAnnotationLineDiffblueTest {
     // Arrange
     COSArray cosArray = mock(COSArray.class);
     when(cosArray.toFloatArray()).thenReturn(new float[] {10.0f, 0.5f, 10.0f, 0.5f});
-    when(cosArray.getObject(anyInt())).thenReturn(COSFloat.ONE);
+    when(cosArray.getObject(ArgumentMatchers.anyInt())).thenReturn(COSFloat.ONE);
     when(cosArray.size()).thenReturn(4);
     when(cosArray.isDirect()).thenReturn(true);
     when(cosArray.getUpdateState()).thenReturn(new COSUpdateState(new COSArray()));
@@ -898,7 +909,7 @@ class PDAnnotationLineDiffblueTest {
     pdAnnotationLine.constructAppearances();
 
     // Assert
-    verify(cosArray, atLeast(1)).getObject(anyInt());
+    verify(cosArray, atLeast(1)).getObject(ArgumentMatchers.anyInt());
     verify(cosArray).getUpdateState();
     verify(cosArray).size();
     verify(cosArray).toFloatArray();
@@ -999,7 +1010,7 @@ class PDAnnotationLineDiffblueTest {
     // Arrange
     COSArray cosArray = mock(COSArray.class);
     when(cosArray.toFloatArray()).thenReturn(new float[] {10.0f, 0.5f, 10.0f, 0.5f});
-    when(cosArray.getObject(anyInt())).thenReturn(COSFloat.ONE);
+    when(cosArray.getObject(ArgumentMatchers.anyInt())).thenReturn(COSFloat.ONE);
     when(cosArray.size()).thenReturn(4);
     when(cosArray.isDirect()).thenReturn(true);
     when(cosArray.getUpdateState()).thenReturn(new COSUpdateState(new COSArray()));
@@ -1014,7 +1025,7 @@ class PDAnnotationLineDiffblueTest {
     pdAnnotationLine.constructAppearances(new PDDocument());
 
     // Assert
-    verify(cosArray, atLeast(1)).getObject(anyInt());
+    verify(cosArray, atLeast(1)).getObject(ArgumentMatchers.anyInt());
     verify(cosArray).getUpdateState();
     verify(cosArray).size();
     verify(cosArray).toFloatArray();
@@ -1540,7 +1551,7 @@ class PDAnnotationLineDiffblueTest {
   void testConstructAppearancesWithPDDocument_givenCOSArrayGetObjectReturnFalse() {
     // Arrange
     COSArray cosArray = mock(COSArray.class);
-    when(cosArray.getObject(anyInt())).thenReturn(COSBoolean.FALSE);
+    when(cosArray.getObject(ArgumentMatchers.anyInt())).thenReturn(COSBoolean.FALSE);
     when(cosArray.size()).thenReturn(4);
     when(cosArray.isDirect()).thenReturn(true);
     when(cosArray.getUpdateState()).thenReturn(new COSUpdateState(new COSArray()));
@@ -1687,7 +1698,7 @@ class PDAnnotationLineDiffblueTest {
     // Arrange
     COSArray cosArray = mock(COSArray.class);
     when(cosArray.toFloatArray()).thenReturn(new float[] {10.0f, 0.5f, 10.0f, 0.5f});
-    when(cosArray.getObject(anyInt())).thenReturn(COSFloat.ONE);
+    when(cosArray.getObject(ArgumentMatchers.anyInt())).thenReturn(COSFloat.ONE);
     when(cosArray.size()).thenReturn(4);
     when(cosArray.isDirect()).thenReturn(false);
     when(cosArray.getKey()).thenReturn(new COSObjectKey(1L, 1));
@@ -1702,7 +1713,7 @@ class PDAnnotationLineDiffblueTest {
     pdAnnotationLine.constructAppearances(new PDDocument());
 
     // Assert
-    verify(cosArray, atLeast(1)).getObject(anyInt());
+    verify(cosArray, atLeast(1)).getObject(ArgumentMatchers.anyInt());
     verify(cosArray).size();
     verify(cosArray).toFloatArray();
     verify(cosArray, atLeast(1)).getKey();
@@ -1728,7 +1739,7 @@ class PDAnnotationLineDiffblueTest {
     // Arrange
     COSArray cosArray = mock(COSArray.class);
     when(cosArray.toFloatArray()).thenReturn(new float[] {10.0f, 0.5f, 10.0f, 0.5f});
-    when(cosArray.getObject(anyInt())).thenReturn(COSFloat.ONE);
+    when(cosArray.getObject(ArgumentMatchers.anyInt())).thenReturn(COSFloat.ONE);
     when(cosArray.size()).thenReturn(4);
     when(cosArray.isDirect()).thenReturn(true);
     when(cosArray.getUpdateState()).thenReturn(new COSUpdateState(new COSArray()));
@@ -1743,7 +1754,7 @@ class PDAnnotationLineDiffblueTest {
     pdAnnotationLine.constructAppearances(new PDDocument());
 
     // Assert
-    verify(cosArray, atLeast(1)).getObject(anyInt());
+    verify(cosArray, atLeast(1)).getObject(ArgumentMatchers.anyInt());
     verify(cosArray).getUpdateState();
     verify(cosArray).size();
     verify(cosArray).toFloatArray();
@@ -2237,7 +2248,7 @@ class PDAnnotationLineDiffblueTest {
   void testConstructAppearances_givenCOSArrayGetObjectReturnFalse_thenCallsGetObject() {
     // Arrange
     COSArray cosArray = mock(COSArray.class);
-    when(cosArray.getObject(anyInt())).thenReturn(COSBoolean.FALSE);
+    when(cosArray.getObject(ArgumentMatchers.anyInt())).thenReturn(COSBoolean.FALSE);
     when(cosArray.size()).thenReturn(4);
     when(cosArray.isDirect()).thenReturn(true);
     when(cosArray.getUpdateState()).thenReturn(new COSUpdateState(new COSArray()));
@@ -2279,7 +2290,7 @@ class PDAnnotationLineDiffblueTest {
     // Arrange
     COSArray cosArray = mock(COSArray.class);
     when(cosArray.toFloatArray()).thenReturn(new float[] {10.0f, 0.5f, 10.0f, 0.5f});
-    when(cosArray.getObject(anyInt())).thenReturn(COSFloat.ONE);
+    when(cosArray.getObject(ArgumentMatchers.anyInt())).thenReturn(COSFloat.ONE);
     when(cosArray.size()).thenReturn(4);
     when(cosArray.isDirect()).thenReturn(false);
     when(cosArray.getKey()).thenReturn(new COSObjectKey(1L, 1));
@@ -2294,7 +2305,7 @@ class PDAnnotationLineDiffblueTest {
     pdAnnotationLine.constructAppearances();
 
     // Assert
-    verify(cosArray, atLeast(1)).getObject(anyInt());
+    verify(cosArray, atLeast(1)).getObject(ArgumentMatchers.anyInt());
     verify(cosArray).size();
     verify(cosArray).toFloatArray();
     verify(cosArray, atLeast(1)).getKey();
@@ -2426,7 +2437,7 @@ class PDAnnotationLineDiffblueTest {
     // Arrange
     COSArray cosArray = mock(COSArray.class);
     when(cosArray.toFloatArray()).thenReturn(new float[] {10.0f, 0.5f, 10.0f, 0.5f});
-    when(cosArray.getObject(anyInt())).thenReturn(COSFloat.ONE);
+    when(cosArray.getObject(ArgumentMatchers.anyInt())).thenReturn(COSFloat.ONE);
     when(cosArray.size()).thenReturn(4);
     when(cosArray.isDirect()).thenReturn(true);
     when(cosArray.getUpdateState()).thenReturn(new COSUpdateState(new COSArray()));
@@ -2441,7 +2452,7 @@ class PDAnnotationLineDiffblueTest {
     pdAnnotationLine.constructAppearances();
 
     // Assert
-    verify(cosArray, atLeast(1)).getObject(anyInt());
+    verify(cosArray, atLeast(1)).getObject(ArgumentMatchers.anyInt());
     verify(cosArray).getUpdateState();
     verify(cosArray).size();
     verify(cosArray).toFloatArray();

@@ -35,6 +35,7 @@ import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDMMType1Font;
 import org.apache.pdfbox.pdmodel.font.PDTrueTypeFont;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
+import org.apache.pdfbox.pdmodel.font.PDType3Font;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -514,6 +515,45 @@ class TextToPDFDiffblueTest {
   /**
    * Test {@link TextToPDF#createPDFFromText(Reader)} with {@code text}.
    *
+   * <p>Method under test: {@link TextToPDF#createPDFFromText(Reader)}
+   */
+  @Test
+  @DisplayName("Test createPDFFromText(Reader) with 'text'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDDocument TextToPDF.createPDFFromText(Reader)"})
+  void testCreatePDFFromTextWithText9() throws IOException {
+    // Arrange
+    TextToPDF textToPDF = new TextToPDF();
+    textToPDF.setFont(new PDType3Font(new COSDictionary()));
+
+    // Act
+    PDDocument actualCreatePDFFromTextResult = textToPDF.createPDFFromText(new StringReader("\n"));
+
+    // Assert
+    Iterator<PDPage> iteratorResult = actualCreatePDFFromTextResult.getPages().iterator();
+    PDPage nextResult = iteratorResult.next();
+    RandomAccessRead contentsForRandomAccess = nextResult.getContentsForRandomAccess();
+    assertTrue(contentsForRandomAccess instanceof RandomAccessReadWriteBuffer);
+    Iterator<PDPage> iteratorResult2 =
+        actualCreatePDFFromTextResult.getDocumentCatalog().getPages().iterator();
+    PDPage nextResult2 = iteratorResult2.next();
+    assertTrue(nextResult2.getContentsForRandomAccess() instanceof RandomAccessReadWriteBuffer);
+    byte[] byteArray = new byte[39];
+    assertEquals(39, nextResult.getContents().read(byteArray));
+    byte[] byteArray2 = new byte[39];
+    assertEquals(39, nextResult2.getContents().read(byteArray2));
+    assertEquals(39, contentsForRandomAccess.available());
+    assertFalse(iteratorResult.hasNext());
+    assertFalse(iteratorResult2.hasNext());
+    assertArrayEquals(
+        "/F1 10 Tf\nBT\n40 752 Td\n0 0 Td\n() Tj\nET\n".getBytes("UTF-8"), byteArray2);
+    assertArrayEquals("/F1 10 Tf\nBT\n40 752 Td\n0 0 Td\n() Tj\nET\n".getBytes("UTF-8"), byteArray);
+  }
+
+  /**
+   * Test {@link TextToPDF#createPDFFromText(Reader)} with {@code text}.
+   *
    * <ul>
    *   <li>Then {@code /F1 10 Tf BT 40 764.138 Td 0 -12.138 Td (foo) Tj ET} Bytes is {@code UTF-8}.
    * </ul>
@@ -667,6 +707,52 @@ class TextToPDFDiffblueTest {
     assertFalse(iteratorResult.hasNext());
     assertArrayEquals(
         "/F1 10 Tf\nBT\n40 764.138 Td\n0 -12.138 Td\n( ) Tj\nET\n".getBytes("UTF-8"), byteArray);
+    assertArrayEquals(new float[] {0.0f, 0.0f, 1.0f}, values[2], 0.0f);
+    assertArrayEquals(new float[] {0.0f, 4.8828125E-4f, 0.0f}, values[1], 0.0f);
+    assertArrayEquals(new float[] {4.8828125E-4f, 0.0f, 0.0f}, values[0], 0.0f);
+  }
+
+  /**
+   * Test {@link TextToPDF#createPDFFromText(Reader)} with {@code text}.
+   *
+   * <ul>
+   *   <li>Then return Pages iterator next Contents read is forty-nine.
+   * </ul>
+   *
+   * <p>Method under test: {@link TextToPDF#createPDFFromText(Reader)}
+   */
+  @Test
+  @DisplayName(
+      "Test createPDFFromText(Reader) with 'text'; then return Pages iterator next Contents read is forty-nine")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDDocument TextToPDF.createPDFFromText(Reader)"})
+  void testCreatePDFFromTextWithText_thenReturnPagesIteratorNextContentsReadIsFortyNine()
+      throws IOException {
+    // Arrange
+    TextToPDF textToPDF = new TextToPDF();
+
+    // Act
+    PDDocument actualCreatePDFFromTextResult = textToPDF.createPDFFromText(new StringReader("\n"));
+
+    // Assert
+    PDFont font = textToPDF.getFont();
+    assertTrue(font instanceof PDType1Font);
+    float[][] values = font.getFontMatrix().getValues();
+    assertEquals(3, values.length);
+    Iterator<PDPage> iteratorResult = actualCreatePDFFromTextResult.getPages().iterator();
+    byte[] byteArray = new byte[49];
+    assertEquals(49, iteratorResult.next().getContents().read(byteArray));
+    Iterator<PDPage> iteratorResult2 =
+        actualCreatePDFFromTextResult.getDocumentCatalog().getPages().iterator();
+    byte[] byteArray2 = new byte[49];
+    assertEquals(49, iteratorResult2.next().getContents().read(byteArray2));
+    assertFalse(iteratorResult.hasNext());
+    assertFalse(iteratorResult2.hasNext());
+    assertArrayEquals(
+        "/F1 10 Tf\nBT\n40 764.138 Td\n0 -12.138 Td\n() Tj\nET\n".getBytes("UTF-8"), byteArray2);
+    assertArrayEquals(
+        "/F1 10 Tf\nBT\n40 764.138 Td\n0 -12.138 Td\n() Tj\nET\n".getBytes("UTF-8"), byteArray);
     assertArrayEquals(new float[] {0.0f, 0.0f, 1.0f}, values[2], 0.0f);
     assertArrayEquals(new float[] {0.0f, 4.8828125E-4f, 0.0f}, values[1], 0.0f);
     assertArrayEquals(new float[] {4.8828125E-4f, 0.0f, 0.0f}, values[0], 0.0f);

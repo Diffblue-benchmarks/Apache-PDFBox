@@ -204,32 +204,6 @@ class PDFunctionDiffblueTest {
    *
    * <ul>
    *   <li>When {@link COSObject#COSObject(COSBase, COSObjectKey)} with object is {@link
-   *       COSStream#COSStream()} and objectKey is {@link COSObjectKey#COSObjectKey(long, int)}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDFunction#create(COSBase)}
-   */
-  @Test
-  @DisplayName(
-      "Test create(COSBase); when COSObject(COSBase, COSObjectKey) with object is COSStream() and objectKey is COSObjectKey(long, int)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDFunction PDFunction.create(COSBase)"})
-  void testCreate_whenCOSObjectWithObjectIsCOSStreamAndObjectKeyIsCOSObjectKey()
-      throws IOException {
-    // Arrange
-    COSStream object = new COSStream();
-    COSObject function = new COSObject(object, new COSObjectKey(1L, 1));
-
-    // Act and Assert
-    assertThrows(IOException.class, () -> PDFunction.create(function));
-  }
-
-  /**
-   * Test {@link PDFunction#create(COSBase)}.
-   *
-   * <ul>
-   *   <li>When {@link COSObject#COSObject(COSBase, COSObjectKey)} with object is {@link
    *       COSBoolean#FALSE} and objectKey is {@link COSObjectKey#COSObjectKey(long, int)}.
    * </ul>
    *
@@ -329,25 +303,6 @@ class PDFunctionDiffblueTest {
   void testGetNumberOfOutputParameters() {
     // Arrange
     PDFunctionType0 pdFunctionType0 = new PDFunctionType0(new COSDictionary());
-    pdFunctionType0.setEncodeValues(new COSArray());
-
-    // Act and Assert
-    assertEquals(0, pdFunctionType0.getNumberOfOutputParameters());
-  }
-
-  /**
-   * Test {@link PDFunction#getNumberOfOutputParameters()}.
-   *
-   * <p>Method under test: {@link PDFunction#getNumberOfOutputParameters()}
-   */
-  @Test
-  @DisplayName("Test getNumberOfOutputParameters()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"int PDFunction.getNumberOfOutputParameters()"})
-  void testGetNumberOfOutputParameters2() {
-    // Arrange
-    PDFunctionType0 pdFunctionType0 = new PDFunctionType0(new COSDictionary());
     pdFunctionType0.setRangeValues(new COSArray());
 
     // Act and Assert
@@ -394,29 +349,6 @@ class PDFunctionDiffblueTest {
   void testGetNumberOfOutputParameters_givenPDFunctionType0WithFunctionIsCOSStream() {
     // Arrange, Act and Assert
     assertEquals(0, new PDFunctionType0(new COSStream()).getNumberOfOutputParameters());
-  }
-
-  /**
-   * Test {@link PDFunction#getRangeForOutput(int)}.
-   *
-   * <p>Method under test: {@link PDFunction#getRangeForOutput(int)}
-   */
-  @Test
-  @DisplayName("Test getRangeForOutput(int)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDRange PDFunction.getRangeForOutput(int)"})
-  void testGetRangeForOutput() {
-    // Arrange
-    PDFunctionType0 pdFunctionType0 = new PDFunctionType0(new COSDictionary());
-    pdFunctionType0.setEncodeValues(new COSArray());
-
-    // Act
-    PDRange actualRangeForOutput = pdFunctionType0.getRangeForOutput(1);
-
-    // Assert
-    assertNull(actualRangeForOutput.getCOSArray());
-    assertNull(actualRangeForOutput.getCOSObject());
   }
 
   /**
@@ -673,29 +605,6 @@ class PDFunctionDiffblueTest {
   /**
    * Test {@link PDFunction#getDomainForInput(int)}.
    *
-   * <p>Method under test: {@link PDFunction#getDomainForInput(int)}
-   */
-  @Test
-  @DisplayName("Test getDomainForInput(int)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDRange PDFunction.getDomainForInput(int)"})
-  void testGetDomainForInput() {
-    // Arrange
-    PDFunctionType0 pdFunctionType0 = new PDFunctionType0(new COSDictionary());
-    pdFunctionType0.setEncodeValues(new COSArray());
-
-    // Act
-    PDRange actualDomainForInput = pdFunctionType0.getDomainForInput(1);
-
-    // Assert
-    assertNull(actualDomainForInput.getCOSArray());
-    assertNull(actualDomainForInput.getCOSObject());
-  }
-
-  /**
-   * Test {@link PDFunction#getDomainForInput(int)}.
-   *
    * <ul>
    *   <li>Given {@link PDFunctionType0#PDFunctionType0(COSBase)} with function is {@link
    *       COSDictionary#COSDictionary()}.
@@ -922,25 +831,6 @@ class PDFunctionDiffblueTest {
   /**
    * Test {@link PDFunction#getRangeValues()}.
    *
-   * <p>Method under test: {@link PDFunction#getRangeValues()}
-   */
-  @Test
-  @DisplayName("Test getRangeValues()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"COSArray PDFunction.getRangeValues()"})
-  void testGetRangeValues() {
-    // Arrange
-    PDFunctionType0 pdFunctionType0 = new PDFunctionType0(new COSDictionary());
-    pdFunctionType0.setEncodeValues(new COSArray());
-
-    // Act and Assert
-    assertNull(pdFunctionType0.getRangeValues());
-  }
-
-  /**
-   * Test {@link PDFunction#getRangeValues()}.
-   *
    * <ul>
    *   <li>Given {@link PDFunctionType0#PDFunctionType0(COSBase)} with function is {@link
    *       COSDictionary#COSDictionary()}.
@@ -1021,29 +911,6 @@ class PDFunctionDiffblueTest {
   @MethodsUnderTest({"float[] PDFunction.clipToRange(float[])"})
   void testClipToRangeWithInputValues() {
     // Arrange
-    PDFunctionType0 pdFunctionType0 = new PDFunctionType0(new COSDictionary());
-    pdFunctionType0.setEncodeValues(new COSArray());
-
-    // Act
-    float[] actualClipToRangeResult =
-        pdFunctionType0.clipToRange(new float[] {10.0f, 0.5f, 10.0f, 0.5f});
-
-    // Assert
-    assertArrayEquals(new float[] {10.0f, 0.5f, 10.0f, 0.5f}, actualClipToRangeResult, 0.0f);
-  }
-
-  /**
-   * Test {@link PDFunction#clipToRange(float[])} with {@code inputValues}.
-   *
-   * <p>Method under test: {@link PDFunction#clipToRange(float[])}
-   */
-  @Test
-  @DisplayName("Test clipToRange(float[]) with 'inputValues'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"float[] PDFunction.clipToRange(float[])"})
-  void testClipToRangeWithInputValues2() {
-    // Arrange
     COSArray rangeValues = new COSArray();
     COSObject object = new COSObject(COSBoolean.FALSE, new COSObjectKey(1L, 1));
     rangeValues.add((COSBase) object);
@@ -1069,7 +936,7 @@ class PDFunctionDiffblueTest {
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"float[] PDFunction.clipToRange(float[])"})
-  void testClipToRangeWithInputValues3() throws IOException {
+  void testClipToRangeWithInputValues2() throws IOException {
     // Arrange
     COSArray rangeValues = new COSArray();
     COSObjectKey key = new COSObjectKey(1L, 1);
@@ -1097,7 +964,7 @@ class PDFunctionDiffblueTest {
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"float[] PDFunction.clipToRange(float[])"})
-  void testClipToRangeWithInputValues4() {
+  void testClipToRangeWithInputValues3() {
     // Arrange
     COSArray rangeValues = new COSArray();
     COSObject object = new COSObject(new COSObjectKey(1L, 1), null);

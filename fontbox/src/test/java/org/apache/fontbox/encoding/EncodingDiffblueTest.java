@@ -23,7 +23,7 @@ class EncodingDiffblueTest {
       "Test getName(int); given StandardEncoding (default constructor); then return '.notdef'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
-  @MethodsUnderTest({"java.lang.String Encoding.getName(int)"})
+  @MethodsUnderTest({"String Encoding.getName(int)"})
   void testGetName_givenStandardEncoding_thenReturnNotdef() {
     // Arrange, Act and Assert
     assertEquals(".notdef", new StandardEncoding().getName(1));

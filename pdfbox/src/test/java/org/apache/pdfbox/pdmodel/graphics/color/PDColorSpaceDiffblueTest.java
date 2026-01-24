@@ -1030,61 +1030,20 @@ class PDColorSpaceDiffblueTest {
    * Test {@link PDColorSpace#create(COSBase)} with {@code colorSpace}.
    *
    * <ul>
-   *   <li>Given {@link COSStream#COSStream()}.
-   *   <li>Then {@link PDCIEDictionaryBasedColorSpace#dictionary} return {@link COSStream}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDColorSpace#create(COSBase)}
-   */
-  @Test
-  @DisplayName(
-      "Test create(COSBase) with 'colorSpace'; given COSStream(); then dictionary return COSStream")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDColorSpace PDColorSpace.create(COSBase)"})
-  void testCreateWithColorSpace_givenCOSStream_thenDictionaryReturnCOSStream() throws IOException {
-    // Arrange
-    COSArray colorSpace = new COSArray(new ArrayList<>());
-    colorSpace.add(COSName.CALGRAY);
-    COSStream object = new COSStream();
-    colorSpace.add((COSBase) object);
-
-    // Act
-    PDColorSpace actualCreateResult = PDColorSpace.create(colorSpace);
-
-    // Assert
-    COSBase cOSObject = actualCreateResult.getCOSObject();
-    assertTrue(cOSObject instanceof COSArray);
-    COSDictionary cosDictionary = ((PDCalGray) actualCreateResult).dictionary;
-    assertTrue(cosDictionary instanceof COSStream);
-    assertTrue(actualCreateResult instanceof PDCalGray);
-    assertNull(((COSStream) cosDictionary).getFilters());
-    assertEquals(0L, ((COSStream) cosDictionary).getLength());
-    List<? extends COSBase> toListResult = ((COSArray) cOSObject).toList();
-    assertEquals(2, toListResult.size());
-    assertFalse(((COSStream) cosDictionary).hasData());
-    assertSame(object, toListResult.get(1));
-    assertArrayEquals(
-        new float[] {0.0f}, actualCreateResult.getInitialColor().getComponents(), 0.0f);
-  }
-
-  /**
-   * Test {@link PDColorSpace#create(COSBase)} with {@code colorSpace}.
-   *
-   * <ul>
    *   <li>Given {@link COSName#CALGRAY}.
-   *   <li>Then return Name is {@code CalGray}.
+   *   <li>Then return COSObject toList size is two.
    * </ul>
    *
    * <p>Method under test: {@link PDColorSpace#create(COSBase)}
    */
   @Test
   @DisplayName(
-      "Test create(COSBase) with 'colorSpace'; given CALGRAY; then return Name is 'CalGray'")
+      "Test create(COSBase) with 'colorSpace'; given CALGRAY; then return COSObject toList size is two")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"PDColorSpace PDColorSpace.create(COSBase)"})
-  void testCreateWithColorSpace_givenCalgray_thenReturnNameIsCalGray() throws IOException {
+  void testCreateWithColorSpace_givenCalgray_thenReturnCOSObjectToListSizeIsTwo()
+      throws IOException {
     // Arrange
     COSArray colorSpace = new COSArray(new ArrayList<>());
     colorSpace.add(COSName.CALGRAY);
@@ -1094,16 +1053,20 @@ class PDColorSpaceDiffblueTest {
     PDColorSpace actualCreateResult = PDColorSpace.create(colorSpace);
 
     // Assert
+    COSBase cOSObject = actualCreateResult.getCOSObject();
+    assertTrue(cOSObject instanceof COSArray);
+    List<? extends COSBase> toListResult = ((COSArray) cOSObject).toList();
+    assertEquals(2, toListResult.size());
+    COSBase getResult = toListResult.get(0);
+    assertTrue(getResult instanceof COSName);
     assertTrue(actualCreateResult instanceof PDCalGray);
+    assertEquals("CalGray", ((COSName) getResult).getName());
     assertEquals("CalGray", actualCreateResult.getName());
     PDColor initialColor = actualCreateResult.getInitialColor();
     assertNull(initialColor.getPatternName());
-    COSDictionary cosDictionary = ((PDCalGray) actualCreateResult).dictionary;
-    assertEquals(0, cosDictionary.size());
     assertEquals(1, actualCreateResult.getNumberOfComponents());
     assertEquals(1.0f, ((PDCalGray) actualCreateResult).getGamma());
     assertFalse(initialColor.isPattern());
-    assertTrue(cosDictionary.getValues().isEmpty());
     assertSame(actualCreateResult, initialColor.getColorSpace());
     assertArrayEquals(new float[] {0.0f}, initialColor.getComponents(), 0.0f);
   }
@@ -1684,34 +1647,6 @@ class PDColorSpaceDiffblueTest {
     assertFalse(initialColor.isPattern());
     assertSame(COSName.PATTERN, getResult);
     assertArrayEquals(new float[] {}, initialColor.getComponents(), 0.0f);
-  }
-
-  /**
-   * Test {@link PDColorSpace#getCOSObject()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDDeviceGray#INSTANCE}.
-   *   <li>Then return {@link COSName#DEVICEGRAY}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDColorSpace#getCOSObject()}
-   */
-  @Test
-  @DisplayName("Test getCOSObject(); given INSTANCE; then return DEVICEGRAY")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"COSBase PDColorSpace.getCOSObject()"})
-  void testGetCOSObject_givenInstance_thenReturnDevicegray() {
-    // Arrange
-    PDDeviceGray pdDeviceGray = PDDeviceGray.INSTANCE;
-
-    // Act
-    COSBase actualCOSObject = pdDeviceGray.getCOSObject();
-
-    // Assert
-    COSName cosName = ((COSName) actualCOSObject).DEVICEGRAY;
-    assertSame(cosName, actualCOSObject);
-    assertSame(cosName, pdDeviceGray.getCOSObject());
   }
 
   /**

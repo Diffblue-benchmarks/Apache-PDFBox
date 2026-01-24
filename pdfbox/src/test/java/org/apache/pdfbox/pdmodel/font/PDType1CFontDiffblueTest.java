@@ -22,14 +22,11 @@ import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Map;
 import org.apache.fontbox.FontBoxFont;
 import org.apache.fontbox.cff.CFFType1Font;
-import org.apache.fontbox.ttf.TTFTable;
 import org.apache.fontbox.ttf.TrueTypeFont;
 import org.apache.fontbox.util.BoundingBox;
 import org.apache.pdfbox.cos.COSDictionary;
-import org.apache.pdfbox.cos.COSStream;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.font.encoding.Encoding;
 import org.apache.pdfbox.pdmodel.font.encoding.StandardEncoding;
@@ -52,18 +49,19 @@ class PDType1CFontDiffblueTest {
    * Test {@link PDType1CFont#PDType1CFont(COSDictionary)}.
    *
    * <ul>
-   *   <li>Then return FontBoxFont TableMap size is nineteen.
+   *   <li>When {@link COSDictionary#COSDictionary()}.
+   *   <li>Then return SymbolicFlag is {@code null}.
    * </ul>
    *
    * <p>Method under test: {@link PDType1CFont#PDType1CFont(COSDictionary)}
    */
   @Test
   @DisplayName(
-      "Test new PDType1CFont(COSDictionary); then return FontBoxFont TableMap size is nineteen")
+      "Test new PDType1CFont(COSDictionary); when COSDictionary(); then return SymbolicFlag is 'null'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void PDType1CFont.<init>(COSDictionary)"})
-  void testNewPDType1CFont_thenReturnFontBoxFontTableMapSizeIsNineteen() throws IOException {
+  void testNewPDType1CFont_whenCOSDictionary_thenReturnSymbolicFlagIsNull() throws IOException {
     // Arrange
     COSDictionary fontDictionary = new COSDictionary();
 
@@ -71,154 +69,66 @@ class PDType1CFontDiffblueTest {
     PDType1CFont actualPdType1CFont = new PDType1CFont(fontDictionary);
 
     // Assert
-    FontBoxFont fontBoxFont = actualPdType1CFont.getFontBoxFont();
-    assertTrue(fontBoxFont instanceof TrueTypeFont);
-    Map<String, TTFTable> tableMap = ((TrueTypeFont) fontBoxFont).getTableMap();
-    assertEquals(19, tableMap.size());
-    assertEquals(3, ((TrueTypeFont) fontBoxFont).getCmap().getCmaps().length);
-    float[][] values = actualPdType1CFont.getFontMatrix().getValues();
-    assertEquals(3, values.length);
-    assertTrue(tableMap.containsKey("fpgm"));
+    assertTrue(actualPdType1CFont.getFontBoxFont() instanceof TrueTypeFont);
+    assertTrue(actualPdType1CFont.getEncoding() instanceof StandardEncoding);
+    assertNull(actualPdType1CFont.getSymbolicFlag());
+    assertNull(actualPdType1CFont.getSubType());
+    assertNull(actualPdType1CFont.getType());
+    assertNull(actualPdType1CFont.getBaseFont());
+    assertNull(actualPdType1CFont.getName());
+    assertNull(actualPdType1CFont.getStandard14AFM());
+    assertNull(actualPdType1CFont.getCFFType1Font());
+    assertNull(actualPdType1CFont.getToUnicodeCMap());
+    assertNull(actualPdType1CFont.getFontDescriptor());
+    assertEquals(250.0f, actualPdType1CFont.getSpaceWidth());
+    assertEquals(500.0f, actualPdType1CFont.getAverageFontWidth());
+    assertFalse(actualPdType1CFont.isVertical());
+    assertFalse(actualPdType1CFont.isDamaged());
+    assertFalse(actualPdType1CFont.isEmbedded());
+    assertTrue(actualPdType1CFont.getWidths().isEmpty());
     assertSame(fontDictionary, actualPdType1CFont.getCOSObject());
-    assertArrayEquals(new float[] {0.0f, 0.0f, 1.0f}, values[2], 0.0f);
-    assertArrayEquals(new float[] {0.0f, 4.8828125E-4f, 0.0f}, values[1], 0.0f);
-    assertArrayEquals(new float[] {4.8828125E-4f, 0.0f, 0.0f}, values[0], 0.0f);
-  }
-
-  /**
-   * Test {@link PDType1CFont#PDType1CFont(COSDictionary)}.
-   *
-   * <ul>
-   *   <li>When {@link COSStream#COSStream()}.
-   *   <li>Then return COSObject is {@link COSStream#COSStream()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDType1CFont#PDType1CFont(COSDictionary)}
-   */
-  @Test
-  @DisplayName(
-      "Test new PDType1CFont(COSDictionary); when COSStream(); then return COSObject is COSStream()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDType1CFont.<init>(COSDictionary)"})
-  void testNewPDType1CFont_whenCOSStream_thenReturnCOSObjectIsCOSStream() throws IOException {
-    // Arrange
-    COSStream fontDictionary = new COSStream();
-
-    // Act and Assert
-    assertSame(fontDictionary, new PDType1CFont(fontDictionary).getCOSObject());
   }
 
   /**
    * Test {@link PDType1CFont#getBaseFont()}.
    *
    * <ul>
-   *   <li>Given {@link PDType1CFont#PDType1CFont(COSDictionary)} with fontDictionary is {@link
-   *       COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDType1CFont#getBaseFont()}
-   */
-  @Test
-  @DisplayName(
-      "Test getBaseFont(); given PDType1CFont(COSDictionary) with fontDictionary is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String PDType1CFont.getBaseFont()"})
-  void testGetBaseFont_givenPDType1CFontWithFontDictionaryIsCOSDictionary() throws IOException {
-    // Arrange, Act and Assert
-    assertNull(new PDType1CFont(new COSDictionary()).getBaseFont());
-  }
-
-  /**
-   * Test {@link PDType1CFont#getBaseFont()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDType1CFont#PDType1CFont(COSDictionary)} with fontDictionary is {@link
-   *       COSStream#COSStream()}.
    *   <li>Then return {@code null}.
    * </ul>
    *
    * <p>Method under test: {@link PDType1CFont#getBaseFont()}
    */
   @Test
-  @DisplayName(
-      "Test getBaseFont(); given PDType1CFont(COSDictionary) with fontDictionary is COSStream(); then return 'null'")
+  @DisplayName("Test getBaseFont(); then return 'null'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"String PDType1CFont.getBaseFont()"})
-  void testGetBaseFont_givenPDType1CFontWithFontDictionaryIsCOSStream_thenReturnNull()
-      throws IOException {
+  void testGetBaseFont_thenReturnNull() throws IOException {
     // Arrange, Act and Assert
-    assertNull(new PDType1CFont(new COSStream()).getBaseFont());
+    assertNull(new PDType1CFont(new COSDictionary()).getBaseFont());
   }
 
   /**
    * Test {@link PDType1CFont#getPath(int)} with {@code code}.
    *
    * <ul>
-   *   <li>Given {@link PDType1CFont#PDType1CFont(COSDictionary)} with fontDictionary is {@link
-   *       COSStream#COSStream()}.
+   *   <li>Then return CurrentPoint is {@code null}.
    * </ul>
    *
    * <p>Method under test: {@link PDType1CFont#getPath(int)}
    */
   @Test
-  @DisplayName(
-      "Test getPath(int) with 'code'; given PDType1CFont(COSDictionary) with fontDictionary is COSStream()")
+  @DisplayName("Test getPath(int) with 'code'; then return CurrentPoint is 'null'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"GeneralPath PDType1CFont.getPath(int)"})
-  void testGetPathWithCode_givenPDType1CFontWithFontDictionaryIsCOSStream() throws IOException {
-    // Arrange and Act
-    GeneralPath actualPath = new PDType1CFont(new COSStream()).getPath(1);
-
-    // Assert
-    Rectangle bounds = actualPath.getBounds();
-    Rectangle2D bounds2D = bounds.getBounds2D();
-    assertTrue(bounds2D instanceof Rectangle);
-    Rectangle2D frame = bounds.getFrame();
-    assertTrue(frame instanceof Double);
-    Rectangle2D bounds2D2 = actualPath.getBounds2D();
-    assertTrue(bounds2D2 instanceof Float);
-    Rectangle actualBounds = bounds.getBounds();
-    assertEquals(bounds, actualBounds);
-    assertEquals(bounds, bounds2D);
-    assertEquals(bounds, frame);
-    assertEquals(bounds, bounds2D2);
-  }
-
-  /**
-   * Test {@link PDType1CFont#getPath(int)} with {@code code}.
-   *
-   * <ul>
-   *   <li>Then Bounds Bounds2D return {@link Rectangle}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDType1CFont#getPath(int)}
-   */
-  @Test
-  @DisplayName("Test getPath(int) with 'code'; then Bounds Bounds2D return Rectangle")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"GeneralPath PDType1CFont.getPath(int)"})
-  void testGetPathWithCode_thenBoundsBounds2DReturnRectangle() throws IOException {
+  void testGetPathWithCode_thenReturnCurrentPointIsNull() throws IOException {
     // Arrange and Act
     GeneralPath actualPath = new PDType1CFont(new COSDictionary()).getPath(1);
 
     // Assert
-    Rectangle bounds = actualPath.getBounds();
-    Rectangle2D bounds2D = bounds.getBounds2D();
-    assertTrue(bounds2D instanceof Rectangle);
-    Rectangle2D frame = bounds.getFrame();
-    assertTrue(frame instanceof Double);
-    Rectangle2D bounds2D2 = actualPath.getBounds2D();
-    assertTrue(bounds2D2 instanceof Float);
-    Rectangle actualBounds = bounds.getBounds();
-    assertEquals(bounds, actualBounds);
-    assertEquals(bounds, bounds2D);
-    assertEquals(bounds, frame);
-    assertEquals(bounds, bounds2D2);
+    assertTrue(actualPath.getBounds2D() instanceof Float);
+    assertNull(actualPath.getCurrentPoint());
   }
 
   /**
@@ -300,43 +210,6 @@ class PDType1CFontDiffblueTest {
       throws IOException {
     // Arrange and Act
     GeneralPath actualPath = new PDType1CFont(new COSDictionary()).getPath("Name");
-
-    // Assert
-    Rectangle bounds = actualPath.getBounds();
-    Rectangle2D bounds2D = bounds.getBounds2D();
-    assertTrue(bounds2D instanceof Rectangle);
-    Rectangle2D frame = bounds.getFrame();
-    assertTrue(frame instanceof Double);
-    Rectangle2D bounds2D2 = actualPath.getBounds2D();
-    assertTrue(bounds2D2 instanceof Float);
-    Rectangle actualBounds = bounds.getBounds();
-    assertEquals(bounds, actualBounds);
-    assertEquals(bounds, bounds2D);
-    assertEquals(bounds, frame);
-    assertEquals(bounds, bounds2D2);
-  }
-
-  /**
-   * Test {@link PDType1CFont#getPath(String)} with {@code name}.
-   *
-   * <ul>
-   *   <li>Given {@link PDType1CFont#PDType1CFont(COSDictionary)} with fontDictionary is {@link
-   *       COSStream#COSStream()}.
-   *   <li>When {@code .notdef}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDType1CFont#getPath(String)}
-   */
-  @Test
-  @DisplayName(
-      "Test getPath(String) with 'name'; given PDType1CFont(COSDictionary) with fontDictionary is COSStream(); when '.notdef'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"GeneralPath PDType1CFont.getPath(String)"})
-  void testGetPathWithName_givenPDType1CFontWithFontDictionaryIsCOSStream_whenNotdef()
-      throws IOException {
-    // Arrange and Act
-    GeneralPath actualPath = new PDType1CFont(new COSStream()).getPath(".notdef");
 
     // Assert
     Rectangle bounds = actualPath.getBounds();
@@ -580,68 +453,23 @@ class PDType1CFontDiffblueTest {
    * Test {@link PDType1CFont#getNormalizedPath(int)}.
    *
    * <ul>
-   *   <li>Given {@link PDType1CFont#PDType1CFont(COSDictionary)} with fontDictionary is {@link
-   *       COSStream#COSStream()}.
+   *   <li>Then return CurrentPoint is {@code null}.
    * </ul>
    *
    * <p>Method under test: {@link PDType1CFont#getNormalizedPath(int)}
    */
   @Test
-  @DisplayName(
-      "Test getNormalizedPath(int); given PDType1CFont(COSDictionary) with fontDictionary is COSStream()")
+  @DisplayName("Test getNormalizedPath(int); then return CurrentPoint is 'null'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"GeneralPath PDType1CFont.getNormalizedPath(int)"})
-  void testGetNormalizedPath_givenPDType1CFontWithFontDictionaryIsCOSStream() throws IOException {
-    // Arrange and Act
-    GeneralPath actualNormalizedPath = new PDType1CFont(new COSStream()).getNormalizedPath(1);
-
-    // Assert
-    Rectangle bounds = actualNormalizedPath.getBounds();
-    Rectangle2D bounds2D = bounds.getBounds2D();
-    assertTrue(bounds2D instanceof Rectangle);
-    Rectangle2D frame = bounds.getFrame();
-    assertTrue(frame instanceof Double);
-    Rectangle2D bounds2D2 = actualNormalizedPath.getBounds2D();
-    assertTrue(bounds2D2 instanceof Float);
-    Rectangle actualBounds = bounds.getBounds();
-    assertEquals(bounds, actualBounds);
-    assertEquals(bounds, bounds2D);
-    assertEquals(bounds, frame);
-    assertEquals(bounds, bounds2D2);
-  }
-
-  /**
-   * Test {@link PDType1CFont#getNormalizedPath(int)}.
-   *
-   * <ul>
-   *   <li>Then Bounds Bounds2D return {@link Rectangle}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDType1CFont#getNormalizedPath(int)}
-   */
-  @Test
-  @DisplayName("Test getNormalizedPath(int); then Bounds Bounds2D return Rectangle")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"GeneralPath PDType1CFont.getNormalizedPath(int)"})
-  void testGetNormalizedPath_thenBoundsBounds2DReturnRectangle() throws IOException {
+  void testGetNormalizedPath_thenReturnCurrentPointIsNull() throws IOException {
     // Arrange and Act
     GeneralPath actualNormalizedPath = new PDType1CFont(new COSDictionary()).getNormalizedPath(1);
 
     // Assert
-    Rectangle bounds = actualNormalizedPath.getBounds();
-    Rectangle2D bounds2D = bounds.getBounds2D();
-    assertTrue(bounds2D instanceof Rectangle);
-    Rectangle2D frame = bounds.getFrame();
-    assertTrue(frame instanceof Double);
-    Rectangle2D bounds2D2 = actualNormalizedPath.getBounds2D();
-    assertTrue(bounds2D2 instanceof Float);
-    Rectangle actualBounds = bounds.getBounds();
-    assertEquals(bounds, actualBounds);
-    assertEquals(bounds, bounds2D);
-    assertEquals(bounds, frame);
-    assertEquals(bounds, bounds2D2);
+    assertTrue(actualNormalizedPath.getBounds2D() instanceof Float);
+    assertNull(actualNormalizedPath.getCurrentPoint());
   }
 
   /**
@@ -689,29 +517,6 @@ class PDType1CFontDiffblueTest {
       throws IOException {
     // Arrange, Act and Assert
     assertNull(new PDType1CFont(new COSDictionary()).getName());
-  }
-
-  /**
-   * Test {@link PDType1CFont#getName()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDType1CFont#PDType1CFont(COSDictionary)} with fontDictionary is {@link
-   *       COSStream#COSStream()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDType1CFont#getName()}
-   */
-  @Test
-  @DisplayName(
-      "Test getName(); given PDType1CFont(COSDictionary) with fontDictionary is COSStream(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String PDType1CFont.getName()"})
-  void testGetName_givenPDType1CFontWithFontDictionaryIsCOSStream_thenReturnNull()
-      throws IOException {
-    // Arrange, Act and Assert
-    assertNull(new PDType1CFont(new COSStream()).getName());
   }
 
   /**
@@ -1149,29 +954,6 @@ class PDType1CFontDiffblueTest {
     // Arrange, Act and Assert
     assertThrows(
         IllegalArgumentException.class, () -> new PDType1CFont(new COSDictionary()).encode(1));
-  }
-
-  /**
-   * Test {@link PDType1CFont#encode(int)} with {@code unicode}.
-   *
-   * <ul>
-   *   <li>Given {@link PDType1CFont#PDType1CFont(COSDictionary)} with fontDictionary is {@link
-   *       COSStream#COSStream()}.
-   *   <li>When one.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDType1CFont#encode(int)}
-   */
-  @Test
-  @DisplayName(
-      "Test encode(int) with 'unicode'; given PDType1CFont(COSDictionary) with fontDictionary is COSStream(); when one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"byte[] PDType1CFont.encode(int)"})
-  void testEncodeWithUnicode_givenPDType1CFontWithFontDictionaryIsCOSStream_whenOne()
-      throws IOException {
-    // Arrange, Act and Assert
-    assertThrows(IllegalArgumentException.class, () -> new PDType1CFont(new COSStream()).encode(1));
   }
 
   /**

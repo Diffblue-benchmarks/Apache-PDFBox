@@ -98,36 +98,6 @@ class PDActionSoundDiffblueTest {
    * Test {@link PDActionSound#setSound(COSStream)}.
    *
    * <ul>
-   *   <li>Given {@link PDActionSound#PDActionSound()} Type is empty string.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDActionSound#setSound(COSStream)}
-   */
-  @Test
-  @DisplayName("Test setSound(COSStream); given PDActionSound() Type is empty string")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDActionSound.setSound(COSStream)"})
-  void testSetSound_givenPDActionSoundTypeIsEmptyString() {
-    // Arrange
-    PDActionSound pdActionSound = new PDActionSound();
-    pdActionSound.setType("");
-    COSStream sound = new COSStream();
-
-    // Act
-    pdActionSound.setSound(sound);
-
-    // Assert
-    COSDictionary cOSObject = pdActionSound.getCOSObject();
-    assertEquals(3, cOSObject.getValues().size());
-    assertEquals(3, cOSObject.size());
-    assertSame(sound, pdActionSound.getSound());
-  }
-
-  /**
-   * Test {@link PDActionSound#setSound(COSStream)}.
-   *
-   * <ul>
    *   <li>Given {@link PDActionSound#PDActionSound()}.
    *   <li>When {@link COSStream#COSStream()}.
    *   <li>Then {@link PDActionSound#PDActionSound()} Sound is {@link COSStream#COSStream()}.
@@ -241,28 +211,6 @@ class PDActionSoundDiffblueTest {
 
     // Act and Assert
     assertSame(sound, pdActionSound.getSound());
-  }
-
-  /**
-   * Test {@link PDActionSound#getSound()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDActionSound#PDActionSound(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDActionSound#getSound()}
-   */
-  @Test
-  @DisplayName(
-      "Test getSound(); given PDActionSound(COSDictionary) with a is COSDictionary(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"COSStream PDActionSound.getSound()"})
-  void testGetSound_givenPDActionSoundWithAIsCOSDictionary_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull(new PDActionSound(new COSDictionary()).getSound());
   }
 
   /**
@@ -417,28 +365,6 @@ class PDActionSoundDiffblueTest {
    * Test {@link PDActionSound#getVolume()}.
    *
    * <ul>
-   *   <li>Given {@link PDActionSound#PDActionSound(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return one.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDActionSound#getVolume()}
-   */
-  @Test
-  @DisplayName(
-      "Test getVolume(); given PDActionSound(COSDictionary) with a is COSDictionary(); then return one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"float PDActionSound.getVolume()"})
-  void testGetVolume_givenPDActionSoundWithAIsCOSDictionary_thenReturnOne() {
-    // Arrange, Act and Assert
-    assertEquals(1.0f, new PDActionSound(new COSDictionary()).getVolume());
-  }
-
-  /**
-   * Test {@link PDActionSound#getVolume()}.
-   *
-   * <ul>
    *   <li>Given {@link PDActionSound#PDActionSound()}.
    *   <li>Then return one.
    * </ul>
@@ -565,28 +491,6 @@ class PDActionSoundDiffblueTest {
 
     // Act and Assert
     assertTrue(pdActionSound.getSynchronous());
-  }
-
-  /**
-   * Test {@link PDActionSound#getSynchronous()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDActionSound#PDActionSound(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code false}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDActionSound#getSynchronous()}
-   */
-  @Test
-  @DisplayName(
-      "Test getSynchronous(); given PDActionSound(COSDictionary) with a is COSDictionary(); then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean PDActionSound.getSynchronous()"})
-  void testGetSynchronous_givenPDActionSoundWithAIsCOSDictionary_thenReturnFalse() {
-    // Arrange, Act and Assert
-    assertFalse(new PDActionSound(new COSDictionary()).getSynchronous());
   }
 
   /**
@@ -723,28 +627,6 @@ class PDActionSoundDiffblueTest {
    * Test {@link PDActionSound#getRepeat()}.
    *
    * <ul>
-   *   <li>Given {@link PDActionSound#PDActionSound(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code false}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDActionSound#getRepeat()}
-   */
-  @Test
-  @DisplayName(
-      "Test getRepeat(); given PDActionSound(COSDictionary) with a is COSDictionary(); then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean PDActionSound.getRepeat()"})
-  void testGetRepeat_givenPDActionSoundWithAIsCOSDictionary_thenReturnFalse() {
-    // Arrange, Act and Assert
-    assertFalse(new PDActionSound(new COSDictionary()).getRepeat());
-  }
-
-  /**
-   * Test {@link PDActionSound#getRepeat()}.
-   *
-   * <ul>
    *   <li>Given {@link PDActionSound#PDActionSound()}.
    *   <li>Then return {@code false}.
    * </ul>
@@ -868,28 +750,6 @@ class PDActionSoundDiffblueTest {
 
     // Act and Assert
     assertTrue(pdActionSound.getMix());
-  }
-
-  /**
-   * Test {@link PDActionSound#getMix()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDActionSound#PDActionSound(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code false}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDActionSound#getMix()}
-   */
-  @Test
-  @DisplayName(
-      "Test getMix(); given PDActionSound(COSDictionary) with a is COSDictionary(); then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean PDActionSound.getMix()"})
-  void testGetMix_givenPDActionSoundWithAIsCOSDictionary_thenReturnFalse() {
-    // Arrange, Act and Assert
-    assertFalse(new PDActionSound(new COSDictionary()).getMix());
   }
 
   /**

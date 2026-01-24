@@ -95,6 +95,26 @@ class CMapParserDiffblueTest {
    * Test {@link CMapParser#parsePredefined(String)}.
    *
    * <ul>
+   *   <li>When {@code TestCMap.class}.
+   *   <li>Then throw {@link IOException}.
+   * </ul>
+   *
+   * <p>Method under test: {@link CMapParser#parsePredefined(String)}
+   */
+  @Test
+  @DisplayName("Test parsePredefined(String); when 'TestCMap.class'; then throw IOException")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"CMap CMapParser.parsePredefined(String)"})
+  void testParsePredefined_whenTestCMapClass_thenThrowIOException() throws IOException {
+    // Arrange, Act and Assert
+    assertThrows(IOException.class, () -> new CMapParser().parsePredefined("TestCMap.class"));
+  }
+
+  /**
+   * Test {@link CMapParser#parsePredefined(String)}.
+   *
+   * <ul>
    *   <li>When {@code TestCMapParser.class}.
    *   <li>Then throw {@link IOException}.
    * </ul>
@@ -109,6 +129,28 @@ class CMapParserDiffblueTest {
   void testParsePredefined_whenTestCMapParserClass_thenThrowIOException() throws IOException {
     // Arrange, Act and Assert
     assertThrows(IOException.class, () -> new CMapParser().parsePredefined("TestCMapParser.class"));
+  }
+
+  /**
+   * Test {@link CMapParser#parsePredefined(String)}.
+   *
+   * <ul>
+   *   <li>When {@code TestCodespaceRange.class}.
+   *   <li>Then throw {@link IOException}.
+   * </ul>
+   *
+   * <p>Method under test: {@link CMapParser#parsePredefined(String)}
+   */
+  @Test
+  @DisplayName(
+      "Test parsePredefined(String); when 'TestCodespaceRange.class'; then throw IOException")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"CMap CMapParser.parsePredefined(String)"})
+  void testParsePredefined_whenTestCodespaceRangeClass_thenThrowIOException() throws IOException {
+    // Arrange, Act and Assert
+    assertThrows(
+        IOException.class, () -> new CMapParser().parsePredefined("TestCodespaceRange.class"));
   }
 
   /**

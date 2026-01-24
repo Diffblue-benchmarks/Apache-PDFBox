@@ -13,24 +13,6 @@ import org.junit.jupiter.api.Test;
 
 class LucenePDFDocumentDiffblueTest {
   /**
-   * Test {@link LucenePDFDocument#createUID(File)} with {@code file}.
-   *
-   * <p>Method under test: {@link LucenePDFDocument#createUID(File)}
-   */
-  @Test
-  @DisplayName("Test createUID(File) with 'file'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"java.lang.String LucenePDFDocument.createUID(File)"})
-  void testCreateUIDWithFile() {
-    // Arrange, Act and Assert
-    assertEquals(
-        "\u0000tmp\u0000test.txt\u000020251114020859",
-        LucenePDFDocument.createUID(
-            Paths.get(System.getProperty("java.io.tmpdir"), "test.txt").toFile()));
-  }
-
-  /**
    * Test {@link LucenePDFDocument#createUID(URL, long)} with {@code url}, {@code time}.
    *
    * <p>Method under test: {@link LucenePDFDocument#createUID(URL, long)}

@@ -36,7 +36,6 @@ import org.apache.pdfbox.cos.COSDocument;
 import org.apache.pdfbox.cos.COSFloat;
 import org.apache.pdfbox.cos.COSName;
 import org.apache.pdfbox.cos.COSObjectKey;
-import org.apache.pdfbox.cos.COSStream;
 import org.apache.pdfbox.io.RandomAccessRead;
 import org.apache.pdfbox.io.RandomAccessReadBuffer;
 import org.apache.pdfbox.pdfwriter.compress.CompressParameters;
@@ -882,6 +881,42 @@ class PDFTextStripperDiffblueTest {
    * Test {@link PDFTextStripper#writeText(PDDocument, Writer)}.
    *
    * <ul>
+   *   <li>Given {@link COSArray#COSArray()} add {@link COSBoolean#FALSE}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDFTextStripper#writeText(PDDocument, Writer)}
+   */
+  @Test
+  @DisplayName("Test writeText(PDDocument, Writer); given COSArray() add FALSE")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDFTextStripper.writeText(PDDocument, Writer)"})
+  void testWriteText_givenCOSArrayAddFalse() throws IOException {
+    // Arrange
+    COSArray cosArray = new COSArray();
+    cosArray.add(COSBoolean.FALSE);
+    when(pDRectangle.getCOSArray()).thenReturn(cosArray);
+
+    PDPage page = new PDPage();
+    page.setCropBox(pDRectangle);
+    page.setContents(new PDStream(new COSDocument()));
+
+    PDDocument doc = new PDDocument();
+    doc.save(new ByteArrayOutputStream(), CompressParameters.DEFAULT_COMPRESSION);
+    doc.addPage(page);
+
+    // Act
+    pDFTextStripper.writeText(doc, new StringWriter());
+
+    // Assert
+    verify(pDRectangle).getCOSArray();
+    assertEquals(1, pDFTextStripper.getGraphicsState().getCurrentClippingPaths().size());
+  }
+
+  /**
+   * Test {@link PDFTextStripper#writeText(PDDocument, Writer)}.
+   *
+   * <ul>
    *   <li>Given {@link COSDictionary#COSDictionary()} Key is {@link COSObjectKey#COSObjectKey(long,
    *       int)} with num is one and gen is one.
    * </ul>
@@ -1184,6 +1219,42 @@ class PDFTextStripperDiffblueTest {
    * Test {@link PDFTextStripper#writeText(PDDocument, Writer)}.
    *
    * <ul>
+   *   <li>Then {@link PDFTextStripper} GraphicsState CurrentClippingPaths size is one.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDFTextStripper#writeText(PDDocument, Writer)}
+   */
+  @Test
+  @DisplayName(
+      "Test writeText(PDDocument, Writer); then PDFTextStripper GraphicsState CurrentClippingPaths size is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDFTextStripper.writeText(PDDocument, Writer)"})
+  void testWriteText_thenPDFTextStripperGraphicsStateCurrentClippingPathsSizeIsOne()
+      throws IOException {
+    // Arrange
+    when(pDRectangle.getCOSArray()).thenReturn(new COSArray());
+
+    PDPage page = new PDPage();
+    page.setCropBox(pDRectangle);
+    page.setContents(new PDStream(new COSDocument()));
+
+    PDDocument doc = new PDDocument();
+    doc.save(new ByteArrayOutputStream(), CompressParameters.DEFAULT_COMPRESSION);
+    doc.addPage(page);
+
+    // Act
+    pDFTextStripper.writeText(doc, new StringWriter());
+
+    // Assert
+    verify(pDRectangle).getCOSArray();
+    assertEquals(1, pDFTextStripper.getGraphicsState().getCurrentClippingPaths().size());
+  }
+
+  /**
+   * Test {@link PDFTextStripper#writeText(PDDocument, Writer)}.
+   *
+   * <ul>
    *   <li>When {@link PDDocument#PDDocument()}.
    *   <li>Then {@link PDFTextStripper} (default constructor) {@link PDFTextStripper#document}
    *       NumberOfPages is zero.
@@ -1300,6 +1371,62 @@ class PDFTextStripperDiffblueTest {
     assertTrue(nextResult.getFilters().isEmpty());
     assertEquals(filters, ((COSArray) getResult).toList());
     assertArrayEquals(new float[] {}, lineDashPattern.getDashArray(), 0.0f);
+    assertArrayEquals(
+        new float[] {0.0f}, graphicsState.getNonStrokingColor().getComponents(), 0.0f);
+  }
+
+  /**
+   * Test {@link PDFTextStripper#processPages(PDPageTree)}.
+   *
+   * <p>Method under test: {@link PDFTextStripper#processPages(PDPageTree)}
+   */
+  @Test
+  @DisplayName("Test processPages(PDPageTree)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDFTextStripper.processPages(PDPageTree)"})
+  void testProcessPages3() throws IOException {
+    // Arrange
+    PDFTextStripperByArea pdfTextStripperByArea = new PDFTextStripperByArea();
+    pdfTextStripperByArea.addOperator(new DrawObject(new LegacyPDFStreamEngine()));
+
+    PDPage page = new PDPage();
+    PDRectangle cropBox =
+        new PDRectangle(2.14748365E9f, 2.14748365E9f, 2.14748365E9f, 2.14748365E9f);
+    page.setCropBox(cropBox);
+    page.setContents(new PDStream(new COSDocument()));
+
+    PDPageTree pages = new PDPageTree();
+    pages.add(page);
+
+    // Act
+    pdfTextStripperByArea.processPages(pages);
+
+    // Assert
+    PDGraphicsState graphicsState = pdfTextStripperByArea.getGraphicsState();
+    assertTrue(graphicsState.getCurrentClippingPath().getBounds2D() instanceof Double);
+    PDPage currentPage = pdfTextStripperByArea.getCurrentPage();
+    PDRectangle artBox = currentPage.getArtBox();
+    assertEquals(-2.14748288E9f, artBox.getHeight());
+    PDRectangle bBox = currentPage.getBBox();
+    assertEquals(-2.14748288E9f, bBox.getHeight());
+    PDRectangle bleedBox = currentPage.getBleedBox();
+    assertEquals(-2.14748288E9f, bleedBox.getHeight());
+    PDRectangle cropBox2 = currentPage.getCropBox();
+    assertEquals(-2.14748288E9f, cropBox2.getHeight());
+    assertEquals(-2.14748301E9f, artBox.getWidth());
+    assertEquals(-2.14748301E9f, bBox.getWidth());
+    assertEquals(-2.14748301E9f, bleedBox.getWidth());
+    assertEquals(-2.14748301E9f, cropBox2.getWidth());
+    assertEquals(2.14748365E9f, artBox.getLowerLeftX());
+    assertEquals(2.14748365E9f, bBox.getLowerLeftX());
+    assertEquals(2.14748365E9f, bleedBox.getLowerLeftX());
+    assertEquals(2.14748365E9f, cropBox2.getLowerLeftX());
+    assertEquals(2.14748365E9f, artBox.getLowerLeftY());
+    assertEquals(2.14748365E9f, bBox.getLowerLeftY());
+    assertEquals(2.14748365E9f, bleedBox.getLowerLeftY());
+    assertEquals(2.14748365E9f, cropBox2.getLowerLeftY());
+    assertArrayEquals(new float[] {}, graphicsState.getLineDashPattern().getDashArray(), 0.0f);
     assertArrayEquals(
         new float[] {0.0f}, graphicsState.getNonStrokingColor().getComponents(), 0.0f);
   }
@@ -1555,28 +1682,15 @@ class PDFTextStripperDiffblueTest {
     assertEquals(0.0f, bleedBox.getLowerLeftX());
     PDRectangle cropBox = currentPage.getCropBox();
     assertEquals(0.0f, cropBox.getLowerLeftX());
-    PDRectangle mediaBox = currentPage.getMediaBox();
-    assertEquals(0.0f, mediaBox.getLowerLeftX());
     assertEquals(0.0f, bBox.getLowerLeftY());
     assertEquals(0.0f, bleedBox.getLowerLeftY());
     assertEquals(0.0f, cropBox.getLowerLeftY());
-    assertEquals(0.0f, mediaBox.getLowerLeftY());
-    assertEquals(612.0f, bBox.getUpperRightX());
-    assertEquals(612.0f, bleedBox.getUpperRightX());
-    assertEquals(612.0f, cropBox.getUpperRightX());
-    assertEquals(612.0f, mediaBox.getUpperRightX());
     assertEquals(612.0f, bBox.getWidth());
     assertEquals(612.0f, bleedBox.getWidth());
     assertEquals(612.0f, cropBox.getWidth());
-    assertEquals(612.0f, mediaBox.getWidth());
     assertEquals(792.0f, bBox.getHeight());
     assertEquals(792.0f, bleedBox.getHeight());
     assertEquals(792.0f, cropBox.getHeight());
-    assertEquals(792.0f, mediaBox.getHeight());
-    assertEquals(792.0f, bBox.getUpperRightY());
-    assertEquals(792.0f, bleedBox.getUpperRightY());
-    assertEquals(792.0f, cropBox.getUpperRightY());
-    assertEquals(792.0f, mediaBox.getUpperRightY());
     PDGraphicsState graphicsState = pdfTextStripperByArea.getGraphicsState();
     assertArrayEquals(new float[] {}, graphicsState.getLineDashPattern().getDashArray(), 0.0f);
     assertArrayEquals(
@@ -1782,6 +1896,7 @@ class PDFTextStripperDiffblueTest {
   void testProcessPage() throws IOException {
     // Arrange
     PDFTextStripperByArea pdfTextStripperByArea = new PDFTextStripperByArea();
+    pdfTextStripperByArea.addOperator(new DrawObject(new LegacyPDFStreamEngine()));
 
     // Act
     pdfTextStripperByArea.processPage(new PDPage());
@@ -1809,21 +1924,21 @@ class PDFTextStripperDiffblueTest {
   void testProcessPage2() throws IOException {
     // Arrange
     PDFTextStripperByArea pdfTextStripperByArea = new PDFTextStripperByArea();
-    PDPage page = new PDPage(new COSDictionary());
+    pdfTextStripperByArea.addOperator(new DrawObject(new LegacyPDFStreamEngine()));
+
+    PDPage page = new PDPage();
+    page.setCropBox(PDRectangle.A0);
 
     // Act
     pdfTextStripperByArea.processPage(page);
 
     // Assert
     PDGraphicsState graphicsState = pdfTextStripperByArea.getGraphicsState();
-    PDLineDashPattern lineDashPattern = graphicsState.getLineDashPattern();
-    COSBase cOSObject = lineDashPattern.getCOSObject();
-    List<? extends COSBase> toListResult = ((COSArray) cOSObject).toList();
-    assertEquals(2, toListResult.size());
-    assertTrue(toListResult.get(0) instanceof COSArray);
-    assertTrue(cOSObject instanceof COSArray);
-    assertSame(page, pdfTextStripperByArea.getCurrentPage());
-    assertArrayEquals(new float[] {}, lineDashPattern.getDashArray(), 0.0f);
+    List<Path2D> currentClippingPaths = graphicsState.getCurrentClippingPaths();
+    assertEquals(1, currentClippingPaths.size());
+    assertTrue(currentClippingPaths.get(0) instanceof Path2D.Double);
+    assertTrue(graphicsState.getCurrentClippingPath().getBounds2D() instanceof Double);
+    assertArrayEquals(new float[] {}, graphicsState.getLineDashPattern().getDashArray(), 0.0f);
     assertArrayEquals(
         new float[] {0.0f}, graphicsState.getNonStrokingColor().getComponents(), 0.0f);
   }
@@ -1841,6 +1956,7 @@ class PDFTextStripperDiffblueTest {
   void testProcessPage3() throws IOException {
     // Arrange
     PDFTextStripperByArea pdfTextStripperByArea = new PDFTextStripperByArea();
+    pdfTextStripperByArea.addOperator(new DrawObject(new LegacyPDFStreamEngine()));
 
     PDPage page = new PDPage();
     page.setContents(new PDStream(new COSDocument()));
@@ -1855,15 +1971,9 @@ class PDFTextStripperDiffblueTest {
     assertTrue(frame instanceof Double);
     Rectangle2D frame2 = frame.getFrame();
     assertTrue(frame2 instanceof Double);
-    PDLineDashPattern lineDashPattern = graphicsState.getLineDashPattern();
-    COSBase cOSObject = lineDashPattern.getCOSObject();
-    List<? extends COSBase> toListResult = ((COSArray) cOSObject).toList();
-    assertEquals(2, toListResult.size());
-    assertTrue(toListResult.get(0) instanceof COSArray);
-    assertTrue(cOSObject instanceof COSArray);
     assertEquals(396.0d, frame.getCenterY());
     assertEquals(bounds, frame2);
-    assertArrayEquals(new float[] {}, lineDashPattern.getDashArray(), 0.0f);
+    assertArrayEquals(new float[] {}, graphicsState.getLineDashPattern().getDashArray(), 0.0f);
     assertArrayEquals(
         new float[] {0.0f}, graphicsState.getNonStrokingColor().getComponents(), 0.0f);
   }
@@ -1881,6 +1991,7 @@ class PDFTextStripperDiffblueTest {
   void testProcessPage4() throws IOException {
     // Arrange
     PDFTextStripperByArea pdfTextStripperByArea = new PDFTextStripperByArea();
+    pdfTextStripperByArea.addOperator(new DrawObject(new LegacyPDFStreamEngine()));
 
     PDPage page = new PDPage();
     ArrayList<PDStream> contents = new ArrayList<>();
@@ -1920,6 +2031,7 @@ class PDFTextStripperDiffblueTest {
   void testProcessPage5() throws IOException {
     // Arrange
     PDFTextStripperByArea pdfTextStripperByArea = new PDFTextStripperByArea();
+    pdfTextStripperByArea.addOperator(new DrawObject(new LegacyPDFStreamEngine()));
 
     PDPage page = new PDPage();
     PDRectangle cropBox =
@@ -1953,6 +2065,7 @@ class PDFTextStripperDiffblueTest {
   void testProcessPage6() throws IOException {
     // Arrange
     PDFTextStripperByArea pdfTextStripperByArea = new PDFTextStripperByArea();
+    pdfTextStripperByArea.addOperator(new DrawObject(new LegacyPDFStreamEngine()));
 
     ArrayList<PDStream> contents = new ArrayList<>();
     contents.add(new PDStream(new COSDocument()));
@@ -1970,15 +2083,9 @@ class PDFTextStripperDiffblueTest {
     assertTrue(frame instanceof Double);
     Rectangle2D frame2 = frame.getFrame();
     assertTrue(frame2 instanceof Double);
-    PDLineDashPattern lineDashPattern = graphicsState.getLineDashPattern();
-    COSBase cOSObject = lineDashPattern.getCOSObject();
-    List<? extends COSBase> toListResult = ((COSArray) cOSObject).toList();
-    assertEquals(2, toListResult.size());
-    assertTrue(toListResult.get(0) instanceof COSArray);
-    assertTrue(cOSObject instanceof COSArray);
     assertEquals(396.0d, frame.getCenterY());
     assertEquals(bounds, frame2);
-    assertArrayEquals(new float[] {}, lineDashPattern.getDashArray(), 0.0f);
+    assertArrayEquals(new float[] {}, graphicsState.getLineDashPattern().getDashArray(), 0.0f);
     assertArrayEquals(
         new float[] {0.0f}, graphicsState.getNonStrokingColor().getComponents(), 0.0f);
   }
@@ -1996,6 +2103,7 @@ class PDFTextStripperDiffblueTest {
   void testProcessPage7() throws IOException {
     // Arrange
     PDFTextStripperByArea pdfTextStripperByArea = new PDFTextStripperByArea();
+    pdfTextStripperByArea.addOperator(new DrawObject(new LegacyPDFStreamEngine()));
 
     PDStream contents = new PDStream(new COSDocument());
     ArrayList<COSName> filters = new ArrayList<>();
@@ -2027,41 +2135,6 @@ class PDFTextStripperDiffblueTest {
     assertTrue(cOSObject instanceof COSArray);
     assertEquals(filters, ((COSArray) getResult).toList());
     assertArrayEquals(new float[] {}, lineDashPattern.getDashArray(), 0.0f);
-    assertArrayEquals(
-        new float[] {0.0f}, graphicsState.getNonStrokingColor().getComponents(), 0.0f);
-  }
-
-  /**
-   * Test {@link PDFTextStripper#processPage(PDPage)}.
-   *
-   * <ul>
-   *   <li>Given {@link PDRectangle#A0}.
-   *   <li>Then {@link PDFTextStripperByArea#PDFTextStripperByArea()} CurrentPage is {@link
-   *       PDPage#PDPage()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDFTextStripper#processPage(PDPage)}
-   */
-  @Test
-  @DisplayName(
-      "Test processPage(PDPage); given A0; then PDFTextStripperByArea() CurrentPage is PDPage()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDFTextStripper.processPage(PDPage)"})
-  void testProcessPage_givenA0_thenPDFTextStripperByAreaCurrentPageIsPDPage() throws IOException {
-    // Arrange
-    PDFTextStripperByArea pdfTextStripperByArea = new PDFTextStripperByArea();
-
-    PDPage page = new PDPage();
-    page.setCropBox(PDRectangle.A0);
-
-    // Act
-    pdfTextStripperByArea.processPage(page);
-
-    // Assert
-    assertSame(page, pdfTextStripperByArea.getCurrentPage());
-    PDGraphicsState graphicsState = pdfTextStripperByArea.getGraphicsState();
-    assertArrayEquals(new float[] {}, graphicsState.getLineDashPattern().getDashArray(), 0.0f);
     assertArrayEquals(
         new float[] {0.0f}, graphicsState.getNonStrokingColor().getComponents(), 0.0f);
   }
@@ -2217,32 +2290,6 @@ class PDFTextStripperDiffblueTest {
         IllegalArgumentException.class,
         () -> pdfTextStripper.beginMarkedContentSequence(tag, mock(COSDictionary.class)));
     verify(tag).getName();
-  }
-
-  /**
-   * Test {@link PDFTextStripper#beginMarkedContentSequence(COSName, COSDictionary)}.
-   *
-   * <ul>
-   *   <li>When {@link COSStream#COSStream()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDFTextStripper#beginMarkedContentSequence(COSName,
-   * COSDictionary)}
-   */
-  @Test
-  @DisplayName("Test beginMarkedContentSequence(COSName, COSDictionary); when COSStream()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDFTextStripper.beginMarkedContentSequence(COSName, COSDictionary)"})
-  void testBeginMarkedContentSequence_whenCOSStream() {
-    // Arrange
-    PDFTextStripper pdfTextStripper = new PDFTextStripper();
-
-    // Act
-    pdfTextStripper.beginMarkedContentSequence(COSName.A, new COSStream());
-
-    // Assert that nothing has changed
-    assertFalse(pdfTextStripper.firstActualTextPosition);
   }
 
   /**

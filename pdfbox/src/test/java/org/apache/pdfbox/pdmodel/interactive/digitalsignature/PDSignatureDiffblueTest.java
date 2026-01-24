@@ -586,28 +586,6 @@ class PDSignatureDiffblueTest {
    * Test {@link PDSignature#getFilter()}.
    *
    * <ul>
-   *   <li>Given {@link PDSignature#PDSignature(COSDictionary)} with dict is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDSignature#getFilter()}
-   */
-  @Test
-  @DisplayName(
-      "Test getFilter(); given PDSignature(COSDictionary) with dict is COSDictionary(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String PDSignature.getFilter()"})
-  void testGetFilter_givenPDSignatureWithDictIsCOSDictionary_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull(new PDSignature(new COSDictionary()).getFilter());
-  }
-
-  /**
-   * Test {@link PDSignature#getFilter()}.
-   *
-   * <ul>
    *   <li>Given {@link PDSignature#PDSignature()}.
    *   <li>Then return {@code null}.
    * </ul>
@@ -645,28 +623,6 @@ class PDSignatureDiffblueTest {
 
     // Act and Assert
     assertEquals("Adobe.PPKLite", pdSignature.getFilter());
-  }
-
-  /**
-   * Test {@link PDSignature#getSubFilter()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDSignature#PDSignature(COSDictionary)} with dict is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDSignature#getSubFilter()}
-   */
-  @Test
-  @DisplayName(
-      "Test getSubFilter(); given PDSignature(COSDictionary) with dict is COSDictionary(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String PDSignature.getSubFilter()"})
-  void testGetSubFilter_givenPDSignatureWithDictIsCOSDictionary_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull(new PDSignature(new COSDictionary()).getSubFilter());
   }
 
   /**
@@ -764,28 +720,6 @@ class PDSignatureDiffblueTest {
    * Test {@link PDSignature#getName()}.
    *
    * <ul>
-   *   <li>Given {@link PDSignature#PDSignature(COSDictionary)} with dict is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDSignature#getName()}
-   */
-  @Test
-  @DisplayName(
-      "Test getName(); given PDSignature(COSDictionary) with dict is COSDictionary(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String PDSignature.getName()"})
-  void testGetName_givenPDSignatureWithDictIsCOSDictionary_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull(new PDSignature(new COSDictionary()).getName());
-  }
-
-  /**
-   * Test {@link PDSignature#getName()}.
-   *
-   * <ul>
    *   <li>Given {@link PDSignature#PDSignature()}.
    *   <li>Then return {@code null}.
    * </ul>
@@ -850,28 +784,6 @@ class PDSignatureDiffblueTest {
 
     // Act and Assert
     assertEquals("Location", pdSignature.getLocation());
-  }
-
-  /**
-   * Test {@link PDSignature#getLocation()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDSignature#PDSignature(COSDictionary)} with dict is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDSignature#getLocation()}
-   */
-  @Test
-  @DisplayName(
-      "Test getLocation(); given PDSignature(COSDictionary) with dict is COSDictionary(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String PDSignature.getLocation()"})
-  void testGetLocation_givenPDSignatureWithDictIsCOSDictionary_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull(new PDSignature(new COSDictionary()).getLocation());
   }
 
   /**
@@ -948,28 +860,6 @@ class PDSignatureDiffblueTest {
    * Test {@link PDSignature#getReason()}.
    *
    * <ul>
-   *   <li>Given {@link PDSignature#PDSignature(COSDictionary)} with dict is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDSignature#getReason()}
-   */
-  @Test
-  @DisplayName(
-      "Test getReason(); given PDSignature(COSDictionary) with dict is COSDictionary(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String PDSignature.getReason()"})
-  void testGetReason_givenPDSignatureWithDictIsCOSDictionary_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull(new PDSignature(new COSDictionary()).getReason());
-  }
-
-  /**
-   * Test {@link PDSignature#getReason()}.
-   *
-   * <ul>
    *   <li>Given {@link PDSignature#PDSignature()}.
    *   <li>Then return {@code null}.
    * </ul>
@@ -984,28 +874,6 @@ class PDSignatureDiffblueTest {
   void testGetReason_givenPDSignature_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull(new PDSignature().getReason());
-  }
-
-  /**
-   * Test {@link PDSignature#getContactInfo()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDSignature#PDSignature(COSDictionary)} with dict is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDSignature#getContactInfo()}
-   */
-  @Test
-  @DisplayName(
-      "Test getContactInfo(); given PDSignature(COSDictionary) with dict is COSDictionary(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String PDSignature.getContactInfo()"})
-  void testGetContactInfo_givenPDSignatureWithDictIsCOSDictionary_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull(new PDSignature(new COSDictionary()).getContactInfo());
   }
 
   /**
@@ -1100,28 +968,6 @@ class PDSignatureDiffblueTest {
 
     // Act and Assert
     assertNull(pdSignature.getSignDate());
-  }
-
-  /**
-   * Test {@link PDSignature#getSignDate()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDSignature#PDSignature(COSDictionary)} with dict is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDSignature#getSignDate()}
-   */
-  @Test
-  @DisplayName(
-      "Test getSignDate(); given PDSignature(COSDictionary) with dict is COSDictionary(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Calendar PDSignature.getSignDate()"})
-  void testGetSignDate_givenPDSignatureWithDictIsCOSDictionary_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull(new PDSignature(new COSDictionary()).getSignDate());
   }
 
   /**
@@ -1301,26 +1147,6 @@ class PDSignatureDiffblueTest {
    * Test {@link PDSignature#getByteRange()}.
    *
    * <ul>
-   *   <li>Given {@link PDSignature#PDSignature(COSDictionary)} with dict is {@link
-   *       COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDSignature#getByteRange()}
-   */
-  @Test
-  @DisplayName("Test getByteRange(); given PDSignature(COSDictionary) with dict is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"int[] PDSignature.getByteRange()"})
-  void testGetByteRange_givenPDSignatureWithDictIsCOSDictionary() {
-    // Arrange, Act and Assert
-    assertArrayEquals(new int[] {}, new PDSignature(new COSDictionary()).getByteRange());
-  }
-
-  /**
-   * Test {@link PDSignature#getByteRange()}.
-   *
-   * <ul>
    *   <li>Given {@link PDSignature#PDSignature()}.
    *   <li>Then return empty array of {@code int}.
    * </ul>
@@ -1385,32 +1211,6 @@ class PDSignatureDiffblueTest {
 
     // Assert
     assertArrayEquals(new byte[] {-96}, actualContents);
-  }
-
-  /**
-   * Test {@link PDSignature#getContents(byte[])} with {@code byte[]}.
-   *
-   * <ul>
-   *   <li>Then return empty array of {@code byte}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDSignature#getContents(byte[])}
-   */
-  @Test
-  @DisplayName("Test getContents(byte[]) with 'byte[]'; then return empty array of byte")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"byte[] PDSignature.getContents(byte[])"})
-  void testGetContentsWithByte_thenReturnEmptyArrayOfByte() throws IOException {
-    // Arrange
-    PDSignature pdSignature = new PDSignature();
-    pdSignature.setByteRange(new int[] {1, 0, 1, 0});
-
-    // Act
-    byte[] actualContents = pdSignature.getContents("AXAXAXAX".getBytes("UTF-8"));
-
-    // Assert
-    assertArrayEquals(new byte[] {}, actualContents);
   }
 
   /**
@@ -1501,6 +1301,35 @@ class PDSignatureDiffblueTest {
   }
 
   /**
+   * Test {@link PDSignature#getContents(byte[])} with {@code byte[]}.
+   *
+   * <ul>
+   *   <li>When {@code AXAXAXAX} Bytes is {@code UTF-8}.
+   *   <li>Then return empty array of {@code byte}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDSignature#getContents(byte[])}
+   */
+  @Test
+  @DisplayName(
+      "Test getContents(byte[]) with 'byte[]'; when 'AXAXAXAX' Bytes is 'UTF-8'; then return empty array of byte")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"byte[] PDSignature.getContents(byte[])"})
+  void testGetContentsWithByte_whenAxaxaxaxBytesIsUtf8_thenReturnEmptyArrayOfByte()
+      throws IOException {
+    // Arrange
+    PDSignature pdSignature = new PDSignature();
+    pdSignature.setByteRange(new int[] {1, 0, 1, 0});
+
+    // Act
+    byte[] actualContents = pdSignature.getContents("AXAXAXAX".getBytes("UTF-8"));
+
+    // Assert
+    assertArrayEquals(new byte[] {}, actualContents);
+  }
+
+  /**
    * Test {@link PDSignature#getContents(InputStream)} with {@code InputStream}.
    *
    * <p>Method under test: {@link PDSignature#getContents(InputStream)}
@@ -1583,26 +1412,6 @@ class PDSignatureDiffblueTest {
    * Test {@link PDSignature#getContents()}.
    *
    * <ul>
-   *   <li>Given {@link PDSignature#PDSignature(COSDictionary)} with dict is {@link
-   *       COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDSignature#getContents()}
-   */
-  @Test
-  @DisplayName("Test getContents(); given PDSignature(COSDictionary) with dict is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"byte[] PDSignature.getContents()"})
-  void testGetContents_givenPDSignatureWithDictIsCOSDictionary() {
-    // Arrange, Act and Assert
-    assertArrayEquals(new byte[] {}, new PDSignature(new COSDictionary()).getContents());
-  }
-
-  /**
-   * Test {@link PDSignature#getContents()}.
-   *
-   * <ul>
    *   <li>Given {@link PDSignature#PDSignature()}.
    *   <li>Then return empty array of {@code byte}.
    * </ul>
@@ -1671,31 +1480,6 @@ class PDSignatureDiffblueTest {
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
     assertArrayEquals("AXAXAXAX".getBytes("UTF-8"), pdSignature.getContents());
-  }
-
-  /**
-   * Test {@link PDSignature#getSignedContent(byte[])} with {@code byte[]}.
-   *
-   * <ul>
-   *   <li>Given {@link PDSignature#PDSignature(COSDictionary)} with dict is {@link
-   *       COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDSignature#getSignedContent(byte[])}
-   */
-  @Test
-  @DisplayName(
-      "Test getSignedContent(byte[]) with 'byte[]'; given PDSignature(COSDictionary) with dict is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"byte[] PDSignature.getSignedContent(byte[])"})
-  void testGetSignedContentWithByte_givenPDSignatureWithDictIsCOSDictionary() throws IOException {
-    // Arrange and Act
-    byte[] actualSignedContent =
-        new PDSignature(new COSDictionary()).getSignedContent("AXAXAXAX".getBytes("UTF-8"));
-
-    // Assert
-    assertArrayEquals(new byte[] {}, actualSignedContent);
   }
 
   /**
@@ -1805,38 +1589,6 @@ class PDSignatureDiffblueTest {
    * Test {@link PDSignature#getSignedContent(InputStream)} with {@code InputStream}.
    *
    * <ul>
-   *   <li>Given {@link PDSignature#PDSignature(COSDictionary)} with dict is {@link
-   *       COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDSignature#getSignedContent(InputStream)}
-   */
-  @Test
-  @DisplayName(
-      "Test getSignedContent(InputStream) with 'InputStream'; given PDSignature(COSDictionary) with dict is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"byte[] PDSignature.getSignedContent(InputStream)"})
-  void testGetSignedContentWithInputStream_givenPDSignatureWithDictIsCOSDictionary()
-      throws IOException {
-    // Arrange
-    PDSignature pdSignature = new PDSignature(new COSDictionary());
-    ByteArrayInputStream pdfFile = new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"));
-
-    // Act
-    byte[] actualSignedContent = pdSignature.getSignedContent(pdfFile);
-
-    // Assert
-    byte[] byteArray = new byte[8];
-    assertEquals(8, pdfFile.read(byteArray));
-    assertArrayEquals("AXAXAXAX".getBytes("UTF-8"), byteArray);
-    assertArrayEquals(new byte[] {}, actualSignedContent);
-  }
-
-  /**
-   * Test {@link PDSignature#getSignedContent(InputStream)} with {@code InputStream}.
-   *
-   * <ul>
    *   <li>Then return {@code AXAXAX} Bytes is {@code UTF-8}.
    * </ul>
    *
@@ -1891,28 +1643,6 @@ class PDSignatureDiffblueTest {
     int actualReadResult = pdfFile.read(new byte[] {});
     assertEquals(-1, actualReadResult);
     assertArrayEquals("AXAXAXAX".getBytes("UTF-8"), actualSignedContent);
-  }
-
-  /**
-   * Test {@link PDSignature#getPropBuild()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDSignature#PDSignature(COSDictionary)} with dict is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDSignature#getPropBuild()}
-   */
-  @Test
-  @DisplayName(
-      "Test getPropBuild(); given PDSignature(COSDictionary) with dict is COSDictionary(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDPropBuild PDSignature.getPropBuild()"})
-  void testGetPropBuild_givenPDSignatureWithDictIsCOSDictionary_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull(new PDSignature(new COSDictionary()).getPropBuild());
   }
 
   /**

@@ -297,30 +297,6 @@ class PDPropBuildDataDictDiffblueTest {
    * Test {@link PDPropBuildDataDict#getDate()}.
    *
    * <ul>
-   *   <li>Given {@link PDPropBuildDataDict#PDPropBuildDataDict()} Name is {@code Name}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDPropBuildDataDict#getDate()}
-   */
-  @Test
-  @DisplayName("Test getDate(); given PDPropBuildDataDict() Name is 'Name'; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String PDPropBuildDataDict.getDate()"})
-  void testGetDate_givenPDPropBuildDataDictNameIsName_thenReturnNull() {
-    // Arrange
-    PDPropBuildDataDict pdPropBuildDataDict = new PDPropBuildDataDict();
-    pdPropBuildDataDict.setName("Name");
-
-    // Act and Assert
-    assertNull(pdPropBuildDataDict.getDate());
-  }
-
-  /**
-   * Test {@link PDPropBuildDataDict#getDate()}.
-   *
-   * <ul>
    *   <li>Given {@link PDPropBuildDataDict#PDPropBuildDataDict()}.
    *   <li>Then return {@code null}.
    * </ul>
@@ -459,30 +435,6 @@ class PDPropBuildDataDictDiffblueTest {
    * Test {@link PDPropBuildDataDict#getVersion()}.
    *
    * <ul>
-   *   <li>Given {@link PDPropBuildDataDict#PDPropBuildDataDict()} Name is {@code REx}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDPropBuildDataDict#getVersion()}
-   */
-  @Test
-  @DisplayName("Test getVersion(); given PDPropBuildDataDict() Name is 'REx'; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String PDPropBuildDataDict.getVersion()"})
-  void testGetVersion_givenPDPropBuildDataDictNameIsREx_thenReturnNull() {
-    // Arrange
-    PDPropBuildDataDict pdPropBuildDataDict = new PDPropBuildDataDict();
-    pdPropBuildDataDict.setName("REx");
-
-    // Act and Assert
-    assertNull(pdPropBuildDataDict.getVersion());
-  }
-
-  /**
-   * Test {@link PDPropBuildDataDict#getVersion()}.
-   *
-   * <ul>
    *   <li>Given {@link PDPropBuildDataDict#PDPropBuildDataDict()} Version is {@code 1.0.2}.
    *   <li>Then return {@code 1.0.2}.
    * </ul>
@@ -564,29 +516,6 @@ class PDPropBuildDataDictDiffblueTest {
   void testGetRevision_givenPDPropBuildDataDict() {
     // Arrange, Act and Assert
     assertEquals(-1L, new PDPropBuildDataDict().getRevision());
-  }
-
-  /**
-   * Test {@link PDPropBuildDataDict#getRevision()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDPropBuildDataDict#PDPropBuildDataDict()} Name is {@code Name}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDPropBuildDataDict#getRevision()}
-   */
-  @Test
-  @DisplayName("Test getRevision(); given PDPropBuildDataDict() Name is 'Name'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"long PDPropBuildDataDict.getRevision()"})
-  void testGetRevision_givenPDPropBuildDataDictNameIsName() {
-    // Arrange
-    PDPropBuildDataDict pdPropBuildDataDict = new PDPropBuildDataDict();
-    pdPropBuildDataDict.setName("Name");
-
-    // Act and Assert
-    assertEquals(-1L, pdPropBuildDataDict.getRevision());
   }
 
   /**
@@ -744,29 +673,6 @@ class PDPropBuildDataDictDiffblueTest {
   }
 
   /**
-   * Test {@link PDPropBuildDataDict#getMinimumRevision()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDPropBuildDataDict#PDPropBuildDataDict()} Name is {@code Name}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDPropBuildDataDict#getMinimumRevision()}
-   */
-  @Test
-  @DisplayName("Test getMinimumRevision(); given PDPropBuildDataDict() Name is 'Name'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"long PDPropBuildDataDict.getMinimumRevision()"})
-  void testGetMinimumRevision_givenPDPropBuildDataDictNameIsName() {
-    // Arrange
-    PDPropBuildDataDict pdPropBuildDataDict = new PDPropBuildDataDict();
-    pdPropBuildDataDict.setName("Name");
-
-    // Act and Assert
-    assertEquals(-1L, pdPropBuildDataDict.getMinimumRevision());
-  }
-
-  /**
    * Test {@link PDPropBuildDataDict#setMinimumRevision(long)}.
    *
    * <p>Method under test: {@link PDPropBuildDataDict#setMinimumRevision(long)}
@@ -872,31 +778,6 @@ class PDPropBuildDataDictDiffblueTest {
     assertEquals(1, cOSObject.getValues().size());
     assertEquals(1, cOSObject.size());
     assertEquals(1L, pdPropBuildDataDict.getMinimumRevision());
-  }
-
-  /**
-   * Test {@link PDPropBuildDataDict#getPreRelease()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDPropBuildDataDict#PDPropBuildDataDict()} Name is {@code Name}.
-   *   <li>Then return {@code false}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDPropBuildDataDict#getPreRelease()}
-   */
-  @Test
-  @DisplayName(
-      "Test getPreRelease(); given PDPropBuildDataDict() Name is 'Name'; then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean PDPropBuildDataDict.getPreRelease()"})
-  void testGetPreRelease_givenPDPropBuildDataDictNameIsName_thenReturnFalse() {
-    // Arrange
-    PDPropBuildDataDict pdPropBuildDataDict = new PDPropBuildDataDict();
-    pdPropBuildDataDict.setName("Name");
-
-    // Act and Assert
-    assertFalse(pdPropBuildDataDict.getPreRelease());
   }
 
   /**
@@ -1032,30 +913,6 @@ class PDPropBuildDataDictDiffblueTest {
    * Test {@link PDPropBuildDataDict#getOS()}.
    *
    * <ul>
-   *   <li>Given {@link PDPropBuildDataDict#PDPropBuildDataDict()} Name is {@code Name}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDPropBuildDataDict#getOS()}
-   */
-  @Test
-  @DisplayName("Test getOS(); given PDPropBuildDataDict() Name is 'Name'; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String PDPropBuildDataDict.getOS()"})
-  void testGetOS_givenPDPropBuildDataDictNameIsName_thenReturnNull() {
-    // Arrange
-    PDPropBuildDataDict pdPropBuildDataDict = new PDPropBuildDataDict();
-    pdPropBuildDataDict.setName("Name");
-
-    // Act and Assert
-    assertNull(pdPropBuildDataDict.getOS());
-  }
-
-  /**
-   * Test {@link PDPropBuildDataDict#getOS()}.
-   *
-   * <ul>
    *   <li>Given {@link PDPropBuildDataDict#PDPropBuildDataDict()} OS is {@code Os}.
    *   <li>Then return {@code Os}.
    * </ul>
@@ -1100,17 +957,20 @@ class PDPropBuildDataDictDiffblueTest {
    * Test {@link PDPropBuildDataDict#setOS(String)}.
    *
    * <ul>
-   *   <li>Then {@link PDPropBuildDataDict#PDPropBuildDataDict()} COSObject Values size is one.
+   *   <li>Given {@link PDPropBuildDataDict#PDPropBuildDataDict()}.
+   *   <li>When {@code Os}.
+   *   <li>Then {@link PDPropBuildDataDict#PDPropBuildDataDict()} OS is {@code Os}.
    * </ul>
    *
    * <p>Method under test: {@link PDPropBuildDataDict#setOS(String)}
    */
   @Test
-  @DisplayName("Test setOS(String); then PDPropBuildDataDict() COSObject Values size is one")
+  @DisplayName(
+      "Test setOS(String); given PDPropBuildDataDict(); when 'Os'; then PDPropBuildDataDict() OS is 'Os'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void PDPropBuildDataDict.setOS(String)"})
-  void testSetOS_thenPDPropBuildDataDictCOSObjectValuesSizeIsOne() {
+  void testSetOS_givenPDPropBuildDataDict_whenOs_thenPDPropBuildDataDictOsIsOs() {
     // Arrange
     PDPropBuildDataDict pdPropBuildDataDict = new PDPropBuildDataDict();
 
@@ -1128,20 +988,21 @@ class PDPropBuildDataDictDiffblueTest {
    * Test {@link PDPropBuildDataDict#setOS(String)}.
    *
    * <ul>
-   *   <li>Then {@link PDPropBuildDataDict#PDPropBuildDataDict()} COSObject Values size is two.
+   *   <li>Then {@link PDPropBuildDataDict#PDPropBuildDataDict(COSDictionary)} with dict is {@link
+   *       COSDictionary#COSDictionary()} OS is {@code Os}.
    * </ul>
    *
    * <p>Method under test: {@link PDPropBuildDataDict#setOS(String)}
    */
   @Test
-  @DisplayName("Test setOS(String); then PDPropBuildDataDict() COSObject Values size is two")
+  @DisplayName(
+      "Test setOS(String); then PDPropBuildDataDict(COSDictionary) with dict is COSDictionary() OS is 'Os'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void PDPropBuildDataDict.setOS(String)"})
-  void testSetOS_thenPDPropBuildDataDictCOSObjectValuesSizeIsTwo() {
+  void testSetOS_thenPDPropBuildDataDictWithDictIsCOSDictionaryOsIsOs() {
     // Arrange
-    PDPropBuildDataDict pdPropBuildDataDict = new PDPropBuildDataDict();
-    pdPropBuildDataDict.setName("Name");
+    PDPropBuildDataDict pdPropBuildDataDict = new PDPropBuildDataDict(new COSDictionary());
 
     // Act
     pdPropBuildDataDict.setOS("Os");
@@ -1149,8 +1010,8 @@ class PDPropBuildDataDictDiffblueTest {
     // Assert
     assertEquals("Os", pdPropBuildDataDict.getOS());
     COSDictionary cOSObject = pdPropBuildDataDict.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
   }
 
   /**
@@ -1179,31 +1040,6 @@ class PDPropBuildDataDictDiffblueTest {
     COSDictionary cOSObject = pdPropBuildDataDict.getCOSObject();
     assertEquals(0, cOSObject.size());
     assertTrue(cOSObject.getValues().isEmpty());
-  }
-
-  /**
-   * Test {@link PDPropBuildDataDict#getNonEFontNoWarn()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDPropBuildDataDict#PDPropBuildDataDict()} Name is {@code Name}.
-   *   <li>Then return {@code true}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDPropBuildDataDict#getNonEFontNoWarn()}
-   */
-  @Test
-  @DisplayName(
-      "Test getNonEFontNoWarn(); given PDPropBuildDataDict() Name is 'Name'; then return 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean PDPropBuildDataDict.getNonEFontNoWarn()"})
-  void testGetNonEFontNoWarn_givenPDPropBuildDataDictNameIsName_thenReturnTrue() {
-    // Arrange
-    PDPropBuildDataDict pdPropBuildDataDict = new PDPropBuildDataDict();
-    pdPropBuildDataDict.setName("Name");
-
-    // Act and Assert
-    assertTrue(pdPropBuildDataDict.getNonEFontNoWarn());
   }
 
   /**
@@ -1330,31 +1166,6 @@ class PDPropBuildDataDictDiffblueTest {
     assertEquals(1, cOSObject.getValues().size());
     assertEquals(1, cOSObject.size());
     assertTrue(pdPropBuildDataDict.getNonEFontNoWarn());
-  }
-
-  /**
-   * Test {@link PDPropBuildDataDict#getTrustedMode()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDPropBuildDataDict#PDPropBuildDataDict()} Name is {@code Name}.
-   *   <li>Then return {@code false}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDPropBuildDataDict#getTrustedMode()}
-   */
-  @Test
-  @DisplayName(
-      "Test getTrustedMode(); given PDPropBuildDataDict() Name is 'Name'; then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean PDPropBuildDataDict.getTrustedMode()"})
-  void testGetTrustedMode_givenPDPropBuildDataDictNameIsName_thenReturnFalse() {
-    // Arrange
-    PDPropBuildDataDict pdPropBuildDataDict = new PDPropBuildDataDict();
-    pdPropBuildDataDict.setName("Name");
-
-    // Act and Assert
-    assertFalse(pdPropBuildDataDict.getTrustedMode());
   }
 
   /**

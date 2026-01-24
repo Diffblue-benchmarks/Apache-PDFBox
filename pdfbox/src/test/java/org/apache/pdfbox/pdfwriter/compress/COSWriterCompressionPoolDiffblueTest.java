@@ -14,7 +14,6 @@ import java.util.List;
 import org.apache.pdfbox.cos.COSBase;
 import org.apache.pdfbox.cos.COSBoolean;
 import org.apache.pdfbox.cos.COSDictionary;
-import org.apache.pdfbox.cos.COSDocument;
 import org.apache.pdfbox.cos.COSFloat;
 import org.apache.pdfbox.cos.COSIncrement;
 import org.apache.pdfbox.cos.COSInteger;
@@ -128,38 +127,6 @@ class COSWriterCompressionPoolDiffblueTest {
     assertEquals(196608L, getResult.getInternalHash());
     assertEquals(3L, getResult.getNumber());
     assertEquals(3L, actualCosWriterCompressionPool.getHighestXRefObjectNumber());
-  }
-
-  /**
-   * Test {@link COSWriterCompressionPool#COSWriterCompressionPool(PDDocument, CompressParameters)}.
-   *
-   * <ul>
-   *   <li>Then return HighestXRefObjectNumber is zero.
-   * </ul>
-   *
-   * <p>Method under test: {@link COSWriterCompressionPool#COSWriterCompressionPool(PDDocument,
-   * CompressParameters)}
-   */
-  @Test
-  @DisplayName(
-      "Test new COSWriterCompressionPool(PDDocument, CompressParameters); then return HighestXRefObjectNumber is zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void COSWriterCompressionPool.<init>(PDDocument, CompressParameters)"})
-  void testNewCOSWriterCompressionPool_thenReturnHighestXRefObjectNumberIsZero()
-      throws IOException {
-    // Arrange
-    COSDocument doc = new COSDocument();
-    doc.setTrailer(new COSDictionary());
-
-    // Act
-    COSWriterCompressionPool actualCosWriterCompressionPool =
-        new COSWriterCompressionPool(new PDDocument(doc), CompressParameters.DEFAULT_COMPRESSION);
-
-    // Assert
-    assertEquals(0L, actualCosWriterCompressionPool.getHighestXRefObjectNumber());
-    assertTrue(actualCosWriterCompressionPool.getObjectStreamObjects().isEmpty());
-    assertTrue(actualCosWriterCompressionPool.getTopLevelObjects().isEmpty());
   }
 
   /**

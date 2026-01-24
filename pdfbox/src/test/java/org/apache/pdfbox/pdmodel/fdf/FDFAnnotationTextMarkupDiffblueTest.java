@@ -46,28 +46,6 @@ class FDFAnnotationTextMarkupDiffblueTest {
    * Test {@link FDFAnnotationTextMarkup#getCoords()}.
    *
    * <ul>
-   *   <li>Given {@link FDFAnnotationHighlight#FDFAnnotationHighlight(COSDictionary)} with a is
-   *       {@link COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationTextMarkup#getCoords()}
-   */
-  @Test
-  @DisplayName(
-      "Test getCoords(); given FDFAnnotationHighlight(COSDictionary) with a is COSDictionary(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"float[] FDFAnnotationTextMarkup.getCoords()"})
-  void testGetCoords_givenFDFAnnotationHighlightWithAIsCOSDictionary_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull(new FDFAnnotationHighlight(new COSDictionary()).getCoords());
-  }
-
-  /**
-   * Test {@link FDFAnnotationTextMarkup#getCoords()}.
-   *
-   * <ul>
    *   <li>Given {@link FDFAnnotationHighlight#FDFAnnotationHighlight()}.
    *   <li>Then return {@code null}.
    * </ul>

@@ -2,6 +2,7 @@ package org.apache.pdfbox.pdmodel.interactive.pagenavigation;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import com.diffblue.cover.annotations.ManagedByDiffblue;
@@ -79,28 +80,6 @@ class PDTransitionDiffblueTest {
    * Test {@link PDTransition#getDimension()}.
    *
    * <ul>
-   *   <li>Given {@link PDTransition#PDTransition(COSDictionary)} with dictionary is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code H}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDTransition#getDimension()}
-   */
-  @Test
-  @DisplayName(
-      "Test getDimension(); given PDTransition(COSDictionary) with dictionary is COSDictionary(); then return 'H'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"java.lang.String PDTransition.getDimension()"})
-  void testGetDimension_givenPDTransitionWithDictionaryIsCOSDictionary_thenReturnH() {
-    // Arrange, Act and Assert
-    assertEquals("H", new PDTransition(new COSDictionary()).getDimension());
-  }
-
-  /**
-   * Test {@link PDTransition#getDimension()}.
-   *
-   * <ul>
    *   <li>Given {@link PDTransition#PDTransition()}.
    *   <li>Then return {@code H}.
    * </ul>
@@ -150,28 +129,6 @@ class PDTransitionDiffblueTest {
    * Test {@link PDTransition#getMotion()}.
    *
    * <ul>
-   *   <li>Given {@link PDTransition#PDTransition(COSDictionary)} with dictionary is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code I}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDTransition#getMotion()}
-   */
-  @Test
-  @DisplayName(
-      "Test getMotion(); given PDTransition(COSDictionary) with dictionary is COSDictionary(); then return 'I'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"java.lang.String PDTransition.getMotion()"})
-  void testGetMotion_givenPDTransitionWithDictionaryIsCOSDictionary_thenReturnI() {
-    // Arrange, Act and Assert
-    assertEquals("I", new PDTransition(new COSDictionary()).getMotion());
-  }
-
-  /**
-   * Test {@link PDTransition#getMotion()}.
-   *
-   * <ul>
    *   <li>Given {@link PDTransition#PDTransition()}.
    *   <li>Then return {@code I}.
    * </ul>
@@ -215,31 +172,6 @@ class PDTransitionDiffblueTest {
     COSDictionary cOSObject = pdTransition.getCOSObject();
     assertEquals(3, cOSObject.getValues().size());
     assertEquals(3, cOSObject.size());
-  }
-
-  /**
-   * Test {@link PDTransition#getDirection()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDTransition#PDTransition(COSDictionary)} with dictionary is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return {@link COSInteger#ZERO}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDTransition#getDirection()}
-   */
-  @Test
-  @DisplayName(
-      "Test getDirection(); given PDTransition(COSDictionary) with dictionary is COSDictionary(); then return ZERO")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"COSBase PDTransition.getDirection()"})
-  void testGetDirection_givenPDTransitionWithDictionaryIsCOSDictionary_thenReturnZero() {
-    // Arrange and Act
-    COSBase actualDirection = new PDTransition(new COSDictionary()).getDirection();
-
-    // Assert
-    assertSame(((COSInteger) actualDirection).ZERO, actualDirection);
   }
 
   /**
@@ -393,28 +325,6 @@ class PDTransitionDiffblueTest {
    * Test {@link PDTransition#getDuration()}.
    *
    * <ul>
-   *   <li>Given {@link PDTransition#PDTransition(COSDictionary)} with dictionary is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return one.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDTransition#getDuration()}
-   */
-  @Test
-  @DisplayName(
-      "Test getDuration(); given PDTransition(COSDictionary) with dictionary is COSDictionary(); then return one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"float PDTransition.getDuration()"})
-  void testGetDuration_givenPDTransitionWithDictionaryIsCOSDictionary_thenReturnOne() {
-    // Arrange, Act and Assert
-    assertEquals(1.0f, new PDTransition(new COSDictionary()).getDuration());
-  }
-
-  /**
-   * Test {@link PDTransition#getDuration()}.
-   *
-   * <ul>
    *   <li>Given {@link PDTransition#PDTransition()}.
    *   <li>Then return one.
    * </ul>
@@ -464,28 +374,6 @@ class PDTransitionDiffblueTest {
    * Test {@link PDTransition#getFlyScale()}.
    *
    * <ul>
-   *   <li>Given {@link PDTransition#PDTransition(COSDictionary)} with dictionary is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return one.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDTransition#getFlyScale()}
-   */
-  @Test
-  @DisplayName(
-      "Test getFlyScale(); given PDTransition(COSDictionary) with dictionary is COSDictionary(); then return one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"float PDTransition.getFlyScale()"})
-  void testGetFlyScale_givenPDTransitionWithDictionaryIsCOSDictionary_thenReturnOne() {
-    // Arrange, Act and Assert
-    assertEquals(1.0f, new PDTransition(new COSDictionary()).getFlyScale());
-  }
-
-  /**
-   * Test {@link PDTransition#getFlyScale()}.
-   *
-   * <ul>
    *   <li>Given {@link PDTransition#PDTransition()}.
    *   <li>Then return one.
    * </ul>
@@ -529,27 +417,6 @@ class PDTransitionDiffblueTest {
     COSDictionary cOSObject = pdTransition.getCOSObject();
     assertEquals(3, cOSObject.getValues().size());
     assertEquals(3, cOSObject.size());
-  }
-
-  /**
-   * Test {@link PDTransition#isFlyAreaOpaque()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDTransition#PDTransition(COSDictionary)} with dictionary is {@link
-   *       COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDTransition#isFlyAreaOpaque()}
-   */
-  @Test
-  @DisplayName(
-      "Test isFlyAreaOpaque(); given PDTransition(COSDictionary) with dictionary is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean PDTransition.isFlyAreaOpaque()"})
-  void testIsFlyAreaOpaque_givenPDTransitionWithDictionaryIsCOSDictionary() {
-    // Arrange, Act and Assert
-    assertFalse(new PDTransition(new COSDictionary()).isFlyAreaOpaque());
   }
 
   /**

@@ -94,28 +94,6 @@ class PDActionNamedDiffblueTest {
    * Test {@link PDActionNamed#getN()}.
    *
    * <ul>
-   *   <li>Given {@link PDActionNamed#PDActionNamed(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDActionNamed#getN()}
-   */
-  @Test
-  @DisplayName(
-      "Test getN(); given PDActionNamed(COSDictionary) with a is COSDictionary(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String PDActionNamed.getN()"})
-  void testGetN_givenPDActionNamedWithAIsCOSDictionary_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull(new PDActionNamed(new COSDictionary()).getN());
-  }
-
-  /**
-   * Test {@link PDActionNamed#getN()}.
-   *
-   * <ul>
    *   <li>Given {@link PDActionNamed#PDActionNamed()}.
    *   <li>Then return {@code null}.
    * </ul>

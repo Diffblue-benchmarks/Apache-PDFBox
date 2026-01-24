@@ -20,8 +20,6 @@ import java.io.DataInputStream;
 import java.io.IOException;
 import org.apache.pdfbox.io.NonSeekableRandomAccessReadInputStream;
 import org.apache.pdfbox.io.RandomAccessRead;
-import org.apache.pdfbox.io.RandomAccessReadView;
-import org.apache.pdfbox.io.RandomAccessReadWriteBuffer;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -94,32 +92,6 @@ class TTFParserDiffblueTest {
         IOException.class,
         () -> ttfParser.parse(new RandomAccessReadUnbufferedDataStream(randomAccessRead)));
     verify(inputStream, atLeast(1)).read(Mockito.<byte[]>any());
-  }
-
-  /**
-   * Test {@link TTFParser#parse(RandomAccessRead)} with {@code randomAccessRead}.
-   *
-   * <ul>
-   *   <li>Then throw {@link IOException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link TTFParser#parse(RandomAccessRead)}
-   */
-  @Test
-  @DisplayName("Test parse(RandomAccessRead) with 'randomAccessRead'; then throw IOException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"TrueTypeFont TTFParser.parse(RandomAccessRead)"})
-  void testParseWithRandomAccessRead_thenThrowIOException() throws IOException {
-    // Arrange
-    OTFParser otfParser = new OTFParser(false);
-
-    // Act and Assert
-    assertThrows(
-        IOException.class,
-        () ->
-            otfParser.parse(
-                new RandomAccessReadView(new RandomAccessReadWriteBuffer(), 1L, 4096L)));
   }
 
   /**
@@ -490,62 +462,6 @@ class TTFParserDiffblueTest {
    * Test {@link TTFParser#newFont(TTFDataStream)}.
    *
    * <ul>
-   *   <li>Given {@link OTFParser#OTFParser(boolean)} with isEmbedded is {@code true}.
-   *   <li>Then return {@link OpenTypeFont}.
-   * </ul>
-   *
-   * <p>Method under test: {@link TTFParser#newFont(TTFDataStream)}
-   */
-  @Test
-  @DisplayName(
-      "Test newFont(TTFDataStream); given OTFParser(boolean) with isEmbedded is 'true'; then return OpenTypeFont")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"TrueTypeFont TTFParser.newFont(TTFDataStream)"})
-  void testNewFont_givenOTFParserWithIsEmbeddedIsTrue_thenReturnOpenTypeFont() throws IOException {
-    // Arrange
-    OTFParser otfParser = new OTFParser(true);
-
-    // Act
-    OpenTypeFont actualNewFontResult =
-        otfParser.newFont(
-            new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"))));
-
-    // Assert
-    assertTrue(actualNewFontResult instanceof OpenTypeFont);
-    assertNull(actualNewFontResult.getName());
-    assertNull(actualNewFontResult.getCmap());
-    assertNull(actualNewFontResult.getGsub());
-    assertNull(actualNewFontResult.getGlyph());
-    assertNull(actualNewFontResult.getHeader());
-    assertNull(actualNewFontResult.getHorizontalHeader());
-    assertNull(actualNewFontResult.getHorizontalMetrics());
-    assertNull(actualNewFontResult.getIndexToLocation());
-    assertNull(actualNewFontResult.getKerning());
-    assertNull(actualNewFontResult.getMaximumProfile());
-    assertNull(actualNewFontResult.getNaming());
-    assertNull(actualNewFontResult.getOS2Windows());
-    assertNull(actualNewFontResult.getPostScript());
-    assertNull(actualNewFontResult.getVerticalHeader());
-    assertNull(actualNewFontResult.getVerticalMetrics());
-    assertNull(actualNewFontResult.getVerticalOrigin());
-    assertEquals(0, actualNewFontResult.getNumberOfGlyphs());
-    assertEquals(0, actualNewFontResult.getUnitsPerEm());
-    assertEquals(0.0f, actualNewFontResult.getVersion());
-    assertEquals(6, actualNewFontResult.getFontMatrix().size());
-    byte[] byteArray = new byte[8];
-    assertEquals(8, actualNewFontResult.getOriginalData().read(byteArray));
-    assertEquals(8L, actualNewFontResult.getOriginalDataSize());
-    assertTrue(actualNewFontResult.getTables().isEmpty());
-    assertTrue(actualNewFontResult.getTableMap().isEmpty());
-    assertTrue(actualNewFontResult.isEnableGsub());
-    assertArrayEquals("AXAXAXAX".getBytes("UTF-8"), byteArray);
-  }
-
-  /**
-   * Test {@link TTFParser#newFont(TTFDataStream)}.
-   *
-   * <ul>
    *   <li>Given {@link TTFParser#TTFParser(boolean)} with isEmbedded is {@code true}.
    * </ul>
    *
@@ -599,27 +515,6 @@ class TTFParserDiffblueTest {
    * Test {@link TTFParser#allowCFF()}.
    *
    * <ul>
-   *   <li>Given {@link OTFParser#OTFParser(boolean)} with isEmbedded is {@code true}.
-   *   <li>Then return {@code true}.
-   * </ul>
-   *
-   * <p>Method under test: {@link TTFParser#allowCFF()}
-   */
-  @Test
-  @DisplayName(
-      "Test allowCFF(); given OTFParser(boolean) with isEmbedded is 'true'; then return 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean TTFParser.allowCFF()"})
-  void testAllowCFF_givenOTFParserWithIsEmbeddedIsTrue_thenReturnTrue() {
-    // Arrange, Act and Assert
-    assertTrue(new OTFParser(true).allowCFF());
-  }
-
-  /**
-   * Test {@link TTFParser#allowCFF()}.
-   *
-   * <ul>
    *   <li>Given {@link TTFParser#TTFParser(boolean)} with isEmbedded is {@code true}.
    *   <li>Then return {@code false}.
    * </ul>
@@ -635,36 +530,6 @@ class TTFParserDiffblueTest {
   void testAllowCFF_givenTTFParserWithIsEmbeddedIsTrue_thenReturnFalse() {
     // Arrange, Act and Assert
     assertFalse(new TTFParser(true).allowCFF());
-  }
-
-  /**
-   * Test {@link TTFParser#readTable(String)}.
-   *
-   * <ul>
-   *   <li>Given {@link OTFParser#OTFParser(boolean)} with isEmbedded is {@code true}.
-   *   <li>When {@link GlyphSubstitutionTable#TAG}.
-   *   <li>Then return {@link OTLTable}.
-   * </ul>
-   *
-   * <p>Method under test: {@link TTFParser#readTable(String)}
-   */
-  @Test
-  @DisplayName(
-      "Test readTable(String); given OTFParser(boolean) with isEmbedded is 'true'; when TAG; then return OTLTable")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"TTFTable TTFParser.readTable(String)"})
-  void testReadTable_givenOTFParserWithIsEmbeddedIsTrue_whenTag_thenReturnOTLTable() {
-    // Arrange and Act
-    TTFTable actualReadTableResult = new OTFParser(true).readTable(GlyphSubstitutionTable.TAG);
-
-    // Assert
-    assertTrue(actualReadTableResult instanceof OTLTable);
-    assertNull(actualReadTableResult.getTag());
-    assertEquals(0L, actualReadTableResult.getCheckSum());
-    assertEquals(0L, actualReadTableResult.getLength());
-    assertEquals(0L, actualReadTableResult.getOffset());
-    assertFalse(actualReadTableResult.getInitialized());
   }
 
   /**

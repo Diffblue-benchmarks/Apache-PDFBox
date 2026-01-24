@@ -21,7 +21,6 @@ import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.cos.COSFloat;
 import org.apache.pdfbox.cos.COSIncrement;
 import org.apache.pdfbox.cos.COSName;
-import org.apache.pdfbox.cos.COSStream;
 import org.apache.pdfbox.cos.COSUpdateState;
 import org.apache.pdfbox.pdmodel.common.PDRange;
 import org.junit.jupiter.api.DisplayName;
@@ -90,42 +89,6 @@ class PDLabDiffblueTest {
     assertEquals(1.0f, actualPdLab.wpZ);
     assertEquals(3, actualPdLab.getNumberOfComponents());
     assertSame(lab, actualPdLab.getCOSObject());
-  }
-
-  /**
-   * Test {@link PDLab#PDLab(COSArray)}.
-   *
-   * <ul>
-   *   <li>Given {@link COSStream#COSStream()}.
-   *   <li>Then {@link PDCIEDictionaryBasedColorSpace#dictionary} return {@link COSStream}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDLab#PDLab(COSArray)}
-   */
-  @Test
-  @DisplayName("Test new PDLab(COSArray); given COSStream(); then dictionary return COSStream")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDLab.<init>(COSArray)"})
-  void testNewPDLab_givenCOSStream_thenDictionaryReturnCOSStream() {
-    // Arrange
-    COSArray lab = mock(COSArray.class);
-    when(lab.getObject(anyInt())).thenReturn(new COSStream());
-
-    // Act
-    PDLab actualPdLab = new PDLab(lab);
-
-    // Assert
-    verify(lab).getObject(1);
-    COSDictionary cosDictionary = actualPdLab.dictionary;
-    assertTrue(cosDictionary instanceof COSStream);
-    assertNull(((COSStream) cosDictionary).getFilters());
-    assertEquals(0L, ((COSStream) cosDictionary).getLength());
-    assertEquals(1, cosDictionary.getValues().size());
-    assertEquals(1, cosDictionary.size());
-    assertFalse(((COSStream) cosDictionary).hasData());
-    assertArrayEquals(
-        new float[] {0.0f, 0.0f, 0.0f}, actualPdLab.getInitialColor().getComponents(), 0.0f);
   }
 
   /**

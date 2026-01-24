@@ -34,6 +34,7 @@ import org.apache.pdfbox.cos.COSName;
 import org.apache.pdfbox.cos.COSObject;
 import org.apache.pdfbox.cos.COSObjectKey;
 import org.apache.pdfbox.cos.COSStream;
+import org.apache.pdfbox.cos.ICOSParser;
 import org.apache.pdfbox.io.RandomAccessReadWriteBuffer;
 import org.apache.pdfbox.pdfparser.COSParser;
 import org.apache.pdfbox.pdmodel.DefaultResourceCache;
@@ -61,19 +62,18 @@ class PDType3FontDiffblueTest {
    *
    * <ul>
    *   <li>When {@link COSDictionary#COSDictionary()}.
-   *   <li>Then return COSObject is {@link COSDictionary#COSDictionary()}.
+   *   <li>Then return SymbolicFlag is {@code null}.
    * </ul>
    *
    * <p>Method under test: {@link PDType3Font#PDType3Font(COSDictionary)}
    */
   @Test
   @DisplayName(
-      "Test new PDType3Font(COSDictionary); when COSDictionary(); then return COSObject is COSDictionary()")
+      "Test new PDType3Font(COSDictionary); when COSDictionary(); then return SymbolicFlag is 'null'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void PDType3Font.<init>(COSDictionary)"})
-  void testNewPDType3Font_whenCOSDictionary_thenReturnCOSObjectIsCOSDictionary()
-      throws IOException {
+  void testNewPDType3Font_whenCOSDictionary_thenReturnSymbolicFlagIsNull() throws IOException {
     // Arrange
     COSDictionary fontDictionary = new COSDictionary();
 
@@ -81,12 +81,26 @@ class PDType3FontDiffblueTest {
     PDType3Font actualPdType3Font = new PDType3Font(fontDictionary);
 
     // Assert
-    float[][] values = actualPdType3Font.getFontMatrix().getValues();
-    assertEquals(3, values.length);
+    assertNull(actualPdType3Font.getSymbolicFlag());
+    assertNull(actualPdType3Font.getSubType());
+    assertNull(actualPdType3Font.getType());
+    assertNull(actualPdType3Font.getName());
+    assertNull(actualPdType3Font.getStandard14AFM());
+    assertNull(actualPdType3Font.getToUnicodeCMap());
+    assertNull(actualPdType3Font.getCharProcs());
+    assertNull(actualPdType3Font.getResources());
+    assertNull(actualPdType3Font.getFontBBox());
+    assertNull(actualPdType3Font.getFontDescriptor());
+    assertNull(actualPdType3Font.getEncoding());
+    assertEquals(0.0f, actualPdType3Font.getAverageFontWidth());
+    assertEquals(0.0f, actualPdType3Font.getSpaceWidth());
+    assertFalse(actualPdType3Font.isVertical());
+    assertFalse(actualPdType3Font.isDamaged());
+    assertFalse(actualPdType3Font.isStandard14());
+    assertTrue(actualPdType3Font.getWidths().isEmpty());
+    assertTrue(actualPdType3Font.isEmbedded());
     assertSame(fontDictionary, actualPdType3Font.getCOSObject());
-    assertArrayEquals(new float[] {0.001f, 0.0f, 0.0f}, values[0], 0.0f);
-    assertArrayEquals(new float[] {0.0f, 0.001f, 0.0f}, values[1], 0.0f);
-    assertArrayEquals(new float[] {0.0f, 0.0f, 1.0f}, values[2], 0.0f);
+    assertSame(PDFont.DEFAULT_FONT_MATRIX, actualPdType3Font.getFontMatrix());
   }
 
   /**
@@ -94,19 +108,18 @@ class PDType3FontDiffblueTest {
    *
    * <ul>
    *   <li>When {@link COSDictionary#COSDictionary()}.
-   *   <li>Then return COSObject is {@link COSDictionary#COSDictionary()}.
+   *   <li>Then return SymbolicFlag is {@code null}.
    * </ul>
    *
    * <p>Method under test: {@link PDType3Font#PDType3Font(COSDictionary, ResourceCache)}
    */
   @Test
   @DisplayName(
-      "Test new PDType3Font(COSDictionary, ResourceCache); when COSDictionary(); then return COSObject is COSDictionary()")
+      "Test new PDType3Font(COSDictionary, ResourceCache); when COSDictionary(); then return SymbolicFlag is 'null'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void PDType3Font.<init>(COSDictionary, ResourceCache)"})
-  void testNewPDType3Font_whenCOSDictionary_thenReturnCOSObjectIsCOSDictionary2()
-      throws IOException {
+  void testNewPDType3Font_whenCOSDictionary_thenReturnSymbolicFlagIsNull2() throws IOException {
     // Arrange
     COSDictionary fontDictionary = new COSDictionary();
 
@@ -114,76 +127,26 @@ class PDType3FontDiffblueTest {
     PDType3Font actualPdType3Font = new PDType3Font(fontDictionary, new DefaultResourceCache());
 
     // Assert
-    float[][] values = actualPdType3Font.getFontMatrix().getValues();
-    assertEquals(3, values.length);
+    assertNull(actualPdType3Font.getSymbolicFlag());
+    assertNull(actualPdType3Font.getSubType());
+    assertNull(actualPdType3Font.getType());
+    assertNull(actualPdType3Font.getName());
+    assertNull(actualPdType3Font.getStandard14AFM());
+    assertNull(actualPdType3Font.getToUnicodeCMap());
+    assertNull(actualPdType3Font.getCharProcs());
+    assertNull(actualPdType3Font.getResources());
+    assertNull(actualPdType3Font.getFontBBox());
+    assertNull(actualPdType3Font.getFontDescriptor());
+    assertNull(actualPdType3Font.getEncoding());
+    assertEquals(0.0f, actualPdType3Font.getAverageFontWidth());
+    assertEquals(0.0f, actualPdType3Font.getSpaceWidth());
+    assertFalse(actualPdType3Font.isVertical());
+    assertFalse(actualPdType3Font.isDamaged());
+    assertFalse(actualPdType3Font.isStandard14());
+    assertTrue(actualPdType3Font.getWidths().isEmpty());
+    assertTrue(actualPdType3Font.isEmbedded());
     assertSame(fontDictionary, actualPdType3Font.getCOSObject());
-    assertArrayEquals(new float[] {0.001f, 0.0f, 0.0f}, values[0], 0.0f);
-    assertArrayEquals(new float[] {0.0f, 0.001f, 0.0f}, values[1], 0.0f);
-    assertArrayEquals(new float[] {0.0f, 0.0f, 1.0f}, values[2], 0.0f);
-  }
-
-  /**
-   * Test {@link PDType3Font#PDType3Font(COSDictionary)}.
-   *
-   * <ul>
-   *   <li>When {@link COSStream#COSStream()}.
-   *   <li>Then return COSObject is {@link COSStream#COSStream()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDType3Font#PDType3Font(COSDictionary)}
-   */
-  @Test
-  @DisplayName(
-      "Test new PDType3Font(COSDictionary); when COSStream(); then return COSObject is COSStream()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDType3Font.<init>(COSDictionary)"})
-  void testNewPDType3Font_whenCOSStream_thenReturnCOSObjectIsCOSStream() throws IOException {
-    // Arrange
-    COSStream fontDictionary = new COSStream();
-
-    // Act
-    PDType3Font actualPdType3Font = new PDType3Font(fontDictionary);
-
-    // Assert
-    float[][] values = actualPdType3Font.getFontMatrix().getValues();
-    assertEquals(3, values.length);
-    assertSame(fontDictionary, actualPdType3Font.getCOSObject());
-    assertArrayEquals(new float[] {0.001f, 0.0f, 0.0f}, values[0], 0.0f);
-    assertArrayEquals(new float[] {0.0f, 0.001f, 0.0f}, values[1], 0.0f);
-    assertArrayEquals(new float[] {0.0f, 0.0f, 1.0f}, values[2], 0.0f);
-  }
-
-  /**
-   * Test {@link PDType3Font#PDType3Font(COSDictionary, ResourceCache)}.
-   *
-   * <ul>
-   *   <li>When {@link COSStream#COSStream()}.
-   *   <li>Then return COSObject is {@link COSStream#COSStream()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDType3Font#PDType3Font(COSDictionary, ResourceCache)}
-   */
-  @Test
-  @DisplayName(
-      "Test new PDType3Font(COSDictionary, ResourceCache); when COSStream(); then return COSObject is COSStream()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDType3Font.<init>(COSDictionary, ResourceCache)"})
-  void testNewPDType3Font_whenCOSStream_thenReturnCOSObjectIsCOSStream2() throws IOException {
-    // Arrange
-    COSStream fontDictionary = new COSStream();
-
-    // Act
-    PDType3Font actualPdType3Font = new PDType3Font(fontDictionary, new DefaultResourceCache());
-
-    // Assert
-    float[][] values = actualPdType3Font.getFontMatrix().getValues();
-    assertEquals(3, values.length);
-    assertSame(fontDictionary, actualPdType3Font.getCOSObject());
-    assertArrayEquals(new float[] {0.001f, 0.0f, 0.0f}, values[0], 0.0f);
-    assertArrayEquals(new float[] {0.0f, 0.001f, 0.0f}, values[1], 0.0f);
-    assertArrayEquals(new float[] {0.0f, 0.0f, 1.0f}, values[2], 0.0f);
+    assertSame(PDFont.DEFAULT_FONT_MATRIX, actualPdType3Font.getFontMatrix());
   }
 
   /**
@@ -207,29 +170,6 @@ class PDType3FontDiffblueTest {
       throws IOException {
     // Arrange, Act and Assert
     assertNull(new PDType3Font(new COSDictionary()).getName());
-  }
-
-  /**
-   * Test {@link PDType3Font#getName()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDType3Font#PDType3Font(COSDictionary)} with fontDictionary is {@link
-   *       COSStream#COSStream()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDType3Font#getName()}
-   */
-  @Test
-  @DisplayName(
-      "Test getName(); given PDType3Font(COSDictionary) with fontDictionary is COSStream(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String PDType3Font.getName()"})
-  void testGetName_givenPDType3FontWithFontDictionaryIsCOSStream_thenReturnNull()
-      throws IOException {
-    // Arrange, Act and Assert
-    assertNull(new PDType3Font(new COSStream()).getName());
   }
 
   /**
@@ -304,29 +244,6 @@ class PDType3FontDiffblueTest {
       throws IOException {
     // Arrange, Act and Assert
     assertFalse(new PDType3Font(new COSDictionary()).hasGlyph("Name"));
-  }
-
-  /**
-   * Test {@link PDType3Font#hasGlyph(String)}.
-   *
-   * <ul>
-   *   <li>Given {@link PDType3Font#PDType3Font(COSDictionary)} with fontDictionary is {@link
-   *       COSStream#COSStream()}.
-   *   <li>Then return {@code false}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDType3Font#hasGlyph(String)}
-   */
-  @Test
-  @DisplayName(
-      "Test hasGlyph(String); given PDType3Font(COSDictionary) with fontDictionary is COSStream(); then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean PDType3Font.hasGlyph(String)"})
-  void testHasGlyph_givenPDType3FontWithFontDictionaryIsCOSStream_thenReturnFalse()
-      throws IOException {
-    // Arrange, Act and Assert
-    assertFalse(new PDType3Font(new COSStream()).hasGlyph("Name"));
   }
 
   /**
@@ -527,19 +444,17 @@ class PDType3FontDiffblueTest {
    * <ul>
    *   <li>Given {@link COSDictionary} {@link COSDictionary#getCOSArray(COSName)} return {@link
    *       COSArray#COSArray()}.
-   *   <li>Then calls {@link COSDictionary#getInt(COSName, int)}.
    * </ul>
    *
    * <p>Method under test: {@link PDType3Font#getDisplacement(int)}
    */
   @Test
   @DisplayName(
-      "Test getDisplacement(int); given COSDictionary getCOSArray(COSName) return COSArray(); then calls getInt(COSName, int)")
+      "Test getDisplacement(int); given COSDictionary getCOSArray(COSName) return COSArray()")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"Vector PDType3Font.getDisplacement(int)"})
-  void testGetDisplacement_givenCOSDictionaryGetCOSArrayReturnCOSArray_thenCallsGetInt()
-      throws IOException {
+  void testGetDisplacement_givenCOSDictionaryGetCOSArrayReturnCOSArray() throws IOException {
     // Arrange
     when(cOSDictionary.getInt(Mockito.<COSName>any(), anyInt())).thenReturn(1);
     when(cOSDictionary.getCOSArray(Mockito.<COSName>any())).thenReturn(new COSArray());
@@ -559,18 +474,18 @@ class PDType3FontDiffblueTest {
    *
    * <ul>
    *   <li>Given {@link COSDictionary} {@link COSDictionary#getInt(COSName, int)} return minus one.
-   *   <li>Then calls {@link COSDictionary#getInt(COSName, int)}.
+   *   <li>Then return X is zero.
    * </ul>
    *
    * <p>Method under test: {@link PDType3Font#getDisplacement(int)}
    */
   @Test
   @DisplayName(
-      "Test getDisplacement(int); given COSDictionary getInt(COSName, int) return minus one; then calls getInt(COSName, int)")
+      "Test getDisplacement(int); given COSDictionary getInt(COSName, int) return minus one; then return X is zero")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"Vector PDType3Font.getDisplacement(int)"})
-  void testGetDisplacement_givenCOSDictionaryGetIntReturnMinusOne_thenCallsGetInt()
+  void testGetDisplacement_givenCOSDictionaryGetIntReturnMinusOne_thenReturnXIsZero()
       throws IOException {
     // Arrange
     COSArray cosArray = new COSArray(new ArrayList<>());
@@ -593,18 +508,19 @@ class PDType3FontDiffblueTest {
    *
    * <ul>
    *   <li>Given {@link COSDictionary} {@link COSDictionary#getInt(COSName, int)} return six.
-   *   <li>Then calls {@link COSDictionary#getInt(COSName, int)}.
+   *   <li>Then return X is zero.
    * </ul>
    *
    * <p>Method under test: {@link PDType3Font#getDisplacement(int)}
    */
   @Test
   @DisplayName(
-      "Test getDisplacement(int); given COSDictionary getInt(COSName, int) return six; then calls getInt(COSName, int)")
+      "Test getDisplacement(int); given COSDictionary getInt(COSName, int) return six; then return X is zero")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"Vector PDType3Font.getDisplacement(int)"})
-  void testGetDisplacement_givenCOSDictionaryGetIntReturnSix_thenCallsGetInt() throws IOException {
+  void testGetDisplacement_givenCOSDictionaryGetIntReturnSix_thenReturnXIsZero()
+      throws IOException {
     // Arrange
     COSArray cosArray = new COSArray(new ArrayList<>());
     cosArray.add(COSFloat.ONE);
@@ -640,31 +556,6 @@ class PDType3FontDiffblueTest {
   void testGetDisplacement_givenPDType3FontWithFontDictionaryIsCOSDictionary() throws IOException {
     // Arrange and Act
     Vector actualDisplacement = new PDType3Font(new COSDictionary()).getDisplacement(1);
-
-    // Assert
-    assertEquals(0.0f, actualDisplacement.getX());
-    assertEquals(0.0f, actualDisplacement.getY());
-  }
-
-  /**
-   * Test {@link PDType3Font#getDisplacement(int)}.
-   *
-   * <ul>
-   *   <li>Given {@link PDType3Font#PDType3Font(COSDictionary)} with fontDictionary is {@link
-   *       COSStream#COSStream()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDType3Font#getDisplacement(int)}
-   */
-  @Test
-  @DisplayName(
-      "Test getDisplacement(int); given PDType3Font(COSDictionary) with fontDictionary is COSStream()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Vector PDType3Font.getDisplacement(int)"})
-  void testGetDisplacement_givenPDType3FontWithFontDictionaryIsCOSStream() throws IOException {
-    // Arrange and Act
-    Vector actualDisplacement = new PDType3Font(new COSStream()).getDisplacement(1);
 
     // Assert
     assertEquals(0.0f, actualDisplacement.getX());
@@ -815,18 +706,84 @@ class PDType3FontDiffblueTest {
    * Test {@link PDType3Font#getWidth(int)}.
    *
    * <ul>
-   *   <li>Given {@link COSArray#COSArray()} add {@link COSBoolean#FALSE}.
-   *   <li>Then calls {@link COSDictionary#getCOSArray(COSName)}.
+   *   <li>Given {@link COSArray#COSArray()} add {@link COSObject#COSObject(COSBase, ICOSParser)}
+   *       with object is {@code null} and parser is {@code null}.
    * </ul>
    *
    * <p>Method under test: {@link PDType3Font#getWidth(int)}
    */
   @Test
-  @DisplayName("Test getWidth(int); given COSArray() add FALSE; then calls getCOSArray(COSName)")
+  @DisplayName(
+      "Test getWidth(int); given COSArray() add COSObject(COSBase, ICOSParser) with object is 'null' and parser is 'null'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"float PDType3Font.getWidth(int)"})
-  void testGetWidth_givenCOSArrayAddFalse_thenCallsGetCOSArray() throws IOException {
+  void testGetWidth_givenCOSArrayAddCOSObjectWithObjectIsNullAndParserIsNull() throws IOException {
+    // Arrange
+    COSArray cosArray = new COSArray();
+    COSObject object = new COSObject((COSBase) null, (ICOSParser) null);
+    cosArray.add((COSBase) object);
+    when(cOSDictionary.getInt(Mockito.<COSName>any(), anyInt())).thenReturn(1);
+    when(cOSDictionary.getCOSArray(Mockito.<COSName>any())).thenReturn(cosArray);
+
+    // Act
+    float actualWidth = pDType3Font.getWidth(1);
+
+    // Assert
+    verify(cOSDictionary).getCOSArray(isA(COSName.class));
+    verify(cOSDictionary, atLeast(1)).getInt(Mockito.<COSName>any(), eq(-1));
+    assertEquals(0.0f, actualWidth);
+  }
+
+  /**
+   * Test {@link PDType3Font#getWidth(int)}.
+   *
+   * <ul>
+   *   <li>Given {@link COSArray#COSArray()} add {@link COSBoolean#FALSE}.
+   *   <li>When minus one.
+   *   <li>Then return zero.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDType3Font#getWidth(int)}
+   */
+  @Test
+  @DisplayName("Test getWidth(int); given COSArray() add FALSE; when minus one; then return zero")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"float PDType3Font.getWidth(int)"})
+  void testGetWidth_givenCOSArrayAddFalse_whenMinusOne_thenReturnZero() throws IOException {
+    // Arrange
+    COSArray cosArray = new COSArray();
+    cosArray.add(COSBoolean.FALSE);
+    when(cOSDictionary.getInt(Mockito.<COSName>any(), anyInt())).thenReturn(1);
+    when(cOSDictionary.getCOSArray(Mockito.<COSName>any())).thenReturn(cosArray);
+
+    // Act
+    float actualWidth = pDType3Font.getWidth(-1);
+
+    // Assert
+    verify(cOSDictionary).getCOSArray(isA(COSName.class));
+    verify(cOSDictionary, atLeast(1)).getInt(Mockito.<COSName>any(), eq(-1));
+    assertEquals(0.0f, actualWidth);
+  }
+
+  /**
+   * Test {@link PDType3Font#getWidth(int)}.
+   *
+   * <ul>
+   *   <li>Given {@link COSArray#COSArray()} add {@link COSBoolean#FALSE}.
+   *   <li>When one.
+   *   <li>Then return zero.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDType3Font#getWidth(int)}
+   */
+  @Test
+  @DisplayName("Test getWidth(int); given COSArray() add FALSE; when one; then return zero")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"float PDType3Font.getWidth(int)"})
+  void testGetWidth_givenCOSArrayAddFalse_whenOne_thenReturnZero() throws IOException {
     // Arrange
     COSArray cosArray = new COSArray();
     cosArray.add(COSBoolean.FALSE);
@@ -847,17 +804,18 @@ class PDType3FontDiffblueTest {
    *
    * <ul>
    *   <li>Given {@link COSArray#COSArray()} add {@link COSFloat#ONE}.
+   *   <li>When one.
    *   <li>Then return one.
    * </ul>
    *
    * <p>Method under test: {@link PDType3Font#getWidth(int)}
    */
   @Test
-  @DisplayName("Test getWidth(int); given COSArray() add ONE; then return one")
+  @DisplayName("Test getWidth(int); given COSArray() add ONE; when one; then return one")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"float PDType3Font.getWidth(int)"})
-  void testGetWidth_givenCOSArrayAddOne_thenReturnOne() throws IOException {
+  void testGetWidth_givenCOSArrayAddOne_whenOne_thenReturnOne() throws IOException {
     // Arrange
     COSArray cosArray = new COSArray();
     cosArray.add(COSFloat.ONE);
@@ -878,17 +836,18 @@ class PDType3FontDiffblueTest {
    *
    * <ul>
    *   <li>Given {@link COSArray#COSArray()} add {@link COSInteger#ONE}.
+   *   <li>When one.
    *   <li>Then return one.
    * </ul>
    *
    * <p>Method under test: {@link PDType3Font#getWidth(int)}
    */
   @Test
-  @DisplayName("Test getWidth(int); given COSArray() add ONE; then return one")
+  @DisplayName("Test getWidth(int); given COSArray() add ONE; when one; then return one")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"float PDType3Font.getWidth(int)"})
-  void testGetWidth_givenCOSArrayAddOne_thenReturnOne2() throws IOException {
+  void testGetWidth_givenCOSArrayAddOne_whenOne_thenReturnOne2() throws IOException {
     // Arrange
     COSArray cosArray = new COSArray();
     cosArray.add(COSInteger.ONE);
@@ -909,18 +868,19 @@ class PDType3FontDiffblueTest {
    *
    * <ul>
    *   <li>Given {@link COSDictionary} {@link COSDictionary#getInt(COSName, int)} return minus one.
-   *   <li>Then calls {@link COSDictionary#getCOSArray(COSName)}.
+   *   <li>When one.
+   *   <li>Then return zero.
    * </ul>
    *
    * <p>Method under test: {@link PDType3Font#getWidth(int)}
    */
   @Test
   @DisplayName(
-      "Test getWidth(int); given COSDictionary getInt(COSName, int) return minus one; then calls getCOSArray(COSName)")
+      "Test getWidth(int); given COSDictionary getInt(COSName, int) return minus one; when one; then return zero")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"float PDType3Font.getWidth(int)"})
-  void testGetWidth_givenCOSDictionaryGetIntReturnMinusOne_thenCallsGetCOSArray()
+  void testGetWidth_givenCOSDictionaryGetIntReturnMinusOne_whenOne_thenReturnZero()
       throws IOException {
     // Arrange
     COSArray cosArray = new COSArray();
@@ -942,18 +902,19 @@ class PDType3FontDiffblueTest {
    *
    * <ul>
    *   <li>Given {@link COSDictionary} {@link COSDictionary#getInt(COSName, int)} return one.
-   *   <li>Then calls {@link COSDictionary#getCOSArray(COSName)}.
+   *   <li>When one.
+   *   <li>Then return zero.
    * </ul>
    *
    * <p>Method under test: {@link PDType3Font#getWidth(int)}
    */
   @Test
   @DisplayName(
-      "Test getWidth(int); given COSDictionary getInt(COSName, int) return one; then calls getCOSArray(COSName)")
+      "Test getWidth(int); given COSDictionary getInt(COSName, int) return one; when one; then return zero")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"float PDType3Font.getWidth(int)"})
-  void testGetWidth_givenCOSDictionaryGetIntReturnOne_thenCallsGetCOSArray() throws IOException {
+  void testGetWidth_givenCOSDictionaryGetIntReturnOne_whenOne_thenReturnZero() throws IOException {
     // Arrange
     when(cOSDictionary.getInt(Mockito.<COSName>any(), anyInt())).thenReturn(1);
     when(cOSDictionary.getCOSArray(Mockito.<COSName>any())).thenReturn(new COSArray());
@@ -972,17 +933,20 @@ class PDType3FontDiffblueTest {
    *
    * <ul>
    *   <li>Given {@link PDFontDescriptor#PDFontDescriptor()} MissingWidth is ten.
+   *   <li>When one.
    *   <li>Then return ten.
    * </ul>
    *
    * <p>Method under test: {@link PDType3Font#getWidth(int)}
    */
   @Test
-  @DisplayName("Test getWidth(int); given PDFontDescriptor() MissingWidth is ten; then return ten")
+  @DisplayName(
+      "Test getWidth(int); given PDFontDescriptor() MissingWidth is ten; when one; then return ten")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"float PDType3Font.getWidth(int)"})
-  void testGetWidth_givenPDFontDescriptorMissingWidthIsTen_thenReturnTen() throws IOException {
+  void testGetWidth_givenPDFontDescriptorMissingWidthIsTen_whenOne_thenReturnTen()
+      throws IOException {
     // Arrange
     PDFontDescriptor fontDescriptor = new PDFontDescriptor();
     fontDescriptor.setMissingWidth(10.0f);
@@ -1015,29 +979,6 @@ class PDType3FontDiffblueTest {
       throws IOException {
     // Arrange, Act and Assert
     assertEquals(0.0f, new PDType3Font(new COSDictionary()).getWidth(1));
-  }
-
-  /**
-   * Test {@link PDType3Font#getWidth(int)}.
-   *
-   * <ul>
-   *   <li>Given {@link PDType3Font#PDType3Font(COSDictionary)} with fontDictionary is {@link
-   *       COSStream#COSStream()}.
-   *   <li>Then return zero.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDType3Font#getWidth(int)}
-   */
-  @Test
-  @DisplayName(
-      "Test getWidth(int); given PDType3Font(COSDictionary) with fontDictionary is COSStream(); then return zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"float PDType3Font.getWidth(int)"})
-  void testGetWidth_givenPDType3FontWithFontDictionaryIsCOSStream_thenReturnZero()
-      throws IOException {
-    // Arrange, Act and Assert
-    assertEquals(0.0f, new PDType3Font(new COSStream()).getWidth(1));
   }
 
   /**
@@ -1516,27 +1457,6 @@ class PDType3FontDiffblueTest {
    * Test {@link PDType3Font#getFontMatrix()}.
    *
    * <ul>
-   *   <li>Given {@link PDType3Font#PDType3Font(COSDictionary)} with fontDictionary is {@link
-   *       COSStream#COSStream()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDType3Font#getFontMatrix()}
-   */
-  @Test
-  @DisplayName(
-      "Test getFontMatrix(); given PDType3Font(COSDictionary) with fontDictionary is COSStream()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Matrix PDType3Font.getFontMatrix()"})
-  void testGetFontMatrix_givenPDType3FontWithFontDictionaryIsCOSStream() throws IOException {
-    // Arrange, Act and Assert
-    assertSame(PDFont.DEFAULT_FONT_MATRIX, new PDType3Font(new COSStream()).getFontMatrix());
-  }
-
-  /**
-   * Test {@link PDType3Font#getFontMatrix()}.
-   *
-   * <ul>
    *   <li>Then throw {@link UnsupportedOperationException}.
    * </ul>
    *
@@ -1595,44 +1515,19 @@ class PDType3FontDiffblueTest {
    * Test {@link PDType3Font#getResources()}.
    *
    * <ul>
-   *   <li>Given {@link PDType3Font#PDType3Font(COSDictionary)} with fontDictionary is {@link
-   *       COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDType3Font#getResources()}
-   */
-  @Test
-  @DisplayName(
-      "Test getResources(); given PDType3Font(COSDictionary) with fontDictionary is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"org.apache.pdfbox.pdmodel.PDResources PDType3Font.getResources()"})
-  void testGetResources_givenPDType3FontWithFontDictionaryIsCOSDictionary() throws IOException {
-    // Arrange, Act and Assert
-    assertNull(new PDType3Font(new COSDictionary()).getResources());
-  }
-
-  /**
-   * Test {@link PDType3Font#getResources()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDType3Font#PDType3Font(COSDictionary)} with fontDictionary is {@link
-   *       COSStream#COSStream()}.
    *   <li>Then return {@code null}.
    * </ul>
    *
    * <p>Method under test: {@link PDType3Font#getResources()}
    */
   @Test
-  @DisplayName(
-      "Test getResources(); given PDType3Font(COSDictionary) with fontDictionary is COSStream(); then return 'null'")
+  @DisplayName("Test getResources(); then return 'null'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"org.apache.pdfbox.pdmodel.PDResources PDType3Font.getResources()"})
-  void testGetResources_givenPDType3FontWithFontDictionaryIsCOSStream_thenReturnNull()
-      throws IOException {
+  void testGetResources_thenReturnNull() throws IOException {
     // Arrange, Act and Assert
-    assertNull(new PDType3Font(new COSStream()).getResources());
+    assertNull(new PDType3Font(new COSDictionary()).getResources());
   }
 
   /**
@@ -1881,29 +1776,6 @@ class PDType3FontDiffblueTest {
    * Test {@link PDType3Font#getFontBBox()}.
    *
    * <ul>
-   *   <li>Given {@link PDType3Font#PDType3Font(COSDictionary)} with fontDictionary is {@link
-   *       COSStream#COSStream()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDType3Font#getFontBBox()}
-   */
-  @Test
-  @DisplayName(
-      "Test getFontBBox(); given PDType3Font(COSDictionary) with fontDictionary is COSStream(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDRectangle PDType3Font.getFontBBox()"})
-  void testGetFontBBox_givenPDType3FontWithFontDictionaryIsCOSStream_thenReturnNull()
-      throws IOException {
-    // Arrange, Act and Assert
-    assertNull(new PDType3Font(new COSStream()).getFontBBox());
-  }
-
-  /**
-   * Test {@link PDType3Font#getFontBBox()}.
-   *
-   * <ul>
    *   <li>Then return COSArray toList fourth Key is {@code null}.
    * </ul>
    *
@@ -2122,18 +1994,17 @@ class PDType3FontDiffblueTest {
    *
    * <ul>
    *   <li>Given {@link COSArray#COSArray()} add {@link COSBoolean#FALSE}.
-   *   <li>Then calls {@link COSDictionary#getCOSStream(COSName)}.
+   *   <li>Then return UpperRightX is zero.
    * </ul>
    *
    * <p>Method under test: {@link PDType3Font#getBoundingBox()}
    */
   @Test
-  @DisplayName(
-      "Test getBoundingBox(); given COSArray() add FALSE; then calls getCOSStream(COSName)")
+  @DisplayName("Test getBoundingBox(); given COSArray() add FALSE; then return UpperRightX is zero")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"BoundingBox PDType3Font.getBoundingBox()"})
-  void testGetBoundingBox_givenCOSArrayAddFalse_thenCallsGetCOSStream() {
+  void testGetBoundingBox_givenCOSArrayAddFalse_thenReturnUpperRightXIsZero() {
     // Arrange
     COSArray cosArray = new COSArray();
     cosArray.add(COSBoolean.FALSE);
@@ -2169,19 +2040,17 @@ class PDType3FontDiffblueTest {
    * Test {@link PDType3Font#getBoundingBox()}.
    *
    * <ul>
-   *   <li>Given {@link PDType3Font#PDType3Font(COSDictionary)} with fontDictionary is {@link
-   *       COSDictionary#COSDictionary()}.
+   *   <li>Then return LowerLeftX is zero.
    * </ul>
    *
    * <p>Method under test: {@link PDType3Font#getBoundingBox()}
    */
   @Test
-  @DisplayName(
-      "Test getBoundingBox(); given PDType3Font(COSDictionary) with fontDictionary is COSDictionary()")
+  @DisplayName("Test getBoundingBox(); then return LowerLeftX is zero")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"BoundingBox PDType3Font.getBoundingBox()"})
-  void testGetBoundingBox_givenPDType3FontWithFontDictionaryIsCOSDictionary() throws IOException {
+  void testGetBoundingBox_thenReturnLowerLeftXIsZero() throws IOException {
     // Arrange and Act
     BoundingBox actualBoundingBox = new PDType3Font(new COSDictionary()).getBoundingBox();
 
@@ -2195,76 +2064,22 @@ class PDType3FontDiffblueTest {
   }
 
   /**
-   * Test {@link PDType3Font#getBoundingBox()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDType3Font#PDType3Font(COSDictionary)} with fontDictionary is {@link
-   *       COSStream#COSStream()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDType3Font#getBoundingBox()}
-   */
-  @Test
-  @DisplayName(
-      "Test getBoundingBox(); given PDType3Font(COSDictionary) with fontDictionary is COSStream()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"BoundingBox PDType3Font.getBoundingBox()"})
-  void testGetBoundingBox_givenPDType3FontWithFontDictionaryIsCOSStream() throws IOException {
-    // Arrange and Act
-    BoundingBox actualBoundingBox = new PDType3Font(new COSStream()).getBoundingBox();
-
-    // Assert
-    assertEquals(0.0f, actualBoundingBox.getHeight());
-    assertEquals(0.0f, actualBoundingBox.getLowerLeftX());
-    assertEquals(0.0f, actualBoundingBox.getLowerLeftY());
-    assertEquals(0.0f, actualBoundingBox.getUpperRightX());
-    assertEquals(0.0f, actualBoundingBox.getUpperRightY());
-    assertEquals(0.0f, actualBoundingBox.getWidth());
-  }
-
-  /**
    * Test {@link PDType3Font#getCharProcs()}.
    *
    * <ul>
-   *   <li>Given {@link PDType3Font#PDType3Font(COSDictionary)} with fontDictionary is {@link
-   *       COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDType3Font#getCharProcs()}
-   */
-  @Test
-  @DisplayName(
-      "Test getCharProcs(); given PDType3Font(COSDictionary) with fontDictionary is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"COSDictionary PDType3Font.getCharProcs()"})
-  void testGetCharProcs_givenPDType3FontWithFontDictionaryIsCOSDictionary() throws IOException {
-    // Arrange, Act and Assert
-    assertNull(new PDType3Font(new COSDictionary()).getCharProcs());
-  }
-
-  /**
-   * Test {@link PDType3Font#getCharProcs()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDType3Font#PDType3Font(COSDictionary)} with fontDictionary is {@link
-   *       COSStream#COSStream()}.
    *   <li>Then return {@code null}.
    * </ul>
    *
    * <p>Method under test: {@link PDType3Font#getCharProcs()}
    */
   @Test
-  @DisplayName(
-      "Test getCharProcs(); given PDType3Font(COSDictionary) with fontDictionary is COSStream(); then return 'null'")
+  @DisplayName("Test getCharProcs(); then return 'null'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"COSDictionary PDType3Font.getCharProcs()"})
-  void testGetCharProcs_givenPDType3FontWithFontDictionaryIsCOSStream_thenReturnNull()
-      throws IOException {
+  void testGetCharProcs_thenReturnNull() throws IOException {
     // Arrange, Act and Assert
-    assertNull(new PDType3Font(new COSStream()).getCharProcs());
+    assertNull(new PDType3Font(new COSDictionary()).getCharProcs());
   }
 
   /**

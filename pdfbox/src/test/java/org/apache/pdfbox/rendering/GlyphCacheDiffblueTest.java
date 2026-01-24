@@ -12,7 +12,6 @@ import java.awt.geom.Rectangle2D.Double;
 import java.awt.geom.Rectangle2D.Float;
 import java.io.IOException;
 import org.apache.pdfbox.cos.COSDictionary;
-import org.apache.pdfbox.cos.COSStream;
 import org.apache.pdfbox.pdmodel.font.PDMMType1Font;
 import org.apache.pdfbox.pdmodel.font.PDTrueTypeFont;
 import org.apache.pdfbox.pdmodel.font.PDType1CFont;
@@ -82,43 +81,6 @@ class GlyphCacheDiffblueTest {
     // Arrange and Act
     GeneralPath actualPathForCharacterCode =
         new GlyphCache(new PDMMType1Font(new COSDictionary())).getPathForCharacterCode(10);
-
-    // Assert
-    Rectangle bounds = actualPathForCharacterCode.getBounds();
-    Rectangle2D bounds2D = bounds.getBounds2D();
-    assertTrue(bounds2D instanceof Rectangle);
-    Rectangle2D frame = bounds.getFrame();
-    assertTrue(frame instanceof Double);
-    Rectangle2D bounds2D2 = actualPathForCharacterCode.getBounds2D();
-    assertTrue(bounds2D2 instanceof Float);
-    Rectangle actualBounds = bounds.getBounds();
-    assertEquals(bounds, actualBounds);
-    assertEquals(bounds, bounds2D);
-    assertEquals(bounds, frame);
-    assertEquals(bounds, bounds2D2);
-  }
-
-  /**
-   * Test {@link GlyphCache#getPathForCharacterCode(int)}.
-   *
-   * <ul>
-   *   <li>Given {@link PDMMType1Font#PDMMType1Font(COSDictionary)} with fontDictionary is {@link
-   *       COSStream#COSStream()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link GlyphCache#getPathForCharacterCode(int)}
-   */
-  @Test
-  @DisplayName(
-      "Test getPathForCharacterCode(int); given PDMMType1Font(COSDictionary) with fontDictionary is COSStream()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"GeneralPath GlyphCache.getPathForCharacterCode(int)"})
-  void testGetPathForCharacterCode_givenPDMMType1FontWithFontDictionaryIsCOSStream()
-      throws IOException {
-    // Arrange and Act
-    GeneralPath actualPathForCharacterCode =
-        new GlyphCache(new PDMMType1Font(new COSStream())).getPathForCharacterCode(1);
 
     // Assert
     Rectangle bounds = actualPathForCharacterCode.getBounds();

@@ -316,33 +316,6 @@ class PDType3CharProcDiffblueTest {
    * Test {@link PDType3CharProc#getResources()}.
    *
    * <ul>
-   *   <li>Given {@link PDType3Font#PDType3Font(COSDictionary)} with fontDictionary is {@link
-   *       COSStream#COSStream()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDType3CharProc#getResources()}
-   */
-  @Test
-  @DisplayName(
-      "Test getResources(); given PDType3Font(COSDictionary) with fontDictionary is COSStream(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"org.apache.pdfbox.pdmodel.PDResources PDType3CharProc.getResources()"})
-  void testGetResources_givenPDType3FontWithFontDictionaryIsCOSStream_thenReturnNull()
-      throws IOException {
-    // Arrange
-    PDType3Font font = new PDType3Font(new COSStream());
-    PDType3CharProc pdType3CharProc = new PDType3CharProc(font, new COSStream());
-
-    // Act and Assert
-    assertNull(pdType3CharProc.getResources());
-  }
-
-  /**
-   * Test {@link PDType3CharProc#getResources()}.
-   *
-   * <ul>
    *   <li>Then return {@code null}.
    * </ul>
    *
@@ -383,33 +356,6 @@ class PDType3CharProcDiffblueTest {
       throws IOException {
     // Arrange
     PDType3Font font = new PDType3Font(new COSDictionary());
-    PDType3CharProc pdType3CharProc = new PDType3CharProc(font, new COSStream());
-
-    // Act and Assert
-    assertNull(pdType3CharProc.getBBox());
-  }
-
-  /**
-   * Test {@link PDType3CharProc#getBBox()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDType3Font#PDType3Font(COSDictionary)} with fontDictionary is {@link
-   *       COSStream#COSStream()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDType3CharProc#getBBox()}
-   */
-  @Test
-  @DisplayName(
-      "Test getBBox(); given PDType3Font(COSDictionary) with fontDictionary is COSStream(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"org.apache.pdfbox.pdmodel.common.PDRectangle PDType3CharProc.getBBox()"})
-  void testGetBBox_givenPDType3FontWithFontDictionaryIsCOSStream_thenReturnNull()
-      throws IOException {
-    // Arrange
-    PDType3Font font = new PDType3Font(new COSStream());
     PDType3CharProc pdType3CharProc = new PDType3CharProc(font, new COSStream());
 
     // Act and Assert
@@ -584,46 +530,19 @@ class PDType3CharProcDiffblueTest {
    * Test {@link PDType3CharProc#getMatrix()}.
    *
    * <ul>
-   *   <li>Given {@link PDType3Font#PDType3Font(COSDictionary)} with fontDictionary is {@link
-   *       COSDictionary#COSDictionary()}.
+   *   <li>Then return {@link PDFont#DEFAULT_FONT_MATRIX}.
    * </ul>
    *
    * <p>Method under test: {@link PDType3CharProc#getMatrix()}
    */
   @Test
-  @DisplayName(
-      "Test getMatrix(); given PDType3Font(COSDictionary) with fontDictionary is COSDictionary()")
+  @DisplayName("Test getMatrix(); then return DEFAULT_FONT_MATRIX")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"org.apache.pdfbox.util.Matrix PDType3CharProc.getMatrix()"})
-  void testGetMatrix_givenPDType3FontWithFontDictionaryIsCOSDictionary() throws IOException {
+  void testGetMatrix_thenReturnDefault_font_matrix() throws IOException {
     // Arrange
     PDType3Font font = new PDType3Font(new COSDictionary());
-    PDType3CharProc pdType3CharProc = new PDType3CharProc(font, new COSStream());
-
-    // Act and Assert
-    assertSame(PDFont.DEFAULT_FONT_MATRIX, pdType3CharProc.getMatrix());
-  }
-
-  /**
-   * Test {@link PDType3CharProc#getMatrix()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDType3Font#PDType3Font(COSDictionary)} with fontDictionary is {@link
-   *       COSStream#COSStream()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDType3CharProc#getMatrix()}
-   */
-  @Test
-  @DisplayName(
-      "Test getMatrix(); given PDType3Font(COSDictionary) with fontDictionary is COSStream()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"org.apache.pdfbox.util.Matrix PDType3CharProc.getMatrix()"})
-  void testGetMatrix_givenPDType3FontWithFontDictionaryIsCOSStream() throws IOException {
-    // Arrange
-    PDType3Font font = new PDType3Font(new COSStream());
     PDType3CharProc pdType3CharProc = new PDType3CharProc(font, new COSStream());
 
     // Act and Assert

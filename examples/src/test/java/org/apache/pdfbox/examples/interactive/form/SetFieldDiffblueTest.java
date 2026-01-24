@@ -1,7 +1,9 @@
 package org.apache.pdfbox.examples.interactive.form;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.anyBoolean;
 import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -153,6 +155,51 @@ class SetFieldDiffblueTest {
    * name}, {@code value}.
    *
    * <ul>
+   *   <li>Given {@link PDCheckBox} {@link PDCheckBox#unCheck()} does nothing.
+   * </ul>
+   *
+   * <p>Method under test: {@link SetField#setField(PDDocument, String, String)}
+   */
+  @Test
+  @DisplayName(
+      "Test setField(PDDocument, String, String) with 'pdfDocument', 'name', 'value'; given PDCheckBox unCheck() does nothing")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void SetField.setField(PDDocument, String, String)"})
+  void testSetFieldWithPdfDocumentNameValue_givenPDCheckBoxUnCheckDoesNothing() throws IOException {
+    // Arrange
+    SetField setField = new SetField();
+
+    PDCheckBox pdCheckBox = mock(PDCheckBox.class);
+    doNothing().when(pdCheckBox).unCheck();
+
+    PDAcroForm pdAcroForm = mock(PDAcroForm.class);
+    when(pdAcroForm.getField(Mockito.<String>any())).thenReturn(pdCheckBox);
+    doNothing().when(pdAcroForm).setCacheFields(anyBoolean());
+    pdAcroForm.setCacheFields(true);
+
+    PDDocumentCatalog pdDocumentCatalog = mock(PDDocumentCatalog.class);
+    when(pdDocumentCatalog.getAcroForm()).thenReturn(pdAcroForm);
+
+    PDDocument pdfDocument = mock(PDDocument.class);
+    when(pdfDocument.getDocumentCatalog()).thenReturn(pdDocumentCatalog);
+
+    // Act
+    setField.setField(pdfDocument, "Name", "");
+
+    // Assert
+    verify(pdfDocument).getDocumentCatalog();
+    verify(pdDocumentCatalog).getAcroForm();
+    verify(pdAcroForm).getField("Name");
+    verify(pdAcroForm).setCacheFields(true);
+    verify(pdCheckBox).unCheck();
+  }
+
+  /**
+   * Test {@link SetField#setField(PDDocument, String, String)} with {@code pdfDocument}, {@code
+   * name}, {@code value}.
+   *
+   * <ul>
    *   <li>Then calls {@link PDCheckBox#check()}.
    * </ul>
    *
@@ -198,23 +245,23 @@ class SetFieldDiffblueTest {
    * name}, {@code value}.
    *
    * <ul>
-   *   <li>Then calls {@link PDCheckBox#unCheck()}.
+   *   <li>Then throw {@link IOException}.
    * </ul>
    *
    * <p>Method under test: {@link SetField#setField(PDDocument, String, String)}
    */
   @Test
   @DisplayName(
-      "Test setField(PDDocument, String, String) with 'pdfDocument', 'name', 'value'; then calls unCheck()")
+      "Test setField(PDDocument, String, String) with 'pdfDocument', 'name', 'value'; then throw IOException")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void SetField.setField(PDDocument, String, String)"})
-  void testSetFieldWithPdfDocumentNameValue_thenCallsUnCheck() throws IOException {
+  void testSetFieldWithPdfDocumentNameValue_thenThrowIOException() throws IOException {
     // Arrange
     SetField setField = new SetField();
 
     PDCheckBox pdCheckBox = mock(PDCheckBox.class);
-    doNothing().when(pdCheckBox).unCheck();
+    doThrow(new IOException()).when(pdCheckBox).unCheck();
 
     PDAcroForm pdAcroForm = mock(PDAcroForm.class);
     when(pdAcroForm.getField(Mockito.<String>any())).thenReturn(pdCheckBox);
@@ -227,10 +274,8 @@ class SetFieldDiffblueTest {
     PDDocument pdfDocument = mock(PDDocument.class);
     when(pdfDocument.getDocumentCatalog()).thenReturn(pdDocumentCatalog);
 
-    // Act
-    setField.setField(pdfDocument, "Name", "");
-
-    // Assert
+    // Act and Assert
+    assertThrows(IOException.class, () -> setField.setField(pdfDocument, "Name", ""));
     verify(pdfDocument).getDocumentCatalog();
     verify(pdDocumentCatalog).getAcroForm();
     verify(pdAcroForm).getField("Name");

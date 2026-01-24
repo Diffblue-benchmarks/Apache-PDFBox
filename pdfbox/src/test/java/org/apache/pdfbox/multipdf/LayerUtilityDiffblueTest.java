@@ -7,53 +7,47 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.ArgumentMatchers.isA;
-import static org.mockito.Mockito.anyInt;
-import static org.mockito.Mockito.atLeast;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.awt.geom.AffineTransform;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 import org.apache.pdfbox.cos.COSBase;
-import org.apache.pdfbox.cos.COSBoolean;
 import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.cos.COSDocument;
 import org.apache.pdfbox.cos.COSName;
 import org.apache.pdfbox.cos.COSObjectKey;
 import org.apache.pdfbox.cos.COSStream;
-import org.apache.pdfbox.io.RandomAccessInputStream;
+import org.apache.pdfbox.io.MemoryUsageSetting;
+import org.apache.pdfbox.io.RandomAccessRead;
+import org.apache.pdfbox.io.RandomAccessReadBuffer;
 import org.apache.pdfbox.io.RandomAccessReadView;
 import org.apache.pdfbox.io.RandomAccessReadWriteBuffer;
 import org.apache.pdfbox.io.RandomAccessStreamCache;
 import org.apache.pdfbox.io.RandomAccessStreamCache.StreamCacheCreateFunction;
 import org.apache.pdfbox.io.RandomAccessStreamCacheImpl;
+import org.apache.pdfbox.io.ScratchFile;
 import org.apache.pdfbox.pdfwriter.compress.CompressParameters;
 import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.pdmodel.PDDocumentCatalog;
 import org.apache.pdfbox.pdmodel.PDPage;
-import org.apache.pdfbox.pdmodel.common.COSObjectable;
+import org.apache.pdfbox.pdmodel.common.PDMetadata;
+import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.common.PDStream;
 import org.apache.pdfbox.pdmodel.graphics.form.PDFormXObject;
 import org.apache.pdfbox.pdmodel.graphics.optionalcontent.PDOptionalContentGroup;
 import org.apache.pdfbox.pdmodel.graphics.optionalcontent.PDOptionalContentProperties;
+import org.apache.pdfbox.util.Matrix;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 class LayerUtilityDiffblueTest {
   /**
@@ -107,6 +101,57 @@ class LayerUtilityDiffblueTest {
   /**
    * Test {@link LayerUtility#wrapInSaveRestore(PDPage)}.
    *
+   * <p>Method under test: {@link LayerUtility#wrapInSaveRestore(PDPage)}
+   */
+  @Test
+  @DisplayName("Test wrapInSaveRestore(PDPage)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void LayerUtility.wrapInSaveRestore(PDPage)"})
+  void testWrapInSaveRestore() throws IOException {
+    // Arrange
+    StreamCacheCreateFunction streamCacheCreateFunction = mock(StreamCacheCreateFunction.class);
+    MemoryUsageSetting memUsageSetting = MemoryUsageSetting.setupMainMemoryOnly(-100L);
+    when(streamCacheCreateFunction.create()).thenReturn(new ScratchFile(memUsageSetting));
+    PDDocument targetDoc = new PDDocument(streamCacheCreateFunction);
+    LayerUtility layerUtility = new LayerUtility(targetDoc);
+
+    PDPage page = new PDPage();
+    page.setContents(new PDStream(new COSDocument()));
+
+    // Act
+    layerUtility.wrapInSaveRestore(page);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    Iterator<PDStream> contentStreams = page.getContentStreams();
+    PDStream nextResult = contentStreams.next();
+    PDStream nextResult2 = contentStreams.next();
+    PDStream nextResult3 = contentStreams.next();
+    assertFalse(contentStreams.hasNext());
+    assertNull(nextResult.getDecodeParms());
+    assertEquals(-1, nextResult.getDecodedStreamLength());
+    assertNull(nextResult.getFile());
+    assertNull(nextResult.getFileDecodeParams());
+    List<String> fileFilters = nextResult.getFileFilters();
+    assertTrue(fileFilters.isEmpty());
+    assertSame(fileFilters, nextResult.getFilters());
+    assertNull(nextResult.getMetadata());
+    assertEquals(0, nextResult2.getLength());
+    assertNull(nextResult3.getDecodeParms());
+    assertEquals(-1, nextResult3.getDecodedStreamLength());
+    assertNull(nextResult3.getFile());
+    assertNull(nextResult3.getFileDecodeParams());
+    assertSame(fileFilters, nextResult3.getFileFilters());
+    assertSame(fileFilters, nextResult3.getFilters());
+    assertEquals(2, nextResult3.getLength());
+    assertNull(nextResult3.getMetadata());
+    assertTrue(page.hasContents());
+  }
+
+  /**
+   * Test {@link LayerUtility#wrapInSaveRestore(PDPage)}.
+   *
    * <ul>
    *   <li>Given {@link ArrayList#ArrayList()}.
    *   <li>When {@link PDPage#PDPage()} Contents is {@link ArrayList#ArrayList()}.
@@ -148,6 +193,62 @@ class LayerUtilityDiffblueTest {
     assertTrue(fileFilters.isEmpty());
     assertTrue(page.hasContents());
     assertSame(fileFilters, nextResult.getFilters());
+  }
+
+  /**
+   * Test {@link LayerUtility#wrapInSaveRestore(PDPage)}.
+   *
+   * <ul>
+   *   <li>Given {@link RandomAccessStreamCache.StreamCacheCreateFunction} {@link
+   *       RandomAccessStreamCache.StreamCacheCreateFunction#create()} return {@code null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link LayerUtility#wrapInSaveRestore(PDPage)}
+   */
+  @Test
+  @DisplayName(
+      "Test wrapInSaveRestore(PDPage); given StreamCacheCreateFunction create() return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void LayerUtility.wrapInSaveRestore(PDPage)"})
+  void testWrapInSaveRestore_givenStreamCacheCreateFunctionCreateReturnNull() throws IOException {
+    // Arrange
+    StreamCacheCreateFunction streamCacheCreateFunction = mock(StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(null);
+    PDDocument targetDoc = new PDDocument(streamCacheCreateFunction);
+    LayerUtility layerUtility = new LayerUtility(targetDoc);
+
+    PDPage page = new PDPage();
+    page.setContents(new PDStream(new COSDocument()));
+
+    // Act
+    layerUtility.wrapInSaveRestore(page);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    Iterator<PDStream> contentStreams = page.getContentStreams();
+    PDStream nextResult = contentStreams.next();
+    PDStream nextResult2 = contentStreams.next();
+    PDStream nextResult3 = contentStreams.next();
+    assertFalse(contentStreams.hasNext());
+    assertNull(nextResult.getDecodeParms());
+    assertEquals(-1, nextResult.getDecodedStreamLength());
+    assertNull(nextResult.getFile());
+    assertNull(nextResult.getFileDecodeParams());
+    List<String> fileFilters = nextResult.getFileFilters();
+    assertTrue(fileFilters.isEmpty());
+    assertSame(fileFilters, nextResult.getFilters());
+    assertNull(nextResult.getMetadata());
+    assertEquals(0, nextResult2.getLength());
+    assertNull(nextResult3.getDecodeParms());
+    assertEquals(-1, nextResult3.getDecodedStreamLength());
+    assertNull(nextResult3.getFile());
+    assertNull(nextResult3.getFileDecodeParams());
+    assertSame(fileFilters, nextResult3.getFileFilters());
+    assertSame(fileFilters, nextResult3.getFilters());
+    assertEquals(2, nextResult3.getLength());
+    assertNull(nextResult3.getMetadata());
+    assertTrue(page.hasContents());
   }
 
   /**
@@ -205,42 +306,330 @@ class LayerUtilityDiffblueTest {
   }
 
   /**
-   * Test {@link LayerUtility#importPageAsForm(PDDocument, int)} with {@code sourceDoc}, {@code
-   * pageNumber}.
+   * Test {@link LayerUtility#importPageAsForm(PDDocument, PDPage)} with {@code sourceDoc}, {@code
+   * page}.
    *
-   * <p>Method under test: {@link LayerUtility#importPageAsForm(PDDocument, int)}
+   * <p>Method under test: {@link LayerUtility#importPageAsForm(PDDocument, PDPage)}
    */
   @Test
-  @DisplayName("Test importPageAsForm(PDDocument, int) with 'sourceDoc', 'pageNumber'")
+  @DisplayName("Test importPageAsForm(PDDocument, PDPage) with 'sourceDoc', 'page'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
-  @MethodsUnderTest({"PDFormXObject LayerUtility.importPageAsForm(PDDocument, int)"})
-  void testImportPageAsFormWithSourceDocPageNumber() throws IOException {
+  @MethodsUnderTest({"PDFormXObject LayerUtility.importPageAsForm(PDDocument, PDPage)"})
+  void testImportPageAsFormWithSourceDocPage() throws IOException {
     // Arrange
     StreamCacheCreateFunction streamCacheCreateFunction = mock(StreamCacheCreateFunction.class);
     when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
     PDDocument targetDoc = new PDDocument(streamCacheCreateFunction);
     LayerUtility layerUtility = new LayerUtility(targetDoc);
-
-    PDDocumentCatalog pdDocumentCatalog = mock(PDDocumentCatalog.class);
-    when(pdDocumentCatalog.getOCProperties()).thenReturn(new PDOptionalContentProperties());
-
-    PDDocument sourceDoc = mock(PDDocument.class);
-    when(sourceDoc.getDocumentCatalog()).thenReturn(pdDocumentCatalog);
-    when(sourceDoc.getPage(anyInt())).thenReturn(new PDPage());
+    PDDocument sourceDoc = new PDDocument();
 
     // Act
-    PDFormXObject actualImportPageAsFormResult = layerUtility.importPageAsForm(sourceDoc, 10);
+    layerUtility.importPageAsForm(sourceDoc, new PDPage(new COSDictionary()));
 
     // Assert
     verify(streamCacheCreateFunction).create();
-    verify(sourceDoc).getDocumentCatalog();
-    verify(sourceDoc).getPage(10);
-    verify(pdDocumentCatalog).getOCProperties();
-    assertEquals(
-        2, layerUtility.getDocument().getDocumentCatalog().getOCProperties().getCOSObject().size());
+  }
+
+  /**
+   * Test {@link LayerUtility#importPageAsForm(PDDocument, PDPage)} with {@code sourceDoc}, {@code
+   * page}.
+   *
+   * <p>Method under test: {@link LayerUtility#importPageAsForm(PDDocument, PDPage)}
+   */
+  @Test
+  @DisplayName("Test importPageAsForm(PDDocument, PDPage) with 'sourceDoc', 'page'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDFormXObject LayerUtility.importPageAsForm(PDDocument, PDPage)"})
+  void testImportPageAsFormWithSourceDocPage2() throws IOException {
+    // Arrange
+    StreamCacheCreateFunction streamCacheCreateFunction = mock(StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(null);
+    PDDocument targetDoc = new PDDocument(streamCacheCreateFunction);
+    LayerUtility layerUtility = new LayerUtility(targetDoc);
+    PDDocument sourceDoc = new PDDocument();
+
+    // Act
+    PDFormXObject actualImportPageAsFormResult =
+        layerUtility.importPageAsForm(sourceDoc, new PDPage());
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
     float[][] values = actualImportPageAsFormResult.getMatrix().getValues();
     assertEquals(3, values.length);
+    COSStream cOSObject = actualImportPageAsFormResult.getCOSObject();
+    assertEquals(6, cOSObject.getValues().size());
+    assertEquals(6, cOSObject.size());
+    assertArrayEquals(new float[] {0.0f, 0.0f, 1.0f}, values[2], 0.0f);
+    assertArrayEquals(new float[] {0.0f, 1.0f, 0.0f}, values[1], 0.0f);
+    assertArrayEquals(new float[] {1.0f, 0.0f, 0.0f}, values[0], 0.0f);
+  }
+
+  /**
+   * Test {@link LayerUtility#importPageAsForm(PDDocument, PDPage)} with {@code sourceDoc}, {@code
+   * page}.
+   *
+   * <p>Method under test: {@link LayerUtility#importPageAsForm(PDDocument, PDPage)}
+   */
+  @Test
+  @DisplayName("Test importPageAsForm(PDDocument, PDPage) with 'sourceDoc', 'page'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDFormXObject LayerUtility.importPageAsForm(PDDocument, PDPage)"})
+  void testImportPageAsFormWithSourceDocPage3() throws IOException {
+    // Arrange
+    StreamCacheCreateFunction streamCacheCreateFunction = mock(StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDDocument targetDoc = new PDDocument(streamCacheCreateFunction);
+    LayerUtility layerUtility = new LayerUtility(targetDoc);
+    PDDocument sourceDoc = new PDDocument();
+
+    ArrayList<PDStream> contents = new ArrayList<>();
+    contents.add(new PDStream(new COSDocument()));
+
+    PDPage page = new PDPage();
+    page.setContents(contents);
+
+    // Act
+    PDFormXObject actualImportPageAsFormResult = layerUtility.importPageAsForm(sourceDoc, page);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    float[][] values = actualImportPageAsFormResult.getMatrix().getValues();
+    assertEquals(3, values.length);
+    COSStream cOSObject = actualImportPageAsFormResult.getCOSObject();
+    assertEquals(6, cOSObject.getValues().size());
+    assertEquals(6, cOSObject.size());
+    assertArrayEquals(new float[] {0.0f, 0.0f, 1.0f}, values[2], 0.0f);
+    assertArrayEquals(new float[] {0.0f, 1.0f, 0.0f}, values[1], 0.0f);
+    assertArrayEquals(new float[] {1.0f, 0.0f, 0.0f}, values[0], 0.0f);
+  }
+
+  /**
+   * Test {@link LayerUtility#importPageAsForm(PDDocument, PDPage)} with {@code sourceDoc}, {@code
+   * page}.
+   *
+   * <p>Method under test: {@link LayerUtility#importPageAsForm(PDDocument, PDPage)}
+   */
+  @Test
+  @DisplayName("Test importPageAsForm(PDDocument, PDPage) with 'sourceDoc', 'page'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDFormXObject LayerUtility.importPageAsForm(PDDocument, PDPage)"})
+  void testImportPageAsFormWithSourceDocPage4() throws IOException {
+    // Arrange
+    StreamCacheCreateFunction streamCacheCreateFunction = mock(StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDDocument targetDoc = new PDDocument(streamCacheCreateFunction);
+    LayerUtility layerUtility = new LayerUtility(targetDoc);
+    PDDocument sourceDoc = new PDDocument();
+
+    ArrayList<PDStream> contents = new ArrayList<>();
+    contents.add(new PDStream(new COSDocument()));
+    contents.add(new PDStream(new COSDocument()));
+
+    PDPage page = new PDPage();
+    page.setContents(contents);
+
+    // Act
+    PDFormXObject actualImportPageAsFormResult = layerUtility.importPageAsForm(sourceDoc, page);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    float[][] values = actualImportPageAsFormResult.getMatrix().getValues();
+    assertEquals(3, values.length);
+    COSStream cOSObject = actualImportPageAsFormResult.getCOSObject();
+    assertEquals(6, cOSObject.getValues().size());
+    assertEquals(6, cOSObject.size());
+    assertArrayEquals(new float[] {0.0f, 0.0f, 1.0f}, values[2], 0.0f);
+    assertArrayEquals(new float[] {0.0f, 1.0f, 0.0f}, values[1], 0.0f);
+    assertArrayEquals(new float[] {1.0f, 0.0f, 0.0f}, values[0], 0.0f);
+  }
+
+  /**
+   * Test {@link LayerUtility#importPageAsForm(PDDocument, PDPage)} with {@code sourceDoc}, {@code
+   * page}.
+   *
+   * <p>Method under test: {@link LayerUtility#importPageAsForm(PDDocument, PDPage)}
+   */
+  @Test
+  @DisplayName("Test importPageAsForm(PDDocument, PDPage) with 'sourceDoc', 'page'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDFormXObject LayerUtility.importPageAsForm(PDDocument, PDPage)"})
+  void testImportPageAsFormWithSourceDocPage5() throws IOException {
+    // Arrange
+    StreamCacheCreateFunction streamCacheCreateFunction = mock(StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDDocument targetDoc = new PDDocument(streamCacheCreateFunction);
+    LayerUtility layerUtility = new LayerUtility(targetDoc);
+    PDDocument sourceDoc = new PDDocument();
+
+    PDPage page = new PDPage();
+    RandomAccessStreamCacheImpl streamCache = new RandomAccessStreamCacheImpl();
+    COSStream str =
+        new COSStream(
+            streamCache, new RandomAccessReadView(new RandomAccessReadWriteBuffer(), 1L, 3L));
+    page.setMetadata(new PDMetadata(str));
+
+    // Act
+    PDFormXObject actualImportPageAsFormResult = layerUtility.importPageAsForm(sourceDoc, page);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    PDMetadata metadata = actualImportPageAsFormResult.getContentStream().getMetadata();
+    COSStream cOSObject = metadata.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+    assertEquals(3, actualImportPageAsFormResult.getStream().getMetadata().getLength());
+    assertEquals(3, metadata.getLength());
+    float[][] values = actualImportPageAsFormResult.getMatrix().getValues();
+    assertEquals(3, values.length);
+    assertEquals(3L, cOSObject.getLength());
+    assertArrayEquals(new float[] {0.0f, 0.0f, 1.0f}, values[2], 0.0f);
+    assertArrayEquals(new float[] {0.0f, 1.0f, 0.0f}, values[1], 0.0f);
+    assertArrayEquals(new float[] {1.0f, 0.0f, 0.0f}, values[0], 0.0f);
+  }
+
+  /**
+   * Test {@link LayerUtility#importPageAsForm(PDDocument, PDPage)} with {@code sourceDoc}, {@code
+   * page}.
+   *
+   * <p>Method under test: {@link LayerUtility#importPageAsForm(PDDocument, PDPage)}
+   */
+  @Test
+  @DisplayName("Test importPageAsForm(PDDocument, PDPage) with 'sourceDoc', 'page'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDFormXObject LayerUtility.importPageAsForm(PDDocument, PDPage)"})
+  void testImportPageAsFormWithSourceDocPage6() throws IOException {
+    // Arrange
+    StreamCacheCreateFunction streamCacheCreateFunction = mock(StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDDocument targetDoc = new PDDocument(streamCacheCreateFunction);
+    LayerUtility layerUtility = new LayerUtility(targetDoc);
+    PDDocument sourceDoc = new PDDocument();
+
+    PDPage page = new PDPage();
+    PDDocument doc = new PDDocument();
+    ByteArrayInputStream str =
+        new ByteArrayInputStream(new byte[] {'A', 1, 'A', 1, 'A', 1, 'A', 1});
+
+    PDMetadata meta = new PDMetadata(doc, str);
+    page.setMetadata(meta);
+
+    // Act
+    PDFormXObject actualImportPageAsFormResult = layerUtility.importPageAsForm(sourceDoc, page);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    PDMetadata metadata = actualImportPageAsFormResult.getContentStream().getMetadata();
+    COSStream cOSObject = metadata.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
+    float[][] values = actualImportPageAsFormResult.getMatrix().getValues();
+    assertEquals(3, values.length);
+    assertEquals(8, actualImportPageAsFormResult.getStream().getMetadata().getLength());
+    assertEquals(8, metadata.getLength());
+    assertEquals(8L, cOSObject.getLength());
+    assertArrayEquals(new float[] {0.0f, 0.0f, 1.0f}, values[2], 0.0f);
+    assertArrayEquals(new float[] {0.0f, 1.0f, 0.0f}, values[1], 0.0f);
+    assertArrayEquals(new float[] {1.0f, 0.0f, 0.0f}, values[0], 0.0f);
+  }
+
+  /**
+   * Test {@link LayerUtility#importPageAsForm(PDDocument, PDPage)} with {@code sourceDoc}, {@code
+   * page}.
+   *
+   * <p>Method under test: {@link LayerUtility#importPageAsForm(PDDocument, PDPage)}
+   */
+  @Test
+  @DisplayName("Test importPageAsForm(PDDocument, PDPage) with 'sourceDoc', 'page'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDFormXObject LayerUtility.importPageAsForm(PDDocument, PDPage)"})
+  void testImportPageAsFormWithSourceDocPage7() throws IOException {
+    // Arrange
+    StreamCacheCreateFunction streamCacheCreateFunction = mock(StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDDocument targetDoc = new PDDocument(streamCacheCreateFunction);
+    LayerUtility layerUtility = new LayerUtility(targetDoc);
+    PDDocument sourceDoc = new PDDocument();
+
+    PDStream contents = new PDStream(new COSDocument());
+    contents.setFilters(new ArrayList<>());
+
+    PDPage page = new PDPage();
+    page.setContents(contents);
+
+    // Act
+    PDFormXObject actualImportPageAsFormResult = layerUtility.importPageAsForm(sourceDoc, page);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    RandomAccessRead contentsForStreamParsing =
+        actualImportPageAsFormResult.getContentsForStreamParsing();
+    assertTrue(contentsForStreamParsing instanceof RandomAccessReadWriteBuffer);
+    RandomAccessRead contentsForRandomAccess =
+        actualImportPageAsFormResult.getContentsForRandomAccess();
+    assertTrue(contentsForRandomAccess instanceof RandomAccessReadWriteBuffer);
+    byte[] byteArray = new byte[1];
+    assertEquals(1, actualImportPageAsFormResult.getContents().read(byteArray));
+    assertEquals(1, contentsForStreamParsing.available());
+    assertEquals(1, contentsForRandomAccess.available());
+    float[][] values = actualImportPageAsFormResult.getMatrix().getValues();
+    assertEquals(3, values.length);
+    assertEquals(9, actualImportPageAsFormResult.getStream().getLength());
+    assertEquals(9, actualImportPageAsFormResult.getContentStream().getLength());
+    assertEquals(9L, actualImportPageAsFormResult.getCOSObject().getLength());
+    assertArrayEquals(new byte[] {'\n'}, byteArray);
+    assertArrayEquals(new float[] {0.0f, 0.0f, 1.0f}, values[2], 0.0f);
+    assertArrayEquals(new float[] {0.0f, 1.0f, 0.0f}, values[1], 0.0f);
+    assertArrayEquals(new float[] {1.0f, 0.0f, 0.0f}, values[0], 0.0f);
+  }
+
+  /**
+   * Test {@link LayerUtility#importPageAsForm(PDDocument, PDPage)} with {@code sourceDoc}, {@code
+   * page}.
+   *
+   * <p>Method under test: {@link LayerUtility#importPageAsForm(PDDocument, PDPage)}
+   */
+  @Test
+  @DisplayName("Test importPageAsForm(PDDocument, PDPage) with 'sourceDoc', 'page'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDFormXObject LayerUtility.importPageAsForm(PDDocument, PDPage)"})
+  void testImportPageAsFormWithSourceDocPage8() throws IOException {
+    // Arrange
+    StreamCacheCreateFunction streamCacheCreateFunction = mock(StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDDocument targetDoc = new PDDocument(streamCacheCreateFunction);
+    LayerUtility layerUtility = new LayerUtility(targetDoc);
+    PDDocument sourceDoc = new PDDocument();
+
+    PDPage page = new PDPage();
+    RandomAccessStreamCacheImpl streamCache = new RandomAccessStreamCacheImpl();
+    ByteArrayInputStream input =
+        new ByteArrayInputStream(new byte[] {'A', 1, 'A', 1, 'A', 1, 'A', 1});
+    RandomAccessReadBuffer randomAccessRead = new RandomAccessReadBuffer(input);
+    COSStream str = new COSStream(streamCache, new RandomAccessReadView(randomAccessRead, 1L, 3L));
+    page.setMetadata(new PDMetadata(str));
+
+    // Act
+    PDFormXObject actualImportPageAsFormResult = layerUtility.importPageAsForm(sourceDoc, page);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    PDMetadata metadata = actualImportPageAsFormResult.getContentStream().getMetadata();
+    COSStream cOSObject = metadata.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+    assertEquals(3, actualImportPageAsFormResult.getStream().getMetadata().getLength());
+    assertEquals(3, metadata.getLength());
+    float[][] values = actualImportPageAsFormResult.getMatrix().getValues();
+    assertEquals(3, values.length);
+    assertEquals(3L, cOSObject.getLength());
     assertArrayEquals(new float[] {0.0f, 0.0f, 1.0f}, values[2], 0.0f);
     assertArrayEquals(new float[] {0.0f, 1.0f, 0.0f}, values[1], 0.0f);
     assertArrayEquals(new float[] {1.0f, 0.0f, 0.0f}, values[0], 0.0f);
@@ -257,42 +646,55 @@ class LayerUtilityDiffblueTest {
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"PDFormXObject LayerUtility.importPageAsForm(PDDocument, int)"})
+  void testImportPageAsFormWithSourceDocPageNumber() throws IOException {
+    // Arrange
+    LayerUtility layerUtility = new LayerUtility(new PDDocument());
+
+    PDDocument sourceDoc = new PDDocument();
+    sourceDoc.addPage(new PDPage());
+
+    // Act
+    PDFormXObject actualImportPageAsFormResult = layerUtility.importPageAsForm(sourceDoc, 0);
+
+    // Assert
+    List<COSName> filters = actualImportPageAsFormResult.getContentStream().getFilters();
+    assertEquals(1, filters.size());
+    assertEquals(filters, actualImportPageAsFormResult.getStream().getFilters());
+  }
+
+  /**
+   * Test {@link LayerUtility#importPageAsForm(PDDocument, int)} with {@code sourceDoc}, {@code
+   * pageNumber}.
+   *
+   * <p>Method under test: {@link LayerUtility#importPageAsForm(PDDocument, int)}
+   */
+  @Test
+  @DisplayName("Test importPageAsForm(PDDocument, int) with 'sourceDoc', 'pageNumber'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDFormXObject LayerUtility.importPageAsForm(PDDocument, int)"})
   void testImportPageAsFormWithSourceDocPageNumber2() throws IOException {
     // Arrange
     StreamCacheCreateFunction streamCacheCreateFunction = mock(StreamCacheCreateFunction.class);
-    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    when(streamCacheCreateFunction.create()).thenReturn(null);
     PDDocument targetDoc = new PDDocument(streamCacheCreateFunction);
     LayerUtility layerUtility = new LayerUtility(targetDoc);
 
-    PDOptionalContentProperties pdOptionalContentProperties =
-        mock(PDOptionalContentProperties.class);
-    when(pdOptionalContentProperties.getCOSObject()).thenReturn(null);
-    doNothing().when(pdOptionalContentProperties).addGroup(Mockito.<PDOptionalContentGroup>any());
-    pdOptionalContentProperties.addGroup(
-        new PDOptionalContentGroup("org.apache.pdfbox.filter.deflatelevel"));
-
-    PDDocumentCatalog pdDocumentCatalog = mock(PDDocumentCatalog.class);
-    when(pdDocumentCatalog.getOCProperties()).thenReturn(pdOptionalContentProperties);
-
-    PDDocument sourceDoc = mock(PDDocument.class);
-    when(sourceDoc.getDocumentCatalog()).thenReturn(pdDocumentCatalog);
-    when(sourceDoc.getPage(anyInt())).thenReturn(new PDPage());
+    PDDocument sourceDoc = new PDDocument();
+    sourceDoc.addPage(new PDPage());
 
     // Act
-    PDFormXObject actualImportPageAsFormResult = layerUtility.importPageAsForm(sourceDoc, 10);
+    PDFormXObject actualImportPageAsFormResult = layerUtility.importPageAsForm(sourceDoc, 0);
 
     // Assert
     verify(streamCacheCreateFunction).create();
-    verify(sourceDoc).getDocumentCatalog();
-    verify(sourceDoc).getPage(10);
-    verify(pdDocumentCatalog).getOCProperties();
-    verify(pdOptionalContentProperties).addGroup(isA(PDOptionalContentGroup.class));
-    verify(pdOptionalContentProperties).getCOSObject();
-    PDDocument document = layerUtility.getDocument();
-    assertEquals("1.5", document.getDocumentCatalog().getVersion());
-    assertEquals(1.5f, document.getVersion());
+    assertNull(actualImportPageAsFormResult.getStream().getMetadata());
+    assertNull(actualImportPageAsFormResult.getContentStream().getMetadata());
     float[][] values = actualImportPageAsFormResult.getMatrix().getValues();
     assertEquals(3, values.length);
+    COSStream cOSObject = actualImportPageAsFormResult.getCOSObject();
+    assertEquals(6, cOSObject.getValues().size());
+    assertEquals(6, cOSObject.size());
     assertArrayEquals(new float[] {0.0f, 0.0f, 1.0f}, values[2], 0.0f);
     assertArrayEquals(new float[] {0.0f, 1.0f, 0.0f}, values[1], 0.0f);
     assertArrayEquals(new float[] {1.0f, 0.0f, 0.0f}, values[0], 0.0f);
@@ -316,42 +718,33 @@ class LayerUtilityDiffblueTest {
     PDDocument targetDoc = new PDDocument(streamCacheCreateFunction);
     LayerUtility layerUtility = new LayerUtility(targetDoc);
 
-    PDOptionalContentProperties pdOptionalContentProperties =
-        mock(PDOptionalContentProperties.class);
-    RandomAccessStreamCacheImpl streamCache = new RandomAccessStreamCacheImpl();
-    COSStream cosStream =
-        new COSStream(
-            streamCache, new RandomAccessReadView(new RandomAccessReadWriteBuffer(), 1L, 3L));
-    when(pdOptionalContentProperties.getCOSObject()).thenReturn(cosStream);
-    doNothing().when(pdOptionalContentProperties).addGroup(Mockito.<PDOptionalContentGroup>any());
-    pdOptionalContentProperties.addGroup(
-        new PDOptionalContentGroup("org.apache.pdfbox.filter.deflatelevel"));
+    PDPage page = new PDPage();
+    page.setContents(new PDStream(new COSDocument()));
 
-    PDDocumentCatalog pdDocumentCatalog = mock(PDDocumentCatalog.class);
-    when(pdDocumentCatalog.getOCProperties()).thenReturn(pdOptionalContentProperties);
-
-    PDDocument sourceDoc = mock(PDDocument.class);
-    when(sourceDoc.getDocumentCatalog()).thenReturn(pdDocumentCatalog);
-    when(sourceDoc.getPage(anyInt())).thenReturn(new PDPage());
+    PDDocument sourceDoc = new PDDocument();
+    sourceDoc.addPage(page);
 
     // Act
-    PDFormXObject actualImportPageAsFormResult = layerUtility.importPageAsForm(sourceDoc, 10);
+    PDFormXObject actualImportPageAsFormResult = layerUtility.importPageAsForm(sourceDoc, 0);
 
     // Assert
     verify(streamCacheCreateFunction).create();
-    verify(sourceDoc).getDocumentCatalog();
-    verify(sourceDoc).getPage(10);
-    verify(pdDocumentCatalog).getOCProperties();
-    verify(pdOptionalContentProperties).addGroup(isA(PDOptionalContentGroup.class));
-    verify(pdOptionalContentProperties).getCOSObject();
-    COSDictionary cOSObject =
-        layerUtility.getDocument().getDocumentCatalog().getOCProperties().getCOSObject();
-    assertTrue(cOSObject instanceof COSStream);
-    assertNull(((COSStream) cOSObject).getFilters());
+    RandomAccessRead contentsForStreamParsing =
+        actualImportPageAsFormResult.getContentsForStreamParsing();
+    assertTrue(contentsForStreamParsing instanceof RandomAccessReadWriteBuffer);
+    RandomAccessRead contentsForRandomAccess =
+        actualImportPageAsFormResult.getContentsForRandomAccess();
+    assertTrue(contentsForRandomAccess instanceof RandomAccessReadWriteBuffer);
+    byte[] byteArray = new byte[1];
+    assertEquals(1, actualImportPageAsFormResult.getContents().read(byteArray));
+    assertEquals(1, contentsForStreamParsing.available());
+    assertEquals(1, contentsForRandomAccess.available());
     float[][] values = actualImportPageAsFormResult.getMatrix().getValues();
     assertEquals(3, values.length);
-    assertEquals(3L, ((COSStream) cOSObject).getLength());
-    assertTrue(((COSStream) cOSObject).hasData());
+    assertEquals(9, actualImportPageAsFormResult.getStream().getLength());
+    assertEquals(9, actualImportPageAsFormResult.getContentStream().getLength());
+    assertEquals(9L, actualImportPageAsFormResult.getCOSObject().getLength());
+    assertArrayEquals(new byte[] {'\n'}, byteArray);
     assertArrayEquals(new float[] {0.0f, 0.0f, 1.0f}, values[2], 0.0f);
     assertArrayEquals(new float[] {0.0f, 1.0f, 0.0f}, values[1], 0.0f);
     assertArrayEquals(new float[] {1.0f, 0.0f, 0.0f}, values[0], 0.0f);
@@ -375,41 +768,25 @@ class LayerUtilityDiffblueTest {
     PDDocument targetDoc = new PDDocument(streamCacheCreateFunction);
     LayerUtility layerUtility = new LayerUtility(targetDoc);
 
-    COSDictionary cosDictionary = mock(COSDictionary.class);
-    HashSet<Entry<COSName, COSBase>> entrySet = new HashSet<>();
-    when(cosDictionary.entrySet()).thenReturn(entrySet);
+    PDPage page = new PDPage();
+    RandomAccessStreamCacheImpl streamCache = new RandomAccessStreamCacheImpl();
+    COSStream str =
+        new COSStream(
+            streamCache, new RandomAccessReadView(new RandomAccessReadWriteBuffer(), 1L, 3L));
+    page.setMetadata(new PDMetadata(str));
 
-    PDOptionalContentProperties pdOptionalContentProperties =
-        mock(PDOptionalContentProperties.class);
-    when(pdOptionalContentProperties.getCOSObject()).thenReturn(cosDictionary);
-    doNothing().when(pdOptionalContentProperties).addGroup(Mockito.<PDOptionalContentGroup>any());
-    pdOptionalContentProperties.addGroup(
-        new PDOptionalContentGroup("org.apache.pdfbox.filter.deflatelevel"));
-
-    PDDocumentCatalog pdDocumentCatalog = mock(PDDocumentCatalog.class);
-    when(pdDocumentCatalog.getOCProperties()).thenReturn(pdOptionalContentProperties);
-
-    PDDocument sourceDoc = mock(PDDocument.class);
-    when(sourceDoc.getDocumentCatalog()).thenReturn(pdDocumentCatalog);
-    when(sourceDoc.getPage(anyInt())).thenReturn(new PDPage());
+    PDDocument sourceDoc = new PDDocument();
+    sourceDoc.addPage(page);
 
     // Act
-    PDFormXObject actualImportPageAsFormResult = layerUtility.importPageAsForm(sourceDoc, 10);
+    PDFormXObject actualImportPageAsFormResult = layerUtility.importPageAsForm(sourceDoc, 0);
 
     // Assert
-    verify(cosDictionary).entrySet();
     verify(streamCacheCreateFunction).create();
-    verify(sourceDoc).getDocumentCatalog();
-    verify(sourceDoc).getPage(10);
-    verify(pdDocumentCatalog).getOCProperties();
-    verify(pdOptionalContentProperties).addGroup(isA(PDOptionalContentGroup.class));
-    verify(pdOptionalContentProperties).getCOSObject();
-    float[][] values = actualImportPageAsFormResult.getMatrix().getValues();
-    assertEquals(3, values.length);
-    assertEquals(entrySet, actualImportPageAsFormResult.getResources().getColorSpaceNames());
-    assertArrayEquals(new float[] {0.0f, 0.0f, 1.0f}, values[2], 0.0f);
-    assertArrayEquals(new float[] {0.0f, 1.0f, 0.0f}, values[1], 0.0f);
-    assertArrayEquals(new float[] {1.0f, 0.0f, 0.0f}, values[0], 0.0f);
+    assertEquals(3, actualImportPageAsFormResult.getMatrix().getValues().length);
+    COSStream cOSObject = actualImportPageAsFormResult.getCOSObject();
+    assertEquals(7, cOSObject.getValues().size());
+    assertEquals(7, cOSObject.size());
   }
 
   /**
@@ -430,33 +807,25 @@ class LayerUtilityDiffblueTest {
     PDDocument targetDoc = new PDDocument(streamCacheCreateFunction);
     LayerUtility layerUtility = new LayerUtility(targetDoc);
 
-    COSDictionary cosDictionary = mock(COSDictionary.class);
-    when(cosDictionary.entrySet()).thenThrow(new IllegalArgumentException());
+    PDDocument sourceDoc = new PDDocument();
+    COSObjectKey key = new COSObjectKey(1L, 1);
 
-    PDOptionalContentProperties pdOptionalContentProperties =
-        mock(PDOptionalContentProperties.class);
-    when(pdOptionalContentProperties.getCOSObject()).thenReturn(cosDictionary);
-    doNothing().when(pdOptionalContentProperties).addGroup(Mockito.<PDOptionalContentGroup>any());
-    pdOptionalContentProperties.addGroup(
-        new PDOptionalContentGroup("org.apache.pdfbox.filter.deflatelevel"));
-
-    PDDocumentCatalog pdDocumentCatalog = mock(PDDocumentCatalog.class);
-    when(pdDocumentCatalog.getOCProperties()).thenReturn(pdOptionalContentProperties);
-
-    PDDocument sourceDoc = mock(PDDocument.class);
-    when(sourceDoc.getDocumentCatalog()).thenReturn(pdDocumentCatalog);
-    when(sourceDoc.getPage(anyInt())).thenReturn(new PDPage());
+    COSDictionary pageDictionary = new COSDictionary();
+    pageDictionary.setKey(key);
+    sourceDoc.addPage(new PDPage(pageDictionary));
 
     // Act and Assert
-    assertThrows(
-        IllegalArgumentException.class, () -> layerUtility.importPageAsForm(sourceDoc, 10));
-    verify(cosDictionary).entrySet();
+    float[][] values = layerUtility.importPageAsForm(sourceDoc, 0).getMatrix().getValues();
+    assertEquals(3, values.length);
+    float[] actualFloatArray = values[0];
+    assertArrayEquals(new float[] {1.0f, 0.0f, 0.0f}, actualFloatArray, 0.0f);
+    assertArrayEquals(new float[] {0.0f, 1.0f, 0.0f}, values[1], 0.0f);
+    assertArrayEquals(new float[] {0.0f, 0.0f, 1.0f}, values[2], 0.0f);
     verify(streamCacheCreateFunction).create();
-    verify(sourceDoc).getDocumentCatalog();
-    verify(sourceDoc).getPage(10);
-    verify(pdDocumentCatalog).getOCProperties();
-    verify(pdOptionalContentProperties).addGroup(isA(PDOptionalContentGroup.class));
-    verify(pdOptionalContentProperties).getCOSObject();
+    Iterator<PDPage> iteratorResult = sourceDoc.getPages().iterator();
+    PDPage nextResult = iteratorResult.next();
+    assertFalse(iteratorResult.hasNext());
+    assertSame(key, nextResult.getCOSObject().getKey());
   }
 
   /**
@@ -475,417 +844,30 @@ class LayerUtilityDiffblueTest {
     StreamCacheCreateFunction streamCacheCreateFunction = mock(StreamCacheCreateFunction.class);
     when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
     PDDocument targetDoc = new PDDocument(streamCacheCreateFunction);
-
     LayerUtility layerUtility = new LayerUtility(targetDoc);
-    PDPage targetPage = new PDPage();
-    PDFormXObject form = new PDFormXObject(new COSStream());
+    RandomAccessStreamCacheImpl streamCache = new RandomAccessStreamCacheImpl();
 
-    layerUtility.appendFormAsLayer(
-        targetPage, form, new AffineTransform(), "org.apache.pdfbox.filter.deflatelevel");
+    COSStream str =
+        new COSStream(
+            streamCache, new RandomAccessReadView(new RandomAccessReadWriteBuffer(), 1L, 3L));
+    str.setKey(new COSObjectKey(1L, 1));
+    PDMetadata meta = new PDMetadata(str);
 
-    COSDictionary cosDictionary = mock(COSDictionary.class);
-    HashSet<Entry<COSName, COSBase>> entrySet = new HashSet<>();
-    when(cosDictionary.entrySet()).thenReturn(entrySet);
+    PDPage page = new PDPage();
+    page.setMetadata(meta);
 
-    PDOptionalContentProperties pdOptionalContentProperties =
-        mock(PDOptionalContentProperties.class);
-    when(pdOptionalContentProperties.getCOSObject()).thenReturn(cosDictionary);
-    doNothing().when(pdOptionalContentProperties).addGroup(Mockito.<PDOptionalContentGroup>any());
-    pdOptionalContentProperties.addGroup(
-        new PDOptionalContentGroup("org.apache.pdfbox.filter.deflatelevel"));
-
-    PDDocumentCatalog pdDocumentCatalog = mock(PDDocumentCatalog.class);
-    when(pdDocumentCatalog.getOCProperties()).thenReturn(pdOptionalContentProperties);
-
-    PDDocument sourceDoc = mock(PDDocument.class);
-    when(sourceDoc.getDocumentCatalog()).thenReturn(pdDocumentCatalog);
-    when(sourceDoc.getPage(anyInt())).thenReturn(new PDPage());
+    PDDocument sourceDoc = new PDDocument();
+    sourceDoc.addPage(page);
 
     // Act
-    PDFormXObject actualImportPageAsFormResult = layerUtility.importPageAsForm(sourceDoc, 10);
+    PDFormXObject actualImportPageAsFormResult = layerUtility.importPageAsForm(sourceDoc, 0);
 
     // Assert
-    verify(cosDictionary).entrySet();
     verify(streamCacheCreateFunction).create();
-    verify(sourceDoc).getDocumentCatalog();
-    verify(sourceDoc).getPage(10);
-    verify(pdDocumentCatalog).getOCProperties();
-    verify(pdOptionalContentProperties).addGroup(isA(PDOptionalContentGroup.class));
-    verify(pdOptionalContentProperties).getCOSObject();
-    float[][] values = actualImportPageAsFormResult.getMatrix().getValues();
-    assertEquals(3, values.length);
-    assertEquals(entrySet, actualImportPageAsFormResult.getResources().getColorSpaceNames());
-    assertArrayEquals(new float[] {0.0f, 0.0f, 1.0f}, values[2], 0.0f);
-    assertArrayEquals(new float[] {0.0f, 1.0f, 0.0f}, values[1], 0.0f);
-    assertArrayEquals(new float[] {1.0f, 0.0f, 0.0f}, values[0], 0.0f);
-  }
-
-  /**
-   * Test {@link LayerUtility#importPageAsForm(PDDocument, int)} with {@code sourceDoc}, {@code
-   * pageNumber}.
-   *
-   * <p>Method under test: {@link LayerUtility#importPageAsForm(PDDocument, int)}
-   */
-  @Test
-  @DisplayName("Test importPageAsForm(PDDocument, int) with 'sourceDoc', 'pageNumber'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDFormXObject LayerUtility.importPageAsForm(PDDocument, int)"})
-  void testImportPageAsFormWithSourceDocPageNumber7() throws IOException {
-    // Arrange
-    StreamCacheCreateFunction streamCacheCreateFunction = mock(StreamCacheCreateFunction.class);
-    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
-    PDDocument targetDoc = new PDDocument(streamCacheCreateFunction);
-    LayerUtility layerUtility = new LayerUtility(targetDoc);
-
-    COSDictionary cosDictionary = mock(COSDictionary.class);
-    HashSet<Entry<COSName, COSBase>> entrySet = new HashSet<>();
-    when(cosDictionary.entrySet()).thenReturn(entrySet);
-
-    PDOptionalContentProperties pdOptionalContentProperties =
-        mock(PDOptionalContentProperties.class);
-    when(pdOptionalContentProperties.getCOSObject()).thenReturn(cosDictionary);
-    doNothing().when(pdOptionalContentProperties).addGroup(Mockito.<PDOptionalContentGroup>any());
-    pdOptionalContentProperties.addGroup(
-        new PDOptionalContentGroup("org.apache.pdfbox.filter.deflatelevel"));
-
-    PDDocumentCatalog pdDocumentCatalog = mock(PDDocumentCatalog.class);
-    when(pdDocumentCatalog.getOCProperties()).thenReturn(pdOptionalContentProperties);
-
-    PDDocument sourceDoc = mock(PDDocument.class);
-    when(sourceDoc.getDocumentCatalog()).thenReturn(pdDocumentCatalog);
-    when(sourceDoc.getPage(anyInt())).thenReturn(new PDPage(new COSDictionary()));
-
-    // Act
-    PDFormXObject actualImportPageAsFormResult = layerUtility.importPageAsForm(sourceDoc, 10);
-
-    // Assert
-    verify(cosDictionary).entrySet();
-    verify(streamCacheCreateFunction).create();
-    verify(sourceDoc).getDocumentCatalog();
-    verify(sourceDoc).getPage(10);
-    verify(pdDocumentCatalog).getOCProperties();
-    verify(pdOptionalContentProperties).addGroup(isA(PDOptionalContentGroup.class));
-    verify(pdOptionalContentProperties).getCOSObject();
-    float[][] values = actualImportPageAsFormResult.getMatrix().getValues();
-    assertEquals(3, values.length);
-    assertEquals(entrySet, actualImportPageAsFormResult.getResources().getColorSpaceNames());
-    assertArrayEquals(new float[] {0.0f, 0.0f, 1.0f}, values[2], 0.0f);
-    assertArrayEquals(new float[] {0.0f, 1.0f, 0.0f}, values[1], 0.0f);
-    assertArrayEquals(new float[] {1.0f, 0.0f, 0.0f}, values[0], 0.0f);
-  }
-
-  /**
-   * Test {@link LayerUtility#importPageAsForm(PDDocument, int)} with {@code sourceDoc}, {@code
-   * pageNumber}.
-   *
-   * <p>Method under test: {@link LayerUtility#importPageAsForm(PDDocument, int)}
-   */
-  @Test
-  @DisplayName("Test importPageAsForm(PDDocument, int) with 'sourceDoc', 'pageNumber'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDFormXObject LayerUtility.importPageAsForm(PDDocument, int)"})
-  void testImportPageAsFormWithSourceDocPageNumber8() throws IOException {
-    // Arrange
-    StreamCacheCreateFunction streamCacheCreateFunction = mock(StreamCacheCreateFunction.class);
-    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
-    PDDocument targetDoc = new PDDocument(streamCacheCreateFunction);
-
-    LayerUtility layerUtility = new LayerUtility(targetDoc);
-    PDPage targetPage = new PDPage();
-    PDFormXObject form = new PDFormXObject(new COSStream());
-
-    layerUtility.appendFormAsLayer(targetPage, form, new AffineTransform(), "LastModified");
-
-    COSDictionary cosDictionary = mock(COSDictionary.class);
-    when(cosDictionary.entrySet()).thenThrow(new IllegalArgumentException());
-
-    PDOptionalContentProperties pdOptionalContentProperties =
-        mock(PDOptionalContentProperties.class);
-    when(pdOptionalContentProperties.getCOSObject()).thenReturn(cosDictionary);
-    doNothing().when(pdOptionalContentProperties).addGroup(Mockito.<PDOptionalContentGroup>any());
-    pdOptionalContentProperties.addGroup(
-        new PDOptionalContentGroup("org.apache.pdfbox.filter.deflatelevel"));
-
-    PDDocumentCatalog pdDocumentCatalog = mock(PDDocumentCatalog.class);
-    when(pdDocumentCatalog.getOCProperties()).thenReturn(pdOptionalContentProperties);
-
-    PDDocument sourceDoc = mock(PDDocument.class);
-    when(sourceDoc.getDocumentCatalog()).thenReturn(pdDocumentCatalog);
-    when(sourceDoc.getPage(anyInt())).thenReturn(new PDPage());
-
-    // Act and Assert
-    assertThrows(
-        IllegalArgumentException.class, () -> layerUtility.importPageAsForm(sourceDoc, 10));
-    verify(cosDictionary).entrySet();
-    verify(streamCacheCreateFunction).create();
-    verify(sourceDoc).getDocumentCatalog();
-    verify(sourceDoc).getPage(10);
-    verify(pdDocumentCatalog).getOCProperties();
-    verify(pdOptionalContentProperties).addGroup(isA(PDOptionalContentGroup.class));
-    verify(pdOptionalContentProperties).getCOSObject();
-  }
-
-  /**
-   * Test {@link LayerUtility#importPageAsForm(PDDocument, int)} with {@code sourceDoc}, {@code
-   * pageNumber}.
-   *
-   * <p>Method under test: {@link LayerUtility#importPageAsForm(PDDocument, int)}
-   */
-  @Test
-  @DisplayName("Test importPageAsForm(PDDocument, int) with 'sourceDoc', 'pageNumber'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDFormXObject LayerUtility.importPageAsForm(PDDocument, int)"})
-  void testImportPageAsFormWithSourceDocPageNumber9() throws IOException {
-    // Arrange
-    StreamCacheCreateFunction streamCacheCreateFunction = mock(StreamCacheCreateFunction.class);
-    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
-
-    PDDocument targetDoc = new PDDocument(streamCacheCreateFunction);
-    targetDoc.save(new ByteArrayOutputStream(), CompressParameters.DEFAULT_COMPRESSION);
-    LayerUtility layerUtility = new LayerUtility(targetDoc);
-
-    COSDictionary cosDictionary = mock(COSDictionary.class);
-    HashSet<Entry<COSName, COSBase>> entrySet = new HashSet<>();
-    when(cosDictionary.entrySet()).thenReturn(entrySet);
-
-    PDOptionalContentProperties pdOptionalContentProperties =
-        mock(PDOptionalContentProperties.class);
-    when(pdOptionalContentProperties.getCOSObject()).thenReturn(cosDictionary);
-    doNothing().when(pdOptionalContentProperties).addGroup(Mockito.<PDOptionalContentGroup>any());
-    pdOptionalContentProperties.addGroup(
-        new PDOptionalContentGroup("org.apache.pdfbox.filter.deflatelevel"));
-
-    PDDocumentCatalog pdDocumentCatalog = mock(PDDocumentCatalog.class);
-    when(pdDocumentCatalog.getOCProperties()).thenReturn(pdOptionalContentProperties);
-
-    PDDocument sourceDoc = mock(PDDocument.class);
-    when(sourceDoc.getDocumentCatalog()).thenReturn(pdDocumentCatalog);
-    when(sourceDoc.getPage(anyInt())).thenReturn(new PDPage());
-
-    // Act
-    PDFormXObject actualImportPageAsFormResult = layerUtility.importPageAsForm(sourceDoc, 10);
-
-    // Assert
-    verify(cosDictionary).entrySet();
-    verify(streamCacheCreateFunction).create();
-    verify(sourceDoc).getDocumentCatalog();
-    verify(sourceDoc).getPage(10);
-    verify(pdDocumentCatalog).getOCProperties();
-    verify(pdOptionalContentProperties).addGroup(isA(PDOptionalContentGroup.class));
-    verify(pdOptionalContentProperties).getCOSObject();
-    float[][] values = actualImportPageAsFormResult.getMatrix().getValues();
-    assertEquals(3, values.length);
-    assertEquals(entrySet, actualImportPageAsFormResult.getResources().getColorSpaceNames());
-    assertArrayEquals(new float[] {0.0f, 0.0f, 1.0f}, values[2], 0.0f);
-    assertArrayEquals(new float[] {0.0f, 1.0f, 0.0f}, values[1], 0.0f);
-    assertArrayEquals(new float[] {1.0f, 0.0f, 0.0f}, values[0], 0.0f);
-  }
-
-  /**
-   * Test {@link LayerUtility#importPageAsForm(PDDocument, int)} with {@code sourceDoc}, {@code
-   * pageNumber}.
-   *
-   * <p>Method under test: {@link LayerUtility#importPageAsForm(PDDocument, int)}
-   */
-  @Test
-  @DisplayName("Test importPageAsForm(PDDocument, int) with 'sourceDoc', 'pageNumber'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDFormXObject LayerUtility.importPageAsForm(PDDocument, int)"})
-  void testImportPageAsFormWithSourceDocPageNumber10() throws IOException {
-    // Arrange
-    PDDocumentCatalog pdDocumentCatalog = mock(PDDocumentCatalog.class);
-    when(pdDocumentCatalog.getOCProperties()).thenReturn(new PDOptionalContentProperties());
-
-    PDDocument targetDoc = mock(PDDocument.class);
-    when(targetDoc.getDocument()).thenReturn(new COSDocument());
-    when(targetDoc.getDocumentCatalog()).thenReturn(pdDocumentCatalog);
-    LayerUtility layerUtility = new LayerUtility(targetDoc);
-
-    COSDictionary cosDictionary = mock(COSDictionary.class);
-    when(cosDictionary.entrySet()).thenReturn(new HashSet<>());
-
-    PDOptionalContentProperties pdOptionalContentProperties =
-        mock(PDOptionalContentProperties.class);
-    when(pdOptionalContentProperties.getCOSObject()).thenReturn(cosDictionary);
-    doNothing().when(pdOptionalContentProperties).addGroup(Mockito.<PDOptionalContentGroup>any());
-    pdOptionalContentProperties.addGroup(
-        new PDOptionalContentGroup("org.apache.pdfbox.filter.deflatelevel"));
-
-    PDDocumentCatalog pdDocumentCatalog2 = mock(PDDocumentCatalog.class);
-    when(pdDocumentCatalog2.getOCProperties()).thenReturn(pdOptionalContentProperties);
-
-    PDDocument sourceDoc = mock(PDDocument.class);
-    when(sourceDoc.getDocumentCatalog()).thenReturn(pdDocumentCatalog2);
-    when(sourceDoc.getPage(anyInt())).thenReturn(new PDPage());
-
-    // Act
-    PDFormXObject actualImportPageAsFormResult = layerUtility.importPageAsForm(sourceDoc, 10);
-
-    // Assert
-    verify(cosDictionary).entrySet();
-    verify(targetDoc).getDocument();
-    verify(targetDoc).getDocumentCatalog();
-    verify(sourceDoc).getDocumentCatalog();
-    verify(sourceDoc).getPage(10);
-    verify(pdDocumentCatalog).getOCProperties();
-    verify(pdDocumentCatalog2).getOCProperties();
-    verify(pdOptionalContentProperties).addGroup(isA(PDOptionalContentGroup.class));
-    verify(pdOptionalContentProperties).getCOSObject();
-    List<COSName> filters = actualImportPageAsFormResult.getContentStream().getFilters();
-    assertEquals(1, filters.size());
-    assertEquals(filters, actualImportPageAsFormResult.getStream().getFilters());
-  }
-
-  /**
-   * Test {@link LayerUtility#importPageAsForm(PDDocument, int)} with {@code sourceDoc}, {@code
-   * pageNumber}.
-   *
-   * <p>Method under test: {@link LayerUtility#importPageAsForm(PDDocument, int)}
-   */
-  @Test
-  @DisplayName("Test importPageAsForm(PDDocument, int) with 'sourceDoc', 'pageNumber'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDFormXObject LayerUtility.importPageAsForm(PDDocument, int)"})
-  void testImportPageAsFormWithSourceDocPageNumber11() throws IOException {
-    // Arrange
-    PDDocumentCatalog pdDocumentCatalog = mock(PDDocumentCatalog.class);
-    when(pdDocumentCatalog.getOCProperties()).thenReturn(new PDOptionalContentProperties());
-
-    COSStream cosStream = mock(COSStream.class);
-    when(cosStream.getDictionaryObject(Mockito.<COSName>any())).thenReturn(COSBoolean.FALSE);
-    doNothing().when(cosStream).setItem(Mockito.<COSName>any(), Mockito.<COSBase>any());
-    doNothing().when(cosStream).setItem(Mockito.<COSName>any(), Mockito.<COSObjectable>any());
-    doNothing().when(cosStream).setName(Mockito.<COSName>any(), Mockito.<String>any());
-    when(cosStream.createOutputStream(Mockito.<COSBase>any()))
-        .thenReturn(new ByteArrayOutputStream());
-
-    COSDocument cosDocument = mock(COSDocument.class);
-    when(cosDocument.createCOSStream()).thenReturn(cosStream);
-
-    PDDocument targetDoc = mock(PDDocument.class);
-    when(targetDoc.getDocument()).thenReturn(cosDocument);
-    when(targetDoc.getDocumentCatalog()).thenReturn(pdDocumentCatalog);
-    LayerUtility layerUtility = new LayerUtility(targetDoc);
-
-    COSDictionary cosDictionary = mock(COSDictionary.class);
-    when(cosDictionary.entrySet()).thenReturn(new HashSet<>());
-
-    PDOptionalContentProperties pdOptionalContentProperties =
-        mock(PDOptionalContentProperties.class);
-    when(pdOptionalContentProperties.getCOSObject()).thenReturn(cosDictionary);
-    doNothing().when(pdOptionalContentProperties).addGroup(Mockito.<PDOptionalContentGroup>any());
-    pdOptionalContentProperties.addGroup(
-        new PDOptionalContentGroup("org.apache.pdfbox.filter.deflatelevel"));
-
-    PDDocumentCatalog pdDocumentCatalog2 = mock(PDDocumentCatalog.class);
-    when(pdDocumentCatalog2.getOCProperties()).thenReturn(pdOptionalContentProperties);
-
-    PDDocument sourceDoc = mock(PDDocument.class);
-    when(sourceDoc.getDocumentCatalog()).thenReturn(pdDocumentCatalog2);
-    when(sourceDoc.getPage(anyInt())).thenReturn(new PDPage());
-
-    // Act
-    PDFormXObject actualImportPageAsFormResult = layerUtility.importPageAsForm(sourceDoc, 10);
-
-    // Assert
-    verify(cosDictionary).entrySet();
-    verify(cosStream).getDictionaryObject(isA(COSName.class));
-    verify(cosStream).setItem(isA(COSName.class), isA(COSBase.class));
-    verify(cosStream).setItem(isA(COSName.class), isA(COSObjectable.class));
-    verify(cosStream, atLeast(1)).setName(Mockito.<COSName>any(), Mockito.<String>any());
-    verify(cosDocument).createCOSStream();
-    verify(cosStream).createOutputStream(isA(COSBase.class));
-    verify(targetDoc).getDocument();
-    verify(targetDoc).getDocumentCatalog();
-    verify(sourceDoc).getDocumentCatalog();
-    verify(sourceDoc).getPage(10);
-    verify(pdDocumentCatalog).getOCProperties();
-    verify(pdDocumentCatalog2).getOCProperties();
-    verify(pdOptionalContentProperties).addGroup(isA(PDOptionalContentGroup.class));
-    verify(pdOptionalContentProperties).getCOSObject();
-    assertTrue(actualImportPageAsFormResult.getContents() instanceof RandomAccessInputStream);
-    assertNull(actualImportPageAsFormResult.getContentsForStreamParsing());
-    assertNull(actualImportPageAsFormResult.getContentsForRandomAccess());
-    assertNull(actualImportPageAsFormResult.getResources());
-    assertNull(actualImportPageAsFormResult.getBBox());
-    PDStream stream = actualImportPageAsFormResult.getStream();
-    assertEquals(0, stream.getDecodedStreamLength());
-    PDStream contentStream = actualImportPageAsFormResult.getContentStream();
-    assertEquals(0, contentStream.getDecodedStreamLength());
-    assertEquals(0, stream.getLength());
-    assertEquals(0, contentStream.getLength());
-    assertEquals(0, actualImportPageAsFormResult.getFormType());
-    assertEquals(0, actualImportPageAsFormResult.getStructParents());
-  }
-
-  /**
-   * Test {@link LayerUtility#importPageAsForm(PDDocument, int)} with {@code sourceDoc}, {@code
-   * pageNumber}.
-   *
-   * <p>Method under test: {@link LayerUtility#importPageAsForm(PDDocument, int)}
-   */
-  @Test
-  @DisplayName("Test importPageAsForm(PDDocument, int) with 'sourceDoc', 'pageNumber'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDFormXObject LayerUtility.importPageAsForm(PDDocument, int)"})
-  void testImportPageAsFormWithSourceDocPageNumber12() throws IOException {
-    // Arrange
-    PDDocumentCatalog pdDocumentCatalog = mock(PDDocumentCatalog.class);
-    when(pdDocumentCatalog.getOCProperties()).thenReturn(new PDOptionalContentProperties());
-
-    COSStream cosStream = mock(COSStream.class);
-    doThrow(new IllegalArgumentException())
-        .when(cosStream)
-        .setName(Mockito.<COSName>any(), Mockito.<String>any());
-    when(cosStream.createOutputStream(Mockito.<COSBase>any()))
-        .thenReturn(new ByteArrayOutputStream());
-
-    COSDocument cosDocument = mock(COSDocument.class);
-    when(cosDocument.createCOSStream()).thenReturn(cosStream);
-
-    PDDocument targetDoc = mock(PDDocument.class);
-    when(targetDoc.getDocument()).thenReturn(cosDocument);
-    when(targetDoc.getDocumentCatalog()).thenReturn(pdDocumentCatalog);
-    LayerUtility layerUtility = new LayerUtility(targetDoc);
-
-    COSDictionary cosDictionary = mock(COSDictionary.class);
-    when(cosDictionary.entrySet()).thenReturn(new HashSet<>());
-
-    PDOptionalContentProperties pdOptionalContentProperties =
-        mock(PDOptionalContentProperties.class);
-    when(pdOptionalContentProperties.getCOSObject()).thenReturn(cosDictionary);
-    doNothing().when(pdOptionalContentProperties).addGroup(Mockito.<PDOptionalContentGroup>any());
-    pdOptionalContentProperties.addGroup(
-        new PDOptionalContentGroup("org.apache.pdfbox.filter.deflatelevel"));
-
-    PDDocumentCatalog pdDocumentCatalog2 = mock(PDDocumentCatalog.class);
-    when(pdDocumentCatalog2.getOCProperties()).thenReturn(pdOptionalContentProperties);
-
-    PDDocument sourceDoc = mock(PDDocument.class);
-    when(sourceDoc.getDocumentCatalog()).thenReturn(pdDocumentCatalog2);
-    when(sourceDoc.getPage(anyInt())).thenReturn(new PDPage());
-
-    // Act and Assert
-    assertThrows(
-        IllegalArgumentException.class, () -> layerUtility.importPageAsForm(sourceDoc, 10));
-    verify(cosDictionary).entrySet();
-    verify(cosStream).setName(isA(COSName.class), eq("XObject"));
-    verify(cosDocument).createCOSStream();
-    verify(cosStream).createOutputStream(isA(COSBase.class));
-    verify(targetDoc).getDocument();
-    verify(targetDoc).getDocumentCatalog();
-    verify(sourceDoc).getDocumentCatalog();
-    verify(sourceDoc).getPage(10);
-    verify(pdDocumentCatalog).getOCProperties();
-    verify(pdDocumentCatalog2).getOCProperties();
-    verify(pdOptionalContentProperties).addGroup(isA(PDOptionalContentGroup.class));
-    verify(pdOptionalContentProperties).getCOSObject();
+    assertEquals(3, actualImportPageAsFormResult.getMatrix().getValues().length);
+    COSStream cOSObject = actualImportPageAsFormResult.getCOSObject();
+    assertEquals(7, cOSObject.getValues().size());
+    assertEquals(7, cOSObject.size());
   }
 
   /**
@@ -893,89 +875,43 @@ class LayerUtilityDiffblueTest {
    * pageNumber}.
    *
    * <ul>
-   *   <li>Then calls {@link PDDocumentCatalog#setOCProperties(PDOptionalContentProperties)}.
+   *   <li>Given {@code A}.
    * </ul>
    *
    * <p>Method under test: {@link LayerUtility#importPageAsForm(PDDocument, int)}
    */
   @Test
-  @DisplayName(
-      "Test importPageAsForm(PDDocument, int) with 'sourceDoc', 'pageNumber'; then calls setOCProperties(PDOptionalContentProperties)")
+  @DisplayName("Test importPageAsForm(PDDocument, int) with 'sourceDoc', 'pageNumber'; given 'A'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"PDFormXObject LayerUtility.importPageAsForm(PDDocument, int)"})
-  void testImportPageAsFormWithSourceDocPageNumber_thenCallsSetOCProperties() throws IOException {
+  void testImportPageAsFormWithSourceDocPageNumber_givenA() throws IOException {
     // Arrange
-    PDDocumentCatalog pdDocumentCatalog = mock(PDDocumentCatalog.class);
-    when(pdDocumentCatalog.getOCProperties()).thenReturn(null);
-    doNothing().when(pdDocumentCatalog).setOCProperties(Mockito.<PDOptionalContentProperties>any());
-
-    COSStream cosStream = mock(COSStream.class);
-    when(cosStream.getDictionaryObject(Mockito.<COSName>any())).thenReturn(COSBoolean.FALSE);
-    doNothing().when(cosStream).setItem(Mockito.<COSName>any(), Mockito.<COSBase>any());
-    doNothing().when(cosStream).setItem(Mockito.<COSName>any(), Mockito.<COSObjectable>any());
-    doNothing().when(cosStream).setName(Mockito.<COSName>any(), Mockito.<String>any());
-    when(cosStream.createOutputStream(Mockito.<COSBase>any()))
-        .thenReturn(new ByteArrayOutputStream());
-
-    COSDocument cosDocument = mock(COSDocument.class);
-    when(cosDocument.createCOSStream()).thenReturn(cosStream);
-
-    PDDocument targetDoc = mock(PDDocument.class);
-    when(targetDoc.getDocument()).thenReturn(cosDocument);
-    when(targetDoc.getDocumentCatalog()).thenReturn(pdDocumentCatalog);
+    StreamCacheCreateFunction streamCacheCreateFunction = mock(StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDDocument targetDoc = new PDDocument(streamCacheCreateFunction);
     LayerUtility layerUtility = new LayerUtility(targetDoc);
 
-    COSDictionary cosDictionary = mock(COSDictionary.class);
-    when(cosDictionary.entrySet()).thenReturn(new HashSet<>());
+    PDPage page = new PDPage();
+    RandomAccessStreamCacheImpl streamCache = new RandomAccessStreamCacheImpl();
+    ByteArrayInputStream input =
+        new ByteArrayInputStream(new byte[] {'A', 1, 'A', 1, 'A', 1, 'A', 1});
+    RandomAccessReadBuffer randomAccessRead = new RandomAccessReadBuffer(input);
+    COSStream str = new COSStream(streamCache, new RandomAccessReadView(randomAccessRead, 1L, 3L));
+    page.setMetadata(new PDMetadata(str));
 
-    PDOptionalContentProperties pdOptionalContentProperties =
-        mock(PDOptionalContentProperties.class);
-    when(pdOptionalContentProperties.getCOSObject()).thenReturn(cosDictionary);
-    doNothing().when(pdOptionalContentProperties).addGroup(Mockito.<PDOptionalContentGroup>any());
-    pdOptionalContentProperties.addGroup(
-        new PDOptionalContentGroup("org.apache.pdfbox.filter.deflatelevel"));
-
-    PDDocumentCatalog pdDocumentCatalog2 = mock(PDDocumentCatalog.class);
-    when(pdDocumentCatalog2.getOCProperties()).thenReturn(pdOptionalContentProperties);
-
-    PDDocument sourceDoc = mock(PDDocument.class);
-    when(sourceDoc.getDocumentCatalog()).thenReturn(pdDocumentCatalog2);
-    when(sourceDoc.getPage(anyInt())).thenReturn(new PDPage());
+    PDDocument sourceDoc = new PDDocument();
+    sourceDoc.addPage(page);
 
     // Act
-    PDFormXObject actualImportPageAsFormResult = layerUtility.importPageAsForm(sourceDoc, 10);
+    PDFormXObject actualImportPageAsFormResult = layerUtility.importPageAsForm(sourceDoc, 0);
 
     // Assert
-    verify(cosDictionary).entrySet();
-    verify(cosStream).getDictionaryObject(isA(COSName.class));
-    verify(cosStream).setItem(isA(COSName.class), isA(COSBase.class));
-    verify(cosStream).setItem(isA(COSName.class), isA(COSObjectable.class));
-    verify(cosStream, atLeast(1)).setName(Mockito.<COSName>any(), Mockito.<String>any());
-    verify(cosDocument).createCOSStream();
-    verify(cosStream).createOutputStream(isA(COSBase.class));
-    verify(targetDoc).getDocument();
-    verify(targetDoc).getDocumentCatalog();
-    verify(sourceDoc).getDocumentCatalog();
-    verify(sourceDoc).getPage(10);
-    verify(pdDocumentCatalog).getOCProperties();
-    verify(pdDocumentCatalog2).getOCProperties();
-    verify(pdDocumentCatalog).setOCProperties(isA(PDOptionalContentProperties.class));
-    verify(pdOptionalContentProperties).addGroup(isA(PDOptionalContentGroup.class));
-    verify(pdOptionalContentProperties).getCOSObject();
-    assertTrue(actualImportPageAsFormResult.getContents() instanceof RandomAccessInputStream);
-    assertNull(actualImportPageAsFormResult.getContentsForStreamParsing());
-    assertNull(actualImportPageAsFormResult.getContentsForRandomAccess());
-    assertNull(actualImportPageAsFormResult.getResources());
-    assertNull(actualImportPageAsFormResult.getBBox());
-    PDStream stream = actualImportPageAsFormResult.getStream();
-    assertEquals(0, stream.getDecodedStreamLength());
-    PDStream contentStream = actualImportPageAsFormResult.getContentStream();
-    assertEquals(0, contentStream.getDecodedStreamLength());
-    assertEquals(0, stream.getLength());
-    assertEquals(0, contentStream.getLength());
-    assertEquals(0, actualImportPageAsFormResult.getFormType());
-    assertEquals(0, actualImportPageAsFormResult.getStructParents());
+    verify(streamCacheCreateFunction).create();
+    assertEquals(3, actualImportPageAsFormResult.getMatrix().getValues().length);
+    COSStream cOSObject = actualImportPageAsFormResult.getCOSObject();
+    assertEquals(7, cOSObject.getValues().size());
+    assertEquals(7, cOSObject.size());
   }
 
   /**
@@ -983,68 +919,390 @@ class LayerUtilityDiffblueTest {
    * pageNumber}.
    *
    * <ul>
-   *   <li>Then return Stream COSObject is {@link COSStream#COSStream()}.
+   *   <li>Given {@link ByteArrayOutputStream#ByteArrayOutputStream()}.
    * </ul>
    *
    * <p>Method under test: {@link LayerUtility#importPageAsForm(PDDocument, int)}
    */
   @Test
   @DisplayName(
-      "Test importPageAsForm(PDDocument, int) with 'sourceDoc', 'pageNumber'; then return Stream COSObject is COSStream()")
+      "Test importPageAsForm(PDDocument, int) with 'sourceDoc', 'pageNumber'; given ByteArrayOutputStream()")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"PDFormXObject LayerUtility.importPageAsForm(PDDocument, int)"})
-  void testImportPageAsFormWithSourceDocPageNumber_thenReturnStreamCOSObjectIsCOSStream()
+  void testImportPageAsFormWithSourceDocPageNumber_givenByteArrayOutputStream() throws IOException {
+    // Arrange
+    StreamCacheCreateFunction streamCacheCreateFunction = mock(StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDDocument targetDoc = new PDDocument(streamCacheCreateFunction);
+    LayerUtility layerUtility = new LayerUtility(targetDoc);
+
+    PDDocument sourceDoc = new PDDocument();
+    sourceDoc.save(new ByteArrayOutputStream(), CompressParameters.DEFAULT_COMPRESSION);
+    sourceDoc.addPage(new PDPage());
+
+    // Act
+    PDFormXObject actualImportPageAsFormResult = layerUtility.importPageAsForm(sourceDoc, 0);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertNull(actualImportPageAsFormResult.getStream().getMetadata());
+    assertNull(actualImportPageAsFormResult.getContentStream().getMetadata());
+    float[][] values = actualImportPageAsFormResult.getMatrix().getValues();
+    assertEquals(3, values.length);
+    COSStream cOSObject = actualImportPageAsFormResult.getCOSObject();
+    assertEquals(6, cOSObject.getValues().size());
+    assertEquals(6, cOSObject.size());
+    assertArrayEquals(new float[] {0.0f, 0.0f, 1.0f}, values[2], 0.0f);
+    assertArrayEquals(new float[] {0.0f, 1.0f, 0.0f}, values[1], 0.0f);
+    assertArrayEquals(new float[] {1.0f, 0.0f, 0.0f}, values[0], 0.0f);
+  }
+
+  /**
+   * Test {@link LayerUtility#importPageAsForm(PDDocument, int)} with {@code sourceDoc}, {@code
+   * pageNumber}.
+   *
+   * <ul>
+   *   <li>Given {@link PDPage#PDPage()} Contents is {@link ArrayList#ArrayList()}.
+   * </ul>
+   *
+   * <p>Method under test: {@link LayerUtility#importPageAsForm(PDDocument, int)}
+   */
+  @Test
+  @DisplayName(
+      "Test importPageAsForm(PDDocument, int) with 'sourceDoc', 'pageNumber'; given PDPage() Contents is ArrayList()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDFormXObject LayerUtility.importPageAsForm(PDDocument, int)"})
+  void testImportPageAsFormWithSourceDocPageNumber_givenPDPageContentsIsArrayList()
       throws IOException {
     // Arrange
-    PDDocumentCatalog pdDocumentCatalog = mock(PDDocumentCatalog.class);
-    when(pdDocumentCatalog.getOCProperties()).thenReturn(new PDOptionalContentProperties());
-
-    COSDocument cosDocument = mock(COSDocument.class);
-    COSStream cosStream = new COSStream();
-    when(cosDocument.createCOSStream()).thenReturn(cosStream);
-
-    PDDocument targetDoc = mock(PDDocument.class);
-    when(targetDoc.getDocument()).thenReturn(cosDocument);
-    when(targetDoc.getDocumentCatalog()).thenReturn(pdDocumentCatalog);
+    StreamCacheCreateFunction streamCacheCreateFunction = mock(StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDDocument targetDoc = new PDDocument(streamCacheCreateFunction);
     LayerUtility layerUtility = new LayerUtility(targetDoc);
 
-    COSDictionary cosDictionary = mock(COSDictionary.class);
-    when(cosDictionary.entrySet()).thenReturn(new HashSet<>());
+    PDPage page = new PDPage();
+    page.setContents(new ArrayList<>());
 
-    PDOptionalContentProperties pdOptionalContentProperties =
-        mock(PDOptionalContentProperties.class);
-    when(pdOptionalContentProperties.getCOSObject()).thenReturn(cosDictionary);
-    doNothing().when(pdOptionalContentProperties).addGroup(Mockito.<PDOptionalContentGroup>any());
-    pdOptionalContentProperties.addGroup(
-        new PDOptionalContentGroup("org.apache.pdfbox.filter.deflatelevel"));
-
-    PDDocumentCatalog pdDocumentCatalog2 = mock(PDDocumentCatalog.class);
-    when(pdDocumentCatalog2.getOCProperties()).thenReturn(pdOptionalContentProperties);
-
-    PDDocument sourceDoc = mock(PDDocument.class);
-    when(sourceDoc.getDocumentCatalog()).thenReturn(pdDocumentCatalog2);
-    when(sourceDoc.getPage(anyInt())).thenReturn(new PDPage());
+    PDDocument sourceDoc = new PDDocument();
+    sourceDoc.addPage(page);
 
     // Act
-    PDFormXObject actualImportPageAsFormResult = layerUtility.importPageAsForm(sourceDoc, 10);
+    PDFormXObject actualImportPageAsFormResult = layerUtility.importPageAsForm(sourceDoc, 0);
 
     // Assert
-    verify(cosDictionary).entrySet();
-    verify(cosDocument).createCOSStream();
-    verify(targetDoc).getDocument();
-    verify(targetDoc).getDocumentCatalog();
-    verify(sourceDoc).getDocumentCatalog();
-    verify(sourceDoc).getPage(10);
-    verify(pdDocumentCatalog).getOCProperties();
-    verify(pdDocumentCatalog2).getOCProperties();
-    verify(pdOptionalContentProperties).addGroup(isA(PDOptionalContentGroup.class));
-    verify(pdOptionalContentProperties).getCOSObject();
+    verify(streamCacheCreateFunction).create();
+    assertNull(actualImportPageAsFormResult.getStream().getMetadata());
+    assertNull(actualImportPageAsFormResult.getContentStream().getMetadata());
     float[][] values = actualImportPageAsFormResult.getMatrix().getValues();
     assertEquals(3, values.length);
-    assertSame(cosStream, actualImportPageAsFormResult.getStream().getCOSObject());
-    assertSame(cosStream, actualImportPageAsFormResult.getContentStream().getCOSObject());
-    assertSame(cosStream, actualImportPageAsFormResult.getCOSObject());
+    COSStream cOSObject = actualImportPageAsFormResult.getCOSObject();
+    assertEquals(6, cOSObject.getValues().size());
+    assertEquals(6, cOSObject.size());
+    assertArrayEquals(new float[] {0.0f, 0.0f, 1.0f}, values[2], 0.0f);
+    assertArrayEquals(new float[] {0.0f, 1.0f, 0.0f}, values[1], 0.0f);
+    assertArrayEquals(new float[] {1.0f, 0.0f, 0.0f}, values[0], 0.0f);
+  }
+
+  /**
+   * Test {@link LayerUtility#importPageAsForm(PDDocument, int)} with {@code sourceDoc}, {@code
+   * pageNumber}.
+   *
+   * <ul>
+   *   <li>Given {@link PDPage#PDPage()} CropBox is {@link PDRectangle#A0}.
+   * </ul>
+   *
+   * <p>Method under test: {@link LayerUtility#importPageAsForm(PDDocument, int)}
+   */
+  @Test
+  @DisplayName(
+      "Test importPageAsForm(PDDocument, int) with 'sourceDoc', 'pageNumber'; given PDPage() CropBox is A0")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDFormXObject LayerUtility.importPageAsForm(PDDocument, int)"})
+  void testImportPageAsFormWithSourceDocPageNumber_givenPDPageCropBoxIsA0() throws IOException {
+    // Arrange
+    StreamCacheCreateFunction streamCacheCreateFunction = mock(StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDDocument targetDoc = new PDDocument(streamCacheCreateFunction);
+    LayerUtility layerUtility = new LayerUtility(targetDoc);
+
+    PDPage page = new PDPage();
+    page.setCropBox(PDRectangle.A0);
+
+    PDDocument sourceDoc = new PDDocument();
+    sourceDoc.addPage(page);
+
+    // Act
+    PDFormXObject actualImportPageAsFormResult = layerUtility.importPageAsForm(sourceDoc, 0);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertNull(actualImportPageAsFormResult.getStream().getMetadata());
+    assertNull(actualImportPageAsFormResult.getContentStream().getMetadata());
+    float[][] values = actualImportPageAsFormResult.getMatrix().getValues();
+    assertEquals(3, values.length);
+    COSStream cOSObject = actualImportPageAsFormResult.getCOSObject();
+    assertEquals(6, cOSObject.getValues().size());
+    assertEquals(6, cOSObject.size());
+    assertArrayEquals(new float[] {0.0f, 0.0f, 1.0f}, values[2], 0.0f);
+    assertArrayEquals(new float[] {0.0f, 1.0f, 0.0f}, values[1], 0.0f);
+    assertArrayEquals(new float[] {1.0f, 0.0f, 0.0f}, values[0], 0.0f);
+  }
+
+  /**
+   * Test {@link LayerUtility#importPageAsForm(PDDocument, int)} with {@code sourceDoc}, {@code
+   * pageNumber}.
+   *
+   * <ul>
+   *   <li>Given {@link PDPage#PDPage()} Rotation is one.
+   * </ul>
+   *
+   * <p>Method under test: {@link LayerUtility#importPageAsForm(PDDocument, int)}
+   */
+  @Test
+  @DisplayName(
+      "Test importPageAsForm(PDDocument, int) with 'sourceDoc', 'pageNumber'; given PDPage() Rotation is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDFormXObject LayerUtility.importPageAsForm(PDDocument, int)"})
+  void testImportPageAsFormWithSourceDocPageNumber_givenPDPageRotationIsOne() throws IOException {
+    // Arrange
+    StreamCacheCreateFunction streamCacheCreateFunction = mock(StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDDocument targetDoc = new PDDocument(streamCacheCreateFunction);
+    LayerUtility layerUtility = new LayerUtility(targetDoc);
+
+    PDPage page = new PDPage();
+    page.setRotation(1);
+
+    PDDocument sourceDoc = new PDDocument();
+    sourceDoc.addPage(page);
+
+    // Act
+    PDFormXObject actualImportPageAsFormResult = layerUtility.importPageAsForm(sourceDoc, 0);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertNull(actualImportPageAsFormResult.getStream().getMetadata());
+    assertNull(actualImportPageAsFormResult.getContentStream().getMetadata());
+    float[][] values = actualImportPageAsFormResult.getMatrix().getValues();
+    assertEquals(3, values.length);
+    COSStream cOSObject = actualImportPageAsFormResult.getCOSObject();
+    assertEquals(6, cOSObject.getValues().size());
+    assertEquals(6, cOSObject.size());
+    assertArrayEquals(new float[] {0.0f, 0.0f, 1.0f}, values[2], 0.0f);
+    assertArrayEquals(new float[] {0.0f, 1.0f, 0.0f}, values[1], 0.0f);
+    assertArrayEquals(new float[] {1.0f, 0.0f, 0.0f}, values[0], 0.0f);
+  }
+
+  /**
+   * Test {@link LayerUtility#importPageAsForm(PDDocument, PDPage)} with {@code sourceDoc}, {@code
+   * page}.
+   *
+   * <ul>
+   *   <li>Given {@link PDRectangle#A0}.
+   *   <li>When {@link PDPage#PDPage()} CropBox is {@link PDRectangle#A0}.
+   * </ul>
+   *
+   * <p>Method under test: {@link LayerUtility#importPageAsForm(PDDocument, PDPage)}
+   */
+  @Test
+  @DisplayName(
+      "Test importPageAsForm(PDDocument, PDPage) with 'sourceDoc', 'page'; given A0; when PDPage() CropBox is A0")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDFormXObject LayerUtility.importPageAsForm(PDDocument, PDPage)"})
+  void testImportPageAsFormWithSourceDocPage_givenA0_whenPDPageCropBoxIsA0() throws IOException {
+    // Arrange
+    StreamCacheCreateFunction streamCacheCreateFunction = mock(StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDDocument targetDoc = new PDDocument(streamCacheCreateFunction);
+    LayerUtility layerUtility = new LayerUtility(targetDoc);
+    PDDocument sourceDoc = new PDDocument();
+
+    PDPage page = new PDPage();
+    page.setCropBox(PDRectangle.A0);
+
+    // Act
+    PDFormXObject actualImportPageAsFormResult = layerUtility.importPageAsForm(sourceDoc, page);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    float[][] values = actualImportPageAsFormResult.getMatrix().getValues();
+    assertEquals(3, values.length);
+    COSStream cOSObject = actualImportPageAsFormResult.getCOSObject();
+    assertEquals(6, cOSObject.getValues().size());
+    assertEquals(6, cOSObject.size());
+    assertArrayEquals(new float[] {0.0f, 0.0f, 1.0f}, values[2], 0.0f);
+    assertArrayEquals(new float[] {0.0f, 1.0f, 0.0f}, values[1], 0.0f);
+    assertArrayEquals(new float[] {1.0f, 0.0f, 0.0f}, values[0], 0.0f);
+  }
+
+  /**
+   * Test {@link LayerUtility#importPageAsForm(PDDocument, PDPage)} with {@code sourceDoc}, {@code
+   * page}.
+   *
+   * <ul>
+   *   <li>Given {@link ArrayList#ArrayList()}.
+   * </ul>
+   *
+   * <p>Method under test: {@link LayerUtility#importPageAsForm(PDDocument, PDPage)}
+   */
+  @Test
+  @DisplayName(
+      "Test importPageAsForm(PDDocument, PDPage) with 'sourceDoc', 'page'; given ArrayList()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDFormXObject LayerUtility.importPageAsForm(PDDocument, PDPage)"})
+  void testImportPageAsFormWithSourceDocPage_givenArrayList() throws IOException {
+    // Arrange
+    StreamCacheCreateFunction streamCacheCreateFunction = mock(StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDDocument targetDoc = new PDDocument(streamCacheCreateFunction);
+    LayerUtility layerUtility = new LayerUtility(targetDoc);
+    PDDocument sourceDoc = new PDDocument();
+
+    PDPage page = new PDPage();
+    page.setContents(new ArrayList<>());
+
+    // Act
+    PDFormXObject actualImportPageAsFormResult = layerUtility.importPageAsForm(sourceDoc, page);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    float[][] values = actualImportPageAsFormResult.getMatrix().getValues();
+    assertEquals(3, values.length);
+    COSStream cOSObject = actualImportPageAsFormResult.getCOSObject();
+    assertEquals(6, cOSObject.getValues().size());
+    assertEquals(6, cOSObject.size());
+    assertArrayEquals(new float[] {0.0f, 0.0f, 1.0f}, values[2], 0.0f);
+    assertArrayEquals(new float[] {0.0f, 1.0f, 0.0f}, values[1], 0.0f);
+    assertArrayEquals(new float[] {1.0f, 0.0f, 0.0f}, values[0], 0.0f);
+  }
+
+  /**
+   * Test {@link LayerUtility#importPageAsForm(PDDocument, PDPage)} with {@code sourceDoc}, {@code
+   * page}.
+   *
+   * <ul>
+   *   <li>Given {@link COSDictionary#COSDictionary()}.
+   * </ul>
+   *
+   * <p>Method under test: {@link LayerUtility#importPageAsForm(PDDocument, PDPage)}
+   */
+  @Test
+  @DisplayName(
+      "Test importPageAsForm(PDDocument, PDPage) with 'sourceDoc', 'page'; given COSDictionary()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDFormXObject LayerUtility.importPageAsForm(PDDocument, PDPage)"})
+  void testImportPageAsFormWithSourceDocPage_givenCOSDictionary() throws IOException {
+    // Arrange
+    StreamCacheCreateFunction streamCacheCreateFunction = mock(StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDDocument targetDoc = new PDDocument(streamCacheCreateFunction);
+    LayerUtility layerUtility = new LayerUtility(targetDoc);
+
+    COSDocument doc = new COSDocument();
+    doc.setTrailer(new COSDictionary());
+    PDDocument sourceDoc = new PDDocument(doc);
+
+    // Act
+    layerUtility.importPageAsForm(sourceDoc, new PDPage());
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+  }
+
+  /**
+   * Test {@link LayerUtility#importPageAsForm(PDDocument, PDPage)} with {@code sourceDoc}, {@code
+   * page}.
+   *
+   * <ul>
+   *   <li>Given ninety.
+   *   <li>Then return Matrix ScaleX is {@code -0.0}.
+   * </ul>
+   *
+   * <p>Method under test: {@link LayerUtility#importPageAsForm(PDDocument, PDPage)}
+   */
+  @Test
+  @DisplayName(
+      "Test importPageAsForm(PDDocument, PDPage) with 'sourceDoc', 'page'; given ninety; then return Matrix ScaleX is '-0.0'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDFormXObject LayerUtility.importPageAsForm(PDDocument, PDPage)"})
+  void testImportPageAsFormWithSourceDocPage_givenNinety_thenReturnMatrixScaleXIs00()
+      throws IOException {
+    // Arrange
+    StreamCacheCreateFunction streamCacheCreateFunction = mock(StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDDocument targetDoc = new PDDocument(streamCacheCreateFunction);
+    LayerUtility layerUtility = new LayerUtility(targetDoc);
+    PDDocument sourceDoc = new PDDocument();
+
+    PDPage page = new PDPage();
+    page.setRotation(90);
+
+    // Act
+    PDFormXObject actualImportPageAsFormResult = layerUtility.importPageAsForm(sourceDoc, page);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    Matrix matrix = actualImportPageAsFormResult.getMatrix();
+    assertEquals(-0.0f, matrix.getScaleX());
+    assertEquals(-1.2941177f, matrix.getShearY());
+    assertEquals(0.0f, matrix.getScaleY());
+    assertEquals(0.77272725f, matrix.getScalingFactorY());
+    assertEquals(0.77272725f, matrix.getShearX());
+    assertEquals(1.2941177f, matrix.getScalingFactorX());
+    float[][] values = matrix.getValues();
+    assertEquals(3, values.length);
+    assertEquals(792.0f, matrix.getTranslateY());
+    assertArrayEquals(new float[] {-0.0f, -1.2941177f, 0.0f}, values[0], 0.0f);
+    assertArrayEquals(new float[] {0.0f, 792.0f, 1.0f}, values[2], 0.0f);
+    assertArrayEquals(new float[] {0.77272725f, 0.0f, 0.0f}, values[1], 0.0f);
+  }
+
+  /**
+   * Test {@link LayerUtility#importPageAsForm(PDDocument, PDPage)} with {@code sourceDoc}, {@code
+   * page}.
+   *
+   * <ul>
+   *   <li>Given one.
+   *   <li>When {@link PDPage#PDPage()} Rotation is one.
+   * </ul>
+   *
+   * <p>Method under test: {@link LayerUtility#importPageAsForm(PDDocument, PDPage)}
+   */
+  @Test
+  @DisplayName(
+      "Test importPageAsForm(PDDocument, PDPage) with 'sourceDoc', 'page'; given one; when PDPage() Rotation is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDFormXObject LayerUtility.importPageAsForm(PDDocument, PDPage)"})
+  void testImportPageAsFormWithSourceDocPage_givenOne_whenPDPageRotationIsOne() throws IOException {
+    // Arrange
+    StreamCacheCreateFunction streamCacheCreateFunction = mock(StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDDocument targetDoc = new PDDocument(streamCacheCreateFunction);
+    LayerUtility layerUtility = new LayerUtility(targetDoc);
+    PDDocument sourceDoc = new PDDocument();
+
+    PDPage page = new PDPage();
+    page.setRotation(1);
+
+    // Act
+    PDFormXObject actualImportPageAsFormResult = layerUtility.importPageAsForm(sourceDoc, page);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    float[][] values = actualImportPageAsFormResult.getMatrix().getValues();
+    assertEquals(3, values.length);
+    COSStream cOSObject = actualImportPageAsFormResult.getCOSObject();
+    assertEquals(6, cOSObject.getValues().size());
+    assertEquals(6, cOSObject.size());
     assertArrayEquals(new float[] {0.0f, 0.0f, 1.0f}, values[2], 0.0f);
     assertArrayEquals(new float[] {0.0f, 1.0f, 0.0f}, values[1], 0.0f);
     assertArrayEquals(new float[] {1.0f, 0.0f, 0.0f}, values[0], 0.0f);
@@ -1056,18 +1314,19 @@ class LayerUtilityDiffblueTest {
    *
    * <ul>
    *   <li>Given {@link PDPage#PDPage()}.
-   *   <li>Then calls {@link RandomAccessStreamCache.StreamCacheCreateFunction#create()}.
+   *   <li>When {@link PDDocument#PDDocument()} addPage {@link PDPage#PDPage()}.
    * </ul>
    *
    * <p>Method under test: {@link LayerUtility#importPageAsForm(PDDocument, PDPage)}
    */
   @Test
   @DisplayName(
-      "Test importPageAsForm(PDDocument, PDPage) with 'sourceDoc', 'page'; given PDPage(); then calls create()")
+      "Test importPageAsForm(PDDocument, PDPage) with 'sourceDoc', 'page'; given PDPage(); when PDDocument() addPage PDPage()")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"PDFormXObject LayerUtility.importPageAsForm(PDDocument, PDPage)"})
-  void testImportPageAsFormWithSourceDocPage_givenPDPage_thenCallsCreate() throws IOException {
+  void testImportPageAsFormWithSourceDocPage_givenPDPage_whenPDDocumentAddPagePDPage()
+      throws IOException {
     // Arrange
     StreamCacheCreateFunction streamCacheCreateFunction = mock(StreamCacheCreateFunction.class);
     when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
@@ -1078,10 +1337,170 @@ class LayerUtilityDiffblueTest {
     sourceDoc.addPage(new PDPage());
 
     // Act
-    layerUtility.importPageAsForm(sourceDoc, new PDPage());
+    PDFormXObject actualImportPageAsFormResult =
+        layerUtility.importPageAsForm(sourceDoc, new PDPage());
 
     // Assert
     verify(streamCacheCreateFunction).create();
+    float[][] values = actualImportPageAsFormResult.getMatrix().getValues();
+    assertEquals(3, values.length);
+    COSStream cOSObject = actualImportPageAsFormResult.getCOSObject();
+    assertEquals(6, cOSObject.getValues().size());
+    assertEquals(6, cOSObject.size());
+    assertArrayEquals(new float[] {0.0f, 0.0f, 1.0f}, values[2], 0.0f);
+    assertArrayEquals(new float[] {0.0f, 1.0f, 0.0f}, values[1], 0.0f);
+    assertArrayEquals(new float[] {1.0f, 0.0f, 0.0f}, values[0], 0.0f);
+  }
+
+  /**
+   * Test {@link LayerUtility#importPageAsForm(PDDocument, PDPage)} with {@code sourceDoc}, {@code
+   * page}.
+   *
+   * <ul>
+   *   <li>Given {@link PDStream#PDStream(COSDocument)} with document is {@link
+   *       COSDocument#COSDocument()}.
+   * </ul>
+   *
+   * <p>Method under test: {@link LayerUtility#importPageAsForm(PDDocument, PDPage)}
+   */
+  @Test
+  @DisplayName(
+      "Test importPageAsForm(PDDocument, PDPage) with 'sourceDoc', 'page'; given PDStream(COSDocument) with document is COSDocument()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDFormXObject LayerUtility.importPageAsForm(PDDocument, PDPage)"})
+  void testImportPageAsFormWithSourceDocPage_givenPDStreamWithDocumentIsCOSDocument()
+      throws IOException {
+    // Arrange
+    StreamCacheCreateFunction streamCacheCreateFunction = mock(StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDDocument targetDoc = new PDDocument(streamCacheCreateFunction);
+    LayerUtility layerUtility = new LayerUtility(targetDoc);
+    PDDocument sourceDoc = new PDDocument();
+
+    PDPage page = new PDPage();
+    page.setContents(new PDStream(new COSDocument()));
+
+    // Act
+    PDFormXObject actualImportPageAsFormResult = layerUtility.importPageAsForm(sourceDoc, page);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    RandomAccessRead contentsForStreamParsing =
+        actualImportPageAsFormResult.getContentsForStreamParsing();
+    assertTrue(contentsForStreamParsing instanceof RandomAccessReadWriteBuffer);
+    RandomAccessRead contentsForRandomAccess =
+        actualImportPageAsFormResult.getContentsForRandomAccess();
+    assertTrue(contentsForRandomAccess instanceof RandomAccessReadWriteBuffer);
+    byte[] byteArray = new byte[1];
+    assertEquals(1, actualImportPageAsFormResult.getContents().read(byteArray));
+    assertEquals(1, contentsForStreamParsing.available());
+    assertEquals(1, contentsForRandomAccess.available());
+    float[][] values = actualImportPageAsFormResult.getMatrix().getValues();
+    assertEquals(3, values.length);
+    assertEquals(9, actualImportPageAsFormResult.getStream().getLength());
+    assertEquals(9, actualImportPageAsFormResult.getContentStream().getLength());
+    assertEquals(9L, actualImportPageAsFormResult.getCOSObject().getLength());
+    assertArrayEquals(new byte[] {'\n'}, byteArray);
+    assertArrayEquals(new float[] {0.0f, 0.0f, 1.0f}, values[2], 0.0f);
+    assertArrayEquals(new float[] {0.0f, 1.0f, 0.0f}, values[1], 0.0f);
+    assertArrayEquals(new float[] {1.0f, 0.0f, 0.0f}, values[0], 0.0f);
+  }
+
+  /**
+   * Test {@link LayerUtility#importPageAsForm(PDDocument, PDPage)} with {@code sourceDoc}, {@code
+   * page}.
+   *
+   * <ul>
+   *   <li>Given zero.
+   *   <li>When {@link PDPage#PDPage()} Rotation is zero.
+   * </ul>
+   *
+   * <p>Method under test: {@link LayerUtility#importPageAsForm(PDDocument, PDPage)}
+   */
+  @Test
+  @DisplayName(
+      "Test importPageAsForm(PDDocument, PDPage) with 'sourceDoc', 'page'; given zero; when PDPage() Rotation is zero")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDFormXObject LayerUtility.importPageAsForm(PDDocument, PDPage)"})
+  void testImportPageAsFormWithSourceDocPage_givenZero_whenPDPageRotationIsZero()
+      throws IOException {
+    // Arrange
+    StreamCacheCreateFunction streamCacheCreateFunction = mock(StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDDocument targetDoc = new PDDocument(streamCacheCreateFunction);
+    LayerUtility layerUtility = new LayerUtility(targetDoc);
+    PDDocument sourceDoc = new PDDocument();
+
+    PDPage page = new PDPage();
+    page.setRotation(0);
+
+    // Act
+    PDFormXObject actualImportPageAsFormResult = layerUtility.importPageAsForm(sourceDoc, page);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    float[][] values = actualImportPageAsFormResult.getMatrix().getValues();
+    assertEquals(3, values.length);
+    COSStream cOSObject = actualImportPageAsFormResult.getCOSObject();
+    assertEquals(6, cOSObject.getValues().size());
+    assertEquals(6, cOSObject.size());
+    assertArrayEquals(new float[] {0.0f, 0.0f, 1.0f}, values[2], 0.0f);
+    assertArrayEquals(new float[] {0.0f, 1.0f, 0.0f}, values[1], 0.0f);
+    assertArrayEquals(new float[] {1.0f, 0.0f, 0.0f}, values[0], 0.0f);
+  }
+
+  /**
+   * Test {@link LayerUtility#importPageAsForm(PDDocument, PDPage)} with {@code sourceDoc}, {@code
+   * page}.
+   *
+   * <ul>
+   *   <li>Then return Matrix TranslateX is minus two.
+   * </ul>
+   *
+   * <p>Method under test: {@link LayerUtility#importPageAsForm(PDDocument, PDPage)}
+   */
+  @Test
+  @DisplayName(
+      "Test importPageAsForm(PDDocument, PDPage) with 'sourceDoc', 'page'; then return Matrix TranslateX is minus two")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDFormXObject LayerUtility.importPageAsForm(PDDocument, PDPage)"})
+  void testImportPageAsFormWithSourceDocPage_thenReturnMatrixTranslateXIsMinusTwo()
+      throws IOException {
+    // Arrange
+    StreamCacheCreateFunction streamCacheCreateFunction = mock(StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDDocument targetDoc = new PDDocument(streamCacheCreateFunction);
+    LayerUtility layerUtility = new LayerUtility(targetDoc);
+    PDDocument sourceDoc = new PDDocument();
+
+    PDPage page = new PDPage();
+    PDRectangle cropBox = new PDRectangle(1.0f, 1.0f, 1.0f, 1.0f);
+    page.setCropBox(cropBox);
+
+    // Act
+    PDFormXObject actualImportPageAsFormResult = layerUtility.importPageAsForm(sourceDoc, page);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    Matrix matrix = actualImportPageAsFormResult.getMatrix();
+    assertEquals(-2.0f, matrix.getTranslateX());
+    assertEquals(-2.0f, matrix.getTranslateY());
+    PDRectangle bBox = actualImportPageAsFormResult.getBBox();
+    assertEquals(1.0f, bBox.getHeight());
+    assertEquals(1.0f, bBox.getLowerLeftX());
+    assertEquals(1.0f, bBox.getLowerLeftY());
+    assertEquals(1.0f, bBox.getWidth());
+    assertEquals(2.0f, bBox.getUpperRightX());
+    assertEquals(2.0f, bBox.getUpperRightY());
+    float[][] values = matrix.getValues();
+    assertEquals(3, values.length);
+    assertEquals(4, bBox.getCOSArray().toList().size());
+    assertArrayEquals(new float[] {-2.0f, -2.0f, 1.0f}, values[2], 0.0f);
+    assertArrayEquals(new float[] {0.0f, 1.0f, 0.0f}, values[1], 0.0f);
+    assertArrayEquals(new float[] {1.0f, 0.0f, 0.0f}, values[0], 0.0f);
   }
 
   /**
@@ -1193,9 +1612,7 @@ class LayerUtilityDiffblueTest {
     COSBase actualNextResult = iteratorResult.next();
     boolean actualHasNextResult = iteratorResult.hasNext();
     verify(streamCacheCreateFunction).create();
-    PDDocument document = layerUtility.getDocument();
-    assertEquals("1.6", document.getDocumentCatalog().getVersion());
-    assertEquals(1.6f, document.getVersion());
+    assertEquals(1.6f, layerUtility.getDocument().getVersion());
     assertFalse(actualHasNextResult);
     assertSame(cOSObject, actualNextResult);
   }

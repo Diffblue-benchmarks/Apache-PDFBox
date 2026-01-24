@@ -1685,47 +1685,6 @@ class PDAbstractAppearanceHandlerDiffblueTest {
   }
 
   /**
-   * Test {@link PDAbstractAppearanceHandler#setOpacity(PDAppearanceContentStream, float)}.
-   *
-   * <ul>
-   *   <li>Given {@link COSStream#COSStream()}.
-   *   <li>When {@link COSStream} {@link COSStream#getCOSDictionary(COSName)} return {@link
-   *       COSStream#COSStream()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDAbstractAppearanceHandler#setOpacity(PDAppearanceContentStream,
-   * float)}
-   */
-  @Test
-  @DisplayName(
-      "Test setOpacity(PDAppearanceContentStream, float); given COSStream(); when COSStream getCOSDictionary(COSName) return COSStream()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void PDAbstractAppearanceHandler.setOpacity(PDAppearanceContentStream, float)"
-  })
-  void testSetOpacity_givenCOSStream_whenCOSStreamGetCOSDictionaryReturnCOSStream()
-      throws IOException {
-    // Arrange
-    PDCaretAppearanceHandler pdCaretAppearanceHandler =
-        new PDCaretAppearanceHandler(new PDAnnotationCaret());
-
-    COSStream stream = mock(COSStream.class);
-    when(stream.createOutputStream()).thenReturn(new ByteArrayOutputStream());
-    when(stream.getCOSDictionary(Mockito.<COSName>any())).thenReturn(new COSStream());
-    doNothing().when(stream).setName(Mockito.<COSName>any(), Mockito.<String>any());
-    PDAppearanceStream appearance = new PDAppearanceStream(stream);
-
-    // Act
-    pdCaretAppearanceHandler.setOpacity(new PDAppearanceContentStream(appearance), 0.99999994f);
-
-    // Assert
-    verify(stream).getCOSDictionary(isA(COSName.class));
-    verify(stream, atLeast(1)).setName(Mockito.<COSName>any(), Mockito.<String>any());
-    verify(stream).createOutputStream();
-  }
-
-  /**
    * Test {@link PDAbstractAppearanceHandler#drawStyle(String, PDAppearanceContentStream, float,
    * float, float, boolean, boolean, boolean)}.
    *

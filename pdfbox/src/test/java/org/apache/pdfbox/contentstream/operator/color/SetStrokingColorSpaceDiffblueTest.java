@@ -19,8 +19,6 @@ import org.apache.pdfbox.cos.COSName;
 import org.apache.pdfbox.pdmodel.DefaultResourceCache;
 import org.apache.pdfbox.pdmodel.PDResources;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
-import org.apache.pdfbox.pdmodel.font.PDFont;
-import org.apache.pdfbox.pdmodel.font.PDMMType1Font;
 import org.apache.pdfbox.pdmodel.graphics.color.PDCalGray;
 import org.apache.pdfbox.pdmodel.graphics.color.PDCalRGB;
 import org.apache.pdfbox.pdmodel.graphics.color.PDDeviceGray;
@@ -104,10 +102,8 @@ class SetStrokingColorSpaceDiffblueTest {
   void testProcess2() throws IOException {
     // Arrange
     PDResources pdResources = mock(PDResources.class);
-    when(pdResources.add(Mockito.<PDFont>any())).thenReturn(COSName.A);
     when(pdResources.getColorSpace(Mockito.<COSName>any()))
         .thenReturn(new PDPattern(new PDResources()));
-    pdResources.add(new PDMMType1Font(new COSDictionary()));
 
     PDFStreamEngine context = mock(PDFStreamEngine.class);
     when(context.getGraphicsState()).thenReturn(new PDGraphicsState(PDRectangle.A0));
@@ -116,7 +112,7 @@ class SetStrokingColorSpaceDiffblueTest {
     Operator operator = Operator.getOperator("Operator");
 
     ArrayList<COSBase> arguments = new ArrayList<>();
-    arguments.add(COSName.DEVICECMYK);
+    arguments.add(mock(COSName.class));
 
     // Act
     setStrokingColorSpace.process(operator, arguments);
@@ -124,7 +120,6 @@ class SetStrokingColorSpaceDiffblueTest {
     // Assert
     verify(context, atLeast(1)).getGraphicsState();
     verify(context).getResources();
-    verify(pdResources).add(isA(PDFont.class));
     verify(pdResources).getColorSpace(isA(COSName.class));
   }
 
@@ -168,18 +163,18 @@ class SetStrokingColorSpaceDiffblueTest {
    *
    * <ul>
    *   <li>Given {@link PDResources#PDResources()} add {@link PDDeviceGray#INSTANCE}.
-   *   <li>Then calls {@link PDFStreamEngine#getGraphicsState()}.
+   *   <li>When {@link ArrayList#ArrayList()} add {@link COSName#DEVICECMYK}.
    * </ul>
    *
    * <p>Method under test: {@link SetStrokingColorSpace#process(Operator, List)}
    */
   @Test
   @DisplayName(
-      "Test process(Operator, List); given PDResources() add INSTANCE; then calls getGraphicsState()")
+      "Test process(Operator, List); given PDResources() add INSTANCE; when ArrayList() add DEVICECMYK")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void SetStrokingColorSpace.process(Operator, List)"})
-  void testProcess_givenPDResourcesAddInstance_thenCallsGetGraphicsState() throws IOException {
+  void testProcess_givenPDResourcesAddInstance_whenArrayListAddDevicecmyk() throws IOException {
     // Arrange
     PDResources pdResources = new PDResources();
     pdResources.add(PDDeviceGray.INSTANCE);
@@ -205,65 +200,24 @@ class SetStrokingColorSpaceDiffblueTest {
    * Test {@link SetStrokingColorSpace#process(Operator, List)}.
    *
    * <ul>
-   *   <li>Given {@link PDResources#PDResources()} add {@link
-   *       PDMMType1Font#PDMMType1Font(COSDictionary)} with fontDictionary is {@link
-   *       COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link SetStrokingColorSpace#process(Operator, List)}
-   */
-  @Test
-  @DisplayName(
-      "Test process(Operator, List); given PDResources() add PDMMType1Font(COSDictionary) with fontDictionary is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void SetStrokingColorSpace.process(Operator, List)"})
-  void testProcess_givenPDResourcesAddPDMMType1FontWithFontDictionaryIsCOSDictionary()
-      throws IOException {
-    // Arrange
-    PDResources pdResources = new PDResources();
-    pdResources.add(new PDMMType1Font(new COSDictionary()));
-
-    PDFStreamEngine context = mock(PDFStreamEngine.class);
-    when(context.getGraphicsState()).thenReturn(new PDGraphicsState(PDRectangle.A0));
-    when(context.getResources()).thenReturn(pdResources);
-    SetStrokingColorSpace setStrokingColorSpace = new SetStrokingColorSpace(context);
-    Operator operator = Operator.getOperator("Operator");
-
-    ArrayList<COSBase> arguments = new ArrayList<>();
-    arguments.add(COSName.DEVICECMYK);
-
-    // Act
-    setStrokingColorSpace.process(operator, arguments);
-
-    // Assert
-    verify(context, atLeast(1)).getGraphicsState();
-    verify(context).getResources();
-  }
-
-  /**
-   * Test {@link SetStrokingColorSpace#process(Operator, List)}.
-   *
-   * <ul>
    *   <li>Given {@link PDResources} {@link PDResources#getColorSpace(COSName)} return {@link
    *       PDDeviceGray#INSTANCE}.
-   *   <li>Then calls {@link PDResources#add(PDFont)}.
+   *   <li>Then calls {@link PDResources#getColorSpace(COSName)}.
    * </ul>
    *
    * <p>Method under test: {@link SetStrokingColorSpace#process(Operator, List)}
    */
   @Test
   @DisplayName(
-      "Test process(Operator, List); given PDResources getColorSpace(COSName) return INSTANCE; then calls add(PDFont)")
+      "Test process(Operator, List); given PDResources getColorSpace(COSName) return INSTANCE; then calls getColorSpace(COSName)")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void SetStrokingColorSpace.process(Operator, List)"})
-  void testProcess_givenPDResourcesGetColorSpaceReturnInstance_thenCallsAdd() throws IOException {
+  void testProcess_givenPDResourcesGetColorSpaceReturnInstance_thenCallsGetColorSpace()
+      throws IOException {
     // Arrange
     PDResources pdResources = mock(PDResources.class);
-    when(pdResources.add(Mockito.<PDFont>any())).thenReturn(COSName.A);
     when(pdResources.getColorSpace(Mockito.<COSName>any())).thenReturn(PDDeviceGray.INSTANCE);
-    pdResources.add(new PDMMType1Font(new COSDictionary()));
 
     PDFStreamEngine context = mock(PDFStreamEngine.class);
     when(context.getGraphicsState()).thenReturn(new PDGraphicsState(PDRectangle.A0));
@@ -272,7 +226,7 @@ class SetStrokingColorSpaceDiffblueTest {
     Operator operator = Operator.getOperator("Operator");
 
     ArrayList<COSBase> arguments = new ArrayList<>();
-    arguments.add(COSName.DEVICECMYK);
+    arguments.add(mock(COSName.class));
 
     // Act
     setStrokingColorSpace.process(operator, arguments);
@@ -280,7 +234,6 @@ class SetStrokingColorSpaceDiffblueTest {
     // Assert
     verify(context, atLeast(1)).getGraphicsState();
     verify(context).getResources();
-    verify(pdResources).add(isA(PDFont.class));
     verify(pdResources).getColorSpace(isA(COSName.class));
   }
 
@@ -290,23 +243,22 @@ class SetStrokingColorSpaceDiffblueTest {
    * <ul>
    *   <li>Given {@link PDResources} {@link PDResources#getColorSpace(COSName)} return {@link
    *       PDCalGray#PDCalGray()}.
-   *   <li>Then calls {@link PDResources#add(PDFont)}.
+   *   <li>Then calls {@link PDResources#getColorSpace(COSName)}.
    * </ul>
    *
    * <p>Method under test: {@link SetStrokingColorSpace#process(Operator, List)}
    */
   @Test
   @DisplayName(
-      "Test process(Operator, List); given PDResources getColorSpace(COSName) return PDCalGray(); then calls add(PDFont)")
+      "Test process(Operator, List); given PDResources getColorSpace(COSName) return PDCalGray(); then calls getColorSpace(COSName)")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void SetStrokingColorSpace.process(Operator, List)"})
-  void testProcess_givenPDResourcesGetColorSpaceReturnPDCalGray_thenCallsAdd() throws IOException {
+  void testProcess_givenPDResourcesGetColorSpaceReturnPDCalGray_thenCallsGetColorSpace()
+      throws IOException {
     // Arrange
     PDResources pdResources = mock(PDResources.class);
-    when(pdResources.add(Mockito.<PDFont>any())).thenReturn(COSName.A);
     when(pdResources.getColorSpace(Mockito.<COSName>any())).thenReturn(new PDCalGray());
-    pdResources.add(new PDMMType1Font(new COSDictionary()));
 
     PDFStreamEngine context = mock(PDFStreamEngine.class);
     when(context.getGraphicsState()).thenReturn(new PDGraphicsState(PDRectangle.A0));
@@ -315,7 +267,7 @@ class SetStrokingColorSpaceDiffblueTest {
     Operator operator = Operator.getOperator("Operator");
 
     ArrayList<COSBase> arguments = new ArrayList<>();
-    arguments.add(COSName.DEVICECMYK);
+    arguments.add(mock(COSName.class));
 
     // Act
     setStrokingColorSpace.process(operator, arguments);
@@ -323,7 +275,6 @@ class SetStrokingColorSpaceDiffblueTest {
     // Assert
     verify(context, atLeast(1)).getGraphicsState();
     verify(context).getResources();
-    verify(pdResources).add(isA(PDFont.class));
     verify(pdResources).getColorSpace(isA(COSName.class));
   }
 
@@ -333,23 +284,22 @@ class SetStrokingColorSpaceDiffblueTest {
    * <ul>
    *   <li>Given {@link PDResources} {@link PDResources#getColorSpace(COSName)} return {@link
    *       PDCalRGB#PDCalRGB()}.
-   *   <li>Then calls {@link PDResources#add(PDFont)}.
+   *   <li>Then calls {@link PDResources#getColorSpace(COSName)}.
    * </ul>
    *
    * <p>Method under test: {@link SetStrokingColorSpace#process(Operator, List)}
    */
   @Test
   @DisplayName(
-      "Test process(Operator, List); given PDResources getColorSpace(COSName) return PDCalRGB(); then calls add(PDFont)")
+      "Test process(Operator, List); given PDResources getColorSpace(COSName) return PDCalRGB(); then calls getColorSpace(COSName)")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void SetStrokingColorSpace.process(Operator, List)"})
-  void testProcess_givenPDResourcesGetColorSpaceReturnPDCalRGB_thenCallsAdd() throws IOException {
+  void testProcess_givenPDResourcesGetColorSpaceReturnPDCalRGB_thenCallsGetColorSpace()
+      throws IOException {
     // Arrange
     PDResources pdResources = mock(PDResources.class);
-    when(pdResources.add(Mockito.<PDFont>any())).thenReturn(COSName.A);
     when(pdResources.getColorSpace(Mockito.<COSName>any())).thenReturn(new PDCalRGB());
-    pdResources.add(new PDMMType1Font(new COSDictionary()));
 
     PDFStreamEngine context = mock(PDFStreamEngine.class);
     when(context.getGraphicsState()).thenReturn(new PDGraphicsState(PDRectangle.A0));
@@ -358,7 +308,7 @@ class SetStrokingColorSpaceDiffblueTest {
     Operator operator = Operator.getOperator("Operator");
 
     ArrayList<COSBase> arguments = new ArrayList<>();
-    arguments.add(COSName.DEVICECMYK);
+    arguments.add(mock(COSName.class));
 
     // Act
     setStrokingColorSpace.process(operator, arguments);
@@ -366,7 +316,6 @@ class SetStrokingColorSpaceDiffblueTest {
     // Assert
     verify(context, atLeast(1)).getGraphicsState();
     verify(context).getResources();
-    verify(pdResources).add(isA(PDFont.class));
     verify(pdResources).getColorSpace(isA(COSName.class));
   }
 
@@ -376,23 +325,22 @@ class SetStrokingColorSpaceDiffblueTest {
    * <ul>
    *   <li>Given {@link PDResources} {@link PDResources#getColorSpace(COSName)} return {@link
    *       PDDeviceN#PDDeviceN()}.
-   *   <li>Then calls {@link PDResources#add(PDFont)}.
+   *   <li>Then calls {@link PDResources#getColorSpace(COSName)}.
    * </ul>
    *
    * <p>Method under test: {@link SetStrokingColorSpace#process(Operator, List)}
    */
   @Test
   @DisplayName(
-      "Test process(Operator, List); given PDResources getColorSpace(COSName) return PDDeviceN(); then calls add(PDFont)")
+      "Test process(Operator, List); given PDResources getColorSpace(COSName) return PDDeviceN(); then calls getColorSpace(COSName)")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void SetStrokingColorSpace.process(Operator, List)"})
-  void testProcess_givenPDResourcesGetColorSpaceReturnPDDeviceN_thenCallsAdd() throws IOException {
+  void testProcess_givenPDResourcesGetColorSpaceReturnPDDeviceN_thenCallsGetColorSpace()
+      throws IOException {
     // Arrange
     PDResources pdResources = mock(PDResources.class);
-    when(pdResources.add(Mockito.<PDFont>any())).thenReturn(COSName.A);
     when(pdResources.getColorSpace(Mockito.<COSName>any())).thenReturn(new PDDeviceN());
-    pdResources.add(new PDMMType1Font(new COSDictionary()));
 
     PDFStreamEngine context = mock(PDFStreamEngine.class);
     when(context.getGraphicsState()).thenReturn(new PDGraphicsState(PDRectangle.A0));
@@ -401,7 +349,7 @@ class SetStrokingColorSpaceDiffblueTest {
     Operator operator = Operator.getOperator("Operator");
 
     ArrayList<COSBase> arguments = new ArrayList<>();
-    arguments.add(COSName.DEVICECMYK);
+    arguments.add(mock(COSName.class));
 
     // Act
     setStrokingColorSpace.process(operator, arguments);
@@ -409,7 +357,6 @@ class SetStrokingColorSpaceDiffblueTest {
     // Assert
     verify(context, atLeast(1)).getGraphicsState();
     verify(context).getResources();
-    verify(pdResources).add(isA(PDFont.class));
     verify(pdResources).getColorSpace(isA(COSName.class));
   }
 
@@ -419,23 +366,22 @@ class SetStrokingColorSpaceDiffblueTest {
    * <ul>
    *   <li>Given {@link PDResources} {@link PDResources#getColorSpace(COSName)} return {@link
    *       PDIndexed#PDIndexed()}.
-   *   <li>Then calls {@link PDResources#add(PDFont)}.
+   *   <li>Then calls {@link PDResources#getColorSpace(COSName)}.
    * </ul>
    *
    * <p>Method under test: {@link SetStrokingColorSpace#process(Operator, List)}
    */
   @Test
   @DisplayName(
-      "Test process(Operator, List); given PDResources getColorSpace(COSName) return PDIndexed(); then calls add(PDFont)")
+      "Test process(Operator, List); given PDResources getColorSpace(COSName) return PDIndexed(); then calls getColorSpace(COSName)")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void SetStrokingColorSpace.process(Operator, List)"})
-  void testProcess_givenPDResourcesGetColorSpaceReturnPDIndexed_thenCallsAdd() throws IOException {
+  void testProcess_givenPDResourcesGetColorSpaceReturnPDIndexed_thenCallsGetColorSpace()
+      throws IOException {
     // Arrange
     PDResources pdResources = mock(PDResources.class);
-    when(pdResources.add(Mockito.<PDFont>any())).thenReturn(COSName.A);
     when(pdResources.getColorSpace(Mockito.<COSName>any())).thenReturn(new PDIndexed());
-    pdResources.add(new PDMMType1Font(new COSDictionary()));
 
     PDFStreamEngine context = mock(PDFStreamEngine.class);
     when(context.getGraphicsState()).thenReturn(new PDGraphicsState(PDRectangle.A0));
@@ -444,7 +390,7 @@ class SetStrokingColorSpaceDiffblueTest {
     Operator operator = Operator.getOperator("Operator");
 
     ArrayList<COSBase> arguments = new ArrayList<>();
-    arguments.add(COSName.DEVICECMYK);
+    arguments.add(mock(COSName.class));
 
     // Act
     setStrokingColorSpace.process(operator, arguments);
@@ -452,7 +398,6 @@ class SetStrokingColorSpaceDiffblueTest {
     // Assert
     verify(context, atLeast(1)).getGraphicsState();
     verify(context).getResources();
-    verify(pdResources).add(isA(PDFont.class));
     verify(pdResources).getColorSpace(isA(COSName.class));
   }
 
@@ -462,23 +407,22 @@ class SetStrokingColorSpaceDiffblueTest {
    * <ul>
    *   <li>Given {@link PDResources} {@link PDResources#getColorSpace(COSName)} return {@link
    *       PDLab#PDLab()}.
-   *   <li>Then calls {@link PDResources#add(PDFont)}.
+   *   <li>Then calls {@link PDResources#getColorSpace(COSName)}.
    * </ul>
    *
    * <p>Method under test: {@link SetStrokingColorSpace#process(Operator, List)}
    */
   @Test
   @DisplayName(
-      "Test process(Operator, List); given PDResources getColorSpace(COSName) return PDLab(); then calls add(PDFont)")
+      "Test process(Operator, List); given PDResources getColorSpace(COSName) return PDLab(); then calls getColorSpace(COSName)")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void SetStrokingColorSpace.process(Operator, List)"})
-  void testProcess_givenPDResourcesGetColorSpaceReturnPDLab_thenCallsAdd() throws IOException {
+  void testProcess_givenPDResourcesGetColorSpaceReturnPDLab_thenCallsGetColorSpace()
+      throws IOException {
     // Arrange
     PDResources pdResources = mock(PDResources.class);
-    when(pdResources.add(Mockito.<PDFont>any())).thenReturn(COSName.A);
     when(pdResources.getColorSpace(Mockito.<COSName>any())).thenReturn(new PDLab());
-    pdResources.add(new PDMMType1Font(new COSDictionary()));
 
     PDFStreamEngine context = mock(PDFStreamEngine.class);
     when(context.getGraphicsState()).thenReturn(new PDGraphicsState(PDRectangle.A0));
@@ -487,7 +431,7 @@ class SetStrokingColorSpaceDiffblueTest {
     Operator operator = Operator.getOperator("Operator");
 
     ArrayList<COSBase> arguments = new ArrayList<>();
-    arguments.add(COSName.DEVICECMYK);
+    arguments.add(mock(COSName.class));
 
     // Act
     setStrokingColorSpace.process(operator, arguments);
@@ -495,7 +439,6 @@ class SetStrokingColorSpaceDiffblueTest {
     // Assert
     verify(context, atLeast(1)).getGraphicsState();
     verify(context).getResources();
-    verify(pdResources).add(isA(PDFont.class));
     verify(pdResources).getColorSpace(isA(COSName.class));
   }
 
@@ -505,24 +448,20 @@ class SetStrokingColorSpaceDiffblueTest {
    * <ul>
    *   <li>Given {@link PDResources} {@link PDResources#getColorSpace(COSName)} return {@link
    *       PDSeparation#PDSeparation()}.
-   *   <li>Then calls {@link PDResources#add(PDFont)}.
    * </ul>
    *
    * <p>Method under test: {@link SetStrokingColorSpace#process(Operator, List)}
    */
   @Test
   @DisplayName(
-      "Test process(Operator, List); given PDResources getColorSpace(COSName) return PDSeparation(); then calls add(PDFont)")
+      "Test process(Operator, List); given PDResources getColorSpace(COSName) return PDSeparation()")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void SetStrokingColorSpace.process(Operator, List)"})
-  void testProcess_givenPDResourcesGetColorSpaceReturnPDSeparation_thenCallsAdd()
-      throws IOException {
+  void testProcess_givenPDResourcesGetColorSpaceReturnPDSeparation() throws IOException {
     // Arrange
     PDResources pdResources = mock(PDResources.class);
-    when(pdResources.add(Mockito.<PDFont>any())).thenReturn(COSName.A);
     when(pdResources.getColorSpace(Mockito.<COSName>any())).thenReturn(new PDSeparation());
-    pdResources.add(new PDMMType1Font(new COSDictionary()));
 
     PDFStreamEngine context = mock(PDFStreamEngine.class);
     when(context.getGraphicsState()).thenReturn(new PDGraphicsState(PDRectangle.A0));
@@ -531,7 +470,7 @@ class SetStrokingColorSpaceDiffblueTest {
     Operator operator = Operator.getOperator("Operator");
 
     ArrayList<COSBase> arguments = new ArrayList<>();
-    arguments.add(COSName.DEVICECMYK);
+    arguments.add(mock(COSName.class));
 
     // Act
     setStrokingColorSpace.process(operator, arguments);
@@ -539,7 +478,6 @@ class SetStrokingColorSpaceDiffblueTest {
     // Assert
     verify(context, atLeast(1)).getGraphicsState();
     verify(context).getResources();
-    verify(pdResources).add(isA(PDFont.class));
     verify(pdResources).getColorSpace(isA(COSName.class));
   }
 }

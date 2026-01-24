@@ -109,34 +109,6 @@ class PDDeviceNAttributesDiffblueTest {
    * Test {@link PDDeviceNAttributes#getProcess()}.
    *
    * <ul>
-   *   <li>Given {@link PDDeviceNAttributes#PDDeviceNAttributes()} Colorants is {@link
-   *       HashMap#HashMap()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDDeviceNAttributes#getProcess()}
-   */
-  @Test
-  @DisplayName(
-      "Test getProcess(); given PDDeviceNAttributes() Colorants is HashMap(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "org.apache.pdfbox.pdmodel.graphics.color.PDDeviceNProcess PDDeviceNAttributes.getProcess()"
-  })
-  void testGetProcess_givenPDDeviceNAttributesColorantsIsHashMap_thenReturnNull() {
-    // Arrange
-    PDDeviceNAttributes pdDeviceNAttributes = new PDDeviceNAttributes();
-    pdDeviceNAttributes.setColorants(new HashMap<>());
-
-    // Act and Assert
-    assertNull(pdDeviceNAttributes.getProcess());
-  }
-
-  /**
-   * Test {@link PDDeviceNAttributes#getProcess()}.
-   *
-   * <ul>
    *   <li>Given {@link PDDeviceNAttributes#PDDeviceNAttributes()}.
    *   <li>Then return {@code null}.
    * </ul>
@@ -153,32 +125,6 @@ class PDDeviceNAttributesDiffblueTest {
   void testGetProcess_givenPDDeviceNAttributes_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull(new PDDeviceNAttributes().getProcess());
-  }
-
-  /**
-   * Test {@link PDDeviceNAttributes#isNChannel()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDDeviceNAttributes#PDDeviceNAttributes()} Colorants is {@link
-   *       HashMap#HashMap()}.
-   *   <li>Then return {@code false}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDDeviceNAttributes#isNChannel()}
-   */
-  @Test
-  @DisplayName(
-      "Test isNChannel(); given PDDeviceNAttributes() Colorants is HashMap(); then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean PDDeviceNAttributes.isNChannel()"})
-  void testIsNChannel_givenPDDeviceNAttributesColorantsIsHashMap_thenReturnFalse() {
-    // Arrange
-    PDDeviceNAttributes pdDeviceNAttributes = new PDDeviceNAttributes();
-    pdDeviceNAttributes.setColorants(new HashMap<>());
-
-    // Act and Assert
-    assertFalse(pdDeviceNAttributes.isNChannel());
   }
 
   /**

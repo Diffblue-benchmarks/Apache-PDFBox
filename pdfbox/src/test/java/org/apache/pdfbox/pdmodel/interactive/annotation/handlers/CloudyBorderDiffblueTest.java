@@ -143,16 +143,19 @@ class CloudyBorderDiffblueTest {
     cloudyBorder.createCloudyRectangle(PDRectangle.A0);
 
     // Assert
+    List<? extends COSBase> toListResult = cloudyBorder.getRectDifference().getCOSArray().toList();
+    assertEquals(4, toListResult.size());
+    assertTrue(toListResult.get(0) instanceof COSFloat);
+    assertTrue(toListResult.get(1) instanceof COSFloat);
+    assertTrue(toListResult.get(2) instanceof COSFloat);
+    assertTrue(toListResult.get(3) instanceof COSFloat);
     PDRectangle bBox = cloudyBorder.getBBox();
     assertEquals(5.0f, bBox.getHeight());
     PDRectangle rectangle = cloudyBorder.getRectangle();
     assertEquals(5.0f, rectangle.getHeight());
     assertEquals(5.0f, bBox.getUpperRightX());
-    PDRectangle rectDifference = cloudyBorder.getRectDifference();
-    assertEquals(5.0f, rectDifference.getUpperRightX());
     assertEquals(5.0f, rectangle.getUpperRightX());
     assertEquals(5.0f, bBox.getUpperRightY());
-    assertEquals(5.0f, rectDifference.getUpperRightY());
     assertEquals(5.0f, rectangle.getUpperRightY());
     assertEquals(5.0f, bBox.getWidth());
     assertEquals(5.0f, rectangle.getWidth());
@@ -178,14 +181,12 @@ class CloudyBorderDiffblueTest {
     cloudyBorder.createCloudyRectangle(PDRectangle.A0);
 
     // Assert
-    PDRectangle bBox = cloudyBorder.getBBox();
-    assertEquals(0.0f, bBox.getHeight());
-    PDRectangle rectangle = cloudyBorder.getRectangle();
-    assertEquals(0.0f, rectangle.getHeight());
     PDRectangle rectDifference = cloudyBorder.getRectDifference();
     assertEquals(0.0f, rectDifference.getLowerLeftX());
     assertEquals(0.0f, rectDifference.getLowerLeftY());
+    PDRectangle bBox = cloudyBorder.getBBox();
     assertEquals(0.0f, bBox.getUpperRightX());
+    PDRectangle rectangle = cloudyBorder.getRectangle();
     assertEquals(0.0f, rectangle.getUpperRightX());
     assertEquals(0.0f, bBox.getUpperRightY());
     assertEquals(0.0f, rectangle.getUpperRightY());
@@ -254,28 +255,24 @@ class CloudyBorderDiffblueTest {
 
     // Assert
     PDRectangle bBox = cloudyBorder.getBBox();
-    List<? extends COSBase> toListResult = bBox.getCOSArray().toList();
-    assertEquals(4, toListResult.size());
-    COSBase getResult = toListResult.get(1);
-    assertTrue(getResult instanceof COSFloat);
-    List<? extends COSBase> toListResult2 = cloudyBorder.getRectDifference().getCOSArray().toList();
-    assertEquals(4, toListResult2.size());
-    COSBase getResult2 = toListResult2.get(1);
-    assertTrue(getResult2 instanceof COSFloat);
-    COSBase getResult3 = toListResult2.get(3);
-    assertTrue(getResult3 instanceof COSFloat);
-    assertEquals(1040.6406f, bBox.getUpperRightY());
+    assertEquals(-49.183834f, bBox.getLowerLeftY());
     PDRectangle rectangle = cloudyBorder.getRectangle();
+    assertEquals(-49.183834f, rectangle.getLowerLeftY());
+    assertEquals(1040.6406f, bBox.getUpperRightY());
     assertEquals(1040.6406f, rectangle.getUpperRightY());
     assertEquals(1089.8245f, bBox.getHeight());
     assertEquals(1089.8245f, rectangle.getHeight());
+    PDRectangle rectDifference = cloudyBorder.getRectDifference();
+    assertEquals(3.8146973E-6f, rectDifference.getHeight());
+    assertEquals(3.8146973E-6f, rectDifference.getWidth());
+    assertEquals(49.183832558487694d, cloudyBorder.getMatrix().getTranslateY());
+    assertEquals(54.183834f, rectDifference.getLowerLeftY());
+    assertEquals(54.183838f, rectDifference.getUpperRightX());
+    assertEquals(54.183838f, rectDifference.getUpperRightY());
     assertEquals(754.3413f, bBox.getUpperRightX());
     assertEquals(754.3413f, rectangle.getUpperRightX());
     assertEquals(803.52515f, bBox.getWidth());
     assertEquals(803.52515f, rectangle.getWidth());
-    assertEquals(toListResult.get(0), getResult);
-    assertEquals(toListResult2.get(0), getResult2);
-    assertEquals(toListResult2.get(2), getResult3);
   }
 
   /**
@@ -290,10 +287,9 @@ class CloudyBorderDiffblueTest {
   @MethodsUnderTest({"void CloudyBorder.createCloudyRectangle(PDRectangle)"})
   void testCreateCloudyRectangle6() throws IOException {
     // Arrange
-    PDAppearanceStream appearance = new PDAppearanceStream(new COSStream());
     PDAppearanceContentStream stream =
-        new PDAppearanceContentStream(appearance, new ByteArrayOutputStream());
-    CloudyBorder cloudyBorder = new CloudyBorder(stream, 10.0d, 10.0d, PDRectangle.A0);
+        new PDAppearanceContentStream(new PDAppearanceStream(new COSStream()));
+    CloudyBorder cloudyBorder = new CloudyBorder(stream, -5.0d, 10.0d, PDRectangle.A0);
 
     // Act
     cloudyBorder.createCloudyRectangle(null);
@@ -301,22 +297,23 @@ class CloudyBorderDiffblueTest {
     // Assert
     List<? extends COSBase> toListResult = cloudyBorder.getRectDifference().getCOSArray().toList();
     assertEquals(4, toListResult.size());
-    COSBase getResult = toListResult.get(1);
+    COSBase getResult = toListResult.get(2);
     assertTrue(getResult instanceof COSFloat);
     COSBase getResult2 = toListResult.get(3);
     assertTrue(getResult2 instanceof COSFloat);
     PDRectangle bBox = cloudyBorder.getBBox();
-    assertEquals(2433.1208f, bBox.getUpperRightX());
+    assertEquals(2383.937f, bBox.getUpperRightX());
     PDRectangle rectangle = cloudyBorder.getRectangle();
-    assertEquals(2433.1208f, rectangle.getUpperRightX());
-    assertEquals(2482.3047f, bBox.getWidth());
-    assertEquals(2482.3047f, rectangle.getWidth());
-    assertEquals(3419.5776f, bBox.getUpperRightY());
-    assertEquals(3419.5776f, rectangle.getUpperRightY());
-    assertEquals(3468.7615f, bBox.getHeight());
-    assertEquals(3468.7615f, rectangle.getHeight());
-    assertEquals(toListResult.get(0), getResult);
-    assertEquals(toListResult.get(2), getResult2);
+    assertEquals(2383.937f, rectangle.getUpperRightX());
+    assertEquals(2383.937f, bBox.getWidth());
+    assertEquals(2383.937f, rectangle.getWidth());
+    assertEquals(3370.3938f, bBox.getHeight());
+    assertEquals(3370.3938f, rectangle.getHeight());
+    assertEquals(3370.3938f, bBox.getUpperRightY());
+    assertEquals(3370.3938f, rectangle.getUpperRightY());
+    COSBase getResult3 = toListResult.get(0);
+    assertEquals(getResult3, getResult);
+    assertEquals(getResult3, getResult2);
   }
 
   /**
@@ -376,21 +373,28 @@ class CloudyBorderDiffblueTest {
     cloudyBorder.createCloudyRectangle(PDRectangle.A0);
 
     // Assert
-    PDRectangle rectDifference = cloudyBorder.getRectDifference();
-    assertEquals(-9.223372E18f, rectDifference.getHeight());
-    assertEquals(-9.223372E18f, rectDifference.getUpperRightX());
-    assertEquals(-9.223372E18f, rectDifference.getUpperRightY());
-    assertEquals(-9.223372E18f, rectDifference.getWidth());
     PDRectangle bBox = cloudyBorder.getBBox();
+    List<? extends COSBase> toListResult = bBox.getCOSArray().toList();
+    assertEquals(4, toListResult.size());
+    COSBase getResult = toListResult.get(3);
+    assertTrue(getResult instanceof COSFloat);
+    PDRectangle rectDifference = cloudyBorder.getRectDifference();
+    List<? extends COSBase> toListResult2 = rectDifference.getCOSArray().toList();
+    assertEquals(4, toListResult2.size());
+    COSBase getResult2 = toListResult2.get(1);
+    assertTrue(getResult2 instanceof COSFloat);
+    COSBase getResult3 = toListResult2.get(3);
+    assertTrue(getResult3 instanceof COSFloat);
+    assertEquals(-9.223372E18f, rectDifference.getHeight());
+    assertEquals(-9.223372E18f, rectDifference.getUpperRightY());
     assertEquals(10.0f, bBox.getHeight());
     PDRectangle rectangle = cloudyBorder.getRectangle();
     assertEquals(10.0f, rectangle.getHeight());
-    assertEquals(10.0f, bBox.getUpperRightX());
-    assertEquals(10.0f, rectangle.getUpperRightX());
     assertEquals(10.0f, bBox.getUpperRightY());
     assertEquals(10.0f, rectangle.getUpperRightY());
-    assertEquals(10.0f, bBox.getWidth());
-    assertEquals(10.0f, rectangle.getWidth());
+    assertEquals(toListResult.get(2), getResult);
+    assertEquals(toListResult2.get(0), getResult2);
+    assertEquals(toListResult2.get(2), getResult3);
   }
 
   /**
@@ -437,6 +441,49 @@ class CloudyBorderDiffblueTest {
     assertEquals(987.0033f, rectDifference.getUpperRightY());
     assertEquals(987.54974f, bBox.getHeight());
     assertEquals(987.54974f, rectangle.getHeight());
+  }
+
+  /**
+   * Test {@link CloudyBorder#createCloudyRectangle(PDRectangle)}.
+   *
+   * <p>Method under test: {@link CloudyBorder#createCloudyRectangle(PDRectangle)}
+   */
+  @Test
+  @DisplayName("Test createCloudyRectangle(PDRectangle)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void CloudyBorder.createCloudyRectangle(PDRectangle)"})
+  void testCreateCloudyRectangle10() throws IOException {
+    // Arrange
+    PDRectangle rect = new PDRectangle(9.223372E18f, 9.223372E18f);
+    rect.setLowerLeftY(9.223372E18f);
+    PDAppearanceContentStream stream =
+        new PDAppearanceContentStream(new PDAppearanceStream(new COSStream()));
+
+    CloudyBorder cloudyBorder = new CloudyBorder(stream, 1.7014118346046923E38d, 10.0d, rect);
+
+    // Act
+    cloudyBorder.createCloudyRectangle(PDRectangle.A0);
+
+    // Assert
+    PDRectangle bBox = cloudyBorder.getBBox();
+    List<? extends COSBase> toListResult = bBox.getCOSArray().toList();
+    assertEquals(4, toListResult.size());
+    COSBase getResult = toListResult.get(3);
+    assertTrue(getResult instanceof COSFloat);
+    PDRectangle rectDifference = cloudyBorder.getRectDifference();
+    List<? extends COSBase> toListResult2 = rectDifference.getCOSArray().toList();
+    assertEquals(4, toListResult2.size());
+    assertTrue(toListResult2.get(1) instanceof COSFloat);
+    assertTrue(toListResult2.get(3) instanceof COSFloat);
+    assertEquals(-9.223372036854776E18d, cloudyBorder.getMatrix().getTranslateY());
+    assertEquals(0.0f, rectDifference.getLowerLeftY());
+    assertEquals(9.223372E18f, bBox.getLowerLeftY());
+    PDRectangle rectangle = cloudyBorder.getRectangle();
+    assertEquals(9.223372E18f, rectangle.getLowerLeftY());
+    assertEquals(9.223372E18f, bBox.getUpperRightY());
+    assertEquals(9.223372E18f, rectangle.getUpperRightY());
+    assertEquals(toListResult.get(1), getResult);
   }
 
   /**
@@ -1064,52 +1111,6 @@ class CloudyBorderDiffblueTest {
   @ManagedByDiffblue
   @MethodsUnderTest({"void CloudyBorder.createCloudyEllipse(PDRectangle)"})
   void testCreateCloudyEllipse12() throws IOException {
-    // Arrange
-    PDAppearanceContentStream stream =
-        new PDAppearanceContentStream(new PDAppearanceStream(new COSStream()), true);
-    CloudyBorder cloudyBorder = new CloudyBorder(stream, 10.0d, 10.0d, PDRectangle.A3);
-
-    // Act
-    cloudyBorder.createCloudyEllipse(PDRectangle.TABLOID);
-
-    // Assert
-    PDRectangle bBox = cloudyBorder.getBBox();
-    assertEquals(-63.9279f, bBox.getLowerLeftX());
-    PDRectangle rectangle = cloudyBorder.getRectangle();
-    assertEquals(-63.9279f, rectangle.getLowerLeftX());
-    assertEquals(-63.9279f, bBox.getLowerLeftY());
-    assertEquals(-63.9279f, rectangle.getLowerLeftY());
-    assertEquals(113.81767f, bBox.getUpperRightX());
-    assertEquals(113.81767f, rectangle.getUpperRightX());
-    assertEquals(127.8558f, bBox.getHeight());
-    assertEquals(127.8558f, rectangle.getHeight());
-    assertEquals(177.74557f, bBox.getWidth());
-    assertEquals(177.74557f, rectangle.getWidth());
-    PDRectangle rectDifference = cloudyBorder.getRectDifference();
-    assertEquals(3.8146973E-6f, rectDifference.getWidth());
-    assertEquals(33.448734f, rectDifference.getHeight());
-    AffineTransform matrix = cloudyBorder.getMatrix();
-    assertEquals(63.92789888754142d, matrix.getTranslateX());
-    assertEquals(63.92789888754143d, matrix.getTranslateY());
-    assertEquals(63.927902f, rectDifference.getUpperRightX());
-    assertEquals(63.9279f, rectDifference.getLowerLeftX());
-    assertEquals(63.9279f, rectDifference.getLowerLeftY());
-    assertEquals(63.9279f, bBox.getUpperRightY());
-    assertEquals(63.9279f, rectangle.getUpperRightY());
-    assertEquals(97.37663f, rectDifference.getUpperRightY());
-  }
-
-  /**
-   * Test {@link CloudyBorder#createCloudyEllipse(PDRectangle)}.
-   *
-   * <p>Method under test: {@link CloudyBorder#createCloudyEllipse(PDRectangle)}
-   */
-  @Test
-  @DisplayName("Test createCloudyEllipse(PDRectangle)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void CloudyBorder.createCloudyEllipse(PDRectangle)"})
-  void testCreateCloudyEllipse13() throws IOException {
     // Arrange
     PDAppearanceContentStream stream =
         new PDAppearanceContentStream(new PDAppearanceStream(new COSStream()));

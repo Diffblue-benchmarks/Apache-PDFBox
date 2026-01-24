@@ -84,30 +84,6 @@ class RandomAccessInputStreamDiffblueTest {
    * Test {@link RandomAccessInputStream#read(byte[], int, int)} with {@code byte[]}, {@code int},
    * {@code int}.
    *
-   * <p>Method under test: {@link RandomAccessInputStream#read(byte[], int, int)}
-   */
-  @Test
-  @DisplayName("Test read(byte[], int, int) with 'byte[]', 'int', 'int'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"int RandomAccessInputStream.read(byte[], int, int)"})
-  void testReadWithByteIntInt() throws IOException {
-    // Arrange
-    byte[] b = new byte[] {'A', 1, 'A', 1, 'A', 1, 'A', 1, 'A', 1, 'A', 1, 'A', 1, 'A', 1};
-
-    // Act and Assert
-    assertEquals(
-        -1,
-        new RandomAccessInputStream(new RandomAccessReadView(new RandomAccessReadBuffer(), 1L, 3L))
-            .read(b, 1, 3));
-    assertArrayEquals(
-        new byte[] {'A', 1, 'A', 1, 'A', 1, 'A', 1, 'A', 1, 'A', 1, 'A', 1, 'A', 1}, b);
-  }
-
-  /**
-   * Test {@link RandomAccessInputStream#read(byte[], int, int)} with {@code byte[]}, {@code int},
-   * {@code int}.
-   *
    * <ul>
    *   <li>Given {@code A}.
    *   <li>When {@code AXAXAXAX} Bytes is {@code UTF-8}.
@@ -133,6 +109,34 @@ class RandomAccessInputStreamDiffblueTest {
     // Act and Assert
     assertEquals(3, new RandomAccessInputStream(randomAccessRead).read(b, 1, 3));
     assertArrayEquals(new byte[] {'A', 'A', 1, 'A', 'A', 'X', 'A', 'X'}, b);
+  }
+
+  /**
+   * Test {@link RandomAccessInputStream#read(byte[], int, int)} with {@code byte[]}, {@code int},
+   * {@code int}.
+   *
+   * <ul>
+   *   <li>Then array of {@code byte} with one and {@code X}.
+   * </ul>
+   *
+   * <p>Method under test: {@link RandomAccessInputStream#read(byte[], int, int)}
+   */
+  @Test
+  @DisplayName(
+      "Test read(byte[], int, int) with 'byte[]', 'int', 'int'; then array of byte with one and 'X'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"int RandomAccessInputStream.read(byte[], int, int)"})
+  void testReadWithByteIntInt_thenArrayOfByteWithOneAndX() throws IOException {
+    // Arrange
+    byte[] b = new byte[] {1, 'X', 'A', 'X', 'A', 'X', 'A', 'X'};
+
+    // Act and Assert
+    assertEquals(
+        -1,
+        new RandomAccessInputStream(new RandomAccessReadView(new RandomAccessReadBuffer(), 1L, 3L))
+            .read(b, 1, 3));
+    assertArrayEquals(new byte[] {1, 'X', 'A', 'X', 'A', 'X', 'A', 'X'}, b);
   }
 
   /**

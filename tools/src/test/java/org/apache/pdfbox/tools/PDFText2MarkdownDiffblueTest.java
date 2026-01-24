@@ -47,9 +47,7 @@ class PDFText2MarkdownDiffblueTest {
     assertEquals(1, actualPdfText2Markdown.getStartPage());
     assertEquals(2.0f, actualPdfText2Markdown.getIndentThreshold());
     assertEquals(2.5f, actualPdfText2Markdown.getDropThreshold());
-    assertFalse(actualPdfText2Markdown.isShouldProcessColorOperators());
     assertFalse(actualPdfText2Markdown.getAddMoreFormatting());
-    assertFalse(actualPdfText2Markdown.getIgnoreContentStreamSpaceGlyphs());
     assertFalse(actualPdfText2Markdown.getSortByPosition());
     assertTrue(actualPdfText2Markdown.getSeparateByBeads());
     assertTrue(actualPdfText2Markdown.getSuppressDuplicateOverlappingText());

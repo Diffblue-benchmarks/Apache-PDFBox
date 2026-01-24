@@ -8,11 +8,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.List;
+import org.apache.pdfbox.cos.COSArray;
 import org.apache.pdfbox.cos.COSBase;
 import org.apache.pdfbox.cos.COSBoolean;
 import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.cos.COSIncrement;
-import org.apache.pdfbox.cos.COSName;
 import org.apache.pdfbox.cos.COSStream;
 import org.apache.pdfbox.cos.COSUpdateState;
 import org.junit.jupiter.api.DisplayName;
@@ -105,13 +105,9 @@ class PDDefaultAttributeObjectDiffblueTest {
   @ManagedByDiffblue
   @MethodsUnderTest({"List PDDefaultAttributeObject.getAttributeNames()"})
   void testGetAttributeNames_thenReturnSizeIsOne() {
-    // Arrange
-    PDDefaultAttributeObject pdDefaultAttributeObject =
-        new PDDefaultAttributeObject(new COSStream());
-    pdDefaultAttributeObject.setStructureElement(new PDStructureElement(new COSDictionary()));
-
-    // Act
-    List<String> actualAttributeNames = pdDefaultAttributeObject.getAttributeNames();
+    // Arrange and Act
+    List<String> actualAttributeNames =
+        new PDDefaultAttributeObject(new COSStream()).getAttributeNames();
 
     // Assert
     assertEquals(1, actualAttributeNames.size());
@@ -134,18 +130,30 @@ class PDDefaultAttributeObjectDiffblueTest {
   }
 
   /**
-   * Test {@link PDDefaultAttributeObject#getAttributeValue(String)} with {@code attrName}.
+   * Test {@link PDDefaultAttributeObject#getAttributeValue(String, COSBase)} with {@code attrName},
+   * {@code defaultValue}.
    *
-   * <p>Method under test: {@link PDDefaultAttributeObject#getAttributeValue(String)}
+   * <p>Method under test: {@link PDDefaultAttributeObject#getAttributeValue(String, COSBase)}
    */
   @Test
-  @DisplayName("Test getAttributeValue(String) with 'attrName'")
+  @DisplayName("Test getAttributeValue(String, COSBase) with 'attrName', 'defaultValue'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
-  @MethodsUnderTest({"COSBase PDDefaultAttributeObject.getAttributeValue(String)"})
-  void testGetAttributeValueWithAttrName2() {
-    // Arrange, Act and Assert
-    assertNull(new PDDefaultAttributeObject(new COSStream()).getAttributeValue("Attr Name"));
+  @MethodsUnderTest({"COSBase PDDefaultAttributeObject.getAttributeValue(String, COSBase)"})
+  void testGetAttributeValueWithAttrNameDefaultValue() {
+    // Arrange
+    PDDefaultAttributeObject pdDefaultAttributeObject =
+        new PDDefaultAttributeObject(new COSDictionary());
+    COSArray defaultValue = new COSArray();
+
+    // Act
+    COSBase actualAttributeValue =
+        pdDefaultAttributeObject.getAttributeValue("Attr Name", defaultValue);
+
+    // Assert
+    assertTrue(actualAttributeValue instanceof COSArray);
+    assertTrue(((COSArray) actualAttributeValue).toList().isEmpty());
+    assertSame(defaultValue, actualAttributeValue);
   }
 
   /**
@@ -159,14 +167,20 @@ class PDDefaultAttributeObjectDiffblueTest {
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"COSBase PDDefaultAttributeObject.getAttributeValue(String, COSBase)"})
-  void testGetAttributeValueWithAttrNameDefaultValue() {
-    // Arrange and Act
+  void testGetAttributeValueWithAttrNameDefaultValue2() {
+    // Arrange
+    PDDefaultAttributeObject pdDefaultAttributeObject =
+        new PDDefaultAttributeObject(new COSDictionary(new COSDictionary()));
+    COSArray defaultValue = new COSArray();
+
+    // Act
     COSBase actualAttributeValue =
-        new PDDefaultAttributeObject(new COSStream())
-            .getAttributeValue("Attr Name", COSBoolean.FALSE);
+        pdDefaultAttributeObject.getAttributeValue("Attr Name", defaultValue);
 
     // Assert
-    assertSame(((COSBoolean) actualAttributeValue).FALSE, actualAttributeValue);
+    assertTrue(actualAttributeValue instanceof COSArray);
+    assertTrue(((COSArray) actualAttributeValue).toList().isEmpty());
+    assertSame(defaultValue, actualAttributeValue);
   }
 
   /**
@@ -192,32 +206,6 @@ class PDDefaultAttributeObjectDiffblueTest {
 
     // Assert
     assertSame(((COSBoolean) actualAttributeValue).FALSE, actualAttributeValue);
-  }
-
-  /**
-   * Test {@link PDDefaultAttributeObject#getAttributeValue(String, COSBase)} with {@code attrName},
-   * {@code defaultValue}.
-   *
-   * <ul>
-   *   <li>When {@link COSName#A}.
-   *   <li>Then return {@link COSName#A}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDDefaultAttributeObject#getAttributeValue(String, COSBase)}
-   */
-  @Test
-  @DisplayName(
-      "Test getAttributeValue(String, COSBase) with 'attrName', 'defaultValue'; when A; then return A")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"COSBase PDDefaultAttributeObject.getAttributeValue(String, COSBase)"})
-  void testGetAttributeValueWithAttrNameDefaultValue_whenA_thenReturnA() {
-    // Arrange and Act
-    COSBase actualAttributeValue =
-        new PDDefaultAttributeObject().getAttributeValue("Attr Name", COSName.A);
-
-    // Assert
-    assertSame(((COSName) actualAttributeValue).A, actualAttributeValue);
   }
 
   /**
@@ -253,8 +241,8 @@ class PDDefaultAttributeObjectDiffblueTest {
   @MethodsUnderTest({"void PDDefaultAttributeObject.setAttribute(String, COSBase)"})
   void testSetAttribute() {
     // Arrange
-    PDDefaultAttributeObject pdDefaultAttributeObject = new PDDefaultAttributeObject();
-    pdDefaultAttributeObject.setStructureElement(new PDStructureElement(new COSDictionary()));
+    PDDefaultAttributeObject pdDefaultAttributeObject =
+        new PDDefaultAttributeObject(new COSDictionary());
 
     // Act
     pdDefaultAttributeObject.setAttribute("Attr Name", COSBoolean.FALSE);
@@ -281,7 +269,7 @@ class PDDefaultAttributeObjectDiffblueTest {
   void testSetAttribute2() {
     // Arrange
     PDDefaultAttributeObject pdDefaultAttributeObject = new PDDefaultAttributeObject();
-    pdDefaultAttributeObject.setStructureElement(new PDStructureElement(new COSStream()));
+    pdDefaultAttributeObject.setStructureElement(new PDStructureElement(new COSDictionary()));
 
     // Act
     pdDefaultAttributeObject.setAttribute("Attr Name", COSBoolean.FALSE);
@@ -421,12 +409,9 @@ class PDDefaultAttributeObjectDiffblueTest {
   @ManagedByDiffblue
   @MethodsUnderTest({"String PDDefaultAttributeObject.toString()"})
   void testToString_thenReturnONullAttributesLengthCOSInt0() {
-    // Arrange
-    PDDefaultAttributeObject pdDefaultAttributeObject =
-        new PDDefaultAttributeObject(new COSStream());
-    pdDefaultAttributeObject.setStructureElement(new PDStructureElement(new COSDictionary()));
-
-    // Act and Assert
-    assertEquals("O=null, attributes={Length=COSInt{0}}", pdDefaultAttributeObject.toString());
+    // Arrange, Act and Assert
+    assertEquals(
+        "O=null, attributes={Length=COSInt{0}}",
+        new PDDefaultAttributeObject(new COSStream()).toString());
   }
 }

@@ -70,14 +70,14 @@ class COSObjectPoolDiffblueTest {
   void testPut2() {
     // Arrange
     COSObjectPool cosObjectPool = new COSObjectPool(1L);
-    cosObjectPool.put(new COSObjectKey(5L, 5), COSBoolean.FALSE);
+    cosObjectPool.put(new COSObjectKey(1237L, 1237), COSBoolean.FALSE);
     COSObjectKey key = new COSObjectKey(1L, 1);
 
     // Act
     COSObjectKey actualPutResult = cosObjectPool.put(key, COSBoolean.FALSE);
 
     // Assert
-    assertEquals(5L, cosObjectPool.getHighestXRefObjectNumber());
+    assertEquals(1237L, cosObjectPool.getHighestXRefObjectNumber());
     assertSame(key, actualPutResult);
   }
 
@@ -96,7 +96,7 @@ class COSObjectPoolDiffblueTest {
     COSObjectPool cosObjectPool = new COSObjectPool(1L);
     cosObjectPool.put(new COSObjectKey(1L, 1), COSBoolean.FALSE);
     COSObjectKey key = new COSObjectKey(1L, 1);
-    COSObjectKey key2 = new COSObjectKey(5L, 5);
+    COSObjectKey key2 = new COSObjectKey(1237L, 1237);
     COSObject object = new COSObject(key2, new COSParser(new RandomAccessReadWriteBuffer()));
 
     // Act
@@ -114,20 +114,20 @@ class COSObjectPoolDiffblueTest {
    * Test {@link COSObjectPool#put(COSObjectKey, COSBase)}.
    *
    * <ul>
-   *   <li>Then return InternalHash is {@code 393216}.
+   *   <li>Then return Number is {@code 1238}.
    * </ul>
    *
    * <p>Method under test: {@link COSObjectPool#put(COSObjectKey, COSBase)}
    */
   @Test
-  @DisplayName("Test put(COSObjectKey, COSBase); then return InternalHash is '393216'")
+  @DisplayName("Test put(COSObjectKey, COSBase); then return Number is '1238'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"COSObjectKey COSObjectPool.put(COSObjectKey, COSBase)"})
-  void testPut_thenReturnInternalHashIs393216() {
+  void testPut_thenReturnNumberIs1238() {
     // Arrange
     COSObjectPool cosObjectPool = new COSObjectPool(1L);
-    cosObjectPool.put(new COSObjectKey(5L, 5), COSBoolean.FALSE);
+    cosObjectPool.put(new COSObjectKey(1237L, 1237), COSBoolean.FALSE);
 
     // Act
     COSObjectKey actualPutResult = cosObjectPool.put(null, COSBoolean.FALSE);
@@ -135,17 +135,17 @@ class COSObjectPoolDiffblueTest {
     // Assert
     assertEquals(-1, actualPutResult.getStreamIndex());
     assertEquals(0, actualPutResult.getGeneration());
-    assertEquals(393216L, actualPutResult.getInternalHash());
-    assertEquals(6L, actualPutResult.getNumber());
-    assertEquals(6L, cosObjectPool.getHighestXRefObjectNumber());
+    assertEquals(1238L, actualPutResult.getNumber());
+    assertEquals(1238L, cosObjectPool.getHighestXRefObjectNumber());
+    assertEquals(81133568L, actualPutResult.getInternalHash());
   }
 
   /**
    * Test {@link COSObjectPool#put(COSObjectKey, COSBase)}.
    *
    * <ul>
-   *   <li>When {@link COSObjectKey#COSObjectKey(long, int, int)} with num is five and gen is five
-   *       and index is one.
+   *   <li>When {@link COSObjectKey#COSObjectKey(long, int, int)} with num is {@code 1237} and gen
+   *       is {@code 1237} and index is one.
    *   <li>Then return {@code null}.
    * </ul>
    *
@@ -153,18 +153,18 @@ class COSObjectPoolDiffblueTest {
    */
   @Test
   @DisplayName(
-      "Test put(COSObjectKey, COSBase); when COSObjectKey(long, int, int) with num is five and gen is five and index is one; then return 'null'")
+      "Test put(COSObjectKey, COSBase); when COSObjectKey(long, int, int) with num is '1237' and gen is '1237' and index is one; then return 'null'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"COSObjectKey COSObjectPool.put(COSObjectKey, COSBase)"})
-  void testPut_whenCOSObjectKeyWithNumIsFiveAndGenIsFiveAndIndexIsOne_thenReturnNull() {
+  void testPut_whenCOSObjectKeyWithNumIs1237AndGenIs1237AndIndexIsOne_thenReturnNull() {
     // Arrange
     COSObjectPool cosObjectPool = new COSObjectPool(1L);
-    cosObjectPool.put(new COSObjectKey(5L, 5), COSBoolean.FALSE);
+    cosObjectPool.put(new COSObjectKey(1237L, 1237), COSBoolean.FALSE);
 
     // Act and Assert
-    assertNull(cosObjectPool.put(new COSObjectKey(5L, 5, 1), COSBoolean.FALSE));
-    assertEquals(5L, cosObjectPool.getHighestXRefObjectNumber());
+    assertNull(cosObjectPool.put(new COSObjectKey(1237L, 1237, 1), COSBoolean.FALSE));
+    assertEquals(1237L, cosObjectPool.getHighestXRefObjectNumber());
   }
 
   /**
@@ -188,7 +188,7 @@ class COSObjectPoolDiffblueTest {
     // Arrange
     COSObjectPool cosObjectPool = new COSObjectPool(1L);
     COSObjectKey key = new COSObjectKey(1L, 1);
-    COSObjectKey key2 = new COSObjectKey(5L, 5);
+    COSObjectKey key2 = new COSObjectKey(1237L, 1237);
     COSObject object = new COSObject(key2, new COSParser(new RandomAccessReadWriteBuffer()));
 
     // Act
@@ -219,7 +219,7 @@ class COSObjectPoolDiffblueTest {
     // Arrange
     COSObjectPool cosObjectPool = new COSObjectPool(1L);
     COSObjectKey key = new COSObjectKey(1L, 1);
-    COSObject object = new COSObject(COSBoolean.FALSE, new COSObjectKey(5L, 5));
+    COSObject object = new COSObject(COSBoolean.FALSE, new COSObjectKey(1237L, 1237));
 
     // Act
     COSObjectKey actualPutResult = cosObjectPool.put(key, object);
@@ -248,15 +248,15 @@ class COSObjectPoolDiffblueTest {
   void testPut_whenCOSObjectWithObjectIsFalseAndObjectKeyIsCOSObjectKey2() {
     // Arrange
     COSObjectPool cosObjectPool = new COSObjectPool(1L);
-    cosObjectPool.put(new COSObjectKey(5L, 5), COSBoolean.FALSE);
+    cosObjectPool.put(new COSObjectKey(1237L, 1237), COSBoolean.FALSE);
     COSObjectKey key = new COSObjectKey(1L, 1);
-    COSObject object = new COSObject(COSBoolean.FALSE, new COSObjectKey(5L, 5));
+    COSObject object = new COSObject(COSBoolean.FALSE, new COSObjectKey(1237L, 1237));
 
     // Act
     COSObjectKey actualPutResult = cosObjectPool.put(key, object);
 
     // Assert
-    assertEquals(5L, cosObjectPool.getHighestXRefObjectNumber());
+    assertEquals(1237L, cosObjectPool.getHighestXRefObjectNumber());
     assertSame(key, actualPutResult);
   }
 
@@ -334,7 +334,7 @@ class COSObjectPoolDiffblueTest {
     COSObjectPool cosObjectPool = new COSObjectPool(1L);
     COSObjectKey key = new COSObjectKey(1L, 1);
     cosObjectPool.put(key, COSBoolean.FALSE);
-    COSObject object = new COSObject(COSBoolean.FALSE, new COSObjectKey(1L, 1));
+    COSObject object = new COSObject(COSBoolean.FALSE, new COSObjectKey(1237L, 1237));
 
     // Act
     COSObjectKey actualKey = cosObjectPool.getKey(object);
@@ -365,7 +365,7 @@ class COSObjectPoolDiffblueTest {
       throws IOException {
     // Arrange
     COSObjectPool cosObjectPool = new COSObjectPool(1L);
-    COSObjectKey key = new COSObjectKey(1L, 1);
+    COSObjectKey key = new COSObjectKey(1237L, 1237);
     COSObject object = new COSObject(key, new COSParser(new RandomAccessReadWriteBuffer()));
 
     // Act
@@ -394,7 +394,7 @@ class COSObjectPoolDiffblueTest {
   void testGetKey_whenCOSObjectWithObjectIsFalseAndObjectKeyIsCOSObjectKey() {
     // Arrange
     COSObjectPool cosObjectPool = new COSObjectPool(1L);
-    COSObject object = new COSObject(COSBoolean.FALSE, new COSObjectKey(1L, 1));
+    COSObject object = new COSObject(COSBoolean.FALSE, new COSObjectKey(1237L, 1237));
 
     // Act
     COSObjectKey actualKey = cosObjectPool.getKey(object);
@@ -427,32 +427,6 @@ class COSObjectPoolDiffblueTest {
    * Test {@link COSObjectPool#contains(COSObjectKey)} with {@code key}.
    *
    * <ul>
-   *   <li>Given {@link COSObjectPool#COSObjectPool(long)} with highestXRefObjectNumber is one.
-   * </ul>
-   *
-   * <p>Method under test: {@link COSObjectPool#contains(COSObjectKey)}
-   */
-  @Test
-  @DisplayName(
-      "Test contains(COSObjectKey) with 'key'; given COSObjectPool(long) with highestXRefObjectNumber is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean COSObjectPool.contains(COSObjectKey)"})
-  void testContainsWithKey_givenCOSObjectPoolWithHighestXRefObjectNumberIsOne() {
-    // Arrange
-    COSObjectPool cosObjectPool = new COSObjectPool(1L);
-
-    // Act
-    boolean actualContainsResult = cosObjectPool.contains(new COSObjectKey(1L, 1));
-
-    // Assert
-    assertFalse(actualContainsResult);
-  }
-
-  /**
-   * Test {@link COSObjectPool#contains(COSObjectKey)} with {@code key}.
-   *
-   * <ul>
    *   <li>Then return {@code false}.
    * </ul>
    *
@@ -466,7 +440,6 @@ class COSObjectPoolDiffblueTest {
   void testContainsWithKey_thenReturnFalse() {
     // Arrange
     COSObjectPool cosObjectPool = new COSObjectPool(1L);
-    cosObjectPool.put(new COSObjectKey(5L, 5), COSBoolean.FALSE);
 
     // Act
     boolean actualContainsResult = cosObjectPool.contains(new COSObjectKey(1L, 1));
@@ -492,33 +465,84 @@ class COSObjectPoolDiffblueTest {
   void testContainsWithKey_thenReturnTrue() {
     // Arrange
     COSObjectPool cosObjectPool = new COSObjectPool(1L);
+    cosObjectPool.put(new COSObjectKey(1L, 1), COSBoolean.FALSE);
     cosObjectPool.put(new COSObjectKey(5L, 5), COSBoolean.FALSE);
 
     // Act
-    boolean actualContainsResult = cosObjectPool.contains(new COSObjectKey(5L, 5, 1));
+    boolean actualContainsResult = cosObjectPool.contains(new COSObjectKey(1L, 1));
 
     // Assert
     assertTrue(actualContainsResult);
   }
 
   /**
+   * Test {@link COSObjectPool#contains(COSObjectKey)} with {@code key}.
+   *
+   * <ul>
+   *   <li>When {@code null}.
+   *   <li>Then return {@code false}.
+   * </ul>
+   *
+   * <p>Method under test: {@link COSObjectPool#contains(COSObjectKey)}
+   */
+  @Test
+  @DisplayName("Test contains(COSObjectKey) with 'key'; when 'null'; then return 'false'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean COSObjectPool.contains(COSObjectKey)"})
+  void testContainsWithKey_whenNull_thenReturnFalse() {
+    // Arrange, Act and Assert
+    assertFalse(new COSObjectPool(1L).contains((COSObjectKey) null));
+  }
+
+  /**
    * Test {@link COSObjectPool#contains(COSBase)} with {@code object}.
    *
    * <ul>
-   *   <li>Given {@link COSObjectPool#COSObjectPool(long)} with highestXRefObjectNumber is one.
+   *   <li>Then return {@code true}.
    * </ul>
    *
    * <p>Method under test: {@link COSObjectPool#contains(COSBase)}
    */
   @Test
-  @DisplayName(
-      "Test contains(COSBase) with 'object'; given COSObjectPool(long) with highestXRefObjectNumber is one")
+  @DisplayName("Test contains(COSBase) with 'object'; then return 'true'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"boolean COSObjectPool.contains(COSBase)"})
-  void testContainsWithObject_givenCOSObjectPoolWithHighestXRefObjectNumberIsOne() {
-    // Arrange, Act and Assert
-    assertFalse(new COSObjectPool(1L).contains(COSBoolean.FALSE));
+  void testContainsWithObject_thenReturnTrue() {
+    // Arrange
+    COSObjectPool cosObjectPool = new COSObjectPool(1L);
+    cosObjectPool.put(new COSObjectKey(1237L, 1237), COSBoolean.FALSE);
+
+    // Act and Assert
+    assertTrue(cosObjectPool.contains(COSBoolean.FALSE));
+  }
+
+  /**
+   * Test {@link COSObjectPool#contains(COSBase)} with {@code object}.
+   *
+   * <ul>
+   *   <li>Then return {@code true}.
+   * </ul>
+   *
+   * <p>Method under test: {@link COSObjectPool#contains(COSBase)}
+   */
+  @Test
+  @DisplayName("Test contains(COSBase) with 'object'; then return 'true'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean COSObjectPool.contains(COSBase)"})
+  void testContainsWithObject_thenReturnTrue2() {
+    // Arrange
+    COSObjectPool cosObjectPool = new COSObjectPool(1L);
+    cosObjectPool.put(new COSObjectKey(1237L, 1237), COSBoolean.FALSE);
+    COSObject object = new COSObject(COSBoolean.FALSE, new COSObjectKey(1237L, 1237));
+
+    // Act
+    boolean actualContainsResult = cosObjectPool.contains(object);
+
+    // Assert
+    assertTrue(actualContainsResult);
   }
 
   /**
@@ -542,7 +566,6 @@ class COSObjectPoolDiffblueTest {
       throws IOException {
     // Arrange
     COSObjectPool cosObjectPool = new COSObjectPool(1L);
-    cosObjectPool.put(new COSObjectKey(1L, 1), COSBoolean.FALSE);
     COSObjectKey key = new COSObjectKey(1237L, 1237);
     COSObject object = new COSObject(key, new COSParser(new RandomAccessReadWriteBuffer()));
 
@@ -572,14 +595,13 @@ class COSObjectPoolDiffblueTest {
   void testContainsWithObject_whenCOSObjectWithObjectIsFalseAndObjectKeyIsCOSObjectKey() {
     // Arrange
     COSObjectPool cosObjectPool = new COSObjectPool(1L);
-    cosObjectPool.put(new COSObjectKey(1L, 1), COSBoolean.FALSE);
     COSObject object = new COSObject(COSBoolean.FALSE, new COSObjectKey(1237L, 1237));
 
     // Act
     boolean actualContainsResult = cosObjectPool.contains(object);
 
     // Assert
-    assertTrue(actualContainsResult);
+    assertFalse(actualContainsResult);
   }
 
   /**
@@ -587,23 +609,19 @@ class COSObjectPoolDiffblueTest {
    *
    * <ul>
    *   <li>When {@link COSBoolean#FALSE}.
-   *   <li>Then return {@code true}.
+   *   <li>Then return {@code false}.
    * </ul>
    *
    * <p>Method under test: {@link COSObjectPool#contains(COSBase)}
    */
   @Test
-  @DisplayName("Test contains(COSBase) with 'object'; when FALSE; then return 'true'")
+  @DisplayName("Test contains(COSBase) with 'object'; when FALSE; then return 'false'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"boolean COSObjectPool.contains(COSBase)"})
-  void testContainsWithObject_whenFalse_thenReturnTrue() {
-    // Arrange
-    COSObjectPool cosObjectPool = new COSObjectPool(1L);
-    cosObjectPool.put(new COSObjectKey(1L, 1), COSBoolean.FALSE);
-
-    // Act and Assert
-    assertTrue(cosObjectPool.contains(COSBoolean.FALSE));
+  void testContainsWithObject_whenFalse_thenReturnFalse() {
+    // Arrange, Act and Assert
+    assertFalse(new COSObjectPool(1L).contains(COSBoolean.FALSE));
   }
 
   /**
@@ -657,6 +675,26 @@ class COSObjectPoolDiffblueTest {
 
     // Assert
     assertSame(((COSBoolean) actualObject).FALSE, actualObject);
+  }
+
+  /**
+   * Test {@link COSObjectPool#getObject(COSObjectKey)}.
+   *
+   * <ul>
+   *   <li>When {@code null}.
+   *   <li>Then return {@code null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link COSObjectPool#getObject(COSObjectKey)}
+   */
+  @Test
+  @DisplayName("Test getObject(COSObjectKey); when 'null'; then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"COSBase COSObjectPool.getObject(COSObjectKey)"})
+  void testGetObject_whenNull_thenReturnNull() {
+    // Arrange, Act and Assert
+    assertNull(new COSObjectPool(1L).getObject(null));
   }
 
   /**

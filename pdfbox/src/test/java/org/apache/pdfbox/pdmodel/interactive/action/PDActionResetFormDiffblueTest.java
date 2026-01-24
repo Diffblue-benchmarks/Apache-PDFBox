@@ -97,28 +97,6 @@ class PDActionResetFormDiffblueTest {
    * Test {@link PDActionResetForm#getFields()}.
    *
    * <ul>
-   *   <li>Given {@link PDActionResetForm#PDActionResetForm(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDActionResetForm#getFields()}
-   */
-  @Test
-  @DisplayName(
-      "Test getFields(); given PDActionResetForm(COSDictionary) with a is COSDictionary(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"COSArray PDActionResetForm.getFields()"})
-  void testGetFields_givenPDActionResetFormWithAIsCOSDictionary_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull(new PDActionResetForm(new COSDictionary()).getFields());
-  }
-
-  /**
-   * Test {@link PDActionResetForm#getFields()}.
-   *
-   * <ul>
    *   <li>Given {@link PDActionResetForm#PDActionResetForm()}.
    *   <li>Then return {@code null}.
    * </ul>
@@ -285,28 +263,6 @@ class PDActionResetFormDiffblueTest {
 
     // Act and Assert
     assertEquals(1, pdActionResetForm.getFlags());
-  }
-
-  /**
-   * Test {@link PDActionResetForm#getFlags()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDActionResetForm#PDActionResetForm(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return zero.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDActionResetForm#getFlags()}
-   */
-  @Test
-  @DisplayName(
-      "Test getFlags(); given PDActionResetForm(COSDictionary) with a is COSDictionary(); then return zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"int PDActionResetForm.getFlags()"})
-  void testGetFlags_givenPDActionResetFormWithAIsCOSDictionary_thenReturnZero() {
-    // Arrange, Act and Assert
-    assertEquals(0, new PDActionResetForm(new COSDictionary()).getFlags());
   }
 
   /**

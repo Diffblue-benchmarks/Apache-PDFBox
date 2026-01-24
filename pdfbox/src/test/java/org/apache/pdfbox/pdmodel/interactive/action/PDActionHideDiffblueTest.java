@@ -97,28 +97,6 @@ class PDActionHideDiffblueTest {
    * Test {@link PDActionHide#getT()}.
    *
    * <ul>
-   *   <li>Given {@link PDActionHide#PDActionHide(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDActionHide#getT()}
-   */
-  @Test
-  @DisplayName(
-      "Test getT(); given PDActionHide(COSDictionary) with a is COSDictionary(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"COSBase PDActionHide.getT()"})
-  void testGetT_givenPDActionHideWithAIsCOSDictionary_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull(new PDActionHide(new COSDictionary()).getT());
-  }
-
-  /**
-   * Test {@link PDActionHide#getT()}.
-   *
-   * <ul>
    *   <li>Given {@link PDActionHide#PDActionHide()}.
    *   <li>Then return {@code null}.
    * </ul>
@@ -365,28 +343,6 @@ class PDActionHideDiffblueTest {
 
     // Act and Assert
     assertTrue(pdActionHide.getH());
-  }
-
-  /**
-   * Test {@link PDActionHide#getH()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDActionHide#PDActionHide(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code true}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDActionHide#getH()}
-   */
-  @Test
-  @DisplayName(
-      "Test getH(); given PDActionHide(COSDictionary) with a is COSDictionary(); then return 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean PDActionHide.getH()"})
-  void testGetH_givenPDActionHideWithAIsCOSDictionary_thenReturnTrue() {
-    // Arrange, Act and Assert
-    assertTrue(new PDActionHide(new COSDictionary()).getH());
   }
 
   /**

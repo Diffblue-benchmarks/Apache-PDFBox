@@ -332,48 +332,6 @@ class PDDocumentNameDictionaryDiffblueTest {
   /**
    * Test {@link PDDocumentNameDictionary#getEmbeddedFiles()}.
    *
-   * <p>Method under test: {@link PDDocumentNameDictionary#getEmbeddedFiles()}
-   */
-  @Test
-  @DisplayName("Test getEmbeddedFiles()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDEmbeddedFilesNameTreeNode PDDocumentNameDictionary.getEmbeddedFiles()"})
-  void testGetEmbeddedFiles() {
-    // Arrange
-    PDDocumentNameDictionary pdDocumentNameDictionary =
-        new PDDocumentNameDictionary(new PDDocumentCatalog(new PDDocument()));
-    pdDocumentNameDictionary.setDests(new PDDestinationNameTreeNode());
-
-    // Act and Assert
-    assertNull(pdDocumentNameDictionary.getEmbeddedFiles());
-  }
-
-  /**
-   * Test {@link PDDocumentNameDictionary#getEmbeddedFiles()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDDocumentNameDictionary#PDDocumentNameDictionary(PDDocumentCatalog)} with
-   *       cat is {@link PDDocumentCatalog#PDDocumentCatalog(PDDocument)}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentNameDictionary#getEmbeddedFiles()}
-   */
-  @Test
-  @DisplayName(
-      "Test getEmbeddedFiles(); given PDDocumentNameDictionary(PDDocumentCatalog) with cat is PDDocumentCatalog(PDDocument)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDEmbeddedFilesNameTreeNode PDDocumentNameDictionary.getEmbeddedFiles()"})
-  void testGetEmbeddedFiles_givenPDDocumentNameDictionaryWithCatIsPDDocumentCatalog() {
-    // Arrange, Act and Assert
-    assertNull(
-        new PDDocumentNameDictionary(new PDDocumentCatalog(new PDDocument())).getEmbeddedFiles());
-  }
-
-  /**
-   * Test {@link PDDocumentNameDictionary#getEmbeddedFiles()}.
-   *
    * <ul>
    *   <li>Then return LowerLimit is {@code null}.
    * </ul>
@@ -407,6 +365,26 @@ class PDDocumentNameDictionaryDiffblueTest {
     assertTrue(cOSObject.getValues().isEmpty());
     assertTrue(cOSObject.isNeedToBeUpdated());
     assertTrue(actualEmbeddedFiles.isRootNode());
+  }
+
+  /**
+   * Test {@link PDDocumentNameDictionary#getEmbeddedFiles()}.
+   *
+   * <ul>
+   *   <li>Then return {@code null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDDocumentNameDictionary#getEmbeddedFiles()}
+   */
+  @Test
+  @DisplayName("Test getEmbeddedFiles(); then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDEmbeddedFilesNameTreeNode PDDocumentNameDictionary.getEmbeddedFiles()"})
+  void testGetEmbeddedFiles_thenReturnNull() {
+    // Arrange, Act and Assert
+    assertNull(
+        new PDDocumentNameDictionary(new PDDocumentCatalog(new PDDocument())).getEmbeddedFiles());
   }
 
   /**
@@ -586,48 +564,6 @@ class PDDocumentNameDictionaryDiffblueTest {
   /**
    * Test {@link PDDocumentNameDictionary#getJavaScript()}.
    *
-   * <p>Method under test: {@link PDDocumentNameDictionary#getJavaScript()}
-   */
-  @Test
-  @DisplayName("Test getJavaScript()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDJavascriptNameTreeNode PDDocumentNameDictionary.getJavaScript()"})
-  void testGetJavaScript() {
-    // Arrange
-    PDDocumentNameDictionary pdDocumentNameDictionary =
-        new PDDocumentNameDictionary(new PDDocumentCatalog(new PDDocument()));
-    pdDocumentNameDictionary.setDests(new PDDestinationNameTreeNode());
-
-    // Act and Assert
-    assertNull(pdDocumentNameDictionary.getJavaScript());
-  }
-
-  /**
-   * Test {@link PDDocumentNameDictionary#getJavaScript()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDDocumentNameDictionary#PDDocumentNameDictionary(PDDocumentCatalog)} with
-   *       cat is {@link PDDocumentCatalog#PDDocumentCatalog(PDDocument)}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentNameDictionary#getJavaScript()}
-   */
-  @Test
-  @DisplayName(
-      "Test getJavaScript(); given PDDocumentNameDictionary(PDDocumentCatalog) with cat is PDDocumentCatalog(PDDocument)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDJavascriptNameTreeNode PDDocumentNameDictionary.getJavaScript()"})
-  void testGetJavaScript_givenPDDocumentNameDictionaryWithCatIsPDDocumentCatalog() {
-    // Arrange, Act and Assert
-    assertNull(
-        new PDDocumentNameDictionary(new PDDocumentCatalog(new PDDocument())).getJavaScript());
-  }
-
-  /**
-   * Test {@link PDDocumentNameDictionary#getJavaScript()}.
-   *
    * <ul>
    *   <li>Then return LowerLimit is {@code null}.
    * </ul>
@@ -661,6 +597,26 @@ class PDDocumentNameDictionaryDiffblueTest {
     assertTrue(cOSObject.getValues().isEmpty());
     assertTrue(cOSObject.isNeedToBeUpdated());
     assertTrue(actualJavaScript.isRootNode());
+  }
+
+  /**
+   * Test {@link PDDocumentNameDictionary#getJavaScript()}.
+   *
+   * <ul>
+   *   <li>Then return {@code null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDDocumentNameDictionary#getJavaScript()}
+   */
+  @Test
+  @DisplayName("Test getJavaScript(); then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDJavascriptNameTreeNode PDDocumentNameDictionary.getJavaScript()"})
+  void testGetJavaScript_thenReturnNull() {
+    // Arrange, Act and Assert
+    assertNull(
+        new PDDocumentNameDictionary(new PDDocumentCatalog(new PDDocument())).getJavaScript());
   }
 
   /**

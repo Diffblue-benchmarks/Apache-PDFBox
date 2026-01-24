@@ -12,14 +12,15 @@ import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import java.util.Set;
+import org.apache.pdfbox.contentstream.operator.DrawObject;
 import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDMMType1Font;
-import org.apache.pdfbox.pdmodel.font.PDTrueTypeFont;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.apache.pdfbox.pdmodel.font.PDType3Font;
 import org.apache.pdfbox.pdmodel.font.Standard14Fonts;
 import org.apache.pdfbox.pdmodel.font.Standard14Fonts.FontName;
+import org.apache.pdfbox.text.PDFTextStripper;
 import org.apache.pdfbox.text.TextPosition;
 import org.apache.pdfbox.util.Matrix;
 import org.junit.jupiter.api.DisplayName;
@@ -75,9 +76,7 @@ class AngleCollectorDiffblueTest {
     assertEquals(1, actualAngleCollector.getStartPage());
     assertEquals(2.0f, actualAngleCollector.getIndentThreshold());
     assertEquals(2.5f, actualAngleCollector.getDropThreshold());
-    assertFalse(actualAngleCollector.isShouldProcessColorOperators());
     assertFalse(actualAngleCollector.getAddMoreFormatting());
-    assertFalse(actualAngleCollector.getIgnoreContentStreamSpaceGlyphs());
     assertFalse(actualAngleCollector.getSortByPosition());
     assertTrue(actualAngleCollector.getAngles().isEmpty());
     assertTrue(actualAngleCollector.getSeparateByBeads());
@@ -98,6 +97,49 @@ class AngleCollectorDiffblueTest {
   void testGetAngles() throws IOException {
     // Arrange, Act and Assert
     assertTrue(new AngleCollector().getAngles().isEmpty());
+  }
+
+  /**
+   * Test {@link AngleCollector#processTextPosition(TextPosition)}.
+   *
+   * <ul>
+   *   <li>Given {@link AngleCollector#AngleCollector()}.
+   * </ul>
+   *
+   * <p>Method under test: {@link AngleCollector#processTextPosition(TextPosition)}
+   */
+  @Test
+  @DisplayName("Test processTextPosition(TextPosition); given AngleCollector()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void AngleCollector.processTextPosition(TextPosition)"})
+  void testProcessTextPosition_givenAngleCollector() throws IOException {
+    // Arrange
+    AngleCollector angleCollector = new AngleCollector();
+    Matrix textMatrix = new Matrix();
+
+    // Act
+    angleCollector.processTextPosition(
+        new TextPosition(
+            1,
+            10.0f,
+            10.0f,
+            textMatrix,
+            10.0f,
+            10.0f,
+            10.0f,
+            10.0f,
+            10.0f,
+            "Unicode",
+            new int[] {1, -1, 1, -1},
+            new PDMMType1Font(new COSDictionary()),
+            10.0f,
+            3));
+
+    // Assert
+    Set<Integer> angles = angleCollector.getAngles();
+    assertEquals(1, angles.size());
+    assertTrue(angles.contains(0));
   }
 
   /**
@@ -206,98 +248,6 @@ class AngleCollectorDiffblueTest {
    * Test {@link AngleCollector#processTextPosition(TextPosition)}.
    *
    * <ul>
-   *   <li>When {@link PDMMType1Font#PDMMType1Font(COSDictionary)} with fontDictionary is {@link
-   *       COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link AngleCollector#processTextPosition(TextPosition)}
-   */
-  @Test
-  @DisplayName(
-      "Test processTextPosition(TextPosition); when PDMMType1Font(COSDictionary) with fontDictionary is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void AngleCollector.processTextPosition(TextPosition)"})
-  void testProcessTextPosition_whenPDMMType1FontWithFontDictionaryIsCOSDictionary()
-      throws IOException {
-    // Arrange
-    AngleCollector angleCollector = new AngleCollector();
-    Matrix textMatrix = new Matrix();
-
-    // Act
-    angleCollector.processTextPosition(
-        new TextPosition(
-            1,
-            10.0f,
-            10.0f,
-            textMatrix,
-            10.0f,
-            10.0f,
-            10.0f,
-            10.0f,
-            10.0f,
-            "Unicode",
-            new int[] {1, -1, 1, -1},
-            new PDMMType1Font(new COSDictionary()),
-            10.0f,
-            3));
-
-    // Assert
-    Set<Integer> angles = angleCollector.getAngles();
-    assertEquals(1, angles.size());
-    assertTrue(angles.contains(0));
-  }
-
-  /**
-   * Test {@link AngleCollector#processTextPosition(TextPosition)}.
-   *
-   * <ul>
-   *   <li>When {@link PDTrueTypeFont#PDTrueTypeFont(COSDictionary)} with fontDictionary is {@link
-   *       COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link AngleCollector#processTextPosition(TextPosition)}
-   */
-  @Test
-  @DisplayName(
-      "Test processTextPosition(TextPosition); when PDTrueTypeFont(COSDictionary) with fontDictionary is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void AngleCollector.processTextPosition(TextPosition)"})
-  void testProcessTextPosition_whenPDTrueTypeFontWithFontDictionaryIsCOSDictionary()
-      throws IOException {
-    // Arrange
-    AngleCollector angleCollector = new AngleCollector();
-    Matrix textMatrix = new Matrix();
-
-    // Act
-    angleCollector.processTextPosition(
-        new TextPosition(
-            1,
-            10.0f,
-            10.0f,
-            textMatrix,
-            10.0f,
-            10.0f,
-            10.0f,
-            10.0f,
-            10.0f,
-            "Unicode",
-            new int[] {1, -1, 1, -1},
-            new PDTrueTypeFont(new COSDictionary()),
-            10.0f,
-            3));
-
-    // Assert
-    Set<Integer> angles = angleCollector.getAngles();
-    assertEquals(1, angles.size());
-    assertTrue(angles.contains(0));
-  }
-
-  /**
-   * Test {@link AngleCollector#processTextPosition(TextPosition)}.
-   *
-   * <ul>
    *   <li>When {@link PDType1Font#PDType1Font(FontName)} with baseFont is {@code TIMES_ROMAN}.
    * </ul>
    *
@@ -312,7 +262,8 @@ class AngleCollectorDiffblueTest {
   void testProcessTextPosition_whenPDType1FontWithBaseFontIsTimesRoman() throws IOException {
     // Arrange
     AngleCollector angleCollector = new AngleCollector();
-    Matrix textMatrix = Matrix.getScaleInstance(10.0f, 10.0f);
+    angleCollector.addOperator(new DrawObject(new PDFTextStripper()));
+    Matrix textMatrix = new Matrix();
 
     // Act
     angleCollector.processTextPosition(
@@ -358,7 +309,8 @@ class AngleCollectorDiffblueTest {
       throws IOException {
     // Arrange
     AngleCollector angleCollector = new AngleCollector();
-    Matrix textMatrix = Matrix.getScaleInstance(10.0f, 10.0f);
+    angleCollector.addOperator(new DrawObject(new PDFTextStripper()));
+    Matrix textMatrix = new Matrix();
 
     // Act
     angleCollector.processTextPosition(

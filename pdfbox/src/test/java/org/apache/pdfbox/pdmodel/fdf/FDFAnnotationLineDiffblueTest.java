@@ -150,28 +150,6 @@ class FDFAnnotationLineDiffblueTest {
    * Test {@link FDFAnnotationLine#getLine()}.
    *
    * <ul>
-   *   <li>Given {@link FDFAnnotationLine#FDFAnnotationLine(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationLine#getLine()}
-   */
-  @Test
-  @DisplayName(
-      "Test getLine(); given FDFAnnotationLine(COSDictionary) with a is COSDictionary(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"float[] FDFAnnotationLine.getLine()"})
-  void testGetLine_givenFDFAnnotationLineWithAIsCOSDictionary_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull(new FDFAnnotationLine(new COSDictionary()).getLine());
-  }
-
-  /**
-   * Test {@link FDFAnnotationLine#getLine()}.
-   *
-   * <ul>
    *   <li>Given {@link FDFAnnotationLine#FDFAnnotationLine()}.
    *   <li>Then return {@code null}.
    * </ul>
@@ -209,30 +187,6 @@ class FDFAnnotationLineDiffblueTest {
 
     // Act and Assert
     assertArrayEquals(new float[] {10.0f, 0.5f, 10.0f, 0.5f}, fdfAnnotationLine.getLine(), 0.0f);
-  }
-
-  /**
-   * Test {@link FDFAnnotationLine#setStartPointEndingStyle(String)}.
-   *
-   * <p>Method under test: {@link FDFAnnotationLine#setStartPointEndingStyle(String)}
-   */
-  @Test
-  @DisplayName("Test setStartPointEndingStyle(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void FDFAnnotationLine.setStartPointEndingStyle(String)"})
-  void testSetStartPointEndingStyle() {
-    // Arrange
-    FDFAnnotationLine fdfAnnotationLine = new FDFAnnotationLine(new COSDictionary());
-
-    // Act
-    fdfAnnotationLine.setStartPointEndingStyle("Style");
-
-    // Assert
-    assertEquals("Style", fdfAnnotationLine.getStartPointEndingStyle());
-    COSDictionary cOSObject = fdfAnnotationLine.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
   }
 
   /**
@@ -382,27 +336,6 @@ class FDFAnnotationLineDiffblueTest {
    * Test {@link FDFAnnotationLine#getStartPointEndingStyle()}.
    *
    * <ul>
-   *   <li>Given {@link FDFAnnotationLine#FDFAnnotationLine(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationLine#getStartPointEndingStyle()}
-   */
-  @Test
-  @DisplayName(
-      "Test getStartPointEndingStyle(); given FDFAnnotationLine(COSDictionary) with a is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String FDFAnnotationLine.getStartPointEndingStyle()"})
-  void testGetStartPointEndingStyle_givenFDFAnnotationLineWithAIsCOSDictionary() {
-    // Arrange, Act and Assert
-    assertEquals("None", new FDFAnnotationLine(new COSDictionary()).getStartPointEndingStyle());
-  }
-
-  /**
-   * Test {@link FDFAnnotationLine#getStartPointEndingStyle()}.
-   *
-   * <ul>
    *   <li>Given {@link FDFAnnotationLine#FDFAnnotationLine()}.
    *   <li>Then return {@code None}.
    * </ul>
@@ -417,30 +350,6 @@ class FDFAnnotationLineDiffblueTest {
   void testGetStartPointEndingStyle_givenFDFAnnotationLine_thenReturnNone() {
     // Arrange, Act and Assert
     assertEquals("None", new FDFAnnotationLine().getStartPointEndingStyle());
-  }
-
-  /**
-   * Test {@link FDFAnnotationLine#setEndPointEndingStyle(String)}.
-   *
-   * <p>Method under test: {@link FDFAnnotationLine#setEndPointEndingStyle(String)}
-   */
-  @Test
-  @DisplayName("Test setEndPointEndingStyle(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void FDFAnnotationLine.setEndPointEndingStyle(String)"})
-  void testSetEndPointEndingStyle() {
-    // Arrange
-    FDFAnnotationLine fdfAnnotationLine = new FDFAnnotationLine(new COSDictionary());
-
-    // Act
-    fdfAnnotationLine.setEndPointEndingStyle("Style");
-
-    // Assert
-    assertEquals("Style", fdfAnnotationLine.getEndPointEndingStyle());
-    COSDictionary cOSObject = fdfAnnotationLine.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
   }
 
   /**
@@ -478,26 +387,27 @@ class FDFAnnotationLineDiffblueTest {
    * Test {@link FDFAnnotationLine#setEndPointEndingStyle(String)}.
    *
    * <ul>
-   *   <li>Then {@link FDFAnnotationLine#FDFAnnotationLine()} EndPointEndingStyle is {@code ,}.
+   *   <li>Then {@link FDFAnnotationLine#FDFAnnotationLine()} EndPointEndingStyle is {@code
+   *       caption}.
    * </ul>
    *
    * <p>Method under test: {@link FDFAnnotationLine#setEndPointEndingStyle(String)}
    */
   @Test
   @DisplayName(
-      "Test setEndPointEndingStyle(String); then FDFAnnotationLine() EndPointEndingStyle is ','")
+      "Test setEndPointEndingStyle(String); then FDFAnnotationLine() EndPointEndingStyle is 'caption'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void FDFAnnotationLine.setEndPointEndingStyle(String)"})
-  void testSetEndPointEndingStyle_thenFDFAnnotationLineEndPointEndingStyleIsComma() {
+  void testSetEndPointEndingStyle_thenFDFAnnotationLineEndPointEndingStyleIsCaption() {
     // Arrange
     FDFAnnotationLine fdfAnnotationLine = new FDFAnnotationLine();
 
     // Act
-    fdfAnnotationLine.setEndPointEndingStyle(",");
+    fdfAnnotationLine.setEndPointEndingStyle("caption");
 
     // Assert
-    assertEquals(",", fdfAnnotationLine.getEndPointEndingStyle());
+    assertEquals("caption", fdfAnnotationLine.getEndPointEndingStyle());
     COSDictionary cOSObject = fdfAnnotationLine.getCOSObject();
     assertEquals(3, cOSObject.getValues().size());
     assertEquals(3, cOSObject.size());
@@ -590,27 +500,6 @@ class FDFAnnotationLineDiffblueTest {
    * Test {@link FDFAnnotationLine#getEndPointEndingStyle()}.
    *
    * <ul>
-   *   <li>Given {@link FDFAnnotationLine#FDFAnnotationLine(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationLine#getEndPointEndingStyle()}
-   */
-  @Test
-  @DisplayName(
-      "Test getEndPointEndingStyle(); given FDFAnnotationLine(COSDictionary) with a is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String FDFAnnotationLine.getEndPointEndingStyle()"})
-  void testGetEndPointEndingStyle_givenFDFAnnotationLineWithAIsCOSDictionary() {
-    // Arrange, Act and Assert
-    assertEquals("None", new FDFAnnotationLine(new COSDictionary()).getEndPointEndingStyle());
-  }
-
-  /**
-   * Test {@link FDFAnnotationLine#getEndPointEndingStyle()}.
-   *
-   * <ul>
    *   <li>Given {@link FDFAnnotationLine#FDFAnnotationLine()}.
    *   <li>Then return {@code None}.
    * </ul>
@@ -653,28 +542,6 @@ class FDFAnnotationLineDiffblueTest {
 
     // Assert
     verify(a).setItem(isA(COSName.class), (COSBase) isNull());
-  }
-
-  /**
-   * Test {@link FDFAnnotationLine#getInteriorColor()}.
-   *
-   * <ul>
-   *   <li>Given {@link FDFAnnotationLine#FDFAnnotationLine(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationLine#getInteriorColor()}
-   */
-  @Test
-  @DisplayName(
-      "Test getInteriorColor(); given FDFAnnotationLine(COSDictionary) with a is COSDictionary(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Color FDFAnnotationLine.getInteriorColor()"})
-  void testGetInteriorColor_givenFDFAnnotationLineWithAIsCOSDictionary_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull(new FDFAnnotationLine(new COSDictionary()).getInteriorColor());
   }
 
   /**
@@ -812,28 +679,6 @@ class FDFAnnotationLineDiffblueTest {
    * Test {@link FDFAnnotationLine#getCaption()}.
    *
    * <ul>
-   *   <li>Given {@link FDFAnnotationLine#FDFAnnotationLine(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code false}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationLine#getCaption()}
-   */
-  @Test
-  @DisplayName(
-      "Test getCaption(); given FDFAnnotationLine(COSDictionary) with a is COSDictionary(); then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean FDFAnnotationLine.getCaption()"})
-  void testGetCaption_givenFDFAnnotationLineWithAIsCOSDictionary_thenReturnFalse() {
-    // Arrange, Act and Assert
-    assertFalse(new FDFAnnotationLine(new COSDictionary()).getCaption());
-  }
-
-  /**
-   * Test {@link FDFAnnotationLine#getCaption()}.
-   *
-   * <ul>
    *   <li>Given {@link FDFAnnotationLine#FDFAnnotationLine()}.
    *   <li>Then return {@code false}.
    * </ul>
@@ -871,27 +716,6 @@ class FDFAnnotationLineDiffblueTest {
 
     // Act and Assert
     assertEquals(-1.0f, fdfAnnotationLine.getLeaderLength());
-  }
-
-  /**
-   * Test {@link FDFAnnotationLine#getLeaderLength()}.
-   *
-   * <ul>
-   *   <li>Given {@link FDFAnnotationLine#FDFAnnotationLine(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationLine#getLeaderLength()}
-   */
-  @Test
-  @DisplayName(
-      "Test getLeaderLength(); given FDFAnnotationLine(COSDictionary) with a is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"float FDFAnnotationLine.getLeaderLength()"})
-  void testGetLeaderLength_givenFDFAnnotationLineWithAIsCOSDictionary() {
-    // Arrange, Act and Assert
-    assertEquals(-1.0f, new FDFAnnotationLine(new COSDictionary()).getLeaderLength());
   }
 
   /**
@@ -969,27 +793,6 @@ class FDFAnnotationLineDiffblueTest {
    * Test {@link FDFAnnotationLine#getLeaderExtend()}.
    *
    * <ul>
-   *   <li>Given {@link FDFAnnotationLine#FDFAnnotationLine(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationLine#getLeaderExtend()}
-   */
-  @Test
-  @DisplayName(
-      "Test getLeaderExtend(); given FDFAnnotationLine(COSDictionary) with a is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"float FDFAnnotationLine.getLeaderExtend()"})
-  void testGetLeaderExtend_givenFDFAnnotationLineWithAIsCOSDictionary() {
-    // Arrange, Act and Assert
-    assertEquals(-1.0f, new FDFAnnotationLine(new COSDictionary()).getLeaderExtend());
-  }
-
-  /**
-   * Test {@link FDFAnnotationLine#getLeaderExtend()}.
-   *
-   * <ul>
    *   <li>Given {@link FDFAnnotationLine#FDFAnnotationLine()}.
    *   <li>Then return minus one.
    * </ul>
@@ -1055,27 +858,6 @@ class FDFAnnotationLineDiffblueTest {
 
     // Act and Assert
     assertEquals(-1.0f, fdfAnnotationLine.getLeaderOffset());
-  }
-
-  /**
-   * Test {@link FDFAnnotationLine#getLeaderOffset()}.
-   *
-   * <ul>
-   *   <li>Given {@link FDFAnnotationLine#FDFAnnotationLine(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationLine#getLeaderOffset()}
-   */
-  @Test
-  @DisplayName(
-      "Test getLeaderOffset(); given FDFAnnotationLine(COSDictionary) with a is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"float FDFAnnotationLine.getLeaderOffset()"})
-  void testGetLeaderOffset_givenFDFAnnotationLineWithAIsCOSDictionary() {
-    // Arrange, Act and Assert
-    assertEquals(-1.0f, new FDFAnnotationLine(new COSDictionary()).getLeaderOffset());
   }
 
   /**
@@ -1149,28 +931,6 @@ class FDFAnnotationLineDiffblueTest {
 
     // Act and Assert
     assertEquals(",", fdfAnnotationLine.getCaptionStyle());
-  }
-
-  /**
-   * Test {@link FDFAnnotationLine#getCaptionStyle()}.
-   *
-   * <ul>
-   *   <li>Given {@link FDFAnnotationLine#FDFAnnotationLine(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationLine#getCaptionStyle()}
-   */
-  @Test
-  @DisplayName(
-      "Test getCaptionStyle(); given FDFAnnotationLine(COSDictionary) with a is COSDictionary(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String FDFAnnotationLine.getCaptionStyle()"})
-  void testGetCaptionStyle_givenFDFAnnotationLineWithAIsCOSDictionary_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull(new FDFAnnotationLine(new COSDictionary()).getCaptionStyle());
   }
 
   /**
@@ -1277,30 +1037,6 @@ class FDFAnnotationLineDiffblueTest {
   /**
    * Test {@link FDFAnnotationLine#setCaptionHorizontalOffset(float)}.
    *
-   * <p>Method under test: {@link FDFAnnotationLine#setCaptionHorizontalOffset(float)}
-   */
-  @Test
-  @DisplayName("Test setCaptionHorizontalOffset(float)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void FDFAnnotationLine.setCaptionHorizontalOffset(float)"})
-  void testSetCaptionHorizontalOffset() {
-    // Arrange
-    FDFAnnotationLine fdfAnnotationLine = new FDFAnnotationLine(new COSDictionary());
-
-    // Act
-    fdfAnnotationLine.setCaptionHorizontalOffset(10.0f);
-
-    // Assert
-    COSDictionary cOSObject = fdfAnnotationLine.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-    assertEquals(10.0f, fdfAnnotationLine.getCaptionHorizontalOffset());
-  }
-
-  /**
-   * Test {@link FDFAnnotationLine#setCaptionHorizontalOffset(float)}.
-   *
    * <ul>
    *   <li>Given {@link FDFAnnotationLine#FDFAnnotationLine()}.
    * </ul>
@@ -1360,27 +1096,6 @@ class FDFAnnotationLineDiffblueTest {
    * Test {@link FDFAnnotationLine#getCaptionHorizontalOffset()}.
    *
    * <ul>
-   *   <li>Given {@link FDFAnnotationLine#FDFAnnotationLine(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationLine#getCaptionHorizontalOffset()}
-   */
-  @Test
-  @DisplayName(
-      "Test getCaptionHorizontalOffset(); given FDFAnnotationLine(COSDictionary) with a is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"float FDFAnnotationLine.getCaptionHorizontalOffset()"})
-  void testGetCaptionHorizontalOffset_givenFDFAnnotationLineWithAIsCOSDictionary() {
-    // Arrange, Act and Assert
-    assertEquals(0.0f, new FDFAnnotationLine(new COSDictionary()).getCaptionHorizontalOffset());
-  }
-
-  /**
-   * Test {@link FDFAnnotationLine#getCaptionHorizontalOffset()}.
-   *
-   * <ul>
    *   <li>Given {@link FDFAnnotationLine#FDFAnnotationLine()}.
    *   <li>Then return zero.
    * </ul>
@@ -1418,30 +1133,6 @@ class FDFAnnotationLineDiffblueTest {
 
     // Act and Assert
     assertEquals(10.0f, fdfAnnotationLine.getCaptionHorizontalOffset());
-  }
-
-  /**
-   * Test {@link FDFAnnotationLine#setCaptionVerticalOffset(float)}.
-   *
-   * <p>Method under test: {@link FDFAnnotationLine#setCaptionVerticalOffset(float)}
-   */
-  @Test
-  @DisplayName("Test setCaptionVerticalOffset(float)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void FDFAnnotationLine.setCaptionVerticalOffset(float)"})
-  void testSetCaptionVerticalOffset() {
-    // Arrange
-    FDFAnnotationLine fdfAnnotationLine = new FDFAnnotationLine(new COSDictionary());
-
-    // Act
-    fdfAnnotationLine.setCaptionVerticalOffset(10.0f);
-
-    // Assert
-    COSDictionary cOSObject = fdfAnnotationLine.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-    assertEquals(10.0f, fdfAnnotationLine.getCaptionVerticalOffset());
   }
 
   /**
@@ -1530,21 +1221,25 @@ class FDFAnnotationLineDiffblueTest {
    * Test {@link FDFAnnotationLine#getCaptionVerticalOffset()}.
    *
    * <ul>
-   *   <li>Given {@link FDFAnnotationLine#FDFAnnotationLine(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
+   *   <li>Given {@link FDFAnnotationLine#FDFAnnotationLine()} Date is {@code null}.
+   *   <li>Then return zero.
    * </ul>
    *
    * <p>Method under test: {@link FDFAnnotationLine#getCaptionVerticalOffset()}
    */
   @Test
   @DisplayName(
-      "Test getCaptionVerticalOffset(); given FDFAnnotationLine(COSDictionary) with a is COSDictionary()")
+      "Test getCaptionVerticalOffset(); given FDFAnnotationLine() Date is 'null'; then return zero")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"float FDFAnnotationLine.getCaptionVerticalOffset()"})
-  void testGetCaptionVerticalOffset_givenFDFAnnotationLineWithAIsCOSDictionary() {
-    // Arrange, Act and Assert
-    assertEquals(0.0f, new FDFAnnotationLine(new COSDictionary()).getCaptionVerticalOffset());
+  void testGetCaptionVerticalOffset_givenFDFAnnotationLineDateIsNull_thenReturnZero() {
+    // Arrange
+    FDFAnnotationLine fdfAnnotationLine = new FDFAnnotationLine();
+    fdfAnnotationLine.setDate(null);
+
+    // Act and Assert
+    assertEquals(0.0f, fdfAnnotationLine.getCaptionVerticalOffset());
   }
 
   /**

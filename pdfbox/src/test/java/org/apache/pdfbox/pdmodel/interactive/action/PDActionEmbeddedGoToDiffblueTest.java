@@ -76,29 +76,6 @@ class PDActionEmbeddedGoToDiffblueTest {
    * Test {@link PDActionEmbeddedGoTo#getDestination()}.
    *
    * <ul>
-   *   <li>Given {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDActionEmbeddedGoTo#getDestination()}
-   */
-  @Test
-  @DisplayName(
-      "Test getDestination(); given PDActionEmbeddedGoTo(COSDictionary) with a is COSDictionary(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDDestination PDActionEmbeddedGoTo.getDestination()"})
-  void testGetDestination_givenPDActionEmbeddedGoToWithAIsCOSDictionary_thenReturnNull()
-      throws IOException {
-    // Arrange, Act and Assert
-    assertNull(new PDActionEmbeddedGoTo(new COSDictionary()).getDestination());
-  }
-
-  /**
-   * Test {@link PDActionEmbeddedGoTo#getDestination()}.
-   *
-   * <ul>
    *   <li>Given {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo()}.
    *   <li>Then return {@code null}.
    * </ul>
@@ -264,29 +241,6 @@ class PDActionEmbeddedGoToDiffblueTest {
     assertThrows(
         IllegalArgumentException.class,
         () -> pdActionEmbeddedGoTo.setDestination(new PDPageFitDestination()));
-  }
-
-  /**
-   * Test {@link PDActionEmbeddedGoTo#getFile()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDActionEmbeddedGoTo#getFile()}
-   */
-  @Test
-  @DisplayName(
-      "Test getFile(); given PDActionEmbeddedGoTo(COSDictionary) with a is COSDictionary(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDFileSpecification PDActionEmbeddedGoTo.getFile()"})
-  void testGetFile_givenPDActionEmbeddedGoToWithAIsCOSDictionary_thenReturnNull()
-      throws IOException {
-    // Arrange, Act and Assert
-    assertNull(new PDActionEmbeddedGoTo(new COSDictionary()).getFile());
   }
 
   /**
@@ -502,29 +456,6 @@ class PDActionEmbeddedGoToDiffblueTest {
    * Test {@link PDActionEmbeddedGoTo#getOpenInNewWindow()}.
    *
    * <ul>
-   *   <li>Given {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDActionEmbeddedGoTo#getOpenInNewWindow()}
-   */
-  @Test
-  @DisplayName(
-      "Test getOpenInNewWindow(); given PDActionEmbeddedGoTo(COSDictionary) with a is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"OpenMode PDActionEmbeddedGoTo.getOpenInNewWindow()"})
-  void testGetOpenInNewWindow_givenPDActionEmbeddedGoToWithAIsCOSDictionary() {
-    // Arrange, Act and Assert
-    assertEquals(
-        OpenMode.USER_PREFERENCE,
-        new PDActionEmbeddedGoTo(new COSDictionary()).getOpenInNewWindow());
-  }
-
-  /**
-   * Test {@link PDActionEmbeddedGoTo#getOpenInNewWindow()}.
-   *
-   * <ul>
    *   <li>Given {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo()}.
    *   <li>Then return {@code USER_PREFERENCE}.
    * </ul>
@@ -659,27 +590,6 @@ class PDActionEmbeddedGoToDiffblueTest {
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
     assertEquals(OpenMode.USER_PREFERENCE, pdActionEmbeddedGoTo.getOpenInNewWindow());
-  }
-
-  /**
-   * Test {@link PDActionEmbeddedGoTo#getTargetDirectory()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDActionEmbeddedGoTo#getTargetDirectory()}
-   */
-  @Test
-  @DisplayName(
-      "Test getTargetDirectory(); given PDActionEmbeddedGoTo(COSDictionary) with a is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDTargetDirectory PDActionEmbeddedGoTo.getTargetDirectory()"})
-  void testGetTargetDirectory_givenPDActionEmbeddedGoToWithAIsCOSDictionary() {
-    // Arrange, Act and Assert
-    assertNull(new PDActionEmbeddedGoTo(new COSDictionary()).getTargetDirectory());
   }
 
   /**

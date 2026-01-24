@@ -25,34 +25,6 @@ class WriteDecodedDocDiffblueTest {
    * Test {@link WriteDecodedDoc#call()}.
    *
    * <ul>
-   *   <li>Given {@link File} {@link File#getAbsolutePath()} return {@code 42}.
-   *   <li>Then return intValue is four.
-   * </ul>
-   *
-   * <p>Method under test: {@link WriteDecodedDoc#call()}
-   */
-  @Test
-  @DisplayName(
-      "Test call(); given File getAbsolutePath() return '42'; then return intValue is four")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Integer WriteDecodedDoc.call()"})
-  void testCall_givenFileGetAbsolutePathReturn42_thenReturnIntValueIsFour() {
-    // Arrange
-    when(file.getAbsolutePath()).thenReturn("42");
-
-    // Act
-    Integer actualCallResult = writeDecodedDoc.call();
-
-    // Assert
-    verify(file, atLeast(1)).getAbsolutePath();
-    assertEquals(4, actualCallResult.intValue());
-  }
-
-  /**
-   * Test {@link WriteDecodedDoc#call()}.
-   *
-   * <ul>
    *   <li>Given {@link File} {@link File#getAbsolutePath()} return {@code Absolute Path}.
    *   <li>Then return intValue is four.
    * </ul>
@@ -96,34 +68,6 @@ class WriteDecodedDocDiffblueTest {
   void testCall_givenFileGetAbsolutePathReturnEmptyString_thenReturnIntValueIsFour() {
     // Arrange
     when(file.getAbsolutePath()).thenReturn("");
-
-    // Act
-    Integer actualCallResult = writeDecodedDoc.call();
-
-    // Assert
-    verify(file, atLeast(1)).getAbsolutePath();
-    assertEquals(4, actualCallResult.intValue());
-  }
-
-  /**
-   * Test {@link WriteDecodedDoc#call()}.
-   *
-   * <ul>
-   *   <li>Given {@link File} {@link File#getAbsolutePath()} return {@code foo}.
-   *   <li>Then return intValue is four.
-   * </ul>
-   *
-   * <p>Method under test: {@link WriteDecodedDoc#call()}
-   */
-  @Test
-  @DisplayName(
-      "Test call(); given File getAbsolutePath() return 'foo'; then return intValue is four")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Integer WriteDecodedDoc.call()"})
-  void testCall_givenFileGetAbsolutePathReturnFoo_thenReturnIntValueIsFour() {
-    // Arrange
-    when(file.getAbsolutePath()).thenReturn("foo");
 
     // Act
     Integer actualCallResult = writeDecodedDoc.call();

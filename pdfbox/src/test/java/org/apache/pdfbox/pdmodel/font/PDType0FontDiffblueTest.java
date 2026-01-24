@@ -39,7 +39,6 @@ import org.apache.fontbox.ttf.model.Language;
 import org.apache.fontbox.ttf.model.MapBackedGsubData;
 import org.apache.fontbox.util.BoundingBox;
 import org.apache.pdfbox.cos.COSDictionary;
-import org.apache.pdfbox.cos.COSStream;
 import org.apache.pdfbox.io.RandomAccessStreamCache;
 import org.apache.pdfbox.io.RandomAccessStreamCache.StreamCacheCreateFunction;
 import org.apache.pdfbox.io.RandomAccessStreamCacheImpl;
@@ -71,26 +70,6 @@ class PDType0FontDiffblueTest {
   void testNewPDType0Font_whenCOSDictionary_thenThrowIOException() throws IOException {
     // Arrange, Act and Assert
     assertThrows(IOException.class, () -> new PDType0Font(new COSDictionary()));
-  }
-
-  /**
-   * Test {@link PDType0Font#PDType0Font(COSDictionary)}.
-   *
-   * <ul>
-   *   <li>When {@link COSStream#COSStream()}.
-   *   <li>Then throw {@link IOException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDType0Font#PDType0Font(COSDictionary)}
-   */
-  @Test
-  @DisplayName("Test new PDType0Font(COSDictionary); when COSStream(); then throw IOException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDType0Font.<init>(COSDictionary)"})
-  void testNewPDType0Font_whenCOSStream_thenThrowIOException() throws IOException {
-    // Arrange, Act and Assert
-    assertThrows(IOException.class, () -> new PDType0Font(new COSStream()));
   }
 
   /**
@@ -788,6 +767,137 @@ class PDType0FontDiffblueTest {
    * {@code embedSubset}.
    *
    * <ul>
+   *   <li>Given {@link DataInputStream} {@link DataInputStream#markSupported()} return {@code
+   *       false}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDType0Font#load(PDDocument, TrueTypeFont, boolean)}
+   */
+  @Test
+  @DisplayName(
+      "Test load(PDDocument, TrueTypeFont, boolean) with 'doc', 'ttf', 'embedSubset'; given DataInputStream markSupported() return 'false'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDType0Font PDType0Font.load(PDDocument, TrueTypeFont, boolean)"})
+  void testLoadWithDocTtfEmbedSubset_givenDataInputStreamMarkSupportedReturnFalse()
+      throws IOException {
+    // Arrange
+    StreamCacheCreateFunction streamCacheCreateFunction = mock(StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDDocument doc = new PDDocument(streamCacheCreateFunction);
+
+    OS2WindowsMetricsTable os2WindowsMetricsTable = mock(OS2WindowsMetricsTable.class);
+    when(os2WindowsMetricsTable.getTypoAscender()).thenReturn(3);
+    when(os2WindowsMetricsTable.getTypoDescender()).thenReturn(3);
+    when(os2WindowsMetricsTable.getFamilyClass()).thenReturn(1);
+    when(os2WindowsMetricsTable.getFsSelection()).thenReturn(1);
+    when(os2WindowsMetricsTable.getVersion()).thenReturn(1);
+    when(os2WindowsMetricsTable.getWeightClass()).thenReturn(3);
+    when(os2WindowsMetricsTable.getFsType()).thenReturn((short) 1);
+
+    PostScriptTable postScriptTable = mock(PostScriptTable.class);
+    when(postScriptTable.getItalicAngle()).thenReturn(10.0f);
+    when(postScriptTable.getIsFixedPitch()).thenReturn(1L);
+
+    HorizontalHeaderTable horizontalHeaderTable = mock(HorizontalHeaderTable.class);
+    when(horizontalHeaderTable.getAscender()).thenReturn((short) 1);
+    when(horizontalHeaderTable.getDescender()).thenReturn((short) 1);
+
+    HeaderTable headerTable = mock(HeaderTable.class);
+    when(headerTable.getUnitsPerEm()).thenReturn(1);
+    when(headerTable.getXMax()).thenReturn((short) 1);
+    when(headerTable.getXMin()).thenReturn((short) 1);
+    when(headerTable.getYMax()).thenReturn((short) 1);
+    when(headerTable.getYMin()).thenReturn((short) 1);
+
+    HorizontalMetricsTable horizontalMetricsTable = mock(HorizontalMetricsTable.class);
+    when(horizontalMetricsTable.getAdvanceWidth(anyInt())).thenReturn(1);
+
+    DataInputStream dataInputStream = mock(DataInputStream.class);
+    when(dataInputStream.markSupported()).thenReturn(false);
+    when(dataInputStream.read(Mockito.<byte[]>any())).thenReturn(1);
+    when(dataInputStream.transferTo(Mockito.<OutputStream>any())).thenReturn(1L);
+    doNothing().when(dataInputStream).mark(anyInt());
+    doNothing().when(dataInputStream).close();
+
+    MaximumProfileTable maximumProfileTable = mock(MaximumProfileTable.class);
+    when(maximumProfileTable.getNumGlyphs()).thenReturn(PDPanoseClassification.LENGTH);
+
+    TrueTypeFont ttf = mock(TrueTypeFont.class);
+    when(ttf.getOriginalDataSize()).thenReturn(3L);
+    when(ttf.getMaximumProfile()).thenReturn(maximumProfileTable);
+    when(ttf.getOriginalData()).thenReturn(dataInputStream);
+    when(ttf.getUnicodeCmapLookup(anyBoolean())).thenReturn(new CmapSubtable());
+    when(ttf.getNumberOfGlyphs()).thenReturn(PDPanoseClassification.LENGTH);
+    when(ttf.getPath(Mockito.<String>any())).thenReturn(null);
+    when(ttf.getHorizontalMetrics()).thenReturn(horizontalMetricsTable);
+    when(ttf.getHeader()).thenReturn(headerTable);
+    when(ttf.getHorizontalHeader()).thenReturn(horizontalHeaderTable);
+    when(ttf.getPostScript()).thenReturn(postScriptTable);
+    when(ttf.getName()).thenReturn("Name");
+    when(ttf.getUnicodeCmapLookup()).thenReturn(new CmapSubtable());
+    when(ttf.getOS2Windows()).thenReturn(os2WindowsMetricsTable);
+    MapBackedGsubData mapBackedGsubData =
+        new MapBackedGsubData(Language.BENGALI, "Active Script Name", new HashMap<>());
+    when(ttf.getGsubData()).thenReturn(mapBackedGsubData);
+
+    // Act
+    PDType0Font actualLoadResult = PDType0Font.load(doc, ttf, false);
+
+    // Assert
+    verify(dataInputStream).read(isA(byte[].class));
+    verify(dataInputStream, atLeast(1)).close();
+    verify(dataInputStream).mark(4);
+    verify(dataInputStream).markSupported();
+    verify(dataInputStream).transferTo(isA(OutputStream.class));
+    verify(headerTable, atLeast(1)).getUnitsPerEm();
+    verify(headerTable).getXMax();
+    verify(headerTable).getXMin();
+    verify(headerTable).getYMax();
+    verify(headerTable).getYMin();
+    verify(horizontalHeaderTable).getAscender();
+    verify(horizontalHeaderTable).getDescender();
+    verify(horizontalMetricsTable, atLeast(1)).getAdvanceWidth(anyInt());
+    verify(maximumProfileTable).getNumGlyphs();
+    verify(os2WindowsMetricsTable).getFamilyClass();
+    verify(os2WindowsMetricsTable).getFsSelection();
+    verify(os2WindowsMetricsTable).getFsType();
+    verify(os2WindowsMetricsTable, atLeast(1)).getTypoAscender();
+    verify(os2WindowsMetricsTable).getTypoDescender();
+    verify(os2WindowsMetricsTable).getVersion();
+    verify(os2WindowsMetricsTable).getWeightClass();
+    verify(postScriptTable).getIsFixedPitch();
+    verify(postScriptTable).getItalicAngle();
+    verify(ttf).getGsubData();
+    verify(ttf, atLeast(1)).getHeader();
+    verify(ttf).getHorizontalHeader();
+    verify(ttf).getHorizontalMetrics();
+    verify(ttf).getMaximumProfile();
+    verify(ttf, atLeast(1)).getName();
+    verify(ttf).getNumberOfGlyphs();
+    verify(ttf, atLeast(1)).getOS2Windows();
+    verify(ttf, atLeast(1)).getOriginalData();
+    verify(ttf).getOriginalDataSize();
+    verify(ttf, atLeast(1)).getPath(Mockito.<String>any());
+    verify(ttf).getPostScript();
+    verify(ttf, atLeast(1)).getUnicodeCmapLookup();
+    verify(ttf).getUnicodeCmapLookup(false);
+    verify(streamCacheCreateFunction).create();
+    float[][] values = actualLoadResult.getFontMatrix().getValues();
+    assertEquals(3, values.length);
+    PDStream fontFile2 = actualLoadResult.getFontDescriptor().getFontFile2();
+    assertEquals(8, fontFile2.getLength());
+    assertEquals(8L, fontFile2.getCOSObject().getLength());
+    assertArrayEquals(new float[] {0.001f, 0.0f, 0.0f}, values[0], 0.0f);
+    assertArrayEquals(new float[] {0.0f, 0.001f, 0.0f}, values[1], 0.0f);
+    assertArrayEquals(new float[] {0.0f, 0.0f, 1.0f}, values[2], 0.0f);
+  }
+
+  /**
+   * Test {@link PDType0Font#load(PDDocument, TrueTypeFont, boolean)} with {@code doc}, {@code ttf},
+   * {@code embedSubset}.
+   *
+   * <ul>
    *   <li>Given {@link DataInputStream} {@link DataInputStream#mark(int)} throw {@link
    *       IllegalStateException#IllegalStateException()}.
    * </ul>
@@ -850,6 +960,238 @@ class PDType0FontDiffblueTest {
     // Act and Assert
     assertThrows(IllegalStateException.class, () -> PDType0Font.load(doc, ttf, false));
     verify(dataInputStream).mark(4);
+    verify(headerTable).getUnitsPerEm();
+    verify(headerTable).getXMax();
+    verify(headerTable).getXMin();
+    verify(headerTable).getYMax();
+    verify(headerTable).getYMin();
+    verify(horizontalHeaderTable).getAscender();
+    verify(horizontalHeaderTable).getDescender();
+    verify(os2WindowsMetricsTable).getFamilyClass();
+    verify(os2WindowsMetricsTable).getFsSelection();
+    verify(os2WindowsMetricsTable).getFsType();
+    verify(os2WindowsMetricsTable, atLeast(1)).getTypoAscender();
+    verify(os2WindowsMetricsTable).getTypoDescender();
+    verify(os2WindowsMetricsTable).getVersion();
+    verify(os2WindowsMetricsTable).getWeightClass();
+    verify(postScriptTable).getIsFixedPitch();
+    verify(postScriptTable).getItalicAngle();
+    verify(ttf).getGsubData();
+    verify(ttf).getHeader();
+    verify(ttf).getHorizontalHeader();
+    verify(ttf).getName();
+    verify(ttf, atLeast(1)).getOS2Windows();
+    verify(ttf).getOriginalData();
+    verify(ttf, atLeast(1)).getPath(Mockito.<String>any());
+    verify(ttf).getPostScript();
+    verify(ttf).getUnicodeCmapLookup();
+    verify(streamCacheCreateFunction).create();
+  }
+
+  /**
+   * Test {@link PDType0Font#load(PDDocument, TrueTypeFont, boolean)} with {@code doc}, {@code ttf},
+   * {@code embedSubset}.
+   *
+   * <ul>
+   *   <li>Given {@link DataInputStream} {@link DataInputStream#reset()} does nothing.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDType0Font#load(PDDocument, TrueTypeFont, boolean)}
+   */
+  @Test
+  @DisplayName(
+      "Test load(PDDocument, TrueTypeFont, boolean) with 'doc', 'ttf', 'embedSubset'; given DataInputStream reset() does nothing")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDType0Font PDType0Font.load(PDDocument, TrueTypeFont, boolean)"})
+  void testLoadWithDocTtfEmbedSubset_givenDataInputStreamResetDoesNothing() throws IOException {
+    // Arrange
+    StreamCacheCreateFunction streamCacheCreateFunction = mock(StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDDocument doc = new PDDocument(streamCacheCreateFunction);
+
+    OS2WindowsMetricsTable os2WindowsMetricsTable = mock(OS2WindowsMetricsTable.class);
+    when(os2WindowsMetricsTable.getTypoAscender()).thenReturn(3);
+    when(os2WindowsMetricsTable.getTypoDescender()).thenReturn(3);
+    when(os2WindowsMetricsTable.getFamilyClass()).thenReturn(1);
+    when(os2WindowsMetricsTable.getFsSelection()).thenReturn(1);
+    when(os2WindowsMetricsTable.getVersion()).thenReturn(1);
+    when(os2WindowsMetricsTable.getWeightClass()).thenReturn(3);
+    when(os2WindowsMetricsTable.getFsType()).thenReturn((short) 1);
+
+    PostScriptTable postScriptTable = mock(PostScriptTable.class);
+    when(postScriptTable.getItalicAngle()).thenReturn(10.0f);
+    when(postScriptTable.getIsFixedPitch()).thenReturn(1L);
+
+    HorizontalHeaderTable horizontalHeaderTable = mock(HorizontalHeaderTable.class);
+    when(horizontalHeaderTable.getAscender()).thenReturn((short) 1);
+    when(horizontalHeaderTable.getDescender()).thenReturn((short) 1);
+
+    HeaderTable headerTable = mock(HeaderTable.class);
+    when(headerTable.getUnitsPerEm()).thenReturn(1);
+    when(headerTable.getXMax()).thenReturn((short) 1);
+    when(headerTable.getXMin()).thenReturn((short) 1);
+    when(headerTable.getYMax()).thenReturn((short) 1);
+    when(headerTable.getYMin()).thenReturn((short) 1);
+
+    HorizontalMetricsTable horizontalMetricsTable = mock(HorizontalMetricsTable.class);
+    when(horizontalMetricsTable.getAdvanceWidth(anyInt())).thenReturn(1);
+
+    DataInputStream dataInputStream = mock(DataInputStream.class);
+    doNothing().when(dataInputStream).reset();
+    when(dataInputStream.markSupported()).thenReturn(true);
+    when(dataInputStream.read(Mockito.<byte[]>any())).thenReturn(1);
+    when(dataInputStream.transferTo(Mockito.<OutputStream>any())).thenReturn(1L);
+    doNothing().when(dataInputStream).mark(anyInt());
+    doNothing().when(dataInputStream).close();
+
+    MaximumProfileTable maximumProfileTable = mock(MaximumProfileTable.class);
+    when(maximumProfileTable.getNumGlyphs()).thenReturn(PDPanoseClassification.LENGTH);
+
+    TrueTypeFont ttf = mock(TrueTypeFont.class);
+    when(ttf.getOriginalDataSize()).thenReturn(3L);
+    when(ttf.getMaximumProfile()).thenReturn(maximumProfileTable);
+    when(ttf.getOriginalData()).thenReturn(dataInputStream);
+    when(ttf.getUnicodeCmapLookup(anyBoolean())).thenReturn(new CmapSubtable());
+    when(ttf.getNumberOfGlyphs()).thenReturn(PDPanoseClassification.LENGTH);
+    when(ttf.getPath(Mockito.<String>any())).thenReturn(null);
+    when(ttf.getHorizontalMetrics()).thenReturn(horizontalMetricsTable);
+    when(ttf.getHeader()).thenReturn(headerTable);
+    when(ttf.getHorizontalHeader()).thenReturn(horizontalHeaderTable);
+    when(ttf.getPostScript()).thenReturn(postScriptTable);
+    when(ttf.getName()).thenReturn("Name");
+    when(ttf.getUnicodeCmapLookup()).thenReturn(new CmapSubtable());
+    when(ttf.getOS2Windows()).thenReturn(os2WindowsMetricsTable);
+    MapBackedGsubData mapBackedGsubData =
+        new MapBackedGsubData(Language.BENGALI, "Active Script Name", new HashMap<>());
+    when(ttf.getGsubData()).thenReturn(mapBackedGsubData);
+
+    // Act
+    PDType0Font actualLoadResult = PDType0Font.load(doc, ttf, false);
+
+    // Assert
+    verify(dataInputStream).read(isA(byte[].class));
+    verify(dataInputStream).close();
+    verify(dataInputStream).mark(4);
+    verify(dataInputStream).markSupported();
+    verify(dataInputStream).reset();
+    verify(dataInputStream).transferTo(isA(OutputStream.class));
+    verify(headerTable, atLeast(1)).getUnitsPerEm();
+    verify(headerTable).getXMax();
+    verify(headerTable).getXMin();
+    verify(headerTable).getYMax();
+    verify(headerTable).getYMin();
+    verify(horizontalHeaderTable).getAscender();
+    verify(horizontalHeaderTable).getDescender();
+    verify(horizontalMetricsTable, atLeast(1)).getAdvanceWidth(anyInt());
+    verify(maximumProfileTable).getNumGlyphs();
+    verify(os2WindowsMetricsTable).getFamilyClass();
+    verify(os2WindowsMetricsTable).getFsSelection();
+    verify(os2WindowsMetricsTable).getFsType();
+    verify(os2WindowsMetricsTable, atLeast(1)).getTypoAscender();
+    verify(os2WindowsMetricsTable).getTypoDescender();
+    verify(os2WindowsMetricsTable).getVersion();
+    verify(os2WindowsMetricsTable).getWeightClass();
+    verify(postScriptTable).getIsFixedPitch();
+    verify(postScriptTable).getItalicAngle();
+    verify(ttf).getGsubData();
+    verify(ttf, atLeast(1)).getHeader();
+    verify(ttf).getHorizontalHeader();
+    verify(ttf).getHorizontalMetrics();
+    verify(ttf).getMaximumProfile();
+    verify(ttf, atLeast(1)).getName();
+    verify(ttf).getNumberOfGlyphs();
+    verify(ttf, atLeast(1)).getOS2Windows();
+    verify(ttf).getOriginalData();
+    verify(ttf).getOriginalDataSize();
+    verify(ttf, atLeast(1)).getPath(Mockito.<String>any());
+    verify(ttf).getPostScript();
+    verify(ttf, atLeast(1)).getUnicodeCmapLookup();
+    verify(ttf).getUnicodeCmapLookup(false);
+    verify(streamCacheCreateFunction).create();
+    float[][] values = actualLoadResult.getFontMatrix().getValues();
+    assertEquals(3, values.length);
+    PDStream fontFile2 = actualLoadResult.getFontDescriptor().getFontFile2();
+    assertEquals(8, fontFile2.getLength());
+    assertEquals(8L, fontFile2.getCOSObject().getLength());
+    assertArrayEquals(new float[] {0.001f, 0.0f, 0.0f}, values[0], 0.0f);
+    assertArrayEquals(new float[] {0.0f, 0.001f, 0.0f}, values[1], 0.0f);
+    assertArrayEquals(new float[] {0.0f, 0.0f, 1.0f}, values[2], 0.0f);
+  }
+
+  /**
+   * Test {@link PDType0Font#load(PDDocument, TrueTypeFont, boolean)} with {@code doc}, {@code ttf},
+   * {@code embedSubset}.
+   *
+   * <ul>
+   *   <li>Given {@link DataInputStream} {@link DataInputStream#reset()} throw {@link
+   *       IOException#IOException()}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDType0Font#load(PDDocument, TrueTypeFont, boolean)}
+   */
+  @Test
+  @DisplayName(
+      "Test load(PDDocument, TrueTypeFont, boolean) with 'doc', 'ttf', 'embedSubset'; given DataInputStream reset() throw IOException()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDType0Font PDType0Font.load(PDDocument, TrueTypeFont, boolean)"})
+  void testLoadWithDocTtfEmbedSubset_givenDataInputStreamResetThrowIOException()
+      throws IOException {
+    // Arrange
+    StreamCacheCreateFunction streamCacheCreateFunction = mock(StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDDocument doc = new PDDocument(streamCacheCreateFunction);
+
+    OS2WindowsMetricsTable os2WindowsMetricsTable = mock(OS2WindowsMetricsTable.class);
+    when(os2WindowsMetricsTable.getTypoAscender()).thenReturn(3);
+    when(os2WindowsMetricsTable.getTypoDescender()).thenReturn(3);
+    when(os2WindowsMetricsTable.getFamilyClass()).thenReturn(1);
+    when(os2WindowsMetricsTable.getFsSelection()).thenReturn(1);
+    when(os2WindowsMetricsTable.getVersion()).thenReturn(1);
+    when(os2WindowsMetricsTable.getWeightClass()).thenReturn(3);
+    when(os2WindowsMetricsTable.getFsType()).thenReturn((short) 1);
+
+    PostScriptTable postScriptTable = mock(PostScriptTable.class);
+    when(postScriptTable.getItalicAngle()).thenReturn(10.0f);
+    when(postScriptTable.getIsFixedPitch()).thenReturn(1L);
+
+    HorizontalHeaderTable horizontalHeaderTable = mock(HorizontalHeaderTable.class);
+    when(horizontalHeaderTable.getAscender()).thenReturn((short) 1);
+    when(horizontalHeaderTable.getDescender()).thenReturn((short) 1);
+
+    HeaderTable headerTable = mock(HeaderTable.class);
+    when(headerTable.getUnitsPerEm()).thenReturn(1);
+    when(headerTable.getXMax()).thenReturn((short) 1);
+    when(headerTable.getXMin()).thenReturn((short) 1);
+    when(headerTable.getYMax()).thenReturn((short) 1);
+    when(headerTable.getYMin()).thenReturn((short) 1);
+
+    DataInputStream dataInputStream = mock(DataInputStream.class);
+    doThrow(new IOException()).when(dataInputStream).reset();
+    when(dataInputStream.markSupported()).thenReturn(true);
+    when(dataInputStream.read(Mockito.<byte[]>any())).thenReturn(1);
+    doNothing().when(dataInputStream).mark(anyInt());
+
+    TrueTypeFont ttf = mock(TrueTypeFont.class);
+    when(ttf.getOriginalData()).thenReturn(dataInputStream);
+    when(ttf.getPath(Mockito.<String>any())).thenReturn(null);
+    when(ttf.getHeader()).thenReturn(headerTable);
+    when(ttf.getHorizontalHeader()).thenReturn(horizontalHeaderTable);
+    when(ttf.getPostScript()).thenReturn(postScriptTable);
+    when(ttf.getName()).thenReturn("Name");
+    when(ttf.getUnicodeCmapLookup()).thenReturn(new CmapSubtable());
+    when(ttf.getOS2Windows()).thenReturn(os2WindowsMetricsTable);
+    MapBackedGsubData mapBackedGsubData =
+        new MapBackedGsubData(Language.BENGALI, "Active Script Name", new HashMap<>());
+    when(ttf.getGsubData()).thenReturn(mapBackedGsubData);
+
+    // Act and Assert
+    assertThrows(IOException.class, () -> PDType0Font.load(doc, ttf, false));
+    verify(dataInputStream).read(isA(byte[].class));
+    verify(dataInputStream).mark(4);
+    verify(dataInputStream).markSupported();
+    verify(dataInputStream).reset();
     verify(headerTable).getUnitsPerEm();
     verify(headerTable).getXMax();
     verify(headerTable).getXMin();
@@ -1215,234 +1557,6 @@ class PDType0FontDiffblueTest {
     assertArrayEquals(new float[] {0.001f, 0.0f, 0.0f}, values[0], 0.0f);
     assertArrayEquals(new float[] {0.0f, 0.001f, 0.0f}, values[1], 0.0f);
     assertArrayEquals(new float[] {0.0f, 0.0f, 1.0f}, values[2], 0.0f);
-  }
-
-  /**
-   * Test {@link PDType0Font#load(PDDocument, TrueTypeFont, boolean)} with {@code doc}, {@code ttf},
-   * {@code embedSubset}.
-   *
-   * <ul>
-   *   <li>Then calls {@link DataInputStream#close()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDType0Font#load(PDDocument, TrueTypeFont, boolean)}
-   */
-  @Test
-  @DisplayName(
-      "Test load(PDDocument, TrueTypeFont, boolean) with 'doc', 'ttf', 'embedSubset'; then calls close()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDType0Font PDType0Font.load(PDDocument, TrueTypeFont, boolean)"})
-  void testLoadWithDocTtfEmbedSubset_thenCallsClose() throws IOException {
-    // Arrange
-    StreamCacheCreateFunction streamCacheCreateFunction = mock(StreamCacheCreateFunction.class);
-    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
-    PDDocument doc = new PDDocument(streamCacheCreateFunction);
-
-    OS2WindowsMetricsTable os2WindowsMetricsTable = mock(OS2WindowsMetricsTable.class);
-    when(os2WindowsMetricsTable.getTypoAscender()).thenReturn(3);
-    when(os2WindowsMetricsTable.getTypoDescender()).thenReturn(3);
-    when(os2WindowsMetricsTable.getFamilyClass()).thenReturn(1);
-    when(os2WindowsMetricsTable.getFsSelection()).thenReturn(1);
-    when(os2WindowsMetricsTable.getVersion()).thenReturn(1);
-    when(os2WindowsMetricsTable.getWeightClass()).thenReturn(3);
-    when(os2WindowsMetricsTable.getFsType()).thenReturn((short) 1);
-
-    PostScriptTable postScriptTable = mock(PostScriptTable.class);
-    when(postScriptTable.getItalicAngle()).thenReturn(10.0f);
-    when(postScriptTable.getIsFixedPitch()).thenReturn(1L);
-
-    HorizontalHeaderTable horizontalHeaderTable = mock(HorizontalHeaderTable.class);
-    when(horizontalHeaderTable.getAscender()).thenReturn((short) 1);
-    when(horizontalHeaderTable.getDescender()).thenReturn((short) 1);
-
-    HeaderTable headerTable = mock(HeaderTable.class);
-    when(headerTable.getUnitsPerEm()).thenReturn(1);
-    when(headerTable.getXMax()).thenReturn((short) 1);
-    when(headerTable.getXMin()).thenReturn((short) 1);
-    when(headerTable.getYMax()).thenReturn((short) 1);
-    when(headerTable.getYMin()).thenReturn((short) 1);
-
-    HorizontalMetricsTable horizontalMetricsTable = mock(HorizontalMetricsTable.class);
-    when(horizontalMetricsTable.getAdvanceWidth(anyInt())).thenReturn(1);
-
-    DataInputStream dataInputStream = mock(DataInputStream.class);
-    when(dataInputStream.markSupported()).thenReturn(false);
-    when(dataInputStream.read(Mockito.<byte[]>any())).thenReturn(1);
-    when(dataInputStream.transferTo(Mockito.<OutputStream>any())).thenReturn(1L);
-    doNothing().when(dataInputStream).mark(anyInt());
-    doNothing().when(dataInputStream).close();
-
-    MaximumProfileTable maximumProfileTable = mock(MaximumProfileTable.class);
-    when(maximumProfileTable.getNumGlyphs()).thenReturn(PDPanoseClassification.LENGTH);
-
-    TrueTypeFont ttf = mock(TrueTypeFont.class);
-    when(ttf.getOriginalDataSize()).thenReturn(3L);
-    when(ttf.getMaximumProfile()).thenReturn(maximumProfileTable);
-    when(ttf.getOriginalData()).thenReturn(dataInputStream);
-    when(ttf.getUnicodeCmapLookup(anyBoolean())).thenReturn(new CmapSubtable());
-    when(ttf.getNumberOfGlyphs()).thenReturn(PDPanoseClassification.LENGTH);
-    when(ttf.getPath(Mockito.<String>any())).thenReturn(null);
-    when(ttf.getHorizontalMetrics()).thenReturn(horizontalMetricsTable);
-    when(ttf.getHeader()).thenReturn(headerTable);
-    when(ttf.getHorizontalHeader()).thenReturn(horizontalHeaderTable);
-    when(ttf.getPostScript()).thenReturn(postScriptTable);
-    when(ttf.getName()).thenReturn("Name");
-    when(ttf.getUnicodeCmapLookup()).thenReturn(new CmapSubtable());
-    when(ttf.getOS2Windows()).thenReturn(os2WindowsMetricsTable);
-    MapBackedGsubData mapBackedGsubData =
-        new MapBackedGsubData(Language.BENGALI, "Active Script Name", new HashMap<>());
-    when(ttf.getGsubData()).thenReturn(mapBackedGsubData);
-
-    // Act
-    PDType0Font actualLoadResult = PDType0Font.load(doc, ttf, false);
-
-    // Assert
-    verify(dataInputStream).read(isA(byte[].class));
-    verify(dataInputStream, atLeast(1)).close();
-    verify(dataInputStream).mark(4);
-    verify(dataInputStream).markSupported();
-    verify(dataInputStream).transferTo(isA(OutputStream.class));
-    verify(headerTable, atLeast(1)).getUnitsPerEm();
-    verify(headerTable).getXMax();
-    verify(headerTable).getXMin();
-    verify(headerTable).getYMax();
-    verify(headerTable).getYMin();
-    verify(horizontalHeaderTable).getAscender();
-    verify(horizontalHeaderTable).getDescender();
-    verify(horizontalMetricsTable, atLeast(1)).getAdvanceWidth(anyInt());
-    verify(maximumProfileTable).getNumGlyphs();
-    verify(os2WindowsMetricsTable).getFamilyClass();
-    verify(os2WindowsMetricsTable).getFsSelection();
-    verify(os2WindowsMetricsTable).getFsType();
-    verify(os2WindowsMetricsTable, atLeast(1)).getTypoAscender();
-    verify(os2WindowsMetricsTable).getTypoDescender();
-    verify(os2WindowsMetricsTable).getVersion();
-    verify(os2WindowsMetricsTable).getWeightClass();
-    verify(postScriptTable).getIsFixedPitch();
-    verify(postScriptTable).getItalicAngle();
-    verify(ttf).getGsubData();
-    verify(ttf, atLeast(1)).getHeader();
-    verify(ttf).getHorizontalHeader();
-    verify(ttf).getHorizontalMetrics();
-    verify(ttf).getMaximumProfile();
-    verify(ttf, atLeast(1)).getName();
-    verify(ttf).getNumberOfGlyphs();
-    verify(ttf, atLeast(1)).getOS2Windows();
-    verify(ttf, atLeast(1)).getOriginalData();
-    verify(ttf).getOriginalDataSize();
-    verify(ttf, atLeast(1)).getPath(Mockito.<String>any());
-    verify(ttf).getPostScript();
-    verify(ttf, atLeast(1)).getUnicodeCmapLookup();
-    verify(ttf).getUnicodeCmapLookup(false);
-    verify(streamCacheCreateFunction).create();
-    float[][] values = actualLoadResult.getFontMatrix().getValues();
-    assertEquals(3, values.length);
-    PDStream fontFile2 = actualLoadResult.getFontDescriptor().getFontFile2();
-    assertEquals(8, fontFile2.getLength());
-    assertEquals(8L, fontFile2.getCOSObject().getLength());
-    assertArrayEquals(new float[] {0.001f, 0.0f, 0.0f}, values[0], 0.0f);
-    assertArrayEquals(new float[] {0.0f, 0.001f, 0.0f}, values[1], 0.0f);
-    assertArrayEquals(new float[] {0.0f, 0.0f, 1.0f}, values[2], 0.0f);
-  }
-
-  /**
-   * Test {@link PDType0Font#load(PDDocument, TrueTypeFont, boolean)} with {@code doc}, {@code ttf},
-   * {@code embedSubset}.
-   *
-   * <ul>
-   *   <li>Then calls {@link DataInputStream#reset()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDType0Font#load(PDDocument, TrueTypeFont, boolean)}
-   */
-  @Test
-  @DisplayName(
-      "Test load(PDDocument, TrueTypeFont, boolean) with 'doc', 'ttf', 'embedSubset'; then calls reset()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDType0Font PDType0Font.load(PDDocument, TrueTypeFont, boolean)"})
-  void testLoadWithDocTtfEmbedSubset_thenCallsReset() throws IOException {
-    // Arrange
-    StreamCacheCreateFunction streamCacheCreateFunction = mock(StreamCacheCreateFunction.class);
-    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
-    PDDocument doc = new PDDocument(streamCacheCreateFunction);
-
-    OS2WindowsMetricsTable os2WindowsMetricsTable = mock(OS2WindowsMetricsTable.class);
-    when(os2WindowsMetricsTable.getTypoAscender()).thenReturn(3);
-    when(os2WindowsMetricsTable.getTypoDescender()).thenReturn(3);
-    when(os2WindowsMetricsTable.getFamilyClass()).thenReturn(1);
-    when(os2WindowsMetricsTable.getFsSelection()).thenReturn(1);
-    when(os2WindowsMetricsTable.getVersion()).thenReturn(1);
-    when(os2WindowsMetricsTable.getWeightClass()).thenReturn(3);
-    when(os2WindowsMetricsTable.getFsType()).thenReturn((short) 1);
-
-    PostScriptTable postScriptTable = mock(PostScriptTable.class);
-    when(postScriptTable.getItalicAngle()).thenReturn(10.0f);
-    when(postScriptTable.getIsFixedPitch()).thenReturn(1L);
-
-    HorizontalHeaderTable horizontalHeaderTable = mock(HorizontalHeaderTable.class);
-    when(horizontalHeaderTable.getAscender()).thenReturn((short) 1);
-    when(horizontalHeaderTable.getDescender()).thenReturn((short) 1);
-
-    HeaderTable headerTable = mock(HeaderTable.class);
-    when(headerTable.getUnitsPerEm()).thenReturn(1);
-    when(headerTable.getXMax()).thenReturn((short) 1);
-    when(headerTable.getXMin()).thenReturn((short) 1);
-    when(headerTable.getYMax()).thenReturn((short) 1);
-    when(headerTable.getYMin()).thenReturn((short) 1);
-
-    DataInputStream dataInputStream = mock(DataInputStream.class);
-    doThrow(new IOException()).when(dataInputStream).reset();
-    when(dataInputStream.markSupported()).thenReturn(true);
-    when(dataInputStream.read(Mockito.<byte[]>any())).thenReturn(1);
-    doNothing().when(dataInputStream).mark(anyInt());
-
-    TrueTypeFont ttf = mock(TrueTypeFont.class);
-    when(ttf.getOriginalData()).thenReturn(dataInputStream);
-    when(ttf.getPath(Mockito.<String>any())).thenReturn(null);
-    when(ttf.getHeader()).thenReturn(headerTable);
-    when(ttf.getHorizontalHeader()).thenReturn(horizontalHeaderTable);
-    when(ttf.getPostScript()).thenReturn(postScriptTable);
-    when(ttf.getName()).thenReturn("Name");
-    when(ttf.getUnicodeCmapLookup()).thenReturn(new CmapSubtable());
-    when(ttf.getOS2Windows()).thenReturn(os2WindowsMetricsTable);
-    MapBackedGsubData mapBackedGsubData =
-        new MapBackedGsubData(Language.BENGALI, "Active Script Name", new HashMap<>());
-    when(ttf.getGsubData()).thenReturn(mapBackedGsubData);
-
-    // Act and Assert
-    assertThrows(IOException.class, () -> PDType0Font.load(doc, ttf, false));
-    verify(dataInputStream).read(isA(byte[].class));
-    verify(dataInputStream).mark(4);
-    verify(dataInputStream).markSupported();
-    verify(dataInputStream).reset();
-    verify(headerTable).getUnitsPerEm();
-    verify(headerTable).getXMax();
-    verify(headerTable).getXMin();
-    verify(headerTable).getYMax();
-    verify(headerTable).getYMin();
-    verify(horizontalHeaderTable).getAscender();
-    verify(horizontalHeaderTable).getDescender();
-    verify(os2WindowsMetricsTable).getFamilyClass();
-    verify(os2WindowsMetricsTable).getFsSelection();
-    verify(os2WindowsMetricsTable).getFsType();
-    verify(os2WindowsMetricsTable, atLeast(1)).getTypoAscender();
-    verify(os2WindowsMetricsTable).getTypoDescender();
-    verify(os2WindowsMetricsTable).getVersion();
-    verify(os2WindowsMetricsTable).getWeightClass();
-    verify(postScriptTable).getIsFixedPitch();
-    verify(postScriptTable).getItalicAngle();
-    verify(ttf).getGsubData();
-    verify(ttf).getHeader();
-    verify(ttf).getHorizontalHeader();
-    verify(ttf).getName();
-    verify(ttf, atLeast(1)).getOS2Windows();
-    verify(ttf).getOriginalData();
-    verify(ttf, atLeast(1)).getPath(Mockito.<String>any());
-    verify(ttf).getPostScript();
-    verify(ttf).getUnicodeCmapLookup();
-    verify(streamCacheCreateFunction).create();
   }
 
   /**
@@ -3639,6 +3753,414 @@ class PDType0FontDiffblueTest {
    * Test {@link PDType0Font#loadVertical(PDDocument, TrueTypeFont, boolean)} with {@code doc},
    * {@code ttf}, {@code embedSubset}.
    *
+   * <p>Method under test: {@link PDType0Font#loadVertical(PDDocument, TrueTypeFont, boolean)}
+   */
+  @Test
+  @DisplayName(
+      "Test loadVertical(PDDocument, TrueTypeFont, boolean) with 'doc', 'ttf', 'embedSubset'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDType0Font PDType0Font.loadVertical(PDDocument, TrueTypeFont, boolean)"})
+  void testLoadVerticalWithDocTtfEmbedSubset15() throws IOException {
+    // Arrange
+    StreamCacheCreateFunction streamCacheCreateFunction = mock(StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDDocument doc = new PDDocument(streamCacheCreateFunction);
+
+    OS2WindowsMetricsTable os2WindowsMetricsTable = mock(OS2WindowsMetricsTable.class);
+    when(os2WindowsMetricsTable.getTypoAscender()).thenReturn(3);
+    when(os2WindowsMetricsTable.getTypoDescender()).thenReturn(3);
+    when(os2WindowsMetricsTable.getFamilyClass()).thenReturn(1);
+    when(os2WindowsMetricsTable.getFsSelection()).thenReturn(1);
+    when(os2WindowsMetricsTable.getVersion()).thenReturn(1);
+    when(os2WindowsMetricsTable.getWeightClass()).thenReturn(3);
+    when(os2WindowsMetricsTable.getFsType()).thenReturn((short) 1);
+
+    PostScriptTable postScriptTable = mock(PostScriptTable.class);
+    when(postScriptTable.getItalicAngle()).thenReturn(10.0f);
+    when(postScriptTable.getIsFixedPitch()).thenReturn(1L);
+
+    HorizontalHeaderTable horizontalHeaderTable = mock(HorizontalHeaderTable.class);
+    when(horizontalHeaderTable.getAscender()).thenReturn((short) 1);
+    when(horizontalHeaderTable.getDescender()).thenReturn((short) 1);
+
+    HeaderTable headerTable = mock(HeaderTable.class);
+    when(headerTable.getUnitsPerEm()).thenReturn(1);
+    when(headerTable.getXMax()).thenReturn((short) 1);
+    when(headerTable.getXMin()).thenReturn((short) 1);
+    when(headerTable.getYMax()).thenReturn((short) 1);
+    when(headerTable.getYMin()).thenReturn((short) 1);
+
+    HorizontalMetricsTable horizontalMetricsTable = mock(HorizontalMetricsTable.class);
+    when(horizontalMetricsTable.getAdvanceWidth(anyInt())).thenReturn(1);
+
+    VerticalHeaderTable verticalHeaderTable = mock(VerticalHeaderTable.class);
+    when(verticalHeaderTable.getAdvanceHeightMax()).thenReturn(1);
+    when(verticalHeaderTable.getAscender()).thenReturn((short) 1);
+
+    GlyphTable glyphTable = mock(GlyphTable.class);
+    when(glyphTable.getGlyph(anyInt())).thenReturn(new GlyphData());
+
+    VerticalMetricsTable verticalMetricsTable = mock(VerticalMetricsTable.class);
+    when(verticalMetricsTable.getAdvanceHeight(anyInt())).thenReturn(1);
+    when(verticalMetricsTable.getTopSideBearing(anyInt())).thenReturn(1);
+
+    DataInputStream dataInputStream = mock(DataInputStream.class);
+    when(dataInputStream.markSupported()).thenReturn(false);
+    when(dataInputStream.read(Mockito.<byte[]>any())).thenReturn(1);
+    when(dataInputStream.transferTo(Mockito.<OutputStream>any())).thenReturn(1L);
+    doNothing().when(dataInputStream).mark(anyInt());
+    doNothing().when(dataInputStream).close();
+
+    MaximumProfileTable maximumProfileTable = mock(MaximumProfileTable.class);
+    when(maximumProfileTable.getNumGlyphs()).thenReturn(PDPanoseClassification.LENGTH);
+
+    TrueTypeFont ttf = mock(TrueTypeFont.class);
+    when(ttf.getOriginalDataSize()).thenReturn(3L);
+    when(ttf.getMaximumProfile()).thenReturn(maximumProfileTable);
+    when(ttf.getOriginalData()).thenReturn(dataInputStream);
+    when(ttf.getGlyph()).thenReturn(glyphTable);
+    when(ttf.getVerticalMetrics()).thenReturn(verticalMetricsTable);
+    when(ttf.getUnicodeCmapLookup(anyBoolean())).thenReturn(new CmapSubtable());
+    when(ttf.getVerticalHeader()).thenReturn(verticalHeaderTable);
+    when(ttf.getNumberOfGlyphs()).thenReturn(PDPanoseClassification.LENGTH);
+    when(ttf.getPath(Mockito.<String>any())).thenReturn(null);
+    when(ttf.getHorizontalMetrics()).thenReturn(horizontalMetricsTable);
+    when(ttf.getHeader()).thenReturn(headerTable);
+    when(ttf.getHorizontalHeader()).thenReturn(horizontalHeaderTable);
+    when(ttf.getPostScript()).thenReturn(postScriptTable);
+    when(ttf.getName()).thenReturn("Name");
+    when(ttf.getUnicodeCmapLookup()).thenReturn(new CmapSubtable());
+    when(ttf.getOS2Windows()).thenReturn(os2WindowsMetricsTable);
+    MapBackedGsubData mapBackedGsubData =
+        new MapBackedGsubData(Language.BENGALI, "Active Script Name", new HashMap<>());
+    when(ttf.getGsubData()).thenReturn(mapBackedGsubData);
+    doNothing().when(ttf).enableVerticalSubstitutions();
+
+    // Act
+    PDType0Font actualLoadVerticalResult = PDType0Font.loadVertical(doc, ttf, false);
+
+    // Assert
+    verify(dataInputStream).read(isA(byte[].class));
+    verify(dataInputStream, atLeast(1)).close();
+    verify(dataInputStream).mark(4);
+    verify(dataInputStream).markSupported();
+    verify(dataInputStream).transferTo(isA(OutputStream.class));
+    verify(glyphTable, atLeast(1)).getGlyph(anyInt());
+    verify(headerTable, atLeast(1)).getUnitsPerEm();
+    verify(headerTable).getXMax();
+    verify(headerTable).getXMin();
+    verify(headerTable).getYMax();
+    verify(headerTable).getYMin();
+    verify(horizontalHeaderTable).getAscender();
+    verify(horizontalHeaderTable).getDescender();
+    verify(horizontalMetricsTable, atLeast(1)).getAdvanceWidth(anyInt());
+    verify(maximumProfileTable).getNumGlyphs();
+    verify(os2WindowsMetricsTable).getFamilyClass();
+    verify(os2WindowsMetricsTable).getFsSelection();
+    verify(os2WindowsMetricsTable).getFsType();
+    verify(os2WindowsMetricsTable, atLeast(1)).getTypoAscender();
+    verify(os2WindowsMetricsTable).getTypoDescender();
+    verify(os2WindowsMetricsTable).getVersion();
+    verify(os2WindowsMetricsTable).getWeightClass();
+    verify(postScriptTable).getIsFixedPitch();
+    verify(postScriptTable).getItalicAngle();
+    verify(ttf).enableVerticalSubstitutions();
+    verify(ttf).getGlyph();
+    verify(ttf).getGsubData();
+    verify(ttf, atLeast(1)).getHeader();
+    verify(ttf).getHorizontalHeader();
+    verify(ttf, atLeast(1)).getHorizontalMetrics();
+    verify(ttf).getMaximumProfile();
+    verify(ttf, atLeast(1)).getName();
+    verify(ttf, atLeast(1)).getNumberOfGlyphs();
+    verify(ttf, atLeast(1)).getOS2Windows();
+    verify(ttf, atLeast(1)).getOriginalData();
+    verify(ttf).getOriginalDataSize();
+    verify(ttf, atLeast(1)).getPath(Mockito.<String>any());
+    verify(ttf).getPostScript();
+    verify(ttf, atLeast(1)).getUnicodeCmapLookup();
+    verify(ttf).getUnicodeCmapLookup(false);
+    verify(ttf).getVerticalHeader();
+    verify(ttf).getVerticalMetrics();
+    verify(verticalHeaderTable).getAdvanceHeightMax();
+    verify(verticalHeaderTable).getAscender();
+    verify(verticalMetricsTable, atLeast(1)).getAdvanceHeight(anyInt());
+    verify(verticalMetricsTable, atLeast(1)).getTopSideBearing(anyInt());
+    verify(streamCacheCreateFunction).create();
+    float[][] values = actualLoadVerticalResult.getFontMatrix().getValues();
+    assertEquals(3, values.length);
+    PDStream fontFile2 = actualLoadVerticalResult.getFontDescriptor().getFontFile2();
+    assertEquals(8, fontFile2.getLength());
+    assertEquals(8L, fontFile2.getCOSObject().getLength());
+    assertArrayEquals(new float[] {0.001f, 0.0f, 0.0f}, values[0], 0.0f);
+    assertArrayEquals(new float[] {0.0f, 0.001f, 0.0f}, values[1], 0.0f);
+    assertArrayEquals(new float[] {0.0f, 0.0f, 1.0f}, values[2], 0.0f);
+  }
+
+  /**
+   * Test {@link PDType0Font#loadVertical(PDDocument, TrueTypeFont, boolean)} with {@code doc},
+   * {@code ttf}, {@code embedSubset}.
+   *
+   * <ul>
+   *   <li>Given {@link DataInputStream} {@link DataInputStream#reset()} does nothing.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDType0Font#loadVertical(PDDocument, TrueTypeFont, boolean)}
+   */
+  @Test
+  @DisplayName(
+      "Test loadVertical(PDDocument, TrueTypeFont, boolean) with 'doc', 'ttf', 'embedSubset'; given DataInputStream reset() does nothing")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDType0Font PDType0Font.loadVertical(PDDocument, TrueTypeFont, boolean)"})
+  void testLoadVerticalWithDocTtfEmbedSubset_givenDataInputStreamResetDoesNothing()
+      throws IOException {
+    // Arrange
+    StreamCacheCreateFunction streamCacheCreateFunction = mock(StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDDocument doc = new PDDocument(streamCacheCreateFunction);
+
+    OS2WindowsMetricsTable os2WindowsMetricsTable = mock(OS2WindowsMetricsTable.class);
+    when(os2WindowsMetricsTable.getTypoAscender()).thenReturn(3);
+    when(os2WindowsMetricsTable.getTypoDescender()).thenReturn(3);
+    when(os2WindowsMetricsTable.getFamilyClass()).thenReturn(1);
+    when(os2WindowsMetricsTable.getFsSelection()).thenReturn(1);
+    when(os2WindowsMetricsTable.getVersion()).thenReturn(1);
+    when(os2WindowsMetricsTable.getWeightClass()).thenReturn(3);
+    when(os2WindowsMetricsTable.getFsType()).thenReturn((short) 1);
+
+    PostScriptTable postScriptTable = mock(PostScriptTable.class);
+    when(postScriptTable.getItalicAngle()).thenReturn(10.0f);
+    when(postScriptTable.getIsFixedPitch()).thenReturn(1L);
+
+    HorizontalHeaderTable horizontalHeaderTable = mock(HorizontalHeaderTable.class);
+    when(horizontalHeaderTable.getAscender()).thenReturn((short) 1);
+    when(horizontalHeaderTable.getDescender()).thenReturn((short) 1);
+
+    HeaderTable headerTable = mock(HeaderTable.class);
+    when(headerTable.getUnitsPerEm()).thenReturn(1);
+    when(headerTable.getXMax()).thenReturn((short) 1);
+    when(headerTable.getXMin()).thenReturn((short) 1);
+    when(headerTable.getYMax()).thenReturn((short) 1);
+    when(headerTable.getYMin()).thenReturn((short) 1);
+
+    HorizontalMetricsTable horizontalMetricsTable = mock(HorizontalMetricsTable.class);
+    when(horizontalMetricsTable.getAdvanceWidth(anyInt())).thenReturn(1);
+
+    VerticalHeaderTable verticalHeaderTable = mock(VerticalHeaderTable.class);
+    when(verticalHeaderTable.getAdvanceHeightMax()).thenReturn(1);
+    when(verticalHeaderTable.getAscender()).thenReturn((short) 1);
+
+    GlyphTable glyphTable = mock(GlyphTable.class);
+    when(glyphTable.getGlyph(anyInt())).thenReturn(new GlyphData());
+
+    VerticalMetricsTable verticalMetricsTable = mock(VerticalMetricsTable.class);
+    when(verticalMetricsTable.getAdvanceHeight(anyInt())).thenReturn(1);
+    when(verticalMetricsTable.getTopSideBearing(anyInt())).thenReturn(1);
+
+    DataInputStream dataInputStream = mock(DataInputStream.class);
+    doNothing().when(dataInputStream).reset();
+    when(dataInputStream.markSupported()).thenReturn(true);
+    when(dataInputStream.read(Mockito.<byte[]>any())).thenReturn(1);
+    when(dataInputStream.transferTo(Mockito.<OutputStream>any())).thenReturn(1L);
+    doNothing().when(dataInputStream).mark(anyInt());
+    doNothing().when(dataInputStream).close();
+
+    MaximumProfileTable maximumProfileTable = mock(MaximumProfileTable.class);
+    when(maximumProfileTable.getNumGlyphs()).thenReturn(PDPanoseClassification.LENGTH);
+
+    TrueTypeFont ttf = mock(TrueTypeFont.class);
+    when(ttf.getOriginalDataSize()).thenReturn(3L);
+    when(ttf.getMaximumProfile()).thenReturn(maximumProfileTable);
+    when(ttf.getOriginalData()).thenReturn(dataInputStream);
+    when(ttf.getGlyph()).thenReturn(glyphTable);
+    when(ttf.getVerticalMetrics()).thenReturn(verticalMetricsTable);
+    when(ttf.getUnicodeCmapLookup(anyBoolean())).thenReturn(new CmapSubtable());
+    when(ttf.getVerticalHeader()).thenReturn(verticalHeaderTable);
+    when(ttf.getNumberOfGlyphs()).thenReturn(PDPanoseClassification.LENGTH);
+    when(ttf.getPath(Mockito.<String>any())).thenReturn(null);
+    when(ttf.getHorizontalMetrics()).thenReturn(horizontalMetricsTable);
+    when(ttf.getHeader()).thenReturn(headerTable);
+    when(ttf.getHorizontalHeader()).thenReturn(horizontalHeaderTable);
+    when(ttf.getPostScript()).thenReturn(postScriptTable);
+    when(ttf.getName()).thenReturn("Name");
+    when(ttf.getUnicodeCmapLookup()).thenReturn(new CmapSubtable());
+    when(ttf.getOS2Windows()).thenReturn(os2WindowsMetricsTable);
+    MapBackedGsubData mapBackedGsubData =
+        new MapBackedGsubData(Language.BENGALI, "Active Script Name", new HashMap<>());
+    when(ttf.getGsubData()).thenReturn(mapBackedGsubData);
+    doNothing().when(ttf).enableVerticalSubstitutions();
+
+    // Act
+    PDType0Font actualLoadVerticalResult = PDType0Font.loadVertical(doc, ttf, false);
+
+    // Assert
+    verify(dataInputStream).read(isA(byte[].class));
+    verify(dataInputStream).close();
+    verify(dataInputStream).mark(4);
+    verify(dataInputStream).markSupported();
+    verify(dataInputStream).reset();
+    verify(dataInputStream).transferTo(isA(OutputStream.class));
+    verify(glyphTable, atLeast(1)).getGlyph(anyInt());
+    verify(headerTable, atLeast(1)).getUnitsPerEm();
+    verify(headerTable).getXMax();
+    verify(headerTable).getXMin();
+    verify(headerTable).getYMax();
+    verify(headerTable).getYMin();
+    verify(horizontalHeaderTable).getAscender();
+    verify(horizontalHeaderTable).getDescender();
+    verify(horizontalMetricsTable, atLeast(1)).getAdvanceWidth(anyInt());
+    verify(maximumProfileTable).getNumGlyphs();
+    verify(os2WindowsMetricsTable).getFamilyClass();
+    verify(os2WindowsMetricsTable).getFsSelection();
+    verify(os2WindowsMetricsTable).getFsType();
+    verify(os2WindowsMetricsTable, atLeast(1)).getTypoAscender();
+    verify(os2WindowsMetricsTable).getTypoDescender();
+    verify(os2WindowsMetricsTable).getVersion();
+    verify(os2WindowsMetricsTable).getWeightClass();
+    verify(postScriptTable).getIsFixedPitch();
+    verify(postScriptTable).getItalicAngle();
+    verify(ttf).enableVerticalSubstitutions();
+    verify(ttf).getGlyph();
+    verify(ttf).getGsubData();
+    verify(ttf, atLeast(1)).getHeader();
+    verify(ttf).getHorizontalHeader();
+    verify(ttf, atLeast(1)).getHorizontalMetrics();
+    verify(ttf).getMaximumProfile();
+    verify(ttf, atLeast(1)).getName();
+    verify(ttf, atLeast(1)).getNumberOfGlyphs();
+    verify(ttf, atLeast(1)).getOS2Windows();
+    verify(ttf).getOriginalData();
+    verify(ttf).getOriginalDataSize();
+    verify(ttf, atLeast(1)).getPath(Mockito.<String>any());
+    verify(ttf).getPostScript();
+    verify(ttf, atLeast(1)).getUnicodeCmapLookup();
+    verify(ttf).getUnicodeCmapLookup(false);
+    verify(ttf).getVerticalHeader();
+    verify(ttf).getVerticalMetrics();
+    verify(verticalHeaderTable).getAdvanceHeightMax();
+    verify(verticalHeaderTable).getAscender();
+    verify(verticalMetricsTable, atLeast(1)).getAdvanceHeight(anyInt());
+    verify(verticalMetricsTable, atLeast(1)).getTopSideBearing(anyInt());
+    verify(streamCacheCreateFunction).create();
+    float[][] values = actualLoadVerticalResult.getFontMatrix().getValues();
+    assertEquals(3, values.length);
+    PDStream fontFile2 = actualLoadVerticalResult.getFontDescriptor().getFontFile2();
+    assertEquals(8, fontFile2.getLength());
+    assertEquals(8L, fontFile2.getCOSObject().getLength());
+    assertArrayEquals(new float[] {0.001f, 0.0f, 0.0f}, values[0], 0.0f);
+    assertArrayEquals(new float[] {0.0f, 0.001f, 0.0f}, values[1], 0.0f);
+    assertArrayEquals(new float[] {0.0f, 0.0f, 1.0f}, values[2], 0.0f);
+  }
+
+  /**
+   * Test {@link PDType0Font#loadVertical(PDDocument, TrueTypeFont, boolean)} with {@code doc},
+   * {@code ttf}, {@code embedSubset}.
+   *
+   * <ul>
+   *   <li>Given {@link DataInputStream} {@link DataInputStream#reset()} throw {@link
+   *       IOException#IOException()}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDType0Font#loadVertical(PDDocument, TrueTypeFont, boolean)}
+   */
+  @Test
+  @DisplayName(
+      "Test loadVertical(PDDocument, TrueTypeFont, boolean) with 'doc', 'ttf', 'embedSubset'; given DataInputStream reset() throw IOException()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDType0Font PDType0Font.loadVertical(PDDocument, TrueTypeFont, boolean)"})
+  void testLoadVerticalWithDocTtfEmbedSubset_givenDataInputStreamResetThrowIOException()
+      throws IOException {
+    // Arrange
+    StreamCacheCreateFunction streamCacheCreateFunction = mock(StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDDocument doc = new PDDocument(streamCacheCreateFunction);
+
+    OS2WindowsMetricsTable os2WindowsMetricsTable = mock(OS2WindowsMetricsTable.class);
+    when(os2WindowsMetricsTable.getTypoAscender()).thenReturn(3);
+    when(os2WindowsMetricsTable.getTypoDescender()).thenReturn(3);
+    when(os2WindowsMetricsTable.getFamilyClass()).thenReturn(1);
+    when(os2WindowsMetricsTable.getFsSelection()).thenReturn(1);
+    when(os2WindowsMetricsTable.getVersion()).thenReturn(1);
+    when(os2WindowsMetricsTable.getWeightClass()).thenReturn(3);
+    when(os2WindowsMetricsTable.getFsType()).thenReturn((short) 1);
+
+    PostScriptTable postScriptTable = mock(PostScriptTable.class);
+    when(postScriptTable.getItalicAngle()).thenReturn(10.0f);
+    when(postScriptTable.getIsFixedPitch()).thenReturn(1L);
+
+    HorizontalHeaderTable horizontalHeaderTable = mock(HorizontalHeaderTable.class);
+    when(horizontalHeaderTable.getAscender()).thenReturn((short) 1);
+    when(horizontalHeaderTable.getDescender()).thenReturn((short) 1);
+
+    HeaderTable headerTable = mock(HeaderTable.class);
+    when(headerTable.getUnitsPerEm()).thenReturn(1);
+    when(headerTable.getXMax()).thenReturn((short) 1);
+    when(headerTable.getXMin()).thenReturn((short) 1);
+    when(headerTable.getYMax()).thenReturn((short) 1);
+    when(headerTable.getYMin()).thenReturn((short) 1);
+
+    DataInputStream dataInputStream = mock(DataInputStream.class);
+    doThrow(new IOException()).when(dataInputStream).reset();
+    when(dataInputStream.markSupported()).thenReturn(true);
+    when(dataInputStream.read(Mockito.<byte[]>any())).thenReturn(1);
+    doNothing().when(dataInputStream).mark(anyInt());
+
+    TrueTypeFont ttf = mock(TrueTypeFont.class);
+    when(ttf.getOriginalData()).thenReturn(dataInputStream);
+    when(ttf.getPath(Mockito.<String>any())).thenReturn(null);
+    when(ttf.getHeader()).thenReturn(headerTable);
+    when(ttf.getHorizontalHeader()).thenReturn(horizontalHeaderTable);
+    when(ttf.getPostScript()).thenReturn(postScriptTable);
+    when(ttf.getName()).thenReturn("Name");
+    when(ttf.getUnicodeCmapLookup()).thenReturn(new CmapSubtable());
+    when(ttf.getOS2Windows()).thenReturn(os2WindowsMetricsTable);
+    MapBackedGsubData mapBackedGsubData =
+        new MapBackedGsubData(Language.BENGALI, "Active Script Name", new HashMap<>());
+    when(ttf.getGsubData()).thenReturn(mapBackedGsubData);
+    doNothing().when(ttf).enableVerticalSubstitutions();
+
+    // Act and Assert
+    assertThrows(IOException.class, () -> PDType0Font.loadVertical(doc, ttf, false));
+    verify(dataInputStream).read(isA(byte[].class));
+    verify(dataInputStream).mark(4);
+    verify(dataInputStream).markSupported();
+    verify(dataInputStream).reset();
+    verify(headerTable).getUnitsPerEm();
+    verify(headerTable).getXMax();
+    verify(headerTable).getXMin();
+    verify(headerTable).getYMax();
+    verify(headerTable).getYMin();
+    verify(horizontalHeaderTable).getAscender();
+    verify(horizontalHeaderTable).getDescender();
+    verify(os2WindowsMetricsTable).getFamilyClass();
+    verify(os2WindowsMetricsTable).getFsSelection();
+    verify(os2WindowsMetricsTable).getFsType();
+    verify(os2WindowsMetricsTable, atLeast(1)).getTypoAscender();
+    verify(os2WindowsMetricsTable).getTypoDescender();
+    verify(os2WindowsMetricsTable).getVersion();
+    verify(os2WindowsMetricsTable).getWeightClass();
+    verify(postScriptTable).getIsFixedPitch();
+    verify(postScriptTable).getItalicAngle();
+    verify(ttf).enableVerticalSubstitutions();
+    verify(ttf).getGsubData();
+    verify(ttf).getHeader();
+    verify(ttf).getHorizontalHeader();
+    verify(ttf).getName();
+    verify(ttf, atLeast(1)).getOS2Windows();
+    verify(ttf).getOriginalData();
+    verify(ttf, atLeast(1)).getPath(Mockito.<String>any());
+    verify(ttf).getPostScript();
+    verify(ttf).getUnicodeCmapLookup();
+    verify(streamCacheCreateFunction).create();
+  }
+
+  /**
+   * Test {@link PDType0Font#loadVertical(PDDocument, TrueTypeFont, boolean)} with {@code doc},
+   * {@code ttf}, {@code embedSubset}.
+   *
    * <ul>
    *   <li>Given {@link GlyphTable} {@link GlyphTable#getGlyph(int)} return {@code null}.
    * </ul>
@@ -4054,260 +4576,6 @@ class PDType0FontDiffblueTest {
     assertArrayEquals(new float[] {0.001f, 0.0f, 0.0f}, values[0], 0.0f);
     assertArrayEquals(new float[] {0.0f, 0.001f, 0.0f}, values[1], 0.0f);
     assertArrayEquals(new float[] {0.0f, 0.0f, 1.0f}, values[2], 0.0f);
-  }
-
-  /**
-   * Test {@link PDType0Font#loadVertical(PDDocument, TrueTypeFont, boolean)} with {@code doc},
-   * {@code ttf}, {@code embedSubset}.
-   *
-   * <ul>
-   *   <li>Then calls {@link DataInputStream#close()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDType0Font#loadVertical(PDDocument, TrueTypeFont, boolean)}
-   */
-  @Test
-  @DisplayName(
-      "Test loadVertical(PDDocument, TrueTypeFont, boolean) with 'doc', 'ttf', 'embedSubset'; then calls close()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDType0Font PDType0Font.loadVertical(PDDocument, TrueTypeFont, boolean)"})
-  void testLoadVerticalWithDocTtfEmbedSubset_thenCallsClose() throws IOException {
-    // Arrange
-    StreamCacheCreateFunction streamCacheCreateFunction = mock(StreamCacheCreateFunction.class);
-    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
-    PDDocument doc = new PDDocument(streamCacheCreateFunction);
-
-    OS2WindowsMetricsTable os2WindowsMetricsTable = mock(OS2WindowsMetricsTable.class);
-    when(os2WindowsMetricsTable.getTypoAscender()).thenReturn(3);
-    when(os2WindowsMetricsTable.getTypoDescender()).thenReturn(3);
-    when(os2WindowsMetricsTable.getFamilyClass()).thenReturn(1);
-    when(os2WindowsMetricsTable.getFsSelection()).thenReturn(1);
-    when(os2WindowsMetricsTable.getVersion()).thenReturn(1);
-    when(os2WindowsMetricsTable.getWeightClass()).thenReturn(3);
-    when(os2WindowsMetricsTable.getFsType()).thenReturn((short) 1);
-
-    PostScriptTable postScriptTable = mock(PostScriptTable.class);
-    when(postScriptTable.getItalicAngle()).thenReturn(10.0f);
-    when(postScriptTable.getIsFixedPitch()).thenReturn(1L);
-
-    HorizontalHeaderTable horizontalHeaderTable = mock(HorizontalHeaderTable.class);
-    when(horizontalHeaderTable.getAscender()).thenReturn((short) 1);
-    when(horizontalHeaderTable.getDescender()).thenReturn((short) 1);
-
-    HeaderTable headerTable = mock(HeaderTable.class);
-    when(headerTable.getUnitsPerEm()).thenReturn(1);
-    when(headerTable.getXMax()).thenReturn((short) 1);
-    when(headerTable.getXMin()).thenReturn((short) 1);
-    when(headerTable.getYMax()).thenReturn((short) 1);
-    when(headerTable.getYMin()).thenReturn((short) 1);
-
-    HorizontalMetricsTable horizontalMetricsTable = mock(HorizontalMetricsTable.class);
-    when(horizontalMetricsTable.getAdvanceWidth(anyInt())).thenReturn(1);
-
-    VerticalHeaderTable verticalHeaderTable = mock(VerticalHeaderTable.class);
-    when(verticalHeaderTable.getAdvanceHeightMax()).thenReturn(1);
-    when(verticalHeaderTable.getAscender()).thenReturn((short) 1);
-
-    GlyphTable glyphTable = mock(GlyphTable.class);
-    when(glyphTable.getGlyph(anyInt())).thenReturn(new GlyphData());
-
-    VerticalMetricsTable verticalMetricsTable = mock(VerticalMetricsTable.class);
-    when(verticalMetricsTable.getAdvanceHeight(anyInt())).thenReturn(1);
-    when(verticalMetricsTable.getTopSideBearing(anyInt())).thenReturn(1);
-
-    DataInputStream dataInputStream = mock(DataInputStream.class);
-    when(dataInputStream.markSupported()).thenReturn(false);
-    when(dataInputStream.read(Mockito.<byte[]>any())).thenReturn(1);
-    when(dataInputStream.transferTo(Mockito.<OutputStream>any())).thenReturn(1L);
-    doNothing().when(dataInputStream).mark(anyInt());
-    doNothing().when(dataInputStream).close();
-
-    MaximumProfileTable maximumProfileTable = mock(MaximumProfileTable.class);
-    when(maximumProfileTable.getNumGlyphs()).thenReturn(PDPanoseClassification.LENGTH);
-
-    TrueTypeFont ttf = mock(TrueTypeFont.class);
-    when(ttf.getOriginalDataSize()).thenReturn(3L);
-    when(ttf.getMaximumProfile()).thenReturn(maximumProfileTable);
-    when(ttf.getOriginalData()).thenReturn(dataInputStream);
-    when(ttf.getGlyph()).thenReturn(glyphTable);
-    when(ttf.getVerticalMetrics()).thenReturn(verticalMetricsTable);
-    when(ttf.getUnicodeCmapLookup(anyBoolean())).thenReturn(new CmapSubtable());
-    when(ttf.getVerticalHeader()).thenReturn(verticalHeaderTable);
-    when(ttf.getNumberOfGlyphs()).thenReturn(PDPanoseClassification.LENGTH);
-    when(ttf.getPath(Mockito.<String>any())).thenReturn(null);
-    when(ttf.getHorizontalMetrics()).thenReturn(horizontalMetricsTable);
-    when(ttf.getHeader()).thenReturn(headerTable);
-    when(ttf.getHorizontalHeader()).thenReturn(horizontalHeaderTable);
-    when(ttf.getPostScript()).thenReturn(postScriptTable);
-    when(ttf.getName()).thenReturn("Name");
-    when(ttf.getUnicodeCmapLookup()).thenReturn(new CmapSubtable());
-    when(ttf.getOS2Windows()).thenReturn(os2WindowsMetricsTable);
-    MapBackedGsubData mapBackedGsubData =
-        new MapBackedGsubData(Language.BENGALI, "Active Script Name", new HashMap<>());
-    when(ttf.getGsubData()).thenReturn(mapBackedGsubData);
-    doNothing().when(ttf).enableVerticalSubstitutions();
-
-    // Act
-    PDType0Font actualLoadVerticalResult = PDType0Font.loadVertical(doc, ttf, false);
-
-    // Assert
-    verify(dataInputStream).read(isA(byte[].class));
-    verify(dataInputStream, atLeast(1)).close();
-    verify(dataInputStream).mark(4);
-    verify(dataInputStream).markSupported();
-    verify(dataInputStream).transferTo(isA(OutputStream.class));
-    verify(glyphTable, atLeast(1)).getGlyph(anyInt());
-    verify(headerTable, atLeast(1)).getUnitsPerEm();
-    verify(headerTable).getXMax();
-    verify(headerTable).getXMin();
-    verify(headerTable).getYMax();
-    verify(headerTable).getYMin();
-    verify(horizontalHeaderTable).getAscender();
-    verify(horizontalHeaderTable).getDescender();
-    verify(horizontalMetricsTable, atLeast(1)).getAdvanceWidth(anyInt());
-    verify(maximumProfileTable).getNumGlyphs();
-    verify(os2WindowsMetricsTable).getFamilyClass();
-    verify(os2WindowsMetricsTable).getFsSelection();
-    verify(os2WindowsMetricsTable).getFsType();
-    verify(os2WindowsMetricsTable, atLeast(1)).getTypoAscender();
-    verify(os2WindowsMetricsTable).getTypoDescender();
-    verify(os2WindowsMetricsTable).getVersion();
-    verify(os2WindowsMetricsTable).getWeightClass();
-    verify(postScriptTable).getIsFixedPitch();
-    verify(postScriptTable).getItalicAngle();
-    verify(ttf).enableVerticalSubstitutions();
-    verify(ttf).getGlyph();
-    verify(ttf).getGsubData();
-    verify(ttf, atLeast(1)).getHeader();
-    verify(ttf).getHorizontalHeader();
-    verify(ttf, atLeast(1)).getHorizontalMetrics();
-    verify(ttf).getMaximumProfile();
-    verify(ttf, atLeast(1)).getName();
-    verify(ttf, atLeast(1)).getNumberOfGlyphs();
-    verify(ttf, atLeast(1)).getOS2Windows();
-    verify(ttf, atLeast(1)).getOriginalData();
-    verify(ttf).getOriginalDataSize();
-    verify(ttf, atLeast(1)).getPath(Mockito.<String>any());
-    verify(ttf).getPostScript();
-    verify(ttf, atLeast(1)).getUnicodeCmapLookup();
-    verify(ttf).getUnicodeCmapLookup(false);
-    verify(ttf).getVerticalHeader();
-    verify(ttf).getVerticalMetrics();
-    verify(verticalHeaderTable).getAdvanceHeightMax();
-    verify(verticalHeaderTable).getAscender();
-    verify(verticalMetricsTable, atLeast(1)).getAdvanceHeight(anyInt());
-    verify(verticalMetricsTable, atLeast(1)).getTopSideBearing(anyInt());
-    verify(streamCacheCreateFunction).create();
-    float[][] values = actualLoadVerticalResult.getFontMatrix().getValues();
-    assertEquals(3, values.length);
-    PDStream fontFile2 = actualLoadVerticalResult.getFontDescriptor().getFontFile2();
-    assertEquals(8, fontFile2.getLength());
-    assertEquals(8L, fontFile2.getCOSObject().getLength());
-    assertArrayEquals(new float[] {0.001f, 0.0f, 0.0f}, values[0], 0.0f);
-    assertArrayEquals(new float[] {0.0f, 0.001f, 0.0f}, values[1], 0.0f);
-    assertArrayEquals(new float[] {0.0f, 0.0f, 1.0f}, values[2], 0.0f);
-  }
-
-  /**
-   * Test {@link PDType0Font#loadVertical(PDDocument, TrueTypeFont, boolean)} with {@code doc},
-   * {@code ttf}, {@code embedSubset}.
-   *
-   * <ul>
-   *   <li>Then calls {@link DataInputStream#reset()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDType0Font#loadVertical(PDDocument, TrueTypeFont, boolean)}
-   */
-  @Test
-  @DisplayName(
-      "Test loadVertical(PDDocument, TrueTypeFont, boolean) with 'doc', 'ttf', 'embedSubset'; then calls reset()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDType0Font PDType0Font.loadVertical(PDDocument, TrueTypeFont, boolean)"})
-  void testLoadVerticalWithDocTtfEmbedSubset_thenCallsReset() throws IOException {
-    // Arrange
-    StreamCacheCreateFunction streamCacheCreateFunction = mock(StreamCacheCreateFunction.class);
-    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
-    PDDocument doc = new PDDocument(streamCacheCreateFunction);
-
-    OS2WindowsMetricsTable os2WindowsMetricsTable = mock(OS2WindowsMetricsTable.class);
-    when(os2WindowsMetricsTable.getTypoAscender()).thenReturn(3);
-    when(os2WindowsMetricsTable.getTypoDescender()).thenReturn(3);
-    when(os2WindowsMetricsTable.getFamilyClass()).thenReturn(1);
-    when(os2WindowsMetricsTable.getFsSelection()).thenReturn(1);
-    when(os2WindowsMetricsTable.getVersion()).thenReturn(1);
-    when(os2WindowsMetricsTable.getWeightClass()).thenReturn(3);
-    when(os2WindowsMetricsTable.getFsType()).thenReturn((short) 1);
-
-    PostScriptTable postScriptTable = mock(PostScriptTable.class);
-    when(postScriptTable.getItalicAngle()).thenReturn(10.0f);
-    when(postScriptTable.getIsFixedPitch()).thenReturn(1L);
-
-    HorizontalHeaderTable horizontalHeaderTable = mock(HorizontalHeaderTable.class);
-    when(horizontalHeaderTable.getAscender()).thenReturn((short) 1);
-    when(horizontalHeaderTable.getDescender()).thenReturn((short) 1);
-
-    HeaderTable headerTable = mock(HeaderTable.class);
-    when(headerTable.getUnitsPerEm()).thenReturn(1);
-    when(headerTable.getXMax()).thenReturn((short) 1);
-    when(headerTable.getXMin()).thenReturn((short) 1);
-    when(headerTable.getYMax()).thenReturn((short) 1);
-    when(headerTable.getYMin()).thenReturn((short) 1);
-
-    DataInputStream dataInputStream = mock(DataInputStream.class);
-    doThrow(new IOException()).when(dataInputStream).reset();
-    when(dataInputStream.markSupported()).thenReturn(true);
-    when(dataInputStream.read(Mockito.<byte[]>any())).thenReturn(1);
-    doNothing().when(dataInputStream).mark(anyInt());
-
-    TrueTypeFont ttf = mock(TrueTypeFont.class);
-    when(ttf.getOriginalData()).thenReturn(dataInputStream);
-    when(ttf.getPath(Mockito.<String>any())).thenReturn(null);
-    when(ttf.getHeader()).thenReturn(headerTable);
-    when(ttf.getHorizontalHeader()).thenReturn(horizontalHeaderTable);
-    when(ttf.getPostScript()).thenReturn(postScriptTable);
-    when(ttf.getName()).thenReturn("Name");
-    when(ttf.getUnicodeCmapLookup()).thenReturn(new CmapSubtable());
-    when(ttf.getOS2Windows()).thenReturn(os2WindowsMetricsTable);
-    MapBackedGsubData mapBackedGsubData =
-        new MapBackedGsubData(Language.BENGALI, "Active Script Name", new HashMap<>());
-    when(ttf.getGsubData()).thenReturn(mapBackedGsubData);
-    doNothing().when(ttf).enableVerticalSubstitutions();
-
-    // Act and Assert
-    assertThrows(IOException.class, () -> PDType0Font.loadVertical(doc, ttf, false));
-    verify(dataInputStream).read(isA(byte[].class));
-    verify(dataInputStream).mark(4);
-    verify(dataInputStream).markSupported();
-    verify(dataInputStream).reset();
-    verify(headerTable).getUnitsPerEm();
-    verify(headerTable).getXMax();
-    verify(headerTable).getXMin();
-    verify(headerTable).getYMax();
-    verify(headerTable).getYMin();
-    verify(horizontalHeaderTable).getAscender();
-    verify(horizontalHeaderTable).getDescender();
-    verify(os2WindowsMetricsTable).getFamilyClass();
-    verify(os2WindowsMetricsTable).getFsSelection();
-    verify(os2WindowsMetricsTable).getFsType();
-    verify(os2WindowsMetricsTable, atLeast(1)).getTypoAscender();
-    verify(os2WindowsMetricsTable).getTypoDescender();
-    verify(os2WindowsMetricsTable).getVersion();
-    verify(os2WindowsMetricsTable).getWeightClass();
-    verify(postScriptTable).getIsFixedPitch();
-    verify(postScriptTable).getItalicAngle();
-    verify(ttf).enableVerticalSubstitutions();
-    verify(ttf).getGsubData();
-    verify(ttf).getHeader();
-    verify(ttf).getHorizontalHeader();
-    verify(ttf).getName();
-    verify(ttf, atLeast(1)).getOS2Windows();
-    verify(ttf).getOriginalData();
-    verify(ttf, atLeast(1)).getPath(Mockito.<String>any());
-    verify(ttf).getPostScript();
-    verify(ttf).getUnicodeCmapLookup();
-    verify(streamCacheCreateFunction).create();
   }
 
   /**

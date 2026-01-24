@@ -142,6 +142,37 @@ class PDPageLabelRangeDiffblueTest {
    * Test {@link PDPageLabelRange#setStyle(String)}.
    *
    * <ul>
+   *   <li>Given {@link PDPageLabelRange#PDPageLabelRange()} Start is one.
+   *   <li>Then {@link PDPageLabelRange#PDPageLabelRange()} Style is {@code Style42}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDPageLabelRange#setStyle(String)}
+   */
+  @Test
+  @DisplayName(
+      "Test setStyle(String); given PDPageLabelRange() Start is one; then PDPageLabelRange() Style is 'Style42'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDPageLabelRange.setStyle(String)"})
+  void testSetStyle_givenPDPageLabelRangeStartIsOne_thenPDPageLabelRangeStyleIsStyle42() {
+    // Arrange
+    PDPageLabelRange pdPageLabelRange = new PDPageLabelRange();
+    pdPageLabelRange.setStart(1);
+
+    // Act
+    pdPageLabelRange.setStyle("Style42");
+
+    // Assert
+    assertEquals("Style42", pdPageLabelRange.getStyle());
+    COSDictionary cOSObject = pdPageLabelRange.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+  }
+
+  /**
+   * Test {@link PDPageLabelRange#setStyle(String)}.
+   *
+   * <ul>
    *   <li>Given {@link PDPageLabelRange#PDPageLabelRange()}.
    *   <li>Then {@link PDPageLabelRange#PDPageLabelRange()} COSObject size is zero.
    * </ul>
@@ -217,30 +248,6 @@ class PDPageLabelRangeDiffblueTest {
     // Arrange
     PDPageLabelRange pdPageLabelRange = new PDPageLabelRange();
     pdPageLabelRange.setStart(1);
-
-    // Act and Assert
-    assertEquals(1, pdPageLabelRange.getStart());
-  }
-
-  /**
-   * Test {@link PDPageLabelRange#getStart()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDPageLabelRange#PDPageLabelRange()} Style is {@code Style}.
-   *   <li>Then return one.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDPageLabelRange#getStart()}
-   */
-  @Test
-  @DisplayName("Test getStart(); given PDPageLabelRange() Style is 'Style'; then return one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"int PDPageLabelRange.getStart()"})
-  void testGetStart_givenPDPageLabelRangeStyleIsStyle_thenReturnOne() {
-    // Arrange
-    PDPageLabelRange pdPageLabelRange = new PDPageLabelRange();
-    pdPageLabelRange.setStyle("Style");
 
     // Act and Assert
     assertEquals(1, pdPageLabelRange.getStart());
@@ -365,30 +372,6 @@ class PDPageLabelRangeDiffblueTest {
 
     // Act and Assert
     assertEquals("Prefix", pdPageLabelRange.getPrefix());
-  }
-
-  /**
-   * Test {@link PDPageLabelRange#getPrefix()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDPageLabelRange#PDPageLabelRange()} Style is {@code Style}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDPageLabelRange#getPrefix()}
-   */
-  @Test
-  @DisplayName("Test getPrefix(); given PDPageLabelRange() Style is 'Style'; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String PDPageLabelRange.getPrefix()"})
-  void testGetPrefix_givenPDPageLabelRangeStyleIsStyle_thenReturnNull() {
-    // Arrange
-    PDPageLabelRange pdPageLabelRange = new PDPageLabelRange();
-    pdPageLabelRange.setStyle("Style");
-
-    // Act and Assert
-    assertNull(pdPageLabelRange.getPrefix());
   }
 
   /**

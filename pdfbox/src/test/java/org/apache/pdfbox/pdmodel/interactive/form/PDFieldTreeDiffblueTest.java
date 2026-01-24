@@ -2,6 +2,10 @@ package org.apache.pdfbox.pdmodel.interactive.form;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Iterator;
@@ -40,21 +44,23 @@ class PDFieldTreeDiffblueTest {
    * Test {@link PDFieldTree#iterator()}.
    *
    * <ul>
-   *   <li>Given {@link PDAcroForm#PDAcroForm(PDDocument)} with doc is {@link
-   *       PDDocument#PDDocument()}.
-   *   <li>Then return not hasNext.
+   *   <li>Then throw {@link IllegalArgumentException}.
    * </ul>
    *
    * <p>Method under test: {@link PDFieldTree#iterator()}
    */
   @Test
-  @DisplayName(
-      "Test iterator(); given PDAcroForm(PDDocument) with doc is PDDocument(); then return not hasNext")
+  @DisplayName("Test iterator(); then throw IllegalArgumentException")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"Iterator PDFieldTree.iterator()"})
-  void testIterator_givenPDAcroFormWithDocIsPDDocument_thenReturnNotHasNext() {
-    // Arrange, Act and Assert
-    assertFalse(new PDFieldTree(new PDAcroForm(new PDDocument())).iterator().hasNext());
+  void testIterator_thenThrowIllegalArgumentException() {
+    // Arrange
+    PDAcroForm acroForm = mock(PDAcroForm.class);
+    when(acroForm.getFields()).thenThrow(new IllegalArgumentException());
+
+    // Act and Assert
+    assertThrows(IllegalArgumentException.class, () -> new PDFieldTree(acroForm).iterator());
+    verify(acroForm).getFields();
   }
 }

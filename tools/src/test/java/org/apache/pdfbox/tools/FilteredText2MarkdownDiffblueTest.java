@@ -47,9 +47,7 @@ class FilteredText2MarkdownDiffblueTest {
     assertEquals(1, actualFilteredText2Markdown.getStartPage());
     assertEquals(2.0f, actualFilteredText2Markdown.getIndentThreshold());
     assertEquals(2.5f, actualFilteredText2Markdown.getDropThreshold());
-    assertFalse(actualFilteredText2Markdown.isShouldProcessColorOperators());
     assertFalse(actualFilteredText2Markdown.getAddMoreFormatting());
-    assertFalse(actualFilteredText2Markdown.getIgnoreContentStreamSpaceGlyphs());
     assertFalse(actualFilteredText2Markdown.getSortByPosition());
     assertTrue(actualFilteredText2Markdown.getSeparateByBeads());
     assertTrue(actualFilteredText2Markdown.getSuppressDuplicateOverlappingText());

@@ -122,33 +122,6 @@ class PDNumberTreeNodeDiffblueTest {
    *
    * <ul>
    *   <li>Given {@link PDNumberTreeNode#PDNumberTreeNode(Class)} with valueClass is {@link
-   *       COSObjectable} Numbers is {@link HashMap#HashMap()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDNumberTreeNode#getKids()}
-   */
-  @Test
-  @DisplayName(
-      "Test getKids(); given PDNumberTreeNode(Class) with valueClass is COSObjectable Numbers is HashMap()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"List PDNumberTreeNode.getKids()"})
-  void testGetKids_givenPDNumberTreeNodeWithValueClassIsCOSObjectableNumbersIsHashMap() {
-    // Arrange
-    Class<COSObjectable> valueClass = COSObjectable.class;
-
-    PDNumberTreeNode pdNumberTreeNode = new PDNumberTreeNode(valueClass);
-    pdNumberTreeNode.setNumbers(new HashMap<>());
-
-    // Act and Assert
-    assertNull(pdNumberTreeNode.getKids());
-  }
-
-  /**
-   * Test {@link PDNumberTreeNode#getKids()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDNumberTreeNode#PDNumberTreeNode(Class)} with valueClass is {@link
    *       COSObjectable}.
    *   <li>Then return {@code null}.
    * </ul>

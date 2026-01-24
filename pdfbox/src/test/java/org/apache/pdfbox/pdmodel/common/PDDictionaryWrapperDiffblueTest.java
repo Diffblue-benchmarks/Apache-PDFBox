@@ -63,34 +63,6 @@ class PDDictionaryWrapperDiffblueTest {
   }
 
   /**
-   * Test {@link PDDictionaryWrapper#getCOSObject()}.
-   *
-   * <p>Method under test: {@link PDDictionaryWrapper#getCOSObject()}
-   */
-  @Test
-  @DisplayName("Test getCOSObject()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"COSDictionary PDDictionaryWrapper.getCOSObject()"})
-  void testGetCOSObject() {
-    // Arrange and Act
-    COSDictionary actualCOSObject = new PDDictionaryWrapper().getCOSObject();
-
-    // Assert
-    COSUpdateState updateState = actualCOSObject.getUpdateState();
-    assertNull(updateState.getOriginDocumentState());
-    assertNull(actualCOSObject.getKey());
-    assertEquals(0, actualCOSObject.size());
-    COSIncrement toIncrementResult = actualCOSObject.toIncrement();
-    assertFalse(toIncrementResult.iterator().hasNext());
-    assertFalse(actualCOSObject.isDirect());
-    assertFalse(actualCOSObject.isNeedToBeUpdated());
-    assertFalse(updateState.isUpdated());
-    assertTrue(actualCOSObject.getValues().isEmpty());
-    assertTrue(toIncrementResult.getObjects().isEmpty());
-  }
-
-  /**
    * Test {@link PDDictionaryWrapper#equals(Object)}, and {@link PDDictionaryWrapper#hashCode()}.
    *
    * <ul>

@@ -165,30 +165,30 @@ class FDFAnnotationTextDiffblueTest {
    * Test {@link FDFAnnotationText#setIcon(String)}.
    *
    * <ul>
-   *   <li>Then {@link FDFAnnotationText#FDFAnnotationText(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()} Icon is {@code Icon}.
+   *   <li>When {@code statemodel}.
+   *   <li>Then {@link FDFAnnotationText#FDFAnnotationText()} Icon is {@code statemodel}.
    * </ul>
    *
    * <p>Method under test: {@link FDFAnnotationText#setIcon(String)}
    */
   @Test
   @DisplayName(
-      "Test setIcon(String); then FDFAnnotationText(COSDictionary) with a is COSDictionary() Icon is 'Icon'")
+      "Test setIcon(String); when 'statemodel'; then FDFAnnotationText() Icon is 'statemodel'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void FDFAnnotationText.setIcon(String)"})
-  void testSetIcon_thenFDFAnnotationTextWithAIsCOSDictionaryIconIsIcon() {
+  void testSetIcon_whenStatemodel_thenFDFAnnotationTextIconIsStatemodel() {
     // Arrange
-    FDFAnnotationText fdfAnnotationText = new FDFAnnotationText(new COSDictionary());
+    FDFAnnotationText fdfAnnotationText = new FDFAnnotationText();
 
     // Act
-    fdfAnnotationText.setIcon("Icon");
+    fdfAnnotationText.setIcon("statemodel");
 
     // Assert
-    assertEquals("Icon", fdfAnnotationText.getIcon());
+    assertEquals("statemodel", fdfAnnotationText.getIcon());
     COSDictionary cOSObject = fdfAnnotationText.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
   }
 
   /**
@@ -213,28 +213,6 @@ class FDFAnnotationTextDiffblueTest {
 
     // Act and Assert
     assertEquals("Note", fdfAnnotationText.getIcon());
-  }
-
-  /**
-   * Test {@link FDFAnnotationText#getIcon()}.
-   *
-   * <ul>
-   *   <li>Given {@link FDFAnnotationText#FDFAnnotationText(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code Note}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationText#getIcon()}
-   */
-  @Test
-  @DisplayName(
-      "Test getIcon(); given FDFAnnotationText(COSDictionary) with a is COSDictionary(); then return 'Note'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String FDFAnnotationText.getIcon()"})
-  void testGetIcon_givenFDFAnnotationTextWithAIsCOSDictionary_thenReturnNote() {
-    // Arrange, Act and Assert
-    assertEquals("Note", new FDFAnnotationText(new COSDictionary()).getIcon());
   }
 
   /**
@@ -304,28 +282,6 @@ class FDFAnnotationTextDiffblueTest {
 
     // Act and Assert
     assertEquals("MD", fdfAnnotationText.getState());
-  }
-
-  /**
-   * Test {@link FDFAnnotationText#getState()}.
-   *
-   * <ul>
-   *   <li>Given {@link FDFAnnotationText#FDFAnnotationText(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationText#getState()}
-   */
-  @Test
-  @DisplayName(
-      "Test getState(); given FDFAnnotationText(COSDictionary) with a is COSDictionary(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String FDFAnnotationText.getState()"})
-  void testGetState_givenFDFAnnotationTextWithAIsCOSDictionary_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull(new FDFAnnotationText(new COSDictionary()).getState());
   }
 
   /**
@@ -431,28 +387,6 @@ class FDFAnnotationTextDiffblueTest {
 
     // Act and Assert
     assertEquals("MD", fdfAnnotationText.getStateModel());
-  }
-
-  /**
-   * Test {@link FDFAnnotationText#getStateModel()}.
-   *
-   * <ul>
-   *   <li>Given {@link FDFAnnotationText#FDFAnnotationText(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationText#getStateModel()}
-   */
-  @Test
-  @DisplayName(
-      "Test getStateModel(); given FDFAnnotationText(COSDictionary) with a is COSDictionary(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String FDFAnnotationText.getStateModel()"})
-  void testGetStateModel_givenFDFAnnotationTextWithAIsCOSDictionary_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull(new FDFAnnotationText(new COSDictionary()).getStateModel());
   }
 
   /**

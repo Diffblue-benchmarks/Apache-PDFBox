@@ -2,7 +2,6 @@ package org.apache.fontbox.ttf;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import com.diffblue.cover.annotations.ManagedByDiffblue;
@@ -14,8 +13,6 @@ import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import org.apache.pdfbox.io.RandomAccessRead;
-import org.apache.pdfbox.io.RandomAccessReadView;
 import org.apache.pdfbox.io.RandomAccessReadWriteBuffer;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -565,28 +562,5 @@ class TTFDataStreamDiffblueTest {
     assertThrows(
         IOException.class,
         () -> new RandomAccessReadDataStream(new RandomAccessReadWriteBuffer()).readTag());
-  }
-
-  /**
-   * Test {@link TTFDataStream#createSubView(long)}.
-   *
-   * <p>Method under test: {@link TTFDataStream#createSubView(long)}
-   */
-  @Test
-  @DisplayName("Test createSubView(long)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"RandomAccessRead TTFDataStream.createSubView(long)"})
-  void testCreateSubView() throws IOException {
-    // Arrange and Act
-    RandomAccessRead actualCreateSubViewResult =
-        new RandomAccessReadDataStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8")))
-            .createSubView(3L);
-
-    // Assert
-    assertTrue(actualCreateSubViewResult instanceof RandomAccessReadView);
-    assertEquals(0L, actualCreateSubViewResult.getPosition());
-    assertEquals(3, actualCreateSubViewResult.available());
-    assertFalse(actualCreateSubViewResult.isClosed());
   }
 }

@@ -235,31 +235,6 @@ class PDSeedValueTimeStampDiffblueTest {
    * Test {@link PDSeedValueTimeStamp#isTimestampRequired()}.
    *
    * <ul>
-   *   <li>Given {@link PDSeedValueTimeStamp#PDSeedValueTimeStamp()} URL is {@code
-   *       https://example.org/example}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDSeedValueTimeStamp#isTimestampRequired()}
-   */
-  @Test
-  @DisplayName(
-      "Test isTimestampRequired(); given PDSeedValueTimeStamp() URL is 'https://example.org/example'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean PDSeedValueTimeStamp.isTimestampRequired()"})
-  void testIsTimestampRequired_givenPDSeedValueTimeStampUrlIsHttpsExampleOrgExample() {
-    // Arrange
-    PDSeedValueTimeStamp pdSeedValueTimeStamp = new PDSeedValueTimeStamp();
-    pdSeedValueTimeStamp.setURL("https://example.org/example");
-
-    // Act and Assert
-    assertFalse(pdSeedValueTimeStamp.isTimestampRequired());
-  }
-
-  /**
-   * Test {@link PDSeedValueTimeStamp#isTimestampRequired()}.
-   *
-   * <ul>
    *   <li>Given {@link PDSeedValueTimeStamp#PDSeedValueTimeStamp()}.
    *   <li>Then return {@code false}.
    * </ul>

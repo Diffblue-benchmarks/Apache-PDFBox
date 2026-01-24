@@ -24,7 +24,6 @@ import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.cos.COSIncrement;
 import org.apache.pdfbox.cos.COSName;
 import org.apache.pdfbox.cos.COSObjectKey;
-import org.apache.pdfbox.cos.COSStream;
 import org.apache.pdfbox.cos.COSUpdateState;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -125,57 +124,6 @@ class PDPageTreeDiffblueTest {
    * Test {@link PDPageTree#PDPageTree(COSDictionary)}.
    *
    * <ul>
-   *   <li>When {@link COSStream#COSStream()}.
-   *   <li>Then return COSObject is {@link COSStream#COSStream()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDPageTree#PDPageTree(COSDictionary)}
-   */
-  @Test
-  @DisplayName(
-      "Test new PDPageTree(COSDictionary); when COSStream(); then return COSObject is COSStream()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDPageTree.<init>(COSDictionary)"})
-  void testNewPDPageTree_whenCOSStream_thenReturnCOSObjectIsCOSStream() {
-    // Arrange
-    COSStream root = new COSStream();
-
-    // Act and Assert
-    assertSame(root, new PDPageTree(root).getCOSObject());
-  }
-
-  /**
-   * Test {@link PDPageTree#PDPageTree(COSDictionary, PDDocument)}.
-   *
-   * <ul>
-   *   <li>When {@link COSStream#COSStream()}.
-   *   <li>Then return COSObject is {@link COSStream#COSStream()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDPageTree#PDPageTree(COSDictionary, PDDocument)}
-   */
-  @Test
-  @DisplayName(
-      "Test new PDPageTree(COSDictionary, PDDocument); when COSStream(); then return COSObject is COSStream()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDPageTree.<init>(COSDictionary, PDDocument)"})
-  void testNewPDPageTree_whenCOSStream_thenReturnCOSObjectIsCOSStream2() {
-    // Arrange
-    COSStream root = new COSStream();
-
-    // Act
-    PDPageTree actualPdPageTree = new PDPageTree(root, new PDDocument());
-
-    // Assert
-    assertSame(root, actualPdPageTree.getCOSObject());
-  }
-
-  /**
-   * Test {@link PDPageTree#PDPageTree(COSDictionary)}.
-   *
-   * <ul>
    *   <li>When {@code null}.
    *   <li>Then throw {@link IllegalArgumentException}.
    * </ul>
@@ -239,7 +187,7 @@ class PDPageTreeDiffblueTest {
    * Test {@link PDPageTree#getInheritableAttribute(COSDictionary, COSName)}.
    *
    * <ul>
-   *   <li>When {@link COSStream#COSStream()}.
+   *   <li>When {@link COSDictionary#COSDictionary()}.
    *   <li>Then return {@code null}.
    * </ul>
    *
@@ -247,13 +195,13 @@ class PDPageTreeDiffblueTest {
    */
   @Test
   @DisplayName(
-      "Test getInheritableAttribute(COSDictionary, COSName); when COSStream(); then return 'null'")
+      "Test getInheritableAttribute(COSDictionary, COSName); when COSDictionary(); then return 'null'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"COSBase PDPageTree.getInheritableAttribute(COSDictionary, COSName)"})
-  void testGetInheritableAttribute_whenCOSStream_thenReturnNull() {
+  void testGetInheritableAttribute_whenCOSDictionary_thenReturnNull2() {
     // Arrange, Act and Assert
-    assertNull(PDPageTree.getInheritableAttribute(new COSStream(), COSName.A));
+    assertNull(PDPageTree.getInheritableAttribute(new COSDictionary(), null));
   }
 
   /**
@@ -358,48 +306,6 @@ class PDPageTreeDiffblueTest {
    * Test {@link PDPageTree#get(int)} with {@code index}.
    *
    * <ul>
-   *   <li>Given {@link PDPageTree#PDPageTree(COSDictionary)} with root is {@link
-   *       COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDPageTree#get(int)}
-   */
-  @Test
-  @DisplayName(
-      "Test get(int) with 'index'; given PDPageTree(COSDictionary) with root is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDPage PDPageTree.get(int)"})
-  void testGetWithIndex_givenPDPageTreeWithRootIsCOSDictionary() {
-    // Arrange, Act and Assert
-    assertThrows(IllegalStateException.class, () -> new PDPageTree(new COSDictionary()).get(1));
-  }
-
-  /**
-   * Test {@link PDPageTree#get(int)} with {@code index}.
-   *
-   * <ul>
-   *   <li>Given {@link PDPageTree#PDPageTree(COSDictionary)} with root is {@link
-   *       COSStream#COSStream()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDPageTree#get(int)}
-   */
-  @Test
-  @DisplayName(
-      "Test get(int) with 'index'; given PDPageTree(COSDictionary) with root is COSStream()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDPage PDPageTree.get(int)"})
-  void testGetWithIndex_givenPDPageTreeWithRootIsCOSStream() {
-    // Arrange, Act and Assert
-    assertThrows(IllegalStateException.class, () -> new PDPageTree(new COSStream()).get(1));
-  }
-
-  /**
-   * Test {@link PDPageTree#get(int)} with {@code index}.
-   *
-   * <ul>
    *   <li>Then return COSObject Key is {@link COSObjectKey#COSObjectKey(long, int)} with num is one
    *       and gen is one.
    * </ul>
@@ -433,6 +339,25 @@ class PDPageTreeDiffblueTest {
     assertArrayEquals(new float[] {0.0f, 0.0f, 1.0f}, values[2], 0.0f);
     assertArrayEquals(new float[] {0.0f, 1.0f, 0.0f}, values[1], 0.0f);
     assertArrayEquals(new float[] {1.0f, 0.0f, 0.0f}, values[0], 0.0f);
+  }
+
+  /**
+   * Test {@link PDPageTree#get(int)} with {@code index}.
+   *
+   * <ul>
+   *   <li>Then throw {@link IllegalStateException}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDPageTree#get(int)}
+   */
+  @Test
+  @DisplayName("Test get(int) with 'index'; then throw IllegalStateException")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDPage PDPageTree.get(int)"})
+  void testGetWithIndex_thenThrowIllegalStateException() {
+    // Arrange, Act and Assert
+    assertThrows(IllegalStateException.class, () -> new PDPageTree(new COSDictionary()).get(1));
   }
 
   /**
@@ -607,42 +532,19 @@ class PDPageTreeDiffblueTest {
    * Test {@link PDPageTree#remove(int)} with {@code index}.
    *
    * <ul>
-   *   <li>Given {@link PDPageTree#PDPageTree(COSDictionary)} with root is {@link
-   *       COSDictionary#COSDictionary()}.
+   *   <li>Then throw {@link IllegalStateException}.
    * </ul>
    *
    * <p>Method under test: {@link PDPageTree#remove(int)}
    */
   @Test
-  @DisplayName(
-      "Test remove(int) with 'index'; given PDPageTree(COSDictionary) with root is COSDictionary()")
+  @DisplayName("Test remove(int) with 'index'; then throw IllegalStateException")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void PDPageTree.remove(int)"})
-  void testRemoveWithIndex_givenPDPageTreeWithRootIsCOSDictionary() {
+  void testRemoveWithIndex_thenThrowIllegalStateException() {
     // Arrange, Act and Assert
     assertThrows(IllegalStateException.class, () -> new PDPageTree(new COSDictionary()).remove(1));
-  }
-
-  /**
-   * Test {@link PDPageTree#remove(int)} with {@code index}.
-   *
-   * <ul>
-   *   <li>Given {@link PDPageTree#PDPageTree(COSDictionary)} with root is {@link
-   *       COSStream#COSStream()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDPageTree#remove(int)}
-   */
-  @Test
-  @DisplayName(
-      "Test remove(int) with 'index'; given PDPageTree(COSDictionary) with root is COSStream()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDPageTree.remove(int)"})
-  void testRemoveWithIndex_givenPDPageTreeWithRootIsCOSStream() {
-    // Arrange, Act and Assert
-    assertThrows(IllegalStateException.class, () -> new PDPageTree(new COSStream()).remove(1));
   }
 
   /**

@@ -24,7 +24,6 @@ import org.apache.pdfbox.cos.COSArray;
 import org.apache.pdfbox.cos.COSBase;
 import org.apache.pdfbox.cos.COSBoolean;
 import org.apache.pdfbox.cos.COSDictionary;
-import org.apache.pdfbox.cos.COSDocument;
 import org.apache.pdfbox.cos.COSFloat;
 import org.apache.pdfbox.cos.COSIncrement;
 import org.apache.pdfbox.cos.COSInteger;
@@ -39,14 +38,13 @@ import org.apache.pdfbox.io.RandomAccessReadBuffer;
 import org.apache.pdfbox.io.RandomAccessReadView;
 import org.apache.pdfbox.io.RandomAccessReadWriteBuffer;
 import org.apache.pdfbox.io.RandomAccessStreamCacheImpl;
-import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
-import org.apache.pdfbox.pdmodel.PDResources;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.documentinterchange.markedcontent.PDPropertyList;
 import org.apache.pdfbox.pdmodel.graphics.color.PDColor;
+import org.apache.pdfbox.pdmodel.graphics.color.PDColorSpace;
+import org.apache.pdfbox.pdmodel.graphics.color.PDDeviceCMYK;
 import org.apache.pdfbox.pdmodel.graphics.color.PDDeviceGray;
-import org.apache.pdfbox.pdmodel.interactive.annotation.handlers.PDCaretAppearanceHandler;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -514,18 +512,18 @@ class PDAnnotationDiffblueTest {
    *
    * <ul>
    *   <li>When {@link COSDictionary#COSDictionary()}.
-   *   <li>Then {@link COSDictionary#COSDictionary()} size is one.
+   *   <li>Then return {@link PDAnnotationUnknown}.
    * </ul>
    *
    * <p>Method under test: {@link PDAnnotation#createAnnotation(COSBase)}
    */
   @Test
   @DisplayName(
-      "Test createAnnotation(COSBase); when COSDictionary(); then COSDictionary() size is one")
+      "Test createAnnotation(COSBase); when COSDictionary(); then return PDAnnotationUnknown")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"PDAnnotation PDAnnotation.createAnnotation(COSBase)"})
-  void testCreateAnnotation_whenCOSDictionary_thenCOSDictionarySizeIsOne() throws IOException {
+  void testCreateAnnotation_whenCOSDictionary_thenReturnPDAnnotationUnknown() throws IOException {
     // Arrange
     COSDictionary base = new COSDictionary();
 
@@ -534,12 +532,31 @@ class PDAnnotationDiffblueTest {
 
     // Assert
     assertTrue(actualCreateAnnotationResult instanceof PDAnnotationUnknown);
+    assertNull(actualCreateAnnotationResult.getAnnotationName());
+    assertNull(actualCreateAnnotationResult.getContents());
+    assertNull(actualCreateAnnotationResult.getModifiedDate());
+    assertNull(actualCreateAnnotationResult.getSubtype());
+    assertNull(actualCreateAnnotationResult.getAppearanceState());
+    assertNull(actualCreateAnnotationResult.getPage());
+    assertNull(actualCreateAnnotationResult.getRectangle());
+    assertNull(actualCreateAnnotationResult.getOptionalContent());
+    assertNull(actualCreateAnnotationResult.getColor());
+    assertNull(actualCreateAnnotationResult.getAppearance());
+    assertNull(actualCreateAnnotationResult.getNormalAppearanceStream());
+    assertEquals(-1, actualCreateAnnotationResult.getStructParent());
+    assertEquals(0, actualCreateAnnotationResult.getAnnotationFlags());
     assertEquals(1, base.size());
-    List<? extends COSBase> toListResult = actualCreateAnnotationResult.getBorder().toList();
-    assertEquals(3, toListResult.size());
+    assertFalse(actualCreateAnnotationResult.isHidden());
+    assertFalse(actualCreateAnnotationResult.isInvisible());
+    assertFalse(actualCreateAnnotationResult.isLocked());
+    assertFalse(actualCreateAnnotationResult.isLockedContents());
+    assertFalse(actualCreateAnnotationResult.isNoRotate());
+    assertFalse(actualCreateAnnotationResult.isNoView());
+    assertFalse(actualCreateAnnotationResult.isNoZoom());
+    assertFalse(actualCreateAnnotationResult.isPrinted());
+    assertFalse(actualCreateAnnotationResult.isReadOnly());
+    assertFalse(actualCreateAnnotationResult.isToggleNoView());
     assertSame(base, actualCreateAnnotationResult.getCOSObject());
-    COSBase expectedGetResult = toListResult.get(0);
-    assertSame(expectedGetResult, toListResult.get(1));
   }
 
   /**
@@ -563,38 +580,6 @@ class PDAnnotationDiffblueTest {
 
     // Act and Assert
     assertThrows(IOException.class, () -> PDAnnotation.createAnnotation(base));
-  }
-
-  /**
-   * Test {@link PDAnnotation#createAnnotation(COSBase)}.
-   *
-   * <ul>
-   *   <li>When {@link COSStream#COSStream()}.
-   *   <li>Then {@link COSStream#COSStream()} size is two.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#createAnnotation(COSBase)}
-   */
-  @Test
-  @DisplayName("Test createAnnotation(COSBase); when COSStream(); then COSStream() size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDAnnotation PDAnnotation.createAnnotation(COSBase)"})
-  void testCreateAnnotation_whenCOSStream_thenCOSStreamSizeIsTwo() throws IOException {
-    // Arrange
-    COSStream base = new COSStream();
-
-    // Act
-    PDAnnotation actualCreateAnnotationResult = PDAnnotation.createAnnotation(base);
-
-    // Assert
-    assertTrue(actualCreateAnnotationResult instanceof PDAnnotationUnknown);
-    assertEquals(2, base.size());
-    List<? extends COSBase> toListResult = actualCreateAnnotationResult.getBorder().toList();
-    assertEquals(3, toListResult.size());
-    assertSame(base, actualCreateAnnotationResult.getCOSObject());
-    COSBase expectedGetResult = toListResult.get(0);
-    assertSame(expectedGetResult, toListResult.get(1));
   }
 
   /**
@@ -2767,52 +2752,19 @@ class PDAnnotationDiffblueTest {
    * Test {@link PDAnnotation#setStructParent(int)}.
    *
    * <ul>
-   *   <li>Given {@link PDAnnotationCaret#PDAnnotationCaret()} Appearance is {@link
-   *       PDAppearanceDictionary#PDAppearanceDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#setStructParent(int)}
-   */
-  @Test
-  @DisplayName(
-      "Test setStructParent(int); given PDAnnotationCaret() Appearance is PDAppearanceDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDAnnotation.setStructParent(int)"})
-  void testSetStructParent_givenPDAnnotationCaretAppearanceIsPDAppearanceDictionary() {
-    // Arrange
-    PDAnnotationCaret annotation = new PDAnnotationCaret();
-    annotation.setAppearance(new PDAppearanceDictionary());
-    PDCaretAppearanceHandler appearanceHandler = new PDCaretAppearanceHandler(annotation);
-
-    PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
-    pdAnnotationCaret.setCustomAppearanceHandler(appearanceHandler);
-
-    // Act
-    pdAnnotationCaret.setStructParent(-1810807491);
-
-    // Assert
-    assertEquals(-1810807491, pdAnnotationCaret.getStructParent());
-    COSDictionary cOSObject = pdAnnotationCaret.getCOSObject();
-    assertEquals(3, cOSObject.getValues().size());
-    assertEquals(3, cOSObject.size());
-  }
-
-  /**
-   * Test {@link PDAnnotation#setStructParent(int)}.
-   *
-   * <ul>
+   *   <li>When {@code -1810807491}.
    *   <li>Then {@link PDAnnotationCaret#PDAnnotationCaret()} StructParent is {@code -1810807491}.
    * </ul>
    *
    * <p>Method under test: {@link PDAnnotation#setStructParent(int)}
    */
   @Test
-  @DisplayName("Test setStructParent(int); then PDAnnotationCaret() StructParent is '-1810807491'")
+  @DisplayName(
+      "Test setStructParent(int); when '-1810807491'; then PDAnnotationCaret() StructParent is '-1810807491'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void PDAnnotation.setStructParent(int)"})
-  void testSetStructParent_thenPDAnnotationCaretStructParentIs1810807491() {
+  void testSetStructParent_when1810807491_thenPDAnnotationCaretStructParentIs1810807491() {
     // Arrange
     PDAnnotationCaret pdAnnotationCaret = new PDAnnotationCaret();
 
@@ -3523,372 +3475,6 @@ class PDAnnotationDiffblueTest {
   }
 
   /**
-   * Test {@link PDAnnotation#constructAppearances(PDDocument)} with {@code PDDocument}.
-   *
-   * <p>Method under test: {@link PDAnnotation#constructAppearances(PDDocument)}
-   */
-  @Test
-  @DisplayName("Test constructAppearances(PDDocument) with 'PDDocument'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDAnnotation.constructAppearances(PDDocument)"})
-  void testConstructAppearancesWithPDDocument() throws IOException {
-    // Arrange
-    PDAnnotationCircle pdAnnotationCircle = new PDAnnotationCircle();
-    pdAnnotationCircle.setRectangle(PDRectangle.A0);
-
-    // Act
-    pdAnnotationCircle.constructAppearances(new PDDocument());
-
-    // Assert
-    PDRectangle rectangle = pdAnnotationCircle.getRectangle();
-    assertEquals(-0.5f, rectangle.getLowerLeftX());
-    assertEquals(-0.5f, rectangle.getLowerLeftY());
-    PDRectangle rectDifference = pdAnnotationCircle.getRectDifference();
-    assertEquals(0.0f, rectDifference.getHeight());
-    assertEquals(0.0f, rectDifference.getWidth());
-    assertEquals(0.5f, rectDifference.getLowerLeftX());
-    assertEquals(0.5f, rectDifference.getLowerLeftY());
-    assertEquals(0.5f, rectDifference.getUpperRightX());
-    assertEquals(0.5f, rectDifference.getUpperRightY());
-    assertEquals(2384.437f, rectangle.getUpperRightX());
-    assertEquals(2384.937f, rectangle.getWidth());
-    assertEquals(3370.8938f, rectangle.getUpperRightY());
-    assertEquals(3371.3938f, rectangle.getHeight());
-    byte[] byteArray = new byte[51];
-    assertEquals(51, pdAnnotationCircle.getNormalAppearanceStream().getContents().read(byteArray));
-    assertArrayEquals(
-        "1191.9685 3369.8938 m\n1853.8938 3369.8938 2383.437 ".getBytes("UTF-8"), byteArray);
-    assertArrayEquals(
-        new float[] {0.5f, 0.5f, 0.5f, 0.5f}, pdAnnotationCircle.getRectDifferences(), 0.0f);
-  }
-
-  /**
-   * Test {@link PDAnnotation#constructAppearances(PDDocument)} with {@code PDDocument}.
-   *
-   * <p>Method under test: {@link PDAnnotation#constructAppearances(PDDocument)}
-   */
-  @Test
-  @DisplayName("Test constructAppearances(PDDocument) with 'PDDocument'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDAnnotation.constructAppearances(PDDocument)"})
-  void testConstructAppearancesWithPDDocument2() throws IOException {
-    // Arrange
-    PDAnnotationFileAttachment pdAnnotationFileAttachment = new PDAnnotationFileAttachment();
-    pdAnnotationFileAttachment.setRectangle(PDRectangle.A0);
-
-    // Act
-    pdAnnotationFileAttachment.constructAppearances(new PDDocument());
-
-    // Assert
-    PDRectangle rectangle = pdAnnotationFileAttachment.getRectangle();
-    assertEquals(18.0f, rectangle.getHeight());
-    assertEquals(18.0f, rectangle.getUpperRightX());
-    assertEquals(18.0f, rectangle.getWidth());
-    assertEquals(3352.3938f, rectangle.getLowerLeftY());
-    byte[] byteArray = new byte[51];
-    assertEquals(
-        51, pdAnnotationFileAttachment.getNormalAppearanceStream().getContents().read(byteArray));
-    assertArrayEquals(
-        "13.574 9.301 m\n8.926 13.949 l\n7.648 15.227 5.625 15".getBytes("UTF-8"), byteArray);
-  }
-
-  /**
-   * Test {@link PDAnnotation#constructAppearances(PDDocument)} with {@code PDDocument}.
-   *
-   * <p>Method under test: {@link PDAnnotation#constructAppearances(PDDocument)}
-   */
-  @Test
-  @DisplayName("Test constructAppearances(PDDocument) with 'PDDocument'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDAnnotation.constructAppearances(PDDocument)"})
-  void testConstructAppearancesWithPDDocument3() throws IOException {
-    // Arrange
-    PDAnnotationFreeText pdAnnotationFreeText = new PDAnnotationFreeText();
-    pdAnnotationFreeText.setRectangle(PDRectangle.A0);
-
-    // Act
-    pdAnnotationFreeText.constructAppearances(new PDDocument());
-
-    // Assert
-    PDAppearanceStream normalAppearanceStream = pdAnnotationFreeText.getNormalAppearanceStream();
-    RandomAccessRead contentsForStreamParsing =
-        normalAppearanceStream.getContentsForStreamParsing();
-    assertTrue(contentsForStreamParsing instanceof RandomAccessReadWriteBuffer);
-    RandomAccessRead contentsForRandomAccess = normalAppearanceStream.getContentsForRandomAccess();
-    assertTrue(contentsForRandomAccess instanceof RandomAccessReadWriteBuffer);
-    assertEquals(69, normalAppearanceStream.getStream().getLength());
-    assertEquals(69, normalAppearanceStream.getContentStream().getLength());
-    assertEquals(69L, normalAppearanceStream.getCOSObject().getLength());
-    assertEquals(85, contentsForStreamParsing.available());
-    assertEquals(85, contentsForRandomAccess.available());
-    PDResources resources = normalAppearanceStream.getResources();
-    Iterable<COSName> expectedFontNames = resources.getColorSpaceNames();
-    assertSame(expectedFontNames, resources.getFontNames());
-  }
-
-  /**
-   * Test {@link PDAnnotation#constructAppearances(PDDocument)} with {@code PDDocument}.
-   *
-   * <p>Method under test: {@link PDAnnotation#constructAppearances(PDDocument)}
-   */
-  @Test
-  @DisplayName("Test constructAppearances(PDDocument) with 'PDDocument'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDAnnotation.constructAppearances(PDDocument)"})
-  void testConstructAppearancesWithPDDocument4() throws IOException {
-    // Arrange
-    PDAnnotationFreeText pdAnnotationFreeText = new PDAnnotationFreeText();
-    pdAnnotationFreeText.setRectangle(PDRectangle.A0);
-
-    // Act
-    pdAnnotationFreeText.constructAppearances(null);
-
-    // Assert
-    PDAppearanceStream normalAppearanceStream = pdAnnotationFreeText.getNormalAppearanceStream();
-    RandomAccessRead contentsForStreamParsing =
-        normalAppearanceStream.getContentsForStreamParsing();
-    assertTrue(contentsForStreamParsing instanceof RandomAccessReadWriteBuffer);
-    RandomAccessRead contentsForRandomAccess = normalAppearanceStream.getContentsForRandomAccess();
-    assertTrue(contentsForRandomAccess instanceof RandomAccessReadWriteBuffer);
-    assertEquals(69, normalAppearanceStream.getStream().getLength());
-    assertEquals(69, normalAppearanceStream.getContentStream().getLength());
-    assertEquals(69L, normalAppearanceStream.getCOSObject().getLength());
-    assertEquals(85, contentsForStreamParsing.available());
-    assertEquals(85, contentsForRandomAccess.available());
-    PDResources resources = normalAppearanceStream.getResources();
-    Iterable<COSName> expectedFontNames = resources.getColorSpaceNames();
-    assertSame(expectedFontNames, resources.getFontNames());
-  }
-
-  /**
-   * Test {@link PDAnnotation#constructAppearances(PDDocument)} with {@code PDDocument}.
-   *
-   * <p>Method under test: {@link PDAnnotation#constructAppearances(PDDocument)}
-   */
-  @Test
-  @DisplayName("Test constructAppearances(PDDocument) with 'PDDocument'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDAnnotation.constructAppearances(PDDocument)"})
-  void testConstructAppearancesWithPDDocument5() {
-    // Arrange
-    PDAnnotationFreeText pdAnnotationFreeText = new PDAnnotationFreeText();
-    pdAnnotationFreeText.setRectangle(PDRectangle.A0);
-
-    PDDocument document = new PDDocument();
-    document.addPage(new PDPage());
-
-    // Act
-    pdAnnotationFreeText.constructAppearances(document);
-
-    // Assert
-    PDAppearanceStream normalAppearanceStream = pdAnnotationFreeText.getNormalAppearanceStream();
-    List<? extends COSBase> toListResult = normalAppearanceStream.getBBox().getCOSArray().toList();
-    assertEquals(4, toListResult.size());
-    assertTrue(toListResult.get(0) instanceof COSFloat);
-    assertTrue(toListResult.get(1) instanceof COSFloat);
-    float[][] values = normalAppearanceStream.getMatrix().getValues();
-    assertEquals(3, values.length);
-    PDAppearanceDictionary appearance = pdAnnotationFreeText.getAppearance();
-    assertEquals(
-        4,
-        appearance
-            .getDownAppearance()
-            .getAppearanceStream()
-            .getBBox()
-            .getCOSArray()
-            .toList()
-            .size());
-    assertEquals(
-        4,
-        appearance
-            .getNormalAppearance()
-            .getAppearanceStream()
-            .getBBox()
-            .getCOSArray()
-            .toList()
-            .size());
-    assertEquals(
-        4,
-        appearance
-            .getRolloverAppearance()
-            .getAppearanceStream()
-            .getBBox()
-            .getCOSArray()
-            .toList()
-            .size());
-    assertArrayEquals(new float[] {-0.0f, -0.0f, 1.0f}, values[2], 0.0f);
-    assertArrayEquals(new float[] {0.0f, 1.0f, 0.0f}, values[1], 0.0f);
-    assertArrayEquals(new float[] {1.0f, 0.0f, 0.0f}, values[0], 0.0f);
-  }
-
-  /**
-   * Test {@link PDAnnotation#constructAppearances(PDDocument)} with {@code PDDocument}.
-   *
-   * <p>Method under test: {@link PDAnnotation#constructAppearances(PDDocument)}
-   */
-  @Test
-  @DisplayName("Test constructAppearances(PDDocument) with 'PDDocument'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDAnnotation.constructAppearances(PDDocument)"})
-  void testConstructAppearancesWithPDDocument6() throws IOException {
-    // Arrange
-    PDAnnotationFreeText pdAnnotationFreeText = new PDAnnotationFreeText();
-    pdAnnotationFreeText.setContents("42");
-    pdAnnotationFreeText.setRectangle(PDRectangle.A0);
-
-    // Act
-    pdAnnotationFreeText.constructAppearances(null);
-
-    // Assert
-    PDAppearanceStream normalAppearanceStream = pdAnnotationFreeText.getNormalAppearanceStream();
-    RandomAccessRead contentsForStreamParsing =
-        normalAppearanceStream.getContentsForStreamParsing();
-    assertTrue(contentsForStreamParsing instanceof RandomAccessReadWriteBuffer);
-    RandomAccessRead contentsForRandomAccess = normalAppearanceStream.getContentsForRandomAccess();
-    assertTrue(contentsForRandomAccess instanceof RandomAccessReadWriteBuffer);
-    assertEquals(128, contentsForStreamParsing.available());
-    assertEquals(128, contentsForRandomAccess.available());
-    float[][] values = normalAppearanceStream.getMatrix().getValues();
-    assertEquals(3, values.length);
-    assertArrayEquals(new float[] {-0.0f, -0.0f, 1.0f}, values[2], 0.0f);
-    assertArrayEquals(new float[] {0.0f, 1.0f, 0.0f}, values[1], 0.0f);
-    assertArrayEquals(new float[] {1.0f, 0.0f, 0.0f}, values[0], 0.0f);
-  }
-
-  /**
-   * Test {@link PDAnnotation#constructAppearances(PDDocument)} with {@code PDDocument}.
-   *
-   * <p>Method under test: {@link PDAnnotation#constructAppearances(PDDocument)}
-   */
-  @Test
-  @DisplayName("Test constructAppearances(PDDocument) with 'PDDocument'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDAnnotation.constructAppearances(PDDocument)"})
-  void testConstructAppearancesWithPDDocument7() throws IOException {
-    // Arrange
-    PDAnnotationFreeText pdAnnotationFreeText = new PDAnnotationFreeText();
-    pdAnnotationFreeText.setContents("G");
-    pdAnnotationFreeText.setRectangle(PDRectangle.A0);
-
-    // Act
-    pdAnnotationFreeText.constructAppearances(null);
-
-    // Assert
-    PDAppearanceStream normalAppearanceStream = pdAnnotationFreeText.getNormalAppearanceStream();
-    RandomAccessRead contentsForStreamParsing =
-        normalAppearanceStream.getContentsForStreamParsing();
-    assertTrue(contentsForStreamParsing instanceof RandomAccessReadWriteBuffer);
-    RandomAccessRead contentsForRandomAccess = normalAppearanceStream.getContentsForRandomAccess();
-    assertTrue(contentsForRandomAccess instanceof RandomAccessReadWriteBuffer);
-    float[][] values = normalAppearanceStream.getMatrix().getValues();
-    assertEquals(3, values.length);
-    assertEquals(Float.MAX_EXPONENT, contentsForStreamParsing.available());
-    assertEquals(Float.MAX_EXPONENT, contentsForRandomAccess.available());
-    assertArrayEquals(new float[] {-0.0f, -0.0f, 1.0f}, values[2], 0.0f);
-    assertArrayEquals(new float[] {0.0f, 1.0f, 0.0f}, values[1], 0.0f);
-    assertArrayEquals(new float[] {1.0f, 0.0f, 0.0f}, values[0], 0.0f);
-  }
-
-  /**
-   * Test {@link PDAnnotation#constructAppearances(PDDocument)} with {@code PDDocument}.
-   *
-   * <p>Method under test: {@link PDAnnotation#constructAppearances(PDDocument)}
-   */
-  @Test
-  @DisplayName("Test constructAppearances(PDDocument) with 'PDDocument'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDAnnotation.constructAppearances(PDDocument)"})
-  void testConstructAppearancesWithPDDocument8() throws IOException {
-    // Arrange
-    PDAnnotationFreeText pdAnnotationFreeText = new PDAnnotationFreeText();
-    pdAnnotationFreeText.setContents("");
-    pdAnnotationFreeText.setRectangle(PDRectangle.A0);
-
-    // Act
-    pdAnnotationFreeText.constructAppearances(null);
-
-    // Assert
-    PDAppearanceStream normalAppearanceStream = pdAnnotationFreeText.getNormalAppearanceStream();
-    RandomAccessRead contentsForStreamParsing =
-        normalAppearanceStream.getContentsForStreamParsing();
-    assertTrue(contentsForStreamParsing instanceof RandomAccessReadWriteBuffer);
-    RandomAccessRead contentsForRandomAccess = normalAppearanceStream.getContentsForRandomAccess();
-    assertTrue(contentsForRandomAccess instanceof RandomAccessReadWriteBuffer);
-    assertEquals(100, normalAppearanceStream.getStream().getLength());
-    assertEquals(100, normalAppearanceStream.getContentStream().getLength());
-    assertEquals(100L, normalAppearanceStream.getCOSObject().getLength());
-    assertEquals(120, contentsForStreamParsing.available());
-    assertEquals(120, contentsForRandomAccess.available());
-  }
-
-  /**
-   * Test {@link PDAnnotation#constructAppearances(PDDocument)} with {@code PDDocument}.
-   *
-   * <p>Method under test: {@link PDAnnotation#constructAppearances(PDDocument)}
-   */
-  @Test
-  @DisplayName("Test constructAppearances(PDDocument) with 'PDDocument'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDAnnotation.constructAppearances(PDDocument)"})
-  void testConstructAppearancesWithPDDocument9() {
-    // Arrange
-    PDAnnotationLine pdAnnotationLine = new PDAnnotationLine();
-    pdAnnotationLine.setRectangle(PDRectangle.A0);
-
-    // Act
-    pdAnnotationLine.constructAppearances(new PDDocument());
-
-    // Assert that nothing has changed
-    PDRectangle rectangle = pdAnnotationLine.getRectangle();
-    assertEquals(0.0f, rectangle.getLowerLeftY());
-    assertEquals(2383.937f, rectangle.getUpperRightX());
-    assertEquals(2383.937f, rectangle.getWidth());
-    assertEquals(3370.3938f, rectangle.getHeight());
-  }
-
-  /**
-   * Test {@link PDAnnotation#constructAppearances(PDDocument)} with {@code PDDocument}.
-   *
-   * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotation#constructAppearances(PDDocument)}
-   */
-  @Test
-  @DisplayName("Test constructAppearances(PDDocument) with 'PDDocument'; given COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDAnnotation.constructAppearances(PDDocument)"})
-  void testConstructAppearancesWithPDDocument_givenCOSDictionary() {
-    // Arrange
-    PDAnnotationFreeText pdAnnotationFreeText = new PDAnnotationFreeText();
-    pdAnnotationFreeText.setRectangle(PDRectangle.A0);
-
-    COSDocument doc = new COSDocument();
-    doc.setTrailer(new COSDictionary());
-
-    // Act
-    pdAnnotationFreeText.constructAppearances(new PDDocument(doc));
-
-    // Assert
-    float[][] values = pdAnnotationFreeText.getNormalAppearanceStream().getMatrix().getValues();
-    assertEquals(3, values.length);
-    assertArrayEquals(new float[] {-0.0f, -0.0f, 1.0f}, values[2], 0.0f);
-    assertArrayEquals(new float[] {0.0f, 1.0f, 0.0f}, values[1], 0.0f);
-    assertArrayEquals(new float[] {1.0f, 0.0f, 0.0f}, values[0], 0.0f);
-  }
-
-  /**
    * Test {@link PDAnnotation#constructAppearances()}.
    *
    * <ul>
@@ -4028,6 +3614,37 @@ class PDAnnotationDiffblueTest {
 
     // Assert that nothing has changed
     PDRectangle rectangle = pdAnnotationPolygon.getRectangle();
+    assertEquals(0.0f, rectangle.getLowerLeftY());
+    assertEquals(2383.937f, rectangle.getUpperRightX());
+    assertEquals(2383.937f, rectangle.getWidth());
+    assertEquals(3370.3938f, rectangle.getHeight());
+  }
+
+  /**
+   * Test {@link PDAnnotation#constructAppearances()}.
+   *
+   * <ul>
+   *   <li>Then {@link PDAnnotationPolyline#PDAnnotationPolyline()} Rectangle LowerLeftY is zero.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDAnnotation#constructAppearances()}
+   */
+  @Test
+  @DisplayName(
+      "Test constructAppearances(); then PDAnnotationPolyline() Rectangle LowerLeftY is zero")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDAnnotation.constructAppearances()"})
+  void testConstructAppearances_thenPDAnnotationPolylineRectangleLowerLeftYIsZero() {
+    // Arrange
+    PDAnnotationPolyline pdAnnotationPolyline = new PDAnnotationPolyline();
+    pdAnnotationPolyline.setRectangle(PDRectangle.A0);
+
+    // Act
+    pdAnnotationPolyline.constructAppearances();
+
+    // Assert that nothing has changed
+    PDRectangle rectangle = pdAnnotationPolyline.getRectangle();
     assertEquals(0.0f, rectangle.getLowerLeftY());
     assertEquals(2383.937f, rectangle.getUpperRightX());
     assertEquals(2383.937f, rectangle.getWidth());

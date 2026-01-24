@@ -1190,32 +1190,6 @@ class PDPageAdditionalActionsDiffblueTest {
    * Test {@link PDPageAdditionalActions#getC()}.
    *
    * <ul>
-   *   <li>Given {@link PDPageAdditionalActions#PDPageAdditionalActions()} O is {@link
-   *       PDActionEmbeddedGoTo#PDActionEmbeddedGoTo()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDPageAdditionalActions#getC()}
-   */
-  @Test
-  @DisplayName(
-      "Test getC(); given PDPageAdditionalActions() O is PDActionEmbeddedGoTo(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDAction PDPageAdditionalActions.getC()"})
-  void testGetC_givenPDPageAdditionalActionsOIsPDActionEmbeddedGoTo_thenReturnNull() {
-    // Arrange
-    PDPageAdditionalActions pdPageAdditionalActions = new PDPageAdditionalActions();
-    pdPageAdditionalActions.setO(new PDActionEmbeddedGoTo());
-
-    // Act and Assert
-    assertNull(pdPageAdditionalActions.getC());
-  }
-
-  /**
-   * Test {@link PDPageAdditionalActions#getC()}.
-   *
-   * <ul>
    *   <li>Given {@link PDPageAdditionalActions#PDPageAdditionalActions()}.
    *   <li>Then return {@code null}.
    * </ul>

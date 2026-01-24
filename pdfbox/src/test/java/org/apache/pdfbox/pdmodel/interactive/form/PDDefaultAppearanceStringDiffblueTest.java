@@ -20,6 +20,7 @@ import java.util.Set;
 import org.apache.pdfbox.cos.COSArray;
 import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.cos.COSName;
+import org.apache.pdfbox.cos.COSObjectKey;
 import org.apache.pdfbox.cos.COSStream;
 import org.apache.pdfbox.cos.COSString;
 import org.apache.pdfbox.pdmodel.PDAppearanceContentStream;
@@ -28,6 +29,7 @@ import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDMMType1Font;
 import org.apache.pdfbox.pdmodel.graphics.color.PDColor;
 import org.apache.pdfbox.pdmodel.graphics.color.PDDeviceGray;
+import org.apache.pdfbox.pdmodel.graphics.pattern.PDShadingPattern;
 import org.apache.pdfbox.pdmodel.interactive.annotation.PDAppearanceStream;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -38,8 +40,34 @@ class PDDefaultAppearanceStringDiffblueTest {
   /**
    * Test {@link PDDefaultAppearanceString#PDDefaultAppearanceString(COSString, PDResources)}.
    *
+   * <p>Method under test: {@link PDDefaultAppearanceString#PDDefaultAppearanceString(COSString,
+   * PDResources)}
+   */
+  @Test
+  @DisplayName("Test new PDDefaultAppearanceString(COSString, PDResources)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDDefaultAppearanceString.<init>(COSString, PDResources)"})
+  void testNewPDDefaultAppearanceString() throws IOException {
+    // Arrange
+    COSString defaultAppearance = new COSString("org.apache.pdfbox.cos.COSString");
+
+    // Act
+    PDDefaultAppearanceString actualPdDefaultAppearanceString =
+        new PDDefaultAppearanceString(defaultAppearance, new PDResources());
+
+    // Assert
+    assertNull(actualPdDefaultAppearanceString.getFontName());
+    assertNull(actualPdDefaultAppearanceString.getFont());
+    assertNull(actualPdDefaultAppearanceString.getFontColor());
+    assertEquals(12.0f, actualPdDefaultAppearanceString.getFontSize());
+  }
+
+  /**
+   * Test {@link PDDefaultAppearanceString#PDDefaultAppearanceString(COSString, PDResources)}.
+   *
    * <ul>
-   *   <li>Then throw {@link IllegalArgumentException}.
+   *   <li>Given {@link PDShadingPattern#PDShadingPattern()}.
    * </ul>
    *
    * <p>Method under test: {@link PDDefaultAppearanceString#PDDefaultAppearanceString(COSString,
@@ -47,15 +75,58 @@ class PDDefaultAppearanceStringDiffblueTest {
    */
   @Test
   @DisplayName(
-      "Test new PDDefaultAppearanceString(COSString, PDResources); then throw IllegalArgumentException")
+      "Test new PDDefaultAppearanceString(COSString, PDResources); given PDShadingPattern()")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void PDDefaultAppearanceString.<init>(COSString, PDResources)"})
-  void testNewPDDefaultAppearanceString_thenThrowIllegalArgumentException() throws IOException {
-    // Arrange, Act and Assert
-    assertThrows(
-        IllegalArgumentException.class,
-        () -> new PDDefaultAppearanceString(COSString.parseHex("0123456789ABCDEF"), null));
+  void testNewPDDefaultAppearanceString_givenPDShadingPattern() throws IOException {
+    // Arrange
+    COSString defaultAppearance = COSString.parseHex("0123456789ABCDEF");
+
+    PDResources defaultResources = new PDResources();
+    defaultResources.add(new PDShadingPattern());
+    defaultResources.put(COSName.A, PDDeviceGray.INSTANCE);
+
+    // Act
+    PDDefaultAppearanceString actualPdDefaultAppearanceString =
+        new PDDefaultAppearanceString(defaultAppearance, defaultResources);
+
+    // Assert
+    assertNull(actualPdDefaultAppearanceString.getFontName());
+    assertNull(actualPdDefaultAppearanceString.getFont());
+    assertNull(actualPdDefaultAppearanceString.getFontColor());
+    assertEquals(12.0f, actualPdDefaultAppearanceString.getFontSize());
+  }
+
+  /**
+   * Test {@link PDDefaultAppearanceString#PDDefaultAppearanceString(COSString, PDResources)}.
+   *
+   * <ul>
+   *   <li>When {@link COSString#COSString(String)} with text is {@code 42}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDDefaultAppearanceString#PDDefaultAppearanceString(COSString,
+   * PDResources)}
+   */
+  @Test
+  @DisplayName(
+      "Test new PDDefaultAppearanceString(COSString, PDResources); when COSString(String) with text is '42'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDDefaultAppearanceString.<init>(COSString, PDResources)"})
+  void testNewPDDefaultAppearanceString_whenCOSStringWithTextIs42() throws IOException {
+    // Arrange
+    COSString defaultAppearance = new COSString("42");
+
+    // Act
+    PDDefaultAppearanceString actualPdDefaultAppearanceString =
+        new PDDefaultAppearanceString(defaultAppearance, new PDResources());
+
+    // Assert
+    assertNull(actualPdDefaultAppearanceString.getFontName());
+    assertNull(actualPdDefaultAppearanceString.getFont());
+    assertNull(actualPdDefaultAppearanceString.getFontColor());
+    assertEquals(12.0f, actualPdDefaultAppearanceString.getFontSize());
   }
 
   /**
@@ -93,6 +164,37 @@ class PDDefaultAppearanceStringDiffblueTest {
    * Test {@link PDDefaultAppearanceString#PDDefaultAppearanceString(COSString, PDResources)}.
    *
    * <ul>
+   *   <li>When {@link COSString#COSString(String)} with text is {@code /}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDDefaultAppearanceString#PDDefaultAppearanceString(COSString,
+   * PDResources)}
+   */
+  @Test
+  @DisplayName(
+      "Test new PDDefaultAppearanceString(COSString, PDResources); when COSString(String) with text is '/'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDDefaultAppearanceString.<init>(COSString, PDResources)"})
+  void testNewPDDefaultAppearanceString_whenCOSStringWithTextIsSlash() throws IOException {
+    // Arrange
+    COSString defaultAppearance = new COSString("/");
+
+    // Act
+    PDDefaultAppearanceString actualPdDefaultAppearanceString =
+        new PDDefaultAppearanceString(defaultAppearance, new PDResources());
+
+    // Assert
+    assertNull(actualPdDefaultAppearanceString.getFontName());
+    assertNull(actualPdDefaultAppearanceString.getFont());
+    assertNull(actualPdDefaultAppearanceString.getFontColor());
+    assertEquals(12.0f, actualPdDefaultAppearanceString.getFontSize());
+  }
+
+  /**
+   * Test {@link PDDefaultAppearanceString#PDDefaultAppearanceString(COSString, PDResources)}.
+   *
+   * <ul>
    *   <li>When {@code null}.
    *   <li>Then throw {@link IllegalArgumentException}.
    * </ul>
@@ -107,6 +209,31 @@ class PDDefaultAppearanceStringDiffblueTest {
   @ManagedByDiffblue
   @MethodsUnderTest({"void PDDefaultAppearanceString.<init>(COSString, PDResources)"})
   void testNewPDDefaultAppearanceString_whenNull_thenThrowIllegalArgumentException()
+      throws IOException {
+    // Arrange, Act and Assert
+    assertThrows(
+        IllegalArgumentException.class,
+        () -> new PDDefaultAppearanceString(COSString.parseHex("0123456789ABCDEF"), null));
+  }
+
+  /**
+   * Test {@link PDDefaultAppearanceString#PDDefaultAppearanceString(COSString, PDResources)}.
+   *
+   * <ul>
+   *   <li>When {@code null}.
+   *   <li>Then throw {@link IllegalArgumentException}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDDefaultAppearanceString#PDDefaultAppearanceString(COSString,
+   * PDResources)}
+   */
+  @Test
+  @DisplayName(
+      "Test new PDDefaultAppearanceString(COSString, PDResources); when 'null'; then throw IllegalArgumentException")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDDefaultAppearanceString.<init>(COSString, PDResources)"})
+  void testNewPDDefaultAppearanceString_whenNull_thenThrowIllegalArgumentException2()
       throws IOException {
     // Arrange, Act and Assert
     assertThrows(
@@ -432,6 +559,147 @@ class PDDefaultAppearanceStringDiffblueTest {
     PDDefaultAppearanceString pdDefaultAppearanceString =
         new PDDefaultAppearanceString(defaultAppearance, new PDResources());
     pdDefaultAppearanceString.setFont(new PDMMType1Font(new COSDictionary()));
+    PDAppearanceStream appearanceStream = new PDAppearanceStream(new COSStream());
+
+    // Act
+    pdDefaultAppearanceString.copyNeededResourcesTo(appearanceStream);
+
+    // Assert
+    PDResources resources = appearanceStream.getResources();
+    Iterable<COSName> colorSpaceNames = resources.getColorSpaceNames();
+    assertTrue(colorSpaceNames instanceof Set);
+    Iterable<COSName> fontNames = resources.getFontNames();
+    assertTrue(fontNames instanceof Set);
+    assertNull(resources.getResourceCache());
+    assertEquals(1, ((Set<COSName>) fontNames).size());
+    COSStream cOSObject = appearanceStream.getCOSObject();
+    assertEquals(4, cOSObject.getValues().size());
+    assertEquals(4, cOSObject.size());
+    assertTrue(((Set<COSName>) colorSpaceNames).isEmpty());
+    assertSame(colorSpaceNames, resources.getExtGStateNames());
+    assertSame(colorSpaceNames, resources.getPatternNames());
+    assertSame(colorSpaceNames, resources.getPropertiesNames());
+    assertSame(colorSpaceNames, resources.getShadingNames());
+    assertSame(colorSpaceNames, resources.getXObjectNames());
+  }
+
+  /**
+   * Test {@link PDDefaultAppearanceString#copyNeededResourcesTo(PDAppearanceStream)}.
+   *
+   * <p>Method under test: {@link
+   * PDDefaultAppearanceString#copyNeededResourcesTo(PDAppearanceStream)}
+   */
+  @Test
+  @DisplayName("Test copyNeededResourcesTo(PDAppearanceStream)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDDefaultAppearanceString.copyNeededResourcesTo(PDAppearanceStream)"})
+  void testCopyNeededResourcesTo4() throws IOException {
+    // Arrange
+    COSDictionary fontDictionary = new COSDictionary();
+    fontDictionary.setKey(new COSObjectKey(5L, 5));
+    PDMMType1Font font = new PDMMType1Font(fontDictionary);
+    COSString defaultAppearance = COSString.parseHex("0123456789ABCDEF");
+
+    PDDefaultAppearanceString pdDefaultAppearanceString =
+        new PDDefaultAppearanceString(defaultAppearance, new PDResources());
+    pdDefaultAppearanceString.setFont(font);
+    PDAppearanceStream appearanceStream = new PDAppearanceStream(new COSStream());
+
+    // Act
+    pdDefaultAppearanceString.copyNeededResourcesTo(appearanceStream);
+
+    // Assert
+    PDResources resources = appearanceStream.getResources();
+    Iterable<COSName> colorSpaceNames = resources.getColorSpaceNames();
+    assertTrue(colorSpaceNames instanceof Set);
+    Iterable<COSName> fontNames = resources.getFontNames();
+    assertTrue(fontNames instanceof Set);
+    assertNull(resources.getResourceCache());
+    assertEquals(1, ((Set<COSName>) fontNames).size());
+    COSStream cOSObject = appearanceStream.getCOSObject();
+    assertEquals(4, cOSObject.getValues().size());
+    assertEquals(4, cOSObject.size());
+    assertTrue(((Set<COSName>) colorSpaceNames).isEmpty());
+    assertSame(colorSpaceNames, resources.getExtGStateNames());
+    assertSame(colorSpaceNames, resources.getPatternNames());
+    assertSame(colorSpaceNames, resources.getPropertiesNames());
+    assertSame(colorSpaceNames, resources.getShadingNames());
+    assertSame(colorSpaceNames, resources.getXObjectNames());
+  }
+
+  /**
+   * Test {@link PDDefaultAppearanceString#copyNeededResourcesTo(PDAppearanceStream)}.
+   *
+   * <p>Method under test: {@link
+   * PDDefaultAppearanceString#copyNeededResourcesTo(PDAppearanceStream)}
+   */
+  @Test
+  @DisplayName("Test copyNeededResourcesTo(PDAppearanceStream)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDDefaultAppearanceString.copyNeededResourcesTo(PDAppearanceStream)"})
+  void testCopyNeededResourcesTo5() throws IOException {
+    // Arrange
+    COSDictionary fontDictionary = new COSDictionary();
+    fontDictionary.setKey(new COSObjectKey(5L, 5));
+    PDMMType1Font font = new PDMMType1Font(fontDictionary);
+    COSString defaultAppearance = COSString.parseHex("0123456789ABCDEF");
+
+    PDDefaultAppearanceString pdDefaultAppearanceString =
+        new PDDefaultAppearanceString(defaultAppearance, new PDResources());
+    pdDefaultAppearanceString.setFontName(COSName.A);
+    pdDefaultAppearanceString.setFont(font);
+    PDAppearanceStream appearanceStream = new PDAppearanceStream(new COSStream());
+
+    // Act
+    pdDefaultAppearanceString.copyNeededResourcesTo(appearanceStream);
+
+    // Assert
+    PDResources resources = appearanceStream.getResources();
+    Iterable<COSName> colorSpaceNames = resources.getColorSpaceNames();
+    assertTrue(colorSpaceNames instanceof Set);
+    Iterable<COSName> fontNames = resources.getFontNames();
+    assertTrue(fontNames instanceof Set);
+    assertNull(resources.getResourceCache());
+    assertEquals(1, ((Set<COSName>) fontNames).size());
+    COSStream cOSObject = appearanceStream.getCOSObject();
+    assertEquals(4, cOSObject.getValues().size());
+    assertEquals(4, cOSObject.size());
+    assertTrue(((Set<COSName>) colorSpaceNames).isEmpty());
+    assertSame(colorSpaceNames, resources.getExtGStateNames());
+    assertSame(colorSpaceNames, resources.getPatternNames());
+    assertSame(colorSpaceNames, resources.getPropertiesNames());
+    assertSame(colorSpaceNames, resources.getShadingNames());
+    assertSame(colorSpaceNames, resources.getXObjectNames());
+  }
+
+  /**
+   * Test {@link PDDefaultAppearanceString#copyNeededResourcesTo(PDAppearanceStream)}.
+   *
+   * <ul>
+   *   <li>Given {@link COSDictionary#COSDictionary()} Direct is {@code true}.
+   * </ul>
+   *
+   * <p>Method under test: {@link
+   * PDDefaultAppearanceString#copyNeededResourcesTo(PDAppearanceStream)}
+   */
+  @Test
+  @DisplayName(
+      "Test copyNeededResourcesTo(PDAppearanceStream); given COSDictionary() Direct is 'true'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDDefaultAppearanceString.copyNeededResourcesTo(PDAppearanceStream)"})
+  void testCopyNeededResourcesTo_givenCOSDictionaryDirectIsTrue() throws IOException {
+    // Arrange
+    COSDictionary fontDictionary = new COSDictionary();
+    fontDictionary.setDirect(true);
+    PDMMType1Font font = new PDMMType1Font(fontDictionary);
+    COSString defaultAppearance = COSString.parseHex("0123456789ABCDEF");
+
+    PDDefaultAppearanceString pdDefaultAppearanceString =
+        new PDDefaultAppearanceString(defaultAppearance, new PDResources());
+    pdDefaultAppearanceString.setFont(font);
     PDAppearanceStream appearanceStream = new PDAppearanceStream(new COSStream());
 
     // Act

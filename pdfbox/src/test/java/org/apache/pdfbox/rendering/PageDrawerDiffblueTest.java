@@ -286,34 +286,87 @@ class PageDrawerDiffblueTest {
   /**
    * Test {@link PageDrawer#drawPage(Graphics2D, PDRectangle)}.
    *
+   * <p>Method under test: {@link PageDrawer#drawPage(Graphics2D, PDRectangle)}
+   */
+  @Test
+  @DisplayName("Test drawPage(Graphics2D, PDRectangle)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PageDrawer.drawPage(Graphics2D, PDRectangle)"})
+  void testDrawPage4() throws IOException {
+    // Arrange
+    PDPage page = mock(PDPage.class);
+    when(page.getContentsForStreamParsing()).thenReturn(new RandomAccessReadWriteBuffer());
+    when(page.getResources()).thenReturn(new PDResources());
+    when(page.getBBox()).thenReturn(PDRectangle.A0);
+    when(page.hasContents()).thenReturn(true);
+    when(page.getAnnotations(Mockito.<AnnotationFilter>any())).thenReturn(new ArrayList<>());
+    when(page.getMatrix()).thenReturn(new Matrix());
+    when(page.getCropBox()).thenReturn(PDRectangle.A0);
+    PageDrawerParameters parameters =
+        new PageDrawerParameters(
+            new PDFRenderer(new PDDocument()), page, true, RenderDestination.EXPORT, null, 10.0f);
+    PageDrawer pageDrawer = new PageDrawer(parameters);
+
+    GroupGraphics g = mock(GroupGraphics.class);
+    when(g.getClip()).thenReturn(new Ellipse2D.Double());
+    doNothing().when(g).addRenderingHints(Mockito.<Map<?, ?>>any());
+    doNothing().when(g).scale(anyDouble(), anyDouble());
+    doNothing().when(g).translate(anyDouble(), anyDouble());
+    when(g.getTransform()).thenReturn(new AffineTransform());
+
+    // Act
+    pageDrawer.drawPage(g, PDRectangle.A0);
+
+    // Assert
+    verify(page).getAnnotations(isA(AnnotationFilter.class));
+    verify(page).getBBox();
+    verify(page).getContentsForStreamParsing();
+    verify(page).getCropBox();
+    verify(page, atLeast(1)).getMatrix();
+    verify(page).getResources();
+    verify(page).hasContents();
+    verify(g).addRenderingHints((Map<?, ?>) isNull());
+    verify(g).getClip();
+    verify(g).getTransform();
+    verify(g).scale(1.0d, -1.0d);
+    verify(g, atLeast(1)).translate(anyDouble(), anyDouble());
+    float[][] values = pageDrawer.getInitialMatrix().getValues();
+    assertEquals(3, values.length);
+    PDGraphicsState graphicsState = pageDrawer.getGraphicsState();
+    assertArrayEquals(new float[] {}, graphicsState.getLineDashPattern().getDashArray(), 0.0f);
+    assertArrayEquals(
+        new float[] {0.0f}, graphicsState.getNonStrokingColor().getComponents(), 0.0f);
+    assertArrayEquals(new float[] {0.0f, 0.0f, 1.0f}, values[2], 0.0f);
+    assertArrayEquals(new float[] {0.0f, 1.0f, 0.0f}, values[1], 0.0f);
+    assertArrayEquals(new float[] {1.0f, 0.0f, 0.0f}, values[0], 0.0f);
+  }
+
+  /**
+   * Test {@link PageDrawer#drawPage(Graphics2D, PDRectangle)}.
+   *
    * <ul>
    *   <li>Given {@link ArrayList#ArrayList()} add {@link
    *       PDAnnotationFileAttachment#PDAnnotationFileAttachment()}.
-   *   <li>Then calls {@link PDImmutableRectangle#transform(Matrix)}.
    * </ul>
    *
    * <p>Method under test: {@link PageDrawer#drawPage(Graphics2D, PDRectangle)}
    */
   @Test
   @DisplayName(
-      "Test drawPage(Graphics2D, PDRectangle); given ArrayList() add PDAnnotationFileAttachment(); then calls transform(Matrix)")
+      "Test drawPage(Graphics2D, PDRectangle); given ArrayList() add PDAnnotationFileAttachment()")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void PageDrawer.drawPage(Graphics2D, PDRectangle)"})
-  void testDrawPage_givenArrayListAddPDAnnotationFileAttachment_thenCallsTransform()
-      throws IOException {
+  void testDrawPage_givenArrayListAddPDAnnotationFileAttachment() throws IOException {
     // Arrange
     ArrayList<PDAnnotation> pdAnnotationList = new ArrayList<>();
     pdAnnotationList.add(new PDAnnotationFileAttachment());
 
-    PDImmutableRectangle pdImmutableRectangle = mock(PDImmutableRectangle.class);
-    when(pdImmutableRectangle.transform(Mockito.<Matrix>any()))
-        .thenReturn(Standard14Fonts.getGlyphPath(FontName.TIMES_ROMAN, "Glyph Name"));
-
     PDPage page = mock(PDPage.class);
     when(page.getContentsForStreamParsing()).thenReturn(new RandomAccessReadWriteBuffer());
     when(page.getResources()).thenReturn(new PDResources());
-    when(page.getBBox()).thenReturn(pdImmutableRectangle);
+    when(page.getBBox()).thenReturn(PDRectangle.A0);
     when(page.hasContents()).thenReturn(true);
     when(page.getAnnotations(Mockito.<AnnotationFilter>any())).thenReturn(pdAnnotationList);
     when(page.getMatrix()).thenReturn(new Matrix());
@@ -342,7 +395,78 @@ class PageDrawerDiffblueTest {
     verify(page, atLeast(1)).getMatrix();
     verify(page).getResources();
     verify(page).hasContents();
-    verify(pdImmutableRectangle).transform(isA(Matrix.class));
+    verify(g).addRenderingHints((Map<?, ?>) isNull());
+    verify(g).getClip();
+    verify(g).getDeviceConfiguration();
+    verify(g).getTransform();
+    verify(g).scale(1.0d, -1.0d);
+    verify(g, atLeast(1)).translate(anyDouble(), anyDouble());
+    float[][] values = pageDrawer.getInitialMatrix().getValues();
+    assertEquals(3, values.length);
+    PDGraphicsState graphicsState = pageDrawer.getGraphicsState();
+    assertArrayEquals(new float[] {}, graphicsState.getLineDashPattern().getDashArray(), 0.0f);
+    assertArrayEquals(
+        new float[] {0.0f}, graphicsState.getNonStrokingColor().getComponents(), 0.0f);
+    assertArrayEquals(new float[] {0.0f, 0.0f, 1.0f}, values[2], 0.0f);
+    assertArrayEquals(new float[] {0.0f, 1.0f, 0.0f}, values[1], 0.0f);
+    assertArrayEquals(new float[] {1.0f, 0.0f, 0.0f}, values[0], 0.0f);
+  }
+
+  /**
+   * Test {@link PageDrawer#drawPage(Graphics2D, PDRectangle)}.
+   *
+   * <ul>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link
+   *       PDAnnotationFileAttachment#PDAnnotationFileAttachment(COSDictionary)} with field is
+   *       {@link COSDictionary#COSDictionary()}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PageDrawer#drawPage(Graphics2D, PDRectangle)}
+   */
+  @Test
+  @DisplayName(
+      "Test drawPage(Graphics2D, PDRectangle); given ArrayList() add PDAnnotationFileAttachment(COSDictionary) with field is COSDictionary()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PageDrawer.drawPage(Graphics2D, PDRectangle)"})
+  void testDrawPage_givenArrayListAddPDAnnotationFileAttachmentWithFieldIsCOSDictionary()
+      throws IOException {
+    // Arrange
+    ArrayList<PDAnnotation> pdAnnotationList = new ArrayList<>();
+    pdAnnotationList.add(new PDAnnotationFileAttachment(new COSDictionary()));
+
+    PDPage page = mock(PDPage.class);
+    when(page.getContentsForStreamParsing()).thenReturn(new RandomAccessReadWriteBuffer());
+    when(page.getResources()).thenReturn(new PDResources());
+    when(page.getBBox()).thenReturn(PDRectangle.A0);
+    when(page.hasContents()).thenReturn(true);
+    when(page.getAnnotations(Mockito.<AnnotationFilter>any())).thenReturn(pdAnnotationList);
+    when(page.getMatrix()).thenReturn(new Matrix());
+    when(page.getCropBox()).thenReturn(PDRectangle.A0);
+    PageDrawerParameters parameters =
+        new PageDrawerParameters(
+            new PDFRenderer(new PDDocument()), page, true, RenderDestination.EXPORT, null, 10.0f);
+    PageDrawer pageDrawer = new PageDrawer(parameters);
+
+    GroupGraphics g = mock(GroupGraphics.class);
+    when(g.getDeviceConfiguration()).thenReturn(null);
+    when(g.getClip()).thenReturn(new Ellipse2D.Double());
+    doNothing().when(g).addRenderingHints(Mockito.<Map<?, ?>>any());
+    doNothing().when(g).scale(anyDouble(), anyDouble());
+    doNothing().when(g).translate(anyDouble(), anyDouble());
+    when(g.getTransform()).thenReturn(new AffineTransform());
+
+    // Act
+    pageDrawer.drawPage(g, PDRectangle.A0);
+
+    // Assert
+    verify(page).getAnnotations(isA(AnnotationFilter.class));
+    verify(page).getBBox();
+    verify(page).getContentsForStreamParsing();
+    verify(page).getCropBox();
+    verify(page, atLeast(1)).getMatrix();
+    verify(page).getResources();
+    verify(page).hasContents();
     verify(g).addRenderingHints((Map<?, ?>) isNull());
     verify(g).getClip();
     verify(g).getDeviceConfiguration();
@@ -452,14 +576,10 @@ class PageDrawerDiffblueTest {
     ArrayList<PDAnnotation> pdAnnotationList = new ArrayList<>();
     pdAnnotationList.add(pdAnnotationCaret);
 
-    PDImmutableRectangle pdImmutableRectangle = mock(PDImmutableRectangle.class);
-    when(pdImmutableRectangle.transform(Mockito.<Matrix>any()))
-        .thenReturn(Standard14Fonts.getGlyphPath(FontName.TIMES_ROMAN, "Glyph Name"));
-
     PDPage page = mock(PDPage.class);
     when(page.getContentsForStreamParsing()).thenReturn(new RandomAccessReadWriteBuffer());
     when(page.getResources()).thenReturn(new PDResources());
-    when(page.getBBox()).thenReturn(pdImmutableRectangle);
+    when(page.getBBox()).thenReturn(PDRectangle.A0);
     when(page.hasContents()).thenReturn(true);
     when(page.getAnnotations(Mockito.<AnnotationFilter>any())).thenReturn(pdAnnotationList);
     when(page.getMatrix()).thenReturn(new Matrix());
@@ -488,7 +608,6 @@ class PageDrawerDiffblueTest {
     verify(page, atLeast(1)).getMatrix();
     verify(page).getResources();
     verify(page).hasContents();
-    verify(pdImmutableRectangle).transform(isA(Matrix.class));
     verify(pdAnnotationCaret).isHidden();
     verify(g).addRenderingHints((Map<?, ?>) isNull());
     verify(g).getClip();
@@ -600,72 +719,6 @@ class PageDrawerDiffblueTest {
     verify(g).scale(1.0d, -1.0d);
     verify(g, atLeast(1)).translate(anyDouble(), anyDouble());
     assertEquals(3, pageDrawer.getInitialMatrix().getValues().length);
-  }
-
-  /**
-   * Test {@link PageDrawer#drawPage(Graphics2D, PDRectangle)}.
-   *
-   * <ul>
-   *   <li>Given {@link PDPage} {@link PDPage#getBBox()} return {@link PDRectangle#A0}.
-   *   <li>When {@link PDRectangle#A0}.
-   *   <li>Then calls {@link PDPage#getAnnotations(AnnotationFilter)}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PageDrawer#drawPage(Graphics2D, PDRectangle)}
-   */
-  @Test
-  @DisplayName(
-      "Test drawPage(Graphics2D, PDRectangle); given PDPage getBBox() return A0; when A0; then calls getAnnotations(AnnotationFilter)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PageDrawer.drawPage(Graphics2D, PDRectangle)"})
-  void testDrawPage_givenPDPageGetBBoxReturnA0_whenA0_thenCallsGetAnnotations() throws IOException {
-    // Arrange
-    PDPage page = mock(PDPage.class);
-    when(page.getContentsForStreamParsing()).thenReturn(new RandomAccessReadWriteBuffer());
-    when(page.getResources()).thenReturn(new PDResources());
-    when(page.getBBox()).thenReturn(PDRectangle.A0);
-    when(page.hasContents()).thenReturn(true);
-    when(page.getAnnotations(Mockito.<AnnotationFilter>any())).thenReturn(new ArrayList<>());
-    when(page.getMatrix()).thenReturn(new Matrix());
-    when(page.getCropBox()).thenReturn(PDRectangle.A0);
-    PageDrawerParameters parameters =
-        new PageDrawerParameters(
-            new PDFRenderer(new PDDocument()), page, true, RenderDestination.EXPORT, null, 10.0f);
-    PageDrawer pageDrawer = new PageDrawer(parameters);
-
-    GroupGraphics g = mock(GroupGraphics.class);
-    when(g.getClip()).thenReturn(new Ellipse2D.Double());
-    doNothing().when(g).addRenderingHints(Mockito.<Map<?, ?>>any());
-    doNothing().when(g).scale(anyDouble(), anyDouble());
-    doNothing().when(g).translate(anyDouble(), anyDouble());
-    when(g.getTransform()).thenReturn(new AffineTransform());
-
-    // Act
-    pageDrawer.drawPage(g, PDRectangle.A0);
-
-    // Assert
-    verify(page).getAnnotations(isA(AnnotationFilter.class));
-    verify(page).getBBox();
-    verify(page).getContentsForStreamParsing();
-    verify(page).getCropBox();
-    verify(page, atLeast(1)).getMatrix();
-    verify(page).getResources();
-    verify(page).hasContents();
-    verify(g).addRenderingHints((Map<?, ?>) isNull());
-    verify(g).getClip();
-    verify(g).getTransform();
-    verify(g).scale(1.0d, -1.0d);
-    verify(g, atLeast(1)).translate(anyDouble(), anyDouble());
-    float[][] values = pageDrawer.getInitialMatrix().getValues();
-    assertEquals(3, values.length);
-    PDGraphicsState graphicsState = pageDrawer.getGraphicsState();
-    assertArrayEquals(new float[] {}, graphicsState.getLineDashPattern().getDashArray(), 0.0f);
-    assertArrayEquals(
-        new float[] {0.0f}, graphicsState.getNonStrokingColor().getComponents(), 0.0f);
-    assertArrayEquals(new float[] {0.0f, 0.0f, 1.0f}, values[2], 0.0f);
-    assertArrayEquals(new float[] {0.0f, 1.0f, 0.0f}, values[1], 0.0f);
-    assertArrayEquals(new float[] {1.0f, 0.0f, 0.0f}, values[0], 0.0f);
   }
 
   /**
@@ -802,15 +855,12 @@ class PageDrawerDiffblueTest {
     doNothing().when(g).scale(anyDouble(), anyDouble());
     doNothing().when(g).translate(anyDouble(), anyDouble());
     when(g.getTransform()).thenReturn(AffineTransform.getRotateInstance(1.0d));
-    when(pDRectangle.getHeight()).thenReturn(10.0f);
-    when(pDRectangle.getLowerLeftX()).thenReturn(10.0f);
-    when(pDRectangle.getLowerLeftY()).thenReturn(10.0f);
 
     // Act and Assert
     assertThrows(IllegalArgumentException.class, () -> pageDrawer.drawPage(g, pDRectangle));
-    verify(pDRectangle, atLeast(1)).getHeight();
-    verify(pDRectangle, atLeast(1)).getLowerLeftX();
-    verify(pDRectangle, atLeast(1)).getLowerLeftY();
+    verify(pDRectangle).getHeight();
+    verify(pDRectangle).getLowerLeftX();
+    verify(pDRectangle).getLowerLeftY();
     verify(g).addRenderingHints((Map<?, ?>) isNull());
     verify(g).getClip();
     verify(g).getTransform();
@@ -1716,11 +1766,13 @@ class PageDrawerDiffblueTest {
     assertTrue(colorSpace2 instanceof ICC_ColorSpace);
     ICC_Profile profile = ((ICC_ColorSpace) colorSpace2).getProfile();
     assertTrue(profile instanceof ICC_ProfileRGB);
-    float[][] matrix = ((ICC_ProfileRGB) profile).getMatrix();
-    assertEquals(3, matrix.length);
-    assertArrayEquals(new float[] {0.013916016f, 0.09713745f, 0.71383667f}, matrix[2], 0.0f);
-    assertArrayEquals(new float[] {0.22238159f, 0.717041f, 0.06059265f}, matrix[1], 0.0f);
-    assertArrayEquals(new float[] {0.43585205f, 0.3853302f, 0.14302063f}, matrix[0], 0.0f);
+    Color brighterResult = ((Color) actualPaint).brighter();
+    Color brighterResult2 = brighterResult.brighter();
+    assertEquals(brighterResult2.darker(), brighterResult2.darker());
+    assertEquals(actualPaint, ((Color) actualPaint).darker());
+    assertSame(colorSpace2, brighterResult2.getColorSpace());
+    assertSame(colorSpace2, brighterResult.getColorSpace());
+    assertSame(colorSpace2, brighterResult.darker().getColorSpace());
     assertArrayEquals(
         new float[] {0.95014954f, 1.0f, 1.0882568f},
         ((ICC_ProfileRGB) profile).getMediaWhitePoint(),
@@ -2066,46 +2118,6 @@ class PageDrawerDiffblueTest {
     // Assert
     verify(graphics).addRenderingHints(isA(Map.class));
     verify(graphics).setClip(isA(Shape.class));
-  }
-
-  /**
-   * Test {@link PageDrawer#transferClip(Graphics2D)}.
-   *
-   * <ul>
-   *   <li>When {@link GroupGraphics#GroupGraphics(BufferedImage, Graphics2D)} with groupImage is
-   *       {@link BufferedImage#BufferedImage(int, int, int)} and {@link GroupGraphics}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PageDrawer#transferClip(Graphics2D)}
-   */
-  @Test
-  @DisplayName(
-      "Test transferClip(Graphics2D); when GroupGraphics(BufferedImage, Graphics2D) with groupImage is BufferedImage(int, int, int) and GroupGraphics")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PageDrawer.transferClip(Graphics2D)"})
-  void testTransferClip_whenGroupGraphicsWithGroupImageIsBufferedImageAndGroupGraphics()
-      throws IOException {
-    // Arrange
-    PDFRenderer renderer = new PDFRenderer(new PDDocument());
-    PageDrawerParameters parameters =
-        new PageDrawerParameters(
-            renderer, new PDPage(), true, RenderDestination.EXPORT, null, 10.0f);
-
-    PageDrawer pageDrawer = new PageDrawer(parameters);
-    pageDrawer.processPage(new PDPage());
-
-    GroupGraphics groupGraphics = mock(GroupGraphics.class);
-    doNothing().when(groupGraphics).setClip(Mockito.<Shape>any());
-    GroupGraphics groupGraphics2 = new GroupGraphics(new BufferedImage(1, 1, 1), groupGraphics);
-    GroupGraphics groupGraphics3 = new GroupGraphics(new BufferedImage(1, 1, 1), groupGraphics2);
-    GroupGraphics graphics = new GroupGraphics(new BufferedImage(1, 1, 1), groupGraphics3);
-
-    // Act
-    pageDrawer.transferClip(graphics);
-
-    // Assert
-    verify(groupGraphics).setClip(isA(Shape.class));
   }
 
   /**
@@ -2546,7 +2558,6 @@ class PageDrawerDiffblueTest {
    * <p>Methods under test:
    *
    * <ul>
-   *   <li>{@link PageDrawer#clip(int)}
    *   <li>{@link PageDrawer#setAnnotationFilter(AnnotationFilter)}
    *   <li>{@link PageDrawer#getAnnotationFilter()}
    *   <li>{@link PageDrawer#getGraphics()}
@@ -2573,10 +2584,9 @@ class PageDrawerDiffblueTest {
         new PageDrawerParameters(
             renderer, new PDPage(), true, RenderDestination.EXPORT, null, 10.0f);
     PageDrawer pageDrawer = new PageDrawer(parameters);
+    AnnotationFilter annotationFilter = mock(AnnotationFilter.class);
 
     // Act
-    pageDrawer.clip(1);
-    AnnotationFilter annotationFilter = mock(AnnotationFilter.class);
     pageDrawer.setAnnotationFilter(annotationFilter);
     AnnotationFilter actualAnnotationFilter = pageDrawer.getAnnotationFilter();
     Graphics2D actualGraphics = pageDrawer.getGraphics();
@@ -2826,34 +2836,6 @@ class PageDrawerDiffblueTest {
   /**
    * Test {@link PageDrawer#showForm(PDFormXObject)}.
    *
-   * <p>Method under test: {@link PageDrawer#showForm(PDFormXObject)}
-   */
-  @Test
-  @DisplayName("Test showForm(PDFormXObject)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PageDrawer.showForm(PDFormXObject)"})
-  void testShowForm2() throws IOException {
-    // Arrange
-    PDFRenderer renderer = new PDFRenderer(new PDDocument());
-    PageDrawerParameters parameters =
-        new PageDrawerParameters(
-            renderer, new PDPage(), true, RenderDestination.EXPORT, null, 10.0f);
-
-    PageDrawer pageDrawer = new PageDrawer(parameters);
-    pageDrawer.processPage(new PDPage(new COSDictionary()));
-    RandomAccessStreamCacheImpl streamCache = new RandomAccessStreamCacheImpl();
-    COSStream stream =
-        new COSStream(
-            streamCache, new RandomAccessReadView(new RandomAccessReadWriteBuffer(), 1L, 3L));
-
-    // Act and Assert
-    assertDoesNotThrow(() -> pageDrawer.showForm(new PDFormXObject(stream)));
-  }
-
-  /**
-   * Test {@link PageDrawer#showForm(PDFormXObject)}.
-   *
    * <ul>
    *   <li>Then throw {@link IllegalStateException}.
    * </ul>
@@ -2883,16 +2865,17 @@ class PageDrawerDiffblueTest {
    *
    * <ul>
    *   <li>When {@code A}.
+   *   <li>Then does not throw.
    * </ul>
    *
    * <p>Method under test: {@link PageDrawer#showForm(PDFormXObject)}
    */
   @Test
-  @DisplayName("Test showForm(PDFormXObject); when 'A'")
+  @DisplayName("Test showForm(PDFormXObject); when 'A'; then does not throw")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void PageDrawer.showForm(PDFormXObject)"})
-  void testShowForm_whenA() throws IOException {
+  void testShowForm_whenA_thenDoesNotThrow() throws IOException {
     // Arrange
     PDFRenderer renderer = new PDFRenderer(new PDDocument());
     PageDrawerParameters parameters =
@@ -2918,17 +2901,18 @@ class PageDrawerDiffblueTest {
    * <ul>
    *   <li>When {@link PDFormXObject#PDFormXObject(COSStream)} with stream is {@link
    *       COSStream#COSStream()}.
+   *   <li>Then does not throw.
    * </ul>
    *
    * <p>Method under test: {@link PageDrawer#showForm(PDFormXObject)}
    */
   @Test
   @DisplayName(
-      "Test showForm(PDFormXObject); when PDFormXObject(COSStream) with stream is COSStream()")
+      "Test showForm(PDFormXObject); when PDFormXObject(COSStream) with stream is COSStream(); then does not throw")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void PageDrawer.showForm(PDFormXObject)"})
-  void testShowForm_whenPDFormXObjectWithStreamIsCOSStream() throws IOException {
+  void testShowForm_whenPDFormXObjectWithStreamIsCOSStream_thenDoesNotThrow() throws IOException {
     // Arrange
     PDFRenderer renderer = new PDFRenderer(new PDDocument());
     PageDrawerParameters parameters =
@@ -3405,6 +3389,63 @@ class PageDrawerDiffblueTest {
   /**
    * Test {@link PageDrawer#showTransparencyGroupOnGraphics(PDTransparencyGroup, Graphics2D)}.
    *
+   * <p>Method under test: {@link PageDrawer#showTransparencyGroupOnGraphics(PDTransparencyGroup,
+   * Graphics2D)}
+   */
+  @Test
+  @DisplayName("Test showTransparencyGroupOnGraphics(PDTransparencyGroup, Graphics2D)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void PageDrawer.showTransparencyGroupOnGraphics(PDTransparencyGroup, Graphics2D)"
+  })
+  void testShowTransparencyGroupOnGraphics3() throws IOException {
+    // Arrange
+    PDFRenderer renderer = mock(PDFRenderer.class);
+    PageDrawerParameters parameters =
+        new PageDrawerParameters(
+            renderer, new PDPage(), false, RenderDestination.EXPORT, null, 10.0f);
+
+    PageDrawer pageDrawer = new PageDrawer(parameters);
+    pageDrawer.processPage(new PDPage());
+
+    PDOptionalContentGroup pdOptionalContentGroup = mock(PDOptionalContentGroup.class);
+    when(pdOptionalContentGroup.getRenderState(Mockito.<RenderDestination>any()))
+        .thenReturn(RenderState.ON);
+
+    Matrix matrix = mock(Matrix.class);
+    when(matrix.multiply(Mockito.<Matrix>any())).thenReturn(new Matrix());
+
+    PDImmutableRectangle pdImmutableRectangle = mock(PDImmutableRectangle.class);
+    when(pdImmutableRectangle.transform(Mockito.<Matrix>any()))
+        .thenReturn(Standard14Fonts.getGlyphPath(FontName.TIMES_ROMAN, "Glyph Name"));
+
+    PDTransparencyGroup form = mock(PDTransparencyGroup.class);
+    when(form.getBBox()).thenReturn(pdImmutableRectangle);
+    when(form.getMatrix()).thenReturn(matrix);
+    when(form.getOptionalContent()).thenReturn(pdOptionalContentGroup);
+
+    PDResources pdResources = mock(PDResources.class);
+    when(pdResources.add(Mockito.<PDXObject>any(), Mockito.<String>any())).thenReturn(COSName.A);
+    pdResources.add(mock(PDXObject.class), "Prefix");
+    GroupGraphics graphics = new GroupGraphics(new BufferedImage(1, 1, 1), null);
+
+    // Act
+    pageDrawer.showTransparencyGroupOnGraphics(form, graphics);
+
+    // Assert
+    verify(pdResources).add(isA(PDXObject.class), eq("Prefix"));
+    verify(pdImmutableRectangle).transform(isA(Matrix.class));
+    verify(form).getBBox();
+    verify(form).getMatrix();
+    verify(form).getOptionalContent();
+    verify(pdOptionalContentGroup).getRenderState(RenderDestination.EXPORT);
+    verify(matrix).multiply(isA(Matrix.class));
+  }
+
+  /**
+   * Test {@link PageDrawer#showTransparencyGroupOnGraphics(PDTransparencyGroup, Graphics2D)}.
+   *
    * <ul>
    *   <li>Given {@link Matrix#Matrix()}.
    * </ul>
@@ -3453,6 +3494,63 @@ class PageDrawerDiffblueTest {
     verify(form).getBBox();
     verify(form).getMatrix();
     verify(form).getOptionalContent();
+  }
+
+  /**
+   * Test {@link PageDrawer#showTransparencyGroupOnGraphics(PDTransparencyGroup, Graphics2D)}.
+   *
+   * <ul>
+   *   <li>Given {@code null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PageDrawer#showTransparencyGroupOnGraphics(PDTransparencyGroup,
+   * Graphics2D)}
+   */
+  @Test
+  @DisplayName(
+      "Test showTransparencyGroupOnGraphics(PDTransparencyGroup, Graphics2D); given 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void PageDrawer.showTransparencyGroupOnGraphics(PDTransparencyGroup, Graphics2D)"
+  })
+  void testShowTransparencyGroupOnGraphics_givenNull() throws IOException {
+    // Arrange
+    PDFRenderer renderer = mock(PDFRenderer.class);
+    PageDrawerParameters parameters =
+        new PageDrawerParameters(
+            renderer, new PDPage(), true, RenderDestination.EXPORT, null, 10.0f);
+
+    PageDrawer pageDrawer = new PageDrawer(parameters);
+    pageDrawer.processPage(new PDPage());
+
+    Matrix matrix = mock(Matrix.class);
+    when(matrix.multiply(Mockito.<Matrix>any())).thenReturn(new Matrix());
+
+    PDImmutableRectangle pdImmutableRectangle = mock(PDImmutableRectangle.class);
+    when(pdImmutableRectangle.transform(Mockito.<Matrix>any()))
+        .thenReturn(Standard14Fonts.getGlyphPath(FontName.TIMES_ROMAN, "Glyph Name"));
+
+    PDTransparencyGroup form = mock(PDTransparencyGroup.class);
+    when(form.getBBox()).thenReturn(pdImmutableRectangle);
+    when(form.getMatrix()).thenReturn(matrix);
+    when(form.getOptionalContent()).thenReturn(null);
+
+    PDResources pdResources = mock(PDResources.class);
+    when(pdResources.add(Mockito.<PDXObject>any(), Mockito.<String>any())).thenReturn(COSName.A);
+    pdResources.add(mock(PDXObject.class), "Prefix");
+    GroupGraphics graphics = new GroupGraphics(new BufferedImage(1, 1, 1), null);
+
+    // Act
+    pageDrawer.showTransparencyGroupOnGraphics(form, graphics);
+
+    // Assert
+    verify(pdResources).add(isA(PDXObject.class), eq("Prefix"));
+    verify(pdImmutableRectangle).transform(isA(Matrix.class));
+    verify(form).getBBox();
+    verify(form).getMatrix();
+    verify(form).getOptionalContent();
+    verify(matrix).multiply(isA(Matrix.class));
   }
 
   /**
@@ -3616,62 +3714,5 @@ class PageDrawerDiffblueTest {
     verify(form).getBBox();
     verify(form).getMatrix();
     verify(form).getOptionalContent();
-  }
-
-  /**
-   * Test {@link PageDrawer#showTransparencyGroupOnGraphics(PDTransparencyGroup, Graphics2D)}.
-   *
-   * <ul>
-   *   <li>Then calls {@link Matrix#multiply(Matrix)}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PageDrawer#showTransparencyGroupOnGraphics(PDTransparencyGroup,
-   * Graphics2D)}
-   */
-  @Test
-  @DisplayName(
-      "Test showTransparencyGroupOnGraphics(PDTransparencyGroup, Graphics2D); then calls multiply(Matrix)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void PageDrawer.showTransparencyGroupOnGraphics(PDTransparencyGroup, Graphics2D)"
-  })
-  void testShowTransparencyGroupOnGraphics_thenCallsMultiply() throws IOException {
-    // Arrange
-    PDFRenderer renderer = mock(PDFRenderer.class);
-    PageDrawerParameters parameters =
-        new PageDrawerParameters(
-            renderer, new PDPage(), true, RenderDestination.EXPORT, null, 10.0f);
-
-    PageDrawer pageDrawer = new PageDrawer(parameters);
-    pageDrawer.processPage(new PDPage());
-
-    Matrix matrix = mock(Matrix.class);
-    when(matrix.multiply(Mockito.<Matrix>any())).thenReturn(new Matrix());
-
-    PDImmutableRectangle pdImmutableRectangle = mock(PDImmutableRectangle.class);
-    when(pdImmutableRectangle.transform(Mockito.<Matrix>any()))
-        .thenReturn(Standard14Fonts.getGlyphPath(FontName.TIMES_ROMAN, "Glyph Name"));
-
-    PDTransparencyGroup form = mock(PDTransparencyGroup.class);
-    when(form.getBBox()).thenReturn(pdImmutableRectangle);
-    when(form.getMatrix()).thenReturn(matrix);
-    when(form.getOptionalContent()).thenReturn(null);
-
-    PDResources pdResources = mock(PDResources.class);
-    when(pdResources.add(Mockito.<PDXObject>any(), Mockito.<String>any())).thenReturn(COSName.A);
-    pdResources.add(mock(PDXObject.class), "Prefix");
-    GroupGraphics graphics = new GroupGraphics(new BufferedImage(1, 1, 1), null);
-
-    // Act
-    pageDrawer.showTransparencyGroupOnGraphics(form, graphics);
-
-    // Assert
-    verify(pdResources).add(isA(PDXObject.class), eq("Prefix"));
-    verify(pdImmutableRectangle).transform(isA(Matrix.class));
-    verify(form).getBBox();
-    verify(form).getMatrix();
-    verify(form).getOptionalContent();
-    verify(matrix).multiply(isA(Matrix.class));
   }
 }

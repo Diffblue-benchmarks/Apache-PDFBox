@@ -7,11 +7,8 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
-import java.util.List;
-import org.apache.pdfbox.cos.COSBase;
 import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.cos.COSObjectKey;
-import org.apache.pdfbox.cos.COSStream;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -64,18 +61,18 @@ class PDAnnotationPopupDiffblueTest {
    *
    * <ul>
    *   <li>When {@link COSDictionary#COSDictionary()}.
-   *   <li>Then {@link COSDictionary#COSDictionary()} size is one.
+   *   <li>Then return AnnotationName is {@code null}.
    * </ul>
    *
    * <p>Method under test: {@link PDAnnotationPopup#PDAnnotationPopup(COSDictionary)}
    */
   @Test
   @DisplayName(
-      "Test new PDAnnotationPopup(COSDictionary); when COSDictionary(); then COSDictionary() size is one")
+      "Test new PDAnnotationPopup(COSDictionary); when COSDictionary(); then return AnnotationName is 'null'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void PDAnnotationPopup.<init>(COSDictionary)"})
-  void testNewPDAnnotationPopup_whenCOSDictionary_thenCOSDictionarySizeIsOne() {
+  void testNewPDAnnotationPopup_whenCOSDictionary_thenReturnAnnotationNameIsNull() {
     // Arrange
     COSDictionary field = new COSDictionary();
 
@@ -83,44 +80,33 @@ class PDAnnotationPopupDiffblueTest {
     PDAnnotationPopup actualPdAnnotationPopup = new PDAnnotationPopup(field);
 
     // Assert
+    assertNull(actualPdAnnotationPopup.getAnnotationName());
+    assertNull(actualPdAnnotationPopup.getContents());
+    assertNull(actualPdAnnotationPopup.getModifiedDate());
+    assertNull(actualPdAnnotationPopup.getSubtype());
+    assertNull(actualPdAnnotationPopup.getAppearanceState());
+    assertNull(actualPdAnnotationPopup.getPage());
+    assertNull(actualPdAnnotationPopup.getRectangle());
+    assertNull(actualPdAnnotationPopup.getOptionalContent());
+    assertNull(actualPdAnnotationPopup.getColor());
+    assertNull(actualPdAnnotationPopup.getParent());
+    assertNull(actualPdAnnotationPopup.getAppearance());
+    assertNull(actualPdAnnotationPopup.getNormalAppearanceStream());
+    assertEquals(-1, actualPdAnnotationPopup.getStructParent());
+    assertEquals(0, actualPdAnnotationPopup.getAnnotationFlags());
     assertEquals(1, field.size());
-    List<? extends COSBase> toListResult = actualPdAnnotationPopup.getBorder().toList();
-    assertEquals(3, toListResult.size());
+    assertFalse(actualPdAnnotationPopup.isHidden());
+    assertFalse(actualPdAnnotationPopup.isInvisible());
+    assertFalse(actualPdAnnotationPopup.isLocked());
+    assertFalse(actualPdAnnotationPopup.isLockedContents());
+    assertFalse(actualPdAnnotationPopup.isNoRotate());
+    assertFalse(actualPdAnnotationPopup.isNoView());
+    assertFalse(actualPdAnnotationPopup.isNoZoom());
+    assertFalse(actualPdAnnotationPopup.isPrinted());
+    assertFalse(actualPdAnnotationPopup.isReadOnly());
+    assertFalse(actualPdAnnotationPopup.isToggleNoView());
+    assertFalse(actualPdAnnotationPopup.getOpen());
     assertSame(field, actualPdAnnotationPopup.getCOSObject());
-    COSBase expectedGetResult = toListResult.get(0);
-    assertSame(expectedGetResult, toListResult.get(1));
-  }
-
-  /**
-   * Test {@link PDAnnotationPopup#PDAnnotationPopup(COSDictionary)}.
-   *
-   * <ul>
-   *   <li>When {@link COSStream#COSStream()}.
-   *   <li>Then {@link COSStream#COSStream()} size is two.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationPopup#PDAnnotationPopup(COSDictionary)}
-   */
-  @Test
-  @DisplayName(
-      "Test new PDAnnotationPopup(COSDictionary); when COSStream(); then COSStream() size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDAnnotationPopup.<init>(COSDictionary)"})
-  void testNewPDAnnotationPopup_whenCOSStream_thenCOSStreamSizeIsTwo() {
-    // Arrange
-    COSStream field = new COSStream();
-
-    // Act
-    PDAnnotationPopup actualPdAnnotationPopup = new PDAnnotationPopup(field);
-
-    // Assert
-    assertEquals(2, field.size());
-    List<? extends COSBase> toListResult = actualPdAnnotationPopup.getBorder().toList();
-    assertEquals(3, toListResult.size());
-    assertSame(field, actualPdAnnotationPopup.getCOSObject());
-    COSBase expectedGetResult = toListResult.get(0);
-    assertSame(expectedGetResult, toListResult.get(1));
   }
 
   /**

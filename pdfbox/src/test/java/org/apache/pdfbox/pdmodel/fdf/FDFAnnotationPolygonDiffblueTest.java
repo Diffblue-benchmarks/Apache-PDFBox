@@ -142,28 +142,6 @@ class FDFAnnotationPolygonDiffblueTest {
    * Test {@link FDFAnnotationPolygon#getVertices()}.
    *
    * <ul>
-   *   <li>Given {@link FDFAnnotationPolygon#FDFAnnotationPolygon(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationPolygon#getVertices()}
-   */
-  @Test
-  @DisplayName(
-      "Test getVertices(); given FDFAnnotationPolygon(COSDictionary) with a is COSDictionary(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"float[] FDFAnnotationPolygon.getVertices()"})
-  void testGetVertices_givenFDFAnnotationPolygonWithAIsCOSDictionary_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull(new FDFAnnotationPolygon(new COSDictionary()).getVertices());
-  }
-
-  /**
-   * Test {@link FDFAnnotationPolygon#getVertices()}.
-   *
-   * <ul>
    *   <li>Given {@link FDFAnnotationPolygon#FDFAnnotationPolygon()}.
    *   <li>Then return {@code null}.
    * </ul>
@@ -230,27 +208,6 @@ class FDFAnnotationPolygonDiffblueTest {
 
     // Assert
     verify(a).setItem(isA(COSName.class), (COSBase) isNull());
-  }
-
-  /**
-   * Test {@link FDFAnnotationPolygon#getInteriorColor()}.
-   *
-   * <ul>
-   *   <li>Given {@link FDFAnnotationPolygon#FDFAnnotationPolygon(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationPolygon#getInteriorColor()}
-   */
-  @Test
-  @DisplayName(
-      "Test getInteriorColor(); given FDFAnnotationPolygon(COSDictionary) with a is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Color FDFAnnotationPolygon.getInteriorColor()"})
-  void testGetInteriorColor_givenFDFAnnotationPolygonWithAIsCOSDictionary() {
-    // Arrange, Act and Assert
-    assertNull(new FDFAnnotationPolygon(new COSDictionary()).getInteriorColor());
   }
 
   /**

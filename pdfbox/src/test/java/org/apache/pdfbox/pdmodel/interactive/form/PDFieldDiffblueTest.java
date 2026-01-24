@@ -13,20 +13,24 @@ import static org.mockito.Mockito.anyInt;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.List;
 import org.apache.pdfbox.cos.COSArray;
+import org.apache.pdfbox.cos.COSBase;
+import org.apache.pdfbox.cos.COSBoolean;
 import org.apache.pdfbox.cos.COSDictionary;
+import org.apache.pdfbox.cos.COSInteger;
 import org.apache.pdfbox.cos.COSName;
 import org.apache.pdfbox.cos.COSObject;
 import org.apache.pdfbox.cos.COSObjectKey;
 import org.apache.pdfbox.cos.COSStream;
+import org.apache.pdfbox.cos.COSString;
+import org.apache.pdfbox.io.RandomAccessReadBuffer;
+import org.apache.pdfbox.io.RandomAccessReadView;
 import org.apache.pdfbox.io.RandomAccessReadWriteBuffer;
-import org.apache.pdfbox.io.RandomAccessStreamCache;
-import org.apache.pdfbox.io.RandomAccessStreamCache.StreamCacheCreateFunction;
 import org.apache.pdfbox.io.RandomAccessStreamCacheImpl;
 import org.apache.pdfbox.pdfparser.COSParser;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -72,58 +76,6 @@ class PDFieldDiffblueTest {
   }
 
   /**
-   * Test {@link PDField#fromDictionary(PDAcroForm, COSDictionary, PDNonTerminalField)}.
-   *
-   * <ul>
-   *   <li>When {@link COSStream#COSStream()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDField#fromDictionary(PDAcroForm, COSDictionary,
-   * PDNonTerminalField)}
-   */
-  @Test
-  @DisplayName(
-      "Test fromDictionary(PDAcroForm, COSDictionary, PDNonTerminalField); when COSStream(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "PDField PDField.fromDictionary(PDAcroForm, COSDictionary, PDNonTerminalField)"
-  })
-  void testFromDictionary_whenCOSStream_thenReturnNull() {
-    // Arrange
-    PDAcroForm form = new PDAcroForm(new PDDocument());
-    COSStream field = new COSStream();
-
-    // Act
-    PDField actualFromDictionaryResult =
-        PDField.fromDictionary(
-            form, field, new PDNonTerminalField(new PDAcroForm(new PDDocument())));
-
-    // Assert
-    assertNull(actualFromDictionaryResult);
-  }
-
-  /**
-   * Test {@link PDField#getInheritableAttribute(COSName)}.
-   *
-   * <p>Method under test: {@link PDField#getInheritableAttribute(COSName)}
-   */
-  @Test
-  @DisplayName("Test getInheritableAttribute(COSName)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"org.apache.pdfbox.cos.COSBase PDField.getInheritableAttribute(COSName)"})
-  void testGetInheritableAttribute() {
-    // Arrange
-    PDDocument doc = new PDDocument();
-    PDAcroForm acroForm = new PDAcroForm(doc, new COSDictionary());
-
-    // Act and Assert
-    assertNull(new PDCheckBox(acroForm).getInheritableAttribute(COSName.A));
-  }
-
-  /**
    * Test {@link PDField#getInheritableAttribute(COSName)}.
    *
    * <ul>
@@ -138,10 +90,32 @@ class PDFieldDiffblueTest {
       "Test getInheritableAttribute(COSName); given PDCheckBox(PDAcroForm) with acroForm is PDAcroForm(PDDocument)")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
-  @MethodsUnderTest({"org.apache.pdfbox.cos.COSBase PDField.getInheritableAttribute(COSName)"})
+  @MethodsUnderTest({"COSBase PDField.getInheritableAttribute(COSName)"})
   void testGetInheritableAttribute_givenPDCheckBoxWithAcroFormIsPDAcroForm() {
     // Arrange, Act and Assert
     assertNull(new PDCheckBox(new PDAcroForm(new PDDocument())).getInheritableAttribute(COSName.A));
+  }
+
+  /**
+   * Test {@link PDField#getInheritableAttribute(COSName)}.
+   *
+   * <ul>
+   *   <li>Given {@link PDCheckBox#PDCheckBox(PDAcroForm)} with acroForm is {@link
+   *       PDAcroForm#PDAcroForm(PDDocument)}.
+   *   <li>When {@code null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDField#getInheritableAttribute(COSName)}
+   */
+  @Test
+  @DisplayName(
+      "Test getInheritableAttribute(COSName); given PDCheckBox(PDAcroForm) with acroForm is PDAcroForm(PDDocument); when 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"COSBase PDField.getInheritableAttribute(COSName)"})
+  void testGetInheritableAttribute_givenPDCheckBoxWithAcroFormIsPDAcroForm_whenNull() {
+    // Arrange, Act and Assert
+    assertNull(new PDCheckBox(new PDAcroForm(new PDDocument())).getInheritableAttribute(null));
   }
 
   /**
@@ -159,7 +133,7 @@ class PDFieldDiffblueTest {
       "Test getInheritableAttribute(COSName); given PDNonTerminalField(PDAcroForm) with acroForm is PDAcroForm(PDDocument)")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
-  @MethodsUnderTest({"org.apache.pdfbox.cos.COSBase PDField.getInheritableAttribute(COSName)"})
+  @MethodsUnderTest({"COSBase PDField.getInheritableAttribute(COSName)"})
   void testGetInheritableAttribute_givenPDNonTerminalFieldWithAcroFormIsPDAcroForm() {
     // Arrange
     PDAcroForm acroForm = new PDAcroForm(new PDDocument());
@@ -197,28 +171,6 @@ class PDFieldDiffblueTest {
     // Assert that nothing has changed
     verify(field).setFlag(isA(COSName.class), eq(1), eq(true));
     assertEquals(0, pdCheckBox.getFieldFlags());
-    assertFalse(pdCheckBox.isReadOnly());
-  }
-
-  /**
-   * Test {@link PDField#isReadOnly()}.
-   *
-   * <p>Method under test: {@link PDField#isReadOnly()}
-   */
-  @Test
-  @DisplayName("Test isReadOnly()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean PDField.isReadOnly()"})
-  void testIsReadOnly() {
-    // Arrange
-    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
-    COSDictionary field = new COSDictionary();
-    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
-
-    PDCheckBox pdCheckBox = new PDCheckBox(acroForm, field, parent);
-
-    // Act and Assert
     assertFalse(pdCheckBox.isReadOnly());
   }
 
@@ -292,28 +244,6 @@ class PDFieldDiffblueTest {
     // Assert that nothing has changed
     verify(field).setFlag(isA(COSName.class), eq(2), eq(true));
     assertEquals(0, pdCheckBox.getFieldFlags());
-    assertFalse(pdCheckBox.isRequired());
-  }
-
-  /**
-   * Test {@link PDField#isRequired()}.
-   *
-   * <p>Method under test: {@link PDField#isRequired()}
-   */
-  @Test
-  @DisplayName("Test isRequired()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean PDField.isRequired()"})
-  void testIsRequired() {
-    // Arrange
-    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
-    COSDictionary field = new COSDictionary();
-    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
-
-    PDCheckBox pdCheckBox = new PDCheckBox(acroForm, field, parent);
-
-    // Act and Assert
     assertFalse(pdCheckBox.isRequired());
   }
 
@@ -418,28 +348,6 @@ class PDFieldDiffblueTest {
   /**
    * Test {@link PDField#isNoExport()}.
    *
-   * <p>Method under test: {@link PDField#isNoExport()}
-   */
-  @Test
-  @DisplayName("Test isNoExport()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean PDField.isNoExport()"})
-  void testIsNoExport() {
-    // Arrange
-    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
-    COSDictionary field = new COSDictionary();
-    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
-
-    PDCheckBox pdCheckBox = new PDCheckBox(acroForm, field, parent);
-
-    // Act and Assert
-    assertFalse(pdCheckBox.isNoExport());
-  }
-
-  /**
-   * Test {@link PDField#isNoExport()}.
-   *
    * <ul>
    *   <li>Given {@link PDCheckBox#PDCheckBox(PDAcroForm)} with acroForm is {@link
    *       PDAcroForm#PDAcroForm(PDDocument)} ReadOnly is {@code true}.
@@ -508,27 +416,31 @@ class PDFieldDiffblueTest {
   }
 
   /**
-   * Test {@link PDField#getActions()}.
+   * Test {@link PDField#setFieldFlags(int)}.
    *
-   * <p>Method under test: {@link PDField#getActions()}
+   * <p>Method under test: {@link PDField#setFieldFlags(int)}
    */
   @Test
-  @DisplayName("Test getActions()")
+  @DisplayName("Test setFieldFlags(int)")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
-  @MethodsUnderTest({
-    "org.apache.pdfbox.pdmodel.interactive.action.PDFormFieldAdditionalActions PDField.getActions()"
-  })
-  void testGetActions() {
+  @MethodsUnderTest({"void PDField.setFieldFlags(int)"})
+  void testSetFieldFlags() {
     // Arrange
+    COSDictionary field = mock(COSDictionary.class);
+    doNothing().when(field).setInt(Mockito.<COSName>any(), anyInt());
     PDAcroForm acroForm = new PDAcroForm(new PDDocument());
-    COSDictionary field = new COSDictionary();
     PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
 
     PDCheckBox pdCheckBox = new PDCheckBox(acroForm, field, parent);
 
-    // Act and Assert
-    assertNull(pdCheckBox.getActions());
+    // Act
+    pdCheckBox.setFieldFlags(1);
+
+    // Assert that nothing has changed
+    verify(field).setInt(isA(COSName.class), eq(1));
+    assertEquals(0, pdCheckBox.getFieldFlags());
+    assertFalse(pdCheckBox.isReadOnly());
   }
 
   /**
@@ -553,6 +465,366 @@ class PDFieldDiffblueTest {
   void testGetActions_givenPDCheckBoxWithAcroFormIsPDAcroForm_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull(new PDCheckBox(new PDAcroForm(new PDDocument())).getActions());
+  }
+
+  /**
+   * Test {@link PDField#importFDF(FDFField)}.
+   *
+   * <p>Method under test: {@link PDField#importFDF(FDFField)}
+   */
+  @Test
+  @DisplayName("Test importFDF(FDFField)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDField.importFDF(FDFField)"})
+  void testImportFDF() throws IOException {
+    // Arrange
+    PDCheckBox pdCheckBox = new PDCheckBox(new PDAcroForm(new PDDocument()));
+
+    FDFField fdfField = new FDFField();
+    RandomAccessStreamCacheImpl streamCache = new RandomAccessStreamCacheImpl();
+    COSStream value =
+        new COSStream(
+            streamCache, new RandomAccessReadView(new RandomAccessReadWriteBuffer(), 1L, 3L));
+    fdfField.setValue(value);
+
+    // Act
+    pdCheckBox.importFDF(fdfField);
+
+    // Assert
+    assertEquals("", pdCheckBox.getValue());
+    assertEquals("", pdCheckBox.getValueAsString());
+    COSDictionary cOSObject = pdCheckBox.getCOSObject();
+    assertEquals(4, cOSObject.getValues().size());
+    assertEquals(4, cOSObject.size());
+  }
+
+  /**
+   * Test {@link PDField#importFDF(FDFField)}.
+   *
+   * <p>Method under test: {@link PDField#importFDF(FDFField)}
+   */
+  @Test
+  @DisplayName("Test importFDF(FDFField)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDField.importFDF(FDFField)"})
+  void testImportFDF2() throws IOException {
+    // Arrange
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    COSDictionary field = new COSDictionary();
+    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
+
+    PDCheckBox pdCheckBox = new PDCheckBox(acroForm, field, parent);
+
+    FDFField fdfField = new FDFField();
+    fdfField.setValue(new COSStream());
+
+    // Act
+    pdCheckBox.importFDF(fdfField);
+
+    // Assert
+    assertEquals("", pdCheckBox.getValue());
+    assertEquals("", pdCheckBox.getValueAsString());
+    COSDictionary cOSObject = pdCheckBox.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
+  }
+
+  /**
+   * Test {@link PDField#importFDF(FDFField)}.
+   *
+   * <p>Method under test: {@link PDField#importFDF(FDFField)}
+   */
+  @Test
+  @DisplayName("Test importFDF(FDFField)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDField.importFDF(FDFField)"})
+  void testImportFDF3() throws IOException {
+    // Arrange
+    PDCheckBox pdCheckBox = new PDCheckBox(new PDAcroForm(new PDDocument()));
+
+    FDFField fdfField = new FDFField();
+    RandomAccessStreamCacheImpl streamCache = new RandomAccessStreamCacheImpl();
+    COSStream value =
+        new COSStream(
+            streamCache, new RandomAccessReadView(new RandomAccessReadWriteBuffer(), -1L, 3L));
+    fdfField.setValue(value);
+
+    // Act
+    pdCheckBox.importFDF(fdfField);
+
+    // Assert
+    assertEquals("", pdCheckBox.getValue());
+    assertEquals("", pdCheckBox.getValueAsString());
+    COSDictionary cOSObject = pdCheckBox.getCOSObject();
+    assertEquals(4, cOSObject.getValues().size());
+    assertEquals(4, cOSObject.size());
+  }
+
+  /**
+   * Test {@link PDField#importFDF(FDFField)}.
+   *
+   * <p>Method under test: {@link PDField#importFDF(FDFField)}
+   */
+  @Test
+  @DisplayName("Test importFDF(FDFField)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDField.importFDF(FDFField)"})
+  void testImportFDF4() throws IOException {
+    // Arrange
+    PDCheckBox pdCheckBox = new PDCheckBox(new PDAcroForm(new PDDocument()));
+
+    FDFField fdfField = new FDFField();
+    RandomAccessStreamCacheImpl streamCache = new RandomAccessStreamCacheImpl();
+    COSStream value =
+        new COSStream(
+            streamCache, new RandomAccessReadView(new RandomAccessReadWriteBuffer(), 1L, 0L));
+    fdfField.setValue(value);
+
+    // Act
+    pdCheckBox.importFDF(fdfField);
+
+    // Assert
+    assertEquals("", pdCheckBox.getValue());
+    assertEquals("", pdCheckBox.getValueAsString());
+    COSDictionary cOSObject = pdCheckBox.getCOSObject();
+    assertEquals(4, cOSObject.getValues().size());
+    assertEquals(4, cOSObject.size());
+  }
+
+  /**
+   * Test {@link PDField#importFDF(FDFField)}.
+   *
+   * <p>Method under test: {@link PDField#importFDF(FDFField)}
+   */
+  @Test
+  @DisplayName("Test importFDF(FDFField)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDField.importFDF(FDFField)"})
+  void testImportFDF5() throws IOException {
+    // Arrange
+    PDCheckBox pdCheckBox = new PDCheckBox(new PDAcroForm(new PDDocument()));
+
+    COSArray cosArray = new COSArray();
+    COSObject object = new COSObject(COSBoolean.FALSE, new COSObjectKey(1L, 1));
+    cosArray.add((COSBase) object);
+
+    FDFField fdfField = new FDFField();
+    fdfField.setValue((Object) cosArray);
+
+    // Act and Assert
+    assertThrows(IOException.class, () -> pdCheckBox.importFDF(fdfField));
+  }
+
+  /**
+   * Test {@link PDField#importFDF(FDFField)}.
+   *
+   * <p>Method under test: {@link PDField#importFDF(FDFField)}
+   */
+  @Test
+  @DisplayName("Test importFDF(FDFField)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDField.importFDF(FDFField)"})
+  void testImportFDF6() throws IOException {
+    // Arrange
+    PDCheckBox pdCheckBox = new PDCheckBox(new PDAcroForm(new PDDocument()));
+
+    COSArray cosArray = new COSArray();
+    RandomAccessStreamCacheImpl streamCache = new RandomAccessStreamCacheImpl();
+    COSStream object =
+        new COSStream(
+            streamCache, new RandomAccessReadView(new RandomAccessReadWriteBuffer(), 1L, 3L));
+    cosArray.add((COSBase) object);
+
+    FDFField fdfField = new FDFField();
+    fdfField.setValue((Object) cosArray);
+
+    // Act and Assert
+    assertThrows(IOException.class, () -> pdCheckBox.importFDF(fdfField));
+  }
+
+  /**
+   * Test {@link PDField#importFDF(FDFField)}.
+   *
+   * <ul>
+   *   <li>Given {@link COSArray#COSArray()} add {@link COSName#A}.
+   *   <li>When {@link FDFField#FDFField()} Value is {@link COSArray#COSArray()}.
+   *   <li>Then throw {@link IOException}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDField#importFDF(FDFField)}
+   */
+  @Test
+  @DisplayName(
+      "Test importFDF(FDFField); given COSArray() add A; when FDFField() Value is COSArray(); then throw IOException")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDField.importFDF(FDFField)"})
+  void testImportFDF_givenCOSArrayAddA_whenFDFFieldValueIsCOSArray_thenThrowIOException()
+      throws IOException {
+    // Arrange
+    PDCheckBox pdCheckBox = new PDCheckBox(new PDAcroForm(new PDDocument()));
+
+    COSArray cosArray = new COSArray();
+    cosArray.add(COSName.A);
+
+    FDFField fdfField = new FDFField();
+    fdfField.setValue((Object) cosArray);
+
+    // Act and Assert
+    assertThrows(IOException.class, () -> pdCheckBox.importFDF(fdfField));
+  }
+
+  /**
+   * Test {@link PDField#importFDF(FDFField)}.
+   *
+   * <ul>
+   *   <li>Given {@link COSArray#COSArray()} add {@link COSArray#COSArray()}.
+   *   <li>Then throw {@link IOException}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDField#importFDF(FDFField)}
+   */
+  @Test
+  @DisplayName("Test importFDF(FDFField); given COSArray() add COSArray(); then throw IOException")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDField.importFDF(FDFField)"})
+  void testImportFDF_givenCOSArrayAddCOSArray_thenThrowIOException() throws IOException {
+    // Arrange
+    PDCheckBox pdCheckBox = new PDCheckBox(new PDAcroForm(new PDDocument()));
+
+    COSArray cosArray = new COSArray();
+    cosArray.add((COSBase) new COSArray());
+
+    FDFField fdfField = new FDFField();
+    fdfField.setValue((Object) cosArray);
+
+    // Act and Assert
+    assertThrows(IOException.class, () -> pdCheckBox.importFDF(fdfField));
+  }
+
+  /**
+   * Test {@link PDField#importFDF(FDFField)}.
+   *
+   * <ul>
+   *   <li>Given {@link COSArray#COSArray()} add {@link COSStream#COSStream()}.
+   *   <li>Then throw {@link IOException}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDField#importFDF(FDFField)}
+   */
+  @Test
+  @DisplayName("Test importFDF(FDFField); given COSArray() add COSStream(); then throw IOException")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDField.importFDF(FDFField)"})
+  void testImportFDF_givenCOSArrayAddCOSStream_thenThrowIOException() throws IOException {
+    // Arrange
+    PDCheckBox pdCheckBox = new PDCheckBox(new PDAcroForm(new PDDocument()));
+
+    COSArray cosArray = new COSArray();
+    cosArray.add((COSBase) new COSStream());
+
+    FDFField fdfField = new FDFField();
+    fdfField.setValue((Object) cosArray);
+
+    // Act and Assert
+    assertThrows(IOException.class, () -> pdCheckBox.importFDF(fdfField));
+  }
+
+  /**
+   * Test {@link PDField#importFDF(FDFField)}.
+   *
+   * <ul>
+   *   <li>Given {@link COSArray#COSArray()} add {@link COSBoolean#FALSE}.
+   *   <li>Then throw {@link IOException}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDField#importFDF(FDFField)}
+   */
+  @Test
+  @DisplayName("Test importFDF(FDFField); given COSArray() add FALSE; then throw IOException")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDField.importFDF(FDFField)"})
+  void testImportFDF_givenCOSArrayAddFalse_thenThrowIOException() throws IOException {
+    // Arrange
+    PDCheckBox pdCheckBox = new PDCheckBox(new PDAcroForm(new PDDocument()));
+
+    COSArray cosArray = new COSArray();
+    cosArray.add(COSBoolean.FALSE);
+
+    FDFField fdfField = new FDFField();
+    fdfField.setValue((Object) cosArray);
+
+    // Act and Assert
+    assertThrows(IOException.class, () -> pdCheckBox.importFDF(fdfField));
+  }
+
+  /**
+   * Test {@link PDField#importFDF(FDFField)}.
+   *
+   * <ul>
+   *   <li>Given {@link COSArray#COSArray()} add {@link COSInteger#ONE}.
+   *   <li>Then throw {@link IOException}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDField#importFDF(FDFField)}
+   */
+  @Test
+  @DisplayName("Test importFDF(FDFField); given COSArray() add ONE; then throw IOException")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDField.importFDF(FDFField)"})
+  void testImportFDF_givenCOSArrayAddOne_thenThrowIOException() throws IOException {
+    // Arrange
+    PDCheckBox pdCheckBox = new PDCheckBox(new PDAcroForm(new PDDocument()));
+
+    COSArray cosArray = new COSArray();
+    cosArray.add(COSInteger.ONE);
+
+    FDFField fdfField = new FDFField();
+    fdfField.setValue((Object) cosArray);
+
+    // Act and Assert
+    assertThrows(IOException.class, () -> pdCheckBox.importFDF(fdfField));
+  }
+
+  /**
+   * Test {@link PDField#importFDF(FDFField)}.
+   *
+   * <ul>
+   *   <li>Given {@link COSArray#COSArray()} add parseHex {@code 0123456789ABCDEF}.
+   *   <li>Then throw {@link IOException}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDField#importFDF(FDFField)}
+   */
+  @Test
+  @DisplayName(
+      "Test importFDF(FDFField); given COSArray() add parseHex '0123456789ABCDEF'; then throw IOException")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDField.importFDF(FDFField)"})
+  void testImportFDF_givenCOSArrayAddParseHex0123456789abcdef_thenThrowIOException()
+      throws IOException {
+    // Arrange
+    PDCheckBox pdCheckBox = new PDCheckBox(new PDAcroForm(new PDDocument()));
+
+    COSArray cosArray = new COSArray();
+    cosArray.add(COSString.parseHex("0123456789ABCDEF"));
+
+    FDFField fdfField = new FDFField();
+    fdfField.setValue((Object) cosArray);
+
+    // Act and Assert
+    assertThrows(IOException.class, () -> pdCheckBox.importFDF(fdfField));
   }
 
   /**
@@ -588,6 +860,117 @@ class PDFieldDiffblueTest {
    * Test {@link PDField#importFDF(FDFField)}.
    *
    * <ul>
+   *   <li>Given {@link COSObject#COSObject(COSObjectKey, ICOSParser)} with key is {@link
+   *       COSObjectKey#COSObjectKey(long, int)} and parser is {@code null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDField#importFDF(FDFField)}
+   */
+  @Test
+  @DisplayName(
+      "Test importFDF(FDFField); given COSObject(COSObjectKey, ICOSParser) with key is COSObjectKey(long, int) and parser is 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDField.importFDF(FDFField)"})
+  void testImportFDF_givenCOSObjectWithKeyIsCOSObjectKeyAndParserIsNull() throws IOException {
+    // Arrange
+    PDCheckBox pdCheckBox = new PDCheckBox(new PDAcroForm(new PDDocument()));
+
+    FDFField fdfField = new FDFField();
+    COSObject cosObject = new COSObject(new COSObjectKey(1L, 1), null);
+    fdfField.setValue((Object) cosObject);
+
+    // Act
+    pdCheckBox.importFDF(fdfField);
+
+    // Assert that nothing has changed
+    assertEquals("Off", pdCheckBox.getValue());
+    assertEquals("Off", pdCheckBox.getValueAsString());
+    COSDictionary cOSObject = pdCheckBox.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
+  }
+
+  /**
+   * Test {@link PDField#importFDF(FDFField)}.
+   *
+   * <ul>
+   *   <li>Given {@link COSObject#COSObject(COSBase, COSObjectKey)} with object is {@code null} and
+   *       objectKey is {@link COSObjectKey#COSObjectKey(long, int)}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDField#importFDF(FDFField)}
+   */
+  @Test
+  @DisplayName(
+      "Test importFDF(FDFField); given COSObject(COSBase, COSObjectKey) with object is 'null' and objectKey is COSObjectKey(long, int)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDField.importFDF(FDFField)"})
+  void testImportFDF_givenCOSObjectWithObjectIsNullAndObjectKeyIsCOSObjectKey() throws IOException {
+    // Arrange
+    PDCheckBox pdCheckBox = new PDCheckBox(new PDAcroForm(new PDDocument()));
+
+    FDFField fdfField = new FDFField();
+    COSObject cosObject = new COSObject(null, new COSObjectKey(1L, 1));
+    fdfField.setValue((Object) cosObject);
+
+    // Act
+    pdCheckBox.importFDF(fdfField);
+
+    // Assert that nothing has changed
+    assertEquals("Off", pdCheckBox.getValue());
+    assertEquals("Off", pdCheckBox.getValueAsString());
+    COSDictionary cOSObject = pdCheckBox.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
+  }
+
+  /**
+   * Test {@link PDField#importFDF(FDFField)}.
+   *
+   * <ul>
+   *   <li>Given {@link COSParser#COSParser(RandomAccessRead)} with source is {@link
+   *       RandomAccessReadBuffer#RandomAccessReadBuffer(InputStream)}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDField#importFDF(FDFField)}
+   */
+  @Test
+  @DisplayName(
+      "Test importFDF(FDFField); given COSParser(RandomAccessRead) with source is RandomAccessReadBuffer(InputStream)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDField.importFDF(FDFField)"})
+  void testImportFDF_givenCOSParserWithSourceIsRandomAccessReadBuffer() throws IOException {
+    // Arrange
+    PDCheckBox pdCheckBox = new PDCheckBox(new PDAcroForm(new PDDocument()));
+
+    FDFField fdfField = new FDFField();
+    COSObjectKey key = new COSObjectKey(1L, 1);
+    ByteArrayInputStream input =
+        new ByteArrayInputStream(new byte[] {'A', 1, 'A', 1, 'A', 1, 'A', 1});
+    RandomAccessReadBuffer source = new RandomAccessReadBuffer(input);
+    COSParser parser = new COSParser(source);
+
+    COSObject cosObject = new COSObject(key, parser);
+    fdfField.setValue((Object) cosObject);
+
+    // Act
+    pdCheckBox.importFDF(fdfField);
+
+    // Assert that nothing has changed
+    assertEquals("Off", pdCheckBox.getValue());
+    assertEquals("Off", pdCheckBox.getValueAsString());
+    COSDictionary cOSObject = pdCheckBox.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
+  }
+
+  /**
+   * Test {@link PDField#importFDF(FDFField)}.
+   *
+   * <ul>
    *   <li>Given {@link COSParser#COSParser(RandomAccessRead)} with source is {@link
    *       RandomAccessReadWriteBuffer#RandomAccessReadWriteBuffer()}.
    * </ul>
@@ -613,11 +996,77 @@ class PDFieldDiffblueTest {
     pdCheckBox.importFDF(fdfField);
 
     // Assert that nothing has changed
-    assertEquals(0, pdCheckBox.getFieldFlags());
+    assertEquals("Off", pdCheckBox.getValue());
+    assertEquals("Off", pdCheckBox.getValueAsString());
     COSDictionary cOSObject = pdCheckBox.getCOSObject();
     assertEquals(3, cOSObject.getValues().size());
     assertEquals(3, cOSObject.size());
-    assertFalse(pdCheckBox.isReadOnly());
+  }
+
+  /**
+   * Test {@link PDField#importFDF(FDFField)}.
+   *
+   * <ul>
+   *   <li>Given {@link COSStream#COSStream()}.
+   *   <li>When {@link FDFField#FDFField()} Value is {@link COSStream#COSStream()}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDField#importFDF(FDFField)}
+   */
+  @Test
+  @DisplayName("Test importFDF(FDFField); given COSStream(); when FDFField() Value is COSStream()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDField.importFDF(FDFField)"})
+  void testImportFDF_givenCOSStream_whenFDFFieldValueIsCOSStream() throws IOException {
+    // Arrange
+    PDCheckBox pdCheckBox = new PDCheckBox(new PDAcroForm(new PDDocument()));
+
+    FDFField fdfField = new FDFField();
+    fdfField.setValue(new COSStream());
+
+    // Act
+    pdCheckBox.importFDF(fdfField);
+
+    // Assert
+    assertEquals("", pdCheckBox.getValue());
+    assertEquals("", pdCheckBox.getValueAsString());
+    COSDictionary cOSObject = pdCheckBox.getCOSObject();
+    assertEquals(4, cOSObject.getValues().size());
+    assertEquals(4, cOSObject.size());
+  }
+
+  /**
+   * Test {@link PDField#importFDF(FDFField)}.
+   *
+   * <ul>
+   *   <li>Given one.
+   *   <li>When {@link FDFField#FDFField()} ClearFieldFlags is one.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDField#importFDF(FDFField)}
+   */
+  @Test
+  @DisplayName("Test importFDF(FDFField); given one; when FDFField() ClearFieldFlags is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDField.importFDF(FDFField)"})
+  void testImportFDF_givenOne_whenFDFFieldClearFieldFlagsIsOne() throws IOException {
+    // Arrange
+    PDCheckBox pdCheckBox = new PDCheckBox(new PDAcroForm(new PDDocument()));
+
+    FDFField fdfField = new FDFField();
+    fdfField.setClearFieldFlags((Integer) 1);
+
+    // Act
+    pdCheckBox.importFDF(fdfField);
+
+    // Assert
+    assertEquals("Off", pdCheckBox.getValue());
+    assertEquals("Off", pdCheckBox.getValueAsString());
+    COSDictionary cOSObject = pdCheckBox.getCOSObject();
+    assertEquals(4, cOSObject.getValues().size());
+    assertEquals(4, cOSObject.size());
   }
 
   /**
@@ -647,7 +1096,43 @@ class PDFieldDiffblueTest {
     pdCheckBox.importFDF(new FDFField());
 
     // Assert that nothing has changed
-    assertEquals(1, pdCheckBox.getFieldFlags());
+    assertEquals("Off", pdCheckBox.getValue());
+    assertEquals("Off", pdCheckBox.getValueAsString());
+    COSDictionary cOSObject = pdCheckBox.getCOSObject();
+    assertEquals(4, cOSObject.getValues().size());
+    assertEquals(4, cOSObject.size());
+  }
+
+  /**
+   * Test {@link PDField#importFDF(FDFField)}.
+   *
+   * <ul>
+   *   <li>Then {@link PDCheckBox#PDCheckBox(PDAcroForm)} with acroForm is {@link
+   *       PDAcroForm#PDAcroForm(PDDocument)} FieldFlags is minus ninety-nine.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDField#importFDF(FDFField)}
+   */
+  @Test
+  @DisplayName(
+      "Test importFDF(FDFField); then PDCheckBox(PDAcroForm) with acroForm is PDAcroForm(PDDocument) FieldFlags is minus ninety-nine")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDField.importFDF(FDFField)"})
+  void testImportFDF_thenPDCheckBoxWithAcroFormIsPDAcroFormFieldFlagsIsMinusNinetyNine()
+      throws IOException {
+    // Arrange
+    PDCheckBox pdCheckBox = new PDCheckBox(new PDAcroForm(new PDDocument()));
+    pdCheckBox.setFieldFlags(-100);
+
+    FDFField fdfField = new FDFField();
+    fdfField.setSetFieldFlags((Integer) 1);
+
+    // Act
+    pdCheckBox.importFDF(fdfField);
+
+    // Assert
+    assertEquals(-99, pdCheckBox.getFieldFlags());
     COSDictionary cOSObject = pdCheckBox.getCOSObject();
     assertEquals(4, cOSObject.getValues().size());
     assertEquals(4, cOSObject.size());
@@ -659,70 +1144,33 @@ class PDFieldDiffblueTest {
    *
    * <ul>
    *   <li>Then {@link PDCheckBox#PDCheckBox(PDAcroForm)} with acroForm is {@link
-   *       PDAcroForm#PDAcroForm(PDDocument)} COSObject Values size is three.
+   *       PDAcroForm#PDAcroForm(PDDocument)} FieldFlags is one.
    * </ul>
    *
    * <p>Method under test: {@link PDField#importFDF(FDFField)}
    */
   @Test
   @DisplayName(
-      "Test importFDF(FDFField); then PDCheckBox(PDAcroForm) with acroForm is PDAcroForm(PDDocument) COSObject Values size is three")
+      "Test importFDF(FDFField); then PDCheckBox(PDAcroForm) with acroForm is PDAcroForm(PDDocument) FieldFlags is one")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void PDField.importFDF(FDFField)"})
-  void testImportFDF_thenPDCheckBoxWithAcroFormIsPDAcroFormCOSObjectValuesSizeIsThree()
-      throws IOException {
+  void testImportFDF_thenPDCheckBoxWithAcroFormIsPDAcroFormFieldFlagsIsOne() throws IOException {
     // Arrange
     PDCheckBox pdCheckBox = new PDCheckBox(new PDAcroForm(new PDDocument()));
 
-    // Act
-    pdCheckBox.importFDF(new FDFField());
-
-    // Assert that nothing has changed
-    assertEquals(0, pdCheckBox.getFieldFlags());
-    COSDictionary cOSObject = pdCheckBox.getCOSObject();
-    assertEquals(3, cOSObject.getValues().size());
-    assertEquals(3, cOSObject.size());
-    assertFalse(pdCheckBox.isReadOnly());
-  }
-
-  /**
-   * Test {@link PDField#importFDF(FDFField)}.
-   *
-   * <ul>
-   *   <li>Then {@link PDCheckBox#PDCheckBox(PDAcroForm)} with acroForm is {@link
-   *       PDAcroForm#PDAcroForm(PDDocument)} Value is empty string.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDField#importFDF(FDFField)}
-   */
-  @Test
-  @DisplayName(
-      "Test importFDF(FDFField); then PDCheckBox(PDAcroForm) with acroForm is PDAcroForm(PDDocument) Value is empty string")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDField.importFDF(FDFField)"})
-  void testImportFDF_thenPDCheckBoxWithAcroFormIsPDAcroFormValueIsEmptyString() throws IOException {
-    // Arrange
-    StreamCacheCreateFunction streamCacheCreateFunction = mock(StreamCacheCreateFunction.class);
-    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
-    PDDocument doc = new PDDocument(streamCacheCreateFunction);
-    PDAcroForm acroForm = new PDAcroForm(doc);
-    PDCheckBox pdCheckBox = new PDCheckBox(acroForm);
-
     FDFField fdfField = new FDFField();
-    fdfField.setValue("");
+    fdfField.setSetFieldFlags((Integer) 1);
 
     // Act
     pdCheckBox.importFDF(fdfField);
 
     // Assert
-    verify(streamCacheCreateFunction).create();
-    assertEquals("", pdCheckBox.getValue());
-    assertEquals("", pdCheckBox.getValueAsString());
+    assertEquals(1, pdCheckBox.getFieldFlags());
     COSDictionary cOSObject = pdCheckBox.getCOSObject();
     assertEquals(4, cOSObject.getValues().size());
     assertEquals(4, cOSObject.size());
+    assertTrue(pdCheckBox.isReadOnly());
   }
 
   /**
@@ -766,32 +1214,29 @@ class PDFieldDiffblueTest {
    * Test {@link PDField#importFDF(FDFField)}.
    *
    * <ul>
-   *   <li>When {@link FDFField#FDFField()} ClearFieldFlags is one.
+   *   <li>When {@link FDFField#FDFField()}.
    * </ul>
    *
    * <p>Method under test: {@link PDField#importFDF(FDFField)}
    */
   @Test
-  @DisplayName("Test importFDF(FDFField); when FDFField() ClearFieldFlags is one")
+  @DisplayName("Test importFDF(FDFField); when FDFField()")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void PDField.importFDF(FDFField)"})
-  void testImportFDF_whenFDFFieldClearFieldFlagsIsOne() throws IOException {
+  void testImportFDF_whenFDFField() throws IOException {
     // Arrange
     PDCheckBox pdCheckBox = new PDCheckBox(new PDAcroForm(new PDDocument()));
 
-    FDFField fdfField = new FDFField();
-    fdfField.setClearFieldFlags((Integer) 1);
-
     // Act
-    pdCheckBox.importFDF(fdfField);
+    pdCheckBox.importFDF(new FDFField());
 
-    // Assert
-    assertEquals(0, pdCheckBox.getFieldFlags());
+    // Assert that nothing has changed
+    assertEquals("Off", pdCheckBox.getValue());
+    assertEquals("Off", pdCheckBox.getValueAsString());
     COSDictionary cOSObject = pdCheckBox.getCOSObject();
-    assertEquals(4, cOSObject.getValues().size());
-    assertEquals(4, cOSObject.size());
-    assertFalse(pdCheckBox.isReadOnly());
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
   }
 
   /**
@@ -827,38 +1272,6 @@ class PDFieldDiffblueTest {
   }
 
   /**
-   * Test {@link PDField#importFDF(FDFField)}.
-   *
-   * <ul>
-   *   <li>When {@link FDFField#FDFField()} SetFieldFlags is one.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDField#importFDF(FDFField)}
-   */
-  @Test
-  @DisplayName("Test importFDF(FDFField); when FDFField() SetFieldFlags is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDField.importFDF(FDFField)"})
-  void testImportFDF_whenFDFFieldSetFieldFlagsIsOne() throws IOException {
-    // Arrange
-    PDCheckBox pdCheckBox = new PDCheckBox(new PDAcroForm(new PDDocument()));
-
-    FDFField fdfField = new FDFField();
-    fdfField.setSetFieldFlags((Integer) 1);
-
-    // Act
-    pdCheckBox.importFDF(fdfField);
-
-    // Assert
-    assertEquals(1, pdCheckBox.getFieldFlags());
-    COSDictionary cOSObject = pdCheckBox.getCOSObject();
-    assertEquals(4, cOSObject.getValues().size());
-    assertEquals(4, cOSObject.size());
-    assertTrue(pdCheckBox.isReadOnly());
-  }
-
-  /**
    * Test {@link PDField#getParent()}.
    *
    * <p>Method under test: {@link PDField#getParent()}
@@ -871,28 +1284,6 @@ class PDFieldDiffblueTest {
   void testGetParent() {
     // Arrange, Act and Assert
     assertNull(new PDCheckBox(new PDAcroForm(new PDDocument())).getParent());
-  }
-
-  /**
-   * Test {@link PDField#findKid(String[], int)}.
-   *
-   * <p>Method under test: {@link PDField#findKid(String[], int)}
-   */
-  @Test
-  @DisplayName("Test findKid(String[], int)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDField PDField.findKid(String[], int)"})
-  void testFindKid() {
-    // Arrange
-    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
-    COSDictionary field = new COSDictionary();
-    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
-
-    PDCheckBox pdCheckBox = new PDCheckBox(acroForm, field, parent);
-
-    // Act and Assert
-    assertNull(pdCheckBox.findKid(new String[] {"Name"}, 1));
   }
 
   /**
@@ -938,28 +1329,6 @@ class PDFieldDiffblueTest {
   /**
    * Test {@link PDField#getPartialName()}.
    *
-   * <p>Method under test: {@link PDField#getPartialName()}
-   */
-  @Test
-  @DisplayName("Test getPartialName()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String PDField.getPartialName()"})
-  void testGetPartialName() {
-    // Arrange
-    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
-    COSDictionary field = new COSDictionary();
-    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
-
-    PDCheckBox pdCheckBox = new PDCheckBox(acroForm, field, parent);
-
-    // Act and Assert
-    assertNull(pdCheckBox.getPartialName());
-  }
-
-  /**
-   * Test {@link PDField#getPartialName()}.
-   *
    * <ul>
    *   <li>Given {@link PDCheckBox#PDCheckBox(PDAcroForm)} with acroForm is {@link
    *       PDAcroForm#PDAcroForm(PDDocument)}.
@@ -993,22 +1362,13 @@ class PDFieldDiffblueTest {
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"String PDField.getPartialName()"})
-  void testGetPartialName_thenReturnEmptyString() throws IOException {
+  void testGetPartialName_thenReturnEmptyString() {
     // Arrange
-    StreamCacheCreateFunction streamCacheCreateFunction = mock(StreamCacheCreateFunction.class);
-    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
-    PDDocument doc = new PDDocument(streamCacheCreateFunction);
-    PDAcroForm acroForm = new PDAcroForm(doc);
-
-    PDCheckBox pdCheckBox = new PDCheckBox(acroForm);
+    PDCheckBox pdCheckBox = new PDCheckBox(new PDAcroForm(new PDDocument()));
     pdCheckBox.setPartialName("");
 
-    // Act
-    String actualPartialName = pdCheckBox.getPartialName();
-
-    // Assert
-    verify(streamCacheCreateFunction).create();
-    assertEquals("", actualPartialName);
+    // Act and Assert
+    assertEquals("", pdCheckBox.getPartialName());
   }
 
   /**
@@ -1068,14 +1428,11 @@ class PDFieldDiffblueTest {
   @MethodsUnderTest({"String PDField.getFullyQualifiedName()"})
   void testGetFullyQualifiedName() {
     // Arrange
-    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
-    COSDictionary field = new COSDictionary();
-    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
-
-    PDCheckBox pdCheckBox = new PDCheckBox(acroForm, field, parent);
+    PDCheckBox pdCheckBox = new PDCheckBox(new PDAcroForm(new PDDocument()));
+    pdCheckBox.setPartialName("Name");
 
     // Act and Assert
-    assertNull(pdCheckBox.getFullyQualifiedName());
+    assertEquals("Name", pdCheckBox.getFullyQualifiedName());
   }
 
   /**
@@ -1114,22 +1471,13 @@ class PDFieldDiffblueTest {
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"String PDField.getFullyQualifiedName()"})
-  void testGetFullyQualifiedName_thenReturnEmptyString() throws IOException {
+  void testGetFullyQualifiedName_thenReturnEmptyString() {
     // Arrange
-    StreamCacheCreateFunction streamCacheCreateFunction = mock(StreamCacheCreateFunction.class);
-    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
-    PDDocument doc = new PDDocument(streamCacheCreateFunction);
-    PDAcroForm acroForm = new PDAcroForm(doc);
-
-    PDCheckBox pdCheckBox = new PDCheckBox(acroForm);
+    PDCheckBox pdCheckBox = new PDCheckBox(new PDAcroForm(new PDDocument()));
     pdCheckBox.setPartialName("");
 
-    // Act
-    String actualFullyQualifiedName = pdCheckBox.getFullyQualifiedName();
-
-    // Assert
-    verify(streamCacheCreateFunction).create();
-    assertEquals("", actualFullyQualifiedName);
+    // Act and Assert
+    assertEquals("", pdCheckBox.getFullyQualifiedName());
   }
 
   /**
@@ -1148,24 +1496,58 @@ class PDFieldDiffblueTest {
   @MethodsUnderTest({"String PDField.getFullyQualifiedName()"})
   void testGetFullyQualifiedName_thenReturnName() {
     // Arrange
-    PDCheckBox pdCheckBox = new PDCheckBox(new PDAcroForm(new PDDocument()));
-    pdCheckBox.setPartialName("Name");
+    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
+    parent.setPartialName("Name");
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+
+    PDCheckBox pdCheckBox = new PDCheckBox(acroForm, new COSDictionary(), parent);
 
     // Act and Assert
     assertEquals("Name", pdCheckBox.getFullyQualifiedName());
   }
 
   /**
-   * Test {@link PDField#getAlternateFieldName()}.
+   * Test {@link PDField#getFullyQualifiedName()}.
    *
-   * <p>Method under test: {@link PDField#getAlternateFieldName()}
+   * <ul>
+   *   <li>Then return {@code Name.Name}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDField#getFullyQualifiedName()}
    */
   @Test
-  @DisplayName("Test getAlternateFieldName()")
+  @DisplayName("Test getFullyQualifiedName(); then return 'Name.Name'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
-  @MethodsUnderTest({"String PDField.getAlternateFieldName()"})
-  void testGetAlternateFieldName() {
+  @MethodsUnderTest({"String PDField.getFullyQualifiedName()"})
+  void testGetFullyQualifiedName_thenReturnNameName() {
+    // Arrange
+    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
+    parent.setPartialName("Name");
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+
+    PDCheckBox pdCheckBox = new PDCheckBox(acroForm, new COSDictionary(), parent);
+    pdCheckBox.setPartialName("Name");
+
+    // Act and Assert
+    assertEquals("Name.Name", pdCheckBox.getFullyQualifiedName());
+  }
+
+  /**
+   * Test {@link PDField#getFullyQualifiedName()}.
+   *
+   * <ul>
+   *   <li>Then return {@code null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDField#getFullyQualifiedName()}
+   */
+  @Test
+  @DisplayName("Test getFullyQualifiedName(); then return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String PDField.getFullyQualifiedName()"})
+  void testGetFullyQualifiedName_thenReturnNull() {
     // Arrange
     PDAcroForm acroForm = new PDAcroForm(new PDDocument());
     COSDictionary field = new COSDictionary();
@@ -1174,7 +1556,7 @@ class PDFieldDiffblueTest {
     PDCheckBox pdCheckBox = new PDCheckBox(acroForm, field, parent);
 
     // Act and Assert
-    assertNull(pdCheckBox.getAlternateFieldName());
+    assertNull(pdCheckBox.getFullyQualifiedName());
   }
 
   /**
@@ -1246,25 +1628,33 @@ class PDFieldDiffblueTest {
   }
 
   /**
-   * Test {@link PDField#getMappingName()}.
+   * Test {@link PDField#setAlternateFieldName(String)}.
    *
-   * <p>Method under test: {@link PDField#getMappingName()}
+   * <ul>
+   *   <li>Then calls {@link COSDictionary#setString(COSName, String)}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDField#setAlternateFieldName(String)}
    */
   @Test
-  @DisplayName("Test getMappingName()")
+  @DisplayName("Test setAlternateFieldName(String); then calls setString(COSName, String)")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
-  @MethodsUnderTest({"String PDField.getMappingName()"})
-  void testGetMappingName() {
+  @MethodsUnderTest({"void PDField.setAlternateFieldName(String)"})
+  void testSetAlternateFieldName_thenCallsSetString() {
     // Arrange
+    COSDictionary field = mock(COSDictionary.class);
+    doNothing().when(field).setString(Mockito.<COSName>any(), Mockito.<String>any());
     PDAcroForm acroForm = new PDAcroForm(new PDDocument());
-    COSDictionary field = new COSDictionary();
     PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
 
     PDCheckBox pdCheckBox = new PDCheckBox(acroForm, field, parent);
 
-    // Act and Assert
-    assertNull(pdCheckBox.getMappingName());
+    // Act
+    pdCheckBox.setAlternateFieldName("Alternate Field Name");
+
+    // Assert that nothing has changed
+    verify(field).setString(isA(COSName.class), eq("Alternate Field Name"));
   }
 
   /**
@@ -1336,28 +1726,65 @@ class PDFieldDiffblueTest {
   }
 
   /**
+   * Test {@link PDField#setMappingName(String)}.
+   *
+   * <ul>
+   *   <li>Given {@link COSDictionary} {@link COSDictionary#setString(COSName, String)} does
+   *       nothing.
+   *   <li>Then calls {@link COSDictionary#setString(COSName, String)}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDField#setMappingName(String)}
+   */
+  @Test
+  @DisplayName(
+      "Test setMappingName(String); given COSDictionary setString(COSName, String) does nothing; then calls setString(COSName, String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDField.setMappingName(String)"})
+  void testSetMappingName_givenCOSDictionarySetStringDoesNothing_thenCallsSetString() {
+    // Arrange
+    COSDictionary field = mock(COSDictionary.class);
+    doNothing().when(field).setString(Mockito.<COSName>any(), Mockito.<String>any());
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
+
+    PDCheckBox pdCheckBox = new PDCheckBox(acroForm, field, parent);
+
+    // Act
+    pdCheckBox.setMappingName("Mapping Name");
+
+    // Assert that nothing has changed
+    verify(field).setString(isA(COSName.class), eq("Mapping Name"));
+  }
+
+  /**
    * Test {@link PDField#toString()}.
    *
    * <ul>
-   *   <li>Given {@link PDAcroForm#PDAcroForm(PDDocument, COSDictionary)} with doc is {@link
-   *       PDDocument#PDDocument()} and form is {@link COSDictionary#COSDictionary()}.
+   *   <li>Given {@link PDAcroForm#PDAcroForm(PDDocument)} with doc is {@link
+   *       PDDocument#PDDocument()} DefaultAppearance is {@code 42}.
    * </ul>
    *
    * <p>Method under test: {@link PDField#toString()}
    */
   @Test
   @DisplayName(
-      "Test toString(); given PDAcroForm(PDDocument, COSDictionary) with doc is PDDocument() and form is COSDictionary()")
+      "Test toString(); given PDAcroForm(PDDocument) with doc is PDDocument() DefaultAppearance is '42'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"String PDField.toString()"})
-  void testToString_givenPDAcroFormWithDocIsPDDocumentAndFormIsCOSDictionary() {
+  void testToString_givenPDAcroFormWithDocIsPDDocumentDefaultAppearanceIs42() {
     // Arrange
-    PDDocument doc = new PDDocument();
-    PDAcroForm acroForm = new PDAcroForm(doc, new COSDictionary());
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    acroForm.setDefaultAppearance("42");
+    COSDictionary field = new COSDictionary();
+    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
+
+    PDCheckBox pdCheckBox = new PDCheckBox(acroForm, field, parent);
 
     // Act and Assert
-    assertEquals("null{type: PDCheckBox value: null}", new PDCheckBox(acroForm).toString());
+    assertEquals("null{type: PDCheckBox value: null}", pdCheckBox.toString());
   }
 
   /**
@@ -1387,28 +1814,52 @@ class PDFieldDiffblueTest {
    * Test {@link PDField#toString()}.
    *
    * <ul>
-   *   <li>Given {@link PDNonTerminalField#PDNonTerminalField(PDAcroForm)} with acroForm is {@link
-   *       PDAcroForm#PDAcroForm(PDDocument)}.
+   *   <li>Given {@link PDCheckBox#PDCheckBox(PDAcroForm)} with acroForm is {@link
+   *       PDAcroForm#PDAcroForm(PDDocument)} PartialName is {@code Name}.
    * </ul>
    *
    * <p>Method under test: {@link PDField#toString()}
    */
   @Test
   @DisplayName(
-      "Test toString(); given PDNonTerminalField(PDAcroForm) with acroForm is PDAcroForm(PDDocument)")
+      "Test toString(); given PDCheckBox(PDAcroForm) with acroForm is PDAcroForm(PDDocument) PartialName is 'Name'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"String PDField.toString()"})
-  void testToString_givenPDNonTerminalFieldWithAcroFormIsPDAcroForm() {
+  void testToString_givenPDCheckBoxWithAcroFormIsPDAcroFormPartialNameIsName() {
     // Arrange
-    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
-    COSDictionary field = new COSDictionary();
-    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
-
-    PDCheckBox pdCheckBox = new PDCheckBox(acroForm, field, parent);
+    PDCheckBox pdCheckBox = new PDCheckBox(new PDAcroForm(new PDDocument()));
+    pdCheckBox.setPartialName("Name");
 
     // Act and Assert
-    assertEquals("null{type: PDCheckBox value: null}", pdCheckBox.toString());
+    assertEquals("Name{type: PDCheckBox value: null}", pdCheckBox.toString());
+  }
+
+  /**
+   * Test {@link PDField#toString()}.
+   *
+   * <ul>
+   *   <li>Then return {@code Name.Name{type: PDCheckBox value: null}}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDField#toString()}
+   */
+  @Test
+  @DisplayName("Test toString(); then return 'Name.Name{type: PDCheckBox value: null}'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String PDField.toString()"})
+  void testToString_thenReturnNameNameTypePDCheckBoxValueNull() {
+    // Arrange
+    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
+    parent.setPartialName("Name");
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+
+    PDCheckBox pdCheckBox = new PDCheckBox(acroForm, new COSDictionary(), parent);
+    pdCheckBox.setPartialName("Name");
+
+    // Act and Assert
+    assertEquals("Name.Name{type: PDCheckBox value: null}", pdCheckBox.toString());
   }
 
   /**
@@ -1427,11 +1878,40 @@ class PDFieldDiffblueTest {
   @MethodsUnderTest({"String PDField.toString()"})
   void testToString_thenReturnNameTypePDCheckBoxValueNull() {
     // Arrange
-    PDCheckBox pdCheckBox = new PDCheckBox(new PDAcroForm(new PDDocument()));
-    pdCheckBox.setPartialName("Name");
+    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
+    parent.setPartialName("Name");
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+
+    PDCheckBox pdCheckBox = new PDCheckBox(acroForm, new COSDictionary(), parent);
 
     // Act and Assert
     assertEquals("Name{type: PDCheckBox value: null}", pdCheckBox.toString());
+  }
+
+  /**
+   * Test {@link PDField#toString()}.
+   *
+   * <ul>
+   *   <li>Then return {@code null{type: PDCheckBox value: null}}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDField#toString()}
+   */
+  @Test
+  @DisplayName("Test toString(); then return 'null{type: PDCheckBox value: null}'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String PDField.toString()"})
+  void testToString_thenReturnNullTypePDCheckBoxValueNull() {
+    // Arrange
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    COSDictionary field = new COSDictionary();
+    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
+
+    PDCheckBox pdCheckBox = new PDCheckBox(acroForm, field, parent);
+
+    // Act and Assert
+    assertEquals("null{type: PDCheckBox value: null}", pdCheckBox.toString());
   }
 
   /**
@@ -1448,21 +1928,12 @@ class PDFieldDiffblueTest {
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"String PDField.toString()"})
-  void testToString_thenReturnTypePDCheckBoxValueNull() throws IOException {
+  void testToString_thenReturnTypePDCheckBoxValueNull() {
     // Arrange
-    StreamCacheCreateFunction streamCacheCreateFunction = mock(StreamCacheCreateFunction.class);
-    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
-    PDDocument doc = new PDDocument(streamCacheCreateFunction);
-    PDAcroForm acroForm = new PDAcroForm(doc);
-
-    PDCheckBox pdCheckBox = new PDCheckBox(acroForm);
+    PDCheckBox pdCheckBox = new PDCheckBox(new PDAcroForm(new PDDocument()));
     pdCheckBox.setPartialName("");
 
-    // Act
-    String actualToStringResult = pdCheckBox.toString();
-
-    // Assert
-    verify(streamCacheCreateFunction).create();
-    assertEquals("{type: PDCheckBox value: null}", actualToStringResult);
+    // Act and Assert
+    assertEquals("{type: PDCheckBox value: null}", pdCheckBox.toString());
   }
 }

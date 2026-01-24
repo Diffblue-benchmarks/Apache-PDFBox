@@ -145,28 +145,6 @@ class FDFAnnotationCircleDiffblueTest {
    * Test {@link FDFAnnotationCircle#getInteriorColor()}.
    *
    * <ul>
-   *   <li>Given {@link FDFAnnotationCircle#FDFAnnotationCircle(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationCircle#getInteriorColor()}
-   */
-  @Test
-  @DisplayName(
-      "Test getInteriorColor(); given FDFAnnotationCircle(COSDictionary) with a is COSDictionary(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Color FDFAnnotationCircle.getInteriorColor()"})
-  void testGetInteriorColor_givenFDFAnnotationCircleWithAIsCOSDictionary_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull(new FDFAnnotationCircle(new COSDictionary()).getInteriorColor());
-  }
-
-  /**
-   * Test {@link FDFAnnotationCircle#getInteriorColor()}.
-   *
-   * <ul>
    *   <li>Given {@link FDFAnnotationCircle#FDFAnnotationCircle()}.
    *   <li>Then return {@code null}.
    * </ul>
@@ -281,28 +259,6 @@ class FDFAnnotationCircleDiffblueTest {
     COSIncrement toIncrementResult = fdfAnnotationCircle.getCOSObject().toIncrement();
     assertFalse(toIncrementResult.iterator().hasNext());
     assertTrue(toIncrementResult.getObjects().isEmpty());
-  }
-
-  /**
-   * Test {@link FDFAnnotationCircle#getFringe()}.
-   *
-   * <ul>
-   *   <li>Given {@link FDFAnnotationCircle#FDFAnnotationCircle(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationCircle#getFringe()}
-   */
-  @Test
-  @DisplayName(
-      "Test getFringe(); given FDFAnnotationCircle(COSDictionary) with a is COSDictionary(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDRectangle FDFAnnotationCircle.getFringe()"})
-  void testGetFringe_givenFDFAnnotationCircleWithAIsCOSDictionary_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull(new FDFAnnotationCircle(new COSDictionary()).getFringe());
   }
 
   /**

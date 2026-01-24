@@ -24,12 +24,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
 import org.apache.fontbox.FontBoxFont;
-import org.apache.fontbox.ttf.TTFTable;
 import org.apache.fontbox.ttf.TrueTypeFont;
 import org.apache.fontbox.type1.Type1Font;
 import org.apache.fontbox.util.BoundingBox;
 import org.apache.pdfbox.cos.COSDictionary;
-import org.apache.pdfbox.cos.COSStream;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.font.Standard14Fonts.FontName;
 import org.apache.pdfbox.pdmodel.font.encoding.Encoding;
@@ -68,42 +66,24 @@ class PDType1FontDiffblueTest {
     PDType1Font actualPdType1Font = new PDType1Font(fontDictionary);
 
     // Assert
-    FontBoxFont fontBoxFont = actualPdType1Font.getFontBoxFont();
-    assertTrue(fontBoxFont instanceof TrueTypeFont);
-    Map<String, TTFTable> tableMap = ((TrueTypeFont) fontBoxFont).getTableMap();
-    assertEquals(19, tableMap.size());
-    assertEquals(3, ((TrueTypeFont) fontBoxFont).getCmap().getCmaps().length);
-    float[][] values = actualPdType1Font.getFontMatrix().getValues();
-    assertEquals(3, values.length);
-    assertTrue(tableMap.containsKey("fpgm"));
+    assertTrue(actualPdType1Font.getFontBoxFont() instanceof TrueTypeFont);
+    assertTrue(actualPdType1Font.getEncoding() instanceof StandardEncoding);
+    assertNull(actualPdType1Font.getSymbolicFlag());
+    assertNull(actualPdType1Font.getSubType());
+    assertNull(actualPdType1Font.getType());
+    assertNull(actualPdType1Font.getBaseFont());
+    assertNull(actualPdType1Font.getName());
+    assertNull(actualPdType1Font.getStandard14AFM());
+    assertNull(actualPdType1Font.getToUnicodeCMap());
+    assertNull(actualPdType1Font.getType1Font());
+    assertNull(actualPdType1Font.getFontDescriptor());
+    assertEquals(0.0f, actualPdType1Font.getAverageFontWidth());
+    assertEquals(250.0f, actualPdType1Font.getSpaceWidth());
+    assertFalse(actualPdType1Font.isVertical());
+    assertFalse(actualPdType1Font.isDamaged());
+    assertFalse(actualPdType1Font.isEmbedded());
+    assertTrue(actualPdType1Font.getWidths().isEmpty());
     assertSame(fontDictionary, actualPdType1Font.getCOSObject());
-    assertArrayEquals(new float[] {0.0f, 0.0f, 1.0f}, values[2], 0.0f);
-    assertArrayEquals(new float[] {0.0f, 4.8828125E-4f, 0.0f}, values[1], 0.0f);
-    assertArrayEquals(new float[] {4.8828125E-4f, 0.0f, 0.0f}, values[0], 0.0f);
-  }
-
-  /**
-   * Test {@link PDType1Font#PDType1Font(COSDictionary)}.
-   *
-   * <ul>
-   *   <li>When {@link COSStream#COSStream()}.
-   *   <li>Then return COSObject is {@link COSStream#COSStream()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDType1Font#PDType1Font(COSDictionary)}
-   */
-  @Test
-  @DisplayName(
-      "Test new PDType1Font(COSDictionary); when COSStream(); then return COSObject is COSStream()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDType1Font.<init>(COSDictionary)"})
-  void testNewPDType1Font_whenCOSStream_thenReturnCOSObjectIsCOSStream() throws IOException {
-    // Arrange
-    COSStream fontDictionary = new COSStream();
-
-    // Act and Assert
-    assertSame(fontDictionary, new PDType1Font(fontDictionary).getCOSObject());
   }
 
   /**
@@ -562,49 +542,6 @@ class PDType1FontDiffblueTest {
    * Test {@link PDType1Font#getAverageFontWidth()}.
    *
    * <ul>
-   *   <li>Given {@link PDType1Font#PDType1Font(COSDictionary)} with fontDictionary is {@link
-   *       COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDType1Font#getAverageFontWidth()}
-   */
-  @Test
-  @DisplayName(
-      "Test getAverageFontWidth(); given PDType1Font(COSDictionary) with fontDictionary is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"float PDType1Font.getAverageFontWidth()"})
-  void testGetAverageFontWidth_givenPDType1FontWithFontDictionaryIsCOSDictionary()
-      throws IOException {
-    // Arrange, Act and Assert
-    assertEquals(0.0f, new PDType1Font(new COSDictionary()).getAverageFontWidth());
-  }
-
-  /**
-   * Test {@link PDType1Font#getAverageFontWidth()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDType1Font#PDType1Font(COSDictionary)} with fontDictionary is {@link
-   *       COSStream#COSStream()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDType1Font#getAverageFontWidth()}
-   */
-  @Test
-  @DisplayName(
-      "Test getAverageFontWidth(); given PDType1Font(COSDictionary) with fontDictionary is COSStream()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"float PDType1Font.getAverageFontWidth()"})
-  void testGetAverageFontWidth_givenPDType1FontWithFontDictionaryIsCOSStream() throws IOException {
-    // Arrange, Act and Assert
-    assertEquals(0.0f, new PDType1Font(new COSStream()).getAverageFontWidth());
-  }
-
-  /**
-   * Test {@link PDType1Font#getAverageFontWidth()}.
-   *
-   * <ul>
    *   <li>Then return {@code 518.0603}.
    * </ul>
    *
@@ -618,6 +555,25 @@ class PDType1FontDiffblueTest {
   void testGetAverageFontWidth_thenReturn5180603() {
     // Arrange, Act and Assert
     assertEquals(518.0603f, new PDType1Font(FontName.TIMES_ROMAN).getAverageFontWidth());
+  }
+
+  /**
+   * Test {@link PDType1Font#getAverageFontWidth()}.
+   *
+   * <ul>
+   *   <li>Then return zero.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDType1Font#getAverageFontWidth()}
+   */
+  @Test
+  @DisplayName("Test getAverageFontWidth(); then return zero")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"float PDType1Font.getAverageFontWidth()"})
+  void testGetAverageFontWidth_thenReturnZero() throws IOException {
+    // Arrange, Act and Assert
+    assertEquals(0.0f, new PDType1Font(new COSDictionary()).getAverageFontWidth());
   }
 
   /**

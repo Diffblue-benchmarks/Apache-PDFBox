@@ -86,31 +86,6 @@ class PDCheckBoxDiffblueTest {
    * Test {@link PDCheckBox#isChecked()}.
    *
    * <ul>
-   *   <li>Given {@link PDAcroForm#PDAcroForm(PDDocument, COSDictionary)} with doc is {@link
-   *       PDDocument#PDDocument()} and form is {@link COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDCheckBox#isChecked()}
-   */
-  @Test
-  @DisplayName(
-      "Test isChecked(); given PDAcroForm(PDDocument, COSDictionary) with doc is PDDocument() and form is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean PDCheckBox.isChecked()"})
-  void testIsChecked_givenPDAcroFormWithDocIsPDDocumentAndFormIsCOSDictionary() {
-    // Arrange
-    PDDocument doc = new PDDocument();
-    PDAcroForm acroForm = new PDAcroForm(doc, new COSDictionary());
-
-    // Act and Assert
-    assertFalse(new PDCheckBox(acroForm).isChecked());
-  }
-
-  /**
-   * Test {@link PDCheckBox#isChecked()}.
-   *
-   * <ul>
    *   <li>Given {@link PDCheckBox#PDCheckBox(PDAcroForm)} with acroForm is {@link
    *       PDAcroForm#PDAcroForm(PDDocument)}.
    *   <li>Then return {@code false}.
@@ -219,39 +194,6 @@ class PDCheckBoxDiffblueTest {
   }
 
   /**
-   * Test {@link PDCheckBox#check()}.
-   *
-   * <ul>
-   *   <li>Then {@link PDCheckBox#PDCheckBox(PDAcroForm)} with acroForm is {@link
-   *       PDAcroForm#PDAcroForm(PDDocument, COSDictionary)} Value is empty string.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDCheckBox#check()}
-   */
-  @Test
-  @DisplayName(
-      "Test check(); then PDCheckBox(PDAcroForm) with acroForm is PDAcroForm(PDDocument, COSDictionary) Value is empty string")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDCheckBox.check()"})
-  void testCheck_thenPDCheckBoxWithAcroFormIsPDAcroFormValueIsEmptyString2() throws IOException {
-    // Arrange
-    PDDocument doc = new PDDocument();
-    PDAcroForm acroForm = new PDAcroForm(doc, new COSDictionary());
-    PDCheckBox pdCheckBox = new PDCheckBox(acroForm);
-
-    // Act
-    pdCheckBox.check();
-
-    // Assert
-    assertEquals("", pdCheckBox.getValue());
-    assertEquals("", pdCheckBox.getValueAsString());
-    COSDictionary cOSObject = pdCheckBox.getCOSObject();
-    assertEquals(4, cOSObject.getValues().size());
-    assertEquals(4, cOSObject.size());
-  }
-
-  /**
    * Test {@link PDCheckBox#unCheck()}.
    *
    * <p>Method under test: {@link PDCheckBox#unCheck()}
@@ -282,6 +224,36 @@ class PDCheckBoxDiffblueTest {
    * Test {@link PDCheckBox#unCheck()}.
    *
    * <ul>
+   *   <li>Given {@link PDAcroForm#PDAcroForm(PDDocument)} with doc is {@link
+   *       PDDocument#PDDocument()} Q is one.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDCheckBox#unCheck()}
+   */
+  @Test
+  @DisplayName("Test unCheck(); given PDAcroForm(PDDocument) with doc is PDDocument() Q is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDCheckBox.unCheck()"})
+  void testUnCheck_givenPDAcroFormWithDocIsPDDocumentQIsOne() throws IOException {
+    // Arrange
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    acroForm.setQ(1);
+    PDCheckBox pdCheckBox = new PDCheckBox(acroForm);
+
+    // Act
+    pdCheckBox.unCheck();
+
+    // Assert
+    COSDictionary cOSObject = pdCheckBox.getCOSObject();
+    assertEquals(4, cOSObject.getValues().size());
+    assertEquals(4, cOSObject.size());
+  }
+
+  /**
+   * Test {@link PDCheckBox#unCheck()}.
+   *
+   * <ul>
    *   <li>Then {@link PDCheckBox#PDCheckBox(PDAcroForm)} with acroForm is {@link
    *       PDAcroForm#PDAcroForm(PDDocument)} COSObject Values size is four.
    * </ul>
@@ -306,60 +278,6 @@ class PDCheckBoxDiffblueTest {
     COSDictionary cOSObject = pdCheckBox.getCOSObject();
     assertEquals(4, cOSObject.getValues().size());
     assertEquals(4, cOSObject.size());
-  }
-
-  /**
-   * Test {@link PDCheckBox#unCheck()}.
-   *
-   * <ul>
-   *   <li>Then {@link PDCheckBox#PDCheckBox(PDAcroForm)} with acroForm is {@link
-   *       PDAcroForm#PDAcroForm(PDDocument, COSDictionary)} COSObject Values size is four.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDCheckBox#unCheck()}
-   */
-  @Test
-  @DisplayName(
-      "Test unCheck(); then PDCheckBox(PDAcroForm) with acroForm is PDAcroForm(PDDocument, COSDictionary) COSObject Values size is four")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDCheckBox.unCheck()"})
-  void testUnCheck_thenPDCheckBoxWithAcroFormIsPDAcroFormCOSObjectValuesSizeIsFour2()
-      throws IOException {
-    // Arrange
-    PDDocument doc = new PDDocument();
-    PDAcroForm acroForm = new PDAcroForm(doc, new COSDictionary());
-    PDCheckBox pdCheckBox = new PDCheckBox(acroForm);
-
-    // Act
-    pdCheckBox.unCheck();
-
-    // Assert
-    COSDictionary cOSObject = pdCheckBox.getCOSObject();
-    assertEquals(4, cOSObject.getValues().size());
-    assertEquals(4, cOSObject.size());
-  }
-
-  /**
-   * Test {@link PDCheckBox#getOnValue()}.
-   *
-   * <p>Method under test: {@link PDCheckBox#getOnValue()}
-   */
-  @Test
-  @DisplayName("Test getOnValue()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"java.lang.String PDCheckBox.getOnValue()"})
-  void testGetOnValue() {
-    // Arrange
-    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
-    COSDictionary field = new COSDictionary();
-    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
-
-    PDCheckBox pdCheckBox = new PDCheckBox(acroForm, field, parent);
-
-    // Act and Assert
-    assertEquals("", pdCheckBox.getOnValue());
   }
 
   /**

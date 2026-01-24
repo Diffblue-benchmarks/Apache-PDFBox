@@ -127,6 +127,35 @@ class PDComboBoxDiffblueTest {
    * Test {@link PDComboBox#isEdit()}.
    *
    * <ul>
+   *   <li>Given {@link PDAcroForm#PDAcroForm(PDDocument)} with doc is {@link
+   *       PDDocument#PDDocument()} NeedAppearances is {@code true}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDComboBox#isEdit()}
+   */
+  @Test
+  @DisplayName(
+      "Test isEdit(); given PDAcroForm(PDDocument) with doc is PDDocument() NeedAppearances is 'true'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean PDComboBox.isEdit()"})
+  void testIsEdit_givenPDAcroFormWithDocIsPDDocumentNeedAppearancesIsTrue() {
+    // Arrange
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    acroForm.setNeedAppearances(true);
+    COSDictionary field = new COSDictionary();
+    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
+
+    PDComboBox pdComboBox = new PDComboBox(acroForm, field, parent);
+
+    // Act and Assert
+    assertFalse(pdComboBox.isEdit());
+  }
+
+  /**
+   * Test {@link PDComboBox#isEdit()}.
+   *
+   * <ul>
    *   <li>Given {@link PDComboBox#PDComboBox(PDAcroForm)} with acroForm is {@link
    *       PDAcroForm#PDAcroForm(PDDocument)}.
    *   <li>Then return {@code false}.

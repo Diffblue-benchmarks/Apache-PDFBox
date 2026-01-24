@@ -8,9 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.ArgumentMatchers.isNull;
-import static org.mockito.Mockito.anyInt;
 import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
@@ -528,150 +526,6 @@ class PDOutlineNodeDiffblueTest {
 
     // Act and Assert
     assertDoesNotThrow(() -> pdDocumentOutline.requireSingleNode(new PDOutlineItem()));
-  }
-
-  /**
-   * Test {@link PDOutlineNode#updateParentOpenCountForAddedChild(PDOutlineItem)}.
-   *
-   * <p>Method under test: {@link PDOutlineNode#updateParentOpenCountForAddedChild(PDOutlineItem)}
-   */
-  @Test
-  @DisplayName("Test updateParentOpenCountForAddedChild(PDOutlineItem)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDOutlineNode.updateParentOpenCountForAddedChild(PDOutlineItem)"})
-  void testUpdateParentOpenCountForAddedChild() {
-    // Arrange
-    PDDocumentOutline pdDocumentOutline = new PDDocumentOutline();
-
-    PDOutlineItem newChild = new PDOutlineItem();
-    newChild.insertSiblingAfter(new PDOutlineItem());
-
-    // Act and Assert
-    assertDoesNotThrow(() -> pdDocumentOutline.updateParentOpenCountForAddedChild(newChild));
-  }
-
-  /**
-   * Test {@link PDOutlineNode#updateParentOpenCountForAddedChild(PDOutlineItem)}.
-   *
-   * <ul>
-   *   <li>Given three.
-   *   <li>Then calls {@link PDOutlineItem#updateParentOpenCount(int)}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDOutlineNode#updateParentOpenCountForAddedChild(PDOutlineItem)}
-   */
-  @Test
-  @DisplayName(
-      "Test updateParentOpenCountForAddedChild(PDOutlineItem); given three; then calls updateParentOpenCount(int)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDOutlineNode.updateParentOpenCountForAddedChild(PDOutlineItem)"})
-  void testUpdateParentOpenCountForAddedChild_givenThree_thenCallsUpdateParentOpenCount() {
-    // Arrange
-    PDDocumentOutline pdDocumentOutline = new PDDocumentOutline();
-
-    PDOutlineItem newChild = mock(PDOutlineItem.class);
-    when(newChild.getOpenCount()).thenReturn(3);
-    when(newChild.isNodeOpen()).thenReturn(true);
-    doNothing().when(newChild).insertSiblingAfter(Mockito.<PDOutlineItem>any());
-    doNothing().when(newChild).updateParentOpenCount(anyInt());
-    newChild.insertSiblingAfter(new PDOutlineItem());
-
-    // Act
-    pdDocumentOutline.updateParentOpenCountForAddedChild(newChild);
-
-    // Assert
-    verify(newChild).insertSiblingAfter(isA(PDOutlineItem.class));
-    verify(newChild).getOpenCount();
-    verify(newChild).isNodeOpen();
-    verify(newChild).updateParentOpenCount(4);
-  }
-
-  /**
-   * Test {@link PDOutlineNode#updateParentOpenCountForAddedChild(PDOutlineItem)}.
-   *
-   * <ul>
-   *   <li>Then throw {@link IllegalArgumentException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDOutlineNode#updateParentOpenCountForAddedChild(PDOutlineItem)}
-   */
-  @Test
-  @DisplayName(
-      "Test updateParentOpenCountForAddedChild(PDOutlineItem); then throw IllegalArgumentException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDOutlineNode.updateParentOpenCountForAddedChild(PDOutlineItem)"})
-  void testUpdateParentOpenCountForAddedChild_thenThrowIllegalArgumentException() {
-    // Arrange
-    PDDocumentOutline pdDocumentOutline = new PDDocumentOutline();
-
-    PDOutlineItem newChild = mock(PDOutlineItem.class);
-    when(newChild.getOpenCount()).thenThrow(new IllegalArgumentException());
-    when(newChild.isNodeOpen()).thenReturn(true);
-    doNothing().when(newChild).insertSiblingAfter(Mockito.<PDOutlineItem>any());
-    newChild.insertSiblingAfter(new PDOutlineItem());
-
-    // Act and Assert
-    assertThrows(
-        IllegalArgumentException.class,
-        () -> pdDocumentOutline.updateParentOpenCountForAddedChild(newChild));
-    verify(newChild).insertSiblingAfter(isA(PDOutlineItem.class));
-    verify(newChild).getOpenCount();
-    verify(newChild).isNodeOpen();
-  }
-
-  /**
-   * Test {@link PDOutlineNode#updateParentOpenCountForAddedChild(PDOutlineItem)}.
-   *
-   * <ul>
-   *   <li>When {@link PDOutlineItem#PDOutlineItem()} addLast {@link PDOutlineItem#PDOutlineItem()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDOutlineNode#updateParentOpenCountForAddedChild(PDOutlineItem)}
-   */
-  @Test
-  @DisplayName(
-      "Test updateParentOpenCountForAddedChild(PDOutlineItem); when PDOutlineItem() addLast PDOutlineItem()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDOutlineNode.updateParentOpenCountForAddedChild(PDOutlineItem)"})
-  void testUpdateParentOpenCountForAddedChild_whenPDOutlineItemAddLastPDOutlineItem() {
-    // Arrange
-    PDDocumentOutline pdDocumentOutline = new PDDocumentOutline();
-
-    PDOutlineItem newChild = new PDOutlineItem();
-    newChild.addLast(new PDOutlineItem());
-    newChild.insertSiblingAfter(new PDOutlineItem());
-
-    // Act and Assert
-    assertDoesNotThrow(() -> pdDocumentOutline.updateParentOpenCountForAddedChild(newChild));
-  }
-
-  /**
-   * Test {@link PDOutlineNode#updateParentOpenCountForAddedChild(PDOutlineItem)}.
-   *
-   * <ul>
-   *   <li>When {@link PDOutlineItem#PDOutlineItem()}.
-   *   <li>Then does not throw.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDOutlineNode#updateParentOpenCountForAddedChild(PDOutlineItem)}
-   */
-  @Test
-  @DisplayName(
-      "Test updateParentOpenCountForAddedChild(PDOutlineItem); when PDOutlineItem(); then does not throw")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDOutlineNode.updateParentOpenCountForAddedChild(PDOutlineItem)"})
-  void testUpdateParentOpenCountForAddedChild_whenPDOutlineItem_thenDoesNotThrow() {
-    // Arrange
-    PDDocumentOutline pdDocumentOutline = new PDDocumentOutline();
-
-    // Act and Assert
-    assertDoesNotThrow(
-        () -> pdDocumentOutline.updateParentOpenCountForAddedChild(new PDOutlineItem()));
   }
 
   /**
@@ -1584,36 +1438,6 @@ class PDOutlineNodeDiffblueTest {
    * Test {@link PDOutlineNode#openNode()}.
    *
    * <ul>
-   *   <li>Given {@link PDDocumentOutline#PDDocumentOutline()}.
-   *   <li>Then {@link PDDocumentOutline#PDDocumentOutline()} OpenCount is zero.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDOutlineNode#openNode()}
-   */
-  @Test
-  @DisplayName(
-      "Test openNode(); given PDDocumentOutline(); then PDDocumentOutline() OpenCount is zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDOutlineNode.openNode()"})
-  void testOpenNode_givenPDDocumentOutline_thenPDDocumentOutlineOpenCountIsZero() {
-    // Arrange
-    PDDocumentOutline pdDocumentOutline = new PDDocumentOutline();
-
-    // Act
-    pdDocumentOutline.openNode();
-
-    // Assert that nothing has changed
-    assertEquals(0, pdDocumentOutline.getOpenCount());
-    COSDictionary cOSObject = pdDocumentOutline.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-  }
-
-  /**
-   * Test {@link PDOutlineNode#openNode()}.
-   *
-   * <ul>
    *   <li>Then {@link PDOutlineItem#PDOutlineItem()} FirstChild Parent {@link PDOutlineItem}.
    * </ul>
    *
@@ -1649,41 +1473,23 @@ class PDOutlineNodeDiffblueTest {
    * Test {@link PDOutlineNode#isNodeOpen()}.
    *
    * <ul>
-   *   <li>Given {@link PDOutlineItem#PDOutlineItem()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDOutlineNode#isNodeOpen()}
-   */
-  @Test
-  @DisplayName("Test isNodeOpen(); given PDOutlineItem()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean PDOutlineNode.isNodeOpen()"})
-  void testIsNodeOpen_givenPDOutlineItem() {
-    // Arrange, Act and Assert
-    assertFalse(new PDOutlineItem().isNodeOpen());
-  }
-
-  /**
-   * Test {@link PDOutlineNode#isNodeOpen()}.
-   *
-   * <ul>
    *   <li>Given {@link PDOutlineItem#PDOutlineItem()} addLast {@link
    *       PDOutlineItem#PDOutlineItem()}.
+   *   <li>Then return {@code false}.
    * </ul>
    *
    * <p>Method under test: {@link PDOutlineNode#isNodeOpen()}
    */
   @Test
-  @DisplayName("Test isNodeOpen(); given PDOutlineItem() addLast PDOutlineItem()")
+  @DisplayName(
+      "Test isNodeOpen(); given PDOutlineItem() addLast PDOutlineItem(); then return 'false'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"boolean PDOutlineNode.isNodeOpen()"})
-  void testIsNodeOpen_givenPDOutlineItemAddLastPDOutlineItem() {
+  void testIsNodeOpen_givenPDOutlineItemAddLastPDOutlineItem_thenReturnFalse() {
     // Arrange
     PDOutlineItem pdOutlineItem = new PDOutlineItem();
     pdOutlineItem.addLast(new PDOutlineItem());
-    pdOutlineItem.insertSiblingAfter(new PDOutlineItem());
 
     // Act and Assert
     assertFalse(pdOutlineItem.isNodeOpen());
@@ -1693,24 +1499,20 @@ class PDOutlineNodeDiffblueTest {
    * Test {@link PDOutlineNode#isNodeOpen()}.
    *
    * <ul>
-   *   <li>Given {@link PDOutlineItem#PDOutlineItem()} insertSiblingAfter {@link
-   *       PDOutlineItem#PDOutlineItem()}.
+   *   <li>Given {@link PDOutlineItem#PDOutlineItem()}.
+   *   <li>Then return {@code false}.
    * </ul>
    *
    * <p>Method under test: {@link PDOutlineNode#isNodeOpen()}
    */
   @Test
-  @DisplayName("Test isNodeOpen(); given PDOutlineItem() insertSiblingAfter PDOutlineItem()")
+  @DisplayName("Test isNodeOpen(); given PDOutlineItem(); then return 'false'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"boolean PDOutlineNode.isNodeOpen()"})
-  void testIsNodeOpen_givenPDOutlineItemInsertSiblingAfterPDOutlineItem() {
-    // Arrange
-    PDOutlineItem pdOutlineItem = new PDOutlineItem();
-    pdOutlineItem.insertSiblingAfter(new PDOutlineItem());
-
-    // Act and Assert
-    assertFalse(pdOutlineItem.isNodeOpen());
+  void testIsNodeOpen_givenPDOutlineItem_thenReturnFalse() {
+    // Arrange, Act and Assert
+    assertFalse(new PDOutlineItem().isNodeOpen());
   }
 
   /**

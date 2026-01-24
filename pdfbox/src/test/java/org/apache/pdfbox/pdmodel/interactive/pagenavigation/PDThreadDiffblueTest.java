@@ -98,28 +98,6 @@ class PDThreadDiffblueTest {
    * Test {@link PDThread#getThreadInfo()}.
    *
    * <ul>
-   *   <li>Given {@link PDThread#PDThread(COSDictionary)} with t is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDThread#getThreadInfo()}
-   */
-  @Test
-  @DisplayName(
-      "Test getThreadInfo(); given PDThread(COSDictionary) with t is COSDictionary(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDDocumentInformation PDThread.getThreadInfo()"})
-  void testGetThreadInfo_givenPDThreadWithTIsCOSDictionary_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull(new PDThread(new COSDictionary()).getThreadInfo());
-  }
-
-  /**
-   * Test {@link PDThread#getThreadInfo()}.
-   *
-   * <ul>
    *   <li>Given {@link PDThread#PDThread()}.
    *   <li>Then return {@code null}.
    * </ul>
@@ -169,6 +147,33 @@ class PDThreadDiffblueTest {
     assertNull(actualThreadInfo.getCreationDate());
     assertNull(actualThreadInfo.getModificationDate());
     assertTrue(actualThreadInfo.getMetadataKeys().isEmpty());
+  }
+
+  /**
+   * Test {@link PDThread#getThreadInfo()}.
+   *
+   * <ul>
+   *   <li>Then return COSObject is {@link COSDictionary#COSDictionary()}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDThread#getThreadInfo()}
+   */
+  @Test
+  @DisplayName("Test getThreadInfo(); then return COSObject is COSDictionary()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDDocumentInformation PDThread.getThreadInfo()"})
+  void testGetThreadInfo_thenReturnCOSObjectIsCOSDictionary() {
+    // Arrange
+    COSDictionary dic = new COSDictionary();
+    dic.setKey(new COSObjectKey(1L, 1));
+    PDDocumentInformation info = new PDDocumentInformation(dic);
+
+    PDThread pdThread = new PDThread();
+    pdThread.setThreadInfo(info);
+
+    // Act and Assert
+    assertSame(dic, pdThread.getThreadInfo().getCOSObject());
   }
 
   /**
@@ -326,28 +331,6 @@ class PDThreadDiffblueTest {
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
     assertTrue(threadInfo.getMetadataKeys().isEmpty());
-  }
-
-  /**
-   * Test {@link PDThread#getFirstBead()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDThread#PDThread(COSDictionary)} with t is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDThread#getFirstBead()}
-   */
-  @Test
-  @DisplayName(
-      "Test getFirstBead(); given PDThread(COSDictionary) with t is COSDictionary(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDThreadBead PDThread.getFirstBead()"})
-  void testGetFirstBead_givenPDThreadWithTIsCOSDictionary_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull(new PDThread(new COSDictionary()).getFirstBead());
   }
 
   /**

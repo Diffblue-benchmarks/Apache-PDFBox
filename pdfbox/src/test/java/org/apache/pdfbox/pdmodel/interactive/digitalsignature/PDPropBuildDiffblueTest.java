@@ -238,30 +238,6 @@ class PDPropBuildDiffblueTest {
    * Test {@link PDPropBuild#getPubSec()}.
    *
    * <ul>
-   *   <li>Given {@link PDPropBuild#PDPropBuild()} PDPropBuildFilter is {@link
-   *       PDPropBuildDataDict#PDPropBuildDataDict()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDPropBuild#getPubSec()}
-   */
-  @Test
-  @DisplayName("Test getPubSec(); given PDPropBuild() PDPropBuildFilter is PDPropBuildDataDict()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDPropBuildDataDict PDPropBuild.getPubSec()"})
-  void testGetPubSec_givenPDPropBuildPDPropBuildFilterIsPDPropBuildDataDict() {
-    // Arrange
-    PDPropBuild pdPropBuild = new PDPropBuild();
-    pdPropBuild.setPDPropBuildFilter(new PDPropBuildDataDict());
-
-    // Act and Assert
-    assertNull(pdPropBuild.getPubSec());
-  }
-
-  /**
-   * Test {@link PDPropBuild#getPubSec()}.
-   *
-   * <ul>
    *   <li>Given {@link PDPropBuild#PDPropBuild()}.
    *   <li>Then return {@code null}.
    * </ul>
@@ -384,32 +360,6 @@ class PDPropBuildDiffblueTest {
     assertFalse(pubSec.getPreRelease());
     assertFalse(pubSec.getTrustedMode());
     assertTrue(pubSec.getNonEFontNoWarn());
-  }
-
-  /**
-   * Test {@link PDPropBuild#getApp()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDPropBuild#PDPropBuild()} PDPropBuildFilter is {@link
-   *       PDPropBuildDataDict#PDPropBuildDataDict()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDPropBuild#getApp()}
-   */
-  @Test
-  @DisplayName(
-      "Test getApp(); given PDPropBuild() PDPropBuildFilter is PDPropBuildDataDict(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDPropBuildDataDict PDPropBuild.getApp()"})
-  void testGetApp_givenPDPropBuildPDPropBuildFilterIsPDPropBuildDataDict_thenReturnNull() {
-    // Arrange
-    PDPropBuild pdPropBuild = new PDPropBuild();
-    pdPropBuild.setPDPropBuildFilter(new PDPropBuildDataDict());
-
-    // Act and Assert
-    assertNull(pdPropBuild.getApp());
   }
 
   /**

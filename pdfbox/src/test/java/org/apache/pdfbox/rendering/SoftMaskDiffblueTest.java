@@ -20,10 +20,10 @@ import org.apache.pdfbox.cos.COSBoolean;
 import org.apache.pdfbox.pdmodel.common.function.PDFunction;
 import org.apache.pdfbox.pdmodel.common.function.PDFunctionType0;
 import org.apache.pdfbox.pdmodel.common.function.PDFunctionTypeIdentity;
+import org.apache.pdfbox.pdmodel.graphics.color.PDCalGray;
 import org.apache.pdfbox.pdmodel.graphics.color.PDCalRGB;
 import org.apache.pdfbox.pdmodel.graphics.color.PDColor;
 import org.apache.pdfbox.pdmodel.graphics.color.PDDeviceGray;
-import org.apache.pdfbox.pdmodel.graphics.color.PDGamma;
 import org.apache.pdfbox.util.Matrix;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -85,6 +85,33 @@ class SoftMaskDiffblueTest {
     // Arrange
     BufferedImage mask = new BufferedImage(1, 1, 1);
     Double bboxDevice = new Double();
+    PDColor backdropColor = new PDColor(new float[] {10.0f, 0.5f, 10.0f, 0.5f}, new PDCalGray());
+
+    // Act
+    SoftMask actualSoftMask =
+        new SoftMask(null, mask, bboxDevice, backdropColor, new PDFunctionType0(COSBoolean.FALSE));
+
+    // Assert
+    assertEquals(3, actualSoftMask.getTransparency());
+  }
+
+  /**
+   * Test {@link SoftMask#SoftMask(Paint, BufferedImage, Rectangle2D, PDColor, PDFunction)}.
+   *
+   * <p>Method under test: {@link SoftMask#SoftMask(Paint, BufferedImage, Rectangle2D, PDColor,
+   * PDFunction)}
+   */
+  @Test
+  @DisplayName("Test new SoftMask(Paint, BufferedImage, Rectangle2D, PDColor, PDFunction)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void SoftMask.<init>(Paint, BufferedImage, Rectangle2D, PDColor, PDFunction)"
+  })
+  void testNewSoftMask3() {
+    // Arrange
+    BufferedImage mask = new BufferedImage(1, 1, 1);
+    Double bboxDevice = new Double();
     PDColor backdropColor = new PDColor(new float[] {10.0f, 0.5f, 10.0f, 0.5f}, new PDCalRGB());
 
     // Act
@@ -121,42 +148,6 @@ class SoftMaskDiffblueTest {
 
     PDCalRGB colorSpace = new PDCalRGB();
     colorSpace.setMatrix(new Matrix());
-    PDColor backdropColor = new PDColor(new float[] {10.0f, 0.5f, 10.0f, 0.5f}, colorSpace);
-
-    // Act
-    SoftMask actualSoftMask =
-        new SoftMask(null, mask, bboxDevice, backdropColor, new PDFunctionType0(COSBoolean.FALSE));
-
-    // Assert
-    assertEquals(3, actualSoftMask.getTransparency());
-  }
-
-  /**
-   * Test {@link SoftMask#SoftMask(Paint, BufferedImage, Rectangle2D, PDColor, PDFunction)}.
-   *
-   * <ul>
-   *   <li>Given {@link PDGamma#PDGamma()}.
-   *   <li>When {@link PDCalRGB#PDCalRGB()} Gamma is {@link PDGamma#PDGamma()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link SoftMask#SoftMask(Paint, BufferedImage, Rectangle2D, PDColor,
-   * PDFunction)}
-   */
-  @Test
-  @DisplayName(
-      "Test new SoftMask(Paint, BufferedImage, Rectangle2D, PDColor, PDFunction); given PDGamma(); when PDCalRGB() Gamma is PDGamma()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void SoftMask.<init>(Paint, BufferedImage, Rectangle2D, PDColor, PDFunction)"
-  })
-  void testNewSoftMask_givenPDGamma_whenPDCalRGBGammaIsPDGamma() {
-    // Arrange
-    BufferedImage mask = new BufferedImage(1, 1, 1);
-    Double bboxDevice = new Double();
-
-    PDCalRGB colorSpace = new PDCalRGB();
-    colorSpace.setGamma(new PDGamma());
     PDColor backdropColor = new PDColor(new float[] {10.0f, 0.5f, 10.0f, 0.5f}, colorSpace);
 
     // Act

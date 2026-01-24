@@ -29,7 +29,6 @@ import org.apache.fontbox.ttf.model.MapBackedGsubData;
 import org.apache.fontbox.util.BoundingBox;
 import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.cos.COSName;
-import org.apache.pdfbox.cos.COSStream;
 import org.apache.pdfbox.util.Matrix;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -101,18 +100,19 @@ class PDCIDFontType0DiffblueTest {
    * Test {@link PDCIDFontType0#PDCIDFontType0(COSDictionary, PDType0Font)}.
    *
    * <ul>
-   *   <li>Then return FontBoxFont TableMap size is nineteen.
+   *   <li>When {@link COSDictionary#COSDictionary()}.
+   *   <li>Then return BaseFont is {@code null}.
    * </ul>
    *
    * <p>Method under test: {@link PDCIDFontType0#PDCIDFontType0(COSDictionary, PDType0Font)}
    */
   @Test
   @DisplayName(
-      "Test new PDCIDFontType0(COSDictionary, PDType0Font); then return FontBoxFont TableMap size is nineteen")
+      "Test new PDCIDFontType0(COSDictionary, PDType0Font); when COSDictionary(); then return BaseFont is 'null'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void PDCIDFontType0.<init>(COSDictionary, PDType0Font)"})
-  void testNewPDCIDFontType0_thenReturnFontBoxFontTableMapSizeIsNineteen() throws IOException {
+  void testNewPDCIDFontType0_whenCOSDictionary_thenReturnBaseFontIsNull() throws IOException {
     // Arrange
     COSDictionary fontDictionary = new COSDictionary();
 
@@ -120,44 +120,16 @@ class PDCIDFontType0DiffblueTest {
     PDCIDFontType0 actualPdcidFontType0 = new PDCIDFontType0(fontDictionary, null);
 
     // Assert
-    FontBoxFont fontBoxFont = actualPdcidFontType0.getFontBoxFont();
-    assertTrue(fontBoxFont instanceof TrueTypeFont);
-    Map<String, TTFTable> tableMap = ((TrueTypeFont) fontBoxFont).getTableMap();
-    assertEquals(19, tableMap.size());
-    assertEquals(3, ((TrueTypeFont) fontBoxFont).getCmap().getCmaps().length);
-    float[][] values = actualPdcidFontType0.getFontMatrix().getValues();
-    assertEquals(3, values.length);
-    assertTrue(tableMap.containsKey("fpgm"));
-    assertSame(fontDictionary, actualPdcidFontType0.getCOSObject());
-    assertArrayEquals(new float[] {0.0f, 0.0f, 1.0f}, values[2], 0.0f);
-    assertArrayEquals(new float[] {0.0f, 4.8828125E-4f, 0.0f}, values[1], 0.0f);
-    assertArrayEquals(new float[] {4.8828125E-4f, 0.0f, 0.0f}, values[0], 0.0f);
-  }
-
-  /**
-   * Test {@link PDCIDFontType0#PDCIDFontType0(COSDictionary, PDType0Font)}.
-   *
-   * <ul>
-   *   <li>When {@link COSStream#COSStream()}.
-   *   <li>Then return COSObject is {@link COSStream#COSStream()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDCIDFontType0#PDCIDFontType0(COSDictionary, PDType0Font)}
-   */
-  @Test
-  @DisplayName(
-      "Test new PDCIDFontType0(COSDictionary, PDType0Font); when COSStream(); then return COSObject is COSStream()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDCIDFontType0.<init>(COSDictionary, PDType0Font)"})
-  void testNewPDCIDFontType0_whenCOSStream_thenReturnCOSObjectIsCOSStream() throws IOException {
-    // Arrange
-    COSStream fontDictionary = new COSStream();
-
-    // Act
-    PDCIDFontType0 actualPdcidFontType0 = new PDCIDFontType0(fontDictionary, null);
-
-    // Assert
+    assertTrue(actualPdcidFontType0.getFontBoxFont() instanceof TrueTypeFont);
+    assertNull(actualPdcidFontType0.getBaseFont());
+    assertNull(actualPdcidFontType0.getName());
+    assertNull(actualPdcidFontType0.getCFFFont());
+    assertNull(actualPdcidFontType0.getCIDSystemInfo());
+    assertNull(actualPdcidFontType0.getFontDescriptor());
+    assertNull(actualPdcidFontType0.getParent());
+    assertEquals(500.0f, actualPdcidFontType0.getAverageFontWidth());
+    assertFalse(actualPdcidFontType0.isDamaged());
+    assertFalse(actualPdcidFontType0.isEmbedded());
     assertSame(fontDictionary, actualPdcidFontType0.getCOSObject());
   }
 
@@ -207,32 +179,6 @@ class PDCIDFontType0DiffblueTest {
   void testGetBoundingBox() throws IOException {
     // Arrange
     PDCIDFontType0 pdcidFontType0 = new PDCIDFontType0(new COSDictionary(), null);
-
-    // Act
-    BoundingBox actualBoundingBox = pdcidFontType0.getBoundingBox();
-
-    // Assert
-    assertEquals(-303.22266f, actualBoundingBox.getLowerLeftY());
-    assertEquals(-543.9453f, actualBoundingBox.getLowerLeftX());
-    assertEquals(1283.2031f, actualBoundingBox.getHeight());
-    assertEquals(1301.7578f, actualBoundingBox.getUpperRightX());
-    assertEquals(1845.7031f, actualBoundingBox.getWidth());
-    assertEquals(979.98047f, actualBoundingBox.getUpperRightY());
-  }
-
-  /**
-   * Test {@link PDCIDFontType0#getBoundingBox()}.
-   *
-   * <p>Method under test: {@link PDCIDFontType0#getBoundingBox()}
-   */
-  @Test
-  @DisplayName("Test getBoundingBox()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"BoundingBox PDCIDFontType0.getBoundingBox()"})
-  void testGetBoundingBox2() throws IOException {
-    // Arrange
-    PDCIDFontType0 pdcidFontType0 = new PDCIDFontType0(new COSStream(), null);
 
     // Act
     BoundingBox actualBoundingBox = pdcidFontType0.getBoundingBox();

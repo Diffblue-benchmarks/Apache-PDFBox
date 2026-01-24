@@ -3,6 +3,7 @@ package org.apache.pdfbox.multipdf;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -12,6 +13,7 @@ import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.awt.geom.AffineTransform;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import org.apache.pdfbox.cos.COSDictionary;
@@ -32,19 +34,138 @@ class OverlayDiffblueTest {
   /**
    * Test {@link Overlay#overlay(Map)}.
    *
+   * <ul>
+   *   <li>Given {@link Overlay} (default constructor).
+   *   <li>Then throw {@link IllegalArgumentException}.
+   * </ul>
+   *
    * <p>Method under test: {@link Overlay#overlay(Map)}
    */
   @Test
-  @DisplayName("Test overlay(Map)")
+  @DisplayName(
+      "Test overlay(Map); given Overlay (default constructor); then throw IllegalArgumentException")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"PDDocument Overlay.overlay(Map)"})
-  void testOverlay() throws IOException {
+  void testOverlay_givenOverlay_thenThrowIllegalArgumentException() throws IOException {
     // Arrange
     Overlay overlay = new Overlay();
 
     // Act and Assert
     assertThrows(IllegalArgumentException.class, () -> overlay.overlay(new HashMap<>()));
+  }
+
+  /**
+   * Test {@link Overlay#overlay(Map)}.
+   *
+   * <ul>
+   *   <li>Given {@link PDDocument#PDDocument()} addPage {@link PDPage#PDPage(COSDictionary)} with
+   *       pageDictionary is {@link COSDictionary#COSDictionary()}.
+   * </ul>
+   *
+   * <p>Method under test: {@link Overlay#overlay(Map)}
+   */
+  @Test
+  @DisplayName(
+      "Test overlay(Map); given PDDocument() addPage PDPage(COSDictionary) with pageDictionary is COSDictionary()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDDocument Overlay.overlay(Map)"})
+  void testOverlay_givenPDDocumentAddPagePDPageWithPageDictionaryIsCOSDictionary()
+      throws IOException {
+    // Arrange
+    StreamCacheCreateFunction streamCacheCreateFunction = mock(StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDDocument inputPDF = new PDDocument(streamCacheCreateFunction);
+
+    PDDocument defaultOverlayPDF = new PDDocument();
+    defaultOverlayPDF.addPage(new PDPage(new COSDictionary()));
+
+    Overlay overlay = new Overlay();
+    overlay.setDefaultOverlayPDF(defaultOverlayPDF);
+    overlay.setInputPDF(inputPDF);
+
+    // Act
+    PDDocument actualOverlayResult = overlay.overlay(new HashMap<>());
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertSame(inputPDF, actualOverlayResult);
+  }
+
+  /**
+   * Test {@link Overlay#overlay(Map)}.
+   *
+   * <ul>
+   *   <li>Given {@link PDDocument#PDDocument(StreamCacheCreateFunction)} with {@link
+   *       RandomAccessStreamCache.StreamCacheCreateFunction} addPage {@link PDPage#PDPage()}.
+   * </ul>
+   *
+   * <p>Method under test: {@link Overlay#overlay(Map)}
+   */
+  @Test
+  @DisplayName(
+      "Test overlay(Map); given PDDocument(StreamCacheCreateFunction) with StreamCacheCreateFunction addPage PDPage()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDDocument Overlay.overlay(Map)"})
+  void testOverlay_givenPDDocumentWithStreamCacheCreateFunctionAddPagePDPage() throws IOException {
+    // Arrange
+    StreamCacheCreateFunction streamCacheCreateFunction = mock(StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+
+    PDDocument inputPDF = new PDDocument(streamCacheCreateFunction);
+    inputPDF.addPage(new PDPage());
+
+    PDDocument defaultOverlayPDF = new PDDocument();
+    defaultOverlayPDF.addPage(new PDPage());
+
+    Overlay overlay = new Overlay();
+    overlay.setDefaultOverlayPDF(defaultOverlayPDF);
+    overlay.setInputPDF(inputPDF);
+
+    // Act
+    PDDocument actualOverlayResult = overlay.overlay(new HashMap<>());
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertSame(inputPDF, actualOverlayResult);
+  }
+
+  /**
+   * Test {@link Overlay#overlay(Map)}.
+   *
+   * <ul>
+   *   <li>Given {@link RandomAccessStreamCache.StreamCacheCreateFunction} {@link
+   *       RandomAccessStreamCache.StreamCacheCreateFunction#create()} return {@code null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link Overlay#overlay(Map)}
+   */
+  @Test
+  @DisplayName("Test overlay(Map); given StreamCacheCreateFunction create() return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDDocument Overlay.overlay(Map)"})
+  void testOverlay_givenStreamCacheCreateFunctionCreateReturnNull() throws IOException {
+    // Arrange
+    StreamCacheCreateFunction streamCacheCreateFunction = mock(StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(null);
+    PDDocument inputPDF = new PDDocument(streamCacheCreateFunction);
+
+    PDDocument defaultOverlayPDF = new PDDocument();
+    defaultOverlayPDF.addPage(new PDPage());
+
+    Overlay overlay = new Overlay();
+    overlay.setDefaultOverlayPDF(defaultOverlayPDF);
+    overlay.setInputPDF(inputPDF);
+
+    // Act
+    PDDocument actualOverlayResult = overlay.overlay(new HashMap<>());
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertSame(inputPDF, actualOverlayResult);
   }
 
   /**
@@ -60,9 +181,339 @@ class OverlayDiffblueTest {
   void testOverlayDocuments() throws IOException {
     // Arrange
     Overlay overlay = new Overlay();
+    PDDocument inputPDF = new PDDocument();
+    overlay.setInputPDF(inputPDF);
+
+    PDDocument pdDocument = new PDDocument();
+    pdDocument.save(new ByteArrayOutputStream(), CompressParameters.DEFAULT_COMPRESSION);
+    pdDocument.addPage(new PDPage());
+
+    HashMap<Integer, PDDocument> specificPageOverlayDocumentMap = new HashMap<>();
+    specificPageOverlayDocumentMap.put(1, pdDocument);
+
+    // Act and Assert
+    assertSame(inputPDF, overlay.overlayDocuments(specificPageOverlayDocumentMap));
+  }
+
+  /**
+   * Test {@link Overlay#overlayDocuments(Map)}.
+   *
+   * <ul>
+   *   <li>Given {@code null}.
+   *   <li>When {@link HashMap#HashMap()} one is {@code null}.
+   *   <li>Then return {@link PDDocument#PDDocument()}.
+   * </ul>
+   *
+   * <p>Method under test: {@link Overlay#overlayDocuments(Map)}
+   */
+  @Test
+  @DisplayName(
+      "Test overlayDocuments(Map); given 'null'; when HashMap() one is 'null'; then return PDDocument()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDDocument Overlay.overlayDocuments(Map)"})
+  void testOverlayDocuments_givenNull_whenHashMapOneIsNull_thenReturnPDDocument()
+      throws IOException {
+    // Arrange
+    Overlay overlay = new Overlay();
+    PDDocument inputPDF = new PDDocument();
+    overlay.setInputPDF(inputPDF);
+
+    HashMap<Integer, PDDocument> specificPageOverlayDocumentMap = new HashMap<>();
+    specificPageOverlayDocumentMap.put(1, null);
+
+    // Act and Assert
+    assertSame(inputPDF, overlay.overlayDocuments(specificPageOverlayDocumentMap));
+  }
+
+  /**
+   * Test {@link Overlay#overlayDocuments(Map)}.
+   *
+   * <ul>
+   *   <li>Given {@link Overlay} (default constructor) AllPagesOverlayPDF is {@link
+   *       PDDocument#PDDocument()}.
+   * </ul>
+   *
+   * <p>Method under test: {@link Overlay#overlayDocuments(Map)}
+   */
+  @Test
+  @DisplayName(
+      "Test overlayDocuments(Map); given Overlay (default constructor) AllPagesOverlayPDF is PDDocument()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDDocument Overlay.overlayDocuments(Map)"})
+  void testOverlayDocuments_givenOverlayAllPagesOverlayPDFIsPDDocument() throws IOException {
+    // Arrange
+    StreamCacheCreateFunction streamCacheCreateFunction = mock(StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDDocument inputPDF = new PDDocument(streamCacheCreateFunction);
+
+    Overlay overlay = new Overlay();
+    overlay.setAllPagesOverlayPDF(new PDDocument());
+    overlay.setInputPDF(inputPDF);
+
+    PDDocument pdDocument = new PDDocument();
+    pdDocument.addPage(new PDPage());
+
+    HashMap<Integer, PDDocument> specificPageOverlayDocumentMap = new HashMap<>();
+    specificPageOverlayDocumentMap.put(1, pdDocument);
+
+    // Act
+    PDDocument actualOverlayDocumentsResult =
+        overlay.overlayDocuments(specificPageOverlayDocumentMap);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertSame(inputPDF, actualOverlayDocumentsResult);
+  }
+
+  /**
+   * Test {@link Overlay#overlayDocuments(Map)}.
+   *
+   * <ul>
+   *   <li>Given {@link Overlay} (default constructor) AllPagesOverlayPDF is {@link
+   *       PDDocument#PDDocument()}.
+   * </ul>
+   *
+   * <p>Method under test: {@link Overlay#overlayDocuments(Map)}
+   */
+  @Test
+  @DisplayName(
+      "Test overlayDocuments(Map); given Overlay (default constructor) AllPagesOverlayPDF is PDDocument()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDDocument Overlay.overlayDocuments(Map)"})
+  void testOverlayDocuments_givenOverlayAllPagesOverlayPDFIsPDDocument2() throws IOException {
+    // Arrange
+    StreamCacheCreateFunction streamCacheCreateFunction = mock(StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDDocument inputPDF = new PDDocument(streamCacheCreateFunction);
+
+    PDDocument allPagesOverlayPDF = new PDDocument();
+    allPagesOverlayPDF.addPage(new PDPage());
+
+    Overlay overlay = new Overlay();
+    overlay.setAllPagesOverlayPDF(allPagesOverlayPDF);
+    overlay.setInputPDF(inputPDF);
+
+    PDDocument pdDocument = new PDDocument();
+    pdDocument.addPage(new PDPage());
+
+    HashMap<Integer, PDDocument> specificPageOverlayDocumentMap = new HashMap<>();
+    specificPageOverlayDocumentMap.put(1, pdDocument);
+
+    // Act
+    PDDocument actualOverlayDocumentsResult =
+        overlay.overlayDocuments(specificPageOverlayDocumentMap);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertSame(inputPDF, actualOverlayDocumentsResult);
+  }
+
+  /**
+   * Test {@link Overlay#overlayDocuments(Map)}.
+   *
+   * <ul>
+   *   <li>Given {@link Overlay} (default constructor) InputPDF is {@link PDDocument#PDDocument()}.
+   *   <li>Then return {@link PDDocument#PDDocument()}.
+   * </ul>
+   *
+   * <p>Method under test: {@link Overlay#overlayDocuments(Map)}
+   */
+  @Test
+  @DisplayName(
+      "Test overlayDocuments(Map); given Overlay (default constructor) InputPDF is PDDocument(); then return PDDocument()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDDocument Overlay.overlayDocuments(Map)"})
+  void testOverlayDocuments_givenOverlayInputPDFIsPDDocument_thenReturnPDDocument()
+      throws IOException {
+    // Arrange
+    Overlay overlay = new Overlay();
+    PDDocument inputPDF = new PDDocument();
+    overlay.setInputPDF(inputPDF);
+
+    PDDocument pdDocument = new PDDocument();
+    pdDocument.addPage(new PDPage());
+
+    HashMap<Integer, PDDocument> specificPageOverlayDocumentMap = new HashMap<>();
+    specificPageOverlayDocumentMap.put(1, pdDocument);
+
+    // Act and Assert
+    assertSame(inputPDF, overlay.overlayDocuments(specificPageOverlayDocumentMap));
+  }
+
+  /**
+   * Test {@link Overlay#overlayDocuments(Map)}.
+   *
+   * <ul>
+   *   <li>Given {@link Overlay} (default constructor).
+   *   <li>When {@link HashMap#HashMap()}.
+   *   <li>Then throw {@link IllegalArgumentException}.
+   * </ul>
+   *
+   * <p>Method under test: {@link Overlay#overlayDocuments(Map)}
+   */
+  @Test
+  @DisplayName(
+      "Test overlayDocuments(Map); given Overlay (default constructor); when HashMap(); then throw IllegalArgumentException")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDDocument Overlay.overlayDocuments(Map)"})
+  void testOverlayDocuments_givenOverlay_whenHashMap_thenThrowIllegalArgumentException()
+      throws IOException {
+    // Arrange
+    Overlay overlay = new Overlay();
 
     // Act and Assert
     assertThrows(IllegalArgumentException.class, () -> overlay.overlayDocuments(new HashMap<>()));
+  }
+
+  /**
+   * Test {@link Overlay#overlayDocuments(Map)}.
+   *
+   * <ul>
+   *   <li>Given {@link PDPage#PDPage()} Contents is {@link ArrayList#ArrayList()}.
+   * </ul>
+   *
+   * <p>Method under test: {@link Overlay#overlayDocuments(Map)}
+   */
+  @Test
+  @DisplayName("Test overlayDocuments(Map); given PDPage() Contents is ArrayList()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDDocument Overlay.overlayDocuments(Map)"})
+  void testOverlayDocuments_givenPDPageContentsIsArrayList() throws IOException {
+    // Arrange
+    StreamCacheCreateFunction streamCacheCreateFunction = mock(StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDDocument inputPDF = new PDDocument(streamCacheCreateFunction);
+
+    Overlay overlay = new Overlay();
+    overlay.setInputPDF(inputPDF);
+
+    PDPage page = new PDPage();
+    page.setContents(new ArrayList<>());
+
+    PDDocument pdDocument = new PDDocument();
+    pdDocument.addPage(page);
+
+    HashMap<Integer, PDDocument> specificPageOverlayDocumentMap = new HashMap<>();
+    specificPageOverlayDocumentMap.put(1, pdDocument);
+
+    // Act
+    PDDocument actualOverlayDocumentsResult =
+        overlay.overlayDocuments(specificPageOverlayDocumentMap);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertSame(inputPDF, actualOverlayDocumentsResult);
+  }
+
+  /**
+   * Test {@link Overlay#overlayDocuments(Map)}.
+   *
+   * <ul>
+   *   <li>Given {@link PDPage#PDPage()} Rotation is one.
+   * </ul>
+   *
+   * <p>Method under test: {@link Overlay#overlayDocuments(Map)}
+   */
+  @Test
+  @DisplayName("Test overlayDocuments(Map); given PDPage() Rotation is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDDocument Overlay.overlayDocuments(Map)"})
+  void testOverlayDocuments_givenPDPageRotationIsOne() throws IOException {
+    // Arrange
+    StreamCacheCreateFunction streamCacheCreateFunction = mock(StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDDocument inputPDF = new PDDocument(streamCacheCreateFunction);
+
+    Overlay overlay = new Overlay();
+    overlay.setInputPDF(inputPDF);
+
+    PDPage page = new PDPage();
+    page.setRotation(1);
+
+    PDDocument pdDocument = new PDDocument();
+    pdDocument.addPage(page);
+
+    HashMap<Integer, PDDocument> specificPageOverlayDocumentMap = new HashMap<>();
+    specificPageOverlayDocumentMap.put(1, pdDocument);
+
+    // Act
+    PDDocument actualOverlayDocumentsResult =
+        overlay.overlayDocuments(specificPageOverlayDocumentMap);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertSame(inputPDF, actualOverlayDocumentsResult);
+  }
+
+  /**
+   * Test {@link Overlay#overlayDocuments(Map)}.
+   *
+   * <ul>
+   *   <li>Given {@link RandomAccessStreamCache.StreamCacheCreateFunction} {@link
+   *       RandomAccessStreamCache.StreamCacheCreateFunction#create()} return {@code null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link Overlay#overlayDocuments(Map)}
+   */
+  @Test
+  @DisplayName("Test overlayDocuments(Map); given StreamCacheCreateFunction create() return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDDocument Overlay.overlayDocuments(Map)"})
+  void testOverlayDocuments_givenStreamCacheCreateFunctionCreateReturnNull() throws IOException {
+    // Arrange
+    StreamCacheCreateFunction streamCacheCreateFunction = mock(StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(null);
+    PDDocument inputPDF = new PDDocument(streamCacheCreateFunction);
+
+    Overlay overlay = new Overlay();
+    overlay.setInputPDF(inputPDF);
+
+    PDDocument pdDocument = new PDDocument();
+    pdDocument.addPage(new PDPage());
+
+    HashMap<Integer, PDDocument> specificPageOverlayDocumentMap = new HashMap<>();
+    specificPageOverlayDocumentMap.put(1, pdDocument);
+
+    // Act
+    PDDocument actualOverlayDocumentsResult =
+        overlay.overlayDocuments(specificPageOverlayDocumentMap);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertSame(inputPDF, actualOverlayDocumentsResult);
+  }
+
+  /**
+   * Test {@link Overlay#overlayDocuments(Map)}.
+   *
+   * <ul>
+   *   <li>When {@link HashMap#HashMap()}.
+   *   <li>Then return {@link PDDocument#PDDocument()}.
+   * </ul>
+   *
+   * <p>Method under test: {@link Overlay#overlayDocuments(Map)}
+   */
+  @Test
+  @DisplayName("Test overlayDocuments(Map); when HashMap(); then return PDDocument()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"PDDocument Overlay.overlayDocuments(Map)"})
+  void testOverlayDocuments_whenHashMap_thenReturnPDDocument() throws IOException {
+    // Arrange
+    Overlay overlay = new Overlay();
+    PDDocument inputPDF = new PDDocument();
+    overlay.setInputPDF(inputPDF);
+
+    // Act and Assert
+    assertSame(inputPDF, overlay.overlayDocuments(new HashMap<>()));
   }
 
   /**
@@ -78,7 +529,7 @@ class OverlayDiffblueTest {
   void testClose() throws IOException {
     // Arrange
     StreamCacheCreateFunction streamCacheCreateFunction = mock(StreamCacheCreateFunction.class);
-    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    when(streamCacheCreateFunction.create()).thenReturn(null);
 
     PDDocument defaultOverlayPDF = new PDDocument(streamCacheCreateFunction);
     defaultOverlayPDF.save(new ByteArrayOutputStream(), CompressParameters.DEFAULT_COMPRESSION);
@@ -110,7 +561,7 @@ class OverlayDiffblueTest {
   void testClose_givenPDDocumentWithStreamCacheCreateFunctionAddPagePDPage() throws IOException {
     // Arrange
     StreamCacheCreateFunction streamCacheCreateFunction = mock(StreamCacheCreateFunction.class);
-    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    when(streamCacheCreateFunction.create()).thenReturn(null);
 
     PDDocument defaultOverlayPDF = new PDDocument(streamCacheCreateFunction);
     defaultOverlayPDF.addPage(new PDPage());
@@ -147,6 +598,40 @@ class OverlayDiffblueTest {
     StreamCacheCreateFunction streamCacheCreateFunction = mock(StreamCacheCreateFunction.class);
     when(streamCacheCreateFunction.create()).thenReturn(null);
     PDDocument defaultOverlayPDF = new PDDocument(streamCacheCreateFunction);
+
+    try (Overlay overlay = new Overlay()) {
+      overlay.setDefaultOverlayPDF(defaultOverlayPDF);
+    }
+
+    // Act and Assert
+    verify(streamCacheCreateFunction).create();
+  }
+
+  /**
+   * Test {@link Overlay#close()}.
+   *
+   * <ul>
+   *   <li>Given {@link RandomAccessStreamCache.StreamCacheCreateFunction} {@link
+   *       RandomAccessStreamCache.StreamCacheCreateFunction#create()} return {@link
+   *       RandomAccessStreamCacheImpl} (default constructor).
+   * </ul>
+   *
+   * <p>Method under test: {@link Overlay#close()}
+   */
+  @Test
+  @DisplayName(
+      "Test close(); given StreamCacheCreateFunction create() return RandomAccessStreamCacheImpl (default constructor)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void Overlay.close()"})
+  void testClose_givenStreamCacheCreateFunctionCreateReturnRandomAccessStreamCacheImpl()
+      throws IOException {
+    // Arrange
+    StreamCacheCreateFunction streamCacheCreateFunction = mock(StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+
+    PDDocument defaultOverlayPDF = new PDDocument(streamCacheCreateFunction);
+    defaultOverlayPDF.save(new ByteArrayOutputStream(), CompressParameters.DEFAULT_COMPRESSION);
 
     try (Overlay overlay = new Overlay()) {
       overlay.setDefaultOverlayPDF(defaultOverlayPDF);

@@ -205,28 +205,6 @@ class PDActionJavaScriptDiffblueTest {
    * Test {@link PDActionJavaScript#getAction()}.
    *
    * <ul>
-   *   <li>Given {@link PDActionJavaScript#PDActionJavaScript(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDActionJavaScript#getAction()}
-   */
-  @Test
-  @DisplayName(
-      "Test getAction(); given PDActionJavaScript(COSDictionary) with a is COSDictionary(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String PDActionJavaScript.getAction()"})
-  void testGetAction_givenPDActionJavaScriptWithAIsCOSDictionary_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull(new PDActionJavaScript(new COSDictionary()).getAction());
-  }
-
-  /**
-   * Test {@link PDActionJavaScript#getAction()}.
-   *
-   * <ul>
    *   <li>Given {@link PDActionJavaScript#PDActionJavaScript(String)} with js is empty string.
    *   <li>Then return empty string.
    * </ul>

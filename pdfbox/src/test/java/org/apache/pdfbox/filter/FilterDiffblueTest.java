@@ -271,6 +271,51 @@ class FilterDiffblueTest {
   })
   void testDecodeWithEncodedFilterListParametersOptionsResults6() throws IOException {
     // Arrange
+    ByteArrayInputStream encoded = new ByteArrayInputStream(new byte[] {});
+
+    ArrayList<Filter> filterList = new ArrayList<>();
+    filterList.add(new ASCIIHexFilter());
+    COSStream parameters = new COSStream();
+    ArrayList<DecodeResult> results = new ArrayList<>();
+
+    // Act
+    RandomAccessRead actualDecodeResult =
+        Filter.decode(encoded, filterList, parameters, DecodeOptions.DEFAULT, results);
+
+    // Assert
+    assertTrue(actualDecodeResult instanceof RandomAccessReadWriteBuffer);
+    assertEquals(1, results.size());
+    DecodeResult getResult = results.get(0);
+    assertNull(getResult.getJPXSMask());
+    assertNull(getResult.getJPXColorSpace());
+    int actualReadResult = encoded.read(new byte[] {});
+    assertEquals(-1, actualReadResult);
+    assertEquals(0, actualDecodeResult.available());
+    assertSame(parameters, getResult.getParameters());
+  }
+
+  /**
+   * Test {@link Filter#decode(InputStream, List, COSDictionary, DecodeOptions, List)} with {@code
+   * encoded}, {@code filterList}, {@code parameters}, {@code options}, {@code results}.
+   *
+   * <ul>
+   *   <li>Given {@link CCITTFaxFilter} (default constructor).
+   * </ul>
+   *
+   * <p>Method under test: {@link Filter#decode(InputStream, List, COSDictionary, DecodeOptions,
+   * List)}
+   */
+  @Test
+  @DisplayName(
+      "Test decode(InputStream, List, COSDictionary, DecodeOptions, List) with 'encoded', 'filterList', 'parameters', 'options', 'results'; given CCITTFaxFilter (default constructor)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "RandomAccessRead Filter.decode(InputStream, List, COSDictionary, DecodeOptions, List)"
+  })
+  void testDecodeWithEncodedFilterListParametersOptionsResults_givenCCITTFaxFilter()
+      throws IOException {
+    // Arrange
     ByteArrayInputStream encoded = new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"));
 
     ArrayList<Filter> filterList = new ArrayList<>();
@@ -313,7 +358,7 @@ class FilterDiffblueTest {
   @MethodsUnderTest({
     "RandomAccessRead Filter.decode(InputStream, List, COSDictionary, DecodeOptions, List)"
   })
-  void testDecodeWithEncodedFilterListParametersOptionsResults_givenCCITTFaxFilter()
+  void testDecodeWithEncodedFilterListParametersOptionsResults_givenCCITTFaxFilter2()
       throws IOException {
     // Arrange
     ByteArrayInputStream encoded = new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"));
@@ -521,42 +566,6 @@ class FilterDiffblueTest {
    * Test {@link Filter#getDecodeParams(COSDictionary, int)}.
    *
    * <ul>
-   *   <li>When {@link COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link Filter#getDecodeParams(COSDictionary, int)}
-   */
-  @Test
-  @DisplayName("Test getDecodeParams(COSDictionary, int); when COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"COSDictionary Filter.getDecodeParams(COSDictionary, int)"})
-  void testGetDecodeParams_whenCOSDictionary() {
-    // Arrange
-    ASCII85Filter ascii85Filter = new ASCII85Filter();
-
-    // Act
-    COSDictionary actualDecodeParams = ascii85Filter.getDecodeParams(new COSDictionary(), 1);
-
-    // Assert
-    COSUpdateState updateState = actualDecodeParams.getUpdateState();
-    assertNull(updateState.getOriginDocumentState());
-    assertNull(actualDecodeParams.getKey());
-    assertEquals(0, actualDecodeParams.size());
-    COSIncrement toIncrementResult = actualDecodeParams.toIncrement();
-    assertFalse(toIncrementResult.iterator().hasNext());
-    assertFalse(actualDecodeParams.isDirect());
-    assertFalse(actualDecodeParams.isNeedToBeUpdated());
-    assertFalse(updateState.isUpdated());
-    assertTrue(actualDecodeParams.getValues().isEmpty());
-    assertTrue(toIncrementResult.getObjects().isEmpty());
-  }
-
-  /**
-   * Test {@link Filter#getDecodeParams(COSDictionary, int)}.
-   *
-   * <ul>
-   *   <li>When {@link COSStream#COSStream()}.
    *   <li>Then return UpdateState OriginDocumentState is {@code null}.
    * </ul>
    *
@@ -564,16 +573,16 @@ class FilterDiffblueTest {
    */
   @Test
   @DisplayName(
-      "Test getDecodeParams(COSDictionary, int); when COSStream(); then return UpdateState OriginDocumentState is 'null'")
+      "Test getDecodeParams(COSDictionary, int); then return UpdateState OriginDocumentState is 'null'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"COSDictionary Filter.getDecodeParams(COSDictionary, int)"})
-  void testGetDecodeParams_whenCOSStream_thenReturnUpdateStateOriginDocumentStateIsNull() {
+  void testGetDecodeParams_thenReturnUpdateStateOriginDocumentStateIsNull() {
     // Arrange
     ASCII85Filter ascii85Filter = new ASCII85Filter();
 
     // Act
-    COSDictionary actualDecodeParams = ascii85Filter.getDecodeParams(new COSStream(), 1);
+    COSDictionary actualDecodeParams = ascii85Filter.getDecodeParams(new COSDictionary(), 1);
 
     // Assert
     COSUpdateState updateState = actualDecodeParams.getUpdateState();

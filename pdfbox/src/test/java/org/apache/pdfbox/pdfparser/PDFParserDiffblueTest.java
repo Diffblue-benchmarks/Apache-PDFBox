@@ -6,22 +6,18 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.ByteArrayInputStream;
-import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
 import org.apache.pdfbox.io.NonSeekableRandomAccessReadInputStream;
 import org.apache.pdfbox.io.RandomAccessRead;
 import org.apache.pdfbox.io.RandomAccessReadBuffer;
-import org.apache.pdfbox.io.RandomAccessReadBufferedFile;
-import org.apache.pdfbox.io.RandomAccessReadMemoryMappedFile;
 import org.apache.pdfbox.io.RandomAccessReadView;
 import org.apache.pdfbox.io.RandomAccessReadWriteBuffer;
 import org.apache.pdfbox.io.RandomAccessStreamCache;
@@ -32,81 +28,8 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 class PDFParserDiffblueTest {
-  /**
-   * Test {@link PDFParser#PDFParser(RandomAccessRead)}.
-   *
-   * <p>Method under test: {@link PDFParser#PDFParser(RandomAccessRead)}
-   */
-  @Test
-  @DisplayName("Test new PDFParser(RandomAccessRead)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDFParser.<init>(RandomAccessRead)"})
-  void testNewPDFParser() throws IOException {
-    // Arrange, Act and Assert
-    RandomAccessRead randomAccessRead =
-        new PDFParser(new RandomAccessReadView(new RandomAccessReadWriteBuffer(), 2048L, 3L))
-            .source;
-    assertTrue(randomAccessRead instanceof RandomAccessReadView);
-    assertEquals(0L, randomAccessRead.getPosition());
-    assertEquals(3, randomAccessRead.available());
-    assertFalse(randomAccessRead.isClosed());
-  }
-
-  /**
-   * Test {@link PDFParser#PDFParser(RandomAccessRead, String)}.
-   *
-   * <p>Method under test: {@link PDFParser#PDFParser(RandomAccessRead, String)}
-   */
-  @Test
-  @DisplayName("Test new PDFParser(RandomAccessRead, String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDFParser.<init>(RandomAccessRead, String)"})
-  void testNewPDFParser2() throws IOException {
-    // Arrange, Act and Assert
-    RandomAccessRead randomAccessRead =
-        new PDFParser(
-                new RandomAccessReadView(new RandomAccessReadWriteBuffer(), 2048L, 3L), "iloveyou")
-            .source;
-    assertTrue(randomAccessRead instanceof RandomAccessReadView);
-    assertEquals(0L, randomAccessRead.getPosition());
-    assertEquals(3, randomAccessRead.available());
-    assertFalse(randomAccessRead.isClosed());
-  }
-
-  /**
-   * Test {@link PDFParser#PDFParser(RandomAccessRead, String, InputStream, String)}.
-   *
-   * <p>Method under test: {@link PDFParser#PDFParser(RandomAccessRead, String, InputStream,
-   * String)}
-   */
-  @Test
-  @DisplayName("Test new PDFParser(RandomAccessRead, String, InputStream, String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDFParser.<init>(RandomAccessRead, String, InputStream, String)"})
-  void testNewPDFParser3() throws IOException {
-    // Arrange
-    RandomAccessReadView source =
-        new RandomAccessReadView(new RandomAccessReadWriteBuffer(), 2048L, 3L);
-
-    // Act
-    PDFParser actualPdfParser =
-        new PDFParser(
-            source, "iloveyou", new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8")), "Alias");
-
-    // Assert
-    RandomAccessRead randomAccessRead = actualPdfParser.source;
-    assertTrue(randomAccessRead instanceof RandomAccessReadView);
-    assertEquals(0L, randomAccessRead.getPosition());
-    assertEquals(3, randomAccessRead.available());
-    assertFalse(randomAccessRead.isClosed());
-  }
-
   /**
    * Test {@link PDFParser#PDFParser(RandomAccessRead, String, InputStream, String,
    * StreamCacheCreateFunction)}.
@@ -149,6 +72,92 @@ class PDFParserDiffblueTest {
   }
 
   /**
+   * Test {@link PDFParser#PDFParser(RandomAccessRead)}.
+   *
+   * <ul>
+   *   <li>Then {@link BaseParser#source} return {@link RandomAccessReadView}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDFParser#PDFParser(RandomAccessRead)}
+   */
+  @Test
+  @DisplayName("Test new PDFParser(RandomAccessRead); then source return RandomAccessReadView")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDFParser.<init>(RandomAccessRead)"})
+  void testNewPDFParser_thenSourceReturnRandomAccessReadView() throws IOException {
+    // Arrange, Act and Assert
+    RandomAccessRead randomAccessRead =
+        new PDFParser(new RandomAccessReadView(new RandomAccessReadWriteBuffer(), 2048L, 3L))
+            .source;
+    assertTrue(randomAccessRead instanceof RandomAccessReadView);
+    assertEquals(0L, randomAccessRead.getPosition());
+    assertEquals(3, randomAccessRead.available());
+    assertFalse(randomAccessRead.isClosed());
+  }
+
+  /**
+   * Test {@link PDFParser#PDFParser(RandomAccessRead, String)}.
+   *
+   * <ul>
+   *   <li>Then {@link BaseParser#source} return {@link RandomAccessReadView}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDFParser#PDFParser(RandomAccessRead, String)}
+   */
+  @Test
+  @DisplayName(
+      "Test new PDFParser(RandomAccessRead, String); then source return RandomAccessReadView")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDFParser.<init>(RandomAccessRead, String)"})
+  void testNewPDFParser_thenSourceReturnRandomAccessReadView2() throws IOException {
+    // Arrange, Act and Assert
+    RandomAccessRead randomAccessRead =
+        new PDFParser(
+                new RandomAccessReadView(new RandomAccessReadWriteBuffer(), 2048L, 3L), "iloveyou")
+            .source;
+    assertTrue(randomAccessRead instanceof RandomAccessReadView);
+    assertEquals(0L, randomAccessRead.getPosition());
+    assertEquals(3, randomAccessRead.available());
+    assertFalse(randomAccessRead.isClosed());
+  }
+
+  /**
+   * Test {@link PDFParser#PDFParser(RandomAccessRead, String, InputStream, String)}.
+   *
+   * <ul>
+   *   <li>Then {@link BaseParser#source} return {@link RandomAccessReadView}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDFParser#PDFParser(RandomAccessRead, String, InputStream,
+   * String)}
+   */
+  @Test
+  @DisplayName(
+      "Test new PDFParser(RandomAccessRead, String, InputStream, String); then source return RandomAccessReadView")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDFParser.<init>(RandomAccessRead, String, InputStream, String)"})
+  void testNewPDFParser_thenSourceReturnRandomAccessReadView3() throws IOException {
+    // Arrange
+    RandomAccessReadView source =
+        new RandomAccessReadView(new RandomAccessReadWriteBuffer(), 2048L, 3L);
+
+    // Act
+    PDFParser actualPdfParser =
+        new PDFParser(
+            source, "iloveyou", new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8")), "Alias");
+
+    // Assert
+    RandomAccessRead randomAccessRead = actualPdfParser.source;
+    assertTrue(randomAccessRead instanceof RandomAccessReadView);
+    assertEquals(0L, randomAccessRead.getPosition());
+    assertEquals(3, randomAccessRead.available());
+    assertFalse(randomAccessRead.isClosed());
+  }
+
+  /**
    * Test {@link PDFParser#PDFParser(RandomAccessRead, String, InputStream, String,
    * StreamCacheCreateFunction)}.
    *
@@ -167,18 +176,19 @@ class PDFParserDiffblueTest {
   @MethodsUnderTest({
     "void PDFParser.<init>(RandomAccessRead, String, InputStream, String, RandomAccessStreamCache.StreamCacheCreateFunction)"
   })
-  void testNewPDFParser_thenSourceReturnRandomAccessReadView() throws IOException {
+  void testNewPDFParser_thenSourceReturnRandomAccessReadView4() throws IOException {
     // Arrange
     RandomAccessReadView source =
         new RandomAccessReadView(new RandomAccessReadWriteBuffer(), 1L, 3L);
-    ByteArrayInputStream keyStore = new ByteArrayInputStream(new byte[] {});
+    ByteArrayInputStream keyStore = new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"));
 
     StreamCacheCreateFunction streamCacheCreateFunction = mock(StreamCacheCreateFunction.class);
     when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
 
     // Act
     PDFParser actualPdfParser =
-        new PDFParser(source, "iloveyou", keyStore, "Alias", streamCacheCreateFunction);
+        new PDFParser(
+            source, COSParser.SYSPROP_EOFLOOKUPRANGE, keyStore, "Alias", streamCacheCreateFunction);
 
     // Assert
     verify(streamCacheCreateFunction).create();
@@ -449,6 +459,30 @@ class PDFParserDiffblueTest {
   /**
    * Test {@link PDFParser#initialParse()}.
    *
+   * <p>Method under test: {@link PDFParser#initialParse()}
+   */
+  @Test
+  @DisplayName("Test initialParse()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDFParser.initialParse()"})
+  void testInitialParse5() throws IOException {
+    // Arrange
+    ByteArrayInputStream input =
+        new ByteArrayInputStream(new byte[] {'A', -1, 'A', -1, 'A', -1, 'A', -1});
+    RandomAccessReadBuffer randomAccessRead = new RandomAccessReadBuffer(input);
+
+    // Act and Assert
+    assertThrows(
+        IOException.class,
+        () ->
+            new PDFParser(new RandomAccessReadView(randomAccessRead, 1L, 2048L), "iloveyou")
+                .initialParse());
+  }
+
+  /**
+   * Test {@link PDFParser#initialParse()}.
+   *
    * <ul>
    *   <li>Given {@link PDFParser#PDFParser(RandomAccessRead)} with source is {@link
    *       RandomAccessReadBuffer#RandomAccessReadBuffer(InputStream)}.
@@ -544,56 +578,6 @@ class PDFParserDiffblueTest {
 
     // Act and Assert
     assertThrows(IOException.class, () -> new PDFParser(source, "iloveyou").initialParse());
-  }
-
-  /**
-   * Test {@link PDFParser#initialParse()}.
-   *
-   * <ul>
-   *   <li>Given {@link RandomAccessReadBufferedFile#RandomAccessReadBufferedFile(String)} with
-   *       filename is {@code foo.txt}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDFParser#initialParse()}
-   */
-  @Test
-  @DisplayName(
-      "Test initialParse(); given RandomAccessReadBufferedFile(String) with filename is 'foo.txt'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDFParser.initialParse()"})
-  void testInitialParse_givenRandomAccessReadBufferedFileWithFilenameIsFooTxt() throws IOException {
-    // Arrange, Act and Assert
-    assertThrows(
-        IOException.class,
-        () ->
-            new PDFParser(new RandomAccessReadBufferedFile("foo.txt"), "iloveyou").initialParse());
-  }
-
-  /**
-   * Test {@link PDFParser#initialParse()}.
-   *
-   * <ul>
-   *   <li>Given {@link RandomAccessReadMemoryMappedFile#RandomAccessReadMemoryMappedFile(String)}
-   *       with filename is {@code foo.txt}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDFParser#initialParse()}
-   */
-  @Test
-  @DisplayName(
-      "Test initialParse(); given RandomAccessReadMemoryMappedFile(String) with filename is 'foo.txt'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDFParser.initialParse()"})
-  void testInitialParse_givenRandomAccessReadMemoryMappedFileWithFilenameIsFooTxt()
-      throws IOException {
-    // Arrange, Act and Assert
-    assertThrows(
-        IOException.class,
-        () ->
-            new PDFParser(new RandomAccessReadMemoryMappedFile("foo.txt"), "iloveyou")
-                .initialParse());
   }
 
   /**
@@ -735,59 +719,6 @@ class PDFParserDiffblueTest {
   }
 
   /**
-   * Test {@link PDFParser#parse(boolean)} with {@code boolean}.
-   *
-   * <ul>
-   *   <li>Given {@link RandomAccessReadBufferedFile#RandomAccessReadBufferedFile(String)} with
-   *       filename is {@code foo.txt}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDFParser#parse(boolean)}
-   */
-  @Test
-  @DisplayName(
-      "Test parse(boolean) with 'boolean'; given RandomAccessReadBufferedFile(String) with filename is 'foo.txt'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDDocument PDFParser.parse(boolean)"})
-  void testParseWithBoolean_givenRandomAccessReadBufferedFileWithFilenameIsFooTxt()
-      throws IOException {
-    // Arrange, Act and Assert
-    assertThrows(
-        IOException.class,
-        () -> new PDFParser(new RandomAccessReadBufferedFile("foo.txt")).parse(true));
-  }
-
-  /**
-   * Test {@link PDFParser#parse()}.
-   *
-   * <ul>
-   *   <li>Given {@link DataInputStream} {@link DataInputStream#read(byte[])} throw {@link
-   *       IOException#IOException()}.
-   *   <li>Then calls {@link DataInputStream#read(byte[])}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDFParser#parse()}
-   */
-  @Test
-  @DisplayName(
-      "Test parse(); given DataInputStream read(byte[]) throw IOException(); then calls read(byte[])")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDDocument PDFParser.parse()"})
-  void testParse_givenDataInputStreamReadThrowIOException_thenCallsRead() throws IOException {
-    // Arrange
-    DataInputStream inputStream = mock(DataInputStream.class);
-    when(inputStream.read(Mockito.<byte[]>any())).thenThrow(new IOException());
-    NonSeekableRandomAccessReadInputStream source =
-        new NonSeekableRandomAccessReadInputStream(inputStream);
-
-    // Act and Assert
-    assertThrows(IOException.class, () -> new PDFParser(source).parse());
-    verify(inputStream).read(isA(byte[].class));
-  }
-
-  /**
    * Test {@link PDFParser#parse()}.
    *
    * <ul>
@@ -832,29 +763,6 @@ class PDFParserDiffblueTest {
 
     // Act and Assert
     assertThrows(IOException.class, () -> new PDFParser(source).parse());
-  }
-
-  /**
-   * Test {@link PDFParser#parse()}.
-   *
-   * <ul>
-   *   <li>Given {@link RandomAccessReadBufferedFile#RandomAccessReadBufferedFile(String)} with
-   *       filename is {@code foo.txt}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDFParser#parse()}
-   */
-  @Test
-  @DisplayName(
-      "Test parse(); given RandomAccessReadBufferedFile(String) with filename is 'foo.txt'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDDocument PDFParser.parse()"})
-  void testParse_givenRandomAccessReadBufferedFileWithFilenameIsFooTxt() throws IOException {
-    // Arrange, Act and Assert
-    assertThrows(
-        IOException.class,
-        () -> new PDFParser(new RandomAccessReadBufferedFile("foo.txt")).parse());
   }
 
   /**

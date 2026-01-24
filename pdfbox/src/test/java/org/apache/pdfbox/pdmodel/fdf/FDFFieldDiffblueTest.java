@@ -948,28 +948,6 @@ class FDFFieldDiffblueTest {
    * Test {@link FDFField#getKids()}.
    *
    * <ul>
-   *   <li>Given {@link FDFField#FDFField(Element)} with fieldXML is {@link
-   *       IIOMetadataNode#IIOMetadataNode()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFField#getKids()}
-   */
-  @Test
-  @DisplayName(
-      "Test getKids(); given FDFField(Element) with fieldXML is IIOMetadataNode(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"List FDFField.getKids()"})
-  void testGetKids_givenFDFFieldWithFieldXMLIsIIOMetadataNode_thenReturnNull() throws IOException {
-    // Arrange, Act and Assert
-    assertNull(new FDFField(new IIOMetadataNode()).getKids());
-  }
-
-  /**
-   * Test {@link FDFField#getKids()}.
-   *
-   * <ul>
    *   <li>Given {@link FDFField#FDFField()}.
    *   <li>Then return {@code null}.
    * </ul>
@@ -1623,28 +1601,6 @@ class FDFFieldDiffblueTest {
    * Test {@link FDFField#getValue()}.
    *
    * <ul>
-   *   <li>Given {@link FDFField#FDFField(Element)} with fieldXML is {@link
-   *       IIOMetadataNode#IIOMetadataNode()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFField#getValue()}
-   */
-  @Test
-  @DisplayName(
-      "Test getValue(); given FDFField(Element) with fieldXML is IIOMetadataNode(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Object FDFField.getValue()"})
-  void testGetValue_givenFDFFieldWithFieldXMLIsIIOMetadataNode_thenReturnNull() throws IOException {
-    // Arrange, Act and Assert
-    assertNull(new FDFField(new IIOMetadataNode()).getValue());
-  }
-
-  /**
-   * Test {@link FDFField#getValue()}.
-   *
-   * <ul>
    *   <li>Given {@link FDFField#FDFField()}.
    *   <li>Then return {@code null}.
    * </ul>
@@ -2073,29 +2029,6 @@ class FDFFieldDiffblueTest {
     assertEquals("Value", ((COSString) actualCOSValue).getString());
     assertFalse(((COSString) actualCOSValue).getForceHexForm());
     assertArrayEquals("Value".getBytes("UTF-8"), ((COSString) actualCOSValue).getBytes());
-  }
-
-  /**
-   * Test {@link FDFField#getCOSValue()}.
-   *
-   * <ul>
-   *   <li>Given {@link FDFField#FDFField(Element)} with fieldXML is {@link
-   *       IIOMetadataNode#IIOMetadataNode()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFField#getCOSValue()}
-   */
-  @Test
-  @DisplayName(
-      "Test getCOSValue(); given FDFField(Element) with fieldXML is IIOMetadataNode(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"COSBase FDFField.getCOSValue()"})
-  void testGetCOSValue_givenFDFFieldWithFieldXMLIsIIOMetadataNode_thenReturnNull()
-      throws IOException {
-    // Arrange, Act and Assert
-    assertNull(new FDFField(new IIOMetadataNode()).getCOSValue());
   }
 
   /**
@@ -2638,29 +2571,6 @@ class FDFFieldDiffblueTest {
    * Test {@link FDFField#getFieldFlags()}.
    *
    * <ul>
-   *   <li>Given {@link FDFField#FDFField(Element)} with fieldXML is {@link
-   *       IIOMetadataNode#IIOMetadataNode()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFField#getFieldFlags()}
-   */
-  @Test
-  @DisplayName(
-      "Test getFieldFlags(); given FDFField(Element) with fieldXML is IIOMetadataNode(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Integer FDFField.getFieldFlags()"})
-  void testGetFieldFlags_givenFDFFieldWithFieldXMLIsIIOMetadataNode_thenReturnNull()
-      throws IOException {
-    // Arrange, Act and Assert
-    assertNull(new FDFField(new IIOMetadataNode()).getFieldFlags());
-  }
-
-  /**
-   * Test {@link FDFField#getFieldFlags()}.
-   *
-   * <ul>
    *   <li>Given {@link FDFField#FDFField()}.
    *   <li>Then return {@code null}.
    * </ul>
@@ -2878,29 +2788,6 @@ class FDFFieldDiffblueTest {
 
     // Act and Assert
     assertEquals(1, fdfField.getSetFieldFlags().intValue());
-  }
-
-  /**
-   * Test {@link FDFField#getSetFieldFlags()}.
-   *
-   * <ul>
-   *   <li>Given {@link FDFField#FDFField(Element)} with fieldXML is {@link
-   *       IIOMetadataNode#IIOMetadataNode()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFField#getSetFieldFlags()}
-   */
-  @Test
-  @DisplayName(
-      "Test getSetFieldFlags(); given FDFField(Element) with fieldXML is IIOMetadataNode(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Integer FDFField.getSetFieldFlags()"})
-  void testGetSetFieldFlags_givenFDFFieldWithFieldXMLIsIIOMetadataNode_thenReturnNull()
-      throws IOException {
-    // Arrange, Act and Assert
-    assertNull(new FDFField(new IIOMetadataNode()).getSetFieldFlags());
   }
 
   /**
@@ -3128,29 +3015,6 @@ class FDFFieldDiffblueTest {
    * Test {@link FDFField#getClearFieldFlags()}.
    *
    * <ul>
-   *   <li>Given {@link FDFField#FDFField(Element)} with fieldXML is {@link
-   *       IIOMetadataNode#IIOMetadataNode()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFField#getClearFieldFlags()}
-   */
-  @Test
-  @DisplayName(
-      "Test getClearFieldFlags(); given FDFField(Element) with fieldXML is IIOMetadataNode(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Integer FDFField.getClearFieldFlags()"})
-  void testGetClearFieldFlags_givenFDFFieldWithFieldXMLIsIIOMetadataNode_thenReturnNull()
-      throws IOException {
-    // Arrange, Act and Assert
-    assertNull(new FDFField(new IIOMetadataNode()).getClearFieldFlags());
-  }
-
-  /**
-   * Test {@link FDFField#getClearFieldFlags()}.
-   *
-   * <ul>
    *   <li>Given {@link FDFField#FDFField()}.
    *   <li>Then return {@code null}.
    * </ul>
@@ -3370,27 +3234,6 @@ class FDFFieldDiffblueTest {
    * Test {@link FDFField#getWidgetFieldFlags()}.
    *
    * <ul>
-   *   <li>Given {@link FDFField#FDFField(Element)} with fieldXML is {@link
-   *       IIOMetadataNode#IIOMetadataNode()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFField#getWidgetFieldFlags()}
-   */
-  @Test
-  @DisplayName(
-      "Test getWidgetFieldFlags(); given FDFField(Element) with fieldXML is IIOMetadataNode()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Integer FDFField.getWidgetFieldFlags()"})
-  void testGetWidgetFieldFlags_givenFDFFieldWithFieldXMLIsIIOMetadataNode() throws IOException {
-    // Arrange, Act and Assert
-    assertNull(new FDFField(new IIOMetadataNode()).getWidgetFieldFlags());
-  }
-
-  /**
-   * Test {@link FDFField#getWidgetFieldFlags()}.
-   *
-   * <ul>
    *   <li>Given {@link FDFField#FDFField()}.
    *   <li>Then return {@code null}.
    * </ul>
@@ -3604,27 +3447,6 @@ class FDFFieldDiffblueTest {
    * Test {@link FDFField#getSetWidgetFieldFlags()}.
    *
    * <ul>
-   *   <li>Given {@link FDFField#FDFField(Element)} with fieldXML is {@link
-   *       IIOMetadataNode#IIOMetadataNode()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFField#getSetWidgetFieldFlags()}
-   */
-  @Test
-  @DisplayName(
-      "Test getSetWidgetFieldFlags(); given FDFField(Element) with fieldXML is IIOMetadataNode()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Integer FDFField.getSetWidgetFieldFlags()"})
-  void testGetSetWidgetFieldFlags_givenFDFFieldWithFieldXMLIsIIOMetadataNode() throws IOException {
-    // Arrange, Act and Assert
-    assertNull(new FDFField(new IIOMetadataNode()).getSetWidgetFieldFlags());
-  }
-
-  /**
-   * Test {@link FDFField#getSetWidgetFieldFlags()}.
-   *
-   * <ul>
    *   <li>Given {@link FDFField#FDFField()}.
    *   <li>Then return {@code null}.
    * </ul>
@@ -3816,28 +3638,6 @@ class FDFFieldDiffblueTest {
     COSDictionary cOSObject = fdfField.getCOSObject();
     assertEquals(0, cOSObject.size());
     assertTrue(cOSObject.getValues().isEmpty());
-  }
-
-  /**
-   * Test {@link FDFField#getClearWidgetFieldFlags()}.
-   *
-   * <ul>
-   *   <li>Given {@link FDFField#FDFField(Element)} with fieldXML is {@link
-   *       IIOMetadataNode#IIOMetadataNode()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFField#getClearWidgetFieldFlags()}
-   */
-  @Test
-  @DisplayName(
-      "Test getClearWidgetFieldFlags(); given FDFField(Element) with fieldXML is IIOMetadataNode()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Integer FDFField.getClearWidgetFieldFlags()"})
-  void testGetClearWidgetFieldFlags_givenFDFFieldWithFieldXMLIsIIOMetadataNode()
-      throws IOException {
-    // Arrange, Act and Assert
-    assertNull(new FDFField(new IIOMetadataNode()).getClearWidgetFieldFlags());
   }
 
   /**
@@ -4036,27 +3836,6 @@ class FDFFieldDiffblueTest {
    * Test {@link FDFField#getAppearanceDictionary()}.
    *
    * <ul>
-   *   <li>Given {@link FDFField#FDFField(Element)} with fieldXML is {@link
-   *       IIOMetadataNode#IIOMetadataNode()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFField#getAppearanceDictionary()}
-   */
-  @Test
-  @DisplayName(
-      "Test getAppearanceDictionary(); given FDFField(Element) with fieldXML is IIOMetadataNode()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDAppearanceDictionary FDFField.getAppearanceDictionary()"})
-  void testGetAppearanceDictionary_givenFDFFieldWithFieldXMLIsIIOMetadataNode() throws IOException {
-    // Arrange, Act and Assert
-    assertNull(new FDFField(new IIOMetadataNode()).getAppearanceDictionary());
-  }
-
-  /**
-   * Test {@link FDFField#getAppearanceDictionary()}.
-   *
-   * <ul>
    *   <li>Given {@link FDFField#FDFField()}.
    *   <li>Then return {@code null}.
    * </ul>
@@ -4214,47 +3993,6 @@ class FDFFieldDiffblueTest {
     assertNull(appearanceDictionary.getNormalAppearance());
     assertNull(appearanceDictionary.getRolloverAppearance());
     assertSame(dictionary, appearanceDictionary.getCOSObject());
-  }
-
-  /**
-   * Test {@link FDFField#getAppearanceStreamReference()}.
-   *
-   * <p>Method under test: {@link FDFField#getAppearanceStreamReference()}
-   */
-  @Test
-  @DisplayName("Test getAppearanceStreamReference()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"FDFNamedPageReference FDFField.getAppearanceStreamReference()"})
-  void testGetAppearanceStreamReference() throws IOException {
-    // Arrange
-    FDFField fdfField = new FDFField(new IIOMetadataNode());
-    fdfField.setAction(new PDActionImportData());
-
-    // Act and Assert
-    assertNull(fdfField.getAppearanceStreamReference());
-  }
-
-  /**
-   * Test {@link FDFField#getAppearanceStreamReference()}.
-   *
-   * <ul>
-   *   <li>Given {@link FDFField#FDFField(Element)} with fieldXML is {@link
-   *       IIOMetadataNode#IIOMetadataNode()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFField#getAppearanceStreamReference()}
-   */
-  @Test
-  @DisplayName(
-      "Test getAppearanceStreamReference(); given FDFField(Element) with fieldXML is IIOMetadataNode()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"FDFNamedPageReference FDFField.getAppearanceStreamReference()"})
-  void testGetAppearanceStreamReference_givenFDFFieldWithFieldXMLIsIIOMetadataNode()
-      throws IOException {
-    // Arrange, Act and Assert
-    assertNull(new FDFField(new IIOMetadataNode()).getAppearanceStreamReference());
   }
 
   /**
@@ -4485,29 +4223,6 @@ class FDFFieldDiffblueTest {
     assertFalse(cOSObject.isNeedToBeUpdated());
     assertEquals(FDFIconFit.SCALE_OPTION_ALWAYS, actualIconFit.getScaleOption());
     assertEquals(FDFIconFit.SCALE_TYPE_PROPORTIONAL, actualIconFit.getScaleType());
-  }
-
-  /**
-   * Test {@link FDFField#getIconFit()}.
-   *
-   * <ul>
-   *   <li>Given {@link FDFField#FDFField(Element)} with fieldXML is {@link
-   *       IIOMetadataNode#IIOMetadataNode()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFField#getIconFit()}
-   */
-  @Test
-  @DisplayName(
-      "Test getIconFit(); given FDFField(Element) with fieldXML is IIOMetadataNode(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"FDFIconFit FDFField.getIconFit()"})
-  void testGetIconFit_givenFDFFieldWithFieldXMLIsIIOMetadataNode_thenReturnNull()
-      throws IOException {
-    // Arrange, Act and Assert
-    assertNull(new FDFField(new IIOMetadataNode()).getIconFit());
   }
 
   /**
@@ -4778,29 +4493,6 @@ class FDFFieldDiffblueTest {
 
     // Act and Assert
     assertTrue(fdfField.getOptions().isEmpty());
-  }
-
-  /**
-   * Test {@link FDFField#getOptions()}.
-   *
-   * <ul>
-   *   <li>Given {@link FDFField#FDFField(Element)} with fieldXML is {@link
-   *       IIOMetadataNode#IIOMetadataNode()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFField#getOptions()}
-   */
-  @Test
-  @DisplayName(
-      "Test getOptions(); given FDFField(Element) with fieldXML is IIOMetadataNode(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"List FDFField.getOptions()"})
-  void testGetOptions_givenFDFFieldWithFieldXMLIsIIOMetadataNode_thenReturnNull()
-      throws IOException {
-    // Arrange, Act and Assert
-    assertNull(new FDFField(new IIOMetadataNode()).getOptions());
   }
 
   /**
@@ -5725,29 +5417,6 @@ class FDFFieldDiffblueTest {
    * Test {@link FDFField#getAction()}.
    *
    * <ul>
-   *   <li>Given {@link FDFField#FDFField(Element)} with fieldXML is {@link
-   *       IIOMetadataNode#IIOMetadataNode()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFField#getAction()}
-   */
-  @Test
-  @DisplayName(
-      "Test getAction(); given FDFField(Element) with fieldXML is IIOMetadataNode(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDAction FDFField.getAction()"})
-  void testGetAction_givenFDFFieldWithFieldXMLIsIIOMetadataNode_thenReturnNull()
-      throws IOException {
-    // Arrange, Act and Assert
-    assertNull(new FDFField(new IIOMetadataNode()).getAction());
-  }
-
-  /**
-   * Test {@link FDFField#getAction()}.
-   *
-   * <ul>
    *   <li>Given {@link FDFField#FDFField()}.
    *   <li>Then return {@code null}.
    * </ul>
@@ -5995,27 +5664,6 @@ class FDFFieldDiffblueTest {
     COSDictionary cOSObject = fdfField.getCOSObject();
     assertEquals(0, cOSObject.size());
     assertTrue(cOSObject.getValues().isEmpty());
-  }
-
-  /**
-   * Test {@link FDFField#getAdditionalActions()}.
-   *
-   * <ul>
-   *   <li>Given {@link FDFField#FDFField(Element)} with fieldXML is {@link
-   *       IIOMetadataNode#IIOMetadataNode()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFField#getAdditionalActions()}
-   */
-  @Test
-  @DisplayName(
-      "Test getAdditionalActions(); given FDFField(Element) with fieldXML is IIOMetadataNode()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDAdditionalActions FDFField.getAdditionalActions()"})
-  void testGetAdditionalActions_givenFDFFieldWithFieldXMLIsIIOMetadataNode() throws IOException {
-    // Arrange, Act and Assert
-    assertNull(new FDFField(new IIOMetadataNode()).getAdditionalActions());
   }
 
   /**
@@ -6298,6 +5946,88 @@ class FDFFieldDiffblueTest {
   /**
    * Test {@link FDFField#getRichText()}.
    *
+   * <p>Method under test: {@link FDFField#getRichText()}
+   */
+  @Test
+  @DisplayName("Test getRichText()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String FDFField.getRichText()"})
+  void testGetRichText5() throws IOException {
+    // Arrange
+    FDFField fdfField = new FDFField(new COSDictionary());
+    RandomAccessStreamCacheImpl streamCache = new RandomAccessStreamCacheImpl();
+    COSStream rv =
+        new COSStream(
+            streamCache,
+            new RandomAccessReadView(
+                new RandomAccessReadView(new RandomAccessReadWriteBuffer(), 1L, 3L), 500L, 3L));
+    fdfField.setRichText(rv);
+
+    // Act and Assert
+    assertEquals("", fdfField.getRichText());
+  }
+
+  /**
+   * Test {@link FDFField#getRichText()}.
+   *
+   * <p>Method under test: {@link FDFField#getRichText()}
+   */
+  @Test
+  @DisplayName("Test getRichText()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String FDFField.getRichText()"})
+  void testGetRichText6() throws IOException {
+    // Arrange
+    FDFField fdfField = new FDFField(new COSDictionary());
+    RandomAccessStreamCacheImpl streamCache = new RandomAccessStreamCacheImpl();
+    COSStream rv =
+        new COSStream(
+            streamCache,
+            new RandomAccessReadView(
+                new RandomAccessReadView(new RandomAccessReadWriteBuffer(), 1L, 3L), -1L, 3L));
+    fdfField.setRichText(rv);
+
+    // Act and Assert
+    assertEquals("", fdfField.getRichText());
+  }
+
+  /**
+   * Test {@link FDFField#getRichText()}.
+   *
+   * <ul>
+   *   <li>Given {@code A}.
+   *   <li>Then return empty string.
+   * </ul>
+   *
+   * <p>Method under test: {@link FDFField#getRichText()}
+   */
+  @Test
+  @DisplayName("Test getRichText(); given 'A'; then return empty string")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String FDFField.getRichText()"})
+  void testGetRichText_givenA_thenReturnEmptyString() throws IOException {
+    // Arrange
+    FDFField fdfField = new FDFField(new COSDictionary());
+    RandomAccessStreamCacheImpl streamCache = new RandomAccessStreamCacheImpl();
+    ByteArrayInputStream input =
+        new ByteArrayInputStream(new byte[] {'A', -12, 'A', -12, 'A', -12, 'A', -12});
+    RandomAccessReadBuffer randomAccessRead = new RandomAccessReadBuffer(input);
+    COSStream rv =
+        new COSStream(
+            streamCache,
+            new RandomAccessReadView(new RandomAccessReadView(randomAccessRead, 1L, 3L), 500L, 3L));
+    fdfField.setRichText(rv);
+
+    // Act and Assert
+    assertEquals("", fdfField.getRichText());
+  }
+
+  /**
+   * Test {@link FDFField#getRichText()}.
+   *
    * <ul>
    *   <li>Given {@link ByteArrayInputStream#ByteArrayInputStream(byte[])} with {@code AXAXAXAX}
    *       Bytes is {@code UTF-8}.
@@ -6380,29 +6110,6 @@ class FDFFieldDiffblueTest {
    * Test {@link FDFField#getRichText()}.
    *
    * <ul>
-   *   <li>Given {@link FDFField#FDFField(Element)} with fieldXML is {@link
-   *       IIOMetadataNode#IIOMetadataNode()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFField#getRichText()}
-   */
-  @Test
-  @DisplayName(
-      "Test getRichText(); given FDFField(Element) with fieldXML is IIOMetadataNode(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String FDFField.getRichText()"})
-  void testGetRichText_givenFDFFieldWithFieldXMLIsIIOMetadataNode_thenReturnNull()
-      throws IOException {
-    // Arrange, Act and Assert
-    assertNull(new FDFField(new IIOMetadataNode()).getRichText());
-  }
-
-  /**
-   * Test {@link FDFField#getRichText()}.
-   *
-   * <ul>
    *   <li>Given {@link FDFField#FDFField()}.
    *   <li>Then return {@code null}.
    * </ul>
@@ -6417,6 +6124,37 @@ class FDFFieldDiffblueTest {
   void testGetRichText_givenFDFField_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull(new FDFField().getRichText());
+  }
+
+  /**
+   * Test {@link FDFField#getRichText()}.
+   *
+   * <ul>
+   *   <li>Then return {@code Aô}.
+   * </ul>
+   *
+   * <p>Method under test: {@link FDFField#getRichText()}
+   */
+  @Test
+  @DisplayName("Test getRichText(); then return 'Aô'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String FDFField.getRichText()"})
+  void testGetRichText_thenReturnA() throws IOException {
+    // Arrange
+    FDFField fdfField = new FDFField(new COSDictionary());
+    RandomAccessStreamCacheImpl streamCache = new RandomAccessStreamCacheImpl();
+    ByteArrayInputStream input =
+        new ByteArrayInputStream(new byte[] {'A', -12, 'A', -12, 'A', -12, 'A', -12});
+    RandomAccessReadBuffer randomAccessRead = new RandomAccessReadBuffer(input);
+    COSStream rv =
+        new COSStream(
+            streamCache,
+            new RandomAccessReadView(new RandomAccessReadView(randomAccessRead, 1L, 3L), 1L, 3L));
+    fdfField.setRichText(rv);
+
+    // Act and Assert
+    assertEquals("Aô", fdfField.getRichText());
   }
 
   /**

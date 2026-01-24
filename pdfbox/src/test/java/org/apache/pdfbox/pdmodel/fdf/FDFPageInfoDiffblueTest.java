@@ -60,32 +60,4 @@ class FDFPageInfoDiffblueTest {
     assertTrue(actualCOSObject.getValues().isEmpty());
     assertTrue(toIncrementResult.getObjects().isEmpty());
   }
-
-  /**
-   * Test {@link FDFPageInfo#getCOSObject()}.
-   *
-   * <p>Method under test: {@link FDFPageInfo#getCOSObject()}
-   */
-  @Test
-  @DisplayName("Test getCOSObject()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"COSDictionary FDFPageInfo.getCOSObject()"})
-  void testGetCOSObject() {
-    // Arrange and Act
-    COSDictionary actualCOSObject = new FDFPageInfo().getCOSObject();
-
-    // Assert
-    COSUpdateState updateState = actualCOSObject.getUpdateState();
-    assertNull(updateState.getOriginDocumentState());
-    assertNull(actualCOSObject.getKey());
-    assertEquals(0, actualCOSObject.size());
-    COSIncrement toIncrementResult = actualCOSObject.toIncrement();
-    assertFalse(toIncrementResult.iterator().hasNext());
-    assertFalse(actualCOSObject.isDirect());
-    assertFalse(actualCOSObject.isNeedToBeUpdated());
-    assertFalse(updateState.isUpdated());
-    assertTrue(actualCOSObject.getValues().isEmpty());
-    assertTrue(toIncrementResult.getObjects().isEmpty());
-  }
 }

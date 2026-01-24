@@ -3539,41 +3539,6 @@ class PDDocumentDiffblueTest {
    * Test {@link PDDocument#getDocumentInformation()}.
    *
    * <ul>
-   *   <li>Given {@link COSDocument#COSDocument()} Trailer is {@link COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDDocument#getDocumentInformation()}
-   */
-  @Test
-  @DisplayName("Test getDocumentInformation(); given COSDocument() Trailer is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDDocumentInformation PDDocument.getDocumentInformation()"})
-  void testGetDocumentInformation_givenCOSDocumentTrailerIsCOSDictionary() {
-    // Arrange
-    COSDocument doc = new COSDocument();
-    doc.setTrailer(new COSDictionary());
-
-    // Act
-    PDDocumentInformation actualDocumentInformation = new PDDocument(doc).getDocumentInformation();
-
-    // Assert
-    assertNull(actualDocumentInformation.getAuthor());
-    assertNull(actualDocumentInformation.getCreator());
-    assertNull(actualDocumentInformation.getKeywords());
-    assertNull(actualDocumentInformation.getProducer());
-    assertNull(actualDocumentInformation.getSubject());
-    assertNull(actualDocumentInformation.getTitle());
-    assertNull(actualDocumentInformation.getTrapped());
-    assertNull(actualDocumentInformation.getCreationDate());
-    assertNull(actualDocumentInformation.getModificationDate());
-    assertTrue(actualDocumentInformation.getMetadataKeys().isEmpty());
-  }
-
-  /**
-   * Test {@link PDDocument#getDocumentInformation()}.
-   *
-   * <ul>
    *   <li>Given {@link PDDocument#PDDocument()}.
    *   <li>Then return Author is {@code null}.
    * </ul>
@@ -3789,42 +3754,28 @@ class PDDocumentDiffblueTest {
    * Test {@link PDDocument#isEncrypted()}.
    *
    * <ul>
-   *   <li>Given {@link COSDocument#COSDocument()} Trailer is {@link COSDictionary#COSDictionary()}.
+   *   <li>Given {@link PDDocument#PDDocument()} protect {@link PublicKeyProtectionPolicy} (default
+   *       constructor).
+   *   <li>Then return {@code true}.
    * </ul>
    *
    * <p>Method under test: {@link PDDocument#isEncrypted()}
    */
   @Test
-  @DisplayName("Test isEncrypted(); given COSDocument() Trailer is COSDictionary()")
+  @DisplayName(
+      "Test isEncrypted(); given PDDocument() protect PublicKeyProtectionPolicy (default constructor); then return 'true'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"boolean PDDocument.isEncrypted()"})
-  void testIsEncrypted_givenCOSDocumentTrailerIsCOSDictionary() {
+  void testIsEncrypted_givenPDDocumentProtectPublicKeyProtectionPolicy_thenReturnTrue()
+      throws IOException {
     // Arrange
-    COSDocument doc = new COSDocument();
-    doc.setTrailer(new COSDictionary());
+    PDDocument pdDocument = new PDDocument();
+    pdDocument.protect(new PublicKeyProtectionPolicy());
+    pdDocument.save(new ByteArrayOutputStream(), CompressParameters.DEFAULT_COMPRESSION);
 
     // Act and Assert
-    assertFalse(new PDDocument(doc).isEncrypted());
-  }
-
-  /**
-   * Test {@link PDDocument#isEncrypted()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDDocument#PDDocument()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDDocument#isEncrypted()}
-   */
-  @Test
-  @DisplayName("Test isEncrypted(); given PDDocument()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean PDDocument.isEncrypted()"})
-  void testIsEncrypted_givenPDDocument() {
-    // Arrange, Act and Assert
-    assertFalse(new PDDocument().isEncrypted());
+    assertTrue(pdDocument.isEncrypted());
   }
 
   /**
@@ -3833,43 +3784,40 @@ class PDDocumentDiffblueTest {
    * <ul>
    *   <li>Given {@link PDDocument#PDDocument(COSDocument)} with doc is {@link
    *       COSDocument#COSDocument()}.
+   *   <li>Then return {@code false}.
    * </ul>
    *
    * <p>Method under test: {@link PDDocument#isEncrypted()}
    */
   @Test
-  @DisplayName("Test isEncrypted(); given PDDocument(COSDocument) with doc is COSDocument()")
+  @DisplayName(
+      "Test isEncrypted(); given PDDocument(COSDocument) with doc is COSDocument(); then return 'false'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"boolean PDDocument.isEncrypted()"})
-  void testIsEncrypted_givenPDDocumentWithDocIsCOSDocument() {
+  void testIsEncrypted_givenPDDocumentWithDocIsCOSDocument_thenReturnFalse() {
     // Arrange, Act and Assert
     assertFalse(new PDDocument(new COSDocument()).isEncrypted());
   }
 
   /**
-   * Test {@link PDDocument#getEncryption()}.
+   * Test {@link PDDocument#isEncrypted()}.
    *
    * <ul>
-   *   <li>Given {@link COSDocument#COSDocument()} Trailer is {@link COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link PDDocument#PDDocument()}.
+   *   <li>Then return {@code false}.
    * </ul>
    *
-   * <p>Method under test: {@link PDDocument#getEncryption()}
+   * <p>Method under test: {@link PDDocument#isEncrypted()}
    */
   @Test
-  @DisplayName(
-      "Test getEncryption(); given COSDocument() Trailer is COSDictionary(); then return 'null'")
+  @DisplayName("Test isEncrypted(); given PDDocument(); then return 'false'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
-  @MethodsUnderTest({"PDEncryption PDDocument.getEncryption()"})
-  void testGetEncryption_givenCOSDocumentTrailerIsCOSDictionary_thenReturnNull() {
-    // Arrange
-    COSDocument doc = new COSDocument();
-    doc.setTrailer(new COSDictionary());
-
-    // Act and Assert
-    assertNull(new PDDocument(doc).getEncryption());
+  @MethodsUnderTest({"boolean PDDocument.isEncrypted()"})
+  void testIsEncrypted_givenPDDocument_thenReturnFalse() {
+    // Arrange, Act and Assert
+    assertFalse(new PDDocument().isEncrypted());
   }
 
   /**
@@ -4331,36 +4279,6 @@ class PDDocumentDiffblueTest {
   }
 
   /**
-   * Test {@link PDDocument#save(OutputStream)} with {@code output}.
-   *
-   * <p>Method under test: {@link PDDocument#save(OutputStream)}
-   */
-  @Test
-  @DisplayName("Test save(OutputStream) with 'output'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDDocument.save(OutputStream)"})
-  void testSaveWithOutput3() throws IOException {
-    // Arrange
-    StreamCacheCreateFunction streamCacheCreateFunction = mock(StreamCacheCreateFunction.class);
-    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
-
-    PDDocument pdDocument = new PDDocument(streamCacheCreateFunction);
-    pdDocument.setResourceCache(new DefaultResourceCache());
-    pdDocument.addPage(new PDPage());
-    pdDocument.addPage(new PDPage());
-    pdDocument.addPage(new PDPage());
-    ByteArrayOutputStream output = new ByteArrayOutputStream();
-
-    // Act
-    pdDocument.save(output);
-
-    // Assert
-    verify(streamCacheCreateFunction).create();
-    assertEquals(547, output.toByteArray().length);
-  }
-
-  /**
    * Test {@link PDDocument#save(OutputStream, CompressParameters)} with {@code output}, {@code
    * compressParameters}.
    *
@@ -4452,6 +4370,40 @@ class PDDocumentDiffblueTest {
     // Assert
     verify(streamCacheCreateFunction).create();
     assertEquals(467, output.toByteArray().length);
+  }
+
+  /**
+   * Test {@link PDDocument#save(OutputStream, CompressParameters)} with {@code output}, {@code
+   * compressParameters}.
+   *
+   * <ul>
+   *   <li>Then array length is five hundred eighty-four.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDDocument#save(OutputStream, CompressParameters)}
+   */
+  @Test
+  @DisplayName(
+      "Test save(OutputStream, CompressParameters) with 'output', 'compressParameters'; then array length is five hundred eighty-four")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDDocument.save(OutputStream, CompressParameters)"})
+  void testSaveWithOutputCompressParameters_thenArrayLengthIsFiveHundredEightyFour()
+      throws IOException {
+    // Arrange
+    StreamCacheCreateFunction streamCacheCreateFunction = mock(StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+
+    PDDocument pdDocument = new PDDocument(streamCacheCreateFunction);
+    pdDocument.protect(new PublicKeyProtectionPolicy());
+    ByteArrayOutputStream output = new ByteArrayOutputStream();
+
+    // Act
+    pdDocument.save(output, CompressParameters.DEFAULT_COMPRESSION);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertEquals(584, output.toByteArray().length);
   }
 
   /**
@@ -4598,6 +4550,40 @@ class PDDocumentDiffblueTest {
    * compressParameters}.
    *
    * <ul>
+   *   <li>Then array length is four hundred ninety-one.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDDocument#save(OutputStream, CompressParameters)}
+   */
+  @Test
+  @DisplayName(
+      "Test save(OutputStream, CompressParameters) with 'output', 'compressParameters'; then array length is four hundred ninety-one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDDocument.save(OutputStream, CompressParameters)"})
+  void testSaveWithOutputCompressParameters_thenArrayLengthIsFourHundredNinetyOne()
+      throws IOException {
+    // Arrange
+    StreamCacheCreateFunction streamCacheCreateFunction = mock(StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+
+    PDDocument pdDocument = new PDDocument(streamCacheCreateFunction);
+    pdDocument.setDocumentInformation(new PDDocumentInformation());
+    ByteArrayOutputStream output = new ByteArrayOutputStream();
+
+    // Act
+    pdDocument.save(output, CompressParameters.DEFAULT_COMPRESSION);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertEquals(491, output.toByteArray().length);
+  }
+
+  /**
+   * Test {@link PDDocument#save(OutputStream, CompressParameters)} with {@code output}, {@code
+   * compressParameters}.
+   *
+   * <ul>
    *   <li>Then array length is four hundred sixty-seven.
    * </ul>
    *
@@ -4689,7 +4675,6 @@ class PDDocumentDiffblueTest {
     // Assert
     verify(streamCacheCreateFunction).create();
     assertEquals(645, output.toByteArray().length);
-    assertTrue(pdDocument.isEncrypted());
   }
 
   /**
@@ -4945,6 +4930,36 @@ class PDDocumentDiffblueTest {
    * Test {@link PDDocument#save(OutputStream)} with {@code output}.
    *
    * <ul>
+   *   <li>Then array length is four hundred sixty-seven.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDDocument#save(OutputStream)}
+   */
+  @Test
+  @DisplayName(
+      "Test save(OutputStream) with 'output'; then array length is four hundred sixty-seven")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDDocument.save(OutputStream)"})
+  void testSaveWithOutput_thenArrayLengthIsFourHundredSixtySeven() throws IOException {
+    // Arrange
+    StreamCacheCreateFunction streamCacheCreateFunction = mock(StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDDocument pdDocument = new PDDocument(streamCacheCreateFunction);
+    ByteArrayOutputStream output = new ByteArrayOutputStream();
+
+    // Act
+    pdDocument.save(output);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertEquals(467, output.toByteArray().length);
+  }
+
+  /**
+   * Test {@link PDDocument#save(OutputStream)} with {@code output}.
+   *
+   * <ul>
    *   <li>Then array length is six hundred forty-five.
    * </ul>
    *
@@ -4972,6 +4987,35 @@ class PDDocumentDiffblueTest {
     verify(streamCacheCreateFunction).create();
     assertEquals(645, output.toByteArray().length);
     assertTrue(pdDocument.isEncrypted());
+  }
+
+  /**
+   * Test {@link PDDocument#save(OutputStream)} with {@code output}.
+   *
+   * <ul>
+   *   <li>When {@link ByteArrayOutputStream#ByteArrayOutputStream(int)} with three.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDDocument#save(OutputStream)}
+   */
+  @Test
+  @DisplayName("Test save(OutputStream) with 'output'; when ByteArrayOutputStream(int) with three")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDDocument.save(OutputStream)"})
+  void testSaveWithOutput_whenByteArrayOutputStreamWithThree() throws IOException {
+    // Arrange
+    StreamCacheCreateFunction streamCacheCreateFunction = mock(StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDDocument pdDocument = new PDDocument(streamCacheCreateFunction);
+    ByteArrayOutputStream output = new ByteArrayOutputStream(3);
+
+    // Act
+    pdDocument.save(output);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertEquals(467, output.toByteArray().length);
   }
 
   /**

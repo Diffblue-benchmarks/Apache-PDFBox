@@ -7,13 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import org.apache.pdfbox.cos.COSDictionary;
-import org.apache.pdfbox.cos.COSStream;
-import org.apache.pdfbox.io.NonSeekableRandomAccessReadInputStream;
-import org.apache.pdfbox.io.RandomAccessReadView;
-import org.apache.pdfbox.io.RandomAccessStreamCacheImpl;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -71,27 +65,6 @@ class PDTableAttributeObjectDiffblueTest {
    * Test {@link PDTableAttributeObject#getRowSpan()}.
    *
    * <ul>
-   *   <li>Given {@link PDTableAttributeObject#PDTableAttributeObject(COSDictionary)} with
-   *       dictionary is {@link COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDTableAttributeObject#getRowSpan()}
-   */
-  @Test
-  @DisplayName(
-      "Test getRowSpan(); given PDTableAttributeObject(COSDictionary) with dictionary is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"int PDTableAttributeObject.getRowSpan()"})
-  void testGetRowSpan_givenPDTableAttributeObjectWithDictionaryIsCOSDictionary() {
-    // Arrange, Act and Assert
-    assertEquals(1, new PDTableAttributeObject(new COSDictionary()).getRowSpan());
-  }
-
-  /**
-   * Test {@link PDTableAttributeObject#getRowSpan()}.
-   *
-   * <ul>
    *   <li>Given {@link PDTableAttributeObject#PDTableAttributeObject()}.
    *   <li>Then return one.
    * </ul>
@@ -106,31 +79,6 @@ class PDTableAttributeObjectDiffblueTest {
   void testGetRowSpan_givenPDTableAttributeObject_thenReturnOne() {
     // Arrange, Act and Assert
     assertEquals(1, new PDTableAttributeObject().getRowSpan());
-  }
-
-  /**
-   * Test {@link PDTableAttributeObject#setRowSpan(int)}.
-   *
-   * <p>Method under test: {@link PDTableAttributeObject#setRowSpan(int)}
-   */
-  @Test
-  @DisplayName("Test setRowSpan(int)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDTableAttributeObject.setRowSpan(int)"})
-  void testSetRowSpan() {
-    // Arrange
-    PDTableAttributeObject pdTableAttributeObject = new PDTableAttributeObject(new COSDictionary());
-
-    // Act
-    pdTableAttributeObject.setRowSpan(1);
-
-    // Assert
-    COSDictionary cOSObject = pdTableAttributeObject.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-    assertEquals(1, pdTableAttributeObject.getRowSpan());
-    assertFalse(pdTableAttributeObject.isEmpty());
   }
 
   /**
@@ -198,51 +146,6 @@ class PDTableAttributeObjectDiffblueTest {
    * Test {@link PDTableAttributeObject#getColSpan()}.
    *
    * <ul>
-   *   <li>Given {@link COSStream#COSStream()} addAll {@link COSDictionary#COSDictionary()}.
-   *   <li>Then return one.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDTableAttributeObject#getColSpan()}
-   */
-  @Test
-  @DisplayName("Test getColSpan(); given COSStream() addAll COSDictionary(); then return one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"int PDTableAttributeObject.getColSpan()"})
-  void testGetColSpan_givenCOSStreamAddAllCOSDictionary_thenReturnOne() {
-    // Arrange
-    COSStream dictionary = new COSStream();
-    dictionary.addAll(new COSDictionary());
-
-    // Act and Assert
-    assertEquals(1, new PDTableAttributeObject(dictionary).getColSpan());
-  }
-
-  /**
-   * Test {@link PDTableAttributeObject#getColSpan()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDTableAttributeObject#PDTableAttributeObject(COSDictionary)} with
-   *       dictionary is {@link COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDTableAttributeObject#getColSpan()}
-   */
-  @Test
-  @DisplayName(
-      "Test getColSpan(); given PDTableAttributeObject(COSDictionary) with dictionary is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"int PDTableAttributeObject.getColSpan()"})
-  void testGetColSpan_givenPDTableAttributeObjectWithDictionaryIsCOSDictionary() {
-    // Arrange, Act and Assert
-    assertEquals(1, new PDTableAttributeObject(new COSDictionary()).getColSpan());
-  }
-
-  /**
-   * Test {@link PDTableAttributeObject#getColSpan()}.
-   *
-   * <ul>
    *   <li>Given {@link PDTableAttributeObject#PDTableAttributeObject()}.
    *   <li>Then return one.
    * </ul>
@@ -257,31 +160,6 @@ class PDTableAttributeObjectDiffblueTest {
   void testGetColSpan_givenPDTableAttributeObject_thenReturnOne() {
     // Arrange, Act and Assert
     assertEquals(1, new PDTableAttributeObject().getColSpan());
-  }
-
-  /**
-   * Test {@link PDTableAttributeObject#setColSpan(int)}.
-   *
-   * <p>Method under test: {@link PDTableAttributeObject#setColSpan(int)}
-   */
-  @Test
-  @DisplayName("Test setColSpan(int)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDTableAttributeObject.setColSpan(int)"})
-  void testSetColSpan() {
-    // Arrange
-    PDTableAttributeObject pdTableAttributeObject = new PDTableAttributeObject(new COSDictionary());
-
-    // Act
-    pdTableAttributeObject.setColSpan(1);
-
-    // Assert
-    COSDictionary cOSObject = pdTableAttributeObject.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-    assertEquals(1, pdTableAttributeObject.getColSpan());
-    assertFalse(pdTableAttributeObject.isEmpty());
   }
 
   /**
@@ -349,58 +227,6 @@ class PDTableAttributeObjectDiffblueTest {
    * Test {@link PDTableAttributeObject#getHeaders()}.
    *
    * <ul>
-   *   <li>Given {@link ByteArrayInputStream#ByteArrayInputStream(byte[])} with {@code AXAXAXAX}
-   *       Bytes is {@code UTF-8}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDTableAttributeObject#getHeaders()}
-   */
-  @Test
-  @DisplayName(
-      "Test getHeaders(); given ByteArrayInputStream(byte[]) with 'AXAXAXAX' Bytes is 'UTF-8'; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String[] PDTableAttributeObject.getHeaders()"})
-  void testGetHeaders_givenByteArrayInputStreamWithAxaxaxaxBytesIsUtf8_thenReturnNull()
-      throws IOException {
-    // Arrange
-    RandomAccessStreamCacheImpl streamCache = new RandomAccessStreamCacheImpl();
-    NonSeekableRandomAccessReadInputStream randomAccessRead =
-        new NonSeekableRandomAccessReadInputStream(
-            new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8")));
-    COSStream dictionary =
-        new COSStream(streamCache, new RandomAccessReadView(randomAccessRead, 1L, 3L));
-
-    // Act and Assert
-    assertNull(new PDTableAttributeObject(dictionary).getHeaders());
-  }
-
-  /**
-   * Test {@link PDTableAttributeObject#getHeaders()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDTableAttributeObject#PDTableAttributeObject(COSDictionary)} with
-   *       dictionary is {@link COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDTableAttributeObject#getHeaders()}
-   */
-  @Test
-  @DisplayName(
-      "Test getHeaders(); given PDTableAttributeObject(COSDictionary) with dictionary is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String[] PDTableAttributeObject.getHeaders()"})
-  void testGetHeaders_givenPDTableAttributeObjectWithDictionaryIsCOSDictionary() {
-    // Arrange, Act and Assert
-    assertNull(new PDTableAttributeObject(new COSDictionary()).getHeaders());
-  }
-
-  /**
-   * Test {@link PDTableAttributeObject#getHeaders()}.
-   *
-   * <ul>
    *   <li>Given {@link PDTableAttributeObject#PDTableAttributeObject()}.
    *   <li>Then return {@code null}.
    * </ul>
@@ -415,30 +241,6 @@ class PDTableAttributeObjectDiffblueTest {
   void testGetHeaders_givenPDTableAttributeObject_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull(new PDTableAttributeObject().getHeaders());
-  }
-
-  /**
-   * Test {@link PDTableAttributeObject#setHeaders(String[])}.
-   *
-   * <p>Method under test: {@link PDTableAttributeObject#setHeaders(String[])}
-   */
-  @Test
-  @DisplayName("Test setHeaders(String[])")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDTableAttributeObject.setHeaders(String[])"})
-  void testSetHeaders() {
-    // Arrange
-    PDTableAttributeObject pdTableAttributeObject = new PDTableAttributeObject(new COSDictionary());
-
-    // Act
-    pdTableAttributeObject.setHeaders(new String[] {"Headers"});
-
-    // Assert
-    COSDictionary cOSObject = pdTableAttributeObject.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-    assertFalse(pdTableAttributeObject.isEmpty());
   }
 
   /**
@@ -469,58 +271,6 @@ class PDTableAttributeObjectDiffblueTest {
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
     assertFalse(pdTableAttributeObject.isEmpty());
-  }
-
-  /**
-   * Test {@link PDTableAttributeObject#getScope()}.
-   *
-   * <ul>
-   *   <li>Given {@link ByteArrayInputStream#ByteArrayInputStream(byte[])} with {@code AXAXAXAX}
-   *       Bytes is {@code UTF-8}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDTableAttributeObject#getScope()}
-   */
-  @Test
-  @DisplayName(
-      "Test getScope(); given ByteArrayInputStream(byte[]) with 'AXAXAXAX' Bytes is 'UTF-8'; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String PDTableAttributeObject.getScope()"})
-  void testGetScope_givenByteArrayInputStreamWithAxaxaxaxBytesIsUtf8_thenReturnNull()
-      throws IOException {
-    // Arrange
-    RandomAccessStreamCacheImpl streamCache = new RandomAccessStreamCacheImpl();
-    NonSeekableRandomAccessReadInputStream randomAccessRead =
-        new NonSeekableRandomAccessReadInputStream(
-            new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8")));
-    COSStream dictionary =
-        new COSStream(streamCache, new RandomAccessReadView(randomAccessRead, 1L, 3L));
-
-    // Act and Assert
-    assertNull(new PDTableAttributeObject(dictionary).getScope());
-  }
-
-  /**
-   * Test {@link PDTableAttributeObject#getScope()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDTableAttributeObject#PDTableAttributeObject(COSDictionary)} with
-   *       dictionary is {@link COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDTableAttributeObject#getScope()}
-   */
-  @Test
-  @DisplayName(
-      "Test getScope(); given PDTableAttributeObject(COSDictionary) with dictionary is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String PDTableAttributeObject.getScope()"})
-  void testGetScope_givenPDTableAttributeObjectWithDictionaryIsCOSDictionary() {
-    // Arrange, Act and Assert
-    assertNull(new PDTableAttributeObject(new COSDictionary()).getScope());
   }
 
   /**
@@ -578,83 +328,31 @@ class PDTableAttributeObjectDiffblueTest {
    * Test {@link PDTableAttributeObject#setScope(String)}.
    *
    * <ul>
-   *   <li>Then {@link PDTableAttributeObject#PDTableAttributeObject(COSDictionary)} with dictionary
-   *       is {@link COSDictionary#COSDictionary()} Scope is {@code Scope}.
+   *   <li>When {@code ScopeTable}.
+   *   <li>Then {@link PDTableAttributeObject#PDTableAttributeObject()} Scope is {@code ScopeTable}.
    * </ul>
    *
    * <p>Method under test: {@link PDTableAttributeObject#setScope(String)}
    */
   @Test
   @DisplayName(
-      "Test setScope(String); then PDTableAttributeObject(COSDictionary) with dictionary is COSDictionary() Scope is 'Scope'")
+      "Test setScope(String); when 'ScopeTable'; then PDTableAttributeObject() Scope is 'ScopeTable'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void PDTableAttributeObject.setScope(String)"})
-  void testSetScope_thenPDTableAttributeObjectWithDictionaryIsCOSDictionaryScopeIsScope() {
-    // Arrange
-    PDTableAttributeObject pdTableAttributeObject = new PDTableAttributeObject(new COSDictionary());
-
-    // Act
-    pdTableAttributeObject.setScope("Scope");
-
-    // Assert
-    assertEquals("Scope", pdTableAttributeObject.getScope());
-    COSDictionary cOSObject = pdTableAttributeObject.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-    assertFalse(pdTableAttributeObject.isEmpty());
-  }
-
-  /**
-   * Test {@link PDTableAttributeObject#setScope(String)}.
-   *
-   * <ul>
-   *   <li>When {@code ScopeScope}.
-   *   <li>Then {@link PDTableAttributeObject#PDTableAttributeObject()} Scope is {@code ScopeScope}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDTableAttributeObject#setScope(String)}
-   */
-  @Test
-  @DisplayName(
-      "Test setScope(String); when 'ScopeScope'; then PDTableAttributeObject() Scope is 'ScopeScope'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDTableAttributeObject.setScope(String)"})
-  void testSetScope_whenScopeScope_thenPDTableAttributeObjectScopeIsScopeScope() {
+  void testSetScope_whenScopeTable_thenPDTableAttributeObjectScopeIsScopeTable() {
     // Arrange
     PDTableAttributeObject pdTableAttributeObject = new PDTableAttributeObject();
 
     // Act
-    pdTableAttributeObject.setScope("ScopeScope");
+    pdTableAttributeObject.setScope("ScopeTable");
 
     // Assert
-    assertEquals("ScopeScope", pdTableAttributeObject.getScope());
+    assertEquals("ScopeTable", pdTableAttributeObject.getScope());
     COSDictionary cOSObject = pdTableAttributeObject.getCOSObject();
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
     assertFalse(pdTableAttributeObject.isEmpty());
-  }
-
-  /**
-   * Test {@link PDTableAttributeObject#getSummary()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDTableAttributeObject#PDTableAttributeObject(COSDictionary)} with
-   *       dictionary is {@link COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDTableAttributeObject#getSummary()}
-   */
-  @Test
-  @DisplayName(
-      "Test getSummary(); given PDTableAttributeObject(COSDictionary) with dictionary is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String PDTableAttributeObject.getSummary()"})
-  void testGetSummary_givenPDTableAttributeObjectWithDictionaryIsCOSDictionary() {
-    // Arrange, Act and Assert
-    assertNull(new PDTableAttributeObject(new COSDictionary()).getSummary());
   }
 
   /**
@@ -675,31 +373,6 @@ class PDTableAttributeObjectDiffblueTest {
   void testGetSummary_givenPDTableAttributeObject_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull(new PDTableAttributeObject().getSummary());
-  }
-
-  /**
-   * Test {@link PDTableAttributeObject#setSummary(String)}.
-   *
-   * <p>Method under test: {@link PDTableAttributeObject#setSummary(String)}
-   */
-  @Test
-  @DisplayName("Test setSummary(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDTableAttributeObject.setSummary(String)"})
-  void testSetSummary() {
-    // Arrange
-    PDTableAttributeObject pdTableAttributeObject = new PDTableAttributeObject(new COSDictionary());
-
-    // Act
-    pdTableAttributeObject.setSummary("Summary");
-
-    // Assert
-    assertEquals("Summary", pdTableAttributeObject.getSummary());
-    COSDictionary cOSObject = pdTableAttributeObject.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-    assertFalse(pdTableAttributeObject.isEmpty());
   }
 
   /**

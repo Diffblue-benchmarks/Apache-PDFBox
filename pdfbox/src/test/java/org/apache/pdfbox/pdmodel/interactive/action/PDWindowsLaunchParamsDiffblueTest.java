@@ -241,31 +241,6 @@ class PDWindowsLaunchParamsDiffblueTest {
    * Test {@link PDWindowsLaunchParams#getDirectory()}.
    *
    * <ul>
-   *   <li>Given {@link PDWindowsLaunchParams#PDWindowsLaunchParams()} Filename is {@code File}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDWindowsLaunchParams#getDirectory()}
-   */
-  @Test
-  @DisplayName(
-      "Test getDirectory(); given PDWindowsLaunchParams() Filename is 'File'; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String PDWindowsLaunchParams.getDirectory()"})
-  void testGetDirectory_givenPDWindowsLaunchParamsFilenameIsFile_thenReturnNull() {
-    // Arrange
-    PDWindowsLaunchParams pdWindowsLaunchParams = new PDWindowsLaunchParams();
-    pdWindowsLaunchParams.setFilename("File");
-
-    // Act and Assert
-    assertNull(pdWindowsLaunchParams.getDirectory());
-  }
-
-  /**
-   * Test {@link PDWindowsLaunchParams#getDirectory()}.
-   *
-   * <ul>
    *   <li>Given {@link PDWindowsLaunchParams#PDWindowsLaunchParams()}.
    *   <li>Then return {@code null}.
    * </ul>
@@ -366,30 +341,6 @@ class PDWindowsLaunchParamsDiffblueTest {
    * Test {@link PDWindowsLaunchParams#getOperation()}.
    *
    * <ul>
-   *   <li>Given {@link PDWindowsLaunchParams#PDWindowsLaunchParams()} Filename is {@link
-   *       PDWindowsLaunchParams#OPERATION_OPEN}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDWindowsLaunchParams#getOperation()}
-   */
-  @Test
-  @DisplayName("Test getOperation(); given PDWindowsLaunchParams() Filename is OPERATION_OPEN")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String PDWindowsLaunchParams.getOperation()"})
-  void testGetOperation_givenPDWindowsLaunchParamsFilenameIsOperation_open() {
-    // Arrange
-    PDWindowsLaunchParams pdWindowsLaunchParams = new PDWindowsLaunchParams();
-    pdWindowsLaunchParams.setFilename(PDWindowsLaunchParams.OPERATION_OPEN);
-
-    // Act and Assert
-    assertEquals(PDWindowsLaunchParams.OPERATION_OPEN, pdWindowsLaunchParams.getOperation());
-  }
-
-  /**
-   * Test {@link PDWindowsLaunchParams#getOperation()}.
-   *
-   * <ul>
    *   <li>Given {@link PDWindowsLaunchParams#PDWindowsLaunchParams()}.
    *   <li>Then return {@link PDWindowsLaunchParams#OPERATION_OPEN}.
    * </ul>
@@ -461,31 +412,6 @@ class PDWindowsLaunchParamsDiffblueTest {
     COSDictionary cOSObject = pdWindowsLaunchParams.getCOSObject();
     assertEquals(0, cOSObject.size());
     assertTrue(cOSObject.getValues().isEmpty());
-  }
-
-  /**
-   * Test {@link PDWindowsLaunchParams#getExecuteParam()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDWindowsLaunchParams#PDWindowsLaunchParams()} Filename is {@code File}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDWindowsLaunchParams#getExecuteParam()}
-   */
-  @Test
-  @DisplayName(
-      "Test getExecuteParam(); given PDWindowsLaunchParams() Filename is 'File'; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String PDWindowsLaunchParams.getExecuteParam()"})
-  void testGetExecuteParam_givenPDWindowsLaunchParamsFilenameIsFile_thenReturnNull() {
-    // Arrange
-    PDWindowsLaunchParams pdWindowsLaunchParams = new PDWindowsLaunchParams();
-    pdWindowsLaunchParams.setFilename("File");
-
-    // Act and Assert
-    assertNull(pdWindowsLaunchParams.getExecuteParam());
   }
 
   /**

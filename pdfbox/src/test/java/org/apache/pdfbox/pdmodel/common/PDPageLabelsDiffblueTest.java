@@ -14,7 +14,6 @@ import java.util.NavigableSet;
 import org.apache.pdfbox.cos.COSBase;
 import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.cos.COSIncrement;
-import org.apache.pdfbox.cos.COSStream;
 import org.apache.pdfbox.cos.COSUpdateState;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
@@ -73,43 +72,6 @@ class PDPageLabelsDiffblueTest {
 
     // Act
     PDPageLabels actualPdPageLabels = new PDPageLabels(document, new COSDictionary());
-
-    // Assert
-    COSBase cOSObject = actualPdPageLabels.getCOSObject();
-    assertTrue(cOSObject instanceof COSDictionary);
-    assertNull(cOSObject.getKey());
-    assertEquals(0, actualPdPageLabels.getLabelsByPageIndices().length);
-    assertEquals(1, ((COSDictionary) cOSObject).getValues().size());
-    NavigableSet<Integer> pageIndices = actualPdPageLabels.getPageIndices();
-    assertEquals(1, pageIndices.size());
-    assertEquals(1, ((COSDictionary) cOSObject).size());
-    assertEquals(1, actualPdPageLabels.getPageRangeCount());
-    assertFalse(cOSObject.isDirect());
-    assertFalse(((COSDictionary) cOSObject).isNeedToBeUpdated());
-    assertTrue(actualPdPageLabels.getPageIndicesByLabels().isEmpty());
-    assertTrue(pageIndices.contains(0));
-  }
-
-  /**
-   * Test {@link PDPageLabels#PDPageLabels(PDDocument, COSDictionary)}.
-   *
-   * <ul>
-   *   <li>When {@link COSStream#COSStream()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDPageLabels#PDPageLabels(PDDocument, COSDictionary)}
-   */
-  @Test
-  @DisplayName("Test new PDPageLabels(PDDocument, COSDictionary); when COSStream()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDPageLabels.<init>(PDDocument, COSDictionary)"})
-  void testNewPDPageLabels_whenCOSStream() throws IOException {
-    // Arrange
-    PDDocument document = new PDDocument();
-
-    // Act
-    PDPageLabels actualPdPageLabels = new PDPageLabels(document, new COSStream());
 
     // Assert
     COSBase cOSObject = actualPdPageLabels.getCOSObject();

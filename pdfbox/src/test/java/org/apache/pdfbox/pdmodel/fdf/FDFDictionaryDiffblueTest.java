@@ -610,32 +610,6 @@ class FDFDictionaryDiffblueTest {
    * Test {@link FDFDictionary#getID()}.
    *
    * <ul>
-   *   <li>Given {@link FDFDictionary#FDFDictionary()} File is {@link
-   *       PDComplexFileSpecification#PDComplexFileSpecification()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#getID()}
-   */
-  @Test
-  @DisplayName(
-      "Test getID(); given FDFDictionary() File is PDComplexFileSpecification(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"COSArray FDFDictionary.getID()"})
-  void testGetID_givenFDFDictionaryFileIsPDComplexFileSpecification_thenReturnNull() {
-    // Arrange
-    FDFDictionary fdfDictionary = new FDFDictionary();
-    fdfDictionary.setFile(new PDComplexFileSpecification());
-
-    // Act and Assert
-    assertNull(fdfDictionary.getID());
-  }
-
-  /**
-   * Test {@link FDFDictionary#getID()}.
-   *
-   * <ul>
    *   <li>Given {@link FDFDictionary#FDFDictionary()} ID is {@link COSArray#COSArray()}.
    *   <li>Then return toList Empty.
    * </ul>
@@ -886,32 +860,6 @@ class FDFDictionaryDiffblueTest {
    * Test {@link FDFDictionary#getFields()}.
    *
    * <ul>
-   *   <li>Given {@link FDFDictionary#FDFDictionary()} File is {@link
-   *       PDComplexFileSpecification#PDComplexFileSpecification()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#getFields()}
-   */
-  @Test
-  @DisplayName(
-      "Test getFields(); given FDFDictionary() File is PDComplexFileSpecification(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"List FDFDictionary.getFields()"})
-  void testGetFields_givenFDFDictionaryFileIsPDComplexFileSpecification_thenReturnNull() {
-    // Arrange
-    FDFDictionary fdfDictionary = new FDFDictionary();
-    fdfDictionary.setFile(new PDComplexFileSpecification());
-
-    // Act and Assert
-    assertNull(fdfDictionary.getFields());
-  }
-
-  /**
-   * Test {@link FDFDictionary#getFields()}.
-   *
-   * <ul>
    *   <li>Given {@link FDFDictionary#FDFDictionary()}.
    *   <li>Then return {@code null}.
    * </ul>
@@ -1097,32 +1045,6 @@ class FDFDictionaryDiffblueTest {
    * Test {@link FDFDictionary#getStatus()}.
    *
    * <ul>
-   *   <li>Given {@link FDFDictionary#FDFDictionary()} File is {@link
-   *       PDComplexFileSpecification#PDComplexFileSpecification()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#getStatus()}
-   */
-  @Test
-  @DisplayName(
-      "Test getStatus(); given FDFDictionary() File is PDComplexFileSpecification(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String FDFDictionary.getStatus()"})
-  void testGetStatus_givenFDFDictionaryFileIsPDComplexFileSpecification_thenReturnNull() {
-    // Arrange
-    FDFDictionary fdfDictionary = new FDFDictionary();
-    fdfDictionary.setFile(new PDComplexFileSpecification());
-
-    // Act and Assert
-    assertNull(fdfDictionary.getStatus());
-  }
-
-  /**
-   * Test {@link FDFDictionary#getStatus()}.
-   *
-   * <ul>
    *   <li>Given {@link FDFDictionary#FDFDictionary()} Status is empty string.
    *   <li>Then return empty string.
    * </ul>
@@ -1292,32 +1214,6 @@ class FDFDictionaryDiffblueTest {
     assertFalse(updateState.isUpdated());
     assertTrue(cOSObject.getValues().isEmpty());
     assertTrue(toIncrementResult.getObjects().isEmpty());
-  }
-
-  /**
-   * Test {@link FDFDictionary#getPages()}.
-   *
-   * <ul>
-   *   <li>Given {@link FDFDictionary#FDFDictionary()} File is {@link
-   *       PDComplexFileSpecification#PDComplexFileSpecification()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#getPages()}
-   */
-  @Test
-  @DisplayName(
-      "Test getPages(); given FDFDictionary() File is PDComplexFileSpecification(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"List FDFDictionary.getPages()"})
-  void testGetPages_givenFDFDictionaryFileIsPDComplexFileSpecification_thenReturnNull() {
-    // Arrange
-    FDFDictionary fdfDictionary = new FDFDictionary();
-    fdfDictionary.setFile(new PDComplexFileSpecification());
-
-    // Act and Assert
-    assertNull(fdfDictionary.getPages());
   }
 
   /**
@@ -1526,30 +1422,6 @@ class FDFDictionaryDiffblueTest {
    * Test {@link FDFDictionary#getEncoding()}.
    *
    * <ul>
-   *   <li>Given {@link FDFDictionary#FDFDictionary()} File is {@link
-   *       PDComplexFileSpecification#PDComplexFileSpecification()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#getEncoding()}
-   */
-  @Test
-  @DisplayName("Test getEncoding(); given FDFDictionary() File is PDComplexFileSpecification()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String FDFDictionary.getEncoding()"})
-  void testGetEncoding_givenFDFDictionaryFileIsPDComplexFileSpecification() {
-    // Arrange
-    FDFDictionary fdfDictionary = new FDFDictionary();
-    fdfDictionary.setFile(new PDComplexFileSpecification());
-
-    // Act and Assert
-    assertEquals("PDFDocEncoding", fdfDictionary.getEncoding());
-  }
-
-  /**
-   * Test {@link FDFDictionary#getEncoding()}.
-   *
-   * <ul>
    *   <li>Given {@link FDFDictionary#FDFDictionary()}.
    *   <li>Then return {@code PDFDocEncoding}.
    * </ul>
@@ -1564,6 +1436,37 @@ class FDFDictionaryDiffblueTest {
   void testGetEncoding_givenFDFDictionary_thenReturnPDFDocEncoding() {
     // Arrange, Act and Assert
     assertEquals("PDFDocEncoding", new FDFDictionary().getEncoding());
+  }
+
+  /**
+   * Test {@link FDFDictionary#setEncoding(String)}.
+   *
+   * <ul>
+   *   <li>Given {@link FDFDictionary#FDFDictionary()}.
+   *   <li>When {@code annots}.
+   *   <li>Then {@link FDFDictionary#FDFDictionary()} Encoding is {@code annots}.
+   * </ul>
+   *
+   * <p>Method under test: {@link FDFDictionary#setEncoding(String)}
+   */
+  @Test
+  @DisplayName(
+      "Test setEncoding(String); given FDFDictionary(); when 'annots'; then FDFDictionary() Encoding is 'annots'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFDictionary.setEncoding(String)"})
+  void testSetEncoding_givenFDFDictionary_whenAnnots_thenFDFDictionaryEncodingIsAnnots() {
+    // Arrange
+    FDFDictionary fdfDictionary = new FDFDictionary();
+
+    // Act
+    fdfDictionary.setEncoding("annots");
+
+    // Assert
+    assertEquals("annots", fdfDictionary.getEncoding());
+    COSDictionary cOSObject = fdfDictionary.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
   }
 
   /**
@@ -1586,36 +1489,6 @@ class FDFDictionaryDiffblueTest {
   void testSetEncoding_givenFDFDictionary_whenUtf8_thenFDFDictionaryEncodingIsUtf8() {
     // Arrange
     FDFDictionary fdfDictionary = new FDFDictionary();
-
-    // Act
-    fdfDictionary.setEncoding("UTF-8");
-
-    // Assert
-    assertEquals("UTF-8", fdfDictionary.getEncoding());
-    COSDictionary cOSObject = fdfDictionary.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-  }
-
-  /**
-   * Test {@link FDFDictionary#setEncoding(String)}.
-   *
-   * <ul>
-   *   <li>Then {@link FDFDictionary#FDFDictionary(COSDictionary)} with fdfDictionary is {@link
-   *       COSDictionary#COSDictionary()} Encoding is {@code UTF-8}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#setEncoding(String)}
-   */
-  @Test
-  @DisplayName(
-      "Test setEncoding(String); then FDFDictionary(COSDictionary) with fdfDictionary is COSDictionary() Encoding is 'UTF-8'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void FDFDictionary.setEncoding(String)"})
-  void testSetEncoding_thenFDFDictionaryWithFdfDictionaryIsCOSDictionaryEncodingIsUtf8() {
-    // Arrange
-    FDFDictionary fdfDictionary = new FDFDictionary(new COSDictionary());
 
     // Act
     fdfDictionary.setEncoding("UTF-8");
@@ -1772,30 +1645,6 @@ class FDFDictionaryDiffblueTest {
 
     // Act and Assert
     assertTrue(fdfDictionary.getAnnotations().isEmpty());
-  }
-
-  /**
-   * Test {@link FDFDictionary#getAnnotations()}.
-   *
-   * <ul>
-   *   <li>Given {@link FDFDictionary#FDFDictionary()} File is {@link
-   *       PDComplexFileSpecification#PDComplexFileSpecification()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#getAnnotations()}
-   */
-  @Test
-  @DisplayName("Test getAnnotations(); given FDFDictionary() File is PDComplexFileSpecification()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"List FDFDictionary.getAnnotations()"})
-  void testGetAnnotations_givenFDFDictionaryFileIsPDComplexFileSpecification() throws IOException {
-    // Arrange
-    FDFDictionary fdfDictionary = new FDFDictionary();
-    fdfDictionary.setFile(new PDComplexFileSpecification());
-
-    // Act and Assert
-    assertNull(fdfDictionary.getAnnotations());
   }
 
   /**
@@ -2363,30 +2212,6 @@ class FDFDictionaryDiffblueTest {
    * Test {@link FDFDictionary#getDifferences()}.
    *
    * <ul>
-   *   <li>Given {@link FDFDictionary#FDFDictionary()} File is {@link
-   *       PDComplexFileSpecification#PDComplexFileSpecification()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#getDifferences()}
-   */
-  @Test
-  @DisplayName("Test getDifferences(); given FDFDictionary() File is PDComplexFileSpecification()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"COSStream FDFDictionary.getDifferences()"})
-  void testGetDifferences_givenFDFDictionaryFileIsPDComplexFileSpecification() {
-    // Arrange
-    FDFDictionary fdfDictionary = new FDFDictionary();
-    fdfDictionary.setFile(new PDComplexFileSpecification());
-
-    // Act and Assert
-    assertNull(fdfDictionary.getDifferences());
-  }
-
-  /**
-   * Test {@link FDFDictionary#getDifferences()}.
-   *
-   * <ul>
    *   <li>Given {@link FDFDictionary#FDFDictionary()}.
    *   <li>Then return {@code null}.
    * </ul>
@@ -2550,32 +2375,6 @@ class FDFDictionaryDiffblueTest {
     COSDictionary cOSObject = fdfDictionary.getCOSObject();
     assertEquals(0, cOSObject.size());
     assertTrue(cOSObject.getValues().isEmpty());
-  }
-
-  /**
-   * Test {@link FDFDictionary#getTarget()}.
-   *
-   * <ul>
-   *   <li>Given {@link FDFDictionary#FDFDictionary()} File is {@link
-   *       PDComplexFileSpecification#PDComplexFileSpecification()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#getTarget()}
-   */
-  @Test
-  @DisplayName(
-      "Test getTarget(); given FDFDictionary() File is PDComplexFileSpecification(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String FDFDictionary.getTarget()"})
-  void testGetTarget_givenFDFDictionaryFileIsPDComplexFileSpecification_thenReturnNull() {
-    // Arrange
-    FDFDictionary fdfDictionary = new FDFDictionary();
-    fdfDictionary.setFile(new PDComplexFileSpecification());
-
-    // Act and Assert
-    assertNull(fdfDictionary.getTarget());
   }
 
   /**
@@ -2764,30 +2563,6 @@ class FDFDictionaryDiffblueTest {
 
     // Act and Assert
     assertTrue(fdfDictionary.getEmbeddedFDFs().isEmpty());
-  }
-
-  /**
-   * Test {@link FDFDictionary#getEmbeddedFDFs()}.
-   *
-   * <ul>
-   *   <li>Given {@link FDFDictionary#FDFDictionary()} File is {@link
-   *       PDComplexFileSpecification#PDComplexFileSpecification()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#getEmbeddedFDFs()}
-   */
-  @Test
-  @DisplayName("Test getEmbeddedFDFs(); given FDFDictionary() File is PDComplexFileSpecification()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"List FDFDictionary.getEmbeddedFDFs()"})
-  void testGetEmbeddedFDFs_givenFDFDictionaryFileIsPDComplexFileSpecification() throws IOException {
-    // Arrange
-    FDFDictionary fdfDictionary = new FDFDictionary();
-    fdfDictionary.setFile(new PDComplexFileSpecification());
-
-    // Act and Assert
-    assertNull(fdfDictionary.getEmbeddedFDFs());
   }
 
   /**
@@ -3083,30 +2858,6 @@ class FDFDictionaryDiffblueTest {
     assertEquals(1, cOSObject.getValues().size());
     assertEquals(1, cOSObject.size());
     assertTrue(fdfDictionary.getEmbeddedFDFs().isEmpty());
-  }
-
-  /**
-   * Test {@link FDFDictionary#getJavaScript()}.
-   *
-   * <ul>
-   *   <li>Given {@link FDFDictionary#FDFDictionary()} File is {@link
-   *       PDComplexFileSpecification#PDComplexFileSpecification()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFDictionary#getJavaScript()}
-   */
-  @Test
-  @DisplayName("Test getJavaScript(); given FDFDictionary() File is PDComplexFileSpecification()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"FDFJavaScript FDFDictionary.getJavaScript()"})
-  void testGetJavaScript_givenFDFDictionaryFileIsPDComplexFileSpecification() {
-    // Arrange
-    FDFDictionary fdfDictionary = new FDFDictionary();
-    fdfDictionary.setFile(new PDComplexFileSpecification());
-
-    // Act and Assert
-    assertNull(fdfDictionary.getJavaScript());
   }
 
   /**

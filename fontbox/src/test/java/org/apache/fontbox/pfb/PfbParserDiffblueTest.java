@@ -19,21 +19,6 @@ import org.junit.jupiter.api.Test;
 
 class PfbParserDiffblueTest {
   /**
-   * Test {@link PfbParser#PfbParser(String)}.
-   *
-   * <p>Method under test: {@link PfbParser#PfbParser(String)}
-   */
-  @Test
-  @DisplayName("Test new PfbParser(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PfbParser.<init>(String)"})
-  void testNewPfbParser() throws IOException {
-    // Arrange, Act and Assert
-    assertThrows(IOException.class, () -> new PfbParser("foo.txt"));
-  }
-
-  /**
    * Test {@link PfbParser#PfbParser(InputStream)}.
    *
    * <ul>

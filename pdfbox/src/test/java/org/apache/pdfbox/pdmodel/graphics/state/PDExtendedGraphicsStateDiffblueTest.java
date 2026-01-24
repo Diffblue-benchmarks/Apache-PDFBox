@@ -21,6 +21,7 @@ import org.apache.pdfbox.cos.COSBoolean;
 import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.cos.COSFloat;
 import org.apache.pdfbox.cos.COSIncrement;
+import org.apache.pdfbox.cos.COSInteger;
 import org.apache.pdfbox.cos.COSObject;
 import org.apache.pdfbox.cos.COSObjectKey;
 import org.apache.pdfbox.cos.COSUpdateState;
@@ -734,27 +735,6 @@ class PDExtendedGraphicsStateDiffblueTest {
    * Test {@link PDExtendedGraphicsState#getLineWidth()}.
    *
    * <ul>
-   *   <li>Given {@link PDExtendedGraphicsState#PDExtendedGraphicsState(COSDictionary)} with
-   *       dictionary is {@link COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#getLineWidth()}
-   */
-  @Test
-  @DisplayName(
-      "Test getLineWidth(); given PDExtendedGraphicsState(COSDictionary) with dictionary is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Float PDExtendedGraphicsState.getLineWidth()"})
-  void testGetLineWidth_givenPDExtendedGraphicsStateWithDictionaryIsCOSDictionary() {
-    // Arrange, Act and Assert
-    assertNull(new PDExtendedGraphicsState(new COSDictionary()).getLineWidth());
-  }
-
-  /**
-   * Test {@link PDExtendedGraphicsState#getLineWidth()}.
-   *
-   * <ul>
    *   <li>Given {@link PDExtendedGraphicsState#PDExtendedGraphicsState()}.
    *   <li>Then return {@code null}.
    * </ul>
@@ -852,27 +832,6 @@ class PDExtendedGraphicsStateDiffblueTest {
 
     // Act and Assert
     assertEquals(-1, pdExtendedGraphicsState.getLineCapStyle());
-  }
-
-  /**
-   * Test {@link PDExtendedGraphicsState#getLineCapStyle()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDExtendedGraphicsState#PDExtendedGraphicsState(COSDictionary)} with
-   *       dictionary is {@link COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#getLineCapStyle()}
-   */
-  @Test
-  @DisplayName(
-      "Test getLineCapStyle(); given PDExtendedGraphicsState(COSDictionary) with dictionary is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"int PDExtendedGraphicsState.getLineCapStyle()"})
-  void testGetLineCapStyle_givenPDExtendedGraphicsStateWithDictionaryIsCOSDictionary() {
-    // Arrange, Act and Assert
-    assertEquals(-1, new PDExtendedGraphicsState(new COSDictionary()).getLineCapStyle());
   }
 
   /**
@@ -1014,27 +973,6 @@ class PDExtendedGraphicsStateDiffblueTest {
    * Test {@link PDExtendedGraphicsState#getLineJoinStyle()}.
    *
    * <ul>
-   *   <li>Given {@link PDExtendedGraphicsState#PDExtendedGraphicsState(COSDictionary)} with
-   *       dictionary is {@link COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#getLineJoinStyle()}
-   */
-  @Test
-  @DisplayName(
-      "Test getLineJoinStyle(); given PDExtendedGraphicsState(COSDictionary) with dictionary is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"int PDExtendedGraphicsState.getLineJoinStyle()"})
-  void testGetLineJoinStyle_givenPDExtendedGraphicsStateWithDictionaryIsCOSDictionary() {
-    // Arrange, Act and Assert
-    assertEquals(-1, new PDExtendedGraphicsState(new COSDictionary()).getLineJoinStyle());
-  }
-
-  /**
-   * Test {@link PDExtendedGraphicsState#getLineJoinStyle()}.
-   *
-   * <ul>
    *   <li>Given {@link PDExtendedGraphicsState#PDExtendedGraphicsState()}.
    *   <li>Then return minus one.
    * </ul>
@@ -1107,27 +1045,6 @@ class PDExtendedGraphicsStateDiffblueTest {
     COSDictionary cOSObject = pdExtendedGraphicsState.getCOSObject();
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
-  }
-
-  /**
-   * Test {@link PDExtendedGraphicsState#getMiterLimit()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDExtendedGraphicsState#PDExtendedGraphicsState(COSDictionary)} with
-   *       dictionary is {@link COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#getMiterLimit()}
-   */
-  @Test
-  @DisplayName(
-      "Test getMiterLimit(); given PDExtendedGraphicsState(COSDictionary) with dictionary is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Float PDExtendedGraphicsState.getMiterLimit()"})
-  void testGetMiterLimit_givenPDExtendedGraphicsStateWithDictionaryIsCOSDictionary() {
-    // Arrange, Act and Assert
-    assertNull(new PDExtendedGraphicsState(new COSDictionary()).getMiterLimit());
   }
 
   /**
@@ -1213,27 +1130,6 @@ class PDExtendedGraphicsStateDiffblueTest {
    * Test {@link PDExtendedGraphicsState#getLineDashPattern()}.
    *
    * <ul>
-   *   <li>Given {@link PDExtendedGraphicsState#PDExtendedGraphicsState(COSDictionary)} with
-   *       dictionary is {@link COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#getLineDashPattern()}
-   */
-  @Test
-  @DisplayName(
-      "Test getLineDashPattern(); given PDExtendedGraphicsState(COSDictionary) with dictionary is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDLineDashPattern PDExtendedGraphicsState.getLineDashPattern()"})
-  void testGetLineDashPattern_givenPDExtendedGraphicsStateWithDictionaryIsCOSDictionary() {
-    // Arrange, Act and Assert
-    assertNull(new PDExtendedGraphicsState(new COSDictionary()).getLineDashPattern());
-  }
-
-  /**
-   * Test {@link PDExtendedGraphicsState#getLineDashPattern()}.
-   *
-   * <ul>
    *   <li>Given {@link PDExtendedGraphicsState#PDExtendedGraphicsState()}.
    *   <li>Then return {@code null}.
    * </ul>
@@ -1281,27 +1177,6 @@ class PDExtendedGraphicsStateDiffblueTest {
     assertEquals(2, cOSObject2.size());
     assertTrue(((COSArray) getResult).toList().isEmpty());
     assertArrayEquals(new float[] {}, lineDashPattern.getDashArray(), 0.0f);
-  }
-
-  /**
-   * Test {@link PDExtendedGraphicsState#getRenderingIntent()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDExtendedGraphicsState#PDExtendedGraphicsState(COSDictionary)} with
-   *       dictionary is {@link COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#getRenderingIntent()}
-   */
-  @Test
-  @DisplayName(
-      "Test getRenderingIntent(); given PDExtendedGraphicsState(COSDictionary) with dictionary is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"RenderingIntent PDExtendedGraphicsState.getRenderingIntent()"})
-  void testGetRenderingIntent_givenPDExtendedGraphicsStateWithDictionaryIsCOSDictionary() {
-    // Arrange, Act and Assert
-    assertNull(new PDExtendedGraphicsState(new COSDictionary()).getRenderingIntent());
   }
 
   /**
@@ -1433,18 +1308,32 @@ class PDExtendedGraphicsStateDiffblueTest {
   }
 
   /**
-   * Test {@link PDExtendedGraphicsState#getStrokingOverprintControl()}.
+   * Test {@link PDExtendedGraphicsState#setRenderingIntent(String)}.
    *
-   * <p>Method under test: {@link PDExtendedGraphicsState#getStrokingOverprintControl()}
+   * <ul>
+   *   <li>When {@code RIRI}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDExtendedGraphicsState#setRenderingIntent(String)}
    */
   @Test
-  @DisplayName("Test getStrokingOverprintControl()")
+  @DisplayName("Test setRenderingIntent(String); when 'RIRI'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
-  @MethodsUnderTest({"boolean PDExtendedGraphicsState.getStrokingOverprintControl()"})
-  void testGetStrokingOverprintControl() {
-    // Arrange, Act and Assert
-    assertFalse(new PDExtendedGraphicsState(new COSDictionary()).getStrokingOverprintControl());
+  @MethodsUnderTest({"void PDExtendedGraphicsState.setRenderingIntent(String)"})
+  void testSetRenderingIntent_whenRiri() {
+    // Arrange
+    PDExtendedGraphicsState pdExtendedGraphicsState = new PDExtendedGraphicsState();
+
+    // Act
+    pdExtendedGraphicsState.setRenderingIntent("RIRI");
+
+    // Assert
+    COSDictionary cOSObject = pdExtendedGraphicsState.getCOSObject();
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    assertEquals(
+        RenderingIntent.RELATIVE_COLORIMETRIC, pdExtendedGraphicsState.getRenderingIntent());
   }
 
   /**
@@ -1457,7 +1346,7 @@ class PDExtendedGraphicsStateDiffblueTest {
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"boolean PDExtendedGraphicsState.getStrokingOverprintControl()"})
-  void testGetStrokingOverprintControl2() {
+  void testGetStrokingOverprintControl() {
     // Arrange
     PDExtendedGraphicsState pdExtendedGraphicsState = new PDExtendedGraphicsState();
     pdExtendedGraphicsState.setStrokingOverprintControl(false);
@@ -1571,21 +1460,6 @@ class PDExtendedGraphicsStateDiffblueTest {
   @ManagedByDiffblue
   @MethodsUnderTest({"boolean PDExtendedGraphicsState.getNonStrokingOverprintControl()"})
   void testGetNonStrokingOverprintControl() {
-    // Arrange, Act and Assert
-    assertFalse(new PDExtendedGraphicsState(new COSDictionary()).getNonStrokingOverprintControl());
-  }
-
-  /**
-   * Test {@link PDExtendedGraphicsState#getNonStrokingOverprintControl()}.
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#getNonStrokingOverprintControl()}
-   */
-  @Test
-  @DisplayName("Test getNonStrokingOverprintControl()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean PDExtendedGraphicsState.getNonStrokingOverprintControl()"})
-  void testGetNonStrokingOverprintControl2() {
     // Arrange
     PDExtendedGraphicsState pdExtendedGraphicsState = new PDExtendedGraphicsState();
     pdExtendedGraphicsState.setStrokingOverprintControl(false);
@@ -1684,27 +1558,6 @@ class PDExtendedGraphicsStateDiffblueTest {
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
     assertFalse(pdExtendedGraphicsState.getNonStrokingOverprintControl());
-  }
-
-  /**
-   * Test {@link PDExtendedGraphicsState#getOverprintMode()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDExtendedGraphicsState#PDExtendedGraphicsState(COSDictionary)} with
-   *       dictionary is {@link COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#getOverprintMode()}
-   */
-  @Test
-  @DisplayName(
-      "Test getOverprintMode(); given PDExtendedGraphicsState(COSDictionary) with dictionary is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Integer PDExtendedGraphicsState.getOverprintMode()"})
-  void testGetOverprintMode_givenPDExtendedGraphicsStateWithDictionaryIsCOSDictionary() {
-    // Arrange, Act and Assert
-    assertNull(new PDExtendedGraphicsState(new COSDictionary()).getOverprintMode());
   }
 
   /**
@@ -1843,27 +1696,6 @@ class PDExtendedGraphicsStateDiffblueTest {
    * Test {@link PDExtendedGraphicsState#getFontSetting()}.
    *
    * <ul>
-   *   <li>Given {@link PDExtendedGraphicsState#PDExtendedGraphicsState(COSDictionary)} with
-   *       dictionary is {@link COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#getFontSetting()}
-   */
-  @Test
-  @DisplayName(
-      "Test getFontSetting(); given PDExtendedGraphicsState(COSDictionary) with dictionary is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDFontSetting PDExtendedGraphicsState.getFontSetting()"})
-  void testGetFontSetting_givenPDExtendedGraphicsStateWithDictionaryIsCOSDictionary() {
-    // Arrange, Act and Assert
-    assertNull(new PDExtendedGraphicsState(new COSDictionary()).getFontSetting());
-  }
-
-  /**
-   * Test {@link PDExtendedGraphicsState#getFontSetting()}.
-   *
-   * <ul>
    *   <li>Given {@link PDExtendedGraphicsState#PDExtendedGraphicsState()}.
    *   <li>Then return {@code null}.
    * </ul>
@@ -1981,21 +1813,6 @@ class PDExtendedGraphicsStateDiffblueTest {
   /**
    * Test {@link PDExtendedGraphicsState#getFlatnessTolerance()}.
    *
-   * <p>Method under test: {@link PDExtendedGraphicsState#getFlatnessTolerance()}
-   */
-  @Test
-  @DisplayName("Test getFlatnessTolerance()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Float PDExtendedGraphicsState.getFlatnessTolerance()"})
-  void testGetFlatnessTolerance() {
-    // Arrange, Act and Assert
-    assertNull(new PDExtendedGraphicsState(new COSDictionary()).getFlatnessTolerance());
-  }
-
-  /**
-   * Test {@link PDExtendedGraphicsState#getFlatnessTolerance()}.
-   *
    * <ul>
    *   <li>Given {@link PDExtendedGraphicsState#PDExtendedGraphicsState()}.
    *   <li>Then return {@code null}.
@@ -2064,21 +1881,6 @@ class PDExtendedGraphicsStateDiffblueTest {
     COSDictionary cOSObject = pdExtendedGraphicsState.getCOSObject();
     assertEquals(1, cOSObject.getValues().size());
     assertEquals(1, cOSObject.size());
-  }
-
-  /**
-   * Test {@link PDExtendedGraphicsState#getSmoothnessTolerance()}.
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#getSmoothnessTolerance()}
-   */
-  @Test
-  @DisplayName("Test getSmoothnessTolerance()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Float PDExtendedGraphicsState.getSmoothnessTolerance()"})
-  void testGetSmoothnessTolerance() {
-    // Arrange, Act and Assert
-    assertNull(new PDExtendedGraphicsState(new COSDictionary()).getSmoothnessTolerance());
   }
 
   /**
@@ -2165,21 +1967,6 @@ class PDExtendedGraphicsStateDiffblueTest {
   @ManagedByDiffblue
   @MethodsUnderTest({"boolean PDExtendedGraphicsState.getAutomaticStrokeAdjustment()"})
   void testGetAutomaticStrokeAdjustment() {
-    // Arrange, Act and Assert
-    assertFalse(new PDExtendedGraphicsState(new COSDictionary()).getAutomaticStrokeAdjustment());
-  }
-
-  /**
-   * Test {@link PDExtendedGraphicsState#getAutomaticStrokeAdjustment()}.
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#getAutomaticStrokeAdjustment()}
-   */
-  @Test
-  @DisplayName("Test getAutomaticStrokeAdjustment()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean PDExtendedGraphicsState.getAutomaticStrokeAdjustment()"})
-  void testGetAutomaticStrokeAdjustment2() {
     // Arrange
     PDExtendedGraphicsState pdExtendedGraphicsState = new PDExtendedGraphicsState();
     pdExtendedGraphicsState.setAutomaticStrokeAdjustment(false);
@@ -2283,21 +2070,6 @@ class PDExtendedGraphicsStateDiffblueTest {
   /**
    * Test {@link PDExtendedGraphicsState#getStrokingAlphaConstant()}.
    *
-   * <p>Method under test: {@link PDExtendedGraphicsState#getStrokingAlphaConstant()}
-   */
-  @Test
-  @DisplayName("Test getStrokingAlphaConstant()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Float PDExtendedGraphicsState.getStrokingAlphaConstant()"})
-  void testGetStrokingAlphaConstant() {
-    // Arrange, Act and Assert
-    assertNull(new PDExtendedGraphicsState(new COSDictionary()).getStrokingAlphaConstant());
-  }
-
-  /**
-   * Test {@link PDExtendedGraphicsState#getStrokingAlphaConstant()}.
-   *
    * <ul>
    *   <li>Given {@link PDExtendedGraphicsState#PDExtendedGraphicsState()}.
    *   <li>Then return {@code null}.
@@ -2367,21 +2139,6 @@ class PDExtendedGraphicsStateDiffblueTest {
     COSDictionary cOSObject = pdExtendedGraphicsState.getCOSObject();
     assertEquals(1, cOSObject.getValues().size());
     assertEquals(1, cOSObject.size());
-  }
-
-  /**
-   * Test {@link PDExtendedGraphicsState#getNonStrokingAlphaConstant()}.
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#getNonStrokingAlphaConstant()}
-   */
-  @Test
-  @DisplayName("Test getNonStrokingAlphaConstant()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Float PDExtendedGraphicsState.getNonStrokingAlphaConstant()"})
-  void testGetNonStrokingAlphaConstant() {
-    // Arrange, Act and Assert
-    assertNull(new PDExtendedGraphicsState(new COSDictionary()).getNonStrokingAlphaConstant());
   }
 
   /**
@@ -2475,27 +2232,6 @@ class PDExtendedGraphicsStateDiffblueTest {
 
     // Act and Assert
     assertFalse(pdExtendedGraphicsState.getAlphaSourceFlag());
-  }
-
-  /**
-   * Test {@link PDExtendedGraphicsState#getAlphaSourceFlag()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDExtendedGraphicsState#PDExtendedGraphicsState(COSDictionary)} with
-   *       dictionary is {@link COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#getAlphaSourceFlag()}
-   */
-  @Test
-  @DisplayName(
-      "Test getAlphaSourceFlag(); given PDExtendedGraphicsState(COSDictionary) with dictionary is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean PDExtendedGraphicsState.getAlphaSourceFlag()"})
-  void testGetAlphaSourceFlag_givenPDExtendedGraphicsStateWithDictionaryIsCOSDictionary() {
-    // Arrange, Act and Assert
-    assertFalse(new PDExtendedGraphicsState(new COSDictionary()).getAlphaSourceFlag());
   }
 
   /**
@@ -2629,27 +2365,6 @@ class PDExtendedGraphicsStateDiffblueTest {
    * Test {@link PDExtendedGraphicsState#getBlendMode()}.
    *
    * <ul>
-   *   <li>Given {@link PDExtendedGraphicsState#PDExtendedGraphicsState(COSDictionary)} with
-   *       dictionary is {@link COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#getBlendMode()}
-   */
-  @Test
-  @DisplayName(
-      "Test getBlendMode(); given PDExtendedGraphicsState(COSDictionary) with dictionary is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"BlendMode PDExtendedGraphicsState.getBlendMode()"})
-  void testGetBlendMode_givenPDExtendedGraphicsStateWithDictionaryIsCOSDictionary() {
-    // Arrange, Act and Assert
-    assertSame(BlendMode.NORMAL, new PDExtendedGraphicsState(new COSDictionary()).getBlendMode());
-  }
-
-  /**
-   * Test {@link PDExtendedGraphicsState#getBlendMode()}.
-   *
-   * <ul>
    *   <li>Given {@link PDExtendedGraphicsState#PDExtendedGraphicsState()}.
    *   <li>Then return {@link BlendMode#NORMAL}.
    * </ul>
@@ -2700,29 +2415,6 @@ class PDExtendedGraphicsStateDiffblueTest {
    * Test {@link PDExtendedGraphicsState#getSoftMask()}.
    *
    * <ul>
-   *   <li>Given {@link PDExtendedGraphicsState#PDExtendedGraphicsState(COSDictionary)} with
-   *       dictionary is {@link COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#getSoftMask()}
-   */
-  @Test
-  @DisplayName(
-      "Test getSoftMask(); given PDExtendedGraphicsState(COSDictionary) with dictionary is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "org.apache.pdfbox.pdmodel.graphics.state.PDSoftMask PDExtendedGraphicsState.getSoftMask()"
-  })
-  void testGetSoftMask_givenPDExtendedGraphicsStateWithDictionaryIsCOSDictionary() {
-    // Arrange, Act and Assert
-    assertNull(new PDExtendedGraphicsState(new COSDictionary()).getSoftMask());
-  }
-
-  /**
-   * Test {@link PDExtendedGraphicsState#getSoftMask()}.
-   *
-   * <ul>
    *   <li>Given {@link PDExtendedGraphicsState#PDExtendedGraphicsState()}.
    *   <li>Then return {@code null}.
    * </ul>
@@ -2739,21 +2431,6 @@ class PDExtendedGraphicsStateDiffblueTest {
   void testGetSoftMask_givenPDExtendedGraphicsState_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull(new PDExtendedGraphicsState().getSoftMask());
-  }
-
-  /**
-   * Test {@link PDExtendedGraphicsState#getTextKnockoutFlag()}.
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#getTextKnockoutFlag()}
-   */
-  @Test
-  @DisplayName("Test getTextKnockoutFlag()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean PDExtendedGraphicsState.getTextKnockoutFlag()"})
-  void testGetTextKnockoutFlag() {
-    // Arrange, Act and Assert
-    assertTrue(new PDExtendedGraphicsState(new COSDictionary()).getTextKnockoutFlag());
   }
 
   /**
@@ -2886,6 +2563,35 @@ class PDExtendedGraphicsStateDiffblueTest {
    * Test {@link PDExtendedGraphicsState#getTransfer()}.
    *
    * <ul>
+   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.
+   *   <li>Then return {@link COSBoolean#FALSE}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDExtendedGraphicsState#getTransfer()}
+   */
+  @Test
+  @DisplayName(
+      "Test getTransfer(); given COSObjectKey(long, int) with num is one and gen is one; then return FALSE")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"COSBase PDExtendedGraphicsState.getTransfer()"})
+  void testGetTransfer_givenCOSObjectKeyWithNumIsOneAndGenIsOne_thenReturnFalse() {
+    // Arrange
+    PDExtendedGraphicsState pdExtendedGraphicsState = new PDExtendedGraphicsState();
+    COSObject transfer = new COSObject(COSBoolean.FALSE, new COSObjectKey(1L, 1));
+    pdExtendedGraphicsState.setTransfer(transfer);
+
+    // Act
+    COSBase actualTransfer = pdExtendedGraphicsState.getTransfer();
+
+    // Assert
+    assertSame(((COSBoolean) actualTransfer).FALSE, actualTransfer);
+  }
+
+  /**
+   * Test {@link PDExtendedGraphicsState#getTransfer()}.
+   *
+   * <ul>
    *   <li>Given {@link PDExtendedGraphicsState#PDExtendedGraphicsState()} Transfer is {@link
    *       COSArray#COSArray()}.
    *   <li>Then return {@code null}.
@@ -2906,27 +2612,6 @@ class PDExtendedGraphicsStateDiffblueTest {
 
     // Act and Assert
     assertNull(pdExtendedGraphicsState.getTransfer());
-  }
-
-  /**
-   * Test {@link PDExtendedGraphicsState#getTransfer()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDExtendedGraphicsState#PDExtendedGraphicsState(COSDictionary)} with
-   *       dictionary is {@link COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#getTransfer()}
-   */
-  @Test
-  @DisplayName(
-      "Test getTransfer(); given PDExtendedGraphicsState(COSDictionary) with dictionary is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"COSBase PDExtendedGraphicsState.getTransfer()"})
-  void testGetTransfer_givenPDExtendedGraphicsStateWithDictionaryIsCOSDictionary() {
-    // Arrange, Act and Assert
-    assertNull(new PDExtendedGraphicsState(new COSDictionary()).getTransfer());
   }
 
   /**
@@ -3134,6 +2819,35 @@ class PDExtendedGraphicsStateDiffblueTest {
    * Test {@link PDExtendedGraphicsState#getTransfer2()}.
    *
    * <ul>
+   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.
+   *   <li>Then return {@link COSBoolean#FALSE}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDExtendedGraphicsState#getTransfer2()}
+   */
+  @Test
+  @DisplayName(
+      "Test getTransfer2(); given COSObjectKey(long, int) with num is one and gen is one; then return FALSE")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"COSBase PDExtendedGraphicsState.getTransfer2()"})
+  void testGetTransfer2_givenCOSObjectKeyWithNumIsOneAndGenIsOne_thenReturnFalse() {
+    // Arrange
+    PDExtendedGraphicsState pdExtendedGraphicsState = new PDExtendedGraphicsState();
+    COSObject transfer2 = new COSObject(COSBoolean.FALSE, new COSObjectKey(1L, 1));
+    pdExtendedGraphicsState.setTransfer2(transfer2);
+
+    // Act
+    COSBase actualTransfer2 = pdExtendedGraphicsState.getTransfer2();
+
+    // Assert
+    assertSame(((COSBoolean) actualTransfer2).FALSE, actualTransfer2);
+  }
+
+  /**
+   * Test {@link PDExtendedGraphicsState#getTransfer2()}.
+   *
+   * <ul>
    *   <li>Given {@link PDExtendedGraphicsState#PDExtendedGraphicsState()} Transfer2 is {@link
    *       COSArray#COSArray()}.
    *   <li>Then return {@code null}.
@@ -3154,27 +2868,6 @@ class PDExtendedGraphicsStateDiffblueTest {
 
     // Act and Assert
     assertNull(pdExtendedGraphicsState.getTransfer2());
-  }
-
-  /**
-   * Test {@link PDExtendedGraphicsState#getTransfer2()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDExtendedGraphicsState#PDExtendedGraphicsState(COSDictionary)} with
-   *       dictionary is {@link COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDExtendedGraphicsState#getTransfer2()}
-   */
-  @Test
-  @DisplayName(
-      "Test getTransfer2(); given PDExtendedGraphicsState(COSDictionary) with dictionary is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"COSBase PDExtendedGraphicsState.getTransfer2()"})
-  void testGetTransfer2_givenPDExtendedGraphicsStateWithDictionaryIsCOSDictionary() {
-    // Arrange, Act and Assert
-    assertNull(new PDExtendedGraphicsState(new COSDictionary()).getTransfer2());
   }
 
   /**

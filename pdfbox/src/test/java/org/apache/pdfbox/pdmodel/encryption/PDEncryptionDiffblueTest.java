@@ -23,7 +23,6 @@ import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.cos.COSIncrement;
 import org.apache.pdfbox.cos.COSName;
 import org.apache.pdfbox.cos.COSObjectKey;
-import org.apache.pdfbox.cos.COSStream;
 import org.apache.pdfbox.cos.COSString;
 import org.apache.pdfbox.cos.COSUpdateState;
 import org.junit.jupiter.api.DisplayName;
@@ -80,7 +79,8 @@ class PDEncryptionDiffblueTest {
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void PDEncryption.<init>(COSDictionary)"})
-  void testNewPDEncryption_thenReturnCOSObjectIsCOSDictionaryWithDictIsCOSDictionary() {
+  void testNewPDEncryption_thenReturnCOSObjectIsCOSDictionaryWithDictIsCOSDictionary()
+      throws IOException {
     // Arrange
     COSDictionary dictionary = new COSDictionary(new COSDictionary());
 
@@ -88,6 +88,20 @@ class PDEncryptionDiffblueTest {
     PDEncryption actualPdEncryption = new PDEncryption(dictionary);
 
     // Assert
+    assertNull(actualPdEncryption.getOwnerEncryptionKey());
+    assertNull(actualPdEncryption.getOwnerKey());
+    assertNull(actualPdEncryption.getPerms());
+    assertNull(actualPdEncryption.getUserEncryptionKey());
+    assertNull(actualPdEncryption.getUserKey());
+    assertNull(actualPdEncryption.getFilter());
+    assertNull(actualPdEncryption.getSubFilter());
+    assertNull(actualPdEncryption.getDefaultCryptFilterDictionary());
+    assertNull(actualPdEncryption.getStdCryptFilterDictionary());
+    assertEquals(0, actualPdEncryption.getPermissions());
+    assertEquals(0, actualPdEncryption.getRevision());
+    assertEquals(0, actualPdEncryption.getVersion());
+    assertTrue(actualPdEncryption.hasSecurityHandler());
+    assertTrue(actualPdEncryption.isEncryptMetaData());
     assertEquals(PDEncryption.DEFAULT_LENGTH, actualPdEncryption.getLength());
     assertSame(dictionary, actualPdEncryption.getCOSObject());
   }
@@ -108,7 +122,8 @@ class PDEncryptionDiffblueTest {
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void PDEncryption.<init>(COSDictionary)"})
-  void testNewPDEncryption_whenCOSDictionary_thenReturnCOSObjectIsCOSDictionary() {
+  void testNewPDEncryption_whenCOSDictionary_thenReturnCOSObjectIsCOSDictionary()
+      throws IOException {
     // Arrange
     COSDictionary dictionary = new COSDictionary();
 
@@ -116,34 +131,21 @@ class PDEncryptionDiffblueTest {
     PDEncryption actualPdEncryption = new PDEncryption(dictionary);
 
     // Assert
+    assertNull(actualPdEncryption.getOwnerEncryptionKey());
+    assertNull(actualPdEncryption.getOwnerKey());
+    assertNull(actualPdEncryption.getPerms());
+    assertNull(actualPdEncryption.getUserEncryptionKey());
+    assertNull(actualPdEncryption.getUserKey());
+    assertNull(actualPdEncryption.getFilter());
+    assertNull(actualPdEncryption.getSubFilter());
+    assertNull(actualPdEncryption.getDefaultCryptFilterDictionary());
+    assertNull(actualPdEncryption.getStdCryptFilterDictionary());
+    assertEquals(0, actualPdEncryption.getPermissions());
+    assertEquals(0, actualPdEncryption.getRevision());
+    assertEquals(0, actualPdEncryption.getVersion());
+    assertTrue(actualPdEncryption.hasSecurityHandler());
+    assertTrue(actualPdEncryption.isEncryptMetaData());
     assertEquals(PDEncryption.DEFAULT_LENGTH, actualPdEncryption.getLength());
-    assertSame(dictionary, actualPdEncryption.getCOSObject());
-  }
-
-  /**
-   * Test {@link PDEncryption#PDEncryption(COSDictionary)}.
-   *
-   * <ul>
-   *   <li>When {@link COSStream#COSStream()}.
-   *   <li>Then return Length is zero.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDEncryption#PDEncryption(COSDictionary)}
-   */
-  @Test
-  @DisplayName("Test new PDEncryption(COSDictionary); when COSStream(); then return Length is zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDEncryption.<init>(COSDictionary)"})
-  void testNewPDEncryption_whenCOSStream_thenReturnLengthIsZero() {
-    // Arrange
-    COSStream dictionary = new COSStream();
-
-    // Act
-    PDEncryption actualPdEncryption = new PDEncryption(dictionary);
-
-    // Assert
-    assertEquals(0, actualPdEncryption.getLength());
     assertSame(dictionary, actualPdEncryption.getCOSObject());
   }
 
@@ -291,27 +293,26 @@ class PDEncryptionDiffblueTest {
    * Test {@link PDEncryption#setFilter(String)}.
    *
    * <ul>
-   *   <li>When {@code FilterFilter}.
-   *   <li>Then {@link PDEncryption#PDEncryption()} Filter is {@code FilterFilter}.
+   *   <li>When {@code 42}.
+   *   <li>Then {@link PDEncryption#PDEncryption()} Filter is {@code 42}.
    * </ul>
    *
    * <p>Method under test: {@link PDEncryption#setFilter(String)}
    */
   @Test
-  @DisplayName(
-      "Test setFilter(String); when 'FilterFilter'; then PDEncryption() Filter is 'FilterFilter'")
+  @DisplayName("Test setFilter(String); when '42'; then PDEncryption() Filter is '42'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void PDEncryption.setFilter(String)"})
-  void testSetFilter_whenFilterFilter_thenPDEncryptionFilterIsFilterFilter() {
+  void testSetFilter_when42_thenPDEncryptionFilterIs42() {
     // Arrange
     PDEncryption pdEncryption = new PDEncryption();
 
     // Act
-    pdEncryption.setFilter("FilterFilter");
+    pdEncryption.setFilter("42");
 
     // Assert
-    assertEquals("FilterFilter", pdEncryption.getFilter());
+    assertEquals("42", pdEncryption.getFilter());
     COSDictionary cOSObject = pdEncryption.getCOSObject();
     assertEquals(1, cOSObject.getValues().size());
     assertEquals(1, cOSObject.size());
@@ -394,30 +395,6 @@ class PDEncryptionDiffblueTest {
    * Test {@link PDEncryption#getSubFilter()}.
    *
    * <ul>
-   *   <li>Given {@link PDEncryption#PDEncryption()} Filter is {@code Filter}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDEncryption#getSubFilter()}
-   */
-  @Test
-  @DisplayName("Test getSubFilter(); given PDEncryption() Filter is 'Filter'; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String PDEncryption.getSubFilter()"})
-  void testGetSubFilter_givenPDEncryptionFilterIsFilter_thenReturnNull() {
-    // Arrange
-    PDEncryption pdEncryption = new PDEncryption();
-    pdEncryption.setFilter("Filter");
-
-    // Act and Assert
-    assertNull(pdEncryption.getSubFilter());
-  }
-
-  /**
-   * Test {@link PDEncryption#getSubFilter()}.
-   *
-   * <ul>
    *   <li>Given {@link PDEncryption#PDEncryption()} SubFilter is {@code Subfilter}.
    *   <li>Then return {@code Subfilter}.
    * </ul>
@@ -463,25 +440,26 @@ class PDEncryptionDiffblueTest {
    * Test {@link PDEncryption#setSubFilter(String)}.
    *
    * <ul>
-   *   <li>Then {@link PDEncryption#PDEncryption()} SubFilter is {@code SubfilterSubfilter}.
+   *   <li>When {@code 42}.
+   *   <li>Then {@link PDEncryption#PDEncryption()} SubFilter is {@code 42}.
    * </ul>
    *
    * <p>Method under test: {@link PDEncryption#setSubFilter(String)}
    */
   @Test
-  @DisplayName("Test setSubFilter(String); then PDEncryption() SubFilter is 'SubfilterSubfilter'")
+  @DisplayName("Test setSubFilter(String); when '42'; then PDEncryption() SubFilter is '42'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void PDEncryption.setSubFilter(String)"})
-  void testSetSubFilter_thenPDEncryptionSubFilterIsSubfilterSubfilter() {
+  void testSetSubFilter_when42_thenPDEncryptionSubFilterIs42() {
     // Arrange
     PDEncryption pdEncryption = new PDEncryption();
 
     // Act
-    pdEncryption.setSubFilter("SubfilterSubfilter");
+    pdEncryption.setSubFilter("42");
 
     // Assert
-    assertEquals("SubfilterSubfilter", pdEncryption.getSubFilter());
+    assertEquals("42", pdEncryption.getSubFilter());
     COSDictionary cOSObject = pdEncryption.getCOSObject();
     assertEquals(1, cOSObject.getValues().size());
     assertEquals(1, cOSObject.size());
@@ -607,30 +585,6 @@ class PDEncryptionDiffblueTest {
    * Test {@link PDEncryption#getVersion()}.
    *
    * <ul>
-   *   <li>Given {@link PDEncryption#PDEncryption()} Filter is {@code Filter}.
-   *   <li>Then return zero.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDEncryption#getVersion()}
-   */
-  @Test
-  @DisplayName("Test getVersion(); given PDEncryption() Filter is 'Filter'; then return zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"int PDEncryption.getVersion()"})
-  void testGetVersion_givenPDEncryptionFilterIsFilter_thenReturnZero() {
-    // Arrange
-    PDEncryption pdEncryption = new PDEncryption();
-    pdEncryption.setFilter("Filter");
-
-    // Act and Assert
-    assertEquals(0, pdEncryption.getVersion());
-  }
-
-  /**
-   * Test {@link PDEncryption#getVersion()}.
-   *
-   * <ul>
    *   <li>Given {@link PDEncryption#PDEncryption()} Version is one.
    *   <li>Then return one.
    * </ul>
@@ -727,31 +681,6 @@ class PDEncryptionDiffblueTest {
     assertEquals(1, cOSObject.getValues().size());
     assertEquals(1, cOSObject.size());
     assertEquals(3, pdEncryption.getLength());
-  }
-
-  /**
-   * Test {@link PDEncryption#getLength()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDEncryption#PDEncryption()} Filter is {@code Filter}.
-   *   <li>Then return {@link PDEncryption#DEFAULT_LENGTH}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDEncryption#getLength()}
-   */
-  @Test
-  @DisplayName(
-      "Test getLength(); given PDEncryption() Filter is 'Filter'; then return DEFAULT_LENGTH")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"int PDEncryption.getLength()"})
-  void testGetLength_givenPDEncryptionFilterIsFilter_thenReturnDefault_length() {
-    // Arrange
-    PDEncryption pdEncryption = new PDEncryption();
-    pdEncryption.setFilter("Filter");
-
-    // Act and Assert
-    assertEquals(PDEncryption.DEFAULT_LENGTH, pdEncryption.getLength());
   }
 
   /**
@@ -860,30 +789,6 @@ class PDEncryptionDiffblueTest {
    * Test {@link PDEncryption#getRevision()}.
    *
    * <ul>
-   *   <li>Given {@link PDEncryption#PDEncryption()} Filter is {@code Filter}.
-   *   <li>Then return zero.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDEncryption#getRevision()}
-   */
-  @Test
-  @DisplayName("Test getRevision(); given PDEncryption() Filter is 'Filter'; then return zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"int PDEncryption.getRevision()"})
-  void testGetRevision_givenPDEncryptionFilterIsFilter_thenReturnZero() {
-    // Arrange
-    PDEncryption pdEncryption = new PDEncryption();
-    pdEncryption.setFilter("Filter");
-
-    // Act and Assert
-    assertEquals(0, pdEncryption.getRevision());
-  }
-
-  /**
-   * Test {@link PDEncryption#getRevision()}.
-   *
-   * <ul>
    *   <li>Given {@link PDEncryption#PDEncryption()} Revision is one.
    *   <li>Then return one.
    * </ul>
@@ -951,30 +856,6 @@ class PDEncryptionDiffblueTest {
           0, 0, 0, 0, 0, 0, 0
         },
         pdEncryption.getOwnerKey());
-  }
-
-  /**
-   * Test {@link PDEncryption#getOwnerKey()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDEncryption#PDEncryption()} Filter is {@code Filter}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDEncryption#getOwnerKey()}
-   */
-  @Test
-  @DisplayName("Test getOwnerKey(); given PDEncryption() Filter is 'Filter'; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"byte[] PDEncryption.getOwnerKey()"})
-  void testGetOwnerKey_givenPDEncryptionFilterIsFilter_thenReturnNull() throws IOException {
-    // Arrange
-    PDEncryption pdEncryption = new PDEncryption();
-    pdEncryption.setFilter("Filter");
-
-    // Act and Assert
-    assertNull(pdEncryption.getOwnerKey());
   }
 
   /**
@@ -1181,30 +1062,6 @@ class PDEncryptionDiffblueTest {
    * Test {@link PDEncryption#getUserKey()}.
    *
    * <ul>
-   *   <li>Given {@link PDEncryption#PDEncryption()} Filter is {@code Filter}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDEncryption#getUserKey()}
-   */
-  @Test
-  @DisplayName("Test getUserKey(); given PDEncryption() Filter is 'Filter'; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"byte[] PDEncryption.getUserKey()"})
-  void testGetUserKey_givenPDEncryptionFilterIsFilter_thenReturnNull() throws IOException {
-    // Arrange
-    PDEncryption pdEncryption = new PDEncryption();
-    pdEncryption.setFilter("Filter");
-
-    // Act and Assert
-    assertNull(pdEncryption.getUserKey());
-  }
-
-  /**
-   * Test {@link PDEncryption#getUserKey()}.
-   *
-   * <ul>
    *   <li>Given {@link PDEncryption#PDEncryption()} Revision is five.
    *   <li>Then return array of {@code byte} with {@code A} and {@code X}.
    * </ul>
@@ -1405,32 +1262,6 @@ class PDEncryptionDiffblueTest {
    * Test {@link PDEncryption#getOwnerEncryptionKey()}.
    *
    * <ul>
-   *   <li>Given {@link PDEncryption#PDEncryption()} Filter is {@code Filter}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDEncryption#getOwnerEncryptionKey()}
-   */
-  @Test
-  @DisplayName(
-      "Test getOwnerEncryptionKey(); given PDEncryption() Filter is 'Filter'; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"byte[] PDEncryption.getOwnerEncryptionKey()"})
-  void testGetOwnerEncryptionKey_givenPDEncryptionFilterIsFilter_thenReturnNull()
-      throws IOException {
-    // Arrange
-    PDEncryption pdEncryption = new PDEncryption();
-    pdEncryption.setFilter("Filter");
-
-    // Act and Assert
-    assertNull(pdEncryption.getOwnerEncryptionKey());
-  }
-
-  /**
-   * Test {@link PDEncryption#getOwnerEncryptionKey()}.
-   *
-   * <ul>
    *   <li>Given {@link PDEncryption#PDEncryption()}.
    *   <li>Then return {@code null}.
    * </ul>
@@ -1502,32 +1333,6 @@ class PDEncryptionDiffblueTest {
           0, 0, 0, 0, 0, 0, 0
         },
         pdEncryption.getUserEncryptionKey());
-  }
-
-  /**
-   * Test {@link PDEncryption#getUserEncryptionKey()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDEncryption#PDEncryption()} Filter is {@code Filter}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDEncryption#getUserEncryptionKey()}
-   */
-  @Test
-  @DisplayName(
-      "Test getUserEncryptionKey(); given PDEncryption() Filter is 'Filter'; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"byte[] PDEncryption.getUserEncryptionKey()"})
-  void testGetUserEncryptionKey_givenPDEncryptionFilterIsFilter_thenReturnNull()
-      throws IOException {
-    // Arrange
-    PDEncryption pdEncryption = new PDEncryption();
-    pdEncryption.setFilter("Filter");
-
-    // Act and Assert
-    assertNull(pdEncryption.getUserEncryptionKey());
   }
 
   /**
@@ -1641,30 +1446,6 @@ class PDEncryptionDiffblueTest {
    * Test {@link PDEncryption#getPermissions()}.
    *
    * <ul>
-   *   <li>Given {@link PDEncryption#PDEncryption()} Filter is {@code Filter}.
-   *   <li>Then return zero.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDEncryption#getPermissions()}
-   */
-  @Test
-  @DisplayName("Test getPermissions(); given PDEncryption() Filter is 'Filter'; then return zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"int PDEncryption.getPermissions()"})
-  void testGetPermissions_givenPDEncryptionFilterIsFilter_thenReturnZero() {
-    // Arrange
-    PDEncryption pdEncryption = new PDEncryption();
-    pdEncryption.setFilter("Filter");
-
-    // Act and Assert
-    assertEquals(0, pdEncryption.getPermissions());
-  }
-
-  /**
-   * Test {@link PDEncryption#getPermissions()}.
-   *
-   * <ul>
    *   <li>Given {@link PDEncryption#PDEncryption()} Permissions is one.
    *   <li>Then return one.
    * </ul>
@@ -1708,43 +1489,16 @@ class PDEncryptionDiffblueTest {
   /**
    * Test {@link PDEncryption#isEncryptMetaData()}.
    *
-   * <ul>
-   *   <li>Given {@link PDEncryption#PDEncryption()}.
-   * </ul>
-   *
    * <p>Method under test: {@link PDEncryption#isEncryptMetaData()}
    */
   @Test
-  @DisplayName("Test isEncryptMetaData(); given PDEncryption()")
+  @DisplayName("Test isEncryptMetaData()")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"boolean PDEncryption.isEncryptMetaData()"})
-  void testIsEncryptMetaData_givenPDEncryption() {
+  void testIsEncryptMetaData() {
     // Arrange, Act and Assert
     assertTrue(new PDEncryption().isEncryptMetaData());
-  }
-
-  /**
-   * Test {@link PDEncryption#isEncryptMetaData()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDEncryption#PDEncryption()} Filter is {@code Filter}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDEncryption#isEncryptMetaData()}
-   */
-  @Test
-  @DisplayName("Test isEncryptMetaData(); given PDEncryption() Filter is 'Filter'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean PDEncryption.isEncryptMetaData()"})
-  void testIsEncryptMetaData_givenPDEncryptionFilterIsFilter() {
-    // Arrange
-    PDEncryption pdEncryption = new PDEncryption();
-    pdEncryption.setFilter("Filter");
-
-    // Act and Assert
-    assertTrue(pdEncryption.isEncryptMetaData());
   }
 
   /**
@@ -1866,29 +1620,6 @@ class PDEncryptionDiffblueTest {
   }
 
   /**
-   * Test {@link PDEncryption#getStdCryptFilterDictionary()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDEncryption#PDEncryption()} Filter is {@code Filter}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDEncryption#getStdCryptFilterDictionary()}
-   */
-  @Test
-  @DisplayName("Test getStdCryptFilterDictionary(); given PDEncryption() Filter is 'Filter'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDCryptFilterDictionary PDEncryption.getStdCryptFilterDictionary()"})
-  void testGetStdCryptFilterDictionary_givenPDEncryptionFilterIsFilter() {
-    // Arrange
-    PDEncryption pdEncryption = new PDEncryption();
-    pdEncryption.setFilter("Filter");
-
-    // Act and Assert
-    assertNull(pdEncryption.getStdCryptFilterDictionary());
-  }
-
-  /**
    * Test {@link PDEncryption#getDefaultCryptFilterDictionary()}.
    *
    * <p>Method under test: {@link PDEncryption#getDefaultCryptFilterDictionary()}
@@ -1924,29 +1655,6 @@ class PDEncryptionDiffblueTest {
   void testGetDefaultCryptFilterDictionary_givenPDEncryption() {
     // Arrange, Act and Assert
     assertNull(new PDEncryption().getDefaultCryptFilterDictionary());
-  }
-
-  /**
-   * Test {@link PDEncryption#getDefaultCryptFilterDictionary()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDEncryption#PDEncryption()} Filter is {@code Filter}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDEncryption#getDefaultCryptFilterDictionary()}
-   */
-  @Test
-  @DisplayName("Test getDefaultCryptFilterDictionary(); given PDEncryption() Filter is 'Filter'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDCryptFilterDictionary PDEncryption.getDefaultCryptFilterDictionary()"})
-  void testGetDefaultCryptFilterDictionary_givenPDEncryptionFilterIsFilter() {
-    // Arrange
-    PDEncryption pdEncryption = new PDEncryption();
-    pdEncryption.setFilter("Filter");
-
-    // Act and Assert
-    assertNull(pdEncryption.getDefaultCryptFilterDictionary());
   }
 
   /**
@@ -2009,7 +1717,8 @@ class PDEncryptionDiffblueTest {
    * Test {@link PDEncryption#getCryptFilterDictionary(COSName)}.
    *
    * <ul>
-   *   <li>Given {@link PDEncryption#PDEncryption()} Filter is {@code Filter}.
+   *   <li>Given {@link PDEncryption#PDEncryption()}.
+   *   <li>When {@link COSName#A}.
    *   <li>Then return {@code null}.
    * </ul>
    *
@@ -2017,37 +1726,36 @@ class PDEncryptionDiffblueTest {
    */
   @Test
   @DisplayName(
-      "Test getCryptFilterDictionary(COSName); given PDEncryption() Filter is 'Filter'; then return 'null'")
+      "Test getCryptFilterDictionary(COSName); given PDEncryption(); when A; then return 'null'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"PDCryptFilterDictionary PDEncryption.getCryptFilterDictionary(COSName)"})
-  void testGetCryptFilterDictionary_givenPDEncryptionFilterIsFilter_thenReturnNull() {
-    // Arrange
-    PDEncryption pdEncryption = new PDEncryption();
-    pdEncryption.setFilter("Filter");
-
-    // Act and Assert
-    assertNull(pdEncryption.getCryptFilterDictionary(COSName.A));
+  void testGetCryptFilterDictionary_givenPDEncryption_whenA_thenReturnNull() {
+    // Arrange, Act and Assert
+    assertNull(new PDEncryption().getCryptFilterDictionary(COSName.A));
   }
 
   /**
    * Test {@link PDEncryption#getCryptFilterDictionary(COSName)}.
    *
    * <ul>
-   *   <li>Given {@link PDEncryption#PDEncryption()}.
-   *   <li>Then return {@code null}.
+   *   <li>When {@code null}.
    * </ul>
    *
    * <p>Method under test: {@link PDEncryption#getCryptFilterDictionary(COSName)}
    */
   @Test
-  @DisplayName("Test getCryptFilterDictionary(COSName); given PDEncryption(); then return 'null'")
+  @DisplayName("Test getCryptFilterDictionary(COSName); when 'null'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"PDCryptFilterDictionary PDEncryption.getCryptFilterDictionary(COSName)"})
-  void testGetCryptFilterDictionary_givenPDEncryption_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull(new PDEncryption().getCryptFilterDictionary(COSName.A));
+  void testGetCryptFilterDictionary_whenNull() {
+    // Arrange
+    PDEncryption pdEncryption = new PDEncryption();
+    pdEncryption.setCryptFilterDictionary(COSName.A, new PDCryptFilterDictionary());
+
+    // Act and Assert
+    assertNull(pdEncryption.getCryptFilterDictionary(null));
   }
 
   /**
@@ -2150,38 +1858,6 @@ class PDEncryptionDiffblueTest {
     COSDictionary cOSObject = pdEncryption.getCOSObject();
     assertEquals(1, cOSObject.getValues().size());
     assertEquals(1, cOSObject.size());
-  }
-
-  /**
-   * Test {@link PDEncryption#setCryptFilterDictionary(COSName, PDCryptFilterDictionary)}.
-   *
-   * <ul>
-   *   <li>Then {@link PDEncryption#PDEncryption()} COSObject Values size is two.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDEncryption#setCryptFilterDictionary(COSName,
-   * PDCryptFilterDictionary)}
-   */
-  @Test
-  @DisplayName(
-      "Test setCryptFilterDictionary(COSName, PDCryptFilterDictionary); then PDEncryption() COSObject Values size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void PDEncryption.setCryptFilterDictionary(COSName, PDCryptFilterDictionary)"
-  })
-  void testSetCryptFilterDictionary_thenPDEncryptionCOSObjectValuesSizeIsTwo() {
-    // Arrange
-    PDEncryption pdEncryption = new PDEncryption();
-    pdEncryption.setFilter("Filter");
-
-    // Act
-    pdEncryption.setCryptFilterDictionary(COSName.A, new PDCryptFilterDictionary());
-
-    // Assert
-    COSDictionary cOSObject = pdEncryption.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
   }
 
   /**
@@ -2291,6 +1967,37 @@ class PDEncryptionDiffblueTest {
   void testSetStdCryptFilterDictionary() {
     // Arrange
     PDEncryption pdEncryption = new PDEncryption();
+    PDCryptFilterDictionary cryptFilterDictionary = new PDCryptFilterDictionary();
+
+    // Act
+    pdEncryption.setStdCryptFilterDictionary(cryptFilterDictionary);
+
+    // Assert
+    PDCryptFilterDictionary stdCryptFilterDictionary = pdEncryption.getStdCryptFilterDictionary();
+    assertNull(stdCryptFilterDictionary.getCryptFilterMethod());
+    COSDictionary cOSObject = pdEncryption.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+    COSDictionary cOSObject2 = cryptFilterDictionary.getCOSObject();
+    assertTrue(cOSObject2.isDirect());
+    assertTrue(stdCryptFilterDictionary.isEncryptMetaData());
+    assertEquals(PDEncryption.DEFAULT_LENGTH, stdCryptFilterDictionary.getLength());
+    assertSame(cOSObject2, stdCryptFilterDictionary.getCOSObject());
+  }
+
+  /**
+   * Test {@link PDEncryption#setStdCryptFilterDictionary(PDCryptFilterDictionary)}.
+   *
+   * <p>Method under test: {@link PDEncryption#setStdCryptFilterDictionary(PDCryptFilterDictionary)}
+   */
+  @Test
+  @DisplayName("Test setStdCryptFilterDictionary(PDCryptFilterDictionary)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDEncryption.setStdCryptFilterDictionary(PDCryptFilterDictionary)"})
+  void testSetStdCryptFilterDictionary2() {
+    // Arrange
+    PDEncryption pdEncryption = new PDEncryption();
     pdEncryption.setCryptFilterDictionary(COSName.A, new PDCryptFilterDictionary());
     PDCryptFilterDictionary cryptFilterDictionary = new PDCryptFilterDictionary();
 
@@ -2303,79 +2010,6 @@ class PDEncryptionDiffblueTest {
     COSDictionary cOSObject = pdEncryption.getCOSObject();
     assertEquals(1, cOSObject.getValues().size());
     assertEquals(1, cOSObject.size());
-    COSDictionary cOSObject2 = cryptFilterDictionary.getCOSObject();
-    assertTrue(cOSObject2.isDirect());
-    assertTrue(stdCryptFilterDictionary.isEncryptMetaData());
-    assertEquals(PDEncryption.DEFAULT_LENGTH, stdCryptFilterDictionary.getLength());
-    assertSame(cOSObject2, stdCryptFilterDictionary.getCOSObject());
-  }
-
-  /**
-   * Test {@link PDEncryption#setStdCryptFilterDictionary(PDCryptFilterDictionary)}.
-   *
-   * <ul>
-   *   <li>Then {@link PDEncryption#PDEncryption()} COSObject Values size is one.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDEncryption#setStdCryptFilterDictionary(PDCryptFilterDictionary)}
-   */
-  @Test
-  @DisplayName(
-      "Test setStdCryptFilterDictionary(PDCryptFilterDictionary); then PDEncryption() COSObject Values size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDEncryption.setStdCryptFilterDictionary(PDCryptFilterDictionary)"})
-  void testSetStdCryptFilterDictionary_thenPDEncryptionCOSObjectValuesSizeIsOne() {
-    // Arrange
-    PDEncryption pdEncryption = new PDEncryption();
-    PDCryptFilterDictionary cryptFilterDictionary = new PDCryptFilterDictionary();
-
-    // Act
-    pdEncryption.setStdCryptFilterDictionary(cryptFilterDictionary);
-
-    // Assert
-    PDCryptFilterDictionary stdCryptFilterDictionary = pdEncryption.getStdCryptFilterDictionary();
-    assertNull(stdCryptFilterDictionary.getCryptFilterMethod());
-    COSDictionary cOSObject = pdEncryption.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-    COSDictionary cOSObject2 = cryptFilterDictionary.getCOSObject();
-    assertTrue(cOSObject2.isDirect());
-    assertTrue(stdCryptFilterDictionary.isEncryptMetaData());
-    assertEquals(PDEncryption.DEFAULT_LENGTH, stdCryptFilterDictionary.getLength());
-    assertSame(cOSObject2, stdCryptFilterDictionary.getCOSObject());
-  }
-
-  /**
-   * Test {@link PDEncryption#setStdCryptFilterDictionary(PDCryptFilterDictionary)}.
-   *
-   * <ul>
-   *   <li>Then {@link PDEncryption#PDEncryption()} COSObject Values size is two.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDEncryption#setStdCryptFilterDictionary(PDCryptFilterDictionary)}
-   */
-  @Test
-  @DisplayName(
-      "Test setStdCryptFilterDictionary(PDCryptFilterDictionary); then PDEncryption() COSObject Values size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDEncryption.setStdCryptFilterDictionary(PDCryptFilterDictionary)"})
-  void testSetStdCryptFilterDictionary_thenPDEncryptionCOSObjectValuesSizeIsTwo() {
-    // Arrange
-    PDEncryption pdEncryption = new PDEncryption();
-    pdEncryption.setFilter("Filter");
-    PDCryptFilterDictionary cryptFilterDictionary = new PDCryptFilterDictionary();
-
-    // Act
-    pdEncryption.setStdCryptFilterDictionary(cryptFilterDictionary);
-
-    // Assert
-    PDCryptFilterDictionary stdCryptFilterDictionary = pdEncryption.getStdCryptFilterDictionary();
-    assertNull(stdCryptFilterDictionary.getCryptFilterMethod());
-    COSDictionary cOSObject = pdEncryption.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
     COSDictionary cOSObject2 = cryptFilterDictionary.getCOSObject();
     assertTrue(cOSObject2.isDirect());
     assertTrue(stdCryptFilterDictionary.isEncryptMetaData());
@@ -2397,6 +2031,39 @@ class PDEncryptionDiffblueTest {
   void testSetDefaultCryptFilterDictionary() {
     // Arrange
     PDEncryption pdEncryption = new PDEncryption();
+    PDCryptFilterDictionary defaultFilterDictionary = new PDCryptFilterDictionary();
+
+    // Act
+    pdEncryption.setDefaultCryptFilterDictionary(defaultFilterDictionary);
+
+    // Assert
+    PDCryptFilterDictionary defaultCryptFilterDictionary =
+        pdEncryption.getDefaultCryptFilterDictionary();
+    assertNull(defaultCryptFilterDictionary.getCryptFilterMethod());
+    COSDictionary cOSObject = pdEncryption.getCOSObject();
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+    COSDictionary cOSObject2 = defaultFilterDictionary.getCOSObject();
+    assertTrue(cOSObject2.isDirect());
+    assertTrue(defaultCryptFilterDictionary.isEncryptMetaData());
+    assertEquals(PDEncryption.DEFAULT_LENGTH, defaultCryptFilterDictionary.getLength());
+    assertSame(cOSObject2, defaultCryptFilterDictionary.getCOSObject());
+  }
+
+  /**
+   * Test {@link PDEncryption#setDefaultCryptFilterDictionary(PDCryptFilterDictionary)}.
+   *
+   * <p>Method under test: {@link
+   * PDEncryption#setDefaultCryptFilterDictionary(PDCryptFilterDictionary)}
+   */
+  @Test
+  @DisplayName("Test setDefaultCryptFilterDictionary(PDCryptFilterDictionary)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDEncryption.setDefaultCryptFilterDictionary(PDCryptFilterDictionary)"})
+  void testSetDefaultCryptFilterDictionary2() {
+    // Arrange
+    PDEncryption pdEncryption = new PDEncryption();
     pdEncryption.setCryptFilterDictionary(COSName.A, new PDCryptFilterDictionary());
     PDCryptFilterDictionary defaultFilterDictionary = new PDCryptFilterDictionary();
 
@@ -2415,110 +2082,6 @@ class PDEncryptionDiffblueTest {
     assertTrue(defaultCryptFilterDictionary.isEncryptMetaData());
     assertEquals(PDEncryption.DEFAULT_LENGTH, defaultCryptFilterDictionary.getLength());
     assertSame(cOSObject2, defaultCryptFilterDictionary.getCOSObject());
-  }
-
-  /**
-   * Test {@link PDEncryption#setDefaultCryptFilterDictionary(PDCryptFilterDictionary)}.
-   *
-   * <ul>
-   *   <li>Then {@link PDEncryption#PDEncryption()} COSObject Values size is one.
-   * </ul>
-   *
-   * <p>Method under test: {@link
-   * PDEncryption#setDefaultCryptFilterDictionary(PDCryptFilterDictionary)}
-   */
-  @Test
-  @DisplayName(
-      "Test setDefaultCryptFilterDictionary(PDCryptFilterDictionary); then PDEncryption() COSObject Values size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDEncryption.setDefaultCryptFilterDictionary(PDCryptFilterDictionary)"})
-  void testSetDefaultCryptFilterDictionary_thenPDEncryptionCOSObjectValuesSizeIsOne() {
-    // Arrange
-    PDEncryption pdEncryption = new PDEncryption();
-    PDCryptFilterDictionary defaultFilterDictionary = new PDCryptFilterDictionary();
-
-    // Act
-    pdEncryption.setDefaultCryptFilterDictionary(defaultFilterDictionary);
-
-    // Assert
-    PDCryptFilterDictionary defaultCryptFilterDictionary =
-        pdEncryption.getDefaultCryptFilterDictionary();
-    assertNull(defaultCryptFilterDictionary.getCryptFilterMethod());
-    COSDictionary cOSObject = pdEncryption.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-    COSDictionary cOSObject2 = defaultFilterDictionary.getCOSObject();
-    assertTrue(cOSObject2.isDirect());
-    assertTrue(defaultCryptFilterDictionary.isEncryptMetaData());
-    assertEquals(PDEncryption.DEFAULT_LENGTH, defaultCryptFilterDictionary.getLength());
-    assertSame(cOSObject2, defaultCryptFilterDictionary.getCOSObject());
-  }
-
-  /**
-   * Test {@link PDEncryption#setDefaultCryptFilterDictionary(PDCryptFilterDictionary)}.
-   *
-   * <ul>
-   *   <li>Then {@link PDEncryption#PDEncryption()} COSObject Values size is two.
-   * </ul>
-   *
-   * <p>Method under test: {@link
-   * PDEncryption#setDefaultCryptFilterDictionary(PDCryptFilterDictionary)}
-   */
-  @Test
-  @DisplayName(
-      "Test setDefaultCryptFilterDictionary(PDCryptFilterDictionary); then PDEncryption() COSObject Values size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDEncryption.setDefaultCryptFilterDictionary(PDCryptFilterDictionary)"})
-  void testSetDefaultCryptFilterDictionary_thenPDEncryptionCOSObjectValuesSizeIsTwo() {
-    // Arrange
-    PDEncryption pdEncryption = new PDEncryption();
-    pdEncryption.setFilter("Filter");
-    PDCryptFilterDictionary defaultFilterDictionary = new PDCryptFilterDictionary();
-
-    // Act
-    pdEncryption.setDefaultCryptFilterDictionary(defaultFilterDictionary);
-
-    // Assert
-    PDCryptFilterDictionary defaultCryptFilterDictionary =
-        pdEncryption.getDefaultCryptFilterDictionary();
-    assertNull(defaultCryptFilterDictionary.getCryptFilterMethod());
-    COSDictionary cOSObject = pdEncryption.getCOSObject();
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    COSDictionary cOSObject2 = defaultFilterDictionary.getCOSObject();
-    assertTrue(cOSObject2.isDirect());
-    assertTrue(defaultCryptFilterDictionary.isEncryptMetaData());
-    assertEquals(PDEncryption.DEFAULT_LENGTH, defaultCryptFilterDictionary.getLength());
-    assertSame(cOSObject2, defaultCryptFilterDictionary.getCOSObject());
-  }
-
-  /**
-   * Test {@link PDEncryption#getStreamFilterName()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDEncryption#PDEncryption()} Filter is {@code Filter}.
-   *   <li>Then return {@link COSName#IDENTITY}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDEncryption#getStreamFilterName()}
-   */
-  @Test
-  @DisplayName(
-      "Test getStreamFilterName(); given PDEncryption() Filter is 'Filter'; then return IDENTITY")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"COSName PDEncryption.getStreamFilterName()"})
-  void testGetStreamFilterName_givenPDEncryptionFilterIsFilter_thenReturnIdentity() {
-    // Arrange
-    PDEncryption pdEncryption = new PDEncryption();
-    pdEncryption.setFilter("Filter");
-
-    // Act and Assert
-    COSName cosName = COSName.IDENTITY;
-    assertSame(cosName, pdEncryption.getStreamFilterName());
-    assertSame(cosName, pdEncryption.getStringFilterName());
   }
 
   /**
@@ -2599,36 +2162,6 @@ class PDEncryptionDiffblueTest {
     COSDictionary cOSObject = pdEncryption.getCOSObject();
     assertEquals(0, cOSObject.size());
     assertTrue(cOSObject.getValues().isEmpty());
-  }
-
-  /**
-   * Test {@link PDEncryption#getStringFilterName()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDEncryption#PDEncryption()} Filter is {@code Filter}.
-   *   <li>Then return {@link COSName#IDENTITY}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDEncryption#getStringFilterName()}
-   */
-  @Test
-  @DisplayName(
-      "Test getStringFilterName(); given PDEncryption() Filter is 'Filter'; then return IDENTITY")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"COSName PDEncryption.getStringFilterName()"})
-  void testGetStringFilterName_givenPDEncryptionFilterIsFilter_thenReturnIdentity() {
-    // Arrange
-    PDEncryption pdEncryption = new PDEncryption();
-    pdEncryption.setFilter("Filter");
-
-    // Act
-    COSName actualStringFilterName = pdEncryption.getStringFilterName();
-
-    // Assert
-    COSName cosName = COSName.IDENTITY;
-    assertSame(cosName, pdEncryption.getStreamFilterName());
-    assertSame(cosName, actualStringFilterName);
   }
 
   /**
@@ -2766,30 +2299,6 @@ class PDEncryptionDiffblueTest {
     assertEquals(1, cOSObject.getValues().size());
     assertEquals(1, cOSObject.size());
     assertArrayEquals("AXAXAXAX".getBytes("UTF-8"), pdEncryption.getPerms());
-  }
-
-  /**
-   * Test {@link PDEncryption#getPerms()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDEncryption#PDEncryption()} Filter is {@code Filter}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDEncryption#getPerms()}
-   */
-  @Test
-  @DisplayName("Test getPerms(); given PDEncryption() Filter is 'Filter'; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"byte[] PDEncryption.getPerms()"})
-  void testGetPerms_givenPDEncryptionFilterIsFilter_thenReturnNull() throws IOException {
-    // Arrange
-    PDEncryption pdEncryption = new PDEncryption();
-    pdEncryption.setFilter("Filter");
-
-    // Act and Assert
-    assertNull(pdEncryption.getPerms());
   }
 
   /**

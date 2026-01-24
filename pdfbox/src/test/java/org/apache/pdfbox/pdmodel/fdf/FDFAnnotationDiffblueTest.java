@@ -68,25 +68,6 @@ class FDFAnnotationDiffblueTest {
    * Test {@link FDFAnnotation#create(COSDictionary)}.
    *
    * <ul>
-   *   <li>When {@link COSStream#COSStream()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotation#create(COSDictionary)}
-   */
-  @Test
-  @DisplayName("Test create(COSDictionary); when COSStream()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"FDFAnnotation FDFAnnotation.create(COSDictionary)"})
-  void testCreate_whenCOSStream() {
-    // Arrange, Act and Assert
-    assertNull(FDFAnnotation.create(new COSStream()));
-  }
-
-  /**
-   * Test {@link FDFAnnotation#create(COSDictionary)}.
-   *
-   * <ul>
    *   <li>When {@code null}.
    * </ul>
    *
@@ -146,28 +127,6 @@ class FDFAnnotationDiffblueTest {
 
     // Act and Assert
     assertEquals(1, fdfAnnotationCaret.getPage().intValue());
-  }
-
-  /**
-   * Test {@link FDFAnnotation#getPage()}.
-   *
-   * <ul>
-   *   <li>Given {@link FDFAnnotationCaret#FDFAnnotationCaret(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotation#getPage()}
-   */
-  @Test
-  @DisplayName(
-      "Test getPage(); given FDFAnnotationCaret(COSDictionary) with a is COSDictionary(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Integer FDFAnnotation.getPage()"})
-  void testGetPage_givenFDFAnnotationCaretWithAIsCOSDictionary_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull(new FDFAnnotationCaret(new COSDictionary()).getPage());
   }
 
   /**
@@ -249,28 +208,6 @@ class FDFAnnotationDiffblueTest {
     COSDictionary cOSObject = fdfAnnotationCaret.getCOSObject();
     assertEquals(3, cOSObject.getValues().size());
     assertEquals(3, cOSObject.size());
-  }
-
-  /**
-   * Test {@link FDFAnnotation#getColor()}.
-   *
-   * <ul>
-   *   <li>Given {@link FDFAnnotationCaret#FDFAnnotationCaret(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotation#getColor()}
-   */
-  @Test
-  @DisplayName(
-      "Test getColor(); given FDFAnnotationCaret(COSDictionary) with a is COSDictionary(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Color FDFAnnotation.getColor()"})
-  void testGetColor_givenFDFAnnotationCaretWithAIsCOSDictionary_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull(new FDFAnnotationCaret(new COSDictionary()).getColor());
   }
 
   /**
@@ -370,28 +307,6 @@ class FDFAnnotationDiffblueTest {
 
     // Act and Assert
     assertEquals("", fdfAnnotationCaret.getDate());
-  }
-
-  /**
-   * Test {@link FDFAnnotation#getDate()}.
-   *
-   * <ul>
-   *   <li>Given {@link FDFAnnotationCaret#FDFAnnotationCaret(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotation#getDate()}
-   */
-  @Test
-  @DisplayName(
-      "Test getDate(); given FDFAnnotationCaret(COSDictionary) with a is COSDictionary(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String FDFAnnotation.getDate()"})
-  void testGetDate_givenFDFAnnotationCaretWithAIsCOSDictionary_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull(new FDFAnnotationCaret(new COSDictionary()).getDate());
   }
 
   /**
@@ -502,28 +417,6 @@ class FDFAnnotationDiffblueTest {
    * Test {@link FDFAnnotation#isInvisible()}.
    *
    * <ul>
-   *   <li>Given {@link FDFAnnotationCaret#FDFAnnotationCaret(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code false}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotation#isInvisible()}
-   */
-  @Test
-  @DisplayName(
-      "Test isInvisible(); given FDFAnnotationCaret(COSDictionary) with a is COSDictionary(); then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean FDFAnnotation.isInvisible()"})
-  void testIsInvisible_givenFDFAnnotationCaretWithAIsCOSDictionary_thenReturnFalse() {
-    // Arrange, Act and Assert
-    assertFalse(new FDFAnnotationCaret(new COSDictionary()).isInvisible());
-  }
-
-  /**
-   * Test {@link FDFAnnotation#isInvisible()}.
-   *
-   * <ul>
    *   <li>Given {@link FDFAnnotationCaret#FDFAnnotationCaret()}.
    *   <li>Then return {@code false}.
    * </ul>
@@ -538,30 +431,6 @@ class FDFAnnotationDiffblueTest {
   void testIsInvisible_givenFDFAnnotationCaret_thenReturnFalse() {
     // Arrange, Act and Assert
     assertFalse(new FDFAnnotationCaret().isInvisible());
-  }
-
-  /**
-   * Test {@link FDFAnnotation#setInvisible(boolean)}.
-   *
-   * <p>Method under test: {@link FDFAnnotation#setInvisible(boolean)}
-   */
-  @Test
-  @DisplayName("Test setInvisible(boolean)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void FDFAnnotation.setInvisible(boolean)"})
-  void testSetInvisible() {
-    // Arrange
-    FDFAnnotationCaret fdfAnnotationCaret = new FDFAnnotationCaret(new COSDictionary());
-
-    // Act
-    fdfAnnotationCaret.setInvisible(true);
-
-    // Assert
-    COSDictionary cOSObject = fdfAnnotationCaret.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-    assertTrue(fdfAnnotationCaret.isInvisible());
   }
 
   /**
@@ -734,28 +603,6 @@ class FDFAnnotationDiffblueTest {
    * Test {@link FDFAnnotation#isHidden()}.
    *
    * <ul>
-   *   <li>Given {@link FDFAnnotationCaret#FDFAnnotationCaret(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code false}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotation#isHidden()}
-   */
-  @Test
-  @DisplayName(
-      "Test isHidden(); given FDFAnnotationCaret(COSDictionary) with a is COSDictionary(); then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean FDFAnnotation.isHidden()"})
-  void testIsHidden_givenFDFAnnotationCaretWithAIsCOSDictionary_thenReturnFalse() {
-    // Arrange, Act and Assert
-    assertFalse(new FDFAnnotationCaret(new COSDictionary()).isHidden());
-  }
-
-  /**
-   * Test {@link FDFAnnotation#isHidden()}.
-   *
-   * <ul>
    *   <li>Given {@link FDFAnnotationCaret#FDFAnnotationCaret()}.
    *   <li>Then return {@code false}.
    * </ul>
@@ -805,7 +652,7 @@ class FDFAnnotationDiffblueTest {
    * Test {@link FDFAnnotation#setHidden(boolean)}.
    *
    * <ul>
-   *   <li>Given {@link FDFAnnotationCaret#FDFAnnotationCaret()} NoRotate is {@code true}.
+   *   <li>Given {@link FDFAnnotationCaret#FDFAnnotationCaret()} NoZoom is {@code true}.
    *   <li>Then {@link FDFAnnotationCaret#FDFAnnotationCaret()} Hidden.
    * </ul>
    *
@@ -813,14 +660,14 @@ class FDFAnnotationDiffblueTest {
    */
   @Test
   @DisplayName(
-      "Test setHidden(boolean); given FDFAnnotationCaret() NoRotate is 'true'; then FDFAnnotationCaret() Hidden")
+      "Test setHidden(boolean); given FDFAnnotationCaret() NoZoom is 'true'; then FDFAnnotationCaret() Hidden")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void FDFAnnotation.setHidden(boolean)"})
-  void testSetHidden_givenFDFAnnotationCaretNoRotateIsTrue_thenFDFAnnotationCaretHidden() {
+  void testSetHidden_givenFDFAnnotationCaretNoZoomIsTrue_thenFDFAnnotationCaretHidden() {
     // Arrange
     FDFAnnotationCaret fdfAnnotationCaret = new FDFAnnotationCaret();
-    fdfAnnotationCaret.setNoRotate(true);
+    fdfAnnotationCaret.setNoZoom(true);
     fdfAnnotationCaret.setInvisible(true);
 
     // Act
@@ -925,36 +772,6 @@ class FDFAnnotationDiffblueTest {
   }
 
   /**
-   * Test {@link FDFAnnotation#setHidden(boolean)}.
-   *
-   * <ul>
-   *   <li>Then {@link FDFAnnotationCaret#FDFAnnotationCaret(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()} COSObject Values size is one.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotation#setHidden(boolean)}
-   */
-  @Test
-  @DisplayName(
-      "Test setHidden(boolean); then FDFAnnotationCaret(COSDictionary) with a is COSDictionary() COSObject Values size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void FDFAnnotation.setHidden(boolean)"})
-  void testSetHidden_thenFDFAnnotationCaretWithAIsCOSDictionaryCOSObjectValuesSizeIsOne() {
-    // Arrange
-    FDFAnnotationCaret fdfAnnotationCaret = new FDFAnnotationCaret(new COSDictionary());
-
-    // Act
-    fdfAnnotationCaret.setHidden(true);
-
-    // Assert
-    COSDictionary cOSObject = fdfAnnotationCaret.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-    assertTrue(fdfAnnotationCaret.isHidden());
-  }
-
-  /**
    * Test {@link FDFAnnotation#isPrinted()}.
    *
    * <ul>
@@ -1007,28 +824,6 @@ class FDFAnnotationDiffblueTest {
    * Test {@link FDFAnnotation#isPrinted()}.
    *
    * <ul>
-   *   <li>Given {@link FDFAnnotationCaret#FDFAnnotationCaret(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code false}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotation#isPrinted()}
-   */
-  @Test
-  @DisplayName(
-      "Test isPrinted(); given FDFAnnotationCaret(COSDictionary) with a is COSDictionary(); then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean FDFAnnotation.isPrinted()"})
-  void testIsPrinted_givenFDFAnnotationCaretWithAIsCOSDictionary_thenReturnFalse() {
-    // Arrange, Act and Assert
-    assertFalse(new FDFAnnotationCaret(new COSDictionary()).isPrinted());
-  }
-
-  /**
-   * Test {@link FDFAnnotation#isPrinted()}.
-   *
-   * <ul>
    *   <li>Given {@link FDFAnnotationCaret#FDFAnnotationCaret()}.
    *   <li>Then return {@code false}.
    * </ul>
@@ -1043,30 +838,6 @@ class FDFAnnotationDiffblueTest {
   void testIsPrinted_givenFDFAnnotationCaret_thenReturnFalse() {
     // Arrange, Act and Assert
     assertFalse(new FDFAnnotationCaret().isPrinted());
-  }
-
-  /**
-   * Test {@link FDFAnnotation#setPrinted(boolean)}.
-   *
-   * <p>Method under test: {@link FDFAnnotation#setPrinted(boolean)}
-   */
-  @Test
-  @DisplayName("Test setPrinted(boolean)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void FDFAnnotation.setPrinted(boolean)"})
-  void testSetPrinted() {
-    // Arrange
-    FDFAnnotationCaret fdfAnnotationCaret = new FDFAnnotationCaret(new COSDictionary());
-
-    // Act
-    fdfAnnotationCaret.setPrinted(true);
-
-    // Assert
-    COSDictionary cOSObject = fdfAnnotationCaret.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-    assertTrue(fdfAnnotationCaret.isPrinted());
   }
 
   /**
@@ -1240,28 +1011,6 @@ class FDFAnnotationDiffblueTest {
    * Test {@link FDFAnnotation#isNoZoom()}.
    *
    * <ul>
-   *   <li>Given {@link FDFAnnotationCaret#FDFAnnotationCaret(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code false}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotation#isNoZoom()}
-   */
-  @Test
-  @DisplayName(
-      "Test isNoZoom(); given FDFAnnotationCaret(COSDictionary) with a is COSDictionary(); then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean FDFAnnotation.isNoZoom()"})
-  void testIsNoZoom_givenFDFAnnotationCaretWithAIsCOSDictionary_thenReturnFalse() {
-    // Arrange, Act and Assert
-    assertFalse(new FDFAnnotationCaret(new COSDictionary()).isNoZoom());
-  }
-
-  /**
-   * Test {@link FDFAnnotation#isNoZoom()}.
-   *
-   * <ul>
    *   <li>Given {@link FDFAnnotationCaret#FDFAnnotationCaret()}.
    *   <li>Then return {@code false}.
    * </ul>
@@ -1399,36 +1148,6 @@ class FDFAnnotationDiffblueTest {
   }
 
   /**
-   * Test {@link FDFAnnotation#setNoZoom(boolean)}.
-   *
-   * <ul>
-   *   <li>Then {@link FDFAnnotationCaret#FDFAnnotationCaret(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()} COSObject Values size is one.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotation#setNoZoom(boolean)}
-   */
-  @Test
-  @DisplayName(
-      "Test setNoZoom(boolean); then FDFAnnotationCaret(COSDictionary) with a is COSDictionary() COSObject Values size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void FDFAnnotation.setNoZoom(boolean)"})
-  void testSetNoZoom_thenFDFAnnotationCaretWithAIsCOSDictionaryCOSObjectValuesSizeIsOne() {
-    // Arrange
-    FDFAnnotationCaret fdfAnnotationCaret = new FDFAnnotationCaret(new COSDictionary());
-
-    // Act
-    fdfAnnotationCaret.setNoZoom(true);
-
-    // Assert
-    COSDictionary cOSObject = fdfAnnotationCaret.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-    assertTrue(fdfAnnotationCaret.isNoZoom());
-  }
-
-  /**
    * Test {@link FDFAnnotation#isNoRotate()}.
    *
    * <ul>
@@ -1482,28 +1201,6 @@ class FDFAnnotationDiffblueTest {
    * Test {@link FDFAnnotation#isNoRotate()}.
    *
    * <ul>
-   *   <li>Given {@link FDFAnnotationCaret#FDFAnnotationCaret(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code false}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotation#isNoRotate()}
-   */
-  @Test
-  @DisplayName(
-      "Test isNoRotate(); given FDFAnnotationCaret(COSDictionary) with a is COSDictionary(); then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean FDFAnnotation.isNoRotate()"})
-  void testIsNoRotate_givenFDFAnnotationCaretWithAIsCOSDictionary_thenReturnFalse() {
-    // Arrange, Act and Assert
-    assertFalse(new FDFAnnotationCaret(new COSDictionary()).isNoRotate());
-  }
-
-  /**
-   * Test {@link FDFAnnotation#isNoRotate()}.
-   *
-   * <ul>
    *   <li>Given {@link FDFAnnotationCaret#FDFAnnotationCaret()}.
    *   <li>Then return {@code false}.
    * </ul>
@@ -1523,30 +1220,6 @@ class FDFAnnotationDiffblueTest {
   /**
    * Test {@link FDFAnnotation#setNoRotate(boolean)}.
    *
-   * <p>Method under test: {@link FDFAnnotation#setNoRotate(boolean)}
-   */
-  @Test
-  @DisplayName("Test setNoRotate(boolean)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void FDFAnnotation.setNoRotate(boolean)"})
-  void testSetNoRotate() {
-    // Arrange
-    FDFAnnotationCaret fdfAnnotationCaret = new FDFAnnotationCaret(new COSDictionary());
-
-    // Act
-    fdfAnnotationCaret.setNoRotate(true);
-
-    // Assert
-    COSDictionary cOSObject = fdfAnnotationCaret.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-    assertTrue(fdfAnnotationCaret.isNoRotate());
-  }
-
-  /**
-   * Test {@link FDFAnnotation#setNoRotate(boolean)}.
-   *
    * <ul>
    *   <li>Given {@link FDFAnnotationCaret#FDFAnnotationCaret()} Invisible is {@code true}.
    * </ul>
@@ -1561,6 +1234,36 @@ class FDFAnnotationDiffblueTest {
   void testSetNoRotate_givenFDFAnnotationCaretInvisibleIsTrue() {
     // Arrange
     FDFAnnotationCaret fdfAnnotationCaret = new FDFAnnotationCaret();
+    fdfAnnotationCaret.setInvisible(true);
+
+    // Act
+    fdfAnnotationCaret.setNoRotate(true);
+
+    // Assert
+    COSDictionary cOSObject = fdfAnnotationCaret.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
+    assertTrue(fdfAnnotationCaret.isNoRotate());
+  }
+
+  /**
+   * Test {@link FDFAnnotation#setNoRotate(boolean)}.
+   *
+   * <ul>
+   *   <li>Given {@link FDFAnnotationCaret#FDFAnnotationCaret()} NoView is {@code true}.
+   * </ul>
+   *
+   * <p>Method under test: {@link FDFAnnotation#setNoRotate(boolean)}
+   */
+  @Test
+  @DisplayName("Test setNoRotate(boolean); given FDFAnnotationCaret() NoView is 'true'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFAnnotation.setNoRotate(boolean)"})
+  void testSetNoRotate_givenFDFAnnotationCaretNoViewIsTrue() {
+    // Arrange
+    FDFAnnotationCaret fdfAnnotationCaret = new FDFAnnotationCaret();
+    fdfAnnotationCaret.setNoView(true);
     fdfAnnotationCaret.setInvisible(true);
 
     // Act
@@ -1715,28 +1418,6 @@ class FDFAnnotationDiffblueTest {
    * Test {@link FDFAnnotation#isNoView()}.
    *
    * <ul>
-   *   <li>Given {@link FDFAnnotationCaret#FDFAnnotationCaret(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code false}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotation#isNoView()}
-   */
-  @Test
-  @DisplayName(
-      "Test isNoView(); given FDFAnnotationCaret(COSDictionary) with a is COSDictionary(); then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean FDFAnnotation.isNoView()"})
-  void testIsNoView_givenFDFAnnotationCaretWithAIsCOSDictionary_thenReturnFalse() {
-    // Arrange, Act and Assert
-    assertFalse(new FDFAnnotationCaret(new COSDictionary()).isNoView());
-  }
-
-  /**
-   * Test {@link FDFAnnotation#isNoView()}.
-   *
-   * <ul>
    *   <li>Given {@link FDFAnnotationCaret#FDFAnnotationCaret()}.
    *   <li>Then return {@code false}.
    * </ul>
@@ -1770,38 +1451,6 @@ class FDFAnnotationDiffblueTest {
   void testSetNoView_givenFDFAnnotationCaretInvisibleIsTrue() {
     // Arrange
     FDFAnnotationCaret fdfAnnotationCaret = new FDFAnnotationCaret();
-    fdfAnnotationCaret.setInvisible(true);
-
-    // Act
-    fdfAnnotationCaret.setNoView(true);
-
-    // Assert
-    COSDictionary cOSObject = fdfAnnotationCaret.getCOSObject();
-    assertEquals(3, cOSObject.getValues().size());
-    assertEquals(3, cOSObject.size());
-    assertTrue(fdfAnnotationCaret.isNoView());
-  }
-
-  /**
-   * Test {@link FDFAnnotation#setNoView(boolean)}.
-   *
-   * <ul>
-   *   <li>Given {@link FDFAnnotationCaret#FDFAnnotationCaret()} NoZoom is {@code true}.
-   *   <li>Then {@link FDFAnnotationCaret#FDFAnnotationCaret()} NoView.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotation#setNoView(boolean)}
-   */
-  @Test
-  @DisplayName(
-      "Test setNoView(boolean); given FDFAnnotationCaret() NoZoom is 'true'; then FDFAnnotationCaret() NoView")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void FDFAnnotation.setNoView(boolean)"})
-  void testSetNoView_givenFDFAnnotationCaretNoZoomIsTrue_thenFDFAnnotationCaretNoView() {
-    // Arrange
-    FDFAnnotationCaret fdfAnnotationCaret = new FDFAnnotationCaret();
-    fdfAnnotationCaret.setNoZoom(true);
     fdfAnnotationCaret.setInvisible(true);
 
     // Act
@@ -1906,36 +1555,6 @@ class FDFAnnotationDiffblueTest {
   }
 
   /**
-   * Test {@link FDFAnnotation#setNoView(boolean)}.
-   *
-   * <ul>
-   *   <li>Then {@link FDFAnnotationCaret#FDFAnnotationCaret(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()} COSObject Values size is one.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotation#setNoView(boolean)}
-   */
-  @Test
-  @DisplayName(
-      "Test setNoView(boolean); then FDFAnnotationCaret(COSDictionary) with a is COSDictionary() COSObject Values size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void FDFAnnotation.setNoView(boolean)"})
-  void testSetNoView_thenFDFAnnotationCaretWithAIsCOSDictionaryCOSObjectValuesSizeIsOne() {
-    // Arrange
-    FDFAnnotationCaret fdfAnnotationCaret = new FDFAnnotationCaret(new COSDictionary());
-
-    // Act
-    fdfAnnotationCaret.setNoView(true);
-
-    // Assert
-    COSDictionary cOSObject = fdfAnnotationCaret.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-    assertTrue(fdfAnnotationCaret.isNoView());
-  }
-
-  /**
    * Test {@link FDFAnnotation#isReadOnly()}.
    *
    * <ul>
@@ -1989,28 +1608,6 @@ class FDFAnnotationDiffblueTest {
    * Test {@link FDFAnnotation#isReadOnly()}.
    *
    * <ul>
-   *   <li>Given {@link FDFAnnotationCaret#FDFAnnotationCaret(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code false}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotation#isReadOnly()}
-   */
-  @Test
-  @DisplayName(
-      "Test isReadOnly(); given FDFAnnotationCaret(COSDictionary) with a is COSDictionary(); then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean FDFAnnotation.isReadOnly()"})
-  void testIsReadOnly_givenFDFAnnotationCaretWithAIsCOSDictionary_thenReturnFalse() {
-    // Arrange, Act and Assert
-    assertFalse(new FDFAnnotationCaret(new COSDictionary()).isReadOnly());
-  }
-
-  /**
-   * Test {@link FDFAnnotation#isReadOnly()}.
-   *
-   * <ul>
    *   <li>Given {@link FDFAnnotationCaret#FDFAnnotationCaret()}.
    *   <li>Then return {@code false}.
    * </ul>
@@ -2025,30 +1622,6 @@ class FDFAnnotationDiffblueTest {
   void testIsReadOnly_givenFDFAnnotationCaret_thenReturnFalse() {
     // Arrange, Act and Assert
     assertFalse(new FDFAnnotationCaret().isReadOnly());
-  }
-
-  /**
-   * Test {@link FDFAnnotation#setReadOnly(boolean)}.
-   *
-   * <p>Method under test: {@link FDFAnnotation#setReadOnly(boolean)}
-   */
-  @Test
-  @DisplayName("Test setReadOnly(boolean)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void FDFAnnotation.setReadOnly(boolean)"})
-  void testSetReadOnly() {
-    // Arrange
-    FDFAnnotationCaret fdfAnnotationCaret = new FDFAnnotationCaret(new COSDictionary());
-
-    // Act
-    fdfAnnotationCaret.setReadOnly(true);
-
-    // Assert
-    COSDictionary cOSObject = fdfAnnotationCaret.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-    assertTrue(fdfAnnotationCaret.isReadOnly());
   }
 
   /**
@@ -2216,28 +1789,6 @@ class FDFAnnotationDiffblueTest {
 
     // Act and Assert
     assertTrue(fdfAnnotationCaret.isLocked());
-  }
-
-  /**
-   * Test {@link FDFAnnotation#isLocked()}.
-   *
-   * <ul>
-   *   <li>Given {@link FDFAnnotationCaret#FDFAnnotationCaret(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code false}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotation#isLocked()}
-   */
-  @Test
-  @DisplayName(
-      "Test isLocked(); given FDFAnnotationCaret(COSDictionary) with a is COSDictionary(); then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean FDFAnnotation.isLocked()"})
-  void testIsLocked_givenFDFAnnotationCaretWithAIsCOSDictionary_thenReturnFalse() {
-    // Arrange, Act and Assert
-    assertFalse(new FDFAnnotationCaret(new COSDictionary()).isLocked());
   }
 
   /**
@@ -2413,36 +1964,6 @@ class FDFAnnotationDiffblueTest {
   }
 
   /**
-   * Test {@link FDFAnnotation#setLocked(boolean)}.
-   *
-   * <ul>
-   *   <li>Then {@link FDFAnnotationCaret#FDFAnnotationCaret(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()} COSObject Values size is one.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotation#setLocked(boolean)}
-   */
-  @Test
-  @DisplayName(
-      "Test setLocked(boolean); then FDFAnnotationCaret(COSDictionary) with a is COSDictionary() COSObject Values size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void FDFAnnotation.setLocked(boolean)"})
-  void testSetLocked_thenFDFAnnotationCaretWithAIsCOSDictionaryCOSObjectValuesSizeIsOne() {
-    // Arrange
-    FDFAnnotationCaret fdfAnnotationCaret = new FDFAnnotationCaret(new COSDictionary());
-
-    // Act
-    fdfAnnotationCaret.setLocked(true);
-
-    // Assert
-    COSDictionary cOSObject = fdfAnnotationCaret.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-    assertTrue(fdfAnnotationCaret.isLocked());
-  }
-
-  /**
    * Test {@link FDFAnnotation#isToggleNoView()}.
    *
    * <ul>
@@ -2496,28 +2017,6 @@ class FDFAnnotationDiffblueTest {
    * Test {@link FDFAnnotation#isToggleNoView()}.
    *
    * <ul>
-   *   <li>Given {@link FDFAnnotationCaret#FDFAnnotationCaret(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code false}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotation#isToggleNoView()}
-   */
-  @Test
-  @DisplayName(
-      "Test isToggleNoView(); given FDFAnnotationCaret(COSDictionary) with a is COSDictionary(); then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean FDFAnnotation.isToggleNoView()"})
-  void testIsToggleNoView_givenFDFAnnotationCaretWithAIsCOSDictionary_thenReturnFalse() {
-    // Arrange, Act and Assert
-    assertFalse(new FDFAnnotationCaret(new COSDictionary()).isToggleNoView());
-  }
-
-  /**
-   * Test {@link FDFAnnotation#isToggleNoView()}.
-   *
-   * <ul>
    *   <li>Given {@link FDFAnnotationCaret#FDFAnnotationCaret()}.
    *   <li>Then return {@code false}.
    * </ul>
@@ -2532,30 +2031,6 @@ class FDFAnnotationDiffblueTest {
   void testIsToggleNoView_givenFDFAnnotationCaret_thenReturnFalse() {
     // Arrange, Act and Assert
     assertFalse(new FDFAnnotationCaret().isToggleNoView());
-  }
-
-  /**
-   * Test {@link FDFAnnotation#setToggleNoView(boolean)}.
-   *
-   * <p>Method under test: {@link FDFAnnotation#setToggleNoView(boolean)}
-   */
-  @Test
-  @DisplayName("Test setToggleNoView(boolean)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void FDFAnnotation.setToggleNoView(boolean)"})
-  void testSetToggleNoView() {
-    // Arrange
-    FDFAnnotationCaret fdfAnnotationCaret = new FDFAnnotationCaret(new COSDictionary());
-
-    // Act
-    fdfAnnotationCaret.setToggleNoView(true);
-
-    // Assert
-    COSDictionary cOSObject = fdfAnnotationCaret.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-    assertTrue(fdfAnnotationCaret.isToggleNoView());
   }
 
   /**
@@ -2701,28 +2176,6 @@ class FDFAnnotationDiffblueTest {
    * Test {@link FDFAnnotation#isLockedContents()}.
    *
    * <ul>
-   *   <li>Given {@link FDFAnnotationCaret#FDFAnnotationCaret(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code false}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotation#isLockedContents()}
-   */
-  @Test
-  @DisplayName(
-      "Test isLockedContents(); given FDFAnnotationCaret(COSDictionary) with a is COSDictionary(); then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean FDFAnnotation.isLockedContents()"})
-  void testIsLockedContents_givenFDFAnnotationCaretWithAIsCOSDictionary_thenReturnFalse() {
-    // Arrange, Act and Assert
-    assertFalse(new FDFAnnotationCaret(new COSDictionary()).isLockedContents());
-  }
-
-  /**
-   * Test {@link FDFAnnotation#isLockedContents()}.
-   *
-   * <ul>
    *   <li>Given {@link FDFAnnotationCaret#FDFAnnotationCaret()}.
    *   <li>Then return {@code false}.
    * </ul>
@@ -2737,30 +2190,6 @@ class FDFAnnotationDiffblueTest {
   void testIsLockedContents_givenFDFAnnotationCaret_thenReturnFalse() {
     // Arrange, Act and Assert
     assertFalse(new FDFAnnotationCaret().isLockedContents());
-  }
-
-  /**
-   * Test {@link FDFAnnotation#setLockedContents(boolean)}.
-   *
-   * <p>Method under test: {@link FDFAnnotation#setLockedContents(boolean)}
-   */
-  @Test
-  @DisplayName("Test setLockedContents(boolean)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void FDFAnnotation.setLockedContents(boolean)"})
-  void testSetLockedContents() {
-    // Arrange
-    FDFAnnotationCaret fdfAnnotationCaret = new FDFAnnotationCaret(new COSDictionary());
-
-    // Act
-    fdfAnnotationCaret.setLockedContents(true);
-
-    // Assert
-    COSDictionary cOSObject = fdfAnnotationCaret.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-    assertTrue(fdfAnnotationCaret.isLockedContents());
   }
 
   /**
@@ -2963,28 +2392,6 @@ class FDFAnnotationDiffblueTest {
    * Test {@link FDFAnnotation#getName()}.
    *
    * <ul>
-   *   <li>Given {@link FDFAnnotationCaret#FDFAnnotationCaret(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotation#getName()}
-   */
-  @Test
-  @DisplayName(
-      "Test getName(); given FDFAnnotationCaret(COSDictionary) with a is COSDictionary(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String FDFAnnotation.getName()"})
-  void testGetName_givenFDFAnnotationCaretWithAIsCOSDictionary_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull(new FDFAnnotationCaret(new COSDictionary()).getName());
-  }
-
-  /**
-   * Test {@link FDFAnnotation#getName()}.
-   *
-   * <ul>
    *   <li>Given {@link FDFAnnotationCaret#FDFAnnotationCaret()}.
    *   <li>Then return {@code null}.
    * </ul>
@@ -3098,28 +2505,6 @@ class FDFAnnotationDiffblueTest {
     COSIncrement toIncrementResult = fdfAnnotationCaret.getCOSObject().toIncrement();
     assertFalse(toIncrementResult.iterator().hasNext());
     assertTrue(toIncrementResult.getObjects().isEmpty());
-  }
-
-  /**
-   * Test {@link FDFAnnotation#getRectangle()}.
-   *
-   * <ul>
-   *   <li>Given {@link FDFAnnotationCaret#FDFAnnotationCaret(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotation#getRectangle()}
-   */
-  @Test
-  @DisplayName(
-      "Test getRectangle(); given FDFAnnotationCaret(COSDictionary) with a is COSDictionary(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDRectangle FDFAnnotation.getRectangle()"})
-  void testGetRectangle_givenFDFAnnotationCaretWithAIsCOSDictionary_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull(new FDFAnnotationCaret(new COSDictionary()).getRectangle());
   }
 
   /**
@@ -3282,28 +2667,6 @@ class FDFAnnotationDiffblueTest {
     COSDictionary cOSObject = fdfAnnotationCaret.getCOSObject();
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
-  }
-
-  /**
-   * Test {@link FDFAnnotation#getContents()}.
-   *
-   * <ul>
-   *   <li>Given {@link FDFAnnotationCaret#FDFAnnotationCaret(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotation#getContents()}
-   */
-  @Test
-  @DisplayName(
-      "Test getContents(); given FDFAnnotationCaret(COSDictionary) with a is COSDictionary(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String FDFAnnotation.getContents()"})
-  void testGetContents_givenFDFAnnotationCaretWithAIsCOSDictionary_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull(new FDFAnnotationCaret(new COSDictionary()).getContents());
   }
 
   /**
@@ -3485,28 +2848,6 @@ class FDFAnnotationDiffblueTest {
    * Test {@link FDFAnnotation#getTitle()}.
    *
    * <ul>
-   *   <li>Given {@link FDFAnnotationCaret#FDFAnnotationCaret(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotation#getTitle()}
-   */
-  @Test
-  @DisplayName(
-      "Test getTitle(); given FDFAnnotationCaret(COSDictionary) with a is COSDictionary(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String FDFAnnotation.getTitle()"})
-  void testGetTitle_givenFDFAnnotationCaretWithAIsCOSDictionary_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull(new FDFAnnotationCaret(new COSDictionary()).getTitle());
-  }
-
-  /**
-   * Test {@link FDFAnnotation#getTitle()}.
-   *
-   * <ul>
    *   <li>Given {@link FDFAnnotationCaret#FDFAnnotationCaret()}.
    *   <li>Then return {@code null}.
    * </ul>
@@ -3521,29 +2862,6 @@ class FDFAnnotationDiffblueTest {
   void testGetTitle_givenFDFAnnotationCaret_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull(new FDFAnnotationCaret().getTitle());
-  }
-
-  /**
-   * Test {@link FDFAnnotation#getCreationDate()}.
-   *
-   * <ul>
-   *   <li>Given {@link FDFAnnotationCaret#FDFAnnotationCaret(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotation#getCreationDate()}
-   */
-  @Test
-  @DisplayName(
-      "Test getCreationDate(); given FDFAnnotationCaret(COSDictionary) with a is COSDictionary(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Calendar FDFAnnotation.getCreationDate()"})
-  void testGetCreationDate_givenFDFAnnotationCaretWithAIsCOSDictionary_thenReturnNull()
-      throws IOException {
-    // Arrange, Act and Assert
-    assertNull(new FDFAnnotationCaret(new COSDictionary()).getCreationDate());
   }
 
   /**
@@ -3754,28 +3072,6 @@ class FDFAnnotationDiffblueTest {
    * Test {@link FDFAnnotation#getOpacity()}.
    *
    * <ul>
-   *   <li>Given {@link FDFAnnotationCaret#FDFAnnotationCaret(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return one.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotation#getOpacity()}
-   */
-  @Test
-  @DisplayName(
-      "Test getOpacity(); given FDFAnnotationCaret(COSDictionary) with a is COSDictionary(); then return one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"float FDFAnnotation.getOpacity()"})
-  void testGetOpacity_givenFDFAnnotationCaretWithAIsCOSDictionary_thenReturnOne() {
-    // Arrange, Act and Assert
-    assertEquals(1.0f, new FDFAnnotationCaret(new COSDictionary()).getOpacity());
-  }
-
-  /**
-   * Test {@link FDFAnnotation#getOpacity()}.
-   *
-   * <ul>
    *   <li>Given {@link FDFAnnotationCaret#FDFAnnotationCaret()}.
    *   <li>Then return one.
    * </ul>
@@ -3880,28 +3176,6 @@ class FDFAnnotationDiffblueTest {
    * Test {@link FDFAnnotation#getSubject()}.
    *
    * <ul>
-   *   <li>Given {@link FDFAnnotationCaret#FDFAnnotationCaret(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotation#getSubject()}
-   */
-  @Test
-  @DisplayName(
-      "Test getSubject(); given FDFAnnotationCaret(COSDictionary) with a is COSDictionary(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String FDFAnnotation.getSubject()"})
-  void testGetSubject_givenFDFAnnotationCaretWithAIsCOSDictionary_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull(new FDFAnnotationCaret(new COSDictionary()).getSubject());
-  }
-
-  /**
-   * Test {@link FDFAnnotation#getSubject()}.
-   *
-   * <ul>
    *   <li>Given {@link FDFAnnotationCaret#FDFAnnotationCaret()}.
    *   <li>Then return {@code null}.
    * </ul>
@@ -3939,37 +3213,6 @@ class FDFAnnotationDiffblueTest {
 
     // Act and Assert
     assertEquals("Hello from the Dreaming Spires", fdfAnnotationCaret.getSubject());
-  }
-
-  /**
-   * Test {@link FDFAnnotation#setIntent(String)}.
-   *
-   * <ul>
-   *   <li>Given {@link FDFAnnotationCaret#FDFAnnotationCaret()}.
-   *   <li>When {@code 42}.
-   *   <li>Then {@link FDFAnnotationCaret#FDFAnnotationCaret()} Intent is {@code 42}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotation#setIntent(String)}
-   */
-  @Test
-  @DisplayName(
-      "Test setIntent(String); given FDFAnnotationCaret(); when '42'; then FDFAnnotationCaret() Intent is '42'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void FDFAnnotation.setIntent(String)"})
-  void testSetIntent_givenFDFAnnotationCaret_when42_thenFDFAnnotationCaretIntentIs42() {
-    // Arrange
-    FDFAnnotationCaret fdfAnnotationCaret = new FDFAnnotationCaret();
-
-    // Act
-    fdfAnnotationCaret.setIntent("42");
-
-    // Assert
-    assertEquals("42", fdfAnnotationCaret.getIntent());
-    COSDictionary cOSObject = fdfAnnotationCaret.getCOSObject();
-    assertEquals(3, cOSObject.getValues().size());
-    assertEquals(3, cOSObject.size());
   }
 
   /**
@@ -4032,6 +3275,36 @@ class FDFAnnotationDiffblueTest {
   }
 
   /**
+   * Test {@link FDFAnnotation#setIntent(String)}.
+   *
+   * <ul>
+   *   <li>When {@link FDFAnnotationCircle#SUBTYPE}.
+   *   <li>Then {@link FDFAnnotationCaret#FDFAnnotationCaret()} Intent is {@link
+   *       FDFAnnotationCircle#SUBTYPE}.
+   * </ul>
+   *
+   * <p>Method under test: {@link FDFAnnotation#setIntent(String)}
+   */
+  @Test
+  @DisplayName("Test setIntent(String); when SUBTYPE; then FDFAnnotationCaret() Intent is SUBTYPE")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void FDFAnnotation.setIntent(String)"})
+  void testSetIntent_whenSubtype_thenFDFAnnotationCaretIntentIsSubtype() {
+    // Arrange
+    FDFAnnotationCaret fdfAnnotationCaret = new FDFAnnotationCaret();
+
+    // Act
+    fdfAnnotationCaret.setIntent(FDFAnnotationCircle.SUBTYPE);
+
+    // Assert
+    COSDictionary cOSObject = fdfAnnotationCaret.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
+    assertEquals(FDFAnnotationCircle.SUBTYPE, fdfAnnotationCaret.getIntent());
+  }
+
+  /**
    * Test {@link FDFAnnotation#getIntent()}.
    *
    * <ul>
@@ -4054,28 +3327,6 @@ class FDFAnnotationDiffblueTest {
 
     // Act and Assert
     assertEquals("Intent", fdfAnnotationCaret.getIntent());
-  }
-
-  /**
-   * Test {@link FDFAnnotation#getIntent()}.
-   *
-   * <ul>
-   *   <li>Given {@link FDFAnnotationCaret#FDFAnnotationCaret(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotation#getIntent()}
-   */
-  @Test
-  @DisplayName(
-      "Test getIntent(); given FDFAnnotationCaret(COSDictionary) with a is COSDictionary(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String FDFAnnotation.getIntent()"})
-  void testGetIntent_givenFDFAnnotationCaretWithAIsCOSDictionary_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull(new FDFAnnotationCaret(new COSDictionary()).getIntent());
   }
 
   /**
@@ -4144,27 +3395,6 @@ class FDFAnnotationDiffblueTest {
 
     // Act and Assert
     assertEquals("Rc", fdfAnnotationCaret.getRichContents());
-  }
-
-  /**
-   * Test {@link FDFAnnotation#getRichContents()}.
-   *
-   * <ul>
-   *   <li>Given {@link FDFAnnotationCaret#FDFAnnotationCaret(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotation#getRichContents()}
-   */
-  @Test
-  @DisplayName(
-      "Test getRichContents(); given FDFAnnotationCaret(COSDictionary) with a is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String FDFAnnotation.getRichContents()"})
-  void testGetRichContents_givenFDFAnnotationCaretWithAIsCOSDictionary() {
-    // Arrange, Act and Assert
-    assertEquals("", new FDFAnnotationCaret(new COSDictionary()).getRichContents());
   }
 
   /**
@@ -4319,28 +3549,6 @@ class FDFAnnotationDiffblueTest {
     assertTrue(toListResult.get(0) instanceof COSArray);
     assertTrue(cOSObject instanceof COSArray);
     assertArrayEquals(new float[] {3.0f}, dashStyle.getDashArray(), 0.0f);
-  }
-
-  /**
-   * Test {@link FDFAnnotation#getBorderStyle()}.
-   *
-   * <ul>
-   *   <li>Given {@link FDFAnnotationCaret#FDFAnnotationCaret(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotation#getBorderStyle()}
-   */
-  @Test
-  @DisplayName(
-      "Test getBorderStyle(); given FDFAnnotationCaret(COSDictionary) with a is COSDictionary(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDBorderStyleDictionary FDFAnnotation.getBorderStyle()"})
-  void testGetBorderStyle_givenFDFAnnotationCaretWithAIsCOSDictionary_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull(new FDFAnnotationCaret(new COSDictionary()).getBorderStyle());
   }
 
   /**
@@ -4528,28 +3736,6 @@ class FDFAnnotationDiffblueTest {
     assertEquals(3, cOSObject.getValues().size());
     assertEquals(3, cOSObject.size());
     assertEquals(FDFIconFit.SCALE_OPTION_ONLY_WHEN_ICON_IS_SMALLER, borderEffect.getStyle());
-  }
-
-  /**
-   * Test {@link FDFAnnotation#getBorderEffect()}.
-   *
-   * <ul>
-   *   <li>Given {@link FDFAnnotationCaret#FDFAnnotationCaret(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotation#getBorderEffect()}
-   */
-  @Test
-  @DisplayName(
-      "Test getBorderEffect(); given FDFAnnotationCaret(COSDictionary) with a is COSDictionary(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDBorderEffectDictionary FDFAnnotation.getBorderEffect()"})
-  void testGetBorderEffect_givenFDFAnnotationCaretWithAIsCOSDictionary_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull(new FDFAnnotationCaret(new COSDictionary()).getBorderEffect());
   }
 
   /**

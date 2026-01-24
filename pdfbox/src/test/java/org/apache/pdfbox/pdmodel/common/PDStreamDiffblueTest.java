@@ -77,30 +77,35 @@ class PDStreamDiffblueTest {
   /**
    * Test {@link PDStream#PDStream(PDDocument, InputStream)}.
    *
+   * <ul>
+   *   <li>Given {@link IllegalStateException#IllegalStateException()}.
+   *   <li>Then throw {@link IllegalStateException}.
+   * </ul>
+   *
    * <p>Method under test: {@link PDStream#PDStream(PDDocument, InputStream)}
    */
   @Test
-  @DisplayName("Test new PDStream(PDDocument, InputStream)")
+  @DisplayName(
+      "Test new PDStream(PDDocument, InputStream); given IllegalStateException(); then throw IllegalStateException")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void PDStream.<init>(PDDocument, InputStream)"})
-  void testNewPDStream2() throws IOException {
+  void testNewPDStream_givenIllegalStateException_thenThrowIllegalStateException()
+      throws IOException {
     // Arrange
     StreamCacheCreateFunction streamCacheCreateFunction = mock(StreamCacheCreateFunction.class);
-    MemoryUsageSetting memUsageSetting = MemoryUsageSetting.setupMainMemoryOnly(-100L);
-    when(streamCacheCreateFunction.create()).thenReturn(new ScratchFile(memUsageSetting));
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
     PDDocument doc = new PDDocument(streamCacheCreateFunction);
-    ByteArrayInputStream input = new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"));
 
-    // Act
-    PDStream actualPdStream = new PDStream(doc, input);
+    DataInputStream input = mock(DataInputStream.class);
+    when(input.transferTo(Mockito.<OutputStream>any())).thenThrow(new IllegalStateException());
+    doThrow(new IllegalStateException()).when(input).close();
 
-    // Assert
+    // Act and Assert
+    assertThrows(IllegalStateException.class, () -> new PDStream(doc, input));
+    verify(input).close();
+    verify(input).transferTo(isA(OutputStream.class));
     verify(streamCacheCreateFunction).create();
-    int actualReadResult = input.read(new byte[] {});
-    assertEquals(-1, actualReadResult);
-    assertEquals(8, actualPdStream.getLength());
-    assertEquals(8L, actualPdStream.getCOSObject().getLength());
   }
 
   /**
@@ -119,7 +124,7 @@ class PDStreamDiffblueTest {
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void PDStream.<init>(PDDocument, InputStream, COSArray)"})
-  void testNewPDStream_givenIllegalStateException_thenThrowIllegalStateException()
+  void testNewPDStream_givenIllegalStateException_thenThrowIllegalStateException2()
       throws IOException {
     // Arrange
     PDDocument doc = new PDDocument();
@@ -205,22 +210,65 @@ class PDStreamDiffblueTest {
   }
 
   /**
+   * Test {@link PDStream#PDStream(PDDocument, InputStream)}.
+   *
+   * <ul>
+   *   <li>Given one.
+   *   <li>Then return DecodeParms is {@code null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDStream#PDStream(PDDocument, InputStream)}
+   */
+  @Test
+  @DisplayName(
+      "Test new PDStream(PDDocument, InputStream); given one; then return DecodeParms is 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDStream.<init>(PDDocument, InputStream)"})
+  void testNewPDStream_givenOne_thenReturnDecodeParmsIsNull() throws IOException {
+    // Arrange
+    StreamCacheCreateFunction streamCacheCreateFunction = mock(StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDDocument doc = new PDDocument(streamCacheCreateFunction);
+
+    DataInputStream input = mock(DataInputStream.class);
+    when(input.transferTo(Mockito.<OutputStream>any())).thenReturn(1L);
+    doNothing().when(input).close();
+
+    // Act
+    PDStream actualPdStream = new PDStream(doc, input);
+
+    // Assert
+    verify(input).close();
+    verify(input).transferTo(isA(OutputStream.class));
+    verify(streamCacheCreateFunction).create();
+    assertNull(actualPdStream.getDecodeParms());
+    assertNull(actualPdStream.getFileDecodeParams());
+    assertNull(actualPdStream.getMetadata());
+    assertNull(actualPdStream.getFile());
+    assertEquals(-1, actualPdStream.getDecodedStreamLength());
+    List<String> fileFilters = actualPdStream.getFileFilters();
+    assertTrue(fileFilters.isEmpty());
+    assertSame(fileFilters, actualPdStream.getFilters());
+  }
+
+  /**
    * Test {@link PDStream#PDStream(PDDocument, InputStream, COSArray)}.
    *
    * <ul>
    *   <li>Given one.
-   *   <li>Then return COSObject Filters is {@code null}.
+   *   <li>When {@link DataInputStream} {@link DataInputStream#transferTo(OutputStream)} return one.
    * </ul>
    *
    * <p>Method under test: {@link PDStream#PDStream(PDDocument, InputStream, COSArray)}
    */
   @Test
   @DisplayName(
-      "Test new PDStream(PDDocument, InputStream, COSArray); given one; then return COSObject Filters is 'null'")
+      "Test new PDStream(PDDocument, InputStream, COSArray); given one; when DataInputStream transferTo(OutputStream) return one")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void PDStream.<init>(PDDocument, InputStream, COSArray)"})
-  void testNewPDStream_givenOne_thenReturnCOSObjectFiltersIsNull() throws IOException {
+  void testNewPDStream_givenOne_whenDataInputStreamTransferToReturnOne() throws IOException {
     // Arrange
     PDDocument doc = new PDDocument();
 
@@ -243,6 +291,38 @@ class PDStreamDiffblueTest {
   }
 
   /**
+   * Test {@link PDStream#PDStream(PDDocument, InputStream)}.
+   *
+   * <ul>
+   *   <li>Then {@link ByteArrayInputStream#ByteArrayInputStream(byte[])} with {@code AXAXAXAX}
+   *       Bytes is {@code UTF-8} read is minus one.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDStream#PDStream(PDDocument, InputStream)}
+   */
+  @Test
+  @DisplayName(
+      "Test new PDStream(PDDocument, InputStream); then ByteArrayInputStream(byte[]) with 'AXAXAXAX' Bytes is 'UTF-8' read is minus one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDStream.<init>(PDDocument, InputStream)"})
+  void testNewPDStream_thenByteArrayInputStreamWithAxaxaxaxBytesIsUtf8ReadIsMinusOne()
+      throws IOException {
+    // Arrange
+    PDDocument doc = new PDDocument();
+    ByteArrayInputStream input = new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"));
+
+    // Act
+    PDStream actualPdStream = new PDStream(doc, input);
+
+    // Assert
+    int actualReadResult = input.read(new byte[] {});
+    assertEquals(-1, actualReadResult);
+    assertEquals(8, actualPdStream.getLength());
+    assertEquals(8L, actualPdStream.getCOSObject().getLength());
+  }
+
+  /**
    * Test {@link PDStream#PDStream(PDDocument, InputStream, COSArray)}.
    *
    * <ul>
@@ -258,7 +338,7 @@ class PDStreamDiffblueTest {
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void PDStream.<init>(PDDocument, InputStream, COSArray)"})
-  void testNewPDStream_thenByteArrayInputStreamWithAxaxaxaxBytesIsUtf8ReadIsMinusOne()
+  void testNewPDStream_thenByteArrayInputStreamWithAxaxaxaxBytesIsUtf8ReadIsMinusOne2()
       throws IOException {
     // Arrange
     PDDocument doc = new PDDocument();
@@ -290,7 +370,7 @@ class PDStreamDiffblueTest {
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void PDStream.<init>(PDDocument, InputStream, COSName)"})
-  void testNewPDStream_thenByteArrayInputStreamWithAxaxaxaxBytesIsUtf8ReadIsMinusOne2()
+  void testNewPDStream_thenByteArrayInputStreamWithAxaxaxaxBytesIsUtf8ReadIsMinusOne3()
       throws IOException {
     // Arrange
     PDDocument doc = new PDDocument();
@@ -374,41 +454,6 @@ class PDStreamDiffblueTest {
   }
 
   /**
-   * Test {@link PDStream#PDStream(PDDocument, InputStream, COSArray)}.
-   *
-   * <ul>
-   *   <li>Then COSObject Filters return {@link COSArray}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDStream#PDStream(PDDocument, InputStream, COSArray)}
-   */
-  @Test
-  @DisplayName(
-      "Test new PDStream(PDDocument, InputStream, COSArray); then COSObject Filters return COSArray")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDStream.<init>(PDDocument, InputStream, COSArray)"})
-  void testNewPDStream_thenCOSObjectFiltersReturnCOSArray() throws IOException {
-    // Arrange
-    PDDocument doc = new PDDocument();
-    ByteArrayInputStream input = new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"));
-    COSArray filters = new COSArray();
-
-    // Act
-    PDStream actualPdStream = new PDStream(doc, input, filters);
-
-    // Assert
-    COSStream cOSObject = actualPdStream.getCOSObject();
-    COSBase filters2 = cOSObject.getFilters();
-    assertTrue(filters2 instanceof COSArray);
-    assertEquals(2, cOSObject.getValues().size());
-    assertEquals(2, cOSObject.size());
-    assertTrue(((COSArray) filters2).toList().isEmpty());
-    assertTrue(actualPdStream.getFilters().isEmpty());
-    assertSame(filters, filters2);
-  }
-
-  /**
    * Test {@link PDStream#PDStream(PDDocument, InputStream, COSName)}.
    *
    * <ul>
@@ -442,6 +487,75 @@ class PDStreamDiffblueTest {
   }
 
   /**
+   * Test {@link PDStream#PDStream(PDDocument, InputStream, COSArray)}.
+   *
+   * <ul>
+   *   <li>When {@link ByteArrayInputStream#ByteArrayInputStream(byte[])} with empty array of {@code
+   *       byte}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDStream#PDStream(PDDocument, InputStream, COSArray)}
+   */
+  @Test
+  @DisplayName(
+      "Test new PDStream(PDDocument, InputStream, COSArray); when ByteArrayInputStream(byte[]) with empty array of byte")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDStream.<init>(PDDocument, InputStream, COSArray)"})
+  void testNewPDStream_whenByteArrayInputStreamWithEmptyArrayOfByte() throws IOException {
+    // Arrange
+    PDDocument doc = new PDDocument();
+    ByteArrayInputStream input = new ByteArrayInputStream(new byte[] {});
+
+    // Act
+    PDStream actualPdStream = new PDStream(doc, input, (COSArray) null);
+
+    // Assert
+    COSStream cOSObject = actualPdStream.getCOSObject();
+    assertNull(cOSObject.getFilters());
+    assertEquals(0, actualPdStream.getLength());
+    assertEquals(0L, cOSObject.getLength());
+    assertEquals(1, cOSObject.getValues().size());
+    assertEquals(1, cOSObject.size());
+  }
+
+  /**
+   * Test {@link PDStream#PDStream(PDDocument, InputStream, COSArray)}.
+   *
+   * <ul>
+   *   <li>When {@link COSArray#COSArray()}.
+   *   <li>Then COSObject Filters return {@link COSArray}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDStream#PDStream(PDDocument, InputStream, COSArray)}
+   */
+  @Test
+  @DisplayName(
+      "Test new PDStream(PDDocument, InputStream, COSArray); when COSArray(); then COSObject Filters return COSArray")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDStream.<init>(PDDocument, InputStream, COSArray)"})
+  void testNewPDStream_whenCOSArray_thenCOSObjectFiltersReturnCOSArray() throws IOException {
+    // Arrange
+    PDDocument doc = new PDDocument();
+    ByteArrayInputStream input = new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"));
+    COSArray filters = new COSArray();
+
+    // Act
+    PDStream actualPdStream = new PDStream(doc, input, filters);
+
+    // Assert
+    COSStream cOSObject = actualPdStream.getCOSObject();
+    COSBase filters2 = cOSObject.getFilters();
+    assertTrue(filters2 instanceof COSArray);
+    assertEquals(2, cOSObject.getValues().size());
+    assertEquals(2, cOSObject.size());
+    assertTrue(((COSArray) filters2).toList().isEmpty());
+    assertTrue(actualPdStream.getFilters().isEmpty());
+    assertSame(filters, filters2);
+  }
+
+  /**
    * Test {@link PDStream#PDStream(COSDocument)}.
    *
    * <ul>
@@ -471,35 +585,6 @@ class PDStreamDiffblueTest {
     List<String> fileFilters = actualPdStream.getFileFilters();
     assertTrue(fileFilters.isEmpty());
     assertSame(fileFilters, actualPdStream.getFilters());
-  }
-
-  /**
-   * Test {@link PDStream#PDStream(PDDocument, InputStream)}.
-   *
-   * <ul>
-   *   <li>When {@link PDDocument#PDDocument()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDStream#PDStream(PDDocument, InputStream)}
-   */
-  @Test
-  @DisplayName("Test new PDStream(PDDocument, InputStream); when PDDocument()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDStream.<init>(PDDocument, InputStream)"})
-  void testNewPDStream_whenPDDocument() throws IOException {
-    // Arrange
-    PDDocument doc = new PDDocument();
-    ByteArrayInputStream input = new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"));
-
-    // Act
-    PDStream actualPdStream = new PDStream(doc, input);
-
-    // Assert
-    int actualReadResult = input.read(new byte[] {});
-    assertEquals(-1, actualReadResult);
-    assertEquals(8, actualPdStream.getLength());
-    assertEquals(8L, actualPdStream.getCOSObject().getLength());
   }
 
   /**

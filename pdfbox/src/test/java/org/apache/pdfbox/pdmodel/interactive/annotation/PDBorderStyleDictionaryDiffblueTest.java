@@ -20,13 +20,15 @@ import java.util.List;
 import org.apache.pdfbox.cos.COSArray;
 import org.apache.pdfbox.cos.COSBase;
 import org.apache.pdfbox.cos.COSDictionary;
+import org.apache.pdfbox.cos.COSFloat;
+import org.apache.pdfbox.cos.COSInteger;
 import org.apache.pdfbox.cos.COSName;
 import org.apache.pdfbox.cos.COSObjectKey;
-import org.apache.pdfbox.cos.COSStream;
 import org.apache.pdfbox.pdmodel.graphics.PDLineDashPattern;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 
 class PDBorderStyleDictionaryDiffblueTest {
@@ -97,7 +99,7 @@ class PDBorderStyleDictionaryDiffblueTest {
   void testSetWidth_givenCOSDictionarySetFloatDoesNothing_when05_thenCallsSetFloat() {
     // Arrange
     COSDictionary dict = mock(COSDictionary.class);
-    doNothing().when(dict).setFloat(Mockito.<COSName>any(), anyFloat());
+    doNothing().when(dict).setFloat(Mockito.<COSName>any(), ArgumentMatchers.anyFloat());
     PDBorderStyleDictionary pdBorderStyleDictionary = new PDBorderStyleDictionary(dict);
 
     // Act
@@ -128,7 +130,7 @@ class PDBorderStyleDictionaryDiffblueTest {
   void testSetWidth_givenCOSDictionarySetIntDoesNothing_whenTen_thenCallsSetInt() {
     // Arrange
     COSDictionary dict = mock(COSDictionary.class);
-    doNothing().when(dict).setInt(Mockito.<COSName>any(), anyInt());
+    doNothing().when(dict).setInt(Mockito.<COSName>any(), ArgumentMatchers.anyInt());
     PDBorderStyleDictionary pdBorderStyleDictionary = new PDBorderStyleDictionary(dict);
 
     // Act
@@ -137,28 +139,6 @@ class PDBorderStyleDictionaryDiffblueTest {
     // Assert that nothing has changed
     verify(dict).setInt(isA(COSName.class), eq(10));
     assertEquals(0.0f, pdBorderStyleDictionary.getWidth());
-  }
-
-  /**
-   * Test {@link PDBorderStyleDictionary#getWidth()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDBorderStyleDictionary#PDBorderStyleDictionary(COSDictionary)} with dict is
-   *       {@link COSStream#COSStream()}.
-   *   <li>Then return one.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDBorderStyleDictionary#getWidth()}
-   */
-  @Test
-  @DisplayName(
-      "Test getWidth(); given PDBorderStyleDictionary(COSDictionary) with dict is COSStream(); then return one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"float PDBorderStyleDictionary.getWidth()"})
-  void testGetWidth_givenPDBorderStyleDictionaryWithDictIsCOSStream_thenReturnOne() {
-    // Arrange, Act and Assert
-    assertEquals(1.0f, new PDBorderStyleDictionary(new COSStream()).getWidth());
   }
 
   /**
@@ -208,29 +188,6 @@ class PDBorderStyleDictionaryDiffblueTest {
 
     // Assert that nothing has changed
     verify(dict).setName(isA(COSName.class), eq("Style"));
-  }
-
-  /**
-   * Test {@link PDBorderStyleDictionary#getStyle()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDBorderStyleDictionary#PDBorderStyleDictionary(COSDictionary)} with dict is
-   *       {@link COSStream#COSStream()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDBorderStyleDictionary#getStyle()}
-   */
-  @Test
-  @DisplayName(
-      "Test getStyle(); given PDBorderStyleDictionary(COSDictionary) with dict is COSStream()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String PDBorderStyleDictionary.getStyle()"})
-  void testGetStyle_givenPDBorderStyleDictionaryWithDictIsCOSStream() {
-    // Arrange, Act and Assert
-    assertEquals(
-        PDBorderStyleDictionary.STYLE_SOLID,
-        new PDBorderStyleDictionary(new COSStream()).getStyle());
   }
 
   /**

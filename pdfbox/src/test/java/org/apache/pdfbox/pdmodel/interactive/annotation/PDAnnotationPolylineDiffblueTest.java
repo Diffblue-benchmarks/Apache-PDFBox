@@ -14,7 +14,6 @@ import static org.mockito.Mockito.when;
 import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
-import java.util.List;
 import org.apache.pdfbox.cos.COSArray;
 import org.apache.pdfbox.cos.COSBase;
 import org.apache.pdfbox.cos.COSBoolean;
@@ -22,15 +21,17 @@ import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.cos.COSFloat;
 import org.apache.pdfbox.cos.COSName;
 import org.apache.pdfbox.cos.COSObjectKey;
-import org.apache.pdfbox.cos.COSStream;
 import org.apache.pdfbox.cos.COSUpdateState;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.graphics.color.PDColor;
+import org.apache.pdfbox.pdmodel.graphics.color.PDColorSpace;
+import org.apache.pdfbox.pdmodel.graphics.color.PDDeviceCMYK;
 import org.apache.pdfbox.pdmodel.graphics.color.PDDeviceGray;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentMatchers;
 
 class PDAnnotationPolylineDiffblueTest {
   /**
@@ -93,18 +94,18 @@ class PDAnnotationPolylineDiffblueTest {
    *
    * <ul>
    *   <li>When {@link COSDictionary#COSDictionary()}.
-   *   <li>Then {@link COSDictionary#COSDictionary()} size is one.
+   *   <li>Then return Vertices is {@code null}.
    * </ul>
    *
    * <p>Method under test: {@link PDAnnotationPolyline#PDAnnotationPolyline(COSDictionary)}
    */
   @Test
   @DisplayName(
-      "Test new PDAnnotationPolyline(COSDictionary); when COSDictionary(); then COSDictionary() size is one")
+      "Test new PDAnnotationPolyline(COSDictionary); when COSDictionary(); then return Vertices is 'null'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void PDAnnotationPolyline.<init>(COSDictionary)"})
-  void testNewPDAnnotationPolyline_whenCOSDictionary_thenCOSDictionarySizeIsOne() {
+  void testNewPDAnnotationPolyline_whenCOSDictionary_thenReturnVerticesIsNull() throws IOException {
     // Arrange
     COSDictionary dict = new COSDictionary();
 
@@ -112,44 +113,46 @@ class PDAnnotationPolylineDiffblueTest {
     PDAnnotationPolyline actualPdAnnotationPolyline = new PDAnnotationPolyline(dict);
 
     // Assert
+    assertNull(actualPdAnnotationPolyline.getVertices());
+    assertNull(actualPdAnnotationPolyline.getAnnotationName());
+    assertNull(actualPdAnnotationPolyline.getContents());
+    assertNull(actualPdAnnotationPolyline.getModifiedDate());
+    assertNull(actualPdAnnotationPolyline.getSubtype());
+    assertNull(actualPdAnnotationPolyline.getIntent());
+    assertNull(actualPdAnnotationPolyline.getRichContents());
+    assertNull(actualPdAnnotationPolyline.getSubject());
+    assertNull(actualPdAnnotationPolyline.getTitlePopup());
+    assertNull(actualPdAnnotationPolyline.getCreationDate());
+    assertNull(actualPdAnnotationPolyline.getAppearanceState());
+    assertNull(actualPdAnnotationPolyline.getPage());
+    assertNull(actualPdAnnotationPolyline.getRectangle());
+    assertNull(actualPdAnnotationPolyline.getOptionalContent());
+    assertNull(actualPdAnnotationPolyline.getColor());
+    assertNull(actualPdAnnotationPolyline.getInteriorColor());
+    assertNull(actualPdAnnotationPolyline.getInReplyTo());
+    assertNull(actualPdAnnotationPolyline.getPopup());
+    assertNull(actualPdAnnotationPolyline.getAppearance());
+    assertNull(actualPdAnnotationPolyline.getNormalAppearanceStream());
+    assertNull(actualPdAnnotationPolyline.getBorderStyle());
+    assertNull(actualPdAnnotationPolyline.getExternalData());
+    assertEquals(-1, actualPdAnnotationPolyline.getStructParent());
+    assertEquals(0, actualPdAnnotationPolyline.getAnnotationFlags());
     assertEquals(1, dict.size());
-    List<? extends COSBase> toListResult = actualPdAnnotationPolyline.getBorder().toList();
-    assertEquals(3, toListResult.size());
+    assertEquals(1.0f, actualPdAnnotationPolyline.getConstantOpacity());
+    assertFalse(actualPdAnnotationPolyline.isHidden());
+    assertFalse(actualPdAnnotationPolyline.isInvisible());
+    assertFalse(actualPdAnnotationPolyline.isLocked());
+    assertFalse(actualPdAnnotationPolyline.isLockedContents());
+    assertFalse(actualPdAnnotationPolyline.isNoRotate());
+    assertFalse(actualPdAnnotationPolyline.isNoView());
+    assertFalse(actualPdAnnotationPolyline.isNoZoom());
+    assertFalse(actualPdAnnotationPolyline.isPrinted());
+    assertFalse(actualPdAnnotationPolyline.isReadOnly());
+    assertFalse(actualPdAnnotationPolyline.isToggleNoView());
+    assertEquals(PDAnnotationLine.LE_NONE, actualPdAnnotationPolyline.getEndPointEndingStyle());
+    assertEquals(PDAnnotationLine.LE_NONE, actualPdAnnotationPolyline.getStartPointEndingStyle());
+    assertEquals(PDAnnotationMarkup.RT_REPLY, actualPdAnnotationPolyline.getReplyType());
     assertSame(dict, actualPdAnnotationPolyline.getCOSObject());
-    COSBase expectedGetResult = toListResult.get(0);
-    assertSame(expectedGetResult, toListResult.get(1));
-  }
-
-  /**
-   * Test {@link PDAnnotationPolyline#PDAnnotationPolyline(COSDictionary)}.
-   *
-   * <ul>
-   *   <li>When {@link COSStream#COSStream()}.
-   *   <li>Then {@link COSStream#COSStream()} size is two.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationPolyline#PDAnnotationPolyline(COSDictionary)}
-   */
-  @Test
-  @DisplayName(
-      "Test new PDAnnotationPolyline(COSDictionary); when COSStream(); then COSStream() size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDAnnotationPolyline.<init>(COSDictionary)"})
-  void testNewPDAnnotationPolyline_whenCOSStream_thenCOSStreamSizeIsTwo() {
-    // Arrange
-    COSStream dict = new COSStream();
-
-    // Act
-    PDAnnotationPolyline actualPdAnnotationPolyline = new PDAnnotationPolyline(dict);
-
-    // Assert
-    assertEquals(2, dict.size());
-    List<? extends COSBase> toListResult = actualPdAnnotationPolyline.getBorder().toList();
-    assertEquals(3, toListResult.size());
-    assertSame(dict, actualPdAnnotationPolyline.getCOSObject());
-    COSBase expectedGetResult = toListResult.get(0);
-    assertSame(expectedGetResult, toListResult.get(1));
   }
 
   /**
@@ -481,7 +484,7 @@ class PDAnnotationPolylineDiffblueTest {
   void testConstructAppearancesWithPDDocument_givenCOSArrayGetObjectReturnFalse() {
     // Arrange
     COSArray cosArray = mock(COSArray.class);
-    when(cosArray.getObject(anyInt())).thenReturn(COSBoolean.FALSE);
+    when(cosArray.getObject(ArgumentMatchers.anyInt())).thenReturn(COSBoolean.FALSE);
     when(cosArray.size()).thenReturn(4);
     when(cosArray.isDirect()).thenReturn(true);
     when(cosArray.getUpdateState()).thenReturn(new COSUpdateState(new COSArray()));
@@ -590,7 +593,7 @@ class PDAnnotationPolylineDiffblueTest {
     // Arrange
     COSArray cosArray = mock(COSArray.class);
     when(cosArray.toFloatArray()).thenReturn(new float[] {10.0f, 0.5f, 10.0f, 0.5f});
-    when(cosArray.getObject(anyInt())).thenReturn(COSFloat.ONE);
+    when(cosArray.getObject(ArgumentMatchers.anyInt())).thenReturn(COSFloat.ONE);
     when(cosArray.size()).thenReturn(4);
     when(cosArray.isDirect()).thenReturn(false);
     when(cosArray.getKey()).thenReturn(new COSObjectKey(1L, 1));
@@ -605,7 +608,7 @@ class PDAnnotationPolylineDiffblueTest {
     pdAnnotationPolyline.constructAppearances(new PDDocument());
 
     // Assert
-    verify(cosArray, atLeast(1)).getObject(anyInt());
+    verify(cosArray, atLeast(1)).getObject(ArgumentMatchers.anyInt());
     verify(cosArray).size();
     verify(cosArray).toFloatArray();
     verify(cosArray, atLeast(1)).getKey();
@@ -631,7 +634,7 @@ class PDAnnotationPolylineDiffblueTest {
     // Arrange
     COSArray cosArray = mock(COSArray.class);
     when(cosArray.toFloatArray()).thenReturn(new float[] {10.0f, 0.5f, 10.0f, 0.5f});
-    when(cosArray.getObject(anyInt())).thenReturn(COSFloat.ONE);
+    when(cosArray.getObject(ArgumentMatchers.anyInt())).thenReturn(COSFloat.ONE);
     when(cosArray.size()).thenReturn(4);
     when(cosArray.isDirect()).thenReturn(true);
     when(cosArray.getUpdateState()).thenReturn(new COSUpdateState(new COSArray()));
@@ -646,7 +649,7 @@ class PDAnnotationPolylineDiffblueTest {
     pdAnnotationPolyline.constructAppearances(new PDDocument());
 
     // Assert
-    verify(cosArray, atLeast(1)).getObject(anyInt());
+    verify(cosArray, atLeast(1)).getObject(ArgumentMatchers.anyInt());
     verify(cosArray).getUpdateState();
     verify(cosArray).size();
     verify(cosArray).toFloatArray();
@@ -673,7 +676,7 @@ class PDAnnotationPolylineDiffblueTest {
   void testConstructAppearances_givenCOSArrayGetObjectReturnFalse_thenCallsGetObject() {
     // Arrange
     COSArray cosArray = mock(COSArray.class);
-    when(cosArray.getObject(anyInt())).thenReturn(COSBoolean.FALSE);
+    when(cosArray.getObject(ArgumentMatchers.anyInt())).thenReturn(COSBoolean.FALSE);
     when(cosArray.size()).thenReturn(4);
     when(cosArray.isDirect()).thenReturn(true);
     when(cosArray.getUpdateState()).thenReturn(new COSUpdateState(new COSArray()));
@@ -715,7 +718,7 @@ class PDAnnotationPolylineDiffblueTest {
     // Arrange
     COSArray cosArray = mock(COSArray.class);
     when(cosArray.toFloatArray()).thenReturn(new float[] {10.0f, 0.5f, 10.0f, 0.5f});
-    when(cosArray.getObject(anyInt())).thenReturn(COSFloat.ONE);
+    when(cosArray.getObject(ArgumentMatchers.anyInt())).thenReturn(COSFloat.ONE);
     when(cosArray.size()).thenReturn(4);
     when(cosArray.isDirect()).thenReturn(false);
     when(cosArray.getKey()).thenReturn(new COSObjectKey(1L, 1));
@@ -730,7 +733,7 @@ class PDAnnotationPolylineDiffblueTest {
     pdAnnotationPolyline.constructAppearances();
 
     // Assert
-    verify(cosArray, atLeast(1)).getObject(anyInt());
+    verify(cosArray, atLeast(1)).getObject(ArgumentMatchers.anyInt());
     verify(cosArray).size();
     verify(cosArray).toFloatArray();
     verify(cosArray, atLeast(1)).getKey();
@@ -825,7 +828,7 @@ class PDAnnotationPolylineDiffblueTest {
     // Arrange
     COSArray cosArray = mock(COSArray.class);
     when(cosArray.toFloatArray()).thenReturn(new float[] {10.0f, 0.5f, 10.0f, 0.5f});
-    when(cosArray.getObject(anyInt())).thenReturn(COSFloat.ONE);
+    when(cosArray.getObject(ArgumentMatchers.anyInt())).thenReturn(COSFloat.ONE);
     when(cosArray.size()).thenReturn(4);
     when(cosArray.isDirect()).thenReturn(true);
     when(cosArray.getUpdateState()).thenReturn(new COSUpdateState(new COSArray()));
@@ -840,7 +843,7 @@ class PDAnnotationPolylineDiffblueTest {
     pdAnnotationPolyline.constructAppearances();
 
     // Assert
-    verify(cosArray, atLeast(1)).getObject(anyInt());
+    verify(cosArray, atLeast(1)).getObject(ArgumentMatchers.anyInt());
     verify(cosArray).getUpdateState();
     verify(cosArray).size();
     verify(cosArray).toFloatArray();

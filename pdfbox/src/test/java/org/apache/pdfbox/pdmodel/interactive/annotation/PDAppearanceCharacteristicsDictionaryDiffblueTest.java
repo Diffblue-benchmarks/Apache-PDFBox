@@ -2,16 +2,19 @@ package org.apache.pdfbox.pdmodel.interactive.annotation;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.apache.pdfbox.cos.COSArray;
+import org.apache.pdfbox.cos.COSBase;
 import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.cos.COSName;
-import org.apache.pdfbox.cos.COSStream;
 import org.apache.pdfbox.pdmodel.graphics.color.PDColor;
+import org.apache.pdfbox.pdmodel.graphics.color.PDColorSpace;
+import org.apache.pdfbox.pdmodel.graphics.color.PDDeviceCMYK;
 import org.apache.pdfbox.pdmodel.graphics.color.PDDeviceGray;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -59,38 +62,20 @@ class PDAppearanceCharacteristicsDictionaryDiffblueTest {
   /**
    * Test {@link PDAppearanceCharacteristicsDictionary#getRotation()}.
    *
-   * <p>Method under test: {@link PDAppearanceCharacteristicsDictionary#getRotation()}
-   */
-  @Test
-  @DisplayName("Test getRotation()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"int PDAppearanceCharacteristicsDictionary.getRotation()"})
-  void testGetRotation() {
-    // Arrange, Act and Assert
-    assertEquals(0, new PDAppearanceCharacteristicsDictionary(new COSDictionary()).getRotation());
-  }
-
-  /**
-   * Test {@link PDAppearanceCharacteristicsDictionary#getRotation()}.
-   *
    * <ul>
-   *   <li>Given {@link
-   *       PDAppearanceCharacteristicsDictionary#PDAppearanceCharacteristicsDictionary(COSDictionary)}
-   *       with dict is {@link COSStream#COSStream()}.
+   *   <li>Then return zero.
    * </ul>
    *
    * <p>Method under test: {@link PDAppearanceCharacteristicsDictionary#getRotation()}
    */
   @Test
-  @DisplayName(
-      "Test getRotation(); given PDAppearanceCharacteristicsDictionary(COSDictionary) with dict is COSStream()")
+  @DisplayName("Test getRotation(); then return zero")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"int PDAppearanceCharacteristicsDictionary.getRotation()"})
-  void testGetRotation_givenPDAppearanceCharacteristicsDictionaryWithDictIsCOSStream() {
+  void testGetRotation_thenReturnZero() {
     // Arrange, Act and Assert
-    assertEquals(0, new PDAppearanceCharacteristicsDictionary(new COSStream()).getRotation());
+    assertEquals(0, new PDAppearanceCharacteristicsDictionary(new COSDictionary()).getRotation());
   }
 
   /**
@@ -146,31 +131,20 @@ class PDAppearanceCharacteristicsDictionaryDiffblueTest {
   /**
    * Test {@link PDAppearanceCharacteristicsDictionary#getBorderColour()}.
    *
-   * <p>Method under test: {@link PDAppearanceCharacteristicsDictionary#getBorderColour()}
-   */
-  @Test
-  @DisplayName("Test getBorderColour()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDColor PDAppearanceCharacteristicsDictionary.getBorderColour()"})
-  void testGetBorderColour() {
-    // Arrange, Act and Assert
-    assertNull(new PDAppearanceCharacteristicsDictionary(new COSDictionary()).getBorderColour());
-  }
-
-  /**
-   * Test {@link PDAppearanceCharacteristicsDictionary#getBorderColour()}.
+   * <ul>
+   *   <li>Then return {@code null}.
+   * </ul>
    *
    * <p>Method under test: {@link PDAppearanceCharacteristicsDictionary#getBorderColour()}
    */
   @Test
-  @DisplayName("Test getBorderColour()")
+  @DisplayName("Test getBorderColour(); then return 'null'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"PDColor PDAppearanceCharacteristicsDictionary.getBorderColour()"})
-  void testGetBorderColour2() {
+  void testGetBorderColour_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new PDAppearanceCharacteristicsDictionary(new COSStream()).getBorderColour());
+    assertNull(new PDAppearanceCharacteristicsDictionary(new COSDictionary()).getBorderColour());
   }
 
   /**
@@ -226,38 +200,20 @@ class PDAppearanceCharacteristicsDictionaryDiffblueTest {
   /**
    * Test {@link PDAppearanceCharacteristicsDictionary#getBackground()}.
    *
-   * <p>Method under test: {@link PDAppearanceCharacteristicsDictionary#getBackground()}
-   */
-  @Test
-  @DisplayName("Test getBackground()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDColor PDAppearanceCharacteristicsDictionary.getBackground()"})
-  void testGetBackground() {
-    // Arrange, Act and Assert
-    assertNull(new PDAppearanceCharacteristicsDictionary(new COSDictionary()).getBackground());
-  }
-
-  /**
-   * Test {@link PDAppearanceCharacteristicsDictionary#getBackground()}.
-   *
    * <ul>
-   *   <li>Given {@link
-   *       PDAppearanceCharacteristicsDictionary#PDAppearanceCharacteristicsDictionary(COSDictionary)}
-   *       with dict is {@link COSStream#COSStream()}.
+   *   <li>Then return {@code null}.
    * </ul>
    *
    * <p>Method under test: {@link PDAppearanceCharacteristicsDictionary#getBackground()}
    */
   @Test
-  @DisplayName(
-      "Test getBackground(); given PDAppearanceCharacteristicsDictionary(COSDictionary) with dict is COSStream()")
+  @DisplayName("Test getBackground(); then return 'null'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"PDColor PDAppearanceCharacteristicsDictionary.getBackground()"})
-  void testGetBackground_givenPDAppearanceCharacteristicsDictionaryWithDictIsCOSStream() {
+  void testGetBackground_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new PDAppearanceCharacteristicsDictionary(new COSStream()).getBackground());
+    assertNull(new PDAppearanceCharacteristicsDictionary(new COSDictionary()).getBackground());
   }
 
   /**
@@ -313,31 +269,20 @@ class PDAppearanceCharacteristicsDictionaryDiffblueTest {
   /**
    * Test {@link PDAppearanceCharacteristicsDictionary#getNormalCaption()}.
    *
-   * <p>Method under test: {@link PDAppearanceCharacteristicsDictionary#getNormalCaption()}
-   */
-  @Test
-  @DisplayName("Test getNormalCaption()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String PDAppearanceCharacteristicsDictionary.getNormalCaption()"})
-  void testGetNormalCaption() {
-    // Arrange, Act and Assert
-    assertNull(new PDAppearanceCharacteristicsDictionary(new COSDictionary()).getNormalCaption());
-  }
-
-  /**
-   * Test {@link PDAppearanceCharacteristicsDictionary#getNormalCaption()}.
+   * <ul>
+   *   <li>Then return {@code null}.
+   * </ul>
    *
    * <p>Method under test: {@link PDAppearanceCharacteristicsDictionary#getNormalCaption()}
    */
   @Test
-  @DisplayName("Test getNormalCaption()")
+  @DisplayName("Test getNormalCaption(); then return 'null'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"String PDAppearanceCharacteristicsDictionary.getNormalCaption()"})
-  void testGetNormalCaption2() {
+  void testGetNormalCaption_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new PDAppearanceCharacteristicsDictionary(new COSStream()).getNormalCaption());
+    assertNull(new PDAppearanceCharacteristicsDictionary(new COSDictionary()).getNormalCaption());
   }
 
   /**
@@ -392,31 +337,20 @@ class PDAppearanceCharacteristicsDictionaryDiffblueTest {
   /**
    * Test {@link PDAppearanceCharacteristicsDictionary#getRolloverCaption()}.
    *
-   * <p>Method under test: {@link PDAppearanceCharacteristicsDictionary#getRolloverCaption()}
-   */
-  @Test
-  @DisplayName("Test getRolloverCaption()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String PDAppearanceCharacteristicsDictionary.getRolloverCaption()"})
-  void testGetRolloverCaption() {
-    // Arrange, Act and Assert
-    assertNull(new PDAppearanceCharacteristicsDictionary(new COSDictionary()).getRolloverCaption());
-  }
-
-  /**
-   * Test {@link PDAppearanceCharacteristicsDictionary#getRolloverCaption()}.
+   * <ul>
+   *   <li>Then return {@code null}.
+   * </ul>
    *
    * <p>Method under test: {@link PDAppearanceCharacteristicsDictionary#getRolloverCaption()}
    */
   @Test
-  @DisplayName("Test getRolloverCaption()")
+  @DisplayName("Test getRolloverCaption(); then return 'null'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"String PDAppearanceCharacteristicsDictionary.getRolloverCaption()"})
-  void testGetRolloverCaption2() {
+  void testGetRolloverCaption_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new PDAppearanceCharacteristicsDictionary(new COSStream()).getRolloverCaption());
+    assertNull(new PDAppearanceCharacteristicsDictionary(new COSDictionary()).getRolloverCaption());
   }
 
   /**
@@ -471,32 +405,21 @@ class PDAppearanceCharacteristicsDictionaryDiffblueTest {
   /**
    * Test {@link PDAppearanceCharacteristicsDictionary#getAlternateCaption()}.
    *
-   * <p>Method under test: {@link PDAppearanceCharacteristicsDictionary#getAlternateCaption()}
-   */
-  @Test
-  @DisplayName("Test getAlternateCaption()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String PDAppearanceCharacteristicsDictionary.getAlternateCaption()"})
-  void testGetAlternateCaption() {
-    // Arrange, Act and Assert
-    assertNull(
-        new PDAppearanceCharacteristicsDictionary(new COSDictionary()).getAlternateCaption());
-  }
-
-  /**
-   * Test {@link PDAppearanceCharacteristicsDictionary#getAlternateCaption()}.
+   * <ul>
+   *   <li>Then return {@code null}.
+   * </ul>
    *
    * <p>Method under test: {@link PDAppearanceCharacteristicsDictionary#getAlternateCaption()}
    */
   @Test
-  @DisplayName("Test getAlternateCaption()")
+  @DisplayName("Test getAlternateCaption(); then return 'null'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"String PDAppearanceCharacteristicsDictionary.getAlternateCaption()"})
-  void testGetAlternateCaption2() {
+  void testGetAlternateCaption_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new PDAppearanceCharacteristicsDictionary(new COSStream()).getAlternateCaption());
+    assertNull(
+        new PDAppearanceCharacteristicsDictionary(new COSDictionary()).getAlternateCaption());
   }
 
   /**
@@ -551,109 +474,63 @@ class PDAppearanceCharacteristicsDictionaryDiffblueTest {
   /**
    * Test {@link PDAppearanceCharacteristicsDictionary#getNormalIcon()}.
    *
-   * <p>Method under test: {@link PDAppearanceCharacteristicsDictionary#getNormalIcon()}
-   */
-  @Test
-  @DisplayName("Test getNormalIcon()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "org.apache.pdfbox.pdmodel.graphics.form.PDFormXObject PDAppearanceCharacteristicsDictionary.getNormalIcon()"
-  })
-  void testGetNormalIcon() {
-    // Arrange, Act and Assert
-    assertNull(new PDAppearanceCharacteristicsDictionary(new COSDictionary()).getNormalIcon());
-  }
-
-  /**
-   * Test {@link PDAppearanceCharacteristicsDictionary#getNormalIcon()}.
-   *
    * <ul>
-   *   <li>Given {@link
-   *       PDAppearanceCharacteristicsDictionary#PDAppearanceCharacteristicsDictionary(COSDictionary)}
-   *       with dict is {@link COSStream#COSStream()}.
+   *   <li>Then return {@code null}.
    * </ul>
    *
    * <p>Method under test: {@link PDAppearanceCharacteristicsDictionary#getNormalIcon()}
    */
   @Test
-  @DisplayName(
-      "Test getNormalIcon(); given PDAppearanceCharacteristicsDictionary(COSDictionary) with dict is COSStream()")
+  @DisplayName("Test getNormalIcon(); then return 'null'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({
     "org.apache.pdfbox.pdmodel.graphics.form.PDFormXObject PDAppearanceCharacteristicsDictionary.getNormalIcon()"
   })
-  void testGetNormalIcon_givenPDAppearanceCharacteristicsDictionaryWithDictIsCOSStream() {
+  void testGetNormalIcon_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new PDAppearanceCharacteristicsDictionary(new COSStream()).getNormalIcon());
+    assertNull(new PDAppearanceCharacteristicsDictionary(new COSDictionary()).getNormalIcon());
   }
 
   /**
    * Test {@link PDAppearanceCharacteristicsDictionary#getRolloverIcon()}.
    *
+   * <ul>
+   *   <li>Then return {@code null}.
+   * </ul>
+   *
    * <p>Method under test: {@link PDAppearanceCharacteristicsDictionary#getRolloverIcon()}
    */
   @Test
-  @DisplayName("Test getRolloverIcon()")
+  @DisplayName("Test getRolloverIcon(); then return 'null'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({
     "org.apache.pdfbox.pdmodel.graphics.form.PDFormXObject PDAppearanceCharacteristicsDictionary.getRolloverIcon()"
   })
-  void testGetRolloverIcon() {
+  void testGetRolloverIcon_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull(new PDAppearanceCharacteristicsDictionary(new COSDictionary()).getRolloverIcon());
   }
 
   /**
-   * Test {@link PDAppearanceCharacteristicsDictionary#getRolloverIcon()}.
-   *
-   * <p>Method under test: {@link PDAppearanceCharacteristicsDictionary#getRolloverIcon()}
-   */
-  @Test
-  @DisplayName("Test getRolloverIcon()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "org.apache.pdfbox.pdmodel.graphics.form.PDFormXObject PDAppearanceCharacteristicsDictionary.getRolloverIcon()"
-  })
-  void testGetRolloverIcon2() {
-    // Arrange, Act and Assert
-    assertNull(new PDAppearanceCharacteristicsDictionary(new COSStream()).getRolloverIcon());
-  }
-
-  /**
    * Test {@link PDAppearanceCharacteristicsDictionary#getAlternateIcon()}.
+   *
+   * <ul>
+   *   <li>Then return {@code null}.
+   * </ul>
    *
    * <p>Method under test: {@link PDAppearanceCharacteristicsDictionary#getAlternateIcon()}
    */
   @Test
-  @DisplayName("Test getAlternateIcon()")
+  @DisplayName("Test getAlternateIcon(); then return 'null'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({
     "org.apache.pdfbox.pdmodel.graphics.form.PDFormXObject PDAppearanceCharacteristicsDictionary.getAlternateIcon()"
   })
-  void testGetAlternateIcon() {
+  void testGetAlternateIcon_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull(new PDAppearanceCharacteristicsDictionary(new COSDictionary()).getAlternateIcon());
-  }
-
-  /**
-   * Test {@link PDAppearanceCharacteristicsDictionary#getAlternateIcon()}.
-   *
-   * <p>Method under test: {@link PDAppearanceCharacteristicsDictionary#getAlternateIcon()}
-   */
-  @Test
-  @DisplayName("Test getAlternateIcon()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "org.apache.pdfbox.pdmodel.graphics.form.PDFormXObject PDAppearanceCharacteristicsDictionary.getAlternateIcon()"
-  })
-  void testGetAlternateIcon2() {
-    // Arrange, Act and Assert
-    assertNull(new PDAppearanceCharacteristicsDictionary(new COSStream()).getAlternateIcon());
   }
 }

@@ -819,31 +819,6 @@ class PDAnnotationAdditionalActionsDiffblueTest {
    * Test {@link PDAnnotationAdditionalActions#getX()}.
    *
    * <ul>
-   *   <li>Given {@link PDAnnotationAdditionalActions#PDAnnotationAdditionalActions()} E is {@link
-   *       PDActionEmbeddedGoTo#PDActionEmbeddedGoTo()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getX()}
-   */
-  @Test
-  @DisplayName("Test getX(); given PDAnnotationAdditionalActions() E is PDActionEmbeddedGoTo()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getX()"})
-  void testGetX_givenPDAnnotationAdditionalActionsEIsPDActionEmbeddedGoTo() {
-    // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
-    pdAnnotationAdditionalActions.setE(new PDActionEmbeddedGoTo());
-
-    // Act and Assert
-    assertNull(pdAnnotationAdditionalActions.getX());
-  }
-
-  /**
-   * Test {@link PDAnnotationAdditionalActions#getX()}.
-   *
-   * <ul>
    *   <li>Given {@link PDAnnotationAdditionalActions#PDAnnotationAdditionalActions()} X is {@link
    *       PDActionURI#PDActionURI()}.
    *   <li>Then return {@link PDActionURI}.
@@ -1528,31 +1503,6 @@ class PDAnnotationAdditionalActionsDiffblueTest {
    * Test {@link PDAnnotationAdditionalActions#getD()}.
    *
    * <ul>
-   *   <li>Given {@link PDAnnotationAdditionalActions#PDAnnotationAdditionalActions()} E is {@link
-   *       PDActionEmbeddedGoTo#PDActionEmbeddedGoTo()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getD()}
-   */
-  @Test
-  @DisplayName("Test getD(); given PDAnnotationAdditionalActions() E is PDActionEmbeddedGoTo()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getD()"})
-  void testGetD_givenPDAnnotationAdditionalActionsEIsPDActionEmbeddedGoTo() {
-    // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
-    pdAnnotationAdditionalActions.setE(new PDActionEmbeddedGoTo());
-
-    // Act and Assert
-    assertNull(pdAnnotationAdditionalActions.getD());
-  }
-
-  /**
-   * Test {@link PDAnnotationAdditionalActions#getD()}.
-   *
-   * <ul>
    *   <li>Given {@link PDAnnotationAdditionalActions#PDAnnotationAdditionalActions()}.
    *   <li>Then return {@code null}.
    * </ul>
@@ -2148,31 +2098,6 @@ class PDAnnotationAdditionalActionsDiffblueTest {
     PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
         new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setU(u);
-
-    // Act and Assert
-    assertNull(pdAnnotationAdditionalActions.getU());
-  }
-
-  /**
-   * Test {@link PDAnnotationAdditionalActions#getU()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDAnnotationAdditionalActions#PDAnnotationAdditionalActions()} E is {@link
-   *       PDActionEmbeddedGoTo#PDActionEmbeddedGoTo()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getU()}
-   */
-  @Test
-  @DisplayName("Test getU(); given PDAnnotationAdditionalActions() E is PDActionEmbeddedGoTo()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getU()"})
-  void testGetU_givenPDAnnotationAdditionalActionsEIsPDActionEmbeddedGoTo() {
-    // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
-    pdAnnotationAdditionalActions.setE(new PDActionEmbeddedGoTo());
 
     // Act and Assert
     assertNull(pdAnnotationAdditionalActions.getU());
@@ -2826,31 +2751,6 @@ class PDAnnotationAdditionalActionsDiffblueTest {
    * Test {@link PDAnnotationAdditionalActions#getFo()}.
    *
    * <ul>
-   *   <li>Given {@link PDAnnotationAdditionalActions#PDAnnotationAdditionalActions()} E is {@link
-   *       PDActionEmbeddedGoTo#PDActionEmbeddedGoTo()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getFo()}
-   */
-  @Test
-  @DisplayName("Test getFo(); given PDAnnotationAdditionalActions() E is PDActionEmbeddedGoTo()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getFo()"})
-  void testGetFo_givenPDAnnotationAdditionalActionsEIsPDActionEmbeddedGoTo() {
-    // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
-    pdAnnotationAdditionalActions.setE(new PDActionEmbeddedGoTo());
-
-    // Act and Assert
-    assertNull(pdAnnotationAdditionalActions.getFo());
-  }
-
-  /**
-   * Test {@link PDAnnotationAdditionalActions#getFo()}.
-   *
-   * <ul>
    *   <li>Given {@link PDAnnotationAdditionalActions#PDAnnotationAdditionalActions()}.
    *   <li>Then return {@code null}.
    * </ul>
@@ -3483,31 +3383,6 @@ class PDAnnotationAdditionalActionsDiffblueTest {
     PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
         new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setBl(bl);
-
-    // Act and Assert
-    assertNull(pdAnnotationAdditionalActions.getBl());
-  }
-
-  /**
-   * Test {@link PDAnnotationAdditionalActions#getBl()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDAnnotationAdditionalActions#PDAnnotationAdditionalActions()} E is {@link
-   *       PDActionEmbeddedGoTo#PDActionEmbeddedGoTo()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getBl()}
-   */
-  @Test
-  @DisplayName("Test getBl(); given PDAnnotationAdditionalActions() E is PDActionEmbeddedGoTo()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getBl()"})
-  void testGetBl_givenPDAnnotationAdditionalActionsEIsPDActionEmbeddedGoTo() {
-    // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
-    pdAnnotationAdditionalActions.setE(new PDActionEmbeddedGoTo());
 
     // Act and Assert
     assertNull(pdAnnotationAdditionalActions.getBl());
@@ -4158,31 +4033,6 @@ class PDAnnotationAdditionalActionsDiffblueTest {
    * Test {@link PDAnnotationAdditionalActions#getPO()}.
    *
    * <ul>
-   *   <li>Given {@link PDAnnotationAdditionalActions#PDAnnotationAdditionalActions()} E is {@link
-   *       PDActionEmbeddedGoTo#PDActionEmbeddedGoTo()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getPO()}
-   */
-  @Test
-  @DisplayName("Test getPO(); given PDAnnotationAdditionalActions() E is PDActionEmbeddedGoTo()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getPO()"})
-  void testGetPO_givenPDAnnotationAdditionalActionsEIsPDActionEmbeddedGoTo() {
-    // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
-    pdAnnotationAdditionalActions.setE(new PDActionEmbeddedGoTo());
-
-    // Act and Assert
-    assertNull(pdAnnotationAdditionalActions.getPO());
-  }
-
-  /**
-   * Test {@link PDAnnotationAdditionalActions#getPO()}.
-   *
-   * <ul>
    *   <li>Given {@link PDAnnotationAdditionalActions#PDAnnotationAdditionalActions()}.
    *   <li>Then return {@code null}.
    * </ul>
@@ -4815,31 +4665,6 @@ class PDAnnotationAdditionalActionsDiffblueTest {
     PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
         new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setPC(pc);
-
-    // Act and Assert
-    assertNull(pdAnnotationAdditionalActions.getPC());
-  }
-
-  /**
-   * Test {@link PDAnnotationAdditionalActions#getPC()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDAnnotationAdditionalActions#PDAnnotationAdditionalActions()} E is {@link
-   *       PDActionEmbeddedGoTo#PDActionEmbeddedGoTo()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getPC()}
-   */
-  @Test
-  @DisplayName("Test getPC(); given PDAnnotationAdditionalActions() E is PDActionEmbeddedGoTo()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getPC()"})
-  void testGetPC_givenPDAnnotationAdditionalActionsEIsPDActionEmbeddedGoTo() {
-    // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
-    pdAnnotationAdditionalActions.setE(new PDActionEmbeddedGoTo());
 
     // Act and Assert
     assertNull(pdAnnotationAdditionalActions.getPC());
@@ -5490,31 +5315,6 @@ class PDAnnotationAdditionalActionsDiffblueTest {
    * Test {@link PDAnnotationAdditionalActions#getPV()}.
    *
    * <ul>
-   *   <li>Given {@link PDAnnotationAdditionalActions#PDAnnotationAdditionalActions()} E is {@link
-   *       PDActionEmbeddedGoTo#PDActionEmbeddedGoTo()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getPV()}
-   */
-  @Test
-  @DisplayName("Test getPV(); given PDAnnotationAdditionalActions() E is PDActionEmbeddedGoTo()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getPV()"})
-  void testGetPV_givenPDAnnotationAdditionalActionsEIsPDActionEmbeddedGoTo() {
-    // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
-    pdAnnotationAdditionalActions.setE(new PDActionEmbeddedGoTo());
-
-    // Act and Assert
-    assertNull(pdAnnotationAdditionalActions.getPV());
-  }
-
-  /**
-   * Test {@link PDAnnotationAdditionalActions#getPV()}.
-   *
-   * <ul>
    *   <li>Given {@link PDAnnotationAdditionalActions#PDAnnotationAdditionalActions()}.
    *   <li>Then return {@code null}.
    * </ul>
@@ -6147,31 +5947,6 @@ class PDAnnotationAdditionalActionsDiffblueTest {
     PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
         new PDAnnotationAdditionalActions();
     pdAnnotationAdditionalActions.setPI(pi);
-
-    // Act and Assert
-    assertNull(pdAnnotationAdditionalActions.getPI());
-  }
-
-  /**
-   * Test {@link PDAnnotationAdditionalActions#getPI()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDAnnotationAdditionalActions#PDAnnotationAdditionalActions()} E is {@link
-   *       PDActionEmbeddedGoTo#PDActionEmbeddedGoTo()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationAdditionalActions#getPI()}
-   */
-  @Test
-  @DisplayName("Test getPI(); given PDAnnotationAdditionalActions() E is PDActionEmbeddedGoTo()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDAction PDAnnotationAdditionalActions.getPI()"})
-  void testGetPI_givenPDAnnotationAdditionalActionsEIsPDActionEmbeddedGoTo() {
-    // Arrange
-    PDAnnotationAdditionalActions pdAnnotationAdditionalActions =
-        new PDAnnotationAdditionalActions();
-    pdAnnotationAdditionalActions.setE(new PDActionEmbeddedGoTo());
 
     // Act and Assert
     assertNull(pdAnnotationAdditionalActions.getPI());

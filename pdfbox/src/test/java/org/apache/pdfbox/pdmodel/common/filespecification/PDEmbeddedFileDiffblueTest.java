@@ -4,15 +4,21 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.isA;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.ByteArrayInputStream;
+import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -25,6 +31,7 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 class PDEmbeddedFileDiffblueTest {
   /**
@@ -71,28 +78,36 @@ class PDEmbeddedFileDiffblueTest {
   }
 
   /**
-   * Test {@link PDEmbeddedFile#PDEmbeddedFile(PDDocument, InputStream, COSName)}.
+   * Test {@link PDEmbeddedFile#PDEmbeddedFile(PDDocument, InputStream)}.
    *
-   * <p>Method under test: {@link PDEmbeddedFile#PDEmbeddedFile(PDDocument, InputStream, COSName)}
+   * <ul>
+   *   <li>Given {@link IOException#IOException()}.
+   *   <li>Then throw {@link IOException}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDEmbeddedFile#PDEmbeddedFile(PDDocument, InputStream)}
    */
   @Test
-  @DisplayName("Test new PDEmbeddedFile(PDDocument, InputStream, COSName)")
+  @DisplayName(
+      "Test new PDEmbeddedFile(PDDocument, InputStream); given IOException(); then throw IOException")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
-  @MethodsUnderTest({"void PDEmbeddedFile.<init>(PDDocument, InputStream, COSName)"})
-  void testNewPDEmbeddedFile3() throws IOException {
+  @MethodsUnderTest({"void PDEmbeddedFile.<init>(PDDocument, InputStream)"})
+  void testNewPDEmbeddedFile_givenIOException_thenThrowIOException() throws IOException {
     // Arrange
-    PDDocument doc = new PDDocument();
-    ByteArrayInputStream input = new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"));
+    StreamCacheCreateFunction streamCacheCreateFunction = mock(StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
+    PDDocument doc = new PDDocument(streamCacheCreateFunction);
 
-    // Act
-    PDEmbeddedFile actualPdEmbeddedFile = new PDEmbeddedFile(doc, input, null);
+    DataInputStream str = mock(DataInputStream.class);
+    when(str.transferTo(Mockito.<OutputStream>any())).thenThrow(new IOException());
+    doThrow(new IOException()).when(str).close();
 
-    // Assert
-    int actualReadResult = input.read(new byte[] {});
-    assertEquals(-1, actualReadResult);
-    assertEquals(8, actualPdEmbeddedFile.getLength());
-    assertEquals(8L, actualPdEmbeddedFile.getCOSObject().getLength());
+    // Act and Assert
+    assertThrows(IOException.class, () -> new PDEmbeddedFile(doc, str));
+    verify(str).close();
+    verify(str).transferTo(isA(OutputStream.class));
+    verify(streamCacheCreateFunction).create();
   }
 
   /**
@@ -123,10 +138,25 @@ class PDEmbeddedFileDiffblueTest {
 
     // Assert
     verify(streamCacheCreateFunction).create();
+    assertNull(actualPdEmbeddedFile.getCheckSum());
+    assertNull(actualPdEmbeddedFile.getMacCreator());
+    assertNull(actualPdEmbeddedFile.getMacResFork());
+    assertNull(actualPdEmbeddedFile.getMacSubtype());
+    assertNull(actualPdEmbeddedFile.getSubtype());
+    assertNull(actualPdEmbeddedFile.getCreationDate());
+    assertNull(actualPdEmbeddedFile.getModDate());
+    assertNull(actualPdEmbeddedFile.getDecodeParms());
+    assertNull(actualPdEmbeddedFile.getFileDecodeParams());
+    assertNull(actualPdEmbeddedFile.getMetadata());
+    assertNull(actualPdEmbeddedFile.getFile());
     int actualReadResult = input.read(new byte[] {});
     assertEquals(-1, actualReadResult);
+    assertEquals(-1, actualPdEmbeddedFile.getDecodedStreamLength());
+    assertEquals(-1, actualPdEmbeddedFile.getSize());
     assertEquals(8, actualPdEmbeddedFile.getLength());
-    assertEquals(8L, actualPdEmbeddedFile.getCOSObject().getLength());
+    List<String> fileFilters = actualPdEmbeddedFile.getFileFilters();
+    assertTrue(fileFilters.isEmpty());
+    assertSame(fileFilters, actualPdEmbeddedFile.getFilters());
   }
 
   /**
@@ -169,67 +199,52 @@ class PDEmbeddedFileDiffblueTest {
    * Test {@link PDEmbeddedFile#PDEmbeddedFile(PDDocument, InputStream)}.
    *
    * <ul>
-   *   <li>Then {@link ByteArrayInputStream#ByteArrayInputStream(byte[])} with empty array of {@code
-   *       byte} read is minus one.
+   *   <li>Given one.
+   *   <li>Then return CheckSum is {@code null}.
    * </ul>
    *
    * <p>Method under test: {@link PDEmbeddedFile#PDEmbeddedFile(PDDocument, InputStream)}
    */
   @Test
   @DisplayName(
-      "Test new PDEmbeddedFile(PDDocument, InputStream); then ByteArrayInputStream(byte[]) with empty array of byte read is minus one")
+      "Test new PDEmbeddedFile(PDDocument, InputStream); given one; then return CheckSum is 'null'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void PDEmbeddedFile.<init>(PDDocument, InputStream)"})
-  void testNewPDEmbeddedFile_thenByteArrayInputStreamWithEmptyArrayOfByteReadIsMinusOne()
-      throws IOException {
+  void testNewPDEmbeddedFile_givenOne_thenReturnCheckSumIsNull() throws IOException {
     // Arrange
     StreamCacheCreateFunction streamCacheCreateFunction = mock(StreamCacheCreateFunction.class);
     when(streamCacheCreateFunction.create()).thenReturn(new RandomAccessStreamCacheImpl());
     PDDocument doc = new PDDocument(streamCacheCreateFunction);
-    ByteArrayInputStream str = new ByteArrayInputStream(new byte[] {});
+
+    DataInputStream str = mock(DataInputStream.class);
+    when(str.transferTo(Mockito.<OutputStream>any())).thenReturn(1L);
+    doNothing().when(str).close();
 
     // Act
     PDEmbeddedFile actualPdEmbeddedFile = new PDEmbeddedFile(doc, str);
 
     // Assert
+    verify(str).close();
+    verify(str).transferTo(isA(OutputStream.class));
     verify(streamCacheCreateFunction).create();
-    int actualReadResult = str.read(new byte[] {});
-    assertEquals(-1, actualReadResult);
+    assertNull(actualPdEmbeddedFile.getCheckSum());
+    assertNull(actualPdEmbeddedFile.getMacCreator());
+    assertNull(actualPdEmbeddedFile.getMacResFork());
+    assertNull(actualPdEmbeddedFile.getMacSubtype());
+    assertNull(actualPdEmbeddedFile.getSubtype());
+    assertNull(actualPdEmbeddedFile.getCreationDate());
+    assertNull(actualPdEmbeddedFile.getModDate());
+    assertNull(actualPdEmbeddedFile.getDecodeParms());
+    assertNull(actualPdEmbeddedFile.getFileDecodeParams());
+    assertNull(actualPdEmbeddedFile.getMetadata());
+    assertNull(actualPdEmbeddedFile.getFile());
+    assertEquals(-1, actualPdEmbeddedFile.getDecodedStreamLength());
+    assertEquals(-1, actualPdEmbeddedFile.getSize());
     assertEquals(0, actualPdEmbeddedFile.getLength());
-    assertEquals(0L, actualPdEmbeddedFile.getCOSObject().getLength());
-  }
-
-  /**
-   * Test {@link PDEmbeddedFile#PDEmbeddedFile(PDDocument, InputStream, COSName)}.
-   *
-   * <ul>
-   *   <li>Then {@link ByteArrayInputStream#ByteArrayInputStream(byte[])} with empty array of {@code
-   *       byte} read is minus one.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDEmbeddedFile#PDEmbeddedFile(PDDocument, InputStream, COSName)}
-   */
-  @Test
-  @DisplayName(
-      "Test new PDEmbeddedFile(PDDocument, InputStream, COSName); then ByteArrayInputStream(byte[]) with empty array of byte read is minus one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDEmbeddedFile.<init>(PDDocument, InputStream, COSName)"})
-  void testNewPDEmbeddedFile_thenByteArrayInputStreamWithEmptyArrayOfByteReadIsMinusOne2()
-      throws IOException {
-    // Arrange
-    PDDocument doc = new PDDocument();
-    ByteArrayInputStream input = new ByteArrayInputStream(new byte[] {});
-
-    // Act
-    PDEmbeddedFile actualPdEmbeddedFile = new PDEmbeddedFile(doc, input, null);
-
-    // Assert
-    int actualReadResult = input.read(new byte[] {});
-    assertEquals(-1, actualReadResult);
-    assertEquals(0, actualPdEmbeddedFile.getLength());
-    assertEquals(0L, actualPdEmbeddedFile.getCOSObject().getLength());
+    List<String> fileFilters = actualPdEmbeddedFile.getFileFilters();
+    assertTrue(fileFilters.isEmpty());
+    assertSame(fileFilters, actualPdEmbeddedFile.getFilters());
   }
 
   /**
@@ -267,6 +282,52 @@ class PDEmbeddedFileDiffblueTest {
     assertEquals(-1, actualPdEmbeddedFile.getDecodedStreamLength());
     assertEquals(-1, actualPdEmbeddedFile.getSize());
     assertEquals(0, actualPdEmbeddedFile.getLength());
+    List<String> fileFilters = actualPdEmbeddedFile.getFileFilters();
+    assertTrue(fileFilters.isEmpty());
+    assertSame(fileFilters, actualPdEmbeddedFile.getFilters());
+  }
+
+  /**
+   * Test {@link PDEmbeddedFile#PDEmbeddedFile(PDDocument, InputStream, COSName)}.
+   *
+   * <ul>
+   *   <li>When {@link PDDocument#PDDocument()}.
+   *   <li>Then return CheckSum is {@code null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDEmbeddedFile#PDEmbeddedFile(PDDocument, InputStream, COSName)}
+   */
+  @Test
+  @DisplayName(
+      "Test new PDEmbeddedFile(PDDocument, InputStream, COSName); when PDDocument(); then return CheckSum is 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDEmbeddedFile.<init>(PDDocument, InputStream, COSName)"})
+  void testNewPDEmbeddedFile_whenPDDocument_thenReturnCheckSumIsNull2() throws IOException {
+    // Arrange
+    PDDocument doc = new PDDocument();
+    ByteArrayInputStream input = new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"));
+
+    // Act
+    PDEmbeddedFile actualPdEmbeddedFile = new PDEmbeddedFile(doc, input, null);
+
+    // Assert
+    assertNull(actualPdEmbeddedFile.getCheckSum());
+    assertNull(actualPdEmbeddedFile.getMacCreator());
+    assertNull(actualPdEmbeddedFile.getMacResFork());
+    assertNull(actualPdEmbeddedFile.getMacSubtype());
+    assertNull(actualPdEmbeddedFile.getSubtype());
+    assertNull(actualPdEmbeddedFile.getCreationDate());
+    assertNull(actualPdEmbeddedFile.getModDate());
+    assertNull(actualPdEmbeddedFile.getDecodeParms());
+    assertNull(actualPdEmbeddedFile.getFileDecodeParams());
+    assertNull(actualPdEmbeddedFile.getMetadata());
+    assertNull(actualPdEmbeddedFile.getFile());
+    int actualReadResult = input.read(new byte[] {});
+    assertEquals(-1, actualReadResult);
+    assertEquals(-1, actualPdEmbeddedFile.getDecodedStreamLength());
+    assertEquals(-1, actualPdEmbeddedFile.getSize());
+    assertEquals(8, actualPdEmbeddedFile.getLength());
     List<String> fileFilters = actualPdEmbeddedFile.getFileFilters();
     assertTrue(fileFilters.isEmpty());
     assertSame(fileFilters, actualPdEmbeddedFile.getFilters());

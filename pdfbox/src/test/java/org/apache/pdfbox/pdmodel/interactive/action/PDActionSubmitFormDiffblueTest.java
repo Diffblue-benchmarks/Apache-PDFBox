@@ -74,28 +74,6 @@ class PDActionSubmitFormDiffblueTest {
    * Test {@link PDActionSubmitForm#getFile()}.
    *
    * <ul>
-   *   <li>Given {@link PDActionSubmitForm#PDActionSubmitForm(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDActionSubmitForm#getFile()}
-   */
-  @Test
-  @DisplayName(
-      "Test getFile(); given PDActionSubmitForm(COSDictionary) with a is COSDictionary(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDFileSpecification PDActionSubmitForm.getFile()"})
-  void testGetFile_givenPDActionSubmitFormWithAIsCOSDictionary_thenReturnNull() throws IOException {
-    // Arrange, Act and Assert
-    assertNull(new PDActionSubmitForm(new COSDictionary()).getFile());
-  }
-
-  /**
-   * Test {@link PDActionSubmitForm#getFile()}.
-   *
-   * <ul>
    *   <li>Given {@link PDActionSubmitForm#PDActionSubmitForm()}.
    *   <li>Then return {@code null}.
    * </ul>
@@ -411,28 +389,6 @@ class PDActionSubmitFormDiffblueTest {
    * Test {@link PDActionSubmitForm#getFields()}.
    *
    * <ul>
-   *   <li>Given {@link PDActionSubmitForm#PDActionSubmitForm(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDActionSubmitForm#getFields()}
-   */
-  @Test
-  @DisplayName(
-      "Test getFields(); given PDActionSubmitForm(COSDictionary) with a is COSDictionary(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"COSArray PDActionSubmitForm.getFields()"})
-  void testGetFields_givenPDActionSubmitFormWithAIsCOSDictionary_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull(new PDActionSubmitForm(new COSDictionary()).getFields());
-  }
-
-  /**
-   * Test {@link PDActionSubmitForm#getFields()}.
-   *
-   * <ul>
    *   <li>Given {@link PDActionSubmitForm#PDActionSubmitForm()}.
    *   <li>Then return {@code null}.
    * </ul>
@@ -600,28 +556,6 @@ class PDActionSubmitFormDiffblueTest {
 
     // Act and Assert
     assertEquals(1, pdActionSubmitForm.getFlags());
-  }
-
-  /**
-   * Test {@link PDActionSubmitForm#getFlags()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDActionSubmitForm#PDActionSubmitForm(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return zero.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDActionSubmitForm#getFlags()}
-   */
-  @Test
-  @DisplayName(
-      "Test getFlags(); given PDActionSubmitForm(COSDictionary) with a is COSDictionary(); then return zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"int PDActionSubmitForm.getFlags()"})
-  void testGetFlags_givenPDActionSubmitFormWithAIsCOSDictionary_thenReturnZero() {
-    // Arrange, Act and Assert
-    assertEquals(0, new PDActionSubmitForm(new COSDictionary()).getFlags());
   }
 
   /**

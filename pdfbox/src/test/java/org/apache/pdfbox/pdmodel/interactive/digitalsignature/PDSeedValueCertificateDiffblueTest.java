@@ -7,12 +7,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.ArgumentMatchers.isA;
-import static org.mockito.Mockito.anyBoolean;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.UnsupportedEncodingException;
@@ -20,16 +14,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.apache.pdfbox.cos.COSArray;
-import org.apache.pdfbox.cos.COSBase;
 import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.cos.COSIncrement;
-import org.apache.pdfbox.cos.COSName;
 import org.apache.pdfbox.cos.COSUpdateState;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 class PDSeedValueCertificateDiffblueTest {
   /**
@@ -135,27 +125,6 @@ class PDSeedValueCertificateDiffblueTest {
    * Test {@link PDSeedValueCertificate#isSubjectRequired()}.
    *
    * <ul>
-   *   <li>Given {@link PDSeedValueCertificate#PDSeedValueCertificate(COSDictionary)} with dict is
-   *       {@link COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDSeedValueCertificate#isSubjectRequired()}
-   */
-  @Test
-  @DisplayName(
-      "Test isSubjectRequired(); given PDSeedValueCertificate(COSDictionary) with dict is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean PDSeedValueCertificate.isSubjectRequired()"})
-  void testIsSubjectRequired_givenPDSeedValueCertificateWithDictIsCOSDictionary() {
-    // Arrange, Act and Assert
-    assertFalse(new PDSeedValueCertificate(new COSDictionary()).isSubjectRequired());
-  }
-
-  /**
-   * Test {@link PDSeedValueCertificate#isSubjectRequired()}.
-   *
-   * <ul>
    *   <li>Given {@link PDSeedValueCertificate#PDSeedValueCertificate()}.
    *   <li>Then return {@code false}.
    * </ul>
@@ -192,30 +161,6 @@ class PDSeedValueCertificateDiffblueTest {
     pdSeedValueCertificate.setSubjectRequired(true);
 
     // Act and Assert
-    assertTrue(pdSeedValueCertificate.isSubjectRequired());
-  }
-
-  /**
-   * Test {@link PDSeedValueCertificate#setSubjectRequired(boolean)}.
-   *
-   * <p>Method under test: {@link PDSeedValueCertificate#setSubjectRequired(boolean)}
-   */
-  @Test
-  @DisplayName("Test setSubjectRequired(boolean)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDSeedValueCertificate.setSubjectRequired(boolean)"})
-  void testSetSubjectRequired() {
-    // Arrange
-    PDSeedValueCertificate pdSeedValueCertificate = new PDSeedValueCertificate(new COSDictionary());
-
-    // Act
-    pdSeedValueCertificate.setSubjectRequired(true);
-
-    // Assert
-    COSDictionary cOSObject = pdSeedValueCertificate.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
     assertTrue(pdSeedValueCertificate.isSubjectRequired());
   }
 
@@ -367,27 +312,6 @@ class PDSeedValueCertificateDiffblueTest {
    * Test {@link PDSeedValueCertificate#isIssuerRequired()}.
    *
    * <ul>
-   *   <li>Given {@link PDSeedValueCertificate#PDSeedValueCertificate(COSDictionary)} with dict is
-   *       {@link COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDSeedValueCertificate#isIssuerRequired()}
-   */
-  @Test
-  @DisplayName(
-      "Test isIssuerRequired(); given PDSeedValueCertificate(COSDictionary) with dict is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean PDSeedValueCertificate.isIssuerRequired()"})
-  void testIsIssuerRequired_givenPDSeedValueCertificateWithDictIsCOSDictionary() {
-    // Arrange, Act and Assert
-    assertFalse(new PDSeedValueCertificate(new COSDictionary()).isIssuerRequired());
-  }
-
-  /**
-   * Test {@link PDSeedValueCertificate#isIssuerRequired()}.
-   *
-   * <ul>
    *   <li>Given {@link PDSeedValueCertificate#PDSeedValueCertificate()}.
    *   <li>Then return {@code false}.
    * </ul>
@@ -424,30 +348,6 @@ class PDSeedValueCertificateDiffblueTest {
     pdSeedValueCertificate.setIssuerRequired(true);
 
     // Act and Assert
-    assertTrue(pdSeedValueCertificate.isIssuerRequired());
-  }
-
-  /**
-   * Test {@link PDSeedValueCertificate#setIssuerRequired(boolean)}.
-   *
-   * <p>Method under test: {@link PDSeedValueCertificate#setIssuerRequired(boolean)}
-   */
-  @Test
-  @DisplayName("Test setIssuerRequired(boolean)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDSeedValueCertificate.setIssuerRequired(boolean)"})
-  void testSetIssuerRequired() {
-    // Arrange
-    PDSeedValueCertificate pdSeedValueCertificate = new PDSeedValueCertificate(new COSDictionary());
-
-    // Act
-    pdSeedValueCertificate.setIssuerRequired(true);
-
-    // Assert
-    COSDictionary cOSObject = pdSeedValueCertificate.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
     assertTrue(pdSeedValueCertificate.isIssuerRequired());
   }
 
@@ -625,27 +525,6 @@ class PDSeedValueCertificateDiffblueTest {
    * Test {@link PDSeedValueCertificate#isOIDRequired()}.
    *
    * <ul>
-   *   <li>Given {@link PDSeedValueCertificate#PDSeedValueCertificate(COSDictionary)} with dict is
-   *       {@link COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDSeedValueCertificate#isOIDRequired()}
-   */
-  @Test
-  @DisplayName(
-      "Test isOIDRequired(); given PDSeedValueCertificate(COSDictionary) with dict is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean PDSeedValueCertificate.isOIDRequired()"})
-  void testIsOIDRequired_givenPDSeedValueCertificateWithDictIsCOSDictionary() {
-    // Arrange, Act and Assert
-    assertFalse(new PDSeedValueCertificate(new COSDictionary()).isOIDRequired());
-  }
-
-  /**
-   * Test {@link PDSeedValueCertificate#isOIDRequired()}.
-   *
-   * <ul>
    *   <li>Given {@link PDSeedValueCertificate#PDSeedValueCertificate()}.
    *   <li>Then return {@code false}.
    * </ul>
@@ -660,30 +539,6 @@ class PDSeedValueCertificateDiffblueTest {
   void testIsOIDRequired_givenPDSeedValueCertificate_thenReturnFalse() {
     // Arrange, Act and Assert
     assertFalse(new PDSeedValueCertificate().isOIDRequired());
-  }
-
-  /**
-   * Test {@link PDSeedValueCertificate#setOIDRequired(boolean)}.
-   *
-   * <p>Method under test: {@link PDSeedValueCertificate#setOIDRequired(boolean)}
-   */
-  @Test
-  @DisplayName("Test setOIDRequired(boolean)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDSeedValueCertificate.setOIDRequired(boolean)"})
-  void testSetOIDRequired() {
-    // Arrange
-    PDSeedValueCertificate pdSeedValueCertificate = new PDSeedValueCertificate(new COSDictionary());
-
-    // Act
-    pdSeedValueCertificate.setOIDRequired(true);
-
-    // Assert
-    COSDictionary cOSObject = pdSeedValueCertificate.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-    assertTrue(pdSeedValueCertificate.isOIDRequired());
   }
 
   /**
@@ -804,27 +659,6 @@ class PDSeedValueCertificateDiffblueTest {
    * Test {@link PDSeedValueCertificate#isSubjectDNRequired()}.
    *
    * <ul>
-   *   <li>Given {@link PDSeedValueCertificate#PDSeedValueCertificate(COSDictionary)} with dict is
-   *       {@link COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDSeedValueCertificate#isSubjectDNRequired()}
-   */
-  @Test
-  @DisplayName(
-      "Test isSubjectDNRequired(); given PDSeedValueCertificate(COSDictionary) with dict is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean PDSeedValueCertificate.isSubjectDNRequired()"})
-  void testIsSubjectDNRequired_givenPDSeedValueCertificateWithDictIsCOSDictionary() {
-    // Arrange, Act and Assert
-    assertFalse(new PDSeedValueCertificate(new COSDictionary()).isSubjectDNRequired());
-  }
-
-  /**
-   * Test {@link PDSeedValueCertificate#isSubjectDNRequired()}.
-   *
-   * <ul>
    *   <li>Given {@link PDSeedValueCertificate#PDSeedValueCertificate()}.
    *   <li>Then return {@code false}.
    * </ul>
@@ -861,30 +695,6 @@ class PDSeedValueCertificateDiffblueTest {
     pdSeedValueCertificate.setSubjectDNRequired(true);
 
     // Act and Assert
-    assertTrue(pdSeedValueCertificate.isSubjectDNRequired());
-  }
-
-  /**
-   * Test {@link PDSeedValueCertificate#setSubjectDNRequired(boolean)}.
-   *
-   * <p>Method under test: {@link PDSeedValueCertificate#setSubjectDNRequired(boolean)}
-   */
-  @Test
-  @DisplayName("Test setSubjectDNRequired(boolean)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDSeedValueCertificate.setSubjectDNRequired(boolean)"})
-  void testSetSubjectDNRequired() {
-    // Arrange
-    PDSeedValueCertificate pdSeedValueCertificate = new PDSeedValueCertificate(new COSDictionary());
-
-    // Act
-    pdSeedValueCertificate.setSubjectDNRequired(true);
-
-    // Assert
-    COSDictionary cOSObject = pdSeedValueCertificate.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
     assertTrue(pdSeedValueCertificate.isSubjectDNRequired());
   }
 
@@ -1006,27 +816,6 @@ class PDSeedValueCertificateDiffblueTest {
    * Test {@link PDSeedValueCertificate#isKeyUsageRequired()}.
    *
    * <ul>
-   *   <li>Given {@link PDSeedValueCertificate#PDSeedValueCertificate(COSDictionary)} with dict is
-   *       {@link COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDSeedValueCertificate#isKeyUsageRequired()}
-   */
-  @Test
-  @DisplayName(
-      "Test isKeyUsageRequired(); given PDSeedValueCertificate(COSDictionary) with dict is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean PDSeedValueCertificate.isKeyUsageRequired()"})
-  void testIsKeyUsageRequired_givenPDSeedValueCertificateWithDictIsCOSDictionary() {
-    // Arrange, Act and Assert
-    assertFalse(new PDSeedValueCertificate(new COSDictionary()).isKeyUsageRequired());
-  }
-
-  /**
-   * Test {@link PDSeedValueCertificate#isKeyUsageRequired()}.
-   *
-   * <ul>
    *   <li>Given {@link PDSeedValueCertificate#PDSeedValueCertificate()}.
    *   <li>Then return {@code false}.
    * </ul>
@@ -1063,30 +852,6 @@ class PDSeedValueCertificateDiffblueTest {
     pdSeedValueCertificate.setKeyUsageRequired(true);
 
     // Act and Assert
-    assertTrue(pdSeedValueCertificate.isKeyUsageRequired());
-  }
-
-  /**
-   * Test {@link PDSeedValueCertificate#setKeyUsageRequired(boolean)}.
-   *
-   * <p>Method under test: {@link PDSeedValueCertificate#setKeyUsageRequired(boolean)}
-   */
-  @Test
-  @DisplayName("Test setKeyUsageRequired(boolean)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDSeedValueCertificate.setKeyUsageRequired(boolean)"})
-  void testSetKeyUsageRequired() {
-    // Arrange
-    PDSeedValueCertificate pdSeedValueCertificate = new PDSeedValueCertificate(new COSDictionary());
-
-    // Act
-    pdSeedValueCertificate.setKeyUsageRequired(true);
-
-    // Assert
-    COSDictionary cOSObject = pdSeedValueCertificate.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
     assertTrue(pdSeedValueCertificate.isKeyUsageRequired());
   }
 
@@ -1233,27 +998,6 @@ class PDSeedValueCertificateDiffblueTest {
    * Test {@link PDSeedValueCertificate#isURLRequired()}.
    *
    * <ul>
-   *   <li>Given {@link PDSeedValueCertificate#PDSeedValueCertificate(COSDictionary)} with dict is
-   *       {@link COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDSeedValueCertificate#isURLRequired()}
-   */
-  @Test
-  @DisplayName(
-      "Test isURLRequired(); given PDSeedValueCertificate(COSDictionary) with dict is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean PDSeedValueCertificate.isURLRequired()"})
-  void testIsURLRequired_givenPDSeedValueCertificateWithDictIsCOSDictionary() {
-    // Arrange, Act and Assert
-    assertFalse(new PDSeedValueCertificate(new COSDictionary()).isURLRequired());
-  }
-
-  /**
-   * Test {@link PDSeedValueCertificate#isURLRequired()}.
-   *
-   * <ul>
    *   <li>Given {@link PDSeedValueCertificate#PDSeedValueCertificate()}.
    *   <li>Then return {@code false}.
    * </ul>
@@ -1268,30 +1012,6 @@ class PDSeedValueCertificateDiffblueTest {
   void testIsURLRequired_givenPDSeedValueCertificate_thenReturnFalse() {
     // Arrange, Act and Assert
     assertFalse(new PDSeedValueCertificate().isURLRequired());
-  }
-
-  /**
-   * Test {@link PDSeedValueCertificate#setURLRequired(boolean)}.
-   *
-   * <p>Method under test: {@link PDSeedValueCertificate#setURLRequired(boolean)}
-   */
-  @Test
-  @DisplayName("Test setURLRequired(boolean)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDSeedValueCertificate.setURLRequired(boolean)"})
-  void testSetURLRequired() {
-    // Arrange
-    PDSeedValueCertificate pdSeedValueCertificate = new PDSeedValueCertificate(new COSDictionary());
-
-    // Act
-    pdSeedValueCertificate.setURLRequired(true);
-
-    // Assert
-    COSDictionary cOSObject = pdSeedValueCertificate.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-    assertTrue(pdSeedValueCertificate.isURLRequired());
   }
 
   /**
@@ -1381,28 +1101,6 @@ class PDSeedValueCertificateDiffblueTest {
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
     assertFalse(pdSeedValueCertificate.isURLRequired());
-  }
-
-  /**
-   * Test {@link PDSeedValueCertificate#getSubject()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDSeedValueCertificate#PDSeedValueCertificate(COSDictionary)} with dict is
-   *       {@link COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDSeedValueCertificate#getSubject()}
-   */
-  @Test
-  @DisplayName(
-      "Test getSubject(); given PDSeedValueCertificate(COSDictionary) with dict is COSDictionary(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"List PDSeedValueCertificate.getSubject()"})
-  void testGetSubject_givenPDSeedValueCertificateWithDictIsCOSDictionary_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull(new PDSeedValueCertificate(new COSDictionary()).getSubject());
   }
 
   /**
@@ -1552,32 +1250,6 @@ class PDSeedValueCertificateDiffblueTest {
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
     assertTrue(pdSeedValueCertificate.getSubject().isEmpty());
-  }
-
-  /**
-   * Test {@link PDSeedValueCertificate#addSubject(byte[])}.
-   *
-   * <p>Method under test: {@link PDSeedValueCertificate#addSubject(byte[])}
-   */
-  @Test
-  @DisplayName("Test addSubject(byte[])")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDSeedValueCertificate.addSubject(byte[])"})
-  void testAddSubject() throws UnsupportedEncodingException {
-    // Arrange
-    PDSeedValueCertificate pdSeedValueCertificate = new PDSeedValueCertificate(new COSDictionary());
-
-    // Act
-    pdSeedValueCertificate.addSubject("AXAXAXAX".getBytes("UTF-8"));
-
-    // Assert
-    COSDictionary cOSObject = pdSeedValueCertificate.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    List<byte[]> subject = pdSeedValueCertificate.getSubject();
-    assertEquals(1, subject.size());
-    assertEquals(1, cOSObject.size());
-    assertArrayEquals("AXAXAXAX".getBytes("UTF-8"), subject.get(0));
   }
 
   /**
@@ -1805,34 +1477,6 @@ class PDSeedValueCertificateDiffblueTest {
    * Test {@link PDSeedValueCertificate#removeSubject(byte[])}.
    *
    * <ul>
-   *   <li>Then {@link PDSeedValueCertificate#PDSeedValueCertificate(COSDictionary)} with dict is
-   *       {@link COSDictionary#COSDictionary()} Subject is {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDSeedValueCertificate#removeSubject(byte[])}
-   */
-  @Test
-  @DisplayName(
-      "Test removeSubject(byte[]); then PDSeedValueCertificate(COSDictionary) with dict is COSDictionary() Subject is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDSeedValueCertificate.removeSubject(byte[])"})
-  void testRemoveSubject_thenPDSeedValueCertificateWithDictIsCOSDictionarySubjectIsNull()
-      throws UnsupportedEncodingException {
-    // Arrange
-    PDSeedValueCertificate pdSeedValueCertificate = new PDSeedValueCertificate(new COSDictionary());
-
-    // Act
-    pdSeedValueCertificate.removeSubject("AXAXAXAX".getBytes("UTF-8"));
-
-    // Assert that nothing has changed
-    assertNull(pdSeedValueCertificate.getSubject());
-  }
-
-  /**
-   * Test {@link PDSeedValueCertificate#removeSubject(byte[])}.
-   *
-   * <ul>
    *   <li>When empty array of {@code byte}.
    * </ul>
    *
@@ -1910,27 +1554,6 @@ class PDSeedValueCertificateDiffblueTest {
 
     // Act and Assert
     assertTrue(pdSeedValueCertificate.getSubjectDN().isEmpty());
-  }
-
-  /**
-   * Test {@link PDSeedValueCertificate#getSubjectDN()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDSeedValueCertificate#PDSeedValueCertificate(COSDictionary)} with dict is
-   *       {@link COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDSeedValueCertificate#getSubjectDN()}
-   */
-  @Test
-  @DisplayName(
-      "Test getSubjectDN(); given PDSeedValueCertificate(COSDictionary) with dict is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"List PDSeedValueCertificate.getSubjectDN()"})
-  void testGetSubjectDN_givenPDSeedValueCertificateWithDictIsCOSDictionary() {
-    // Arrange, Act and Assert
-    assertNull(new PDSeedValueCertificate(new COSDictionary()).getSubjectDN());
   }
 
   /**
@@ -2154,27 +1777,6 @@ class PDSeedValueCertificateDiffblueTest {
    * Test {@link PDSeedValueCertificate#getKeyUsage()}.
    *
    * <ul>
-   *   <li>Given {@link PDSeedValueCertificate#PDSeedValueCertificate(COSDictionary)} with dict is
-   *       {@link COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDSeedValueCertificate#getKeyUsage()}
-   */
-  @Test
-  @DisplayName(
-      "Test getKeyUsage(); given PDSeedValueCertificate(COSDictionary) with dict is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"List PDSeedValueCertificate.getKeyUsage()"})
-  void testGetKeyUsage_givenPDSeedValueCertificateWithDictIsCOSDictionary() {
-    // Arrange, Act and Assert
-    assertNull(new PDSeedValueCertificate(new COSDictionary()).getKeyUsage());
-  }
-
-  /**
-   * Test {@link PDSeedValueCertificate#getKeyUsage()}.
-   *
-   * <ul>
    *   <li>Given {@link PDSeedValueCertificate#PDSeedValueCertificate()}.
    *   <li>Then return {@code null}.
    * </ul>
@@ -2379,32 +1981,6 @@ class PDSeedValueCertificateDiffblueTest {
   @MethodsUnderTest({"void PDSeedValueCertificate.addKeyUsage(String)"})
   void testAddKeyUsageWithKeyUsageExtension() {
     // Arrange
-    PDSeedValueCertificate pdSeedValueCertificate = new PDSeedValueCertificate(new COSDictionary());
-
-    // Act
-    pdSeedValueCertificate.addKeyUsage("01X");
-
-    // Assert
-    List<String> keyUsage = pdSeedValueCertificate.getKeyUsage();
-    assertEquals(1, keyUsage.size());
-    assertEquals("01X", keyUsage.get(0));
-    COSDictionary cOSObject = pdSeedValueCertificate.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-  }
-
-  /**
-   * Test {@link PDSeedValueCertificate#addKeyUsage(String)} with {@code keyUsageExtension}.
-   *
-   * <p>Method under test: {@link PDSeedValueCertificate#addKeyUsage(String)}
-   */
-  @Test
-  @DisplayName("Test addKeyUsage(String) with 'keyUsageExtension'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDSeedValueCertificate.addKeyUsage(String)"})
-  void testAddKeyUsageWithKeyUsageExtension2() {
-    // Arrange
     PDSeedValueCertificate pdSeedValueCertificate = new PDSeedValueCertificate();
     pdSeedValueCertificate.setKeyUsage(new ArrayList<>());
 
@@ -2471,162 +2047,6 @@ class PDSeedValueCertificateDiffblueTest {
     assertThrows(
         IllegalArgumentException.class,
         () -> new PDSeedValueCertificate().addKeyUsage("Key Usage Extension"));
-  }
-
-  /**
-   * Test {@link PDSeedValueCertificate#removeKeyUsage(String)}.
-   *
-   * <ul>
-   *   <li>Given {@link COSArray#COSArray()} add {@link PDSignature#FILTER_ADOBE_PPKLITE}.
-   *   <li>Then calls {@link COSDictionary#setDirect(boolean)}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDSeedValueCertificate#removeKeyUsage(String)}
-   */
-  @Test
-  @DisplayName(
-      "Test removeKeyUsage(String); given COSArray() add FILTER_ADOBE_PPKLITE; then calls setDirect(boolean)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDSeedValueCertificate.removeKeyUsage(String)"})
-  void testRemoveKeyUsage_givenCOSArrayAddFilter_adobe_ppklite_thenCallsSetDirect() {
-    // Arrange
-    COSArray cosArray = new COSArray();
-    cosArray.add(PDSignature.FILTER_ADOBE_PPKLITE);
-
-    COSDictionary dict = mock(COSDictionary.class);
-    when(dict.getCOSArray(Mockito.<COSName>any())).thenReturn(cosArray);
-    doNothing().when(dict).setDirect(anyBoolean());
-
-    // Act
-    new PDSeedValueCertificate(dict).removeKeyUsage("Key Usage Extension");
-
-    // Assert
-    verify(dict).setDirect(true);
-    verify(dict).getCOSArray(isA(COSName.class));
-  }
-
-  /**
-   * Test {@link PDSeedValueCertificate#removeKeyUsage(String)}.
-   *
-   * <ul>
-   *   <li>Given {@link COSArray#COSArray()} add {@link PDSignature#FILTER_ADOBE_PPKLITE}.
-   *   <li>Then calls {@link COSDictionary#setDirect(boolean)}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDSeedValueCertificate#removeKeyUsage(String)}
-   */
-  @Test
-  @DisplayName(
-      "Test removeKeyUsage(String); given COSArray() add FILTER_ADOBE_PPKLITE; then calls setDirect(boolean)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDSeedValueCertificate.removeKeyUsage(String)"})
-  void testRemoveKeyUsage_givenCOSArrayAddFilter_adobe_ppklite_thenCallsSetDirect2() {
-    // Arrange
-    COSArray cosArray = new COSArray();
-    cosArray.add(PDSignature.FILTER_ADOBE_PPKLITE);
-    cosArray.add(PDSignature.FILTER_ADOBE_PPKLITE);
-
-    COSDictionary dict = mock(COSDictionary.class);
-    when(dict.getCOSArray(Mockito.<COSName>any())).thenReturn(cosArray);
-    doNothing().when(dict).setDirect(anyBoolean());
-
-    // Act
-    new PDSeedValueCertificate(dict).removeKeyUsage("Key Usage Extension");
-
-    // Assert
-    verify(dict).setDirect(true);
-    verify(dict).getCOSArray(isA(COSName.class));
-  }
-
-  /**
-   * Test {@link PDSeedValueCertificate#removeKeyUsage(String)}.
-   *
-   * <ul>
-   *   <li>Given {@link COSArray} {@link COSArray#remove(COSBase)} return {@code true}.
-   *   <li>Then calls {@link COSArray#add(COSBase)}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDSeedValueCertificate#removeKeyUsage(String)}
-   */
-  @Test
-  @DisplayName(
-      "Test removeKeyUsage(String); given COSArray remove(COSBase) return 'true'; then calls add(COSBase)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDSeedValueCertificate.removeKeyUsage(String)"})
-  void testRemoveKeyUsage_givenCOSArrayRemoveReturnTrue_thenCallsAdd() {
-    // Arrange
-    COSArray cosArray = mock(COSArray.class);
-    when(cosArray.remove(Mockito.<COSBase>any())).thenReturn(true);
-    doNothing().when(cosArray).add(Mockito.<COSBase>any());
-    cosArray.add(PDSignature.FILTER_ADOBE_PPKLITE);
-
-    COSDictionary dict = mock(COSDictionary.class);
-    when(dict.getCOSArray(Mockito.<COSName>any())).thenReturn(cosArray);
-    doNothing().when(dict).setDirect(anyBoolean());
-
-    // Act
-    new PDSeedValueCertificate(dict).removeKeyUsage("Key Usage Extension");
-
-    // Assert
-    verify(cosArray).add(isA(COSBase.class));
-    verify(cosArray).remove(isA(COSBase.class));
-    verify(dict).setDirect(true);
-    verify(dict).getCOSArray(isA(COSName.class));
-  }
-
-  /**
-   * Test {@link PDSeedValueCertificate#removeKeyUsage(String)}.
-   *
-   * <ul>
-   *   <li>Given {@link COSDictionary} {@link COSDictionary#getCOSArray(COSName)} return {@link
-   *       COSArray#COSArray()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDSeedValueCertificate#removeKeyUsage(String)}
-   */
-  @Test
-  @DisplayName(
-      "Test removeKeyUsage(String); given COSDictionary getCOSArray(COSName) return COSArray()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDSeedValueCertificate.removeKeyUsage(String)"})
-  void testRemoveKeyUsage_givenCOSDictionaryGetCOSArrayReturnCOSArray() {
-    // Arrange
-    COSDictionary dict = mock(COSDictionary.class);
-    when(dict.getCOSArray(Mockito.<COSName>any())).thenReturn(new COSArray());
-    doNothing().when(dict).setDirect(anyBoolean());
-
-    // Act
-    new PDSeedValueCertificate(dict).removeKeyUsage("Key Usage Extension");
-
-    // Assert
-    verify(dict).setDirect(true);
-    verify(dict).getCOSArray(isA(COSName.class));
-  }
-
-  /**
-   * Test {@link PDSeedValueCertificate#getIssuer()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDSeedValueCertificate#PDSeedValueCertificate(COSDictionary)} with dict is
-   *       {@link COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDSeedValueCertificate#getIssuer()}
-   */
-  @Test
-  @DisplayName(
-      "Test getIssuer(); given PDSeedValueCertificate(COSDictionary) with dict is COSDictionary(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"List PDSeedValueCertificate.getIssuer()"})
-  void testGetIssuer_givenPDSeedValueCertificateWithDictIsCOSDictionary_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull(new PDSeedValueCertificate(new COSDictionary()).getIssuer());
   }
 
   /**
@@ -2773,32 +2193,6 @@ class PDSeedValueCertificateDiffblueTest {
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
     assertTrue(pdSeedValueCertificate.getIssuer().isEmpty());
-  }
-
-  /**
-   * Test {@link PDSeedValueCertificate#addIssuer(byte[])}.
-   *
-   * <p>Method under test: {@link PDSeedValueCertificate#addIssuer(byte[])}
-   */
-  @Test
-  @DisplayName("Test addIssuer(byte[])")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDSeedValueCertificate.addIssuer(byte[])"})
-  void testAddIssuer() throws UnsupportedEncodingException {
-    // Arrange
-    PDSeedValueCertificate pdSeedValueCertificate = new PDSeedValueCertificate(new COSDictionary());
-
-    // Act
-    pdSeedValueCertificate.addIssuer("AXAXAXAX".getBytes("UTF-8"));
-
-    // Assert
-    COSDictionary cOSObject = pdSeedValueCertificate.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    List<byte[]> issuer = pdSeedValueCertificate.getIssuer();
-    assertEquals(1, issuer.size());
-    assertEquals(1, cOSObject.size());
-    assertArrayEquals("AXAXAXAX".getBytes("UTF-8"), issuer.get(0));
   }
 
   /**
@@ -3040,34 +2434,6 @@ class PDSeedValueCertificateDiffblueTest {
    * Test {@link PDSeedValueCertificate#removeIssuer(byte[])}.
    *
    * <ul>
-   *   <li>Then {@link PDSeedValueCertificate#PDSeedValueCertificate(COSDictionary)} with dict is
-   *       {@link COSDictionary#COSDictionary()} Issuer is {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDSeedValueCertificate#removeIssuer(byte[])}
-   */
-  @Test
-  @DisplayName(
-      "Test removeIssuer(byte[]); then PDSeedValueCertificate(COSDictionary) with dict is COSDictionary() Issuer is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDSeedValueCertificate.removeIssuer(byte[])"})
-  void testRemoveIssuer_thenPDSeedValueCertificateWithDictIsCOSDictionaryIssuerIsNull()
-      throws UnsupportedEncodingException {
-    // Arrange
-    PDSeedValueCertificate pdSeedValueCertificate = new PDSeedValueCertificate(new COSDictionary());
-
-    // Act
-    pdSeedValueCertificate.removeIssuer("AXAXAXAX".getBytes("UTF-8"));
-
-    // Assert that nothing has changed
-    assertNull(pdSeedValueCertificate.getIssuer());
-  }
-
-  /**
-   * Test {@link PDSeedValueCertificate#removeIssuer(byte[])}.
-   *
-   * <ul>
    *   <li>When empty array of {@code byte}.
    *   <li>Then {@link PDSeedValueCertificate#PDSeedValueCertificate()} Issuer size is one.
    * </ul>
@@ -3091,28 +2457,6 @@ class PDSeedValueCertificateDiffblueTest {
 
     // Assert that nothing has changed
     assertEquals(1, pdSeedValueCertificate.getIssuer().size());
-  }
-
-  /**
-   * Test {@link PDSeedValueCertificate#getOID()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDSeedValueCertificate#PDSeedValueCertificate(COSDictionary)} with dict is
-   *       {@link COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDSeedValueCertificate#getOID()}
-   */
-  @Test
-  @DisplayName(
-      "Test getOID(); given PDSeedValueCertificate(COSDictionary) with dict is COSDictionary(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"List PDSeedValueCertificate.getOID()"})
-  void testGetOID_givenPDSeedValueCertificateWithDictIsCOSDictionary_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull(new PDSeedValueCertificate(new COSDictionary()).getOID());
   }
 
   /**
@@ -3259,32 +2603,6 @@ class PDSeedValueCertificateDiffblueTest {
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
     assertTrue(pdSeedValueCertificate.getOID().isEmpty());
-  }
-
-  /**
-   * Test {@link PDSeedValueCertificate#addOID(byte[])}.
-   *
-   * <p>Method under test: {@link PDSeedValueCertificate#addOID(byte[])}
-   */
-  @Test
-  @DisplayName("Test addOID(byte[])")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDSeedValueCertificate.addOID(byte[])"})
-  void testAddOID() throws UnsupportedEncodingException {
-    // Arrange
-    PDSeedValueCertificate pdSeedValueCertificate = new PDSeedValueCertificate(new COSDictionary());
-
-    // Act
-    pdSeedValueCertificate.addOID("AXAXAXAX".getBytes("UTF-8"));
-
-    // Assert
-    COSDictionary cOSObject = pdSeedValueCertificate.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    List<byte[]> oID = pdSeedValueCertificate.getOID();
-    assertEquals(1, oID.size());
-    assertEquals(1, cOSObject.size());
-    assertArrayEquals("AXAXAXAX".getBytes("UTF-8"), oID.get(0));
   }
 
   /**
@@ -3530,34 +2848,6 @@ class PDSeedValueCertificateDiffblueTest {
    * Test {@link PDSeedValueCertificate#removeOID(byte[])}.
    *
    * <ul>
-   *   <li>Then {@link PDSeedValueCertificate#PDSeedValueCertificate(COSDictionary)} with dict is
-   *       {@link COSDictionary#COSDictionary()} OID is {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDSeedValueCertificate#removeOID(byte[])}
-   */
-  @Test
-  @DisplayName(
-      "Test removeOID(byte[]); then PDSeedValueCertificate(COSDictionary) with dict is COSDictionary() OID is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDSeedValueCertificate.removeOID(byte[])"})
-  void testRemoveOID_thenPDSeedValueCertificateWithDictIsCOSDictionaryOidIsNull()
-      throws UnsupportedEncodingException {
-    // Arrange
-    PDSeedValueCertificate pdSeedValueCertificate = new PDSeedValueCertificate(new COSDictionary());
-
-    // Act
-    pdSeedValueCertificate.removeOID("AXAXAXAX".getBytes("UTF-8"));
-
-    // Assert that nothing has changed
-    assertNull(pdSeedValueCertificate.getOID());
-  }
-
-  /**
-   * Test {@link PDSeedValueCertificate#removeOID(byte[])}.
-   *
-   * <ul>
    *   <li>When empty array of {@code byte}.
    *   <li>Then {@link PDSeedValueCertificate#PDSeedValueCertificate()} OID size is one.
    * </ul>
@@ -3606,28 +2896,6 @@ class PDSeedValueCertificateDiffblueTest {
 
     // Act and Assert
     assertEquals("", pdSeedValueCertificate.getURL());
-  }
-
-  /**
-   * Test {@link PDSeedValueCertificate#getURL()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDSeedValueCertificate#PDSeedValueCertificate(COSDictionary)} with dict is
-   *       {@link COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDSeedValueCertificate#getURL()}
-   */
-  @Test
-  @DisplayName(
-      "Test getURL(); given PDSeedValueCertificate(COSDictionary) with dict is COSDictionary(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String PDSeedValueCertificate.getURL()"})
-  void testGetURL_givenPDSeedValueCertificateWithDictIsCOSDictionary_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull(new PDSeedValueCertificate(new COSDictionary()).getURL());
   }
 
   /**
@@ -3731,28 +2999,6 @@ class PDSeedValueCertificateDiffblueTest {
     COSDictionary cOSObject = pdSeedValueCertificate.getCOSObject();
     assertEquals(1, cOSObject.getValues().size());
     assertEquals(1, cOSObject.size());
-  }
-
-  /**
-   * Test {@link PDSeedValueCertificate#getURLType()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDSeedValueCertificate#PDSeedValueCertificate(COSDictionary)} with dict is
-   *       {@link COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDSeedValueCertificate#getURLType()}
-   */
-  @Test
-  @DisplayName(
-      "Test getURLType(); given PDSeedValueCertificate(COSDictionary) with dict is COSDictionary(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String PDSeedValueCertificate.getURLType()"})
-  void testGetURLType_givenPDSeedValueCertificateWithDictIsCOSDictionary_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull(new PDSeedValueCertificate(new COSDictionary()).getURLType());
   }
 
   /**

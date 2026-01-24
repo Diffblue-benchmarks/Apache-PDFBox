@@ -118,28 +118,6 @@ class PDActionURIDiffblueTest {
    * Test {@link PDActionURI#getURI()}.
    *
    * <ul>
-   *   <li>Given {@link PDActionURI#PDActionURI(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDActionURI#getURI()}
-   */
-  @Test
-  @DisplayName(
-      "Test getURI(); given PDActionURI(COSDictionary) with a is COSDictionary(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String PDActionURI.getURI()"})
-  void testGetURI_givenPDActionURIWithAIsCOSDictionary_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull(new PDActionURI(new COSDictionary()).getURI());
-  }
-
-  /**
-   * Test {@link PDActionURI#getURI()}.
-   *
-   * <ul>
    *   <li>Given {@link PDActionURI#PDActionURI()}.
    *   <li>Then return {@code null}.
    * </ul>
@@ -238,27 +216,6 @@ class PDActionURIDiffblueTest {
 
     // Act and Assert
     assertFalse(pdActionURI.shouldTrackMousePosition());
-  }
-
-  /**
-   * Test {@link PDActionURI#shouldTrackMousePosition()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDActionURI#PDActionURI(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDActionURI#shouldTrackMousePosition()}
-   */
-  @Test
-  @DisplayName(
-      "Test shouldTrackMousePosition(); given PDActionURI(COSDictionary) with a is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean PDActionURI.shouldTrackMousePosition()"})
-  void testShouldTrackMousePosition_givenPDActionURIWithAIsCOSDictionary() {
-    // Arrange, Act and Assert
-    assertFalse(new PDActionURI(new COSDictionary()).shouldTrackMousePosition());
   }
 
   /**

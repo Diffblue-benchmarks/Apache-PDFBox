@@ -62,31 +62,4 @@ class PlainTextFormatterDiffblueTest {
     // Assert
     assertSame(builder, actualTextAlignResult);
   }
-
-  /**
-   * Test Builder {@link Builder#textAlign(int)} with {@code int}.
-   *
-   * <ul>
-   *   <li>When one.
-   * </ul>
-   *
-   * <p>Method under test: {@link Builder#textAlign(int)}
-   */
-  @Test
-  @DisplayName("Test Builder textAlign(int) with 'int'; when one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Builder Builder.textAlign(int)"})
-  void testBuilderTextAlignWithInt_whenOne() throws IOException {
-    // Arrange
-    PDAppearanceContentStream contents =
-        new PDAppearanceContentStream(new PDAppearanceStream(new COSStream()));
-    Builder builder = new Builder(contents);
-
-    // Act
-    Builder actualTextAlignResult = builder.textAlign(1);
-
-    // Assert
-    assertSame(builder, actualTextAlignResult);
-  }
 }

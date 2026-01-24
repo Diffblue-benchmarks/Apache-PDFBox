@@ -7,10 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
-import java.util.List;
-import org.apache.pdfbox.cos.COSBase;
 import org.apache.pdfbox.cos.COSDictionary;
-import org.apache.pdfbox.cos.COSStream;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -73,18 +70,19 @@ class PDAnnotationRubberStampDiffblueTest {
    *
    * <ul>
    *   <li>When {@link COSDictionary#COSDictionary()}.
-   *   <li>Then {@link COSDictionary#COSDictionary()} size is one.
+   *   <li>Then return AnnotationName is {@code null}.
    * </ul>
    *
    * <p>Method under test: {@link PDAnnotationRubberStamp#PDAnnotationRubberStamp(COSDictionary)}
    */
   @Test
   @DisplayName(
-      "Test new PDAnnotationRubberStamp(COSDictionary); when COSDictionary(); then COSDictionary() size is one")
+      "Test new PDAnnotationRubberStamp(COSDictionary); when COSDictionary(); then return AnnotationName is 'null'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void PDAnnotationRubberStamp.<init>(COSDictionary)"})
-  void testNewPDAnnotationRubberStamp_whenCOSDictionary_thenCOSDictionarySizeIsOne() {
+  void testNewPDAnnotationRubberStamp_whenCOSDictionary_thenReturnAnnotationNameIsNull()
+      throws IOException {
     // Arrange
     COSDictionary field = new COSDictionary();
 
@@ -92,44 +90,43 @@ class PDAnnotationRubberStampDiffblueTest {
     PDAnnotationRubberStamp actualPdAnnotationRubberStamp = new PDAnnotationRubberStamp(field);
 
     // Assert
+    assertNull(actualPdAnnotationRubberStamp.getAnnotationName());
+    assertNull(actualPdAnnotationRubberStamp.getContents());
+    assertNull(actualPdAnnotationRubberStamp.getModifiedDate());
+    assertNull(actualPdAnnotationRubberStamp.getSubtype());
+    assertNull(actualPdAnnotationRubberStamp.getIntent());
+    assertNull(actualPdAnnotationRubberStamp.getRichContents());
+    assertNull(actualPdAnnotationRubberStamp.getSubject());
+    assertNull(actualPdAnnotationRubberStamp.getTitlePopup());
+    assertNull(actualPdAnnotationRubberStamp.getCreationDate());
+    assertNull(actualPdAnnotationRubberStamp.getAppearanceState());
+    assertNull(actualPdAnnotationRubberStamp.getPage());
+    assertNull(actualPdAnnotationRubberStamp.getRectangle());
+    assertNull(actualPdAnnotationRubberStamp.getOptionalContent());
+    assertNull(actualPdAnnotationRubberStamp.getColor());
+    assertNull(actualPdAnnotationRubberStamp.getInReplyTo());
+    assertNull(actualPdAnnotationRubberStamp.getPopup());
+    assertNull(actualPdAnnotationRubberStamp.getAppearance());
+    assertNull(actualPdAnnotationRubberStamp.getNormalAppearanceStream());
+    assertNull(actualPdAnnotationRubberStamp.getBorderStyle());
+    assertNull(actualPdAnnotationRubberStamp.getExternalData());
+    assertEquals(-1, actualPdAnnotationRubberStamp.getStructParent());
+    assertEquals(0, actualPdAnnotationRubberStamp.getAnnotationFlags());
     assertEquals(1, field.size());
-    List<? extends COSBase> toListResult = actualPdAnnotationRubberStamp.getBorder().toList();
-    assertEquals(3, toListResult.size());
+    assertEquals(1.0f, actualPdAnnotationRubberStamp.getConstantOpacity());
+    assertFalse(actualPdAnnotationRubberStamp.isHidden());
+    assertFalse(actualPdAnnotationRubberStamp.isInvisible());
+    assertFalse(actualPdAnnotationRubberStamp.isLocked());
+    assertFalse(actualPdAnnotationRubberStamp.isLockedContents());
+    assertFalse(actualPdAnnotationRubberStamp.isNoRotate());
+    assertFalse(actualPdAnnotationRubberStamp.isNoView());
+    assertFalse(actualPdAnnotationRubberStamp.isNoZoom());
+    assertFalse(actualPdAnnotationRubberStamp.isPrinted());
+    assertFalse(actualPdAnnotationRubberStamp.isReadOnly());
+    assertFalse(actualPdAnnotationRubberStamp.isToggleNoView());
+    assertEquals(PDAnnotationMarkup.RT_REPLY, actualPdAnnotationRubberStamp.getReplyType());
+    assertEquals(PDAnnotationRubberStamp.NAME_DRAFT, actualPdAnnotationRubberStamp.getName());
     assertSame(field, actualPdAnnotationRubberStamp.getCOSObject());
-    COSBase expectedGetResult = toListResult.get(0);
-    assertSame(expectedGetResult, toListResult.get(1));
-  }
-
-  /**
-   * Test {@link PDAnnotationRubberStamp#PDAnnotationRubberStamp(COSDictionary)}.
-   *
-   * <ul>
-   *   <li>When {@link COSStream#COSStream()}.
-   *   <li>Then {@link COSStream#COSStream()} size is two.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationRubberStamp#PDAnnotationRubberStamp(COSDictionary)}
-   */
-  @Test
-  @DisplayName(
-      "Test new PDAnnotationRubberStamp(COSDictionary); when COSStream(); then COSStream() size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDAnnotationRubberStamp.<init>(COSDictionary)"})
-  void testNewPDAnnotationRubberStamp_whenCOSStream_thenCOSStreamSizeIsTwo() {
-    // Arrange
-    COSStream field = new COSStream();
-
-    // Act
-    PDAnnotationRubberStamp actualPdAnnotationRubberStamp = new PDAnnotationRubberStamp(field);
-
-    // Assert
-    assertEquals(2, field.size());
-    List<? extends COSBase> toListResult = actualPdAnnotationRubberStamp.getBorder().toList();
-    assertEquals(3, toListResult.size());
-    assertSame(field, actualPdAnnotationRubberStamp.getCOSObject());
-    COSBase expectedGetResult = toListResult.get(0);
-    assertSame(expectedGetResult, toListResult.get(1));
   }
 
   /**

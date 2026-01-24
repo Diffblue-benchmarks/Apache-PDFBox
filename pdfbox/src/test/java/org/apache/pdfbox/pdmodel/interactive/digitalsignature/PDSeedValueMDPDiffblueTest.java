@@ -10,7 +10,6 @@ import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.cos.COSIncrement;
-import org.apache.pdfbox.cos.COSStream;
 import org.apache.pdfbox.cos.COSUpdateState;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -128,28 +127,6 @@ class PDSeedValueMDPDiffblueTest {
 
     // Act and Assert
     assertEquals(1, pdSeedValueMDP.getP());
-  }
-
-  /**
-   * Test {@link PDSeedValueMDP#getP()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDSeedValueMDP#PDSeedValueMDP(COSDictionary)} with dict is {@link
-   *       COSStream#COSStream()}.
-   *   <li>Then return minus one.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDSeedValueMDP#getP()}
-   */
-  @Test
-  @DisplayName(
-      "Test getP(); given PDSeedValueMDP(COSDictionary) with dict is COSStream(); then return minus one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"int PDSeedValueMDP.getP()"})
-  void testGetP_givenPDSeedValueMDPWithDictIsCOSStream_thenReturnMinusOne() {
-    // Arrange, Act and Assert
-    assertEquals(-1, new PDSeedValueMDP(new COSStream()).getP());
   }
 
   /**

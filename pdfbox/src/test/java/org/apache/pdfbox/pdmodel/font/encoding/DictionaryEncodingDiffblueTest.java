@@ -22,7 +22,6 @@ import org.apache.pdfbox.cos.COSInteger;
 import org.apache.pdfbox.cos.COSName;
 import org.apache.pdfbox.cos.COSObject;
 import org.apache.pdfbox.cos.COSObjectKey;
-import org.apache.pdfbox.cos.COSStream;
 import org.apache.pdfbox.io.RandomAccessReadWriteBuffer;
 import org.apache.pdfbox.pdfparser.COSParser;
 import org.apache.pdfbox.pdmodel.common.COSObjectable;
@@ -317,40 +316,6 @@ class DictionaryEncodingDiffblueTest {
   }
 
   /**
-   * Test {@link DictionaryEncoding#DictionaryEncoding(COSDictionary, boolean, Encoding)}.
-   *
-   * <ul>
-   *   <li>Then BaseEncoding return {@link StandardEncoding}.
-   * </ul>
-   *
-   * <p>Method under test: {@link DictionaryEncoding#DictionaryEncoding(COSDictionary, boolean,
-   * Encoding)}
-   */
-  @Test
-  @DisplayName(
-      "Test new DictionaryEncoding(COSDictionary, boolean, Encoding); then BaseEncoding return StandardEncoding")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void DictionaryEncoding.<init>(COSDictionary, boolean, Encoding)"})
-  void testNewDictionaryEncoding_thenBaseEncodingReturnStandardEncoding() {
-    // Arrange and Act
-    DictionaryEncoding actualDictionaryEncoding =
-        new DictionaryEncoding(new COSDictionary(), true, MacExpertEncoding.INSTANCE);
-
-    // Assert
-    Encoding baseEncoding = actualDictionaryEncoding.getBaseEncoding();
-    assertTrue(baseEncoding instanceof StandardEncoding);
-    Map<Integer, String> integerStringMap = actualDictionaryEncoding.codeToName;
-    assertEquals(integerStringMap, actualDictionaryEncoding.getCodeToNameMap());
-    assertEquals(integerStringMap, baseEncoding.getCodeToNameMap());
-    assertEquals(integerStringMap, ((StandardEncoding) baseEncoding).codeToName);
-    Map<String, Integer> stringIntegerMap = actualDictionaryEncoding.inverted;
-    assertEquals(stringIntegerMap, actualDictionaryEncoding.getNameToCodeMap());
-    assertEquals(stringIntegerMap, baseEncoding.getNameToCodeMap());
-    assertEquals(stringIntegerMap, ((StandardEncoding) baseEncoding).inverted);
-  }
-
-  /**
    * Test {@link DictionaryEncoding#DictionaryEncoding(COSName, COSArray)}.
    *
    * <ul>
@@ -468,85 +433,32 @@ class DictionaryEncodingDiffblueTest {
    *
    * <ul>
    *   <li>When {@link COSDictionary#COSDictionary()}.
-   *   <li>Then return COSObject is {@link COSDictionary#COSDictionary()}.
+   *   <li>Then return EncodingName is {@code differences}.
    * </ul>
    *
    * <p>Method under test: {@link DictionaryEncoding#DictionaryEncoding(COSDictionary)}
    */
   @Test
   @DisplayName(
-      "Test new DictionaryEncoding(COSDictionary); when COSDictionary(); then return COSObject is COSDictionary()")
+      "Test new DictionaryEncoding(COSDictionary); when COSDictionary(); then return EncodingName is 'differences'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void DictionaryEncoding.<init>(COSDictionary)"})
-  void testNewDictionaryEncoding_whenCOSDictionary_thenReturnCOSObjectIsCOSDictionary() {
+  void testNewDictionaryEncoding_whenCOSDictionary_thenReturnEncodingNameIsDifferences() {
     // Arrange
     COSDictionary fontEncoding = new COSDictionary();
 
-    // Act and Assert
-    assertSame(fontEncoding, new DictionaryEncoding(fontEncoding).getCOSObject());
-  }
-
-  /**
-   * Test {@link DictionaryEncoding#DictionaryEncoding(COSDictionary)}.
-   *
-   * <ul>
-   *   <li>When {@link COSStream#COSStream()}.
-   *   <li>Then return COSObject is {@link COSStream#COSStream()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link DictionaryEncoding#DictionaryEncoding(COSDictionary)}
-   */
-  @Test
-  @DisplayName(
-      "Test new DictionaryEncoding(COSDictionary); when COSStream(); then return COSObject is COSStream()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void DictionaryEncoding.<init>(COSDictionary)"})
-  void testNewDictionaryEncoding_whenCOSStream_thenReturnCOSObjectIsCOSStream() {
-    // Arrange
-    COSStream fontEncoding = new COSStream();
-
-    // Act and Assert
-    assertSame(fontEncoding, new DictionaryEncoding(fontEncoding).getCOSObject());
-  }
-
-  /**
-   * Test {@link DictionaryEncoding#DictionaryEncoding(COSDictionary, boolean, Encoding)}.
-   *
-   * <ul>
-   *   <li>When {@link COSStream#COSStream()}.
-   *   <li>Then return COSObject is {@link COSStream#COSStream()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link DictionaryEncoding#DictionaryEncoding(COSDictionary, boolean,
-   * Encoding)}
-   */
-  @Test
-  @DisplayName(
-      "Test new DictionaryEncoding(COSDictionary, boolean, Encoding); when COSStream(); then return COSObject is COSStream()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void DictionaryEncoding.<init>(COSDictionary, boolean, Encoding)"})
-  void testNewDictionaryEncoding_whenCOSStream_thenReturnCOSObjectIsCOSStream2() {
-    // Arrange
-    COSStream fontEncoding = new COSStream();
-
     // Act
-    DictionaryEncoding actualDictionaryEncoding =
-        new DictionaryEncoding(fontEncoding, true, MacExpertEncoding.INSTANCE);
+    DictionaryEncoding actualDictionaryEncoding = new DictionaryEncoding(fontEncoding);
 
     // Assert
-    Encoding baseEncoding = actualDictionaryEncoding.getBaseEncoding();
-    assertTrue(baseEncoding instanceof StandardEncoding);
-    Map<Integer, String> integerStringMap = actualDictionaryEncoding.codeToName;
-    assertEquals(integerStringMap, actualDictionaryEncoding.getCodeToNameMap());
-    assertEquals(integerStringMap, baseEncoding.getCodeToNameMap());
-    assertEquals(integerStringMap, ((StandardEncoding) baseEncoding).codeToName);
-    Map<String, Integer> stringIntegerMap = actualDictionaryEncoding.inverted;
-    assertEquals(stringIntegerMap, actualDictionaryEncoding.getNameToCodeMap());
-    assertEquals(stringIntegerMap, baseEncoding.getNameToCodeMap());
-    assertEquals(stringIntegerMap, ((StandardEncoding) baseEncoding).inverted);
+    assertEquals("differences", actualDictionaryEncoding.getEncodingName());
+    assertNull(actualDictionaryEncoding.getBaseEncoding());
+    assertTrue(actualDictionaryEncoding.getDifferences().isEmpty());
+    assertTrue(actualDictionaryEncoding.getCodeToNameMap().isEmpty());
+    assertTrue(actualDictionaryEncoding.getNameToCodeMap().isEmpty());
+    assertTrue(actualDictionaryEncoding.codeToName.isEmpty());
+    assertTrue(actualDictionaryEncoding.inverted.isEmpty());
     assertSame(fontEncoding, actualDictionaryEncoding.getCOSObject());
   }
 
@@ -674,6 +586,53 @@ class DictionaryEncodingDiffblueTest {
 
     // Act and Assert
     assertThrows(IllegalArgumentException.class, () -> new DictionaryEncoding(null, differences));
+  }
+
+  /**
+   * Test {@link DictionaryEncoding#DictionaryEncoding(COSDictionary, boolean, Encoding)}.
+   *
+   * <ul>
+   *   <li>When {@code true}.
+   *   <li>Then BaseEncoding return {@link StandardEncoding}.
+   * </ul>
+   *
+   * <p>Method under test: {@link DictionaryEncoding#DictionaryEncoding(COSDictionary, boolean,
+   * Encoding)}
+   */
+  @Test
+  @DisplayName(
+      "Test new DictionaryEncoding(COSDictionary, boolean, Encoding); when 'true'; then BaseEncoding return StandardEncoding")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void DictionaryEncoding.<init>(COSDictionary, boolean, Encoding)"})
+  void testNewDictionaryEncoding_whenTrue_thenBaseEncodingReturnStandardEncoding() {
+    // Arrange and Act
+    DictionaryEncoding actualDictionaryEncoding =
+        new DictionaryEncoding(new COSDictionary(), true, MacExpertEncoding.INSTANCE);
+
+    // Assert
+    assertTrue(actualDictionaryEncoding.getBaseEncoding() instanceof StandardEncoding);
+    assertEquals("StandardEncoding with differences", actualDictionaryEncoding.getEncodingName());
+    Map<Integer, String> integerStringMap = actualDictionaryEncoding.codeToName;
+    assertEquals(149, integerStringMap.size());
+    Map<String, Integer> stringIntegerMap = actualDictionaryEncoding.inverted;
+    assertEquals(149, stringIntegerMap.size());
+    assertTrue(integerStringMap.containsKey(33));
+    assertTrue(integerStringMap.containsKey(34));
+    assertTrue(integerStringMap.containsKey(35));
+    assertTrue(integerStringMap.containsKey(36));
+    assertTrue(integerStringMap.containsKey(37));
+    assertTrue(integerStringMap.containsKey(Integer.SIZE));
+    assertTrue(stringIntegerMap.containsKey("asterisk"));
+    assertTrue(stringIntegerMap.containsKey("braceright"));
+    assertTrue(stringIntegerMap.containsKey("cedilla"));
+    assertTrue(stringIntegerMap.containsKey("parenright"));
+    assertTrue(stringIntegerMap.containsKey("ring"));
+    assertTrue(stringIntegerMap.containsKey("three"));
+    Map<Integer, String> expectedCodeToNameMap = actualDictionaryEncoding.codeToName;
+    assertEquals(expectedCodeToNameMap, actualDictionaryEncoding.getCodeToNameMap());
+    Map<String, Integer> expectedNameToCodeMap = actualDictionaryEncoding.inverted;
+    assertEquals(expectedNameToCodeMap, actualDictionaryEncoding.getNameToCodeMap());
   }
 
   /**

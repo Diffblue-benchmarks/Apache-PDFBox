@@ -103,31 +103,6 @@ class PDTargetDirectoryDiffblueTest {
    * Test {@link PDTargetDirectory#getRelationship()}.
    *
    * <ul>
-   *   <li>Given {@link PDTargetDirectory#PDTargetDirectory()} Filename is {@code foo.txt}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDTargetDirectory#getRelationship()}
-   */
-  @Test
-  @DisplayName(
-      "Test getRelationship(); given PDTargetDirectory() Filename is 'foo.txt'; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"COSName PDTargetDirectory.getRelationship()"})
-  void testGetRelationship_givenPDTargetDirectoryFilenameIsFooTxt_thenReturnNull() {
-    // Arrange
-    PDTargetDirectory pdTargetDirectory = new PDTargetDirectory();
-    pdTargetDirectory.setFilename("foo.txt");
-
-    // Act and Assert
-    assertNull(pdTargetDirectory.getRelationship());
-  }
-
-  /**
-   * Test {@link PDTargetDirectory#getRelationship()}.
-   *
-   * <ul>
    *   <li>Given {@link PDTargetDirectory#PDTargetDirectory()}.
    *   <li>Then return {@code null}.
    * </ul>
@@ -290,31 +265,6 @@ class PDTargetDirectoryDiffblueTest {
     COSDictionary cOSObject = pdTargetDirectory.getCOSObject();
     assertEquals(0, cOSObject.size());
     assertTrue(cOSObject.getValues().isEmpty());
-  }
-
-  /**
-   * Test {@link PDTargetDirectory#getTargetDirectory()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDTargetDirectory#PDTargetDirectory()} Filename is {@code foo.txt}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDTargetDirectory#getTargetDirectory()}
-   */
-  @Test
-  @DisplayName(
-      "Test getTargetDirectory(); given PDTargetDirectory() Filename is 'foo.txt'; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDTargetDirectory PDTargetDirectory.getTargetDirectory()"})
-  void testGetTargetDirectory_givenPDTargetDirectoryFilenameIsFooTxt_thenReturnNull() {
-    // Arrange
-    PDTargetDirectory pdTargetDirectory = new PDTargetDirectory();
-    pdTargetDirectory.setFilename("foo.txt");
-
-    // Act and Assert
-    assertNull(pdTargetDirectory.getTargetDirectory());
   }
 
   /**
@@ -517,31 +467,6 @@ class PDTargetDirectoryDiffblueTest {
    * Test {@link PDTargetDirectory#getPageNumber()}.
    *
    * <ul>
-   *   <li>Given {@link PDTargetDirectory#PDTargetDirectory()} Filename is {@code foo.txt}.
-   *   <li>Then return minus one.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDTargetDirectory#getPageNumber()}
-   */
-  @Test
-  @DisplayName(
-      "Test getPageNumber(); given PDTargetDirectory() Filename is 'foo.txt'; then return minus one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"int PDTargetDirectory.getPageNumber()"})
-  void testGetPageNumber_givenPDTargetDirectoryFilenameIsFooTxt_thenReturnMinusOne() {
-    // Arrange
-    PDTargetDirectory pdTargetDirectory = new PDTargetDirectory();
-    pdTargetDirectory.setFilename("foo.txt");
-
-    // Act and Assert
-    assertEquals(-1, pdTargetDirectory.getPageNumber());
-  }
-
-  /**
-   * Test {@link PDTargetDirectory#getPageNumber()}.
-   *
-   * <ul>
    *   <li>Given {@link PDTargetDirectory#PDTargetDirectory()} PageNumber is ten.
    *   <li>Then return ten.
    * </ul>
@@ -636,31 +561,6 @@ class PDTargetDirectoryDiffblueTest {
     COSDictionary cOSObject = pdTargetDirectory.getCOSObject();
     assertEquals(0, cOSObject.size());
     assertTrue(cOSObject.getValues().isEmpty());
-  }
-
-  /**
-   * Test {@link PDTargetDirectory#getNamedDestination()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDTargetDirectory#PDTargetDirectory()} Filename is {@code foo.txt}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDTargetDirectory#getNamedDestination()}
-   */
-  @Test
-  @DisplayName(
-      "Test getNamedDestination(); given PDTargetDirectory() Filename is 'foo.txt'; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDNamedDestination PDTargetDirectory.getNamedDestination()"})
-  void testGetNamedDestination_givenPDTargetDirectoryFilenameIsFooTxt_thenReturnNull() {
-    // Arrange
-    PDTargetDirectory pdTargetDirectory = new PDTargetDirectory();
-    pdTargetDirectory.setFilename("foo.txt");
-
-    // Act and Assert
-    assertNull(pdTargetDirectory.getNamedDestination());
   }
 
   /**
@@ -827,31 +727,6 @@ class PDTargetDirectoryDiffblueTest {
    * Test {@link PDTargetDirectory#getAnnotationIndex()}.
    *
    * <ul>
-   *   <li>Given {@link PDTargetDirectory#PDTargetDirectory()} Filename is {@code foo.txt}.
-   *   <li>Then return minus one.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDTargetDirectory#getAnnotationIndex()}
-   */
-  @Test
-  @DisplayName(
-      "Test getAnnotationIndex(); given PDTargetDirectory() Filename is 'foo.txt'; then return minus one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"int PDTargetDirectory.getAnnotationIndex()"})
-  void testGetAnnotationIndex_givenPDTargetDirectoryFilenameIsFooTxt_thenReturnMinusOne() {
-    // Arrange
-    PDTargetDirectory pdTargetDirectory = new PDTargetDirectory();
-    pdTargetDirectory.setFilename("foo.txt");
-
-    // Act and Assert
-    assertEquals(-1, pdTargetDirectory.getAnnotationIndex());
-  }
-
-  /**
-   * Test {@link PDTargetDirectory#getAnnotationIndex()}.
-   *
-   * <ul>
    *   <li>Given {@link PDTargetDirectory#PDTargetDirectory()}.
    *   <li>Then return minus one.
    * </ul>
@@ -949,31 +824,6 @@ class PDTargetDirectoryDiffblueTest {
 
     // Act and Assert
     assertEquals("Name", pdTargetDirectory.getAnnotationName());
-  }
-
-  /**
-   * Test {@link PDTargetDirectory#getAnnotationName()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDTargetDirectory#PDTargetDirectory()} Filename is {@code foo.txt}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDTargetDirectory#getAnnotationName()}
-   */
-  @Test
-  @DisplayName(
-      "Test getAnnotationName(); given PDTargetDirectory() Filename is 'foo.txt'; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String PDTargetDirectory.getAnnotationName()"})
-  void testGetAnnotationName_givenPDTargetDirectoryFilenameIsFooTxt_thenReturnNull() {
-    // Arrange
-    PDTargetDirectory pdTargetDirectory = new PDTargetDirectory();
-    pdTargetDirectory.setFilename("foo.txt");
-
-    // Act and Assert
-    assertNull(pdTargetDirectory.getAnnotationName());
   }
 
   /**

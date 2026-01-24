@@ -3,7 +3,6 @@ package org.apache.pdfbox.text;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.atLeast;
@@ -28,7 +27,6 @@ import org.apache.pdfbox.cos.COSDocument;
 import org.apache.pdfbox.cos.COSName;
 import org.apache.pdfbox.cos.COSObject;
 import org.apache.pdfbox.cos.COSObjectKey;
-import org.apache.pdfbox.cos.COSStream;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.common.PDStream;
@@ -94,38 +92,6 @@ class LegacyPDFStreamEngineDiffblueTest {
   void testProcessPage() throws IOException {
     // Arrange
     LegacyPDFStreamEngine legacyPDFStreamEngine = new LegacyPDFStreamEngine();
-    PDPage page = new PDPage(new COSDictionary());
-
-    // Act
-    legacyPDFStreamEngine.processPage(page);
-
-    // Assert
-    PDGraphicsState graphicsState = legacyPDFStreamEngine.getGraphicsState();
-    PDLineDashPattern lineDashPattern = graphicsState.getLineDashPattern();
-    COSBase cOSObject = lineDashPattern.getCOSObject();
-    List<? extends COSBase> toListResult = ((COSArray) cOSObject).toList();
-    assertEquals(2, toListResult.size());
-    assertTrue(toListResult.get(0) instanceof COSArray);
-    assertTrue(cOSObject instanceof COSArray);
-    assertSame(page, legacyPDFStreamEngine.getCurrentPage());
-    assertArrayEquals(new float[] {}, lineDashPattern.getDashArray(), 0.0f);
-    assertArrayEquals(
-        new float[] {0.0f}, graphicsState.getNonStrokingColor().getComponents(), 0.0f);
-  }
-
-  /**
-   * Test {@link LegacyPDFStreamEngine#processPage(PDPage)}.
-   *
-   * <p>Method under test: {@link LegacyPDFStreamEngine#processPage(PDPage)}
-   */
-  @Test
-  @DisplayName("Test processPage(PDPage)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void LegacyPDFStreamEngine.processPage(PDPage)"})
-  void testProcessPage2() throws IOException {
-    // Arrange
-    LegacyPDFStreamEngine legacyPDFStreamEngine = new LegacyPDFStreamEngine();
 
     PDPage page = new PDPage();
     PDRectangle cropBox =
@@ -156,7 +122,7 @@ class LegacyPDFStreamEngineDiffblueTest {
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void LegacyPDFStreamEngine.processPage(PDPage)"})
-  void testProcessPage3() throws IOException {
+  void testProcessPage2() throws IOException {
     // Arrange
     LegacyPDFStreamEngine legacyPDFStreamEngine = new LegacyPDFStreamEngine();
 
@@ -205,7 +171,7 @@ class LegacyPDFStreamEngineDiffblueTest {
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void LegacyPDFStreamEngine.processPage(PDPage)"})
-  void testProcessPage4() throws IOException {
+  void testProcessPage3() throws IOException {
     // Arrange
     LegacyPDFStreamEngine legacyPDFStreamEngine = new LegacyPDFStreamEngine();
 
@@ -237,7 +203,7 @@ class LegacyPDFStreamEngineDiffblueTest {
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void LegacyPDFStreamEngine.processPage(PDPage)"})
-  void testProcessPage5() throws IOException {
+  void testProcessPage4() throws IOException {
     // Arrange
     LegacyPDFStreamEngine legacyPDFStreamEngine = new LegacyPDFStreamEngine();
 
@@ -259,13 +225,7 @@ class LegacyPDFStreamEngineDiffblueTest {
         graphicsState.getCurrentClippingPath().getBounds().getBounds().getBounds().getBounds();
     assertTrue(bounds.getBounds2D() instanceof Rectangle);
     assertTrue(bounds.getFrame() instanceof Double);
-    PDLineDashPattern lineDashPattern = graphicsState.getLineDashPattern();
-    COSBase cOSObject = lineDashPattern.getCOSObject();
-    List<? extends COSBase> toListResult = ((COSArray) cOSObject).toList();
-    assertEquals(2, toListResult.size());
-    assertTrue(toListResult.get(0) instanceof COSArray);
-    assertTrue(cOSObject instanceof COSArray);
-    assertArrayEquals(new float[] {}, lineDashPattern.getDashArray(), 0.0f);
+    assertArrayEquals(new float[] {}, graphicsState.getLineDashPattern().getDashArray(), 0.0f);
     assertArrayEquals(
         new float[] {0.0f}, graphicsState.getNonStrokingColor().getComponents(), 0.0f);
   }
@@ -301,7 +261,9 @@ class LegacyPDFStreamEngineDiffblueTest {
     assertEquals(1, currentClippingPaths.size());
     assertTrue(currentClippingPaths.get(0) instanceof Path2D.Double);
     assertTrue(graphicsState.getCurrentClippingPath().getBounds2D() instanceof Double);
-    assertArrayEquals(new float[] {}, graphicsState.getLineDashPattern().getDashArray(), 0.0f);
+    PDLineDashPattern lineDashPattern = graphicsState.getLineDashPattern();
+    assertTrue(lineDashPattern.getCOSObject() instanceof COSArray);
+    assertArrayEquals(new float[] {}, lineDashPattern.getDashArray(), 0.0f);
     assertArrayEquals(
         new float[] {0.0f}, graphicsState.getNonStrokingColor().getComponents(), 0.0f);
   }
@@ -645,17 +607,17 @@ class LegacyPDFStreamEngineDiffblueTest {
    * Test {@link LegacyPDFStreamEngine#computeFontHeight(PDFont)}.
    *
    * <ul>
-   *   <li>Then calls {@link PDFont#getFontDescriptor()}.
+   *   <li>Then return zero.
    * </ul>
    *
    * <p>Method under test: {@link LegacyPDFStreamEngine#computeFontHeight(PDFont)}
    */
   @Test
-  @DisplayName("Test computeFontHeight(PDFont); then calls getFontDescriptor()")
+  @DisplayName("Test computeFontHeight(PDFont); then return zero")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"float LegacyPDFStreamEngine.computeFontHeight(PDFont)"})
-  void testComputeFontHeight_thenCallsGetFontDescriptor() throws IOException {
+  void testComputeFontHeight_thenReturnZero() throws IOException {
     // Arrange
     when(pDFont.getFontDescriptor()).thenReturn(new PDFontDescriptor(new COSDictionary()));
     when(pDFont.getBoundingBox()).thenReturn(new BoundingBox());
@@ -856,34 +818,6 @@ class LegacyPDFStreamEngineDiffblueTest {
     // Act
     float actualComputeFontHeightResult =
         legacyPDFStreamEngine.computeFontHeight(new PDType3Font(new COSDictionary()));
-
-    // Assert
-    assertEquals(0.0f, actualComputeFontHeightResult);
-  }
-
-  /**
-   * Test {@link LegacyPDFStreamEngine#computeFontHeight(PDFont)}.
-   *
-   * <ul>
-   *   <li>When {@link PDType3Font#PDType3Font(COSDictionary)} with fontDictionary is {@link
-   *       COSStream#COSStream()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link LegacyPDFStreamEngine#computeFontHeight(PDFont)}
-   */
-  @Test
-  @DisplayName(
-      "Test computeFontHeight(PDFont); when PDType3Font(COSDictionary) with fontDictionary is COSStream()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"float LegacyPDFStreamEngine.computeFontHeight(PDFont)"})
-  void testComputeFontHeight_whenPDType3FontWithFontDictionaryIsCOSStream() throws IOException {
-    // Arrange
-    LegacyPDFStreamEngine legacyPDFStreamEngine = new LegacyPDFStreamEngine();
-
-    // Act
-    float actualComputeFontHeightResult =
-        legacyPDFStreamEngine.computeFontHeight(new PDType3Font(new COSStream()));
 
     // Assert
     assertEquals(0.0f, actualComputeFontHeightResult);

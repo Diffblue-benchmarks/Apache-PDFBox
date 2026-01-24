@@ -69,49 +69,6 @@ class PDPrintFieldAttributeObjectDiffblueTest {
    * Test {@link PDPrintFieldAttributeObject#getRole()}.
    *
    * <ul>
-   *   <li>Given {@link COSDictionary#COSDictionary(COSDictionary)} with dict is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDPrintFieldAttributeObject#getRole()}
-   */
-  @Test
-  @DisplayName(
-      "Test getRole(); given COSDictionary(COSDictionary) with dict is COSDictionary(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String PDPrintFieldAttributeObject.getRole()"})
-  void testGetRole_givenCOSDictionaryWithDictIsCOSDictionary_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull(new PDPrintFieldAttributeObject(new COSDictionary(new COSDictionary())).getRole());
-  }
-
-  /**
-   * Test {@link PDPrintFieldAttributeObject#getRole()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDPrintFieldAttributeObject#PDPrintFieldAttributeObject(COSDictionary)} with
-   *       dictionary is {@link COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDPrintFieldAttributeObject#getRole()}
-   */
-  @Test
-  @DisplayName(
-      "Test getRole(); given PDPrintFieldAttributeObject(COSDictionary) with dictionary is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String PDPrintFieldAttributeObject.getRole()"})
-  void testGetRole_givenPDPrintFieldAttributeObjectWithDictionaryIsCOSDictionary() {
-    // Arrange, Act and Assert
-    assertNull(new PDPrintFieldAttributeObject(new COSDictionary()).getRole());
-  }
-
-  /**
-   * Test {@link PDPrintFieldAttributeObject#getRole()}.
-   *
-   * <ul>
    *   <li>Given {@link PDPrintFieldAttributeObject#PDPrintFieldAttributeObject()}.
    *   <li>Then return {@code null}.
    * </ul>
@@ -126,32 +83,6 @@ class PDPrintFieldAttributeObjectDiffblueTest {
   void testGetRole_givenPDPrintFieldAttributeObject_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull(new PDPrintFieldAttributeObject().getRole());
-  }
-
-  /**
-   * Test {@link PDPrintFieldAttributeObject#setRole(String)}.
-   *
-   * <p>Method under test: {@link PDPrintFieldAttributeObject#setRole(String)}
-   */
-  @Test
-  @DisplayName("Test setRole(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDPrintFieldAttributeObject.setRole(String)"})
-  void testSetRole() {
-    // Arrange
-    PDPrintFieldAttributeObject pdPrintFieldAttributeObject =
-        new PDPrintFieldAttributeObject(new COSDictionary());
-
-    // Act
-    pdPrintFieldAttributeObject.setRole("Role");
-
-    // Assert
-    assertEquals("Role", pdPrintFieldAttributeObject.getRole());
-    COSDictionary cOSObject = pdPrintFieldAttributeObject.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-    assertFalse(pdPrintFieldAttributeObject.isEmpty());
   }
 
   /**
@@ -188,49 +119,32 @@ class PDPrintFieldAttributeObjectDiffblueTest {
    * Test {@link PDPrintFieldAttributeObject#setRole(String)}.
    *
    * <ul>
-   *   <li>When {@code RoleRole}.
+   *   <li>When {@code RoleRoleRole}.
    *   <li>Then {@link PDPrintFieldAttributeObject#PDPrintFieldAttributeObject()} Role is {@code
-   *       RoleRole}.
+   *       RoleRoleRole}.
    * </ul>
    *
    * <p>Method under test: {@link PDPrintFieldAttributeObject#setRole(String)}
    */
   @Test
   @DisplayName(
-      "Test setRole(String); when 'RoleRole'; then PDPrintFieldAttributeObject() Role is 'RoleRole'")
+      "Test setRole(String); when 'RoleRoleRole'; then PDPrintFieldAttributeObject() Role is 'RoleRoleRole'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void PDPrintFieldAttributeObject.setRole(String)"})
-  void testSetRole_whenRoleRole_thenPDPrintFieldAttributeObjectRoleIsRoleRole() {
+  void testSetRole_whenRoleRoleRole_thenPDPrintFieldAttributeObjectRoleIsRoleRoleRole() {
     // Arrange
     PDPrintFieldAttributeObject pdPrintFieldAttributeObject = new PDPrintFieldAttributeObject();
 
     // Act
-    pdPrintFieldAttributeObject.setRole("RoleRole");
+    pdPrintFieldAttributeObject.setRole("RoleRoleRole");
 
     // Assert
-    assertEquals("RoleRole", pdPrintFieldAttributeObject.getRole());
+    assertEquals("RoleRoleRole", pdPrintFieldAttributeObject.getRole());
     COSDictionary cOSObject = pdPrintFieldAttributeObject.getCOSObject();
     assertEquals(2, cOSObject.getValues().size());
     assertEquals(2, cOSObject.size());
     assertFalse(pdPrintFieldAttributeObject.isEmpty());
-  }
-
-  /**
-   * Test {@link PDPrintFieldAttributeObject#getCheckedState()}.
-   *
-   * <p>Method under test: {@link PDPrintFieldAttributeObject#getCheckedState()}
-   */
-  @Test
-  @DisplayName("Test getCheckedState()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String PDPrintFieldAttributeObject.getCheckedState()"})
-  void testGetCheckedState() {
-    // Arrange, Act and Assert
-    assertEquals(
-        PDPrintFieldAttributeObject.CHECKED_STATE_OFF,
-        new PDPrintFieldAttributeObject(new COSDictionary()).getCheckedState());
   }
 
   /**
@@ -254,32 +168,6 @@ class PDPrintFieldAttributeObjectDiffblueTest {
     assertEquals(
         PDPrintFieldAttributeObject.CHECKED_STATE_OFF,
         new PDPrintFieldAttributeObject().getCheckedState());
-  }
-
-  /**
-   * Test {@link PDPrintFieldAttributeObject#setCheckedState(String)}.
-   *
-   * <p>Method under test: {@link PDPrintFieldAttributeObject#setCheckedState(String)}
-   */
-  @Test
-  @DisplayName("Test setCheckedState(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDPrintFieldAttributeObject.setCheckedState(String)"})
-  void testSetCheckedState() {
-    // Arrange
-    PDPrintFieldAttributeObject pdPrintFieldAttributeObject =
-        new PDPrintFieldAttributeObject(new COSDictionary());
-
-    // Act
-    pdPrintFieldAttributeObject.setCheckedState("Checked State");
-
-    // Assert
-    assertEquals("Checked State", pdPrintFieldAttributeObject.getCheckedState());
-    COSDictionary cOSObject = pdPrintFieldAttributeObject.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-    assertFalse(pdPrintFieldAttributeObject.isEmpty());
   }
 
   /**
@@ -316,21 +204,6 @@ class PDPrintFieldAttributeObjectDiffblueTest {
   /**
    * Test {@link PDPrintFieldAttributeObject#getAlternateName()}.
    *
-   * <p>Method under test: {@link PDPrintFieldAttributeObject#getAlternateName()}
-   */
-  @Test
-  @DisplayName("Test getAlternateName()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String PDPrintFieldAttributeObject.getAlternateName()"})
-  void testGetAlternateName() {
-    // Arrange, Act and Assert
-    assertNull(new PDPrintFieldAttributeObject(new COSDictionary()).getAlternateName());
-  }
-
-  /**
-   * Test {@link PDPrintFieldAttributeObject#getAlternateName()}.
-   *
    * <ul>
    *   <li>Given {@link PDPrintFieldAttributeObject#PDPrintFieldAttributeObject()}.
    *   <li>Then return {@code null}.
@@ -346,32 +219,6 @@ class PDPrintFieldAttributeObjectDiffblueTest {
   void testGetAlternateName_givenPDPrintFieldAttributeObject_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull(new PDPrintFieldAttributeObject().getAlternateName());
-  }
-
-  /**
-   * Test {@link PDPrintFieldAttributeObject#setAlternateName(String)}.
-   *
-   * <p>Method under test: {@link PDPrintFieldAttributeObject#setAlternateName(String)}
-   */
-  @Test
-  @DisplayName("Test setAlternateName(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDPrintFieldAttributeObject.setAlternateName(String)"})
-  void testSetAlternateName() {
-    // Arrange
-    PDPrintFieldAttributeObject pdPrintFieldAttributeObject =
-        new PDPrintFieldAttributeObject(new COSDictionary());
-
-    // Act
-    pdPrintFieldAttributeObject.setAlternateName("Alternate Name");
-
-    // Assert
-    assertEquals("Alternate Name", pdPrintFieldAttributeObject.getAlternateName());
-    COSDictionary cOSObject = pdPrintFieldAttributeObject.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-    assertFalse(pdPrintFieldAttributeObject.isEmpty());
   }
 
   /**
@@ -409,6 +256,52 @@ class PDPrintFieldAttributeObjectDiffblueTest {
    * Test {@link PDPrintFieldAttributeObject#toString()}.
    *
    * <ul>
+   *   <li>Given {@link COSDictionary#COSDictionary(COSDictionary)} with dict is {@link
+   *       COSDictionary#COSDictionary()}.
+   *   <li>Then return {@code O=null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDPrintFieldAttributeObject#toString()}
+   */
+  @Test
+  @DisplayName(
+      "Test toString(); given COSDictionary(COSDictionary) with dict is COSDictionary(); then return 'O=null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String PDPrintFieldAttributeObject.toString()"})
+  void testToString_givenCOSDictionaryWithDictIsCOSDictionary_thenReturnONull() {
+    // Arrange
+    COSDictionary dictionary = new COSDictionary(new COSDictionary(new COSDictionary()));
+
+    // Act and Assert
+    assertEquals("O=null", new PDPrintFieldAttributeObject(dictionary).toString());
+  }
+
+  /**
+   * Test {@link PDPrintFieldAttributeObject#toString()}.
+   *
+   * <ul>
+   *   <li>Given {@link PDPrintFieldAttributeObject#PDPrintFieldAttributeObject(COSDictionary)} with
+   *       dictionary is {@link COSDictionary#COSDictionary()}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDPrintFieldAttributeObject#toString()}
+   */
+  @Test
+  @DisplayName(
+      "Test toString(); given PDPrintFieldAttributeObject(COSDictionary) with dictionary is COSDictionary()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String PDPrintFieldAttributeObject.toString()"})
+  void testToString_givenPDPrintFieldAttributeObjectWithDictionaryIsCOSDictionary() {
+    // Arrange, Act and Assert
+    assertEquals("O=null", new PDPrintFieldAttributeObject(new COSDictionary()).toString());
+  }
+
+  /**
+   * Test {@link PDPrintFieldAttributeObject#toString()}.
+   *
+   * <ul>
    *   <li>Given {@link PDPrintFieldAttributeObject#PDPrintFieldAttributeObject()}.
    *   <li>Then return {@code O=PrintField}.
    * </ul>
@@ -423,24 +316,5 @@ class PDPrintFieldAttributeObjectDiffblueTest {
   void testToString_givenPDPrintFieldAttributeObject_thenReturnOPrintField() {
     // Arrange, Act and Assert
     assertEquals("O=PrintField", new PDPrintFieldAttributeObject().toString());
-  }
-
-  /**
-   * Test {@link PDPrintFieldAttributeObject#toString()}.
-   *
-   * <ul>
-   *   <li>Then return {@code O=null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDPrintFieldAttributeObject#toString()}
-   */
-  @Test
-  @DisplayName("Test toString(); then return 'O=null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String PDPrintFieldAttributeObject.toString()"})
-  void testToString_thenReturnONull() {
-    // Arrange, Act and Assert
-    assertEquals("O=null", new PDPrintFieldAttributeObject(new COSDictionary()).toString());
   }
 }

@@ -256,18 +256,149 @@ class FieldUtilsDiffblueTest {
   /**
    * Test {@link FieldUtils#getPairableItems(COSBase, int)}.
    *
+   * <p>Method under test: {@link FieldUtils#getPairableItems(COSBase, int)}
+   */
+  @Test
+  @DisplayName("Test getPairableItems(COSBase, int)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"List FieldUtils.getPairableItems(COSBase, int)"})
+  void testGetPairableItems() throws IOException {
+    // Arrange
+    COSObjectable cosObjectable = mock(COSObjectable.class);
+    when(cosObjectable.getCOSObject()).thenReturn(COSString.parseHex("0123456789ABCDEF"));
+
+    ArrayList<COSObjectable> cosObjectables = new ArrayList<>();
+    cosObjectables.add(cosObjectable);
+
+    // Act
+    List<String> actualPairableItems = FieldUtils.getPairableItems(new COSArray(cosObjectables), 0);
+
+    // Assert
+    verify(cosObjectable).getCOSObject();
+    assertEquals(1, actualPairableItems.size());
+    assertEquals("\u0001#Eg›«Íï", actualPairableItems.get(0));
+  }
+
+  /**
+   * Test {@link FieldUtils#getPairableItems(COSBase, int)}.
+   *
    * <ul>
-   *   <li>Then calls {@link COSObjectable#getCOSObject()}.
+   *   <li>Given {@link COSArray#COSArray()} add {@link COSBoolean#FALSE}.
+   *   <li>Then return Empty.
    * </ul>
    *
    * <p>Method under test: {@link FieldUtils#getPairableItems(COSBase, int)}
    */
   @Test
-  @DisplayName("Test getPairableItems(COSBase, int); then calls getCOSObject()")
+  @DisplayName("Test getPairableItems(COSBase, int); given COSArray() add FALSE; then return Empty")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"List FieldUtils.getPairableItems(COSBase, int)"})
-  void testGetPairableItems_thenCallsGetCOSObject() {
+  void testGetPairableItems_givenCOSArrayAddFalse_thenReturnEmpty() {
+    // Arrange
+    COSArray cosArray = new COSArray();
+    cosArray.add(COSBoolean.FALSE);
+
+    COSObjectable cosObjectable = mock(COSObjectable.class);
+    when(cosObjectable.getCOSObject()).thenReturn(cosArray);
+
+    ArrayList<COSObjectable> cosObjectables = new ArrayList<>();
+    cosObjectables.add(cosObjectable);
+
+    // Act
+    List<String> actualPairableItems = FieldUtils.getPairableItems(new COSArray(cosObjectables), 0);
+
+    // Assert
+    verify(cosObjectable).getCOSObject();
+    assertTrue(actualPairableItems.isEmpty());
+  }
+
+  /**
+   * Test {@link FieldUtils#getPairableItems(COSBase, int)}.
+   *
+   * <ul>
+   *   <li>Given {@link COSArray#COSArray()} add parseHex {@code 0123456789ABCDEF}.
+   * </ul>
+   *
+   * <p>Method under test: {@link FieldUtils#getPairableItems(COSBase, int)}
+   */
+  @Test
+  @DisplayName(
+      "Test getPairableItems(COSBase, int); given COSArray() add parseHex '0123456789ABCDEF'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"List FieldUtils.getPairableItems(COSBase, int)"})
+  void testGetPairableItems_givenCOSArrayAddParseHex0123456789abcdef() throws IOException {
+    // Arrange
+    COSArray cosArray = new COSArray();
+    cosArray.add(COSString.parseHex("0123456789ABCDEF"));
+
+    COSObjectable cosObjectable = mock(COSObjectable.class);
+    when(cosObjectable.getCOSObject()).thenReturn(cosArray);
+
+    ArrayList<COSObjectable> cosObjectables = new ArrayList<>();
+    cosObjectables.add(cosObjectable);
+
+    // Act
+    List<String> actualPairableItems = FieldUtils.getPairableItems(new COSArray(cosObjectables), 0);
+
+    // Assert
+    verify(cosObjectable).getCOSObject();
+    assertEquals(1, actualPairableItems.size());
+    assertEquals("\u0001#Eg›«Íï", actualPairableItems.get(0));
+  }
+
+  /**
+   * Test {@link FieldUtils#getPairableItems(COSBase, int)}.
+   *
+   * <ul>
+   *   <li>Given {@link COSObjectable} {@link COSObjectable#getCOSObject()} return {@link
+   *       COSArray#COSArray()}.
+   * </ul>
+   *
+   * <p>Method under test: {@link FieldUtils#getPairableItems(COSBase, int)}
+   */
+  @Test
+  @DisplayName(
+      "Test getPairableItems(COSBase, int); given COSObjectable getCOSObject() return COSArray()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"List FieldUtils.getPairableItems(COSBase, int)"})
+  void testGetPairableItems_givenCOSObjectableGetCOSObjectReturnCOSArray() {
+    // Arrange
+    COSObjectable cosObjectable = mock(COSObjectable.class);
+    when(cosObjectable.getCOSObject()).thenReturn(new COSArray());
+
+    ArrayList<COSObjectable> cosObjectables = new ArrayList<>();
+    cosObjectables.add(cosObjectable);
+
+    // Act
+    List<String> actualPairableItems = FieldUtils.getPairableItems(new COSArray(cosObjectables), 0);
+
+    // Assert
+    verify(cosObjectable).getCOSObject();
+    assertTrue(actualPairableItems.isEmpty());
+  }
+
+  /**
+   * Test {@link FieldUtils#getPairableItems(COSBase, int)}.
+   *
+   * <ul>
+   *   <li>Given {@link COSObjectable} {@link COSObjectable#getCOSObject()} return {@link
+   *       COSBoolean#FALSE}.
+   *   <li>Then return Empty.
+   * </ul>
+   *
+   * <p>Method under test: {@link FieldUtils#getPairableItems(COSBase, int)}
+   */
+  @Test
+  @DisplayName(
+      "Test getPairableItems(COSBase, int); given COSObjectable getCOSObject() return FALSE; then return Empty")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"List FieldUtils.getPairableItems(COSBase, int)"})
+  void testGetPairableItems_givenCOSObjectableGetCOSObjectReturnFalse_thenReturnEmpty() {
     // Arrange
     COSObjectable cosObjectable = mock(COSObjectable.class);
     when(cosObjectable.getCOSObject()).thenReturn(COSBoolean.FALSE);
@@ -333,19 +464,43 @@ class FieldUtilsDiffblueTest {
    * Test {@link FieldUtils#getPairableItems(COSBase, int)}.
    *
    * <ul>
+   *   <li>When parseHex {@code 42}.
+   *   <li>Then return first is {@code B}.
+   * </ul>
+   *
+   * <p>Method under test: {@link FieldUtils#getPairableItems(COSBase, int)}
+   */
+  @Test
+  @DisplayName("Test getPairableItems(COSBase, int); when parseHex '42'; then return first is 'B'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"List FieldUtils.getPairableItems(COSBase, int)"})
+  void testGetPairableItems_whenParseHex42_thenReturnFirstIsB() throws IOException {
+    // Arrange and Act
+    List<String> actualPairableItems = FieldUtils.getPairableItems(COSString.parseHex("42"), 1);
+
+    // Assert
+    assertEquals(1, actualPairableItems.size());
+    assertEquals("B", actualPairableItems.get(0));
+  }
+
+  /**
+   * Test {@link FieldUtils#getPairableItems(COSBase, int)}.
+   *
+   * <ul>
    *   <li>When parseHex {@code 0123456789ABCDEF}.
-   *   <li>Then return size is one.
+   *   <li>Then return first is {@code #Eg›«Íï}.
    * </ul>
    *
    * <p>Method under test: {@link FieldUtils#getPairableItems(COSBase, int)}
    */
   @Test
   @DisplayName(
-      "Test getPairableItems(COSBase, int); when parseHex '0123456789ABCDEF'; then return size is one")
+      "Test getPairableItems(COSBase, int); when parseHex '0123456789ABCDEF'; then return first is '#Eg›«Íï'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"List FieldUtils.getPairableItems(COSBase, int)"})
-  void testGetPairableItems_whenParseHex0123456789abcdef_thenReturnSizeIsOne() throws IOException {
+  void testGetPairableItems_whenParseHex0123456789abcdef_thenReturnFirstIsEg() throws IOException {
     // Arrange and Act
     List<String> actualPairableItems =
         FieldUtils.getPairableItems(COSString.parseHex("0123456789ABCDEF"), 1);

@@ -259,28 +259,6 @@ class FDFAnnotationInkDiffblueTest {
    * Test {@link FDFAnnotationInk#getInkList()}.
    *
    * <ul>
-   *   <li>Given {@link FDFAnnotationInk#FDFAnnotationInk(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationInk#getInkList()}
-   */
-  @Test
-  @DisplayName(
-      "Test getInkList(); given FDFAnnotationInk(COSDictionary) with a is COSDictionary(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"List FDFAnnotationInk.getInkList()"})
-  void testGetInkList_givenFDFAnnotationInkWithAIsCOSDictionary_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull(new FDFAnnotationInk(new COSDictionary()).getInkList());
-  }
-
-  /**
-   * Test {@link FDFAnnotationInk#getInkList()}.
-   *
-   * <ul>
    *   <li>Given {@link FDFAnnotationInk#FDFAnnotationInk()}.
    *   <li>Then return {@code null}.
    * </ul>

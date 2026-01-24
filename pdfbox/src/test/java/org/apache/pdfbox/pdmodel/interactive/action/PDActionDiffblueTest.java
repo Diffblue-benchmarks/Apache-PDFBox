@@ -746,28 +746,6 @@ class PDActionDiffblueTest {
    * Test {@link PDAction#getNext()}.
    *
    * <ul>
-   *   <li>Given {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDAction#getNext()}
-   */
-  @Test
-  @DisplayName(
-      "Test getNext(); given PDActionEmbeddedGoTo(COSDictionary) with a is COSDictionary(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"List PDAction.getNext()"})
-  void testGetNext_givenPDActionEmbeddedGoToWithAIsCOSDictionary_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull(new PDActionEmbeddedGoTo(new COSDictionary()).getNext());
-  }
-
-  /**
-   * Test {@link PDAction#getNext()}.
-   *
-   * <ul>
    *   <li>Given {@link PDActionEmbeddedGoTo#PDActionEmbeddedGoTo()}.
    *   <li>Then return {@code null}.
    * </ul>

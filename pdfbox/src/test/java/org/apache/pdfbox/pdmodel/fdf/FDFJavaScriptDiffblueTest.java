@@ -249,30 +249,6 @@ class FDFJavaScriptDiffblueTest {
    * Test {@link FDFJavaScript#getAfter()}.
    *
    * <ul>
-   *   <li>Given {@link FDFJavaScript#FDFJavaScript()} Before is {@code Before}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFJavaScript#getAfter()}
-   */
-  @Test
-  @DisplayName("Test getAfter(); given FDFJavaScript() Before is 'Before'; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String FDFJavaScript.getAfter()"})
-  void testGetAfter_givenFDFJavaScriptBeforeIsBefore_thenReturnNull() {
-    // Arrange
-    FDFJavaScript fdfJavaScript = new FDFJavaScript();
-    fdfJavaScript.setBefore("Before");
-
-    // Act and Assert
-    assertNull(fdfJavaScript.getAfter());
-  }
-
-  /**
-   * Test {@link FDFJavaScript#getAfter()}.
-   *
-   * <ul>
    *   <li>Given {@link FDFJavaScript#FDFJavaScript()}.
    *   <li>Then return {@code null}.
    * </ul>
@@ -318,30 +294,6 @@ class FDFJavaScriptDiffblueTest {
     COSDictionary cOSObject = fdfJavaScript.getCOSObject();
     assertEquals(1, cOSObject.getValues().size());
     assertEquals(1, cOSObject.size());
-  }
-
-  /**
-   * Test {@link FDFJavaScript#getDoc()}.
-   *
-   * <ul>
-   *   <li>Given {@link FDFJavaScript#FDFJavaScript()} Before is {@code Before}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFJavaScript#getDoc()}
-   */
-  @Test
-  @DisplayName("Test getDoc(); given FDFJavaScript() Before is 'Before'; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Map FDFJavaScript.getDoc()"})
-  void testGetDoc_givenFDFJavaScriptBeforeIsBefore_thenReturnNull() {
-    // Arrange
-    FDFJavaScript fdfJavaScript = new FDFJavaScript();
-    fdfJavaScript.setBefore("Before");
-
-    // Act and Assert
-    assertNull(fdfJavaScript.getDoc());
   }
 
   /**

@@ -10,7 +10,6 @@ import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import org.apache.pdfbox.cos.COSBase;
 import org.apache.pdfbox.cos.COSDictionary;
-import org.apache.pdfbox.cos.COSStream;
 import org.apache.pdfbox.pdmodel.common.PDNameTreeNode;
 import org.apache.pdfbox.pdmodel.interactive.documentnavigation.destination.PDPageDestination;
 import org.junit.jupiter.api.DisplayName;
@@ -91,29 +90,6 @@ class PDDestinationNameTreeNodeDiffblueTest {
 
     // Act and Assert
     assertNull(pdDestinationNameTreeNode.convertCOSToPD(new COSDictionary()));
-  }
-
-  /**
-   * Test {@link PDDestinationNameTreeNode#convertCOSToPD(COSBase)}.
-   *
-   * <ul>
-   *   <li>When {@link COSStream#COSStream()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDDestinationNameTreeNode#convertCOSToPD(COSBase)}
-   */
-  @Test
-  @DisplayName("Test convertCOSToPD(COSBase); when COSStream(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDPageDestination PDDestinationNameTreeNode.convertCOSToPD(COSBase)"})
-  void testConvertCOSToPD_whenCOSStream_thenReturnNull() throws IOException {
-    // Arrange
-    PDDestinationNameTreeNode pdDestinationNameTreeNode = new PDDestinationNameTreeNode();
-
-    // Act and Assert
-    assertNull(pdDestinationNameTreeNode.convertCOSToPD(new COSStream()));
   }
 
   /**

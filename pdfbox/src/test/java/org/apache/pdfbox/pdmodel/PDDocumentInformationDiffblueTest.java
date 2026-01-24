@@ -96,21 +96,21 @@ class PDDocumentInformationDiffblueTest {
    * Test {@link PDDocumentInformation#getPropertyStringValue(String)}.
    *
    * <ul>
-   *   <li>Given {@link PDDocumentInformation#PDDocumentInformation()} Title is {@code Dr}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link PDDocumentInformation#PDDocumentInformation()} Author is {@code JaneDoe}.
    * </ul>
    *
    * <p>Method under test: {@link PDDocumentInformation#getPropertyStringValue(String)}
    */
   @Test
   @DisplayName(
-      "Test getPropertyStringValue(String); given PDDocumentInformation() Title is 'Dr'; then return 'null'")
+      "Test getPropertyStringValue(String); given PDDocumentInformation() Author is 'JaneDoe'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"java.lang.Object PDDocumentInformation.getPropertyStringValue(String)"})
-  void testGetPropertyStringValue_givenPDDocumentInformationTitleIsDr_thenReturnNull() {
+  void testGetPropertyStringValue_givenPDDocumentInformationAuthorIsJaneDoe() {
     // Arrange
     PDDocumentInformation pdDocumentInformation = new PDDocumentInformation();
+    pdDocumentInformation.setAuthor("JaneDoe");
     pdDocumentInformation.setTitle("Dr");
 
     // Act and Assert
@@ -321,30 +321,6 @@ class PDDocumentInformationDiffblueTest {
    * Test {@link PDDocumentInformation#getAuthor()}.
    *
    * <ul>
-   *   <li>Given {@link PDDocumentInformation#PDDocumentInformation()} Title is {@code Dr}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentInformation#getAuthor()}
-   */
-  @Test
-  @DisplayName("Test getAuthor(); given PDDocumentInformation() Title is 'Dr'; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String PDDocumentInformation.getAuthor()"})
-  void testGetAuthor_givenPDDocumentInformationTitleIsDr_thenReturnNull() {
-    // Arrange
-    PDDocumentInformation pdDocumentInformation = new PDDocumentInformation();
-    pdDocumentInformation.setTitle("Dr");
-
-    // Act and Assert
-    assertNull(pdDocumentInformation.getAuthor());
-  }
-
-  /**
-   * Test {@link PDDocumentInformation#getAuthor()}.
-   *
-   * <ul>
    *   <li>Given {@link PDDocumentInformation#PDDocumentInformation()}.
    *   <li>Then return {@code null}.
    * </ul>
@@ -443,30 +419,6 @@ class PDDocumentInformationDiffblueTest {
     assertEquals(0, cOSObject.size());
     assertTrue(cOSObject.getValues().isEmpty());
     assertTrue(pdDocumentInformation.getMetadataKeys().isEmpty());
-  }
-
-  /**
-   * Test {@link PDDocumentInformation#getSubject()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDDocumentInformation#PDDocumentInformation()} Title is {@code Dr}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentInformation#getSubject()}
-   */
-  @Test
-  @DisplayName("Test getSubject(); given PDDocumentInformation() Title is 'Dr'; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String PDDocumentInformation.getSubject()"})
-  void testGetSubject_givenPDDocumentInformationTitleIsDr_thenReturnNull() {
-    // Arrange
-    PDDocumentInformation pdDocumentInformation = new PDDocumentInformation();
-    pdDocumentInformation.setTitle("Dr");
-
-    // Act and Assert
-    assertNull(pdDocumentInformation.getSubject());
   }
 
   /**
@@ -627,31 +579,6 @@ class PDDocumentInformationDiffblueTest {
    * Test {@link PDDocumentInformation#getKeywords()}.
    *
    * <ul>
-   *   <li>Given {@link PDDocumentInformation#PDDocumentInformation()} Title is {@code Dr}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentInformation#getKeywords()}
-   */
-  @Test
-  @DisplayName(
-      "Test getKeywords(); given PDDocumentInformation() Title is 'Dr'; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String PDDocumentInformation.getKeywords()"})
-  void testGetKeywords_givenPDDocumentInformationTitleIsDr_thenReturnNull() {
-    // Arrange
-    PDDocumentInformation pdDocumentInformation = new PDDocumentInformation();
-    pdDocumentInformation.setTitle("Dr");
-
-    // Act and Assert
-    assertNull(pdDocumentInformation.getKeywords());
-  }
-
-  /**
-   * Test {@link PDDocumentInformation#getKeywords()}.
-   *
-   * <ul>
    *   <li>Given {@link PDDocumentInformation#PDDocumentInformation()}.
    *   <li>Then return {@code null}.
    * </ul>
@@ -775,30 +702,6 @@ class PDDocumentInformationDiffblueTest {
 
     // Act and Assert
     assertEquals("Creator", pdDocumentInformation.getCreator());
-  }
-
-  /**
-   * Test {@link PDDocumentInformation#getCreator()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDDocumentInformation#PDDocumentInformation()} Title is {@code Dr}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentInformation#getCreator()}
-   */
-  @Test
-  @DisplayName("Test getCreator(); given PDDocumentInformation() Title is 'Dr'; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String PDDocumentInformation.getCreator()"})
-  void testGetCreator_givenPDDocumentInformationTitleIsDr_thenReturnNull() {
-    // Arrange
-    PDDocumentInformation pdDocumentInformation = new PDDocumentInformation();
-    pdDocumentInformation.setTitle("Dr");
-
-    // Act and Assert
-    assertNull(pdDocumentInformation.getCreator());
   }
 
   /**
@@ -934,31 +837,6 @@ class PDDocumentInformationDiffblueTest {
    * Test {@link PDDocumentInformation#getProducer()}.
    *
    * <ul>
-   *   <li>Given {@link PDDocumentInformation#PDDocumentInformation()} Title is {@code Dr}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentInformation#getProducer()}
-   */
-  @Test
-  @DisplayName(
-      "Test getProducer(); given PDDocumentInformation() Title is 'Dr'; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String PDDocumentInformation.getProducer()"})
-  void testGetProducer_givenPDDocumentInformationTitleIsDr_thenReturnNull() {
-    // Arrange
-    PDDocumentInformation pdDocumentInformation = new PDDocumentInformation();
-    pdDocumentInformation.setTitle("Dr");
-
-    // Act and Assert
-    assertNull(pdDocumentInformation.getProducer());
-  }
-
-  /**
-   * Test {@link PDDocumentInformation#getProducer()}.
-   *
-   * <ul>
    *   <li>Given {@link PDDocumentInformation#PDDocumentInformation()}.
    *   <li>Then return {@code null}.
    * </ul>
@@ -1082,31 +960,6 @@ class PDDocumentInformationDiffblueTest {
 
     PDDocumentInformation pdDocumentInformation = new PDDocumentInformation();
     pdDocumentInformation.setCreationDate(date);
-
-    // Act and Assert
-    assertNull(pdDocumentInformation.getCreationDate());
-  }
-
-  /**
-   * Test {@link PDDocumentInformation#getCreationDate()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDDocumentInformation#PDDocumentInformation()} Title is {@code Dr}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentInformation#getCreationDate()}
-   */
-  @Test
-  @DisplayName(
-      "Test getCreationDate(); given PDDocumentInformation() Title is 'Dr'; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Calendar PDDocumentInformation.getCreationDate()"})
-  void testGetCreationDate_givenPDDocumentInformationTitleIsDr_thenReturnNull() {
-    // Arrange
-    PDDocumentInformation pdDocumentInformation = new PDDocumentInformation();
-    pdDocumentInformation.setTitle("Dr");
 
     // Act and Assert
     assertNull(pdDocumentInformation.getCreationDate());
@@ -1262,31 +1115,6 @@ class PDDocumentInformationDiffblueTest {
    * Test {@link PDDocumentInformation#getModificationDate()}.
    *
    * <ul>
-   *   <li>Given {@link PDDocumentInformation#PDDocumentInformation()} Title is {@code Dr}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentInformation#getModificationDate()}
-   */
-  @Test
-  @DisplayName(
-      "Test getModificationDate(); given PDDocumentInformation() Title is 'Dr'; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Calendar PDDocumentInformation.getModificationDate()"})
-  void testGetModificationDate_givenPDDocumentInformationTitleIsDr_thenReturnNull() {
-    // Arrange
-    PDDocumentInformation pdDocumentInformation = new PDDocumentInformation();
-    pdDocumentInformation.setTitle("Dr");
-
-    // Act and Assert
-    assertNull(pdDocumentInformation.getModificationDate());
-  }
-
-  /**
-   * Test {@link PDDocumentInformation#getModificationDate()}.
-   *
-   * <ul>
    *   <li>Given {@link PDDocumentInformation#PDDocumentInformation()}.
    *   <li>Then return {@code null}.
    * </ul>
@@ -1405,24 +1233,25 @@ class PDDocumentInformationDiffblueTest {
    * Test {@link PDDocumentInformation#getTrapped()}.
    *
    * <ul>
-   *   <li>Given {@link PDDocumentInformation#PDDocumentInformation()} Title is {@code Dr}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link PDDocumentInformation#PDDocumentInformation()} Trapped is {@code False}.
+   *   <li>Then return {@code False}.
    * </ul>
    *
    * <p>Method under test: {@link PDDocumentInformation#getTrapped()}
    */
   @Test
-  @DisplayName("Test getTrapped(); given PDDocumentInformation() Title is 'Dr'; then return 'null'")
+  @DisplayName(
+      "Test getTrapped(); given PDDocumentInformation() Trapped is 'False'; then return 'False'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"String PDDocumentInformation.getTrapped()"})
-  void testGetTrapped_givenPDDocumentInformationTitleIsDr_thenReturnNull() {
+  void testGetTrapped_givenPDDocumentInformationTrappedIsFalse_thenReturnFalse() {
     // Arrange
     PDDocumentInformation pdDocumentInformation = new PDDocumentInformation();
-    pdDocumentInformation.setTitle("Dr");
+    pdDocumentInformation.setTrapped("False");
 
     // Act and Assert
-    assertNull(pdDocumentInformation.getTrapped());
+    assertEquals("False", pdDocumentInformation.getTrapped());
   }
 
   /**
@@ -1498,25 +1327,21 @@ class PDDocumentInformationDiffblueTest {
    * Test {@link PDDocumentInformation#getCustomMetadataValue(String)}.
    *
    * <ul>
-   *   <li>Given {@link PDDocumentInformation#PDDocumentInformation()} Title is {@code Dr}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link PDDocumentInformation#PDDocumentInformation(COSDictionary)} with dic is
+   *       {@link COSDictionary#COSDictionary()}.
    * </ul>
    *
    * <p>Method under test: {@link PDDocumentInformation#getCustomMetadataValue(String)}
    */
   @Test
   @DisplayName(
-      "Test getCustomMetadataValue(String); given PDDocumentInformation() Title is 'Dr'; then return 'null'")
+      "Test getCustomMetadataValue(String); given PDDocumentInformation(COSDictionary) with dic is COSDictionary()")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"String PDDocumentInformation.getCustomMetadataValue(String)"})
-  void testGetCustomMetadataValue_givenPDDocumentInformationTitleIsDr_thenReturnNull() {
-    // Arrange
-    PDDocumentInformation pdDocumentInformation = new PDDocumentInformation();
-    pdDocumentInformation.setTitle("Dr");
-
-    // Act and Assert
-    assertNull(pdDocumentInformation.getCustomMetadataValue("Field Name"));
+  void testGetCustomMetadataValue_givenPDDocumentInformationWithDicIsCOSDictionary() {
+    // Arrange, Act and Assert
+    assertNull(new PDDocumentInformation(new COSDictionary()).getCustomMetadataValue("Field Name"));
   }
 
   /**
@@ -1538,28 +1363,6 @@ class PDDocumentInformationDiffblueTest {
   void testGetCustomMetadataValue_givenPDDocumentInformation_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull(new PDDocumentInformation().getCustomMetadataValue("Field Name"));
-  }
-
-  /**
-   * Test {@link PDDocumentInformation#getCustomMetadataValue(String)}.
-   *
-   * <ul>
-   *   <li>Given {@link PDDocumentInformation#PDDocumentInformation()}.
-   *   <li>When {@code False}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDDocumentInformation#getCustomMetadataValue(String)}
-   */
-  @Test
-  @DisplayName(
-      "Test getCustomMetadataValue(String); given PDDocumentInformation(); when 'False'; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String PDDocumentInformation.getCustomMetadataValue(String)"})
-  void testGetCustomMetadataValue_givenPDDocumentInformation_whenFalse_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull(new PDDocumentInformation().getCustomMetadataValue("False"));
   }
 
   /**

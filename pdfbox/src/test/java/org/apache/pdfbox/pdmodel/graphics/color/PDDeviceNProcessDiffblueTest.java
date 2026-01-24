@@ -10,7 +10,6 @@ import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.cos.COSIncrement;
-import org.apache.pdfbox.cos.COSStream;
 import org.apache.pdfbox.cos.COSUpdateState;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -78,31 +77,6 @@ class PDDeviceNProcessDiffblueTest {
    * Test {@link PDDeviceNProcess#getColorSpace()}.
    *
    * <ul>
-   *   <li>Given {@link PDDeviceNProcess#PDDeviceNProcess(COSDictionary)} with attributes is {@link
-   *       COSStream#COSStream()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDDeviceNProcess#getColorSpace()}
-   */
-  @Test
-  @DisplayName(
-      "Test getColorSpace(); given PDDeviceNProcess(COSDictionary) with attributes is COSStream(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "org.apache.pdfbox.pdmodel.graphics.color.PDColorSpace PDDeviceNProcess.getColorSpace()"
-  })
-  void testGetColorSpace_givenPDDeviceNProcessWithAttributesIsCOSStream_thenReturnNull()
-      throws IOException {
-    // Arrange, Act and Assert
-    assertNull(new PDDeviceNProcess(new COSStream()).getColorSpace());
-  }
-
-  /**
-   * Test {@link PDDeviceNProcess#getColorSpace()}.
-   *
-   * <ul>
    *   <li>Given {@link PDDeviceNProcess#PDDeviceNProcess()}.
    *   <li>Then return {@code null}.
    * </ul>
@@ -125,28 +99,6 @@ class PDDeviceNProcessDiffblueTest {
    * Test {@link PDDeviceNProcess#getComponents()}.
    *
    * <ul>
-   *   <li>Given {@link PDDeviceNProcess#PDDeviceNProcess(COSDictionary)} with attributes is {@link
-   *       COSStream#COSStream()}.
-   *   <li>Then return Empty.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDDeviceNProcess#getComponents()}
-   */
-  @Test
-  @DisplayName(
-      "Test getComponents(); given PDDeviceNProcess(COSDictionary) with attributes is COSStream(); then return Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"java.util.List PDDeviceNProcess.getComponents()"})
-  void testGetComponents_givenPDDeviceNProcessWithAttributesIsCOSStream_thenReturnEmpty() {
-    // Arrange, Act and Assert
-    assertTrue(new PDDeviceNProcess(new COSStream()).getComponents().isEmpty());
-  }
-
-  /**
-   * Test {@link PDDeviceNProcess#getComponents()}.
-   *
-   * <ul>
    *   <li>Given {@link PDDeviceNProcess#PDDeviceNProcess()}.
    *   <li>Then return Empty.
    * </ul>
@@ -161,27 +113,6 @@ class PDDeviceNProcessDiffblueTest {
   void testGetComponents_givenPDDeviceNProcess_thenReturnEmpty() {
     // Arrange, Act and Assert
     assertTrue(new PDDeviceNProcess().getComponents().isEmpty());
-  }
-
-  /**
-   * Test {@link PDDeviceNProcess#toString()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDDeviceNProcess#PDDeviceNProcess(COSDictionary)} with attributes is {@link
-   *       COSStream#COSStream()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDDeviceNProcess#toString()}
-   */
-  @Test
-  @DisplayName(
-      "Test toString(); given PDDeviceNProcess(COSDictionary) with attributes is COSStream()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"java.lang.String PDDeviceNProcess.toString()"})
-  void testToString_givenPDDeviceNProcessWithAttributesIsCOSStream() {
-    // Arrange, Act and Assert
-    assertEquals("Process{null}", new PDDeviceNProcess(new COSStream()).toString());
   }
 
   /**

@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.List;
 import org.apache.pdfbox.cos.COSBase;
 import org.apache.pdfbox.cos.COSDictionary;
@@ -1485,6 +1486,44 @@ class PDFontDescriptorDiffblueTest {
     COSIncrement toIncrementResult = pdFontDescriptor.getCOSObject().toIncrement();
     assertFalse(toIncrementResult.iterator().hasNext());
     assertTrue(toIncrementResult.getObjects().isEmpty());
+  }
+
+  /**
+   * Test {@link PDFontDescriptor#setFontBoundingBox(PDRectangle)}.
+   *
+   * <ul>
+   *   <li>Then {@link PDFontDescriptor#PDFontDescriptor()} COSObject toIncrement Objects size is
+   *       one.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDFontDescriptor#setFontBoundingBox(PDRectangle)}
+   */
+  @Test
+  @DisplayName(
+      "Test setFontBoundingBox(PDRectangle); then PDFontDescriptor() COSObject toIncrement Objects size is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDFontDescriptor.setFontBoundingBox(PDRectangle)"})
+  void testSetFontBoundingBox_thenPDFontDescriptorCOSObjectToIncrementObjectsSizeIsOne() {
+    // Arrange
+    PDFontDescriptor pdFontDescriptor = new PDFontDescriptor();
+
+    // Act
+    pdFontDescriptor.setFontBoundingBox(PDRectangle.A0);
+
+    // Assert
+    COSDictionary cOSObject = pdFontDescriptor.getCOSObject();
+    COSIncrement toIncrementResult = cOSObject.toIncrement();
+    assertEquals(1, toIncrementResult.getObjects().size());
+    Iterator<COSBase> iteratorResult = toIncrementResult.iterator();
+    COSBase actualNextResult = iteratorResult.next();
+    assertFalse(iteratorResult.hasNext());
+    assertSame(cOSObject, actualNextResult);
+    PDRectangle fontBoundingBox = pdFontDescriptor.getFontBoundingBox();
+    assertEquals(3370.3938f, fontBoundingBox.getHeight());
+    assertEquals(2383.937f, fontBoundingBox.getUpperRightX());
+    assertEquals(3370.3938f, fontBoundingBox.getUpperRightY());
+    assertEquals(2383.937f, fontBoundingBox.getWidth());
   }
 
   /**

@@ -9,14 +9,20 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.anyBoolean;
 import static org.mockito.Mockito.anyInt;
+import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
+import java.io.IOException;
 import org.apache.pdfbox.cos.COSDictionary;
+import org.apache.pdfbox.cos.COSDocument;
 import org.apache.pdfbox.cos.COSName;
+import org.apache.pdfbox.cos.COSString;
 import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDResources;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -93,28 +99,6 @@ class PDTextFieldDiffblueTest {
     assertFalse(actualPdTextField.isPassword());
     assertFalse(actualPdTextField.isRichText());
     assertSame(acroForm, actualPdTextField.getAcroForm());
-  }
-
-  /**
-   * Test {@link PDTextField#isMultiline()}.
-   *
-   * <p>Method under test: {@link PDTextField#isMultiline()}
-   */
-  @Test
-  @DisplayName("Test isMultiline()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean PDTextField.isMultiline()"})
-  void testIsMultiline() {
-    // Arrange
-    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
-    COSDictionary field = new COSDictionary();
-    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
-
-    PDTextField pdTextField = new PDTextField(acroForm, field, parent);
-
-    // Act and Assert
-    assertFalse(pdTextField.isMultiline());
   }
 
   /**
@@ -216,25 +200,37 @@ class PDTextFieldDiffblueTest {
   }
 
   /**
-   * Test {@link PDTextField#isPassword()}.
+   * Test {@link PDTextField#setMultiline(boolean)}.
    *
-   * <p>Method under test: {@link PDTextField#isPassword()}
+   * <ul>
+   *   <li>Given {@link PDNonTerminalField#PDNonTerminalField(PDAcroForm)} with acroForm is {@code
+   *       null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDTextField#setMultiline(boolean)}
    */
   @Test
-  @DisplayName("Test isPassword()")
+  @DisplayName(
+      "Test setMultiline(boolean); given PDNonTerminalField(PDAcroForm) with acroForm is 'null'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
-  @MethodsUnderTest({"boolean PDTextField.isPassword()"})
-  void testIsPassword() {
+  @MethodsUnderTest({"void PDTextField.setMultiline(boolean)"})
+  void testSetMultiline_givenPDNonTerminalFieldWithAcroFormIsNull() {
     // Arrange
+    COSDictionary field = mock(COSDictionary.class);
+    doNothing().when(field).setFlag(Mockito.<COSName>any(), anyInt(), anyBoolean());
     PDAcroForm acroForm = new PDAcroForm(new PDDocument());
-    COSDictionary field = new COSDictionary();
-    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
 
-    PDTextField pdTextField = new PDTextField(acroForm, field, parent);
+    PDTextField pdTextField = new PDTextField(acroForm, field, new PDNonTerminalField(null));
+    pdTextField.setRequired(true);
 
-    // Act and Assert
-    assertFalse(pdTextField.isPassword());
+    // Act
+    pdTextField.setMultiline(false);
+
+    // Assert that nothing has changed
+    verify(field, atLeast(1)).setFlag(isA(COSName.class), anyInt(), anyBoolean());
+    assertEquals(0, pdTextField.getFieldFlags());
+    assertFalse(pdTextField.isMultiline());
   }
 
   /**
@@ -336,25 +332,40 @@ class PDTextFieldDiffblueTest {
   }
 
   /**
-   * Test {@link PDTextField#isFileSelect()}.
+   * Test {@link PDTextField#setPassword(boolean)}.
    *
-   * <p>Method under test: {@link PDTextField#isFileSelect()}
+   * <ul>
+   *   <li>Given {@link PDAcroForm#PDAcroForm(PDDocument)} with doc is {@link
+   *       PDDocument#PDDocument()} Q is one.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDTextField#setPassword(boolean)}
    */
   @Test
-  @DisplayName("Test isFileSelect()")
+  @DisplayName(
+      "Test setPassword(boolean); given PDAcroForm(PDDocument) with doc is PDDocument() Q is one")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
-  @MethodsUnderTest({"boolean PDTextField.isFileSelect()"})
-  void testIsFileSelect() {
+  @MethodsUnderTest({"void PDTextField.setPassword(boolean)"})
+  void testSetPassword_givenPDAcroFormWithDocIsPDDocumentQIsOne() {
     // Arrange
     PDAcroForm acroForm = new PDAcroForm(new PDDocument());
-    COSDictionary field = new COSDictionary();
+    acroForm.setQ(1);
+
+    COSDictionary field = mock(COSDictionary.class);
+    doNothing().when(field).setFlag(Mockito.<COSName>any(), anyInt(), anyBoolean());
     PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
 
     PDTextField pdTextField = new PDTextField(acroForm, field, parent);
+    pdTextField.setRequired(true);
 
-    // Act and Assert
-    assertFalse(pdTextField.isFileSelect());
+    // Act
+    pdTextField.setPassword(false);
+
+    // Assert that nothing has changed
+    verify(field, atLeast(1)).setFlag(isA(COSName.class), anyInt(), anyBoolean());
+    assertEquals(0, pdTextField.getFieldFlags());
+    assertFalse(pdTextField.isPassword());
   }
 
   /**
@@ -458,28 +469,6 @@ class PDTextFieldDiffblueTest {
   /**
    * Test {@link PDTextField#doNotSpellCheck()}.
    *
-   * <p>Method under test: {@link PDTextField#doNotSpellCheck()}
-   */
-  @Test
-  @DisplayName("Test doNotSpellCheck()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean PDTextField.doNotSpellCheck()"})
-  void testDoNotSpellCheck() {
-    // Arrange
-    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
-    COSDictionary field = new COSDictionary();
-    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
-
-    PDTextField pdTextField = new PDTextField(acroForm, field, parent);
-
-    // Act and Assert
-    assertFalse(pdTextField.doNotSpellCheck());
-  }
-
-  /**
-   * Test {@link PDTextField#doNotSpellCheck()}.
-   *
    * <ul>
    *   <li>Given {@link PDTextField#PDTextField(PDAcroForm)} with acroForm is {@link
    *       PDAcroForm#PDAcroForm(PDDocument)} ReadOnly is {@code true}.
@@ -575,25 +564,38 @@ class PDTextFieldDiffblueTest {
   }
 
   /**
-   * Test {@link PDTextField#doNotScroll()}.
+   * Test {@link PDTextField#setDoNotSpellCheck(boolean)}.
    *
-   * <p>Method under test: {@link PDTextField#doNotScroll()}
+   * <ul>
+   *   <li>Given {@link PDDocument#PDDocument(COSDocument)} with doc is {@link
+   *       COSDocument#COSDocument()}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDTextField#setDoNotSpellCheck(boolean)}
    */
   @Test
-  @DisplayName("Test doNotScroll()")
+  @DisplayName(
+      "Test setDoNotSpellCheck(boolean); given PDDocument(COSDocument) with doc is COSDocument()")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
-  @MethodsUnderTest({"boolean PDTextField.doNotScroll()"})
-  void testDoNotScroll() {
+  @MethodsUnderTest({"void PDTextField.setDoNotSpellCheck(boolean)"})
+  void testSetDoNotSpellCheck_givenPDDocumentWithDocIsCOSDocument() {
     // Arrange
+    COSDictionary field = mock(COSDictionary.class);
+    doNothing().when(field).setFlag(Mockito.<COSName>any(), anyInt(), anyBoolean());
     PDAcroForm acroForm = new PDAcroForm(new PDDocument());
-    COSDictionary field = new COSDictionary();
-    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
+    PDAcroForm acroForm2 = new PDAcroForm(new PDDocument(new COSDocument()));
+    PDNonTerminalField parent = new PDNonTerminalField(acroForm2);
 
     PDTextField pdTextField = new PDTextField(acroForm, field, parent);
+    pdTextField.setRequired(true);
 
-    // Act and Assert
-    assertFalse(pdTextField.doNotScroll());
+    // Act
+    pdTextField.setDoNotSpellCheck(false);
+
+    // Assert that nothing has changed
+    verify(field, atLeast(1)).setFlag(isA(COSName.class), anyInt(), anyBoolean());
+    assertEquals(0, pdTextField.getFieldFlags());
   }
 
   /**
@@ -691,28 +693,6 @@ class PDTextFieldDiffblueTest {
     // Assert that nothing has changed
     verify(field).setFlag(isA(COSName.class), eq(8388608), eq(true));
     assertEquals(0, pdTextField.getFieldFlags());
-  }
-
-  /**
-   * Test {@link PDTextField#isComb()}.
-   *
-   * <p>Method under test: {@link PDTextField#isComb()}
-   */
-  @Test
-  @DisplayName("Test isComb()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean PDTextField.isComb()"})
-  void testIsComb() {
-    // Arrange
-    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
-    COSDictionary field = new COSDictionary();
-    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
-
-    PDTextField pdTextField = new PDTextField(acroForm, field, parent);
-
-    // Act and Assert
-    assertFalse(pdTextField.isComb());
   }
 
   /**
@@ -816,28 +796,6 @@ class PDTextFieldDiffblueTest {
   /**
    * Test {@link PDTextField#isRichText()}.
    *
-   * <p>Method under test: {@link PDTextField#isRichText()}
-   */
-  @Test
-  @DisplayName("Test isRichText()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean PDTextField.isRichText()"})
-  void testIsRichText() {
-    // Arrange
-    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
-    COSDictionary field = new COSDictionary();
-    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
-
-    PDTextField pdTextField = new PDTextField(acroForm, field, parent);
-
-    // Act and Assert
-    assertFalse(pdTextField.isRichText());
-  }
-
-  /**
-   * Test {@link PDTextField#isRichText()}.
-   *
    * <ul>
    *   <li>Given {@link PDTextField#PDTextField(PDAcroForm)} with acroForm is {@link
    *       PDAcroForm#PDAcroForm(PDDocument)} ReadOnly is {@code true}.
@@ -936,28 +894,6 @@ class PDTextFieldDiffblueTest {
   /**
    * Test {@link PDTextField#getMaxLen()}.
    *
-   * <p>Method under test: {@link PDTextField#getMaxLen()}
-   */
-  @Test
-  @DisplayName("Test getMaxLen()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"int PDTextField.getMaxLen()"})
-  void testGetMaxLen() {
-    // Arrange
-    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
-    COSDictionary field = new COSDictionary();
-    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
-
-    PDTextField pdTextField = new PDTextField(acroForm, field, parent);
-
-    // Act and Assert
-    assertEquals(-1, pdTextField.getMaxLen());
-  }
-
-  /**
-   * Test {@link PDTextField#getMaxLen()}.
-   *
    * <ul>
    *   <li>Given {@link PDTextField#PDTextField(PDAcroForm)} with acroForm is {@link
    *       PDAcroForm#PDAcroForm(PDDocument)}.
@@ -978,28 +914,429 @@ class PDTextFieldDiffblueTest {
   }
 
   /**
-   * Test {@link PDTextField#getValue()}.
+   * Test {@link PDTextField#setMaxLen(int)}.
+   *
+   * <p>Method under test: {@link PDTextField#setMaxLen(int)}
+   */
+  @Test
+  @DisplayName("Test setMaxLen(int)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDTextField.setMaxLen(int)"})
+  void testSetMaxLen() {
+    // Arrange
+    COSDictionary field = mock(COSDictionary.class);
+    doNothing().when(field).setInt(Mockito.<COSName>any(), anyInt());
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
+
+    PDTextField pdTextField = new PDTextField(acroForm, field, parent);
+
+    // Act
+    pdTextField.setMaxLen(3);
+
+    // Assert that nothing has changed
+    verify(field).setInt(isA(COSName.class), eq(3));
+    assertEquals(0, pdTextField.getMaxLen());
+  }
+
+  /**
+   * Test {@link PDTextField#setValue(String)}.
+   *
+   * <p>Method under test: {@link PDTextField#setValue(String)}
+   */
+  @Test
+  @DisplayName("Test setValue(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDTextField.setValue(String)"})
+  void testSetValue() throws IOException {
+    // Arrange
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    acroForm.setDefaultResources(new PDResources());
+    acroForm.setDefaultAppearance(
+        "\\u000D\\u000A|[\\u000A\\u000B\\u000C\\u000D\\u0085\\u2028\\u2029]");
+    PDTextField pdTextField = new PDTextField(acroForm);
+
+    // Act
+    pdTextField.setValue("42");
+
+    // Assert
+    assertEquals("42", pdTextField.getValue());
+    assertEquals("42", pdTextField.getValueAsString());
+    COSDictionary cOSObject = pdTextField.getCOSObject();
+    assertEquals(4, cOSObject.getValues().size());
+    assertEquals(4, cOSObject.size());
+  }
+
+  /**
+   * Test {@link PDTextField#setValue(String)}.
+   *
+   * <p>Method under test: {@link PDTextField#setValue(String)}
+   */
+  @Test
+  @DisplayName("Test setValue(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDTextField.setValue(String)"})
+  void testSetValue2() throws IOException {
+    // Arrange
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    acroForm.setDefaultResources(new PDResources());
+    acroForm.setDefaultAppearance(
+        "widget of field {} has no rectangle, no appearance stream created");
+    PDTextField pdTextField = new PDTextField(acroForm);
+
+    // Act
+    pdTextField.setValue("42");
+
+    // Assert
+    assertEquals("42", pdTextField.getValue());
+    assertEquals("42", pdTextField.getValueAsString());
+    COSDictionary cOSObject = pdTextField.getCOSObject();
+    assertEquals(4, cOSObject.getValues().size());
+    assertEquals(4, cOSObject.size());
+  }
+
+  /**
+   * Test {@link PDTextField#setValue(String)}.
+   *
+   * <p>Method under test: {@link PDTextField#setValue(String)}
+   */
+  @Test
+  @DisplayName("Test setValue(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDTextField.setValue(String)"})
+  void testSetValue3() throws IOException {
+    // Arrange
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    acroForm.setDefaultResources(new PDResources());
+    acroForm.setDefaultAppearance("org.apache.logging.log4j.util.StackLocator");
+    PDTextField pdTextField = new PDTextField(acroForm);
+
+    // Act
+    pdTextField.setValue("42");
+
+    // Assert
+    assertEquals("42", pdTextField.getValue());
+    assertEquals("42", pdTextField.getValueAsString());
+    COSDictionary cOSObject = pdTextField.getCOSObject();
+    assertEquals(4, cOSObject.getValues().size());
+    assertEquals(4, cOSObject.size());
+  }
+
+  /**
+   * Test {@link PDTextField#setValue(String)}.
    *
    * <ul>
-   *   <li>Given {@link PDAcroForm#PDAcroForm(PDDocument, COSDictionary)} with doc is {@link
-   *       PDDocument#PDDocument()} and form is {@link COSDictionary#COSDictionary()}.
+   *   <li>Given {@link PDAcroForm#PDAcroForm(PDDocument)} with doc is {@link
+   *       PDDocument#PDDocument()} DefaultAppearance is {@code 42}.
    * </ul>
    *
-   * <p>Method under test: {@link PDTextField#getValue()}
+   * <p>Method under test: {@link PDTextField#setValue(String)}
    */
   @Test
   @DisplayName(
-      "Test getValue(); given PDAcroForm(PDDocument, COSDictionary) with doc is PDDocument() and form is COSDictionary()")
+      "Test setValue(String); given PDAcroForm(PDDocument) with doc is PDDocument() DefaultAppearance is '42'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
-  @MethodsUnderTest({"java.lang.String PDTextField.getValue()"})
-  void testGetValue_givenPDAcroFormWithDocIsPDDocumentAndFormIsCOSDictionary() {
+  @MethodsUnderTest({"void PDTextField.setValue(String)"})
+  void testSetValue_givenPDAcroFormWithDocIsPDDocumentDefaultAppearanceIs42() throws IOException {
     // Arrange
-    PDDocument doc = new PDDocument();
-    PDAcroForm acroForm = new PDAcroForm(doc, new COSDictionary());
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    acroForm.setDefaultResources(new PDResources());
+    acroForm.setDefaultAppearance("42");
+    PDTextField pdTextField = new PDTextField(acroForm);
 
-    // Act and Assert
-    assertEquals("", new PDTextField(acroForm).getValue());
+    // Act
+    pdTextField.setValue("42");
+
+    // Assert
+    assertEquals("42", pdTextField.getValue());
+    assertEquals("42", pdTextField.getValueAsString());
+    COSDictionary cOSObject = pdTextField.getCOSObject();
+    assertEquals(4, cOSObject.getValues().size());
+    assertEquals(4, cOSObject.size());
+  }
+
+  /**
+   * Test {@link PDTextField#setValue(String)}.
+   *
+   * <ul>
+   *   <li>Given {@link PDAcroForm#PDAcroForm(PDDocument)} with doc is {@link
+   *       PDDocument#PDDocument()} DefaultAppearance is {@code Da Value}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDTextField#setValue(String)}
+   */
+  @Test
+  @DisplayName(
+      "Test setValue(String); given PDAcroForm(PDDocument) with doc is PDDocument() DefaultAppearance is 'Da Value'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDTextField.setValue(String)"})
+  void testSetValue_givenPDAcroFormWithDocIsPDDocumentDefaultAppearanceIsDaValue()
+      throws IOException {
+    // Arrange
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    acroForm.setDefaultResources(new PDResources());
+    acroForm.setDefaultAppearance("Da Value");
+    PDTextField pdTextField = new PDTextField(acroForm);
+
+    // Act
+    pdTextField.setValue("42");
+
+    // Assert
+    assertEquals("42", pdTextField.getValue());
+    assertEquals("42", pdTextField.getValueAsString());
+    COSDictionary cOSObject = pdTextField.getCOSObject();
+    assertEquals(4, cOSObject.getValues().size());
+    assertEquals(4, cOSObject.size());
+  }
+
+  /**
+   * Test {@link PDTextField#setValue(String)}.
+   *
+   * <ul>
+   *   <li>Given {@link PDAcroForm#PDAcroForm(PDDocument)} with doc is {@link
+   *       PDDocument#PDDocument()} DefaultAppearance is {@code Widget}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDTextField#setValue(String)}
+   */
+  @Test
+  @DisplayName(
+      "Test setValue(String); given PDAcroForm(PDDocument) with doc is PDDocument() DefaultAppearance is 'Widget'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDTextField.setValue(String)"})
+  void testSetValue_givenPDAcroFormWithDocIsPDDocumentDefaultAppearanceIsWidget()
+      throws IOException {
+    // Arrange
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    acroForm.setDefaultResources(new PDResources());
+    acroForm.setDefaultAppearance("Widget");
+    PDTextField pdTextField = new PDTextField(acroForm);
+
+    // Act
+    pdTextField.setValue("42");
+
+    // Assert
+    assertEquals("42", pdTextField.getValue());
+    assertEquals("42", pdTextField.getValueAsString());
+    COSDictionary cOSObject = pdTextField.getCOSObject();
+    assertEquals(4, cOSObject.getValues().size());
+    assertEquals(4, cOSObject.size());
+  }
+
+  /**
+   * Test {@link PDTextField#setValue(String)}.
+   *
+   * <ul>
+   *   <li>Given {@link PDTextField#PDTextField(PDAcroForm)} with acroForm is {@link
+   *       PDAcroForm#PDAcroForm(PDDocument)} PartialName is cr lf.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDTextField#setValue(String)}
+   */
+  @Test
+  @DisplayName(
+      "Test setValue(String); given PDTextField(PDAcroForm) with acroForm is PDAcroForm(PDDocument) PartialName is cr lf")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDTextField.setValue(String)"})
+  void testSetValue_givenPDTextFieldWithAcroFormIsPDAcroFormPartialNameIsCrLf() throws IOException {
+    // Arrange
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    acroForm.setDefaultResources(new PDResources());
+    acroForm.setDefaultAppearance("42");
+
+    PDTextField pdTextField = new PDTextField(acroForm);
+    pdTextField.setPartialName("\r\n");
+
+    // Act
+    pdTextField.setValue("42");
+
+    // Assert
+    assertEquals("42", pdTextField.getValue());
+    assertEquals("42", pdTextField.getValueAsString());
+    COSDictionary cOSObject = pdTextField.getCOSObject();
+    assertEquals(5, cOSObject.getValues().size());
+    assertEquals(5, cOSObject.size());
+  }
+
+  /**
+   * Test {@link PDTextField#setValue(String)}.
+   *
+   * <ul>
+   *   <li>Given {@link PDTextField#PDTextField(PDAcroForm)} with acroForm is {@link
+   *       PDAcroForm#PDAcroForm(PDDocument)} PartialName is space.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDTextField#setValue(String)}
+   */
+  @Test
+  @DisplayName(
+      "Test setValue(String); given PDTextField(PDAcroForm) with acroForm is PDAcroForm(PDDocument) PartialName is space")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDTextField.setValue(String)"})
+  void testSetValue_givenPDTextFieldWithAcroFormIsPDAcroFormPartialNameIsSpace()
+      throws IOException {
+    // Arrange
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    acroForm.setDefaultResources(new PDResources());
+    acroForm.setDefaultAppearance("42");
+
+    PDTextField pdTextField = new PDTextField(acroForm);
+    pdTextField.setPartialName(" ");
+
+    // Act
+    pdTextField.setValue("42");
+
+    // Assert
+    assertEquals("42", pdTextField.getValue());
+    assertEquals("42", pdTextField.getValueAsString());
+    COSDictionary cOSObject = pdTextField.getCOSObject();
+    assertEquals(5, cOSObject.getValues().size());
+    assertEquals(5, cOSObject.size());
+  }
+
+  /**
+   * Test {@link PDTextField#setValue(String)}.
+   *
+   * <ul>
+   *   <li>Given {@link PDTextField#PDTextField(PDAcroForm)} with acroForm is {@link
+   *       PDAcroForm#PDAcroForm(PDDocument)} ReadOnly is {@code true}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDTextField#setValue(String)}
+   */
+  @Test
+  @DisplayName(
+      "Test setValue(String); given PDTextField(PDAcroForm) with acroForm is PDAcroForm(PDDocument) ReadOnly is 'true'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDTextField.setValue(String)"})
+  void testSetValue_givenPDTextFieldWithAcroFormIsPDAcroFormReadOnlyIsTrue() throws IOException {
+    // Arrange
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    acroForm.setDefaultResources(new PDResources());
+    acroForm.setDefaultAppearance("42");
+
+    PDTextField pdTextField = new PDTextField(acroForm);
+    pdTextField.setReadOnly(true);
+
+    // Act
+    pdTextField.setValue("42");
+
+    // Assert
+    assertEquals("42", pdTextField.getValue());
+    assertEquals("42", pdTextField.getValueAsString());
+    COSDictionary cOSObject = pdTextField.getCOSObject();
+    assertEquals(5, cOSObject.getValues().size());
+    assertEquals(5, cOSObject.size());
+  }
+
+  /**
+   * Test {@link PDTextField#setValue(String)}.
+   *
+   * <ul>
+   *   <li>When cr lf.
+   *   <li>Then {@link PDTextField#PDTextField(PDAcroForm)} with acroForm is {@link
+   *       PDAcroForm#PDAcroForm(PDDocument)} Value is cr lf.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDTextField#setValue(String)}
+   */
+  @Test
+  @DisplayName(
+      "Test setValue(String); when cr lf; then PDTextField(PDAcroForm) with acroForm is PDAcroForm(PDDocument) Value is cr lf")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDTextField.setValue(String)"})
+  void testSetValue_whenCrLf_thenPDTextFieldWithAcroFormIsPDAcroFormValueIsCrLf()
+      throws IOException {
+    // Arrange
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    acroForm.setDefaultResources(new PDResources());
+    acroForm.setDefaultAppearance("42");
+    PDTextField pdTextField = new PDTextField(acroForm);
+
+    // Act
+    pdTextField.setValue("\r\n");
+
+    // Assert
+    assertEquals("\r\n", pdTextField.getValue());
+    assertEquals("\r\n", pdTextField.getValueAsString());
+    COSDictionary cOSObject = pdTextField.getCOSObject();
+    assertEquals(4, cOSObject.getValues().size());
+    assertEquals(4, cOSObject.size());
+  }
+
+  /**
+   * Test {@link PDTextField#setDefaultValue(String)}.
+   *
+   * <p>Method under test: {@link PDTextField#setDefaultValue(String)}
+   */
+  @Test
+  @DisplayName("Test setDefaultValue(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDTextField.setDefaultValue(String)"})
+  void testSetDefaultValue() {
+    // Arrange
+    COSDictionary field = mock(COSDictionary.class);
+    doNothing().when(field).setString(Mockito.<COSName>any(), Mockito.<String>any());
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
+
+    PDTextField pdTextField = new PDTextField(acroForm, field, parent);
+
+    // Act
+    pdTextField.setDefaultValue("42");
+
+    // Assert that nothing has changed
+    verify(field).setString(isA(COSName.class), eq("42"));
+    assertEquals("", pdTextField.getDefaultValue());
+  }
+
+  /**
+   * Test {@link PDTextField#setDefaultValue(String)}.
+   *
+   * <ul>
+   *   <li>Given {@link COSDictionary} {@link COSDictionary#setFlag(COSName, int, boolean)} does
+   *       nothing.
+   *   <li>Then calls {@link COSDictionary#setFlag(COSName, int, boolean)}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDTextField#setDefaultValue(String)}
+   */
+  @Test
+  @DisplayName(
+      "Test setDefaultValue(String); given COSDictionary setFlag(COSName, int, boolean) does nothing; then calls setFlag(COSName, int, boolean)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDTextField.setDefaultValue(String)"})
+  void testSetDefaultValue_givenCOSDictionarySetFlagDoesNothing_thenCallsSetFlag() {
+    // Arrange
+    COSDictionary field = mock(COSDictionary.class);
+    doNothing().when(field).setFlag(Mockito.<COSName>any(), anyInt(), anyBoolean());
+    doNothing().when(field).setString(Mockito.<COSName>any(), Mockito.<String>any());
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
+
+    PDTextField pdTextField = new PDTextField(acroForm, field, parent);
+    pdTextField.setReadOnly(true);
+
+    // Act
+    pdTextField.setDefaultValue("ValueValue");
+
+    // Assert that nothing has changed
+    verify(field).setFlag(isA(COSName.class), eq(1), eq(true));
+    verify(field).setString(isA(COSName.class), eq("ValueValue"));
+    assertEquals("", pdTextField.getDefaultValue());
   }
 
   /**
@@ -1017,7 +1354,7 @@ class PDTextFieldDiffblueTest {
       "Test getValue(); given PDNonTerminalField(PDAcroForm) with acroForm is PDAcroForm(PDDocument)")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
-  @MethodsUnderTest({"java.lang.String PDTextField.getValue()"})
+  @MethodsUnderTest({"String PDTextField.getValue()"})
   void testGetValue_givenPDNonTerminalFieldWithAcroFormIsPDAcroForm() {
     // Arrange
     PDAcroForm acroForm = new PDAcroForm(new PDDocument());
@@ -1046,35 +1383,10 @@ class PDTextFieldDiffblueTest {
       "Test getValue(); given PDTextField(PDAcroForm) with acroForm is PDAcroForm(PDDocument); then return empty string")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
-  @MethodsUnderTest({"java.lang.String PDTextField.getValue()"})
+  @MethodsUnderTest({"String PDTextField.getValue()"})
   void testGetValue_givenPDTextFieldWithAcroFormIsPDAcroForm_thenReturnEmptyString() {
     // Arrange, Act and Assert
     assertEquals("", new PDTextField(new PDAcroForm(new PDDocument())).getValue());
-  }
-
-  /**
-   * Test {@link PDTextField#getDefaultValue()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDAcroForm#PDAcroForm(PDDocument, COSDictionary)} with doc is {@link
-   *       PDDocument#PDDocument()} and form is {@link COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDTextField#getDefaultValue()}
-   */
-  @Test
-  @DisplayName(
-      "Test getDefaultValue(); given PDAcroForm(PDDocument, COSDictionary) with doc is PDDocument() and form is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"java.lang.String PDTextField.getDefaultValue()"})
-  void testGetDefaultValue_givenPDAcroFormWithDocIsPDDocumentAndFormIsCOSDictionary() {
-    // Arrange
-    PDDocument doc = new PDDocument();
-    PDAcroForm acroForm = new PDAcroForm(doc, new COSDictionary());
-
-    // Act and Assert
-    assertEquals("", new PDTextField(acroForm).getDefaultValue());
   }
 
   /**
@@ -1092,7 +1404,7 @@ class PDTextFieldDiffblueTest {
       "Test getDefaultValue(); given PDNonTerminalField(PDAcroForm) with acroForm is PDAcroForm(PDDocument)")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
-  @MethodsUnderTest({"java.lang.String PDTextField.getDefaultValue()"})
+  @MethodsUnderTest({"String PDTextField.getDefaultValue()"})
   void testGetDefaultValue_givenPDNonTerminalFieldWithAcroFormIsPDAcroForm() {
     // Arrange
     PDAcroForm acroForm = new PDAcroForm(new PDDocument());
@@ -1120,35 +1432,10 @@ class PDTextFieldDiffblueTest {
       "Test getDefaultValue(); given PDTextField(PDAcroForm) with acroForm is PDAcroForm(PDDocument)")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
-  @MethodsUnderTest({"java.lang.String PDTextField.getDefaultValue()"})
+  @MethodsUnderTest({"String PDTextField.getDefaultValue()"})
   void testGetDefaultValue_givenPDTextFieldWithAcroFormIsPDAcroForm() {
     // Arrange, Act and Assert
     assertEquals("", new PDTextField(new PDAcroForm(new PDDocument())).getDefaultValue());
-  }
-
-  /**
-   * Test {@link PDTextField#getValueAsString()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDAcroForm#PDAcroForm(PDDocument, COSDictionary)} with doc is {@link
-   *       PDDocument#PDDocument()} and form is {@link COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDTextField#getValueAsString()}
-   */
-  @Test
-  @DisplayName(
-      "Test getValueAsString(); given PDAcroForm(PDDocument, COSDictionary) with doc is PDDocument() and form is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"java.lang.String PDTextField.getValueAsString()"})
-  void testGetValueAsString_givenPDAcroFormWithDocIsPDDocumentAndFormIsCOSDictionary() {
-    // Arrange
-    PDDocument doc = new PDDocument();
-    PDAcroForm acroForm = new PDAcroForm(doc, new COSDictionary());
-
-    // Act and Assert
-    assertEquals("", new PDTextField(acroForm).getValueAsString());
   }
 
   /**
@@ -1166,7 +1453,7 @@ class PDTextFieldDiffblueTest {
       "Test getValueAsString(); given PDNonTerminalField(PDAcroForm) with acroForm is PDAcroForm(PDDocument)")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
-  @MethodsUnderTest({"java.lang.String PDTextField.getValueAsString()"})
+  @MethodsUnderTest({"String PDTextField.getValueAsString()"})
   void testGetValueAsString_givenPDNonTerminalFieldWithAcroFormIsPDAcroForm() {
     // Arrange
     PDAcroForm acroForm = new PDAcroForm(new PDDocument());
@@ -1194,9 +1481,354 @@ class PDTextFieldDiffblueTest {
       "Test getValueAsString(); given PDTextField(PDAcroForm) with acroForm is PDAcroForm(PDDocument)")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
-  @MethodsUnderTest({"java.lang.String PDTextField.getValueAsString()"})
+  @MethodsUnderTest({"String PDTextField.getValueAsString()"})
   void testGetValueAsString_givenPDTextFieldWithAcroFormIsPDAcroForm() {
     // Arrange, Act and Assert
     assertEquals("", new PDTextField(new PDAcroForm(new PDDocument())).getValueAsString());
+  }
+
+  /**
+   * Test {@link PDTextField#constructAppearances()}.
+   *
+   * <p>Method under test: {@link PDTextField#constructAppearances()}
+   */
+  @Test
+  @DisplayName("Test constructAppearances()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDTextField.constructAppearances()"})
+  void testConstructAppearances() throws IOException {
+    // Arrange
+    COSDictionary cosDictionary = mock(COSDictionary.class);
+    when(cosDictionary.getDictionaryObject(Mockito.<COSName>any()))
+        .thenReturn(COSString.parseHex("0123456789ABCDEF"));
+
+    PDAcroForm acroForm = mock(PDAcroForm.class);
+    when(acroForm.getCOSObject()).thenReturn(cosDictionary);
+    when(acroForm.getDefaultResources()).thenReturn(new PDResources());
+
+    // Act
+    new PDTextField(acroForm).constructAppearances();
+
+    // Assert
+    verify(cosDictionary, atLeast(1)).getDictionaryObject(Mockito.<COSName>any());
+    verify(acroForm, atLeast(1)).getCOSObject();
+    verify(acroForm, atLeast(1)).getDefaultResources();
+  }
+
+  /**
+   * Test {@link PDTextField#constructAppearances()}.
+   *
+   * <p>Method under test: {@link PDTextField#constructAppearances()}
+   */
+  @Test
+  @DisplayName("Test constructAppearances()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDTextField.constructAppearances()"})
+  void testConstructAppearances2() throws IOException {
+    // Arrange
+    COSDictionary cosDictionary = mock(COSDictionary.class);
+    when(cosDictionary.getDictionaryObject(Mockito.<COSName>any()))
+        .thenReturn(COSString.parseHex("0123456789ABCDEF"));
+
+    PDAcroForm acroForm = mock(PDAcroForm.class);
+    when(acroForm.getCOSObject()).thenReturn(cosDictionary);
+    when(acroForm.getDefaultResources()).thenReturn(new PDResources());
+
+    PDTextField pdTextField = new PDTextField(acroForm);
+    pdTextField.setReadOnly(true);
+
+    // Act
+    pdTextField.constructAppearances();
+
+    // Assert
+    verify(cosDictionary, atLeast(1)).getDictionaryObject(Mockito.<COSName>any());
+    verify(acroForm, atLeast(1)).getCOSObject();
+    verify(acroForm, atLeast(1)).getDefaultResources();
+  }
+
+  /**
+   * Test {@link PDTextField#constructAppearances()}.
+   *
+   * <p>Method under test: {@link PDTextField#constructAppearances()}
+   */
+  @Test
+  @DisplayName("Test constructAppearances()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDTextField.constructAppearances()"})
+  void testConstructAppearances3() throws IOException {
+    // Arrange
+    COSDictionary cosDictionary = mock(COSDictionary.class);
+    when(cosDictionary.getDictionaryObject(Mockito.<COSName>any()))
+        .thenReturn(COSString.parseHex("0123456789ABCDEF"));
+
+    PDAcroForm acroForm = mock(PDAcroForm.class);
+    when(acroForm.getCOSObject()).thenReturn(cosDictionary);
+    when(acroForm.getDefaultResources()).thenReturn(new PDResources());
+
+    PDTextField pdTextField = new PDTextField(acroForm);
+    pdTextField.setPartialName("\r\n");
+
+    // Act
+    pdTextField.constructAppearances();
+
+    // Assert
+    verify(cosDictionary, atLeast(1)).getDictionaryObject(Mockito.<COSName>any());
+    verify(acroForm, atLeast(1)).getCOSObject();
+    verify(acroForm, atLeast(1)).getDefaultResources();
+  }
+
+  /**
+   * Test {@link PDTextField#constructAppearances()}.
+   *
+   * <p>Method under test: {@link PDTextField#constructAppearances()}
+   */
+  @Test
+  @DisplayName("Test constructAppearances()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDTextField.constructAppearances()"})
+  void testConstructAppearances4() throws IOException {
+    // Arrange
+    COSDictionary cosDictionary = mock(COSDictionary.class);
+    when(cosDictionary.getDictionaryObject(Mockito.<COSName>any()))
+        .thenReturn(new COSString("\r\n"));
+
+    PDAcroForm acroForm = mock(PDAcroForm.class);
+    when(acroForm.getCOSObject()).thenReturn(cosDictionary);
+    when(acroForm.getDefaultResources()).thenReturn(new PDResources());
+
+    PDTextField pdTextField = new PDTextField(acroForm);
+    pdTextField.setReadOnly(true);
+
+    // Act
+    pdTextField.constructAppearances();
+
+    // Assert
+    verify(cosDictionary, atLeast(1)).getDictionaryObject(Mockito.<COSName>any());
+    verify(acroForm, atLeast(1)).getCOSObject();
+    verify(acroForm, atLeast(1)).getDefaultResources();
+  }
+
+  /**
+   * Test {@link PDTextField#constructAppearances()}.
+   *
+   * <ul>
+   *   <li>Given {@link COSString} {@link COSString#getBytes()} return array of {@code byte} with
+   *       {@code A} and {@code X}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDTextField#constructAppearances()}
+   */
+  @Test
+  @DisplayName(
+      "Test constructAppearances(); given COSString getBytes() return array of byte with 'A' and 'X'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDTextField.constructAppearances()"})
+  void testConstructAppearances_givenCOSStringGetBytesReturnArrayOfByteWithAAndX()
+      throws IOException {
+    // Arrange
+    COSString cosString = mock(COSString.class);
+    when(cosString.getString()).thenReturn("String");
+    when(cosString.getBytes()).thenReturn(new byte[] {'A', 'X', 0, 'X', 'A', 'X', 'A', 'X'});
+
+    COSDictionary cosDictionary = mock(COSDictionary.class);
+    when(cosDictionary.getDictionaryObject(Mockito.<COSName>any())).thenReturn(cosString);
+
+    PDAcroForm acroForm = mock(PDAcroForm.class);
+    when(acroForm.getCOSObject()).thenReturn(cosDictionary);
+    when(acroForm.getDefaultResources()).thenReturn(new PDResources());
+
+    PDTextField pdTextField = new PDTextField(acroForm);
+    pdTextField.setReadOnly(true);
+
+    // Act
+    pdTextField.constructAppearances();
+
+    // Assert
+    verify(cosDictionary, atLeast(1)).getDictionaryObject(Mockito.<COSName>any());
+    verify(cosString).getBytes();
+    verify(cosString).getString();
+    verify(acroForm, atLeast(1)).getCOSObject();
+    verify(acroForm, atLeast(1)).getDefaultResources();
+  }
+
+  /**
+   * Test {@link PDTextField#constructAppearances()}.
+   *
+   * <ul>
+   *   <li>Given {@link COSString} {@link COSString#getBytes()} return array of {@code byte} with
+   *       {@code A} and zero.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDTextField#constructAppearances()}
+   */
+  @Test
+  @DisplayName(
+      "Test constructAppearances(); given COSString getBytes() return array of byte with 'A' and zero")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDTextField.constructAppearances()"})
+  void testConstructAppearances_givenCOSStringGetBytesReturnArrayOfByteWithAAndZero()
+      throws IOException {
+    // Arrange
+    COSString cosString = mock(COSString.class);
+    when(cosString.getString()).thenReturn("String");
+    when(cosString.getBytes()).thenReturn(new byte[] {'A', 0, 'A', 'X', 'A', 'X', 'A', 'X'});
+
+    COSDictionary cosDictionary = mock(COSDictionary.class);
+    when(cosDictionary.getDictionaryObject(Mockito.<COSName>any())).thenReturn(cosString);
+
+    PDAcroForm acroForm = mock(PDAcroForm.class);
+    when(acroForm.getCOSObject()).thenReturn(cosDictionary);
+    when(acroForm.getDefaultResources()).thenReturn(new PDResources());
+
+    PDTextField pdTextField = new PDTextField(acroForm);
+    pdTextField.setReadOnly(true);
+
+    // Act
+    pdTextField.constructAppearances();
+
+    // Assert
+    verify(cosDictionary, atLeast(1)).getDictionaryObject(Mockito.<COSName>any());
+    verify(cosString).getBytes();
+    verify(cosString).getString();
+    verify(acroForm, atLeast(1)).getCOSObject();
+    verify(acroForm, atLeast(1)).getDefaultResources();
+  }
+
+  /**
+   * Test {@link PDTextField#constructAppearances()}.
+   *
+   * <ul>
+   *   <li>Given {@link COSString} {@link COSString#getBytes()} return array of {@code byte} with
+   *       one and zero.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDTextField#constructAppearances()}
+   */
+  @Test
+  @DisplayName(
+      "Test constructAppearances(); given COSString getBytes() return array of byte with one and zero")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDTextField.constructAppearances()"})
+  void testConstructAppearances_givenCOSStringGetBytesReturnArrayOfByteWithOneAndZero()
+      throws IOException {
+    // Arrange
+    COSString cosString = mock(COSString.class);
+    when(cosString.getString()).thenReturn("String");
+    when(cosString.getBytes()).thenReturn(new byte[] {1, 0, 'A', 'X', 'A', 'X', 'A', 'X'});
+
+    COSDictionary cosDictionary = mock(COSDictionary.class);
+    when(cosDictionary.getDictionaryObject(Mockito.<COSName>any())).thenReturn(cosString);
+
+    PDAcroForm acroForm = mock(PDAcroForm.class);
+    when(acroForm.getCOSObject()).thenReturn(cosDictionary);
+    when(acroForm.getDefaultResources()).thenReturn(new PDResources());
+
+    PDTextField pdTextField = new PDTextField(acroForm);
+    pdTextField.setReadOnly(true);
+
+    // Act
+    pdTextField.constructAppearances();
+
+    // Assert
+    verify(cosDictionary, atLeast(1)).getDictionaryObject(Mockito.<COSName>any());
+    verify(cosString).getBytes();
+    verify(cosString).getString();
+    verify(acroForm, atLeast(1)).getCOSObject();
+    verify(acroForm, atLeast(1)).getDefaultResources();
+  }
+
+  /**
+   * Test {@link PDTextField#constructAppearances()}.
+   *
+   * <ul>
+   *   <li>Given {@link COSString} {@link COSString#getBytes()} return array of {@code byte} with
+   *       {@code X} and {@code X}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDTextField#constructAppearances()}
+   */
+  @Test
+  @DisplayName(
+      "Test constructAppearances(); given COSString getBytes() return array of byte with 'X' and 'X'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDTextField.constructAppearances()"})
+  void testConstructAppearances_givenCOSStringGetBytesReturnArrayOfByteWithXAndX()
+      throws IOException {
+    // Arrange
+    COSString cosString = mock(COSString.class);
+    when(cosString.getString()).thenReturn("String");
+    when(cosString.getBytes()).thenReturn(new byte[] {'X', 'X', 0, 'X', 'A', 'X', 'A', 'X'});
+
+    COSDictionary cosDictionary = mock(COSDictionary.class);
+    when(cosDictionary.getDictionaryObject(Mockito.<COSName>any())).thenReturn(cosString);
+
+    PDAcroForm acroForm = mock(PDAcroForm.class);
+    when(acroForm.getCOSObject()).thenReturn(cosDictionary);
+    when(acroForm.getDefaultResources()).thenReturn(new PDResources());
+
+    PDTextField pdTextField = new PDTextField(acroForm);
+    pdTextField.setReadOnly(true);
+
+    // Act
+    pdTextField.constructAppearances();
+
+    // Assert
+    verify(cosDictionary, atLeast(1)).getDictionaryObject(Mockito.<COSName>any());
+    verify(cosString).getBytes();
+    verify(cosString).getString();
+    verify(acroForm, atLeast(1)).getCOSObject();
+    verify(acroForm, atLeast(1)).getDefaultResources();
+  }
+
+  /**
+   * Test {@link PDTextField#constructAppearances()}.
+   *
+   * <ul>
+   *   <li>Given {@link COSString} {@link COSString#getBytes()} return {@code AXAXAXAX} Bytes is
+   *       {@code UTF-8}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDTextField#constructAppearances()}
+   */
+  @Test
+  @DisplayName(
+      "Test constructAppearances(); given COSString getBytes() return 'AXAXAXAX' Bytes is 'UTF-8'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDTextField.constructAppearances()"})
+  void testConstructAppearances_givenCOSStringGetBytesReturnAxaxaxaxBytesIsUtf8()
+      throws IOException {
+    // Arrange
+    COSString cosString = mock(COSString.class);
+    when(cosString.getString()).thenReturn("String");
+    when(cosString.getBytes()).thenReturn("AXAXAXAX".getBytes("UTF-8"));
+
+    COSDictionary cosDictionary = mock(COSDictionary.class);
+    when(cosDictionary.getDictionaryObject(Mockito.<COSName>any())).thenReturn(cosString);
+
+    PDAcroForm acroForm = mock(PDAcroForm.class);
+    when(acroForm.getCOSObject()).thenReturn(cosDictionary);
+    when(acroForm.getDefaultResources()).thenReturn(new PDResources());
+
+    PDTextField pdTextField = new PDTextField(acroForm);
+    pdTextField.setReadOnly(true);
+
+    // Act
+    pdTextField.constructAppearances();
+
+    // Assert
+    verify(cosDictionary, atLeast(1)).getDictionaryObject(Mockito.<COSName>any());
+    verify(cosString).getBytes();
+    verify(cosString).getString();
+    verify(acroForm, atLeast(1)).getCOSObject();
+    verify(acroForm, atLeast(1)).getDefaultResources();
   }
 }

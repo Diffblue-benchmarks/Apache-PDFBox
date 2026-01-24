@@ -179,18 +179,18 @@ class PDComplexFileSpecificationDiffblueTest {
    *
    * <ul>
    *   <li>Given {@link COSDictionary} {@link COSDictionary#getString(COSName)} return {@code null}.
-   *   <li>Then calls {@link COSDictionary#getString(COSName)}.
+   *   <li>Then return {@code null}.
    * </ul>
    *
    * <p>Method under test: {@link PDComplexFileSpecification#getFilename()}
    */
   @Test
   @DisplayName(
-      "Test getFilename(); given COSDictionary getString(COSName) return 'null'; then calls getString(COSName)")
+      "Test getFilename(); given COSDictionary getString(COSName) return 'null'; then return 'null'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"String PDComplexFileSpecification.getFilename()"})
-  void testGetFilename_givenCOSDictionaryGetStringReturnNull_thenCallsGetString() {
+  void testGetFilename_givenCOSDictionaryGetStringReturnNull_thenReturnNull() {
     // Arrange
     when(cOSDictionary.getString(Mockito.<COSName>any())).thenReturn(null);
 
@@ -255,27 +255,6 @@ class PDComplexFileSpecificationDiffblueTest {
 
     // Act and Assert
     assertEquals("File", pdComplexFileSpecification.getFilename());
-  }
-
-  /**
-   * Test {@link PDComplexFileSpecification#getFilename()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDComplexFileSpecification#PDComplexFileSpecification(COSDictionary)} with
-   *       dict is {@link COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDComplexFileSpecification#getFilename()}
-   */
-  @Test
-  @DisplayName(
-      "Test getFilename(); given PDComplexFileSpecification(COSDictionary) with dict is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String PDComplexFileSpecification.getFilename()"})
-  void testGetFilename_givenPDComplexFileSpecificationWithDictIsCOSDictionary() {
-    // Arrange, Act and Assert
-    assertNull(new PDComplexFileSpecification(new COSDictionary()).getFilename());
   }
 
   /**
@@ -348,27 +327,6 @@ class PDComplexFileSpecificationDiffblueTest {
     // Assert
     verify(cOSDictionary).getString(isA(COSName.class));
     assertEquals("String", actualFileUnicode);
-  }
-
-  /**
-   * Test {@link PDComplexFileSpecification#getFileUnicode()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDComplexFileSpecification#PDComplexFileSpecification(COSDictionary)} with
-   *       dict is {@link COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDComplexFileSpecification#getFileUnicode()}
-   */
-  @Test
-  @DisplayName(
-      "Test getFileUnicode(); given PDComplexFileSpecification(COSDictionary) with dict is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String PDComplexFileSpecification.getFileUnicode()"})
-  void testGetFileUnicode_givenPDComplexFileSpecificationWithDictIsCOSDictionary() {
-    // Arrange, Act and Assert
-    assertNull(new PDComplexFileSpecification(new COSDictionary()).getFileUnicode());
   }
 
   /**
@@ -584,27 +542,6 @@ class PDComplexFileSpecificationDiffblueTest {
    * Test {@link PDComplexFileSpecification#getFile()}.
    *
    * <ul>
-   *   <li>Given {@link PDComplexFileSpecification#PDComplexFileSpecification(COSDictionary)} with
-   *       dict is {@link COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDComplexFileSpecification#getFile()}
-   */
-  @Test
-  @DisplayName(
-      "Test getFile(); given PDComplexFileSpecification(COSDictionary) with dict is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String PDComplexFileSpecification.getFile()"})
-  void testGetFile_givenPDComplexFileSpecificationWithDictIsCOSDictionary() {
-    // Arrange, Act and Assert
-    assertNull(new PDComplexFileSpecification(new COSDictionary()).getFile());
-  }
-
-  /**
-   * Test {@link PDComplexFileSpecification#getFile()}.
-   *
-   * <ul>
    *   <li>Given {@link PDComplexFileSpecification#PDComplexFileSpecification()}.
    *   <li>Then return {@code null}.
    * </ul>
@@ -766,27 +703,6 @@ class PDComplexFileSpecificationDiffblueTest {
    * Test {@link PDComplexFileSpecification#getFileDos()}.
    *
    * <ul>
-   *   <li>Given {@link PDComplexFileSpecification#PDComplexFileSpecification(COSDictionary)} with
-   *       dict is {@link COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDComplexFileSpecification#getFileDos()}
-   */
-  @Test
-  @DisplayName(
-      "Test getFileDos(); given PDComplexFileSpecification(COSDictionary) with dict is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String PDComplexFileSpecification.getFileDos()"})
-  void testGetFileDos_givenPDComplexFileSpecificationWithDictIsCOSDictionary() {
-    // Arrange, Act and Assert
-    assertNull(new PDComplexFileSpecification(new COSDictionary()).getFileDos());
-  }
-
-  /**
-   * Test {@link PDComplexFileSpecification#getFileDos()}.
-   *
-   * <ul>
    *   <li>Given {@link PDComplexFileSpecification#PDComplexFileSpecification()}.
    *   <li>Then return {@code null}.
    * </ul>
@@ -836,27 +752,6 @@ class PDComplexFileSpecificationDiffblueTest {
    * Test {@link PDComplexFileSpecification#getFileMac()}.
    *
    * <ul>
-   *   <li>Given {@link PDComplexFileSpecification#PDComplexFileSpecification(COSDictionary)} with
-   *       dict is {@link COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDComplexFileSpecification#getFileMac()}
-   */
-  @Test
-  @DisplayName(
-      "Test getFileMac(); given PDComplexFileSpecification(COSDictionary) with dict is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String PDComplexFileSpecification.getFileMac()"})
-  void testGetFileMac_givenPDComplexFileSpecificationWithDictIsCOSDictionary() {
-    // Arrange, Act and Assert
-    assertNull(new PDComplexFileSpecification(new COSDictionary()).getFileMac());
-  }
-
-  /**
-   * Test {@link PDComplexFileSpecification#getFileMac()}.
-   *
-   * <ul>
    *   <li>Given {@link PDComplexFileSpecification#PDComplexFileSpecification()}.
    *   <li>Then return {@code null}.
    * </ul>
@@ -900,27 +795,6 @@ class PDComplexFileSpecificationDiffblueTest {
     // Assert
     verify(cOSDictionary).getString(isA(COSName.class));
     assertEquals("String", actualFileUnix);
-  }
-
-  /**
-   * Test {@link PDComplexFileSpecification#getFileUnix()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDComplexFileSpecification#PDComplexFileSpecification(COSDictionary)} with
-   *       dict is {@link COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDComplexFileSpecification#getFileUnix()}
-   */
-  @Test
-  @DisplayName(
-      "Test getFileUnix(); given PDComplexFileSpecification(COSDictionary) with dict is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String PDComplexFileSpecification.getFileUnix()"})
-  void testGetFileUnix_givenPDComplexFileSpecificationWithDictIsCOSDictionary() {
-    // Arrange, Act and Assert
-    assertNull(new PDComplexFileSpecification(new COSDictionary()).getFileUnix());
   }
 
   /**
@@ -1114,27 +988,6 @@ class PDComplexFileSpecificationDiffblueTest {
    * Test {@link PDComplexFileSpecification#isVolatile()}.
    *
    * <ul>
-   *   <li>Given {@link PDComplexFileSpecification#PDComplexFileSpecification(COSDictionary)} with
-   *       dict is {@link COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDComplexFileSpecification#isVolatile()}
-   */
-  @Test
-  @DisplayName(
-      "Test isVolatile(); given PDComplexFileSpecification(COSDictionary) with dict is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean PDComplexFileSpecification.isVolatile()"})
-  void testIsVolatile_givenPDComplexFileSpecificationWithDictIsCOSDictionary() {
-    // Arrange, Act and Assert
-    assertFalse(new PDComplexFileSpecification(new COSDictionary()).isVolatile());
-  }
-
-  /**
-   * Test {@link PDComplexFileSpecification#isVolatile()}.
-   *
-   * <ul>
    *   <li>Given {@link PDComplexFileSpecification#PDComplexFileSpecification()}.
    *   <li>Then return {@code false}.
    * </ul>
@@ -1218,27 +1071,6 @@ class PDComplexFileSpecificationDiffblueTest {
     // Assert
     verify(cOSDictionary).getCOSDictionary(isA(COSName.class));
     assertNull(actualEmbeddedFile);
-  }
-
-  /**
-   * Test {@link PDComplexFileSpecification#getEmbeddedFile()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDComplexFileSpecification#PDComplexFileSpecification(COSDictionary)} with
-   *       dict is {@link COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDComplexFileSpecification#getEmbeddedFile()}
-   */
-  @Test
-  @DisplayName(
-      "Test getEmbeddedFile(); given PDComplexFileSpecification(COSDictionary) with dict is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDEmbeddedFile PDComplexFileSpecification.getEmbeddedFile()"})
-  void testGetEmbeddedFile_givenPDComplexFileSpecificationWithDictIsCOSDictionary() {
-    // Arrange, Act and Assert
-    assertNull(new PDComplexFileSpecification(new COSDictionary()).getEmbeddedFile());
   }
 
   /**
@@ -1375,47 +1207,6 @@ class PDComplexFileSpecificationDiffblueTest {
   @MethodsUnderTest({"void PDComplexFileSpecification.setEmbeddedFile(PDEmbeddedFile)"})
   void testSetEmbeddedFile() throws IOException {
     // Arrange
-    PDComplexFileSpecification pdComplexFileSpecification =
-        new PDComplexFileSpecification(new COSDictionary());
-    COSStream str = new COSStream();
-
-    // Act
-    pdComplexFileSpecification.setEmbeddedFile(new PDEmbeddedFile(str));
-
-    // Assert
-    PDEmbeddedFile embeddedFile = pdComplexFileSpecification.getEmbeddedFile();
-    assertNull(embeddedFile.getCheckSum());
-    assertNull(embeddedFile.getMacCreator());
-    assertNull(embeddedFile.getMacResFork());
-    assertNull(embeddedFile.getMacSubtype());
-    assertNull(embeddedFile.getSubtype());
-    assertNull(embeddedFile.getCreationDate());
-    assertNull(embeddedFile.getModDate());
-    assertNull(embeddedFile.getDecodeParms());
-    assertNull(embeddedFile.getFileDecodeParams());
-    assertNull(embeddedFile.getMetadata());
-    assertNull(embeddedFile.getFile());
-    assertEquals(-1, embeddedFile.getDecodedStreamLength());
-    assertEquals(-1, embeddedFile.getSize());
-    assertEquals(0, embeddedFile.getLength());
-    COSDictionary cOSObject = pdComplexFileSpecification.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-    assertSame(str, embeddedFile.getCOSObject());
-  }
-
-  /**
-   * Test {@link PDComplexFileSpecification#setEmbeddedFile(PDEmbeddedFile)}.
-   *
-   * <p>Method under test: {@link PDComplexFileSpecification#setEmbeddedFile(PDEmbeddedFile)}
-   */
-  @Test
-  @DisplayName("Test setEmbeddedFile(PDEmbeddedFile)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDComplexFileSpecification.setEmbeddedFile(PDEmbeddedFile)"})
-  void testSetEmbeddedFile2() throws IOException {
-    // Arrange
     PDComplexFileSpecification pdComplexFileSpecification = new PDComplexFileSpecification();
     pdComplexFileSpecification.setEmbeddedFileUnicode(new PDEmbeddedFile(new COSStream()));
     COSStream str = new COSStream();
@@ -1455,7 +1246,7 @@ class PDComplexFileSpecificationDiffblueTest {
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void PDComplexFileSpecification.setEmbeddedFile(PDEmbeddedFile)"})
-  void testSetEmbeddedFile3() {
+  void testSetEmbeddedFile2() {
     // Arrange
     PDComplexFileSpecification pdComplexFileSpecification = new PDComplexFileSpecification();
     pdComplexFileSpecification.setEmbeddedFileUnicode(new PDEmbeddedFile(new COSStream()));
@@ -1843,27 +1634,6 @@ class PDComplexFileSpecificationDiffblueTest {
    * Test {@link PDComplexFileSpecification#getEmbeddedFileDos()}.
    *
    * <ul>
-   *   <li>Given {@link PDComplexFileSpecification#PDComplexFileSpecification(COSDictionary)} with
-   *       dict is {@link COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDComplexFileSpecification#getEmbeddedFileDos()}
-   */
-  @Test
-  @DisplayName(
-      "Test getEmbeddedFileDos(); given PDComplexFileSpecification(COSDictionary) with dict is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDEmbeddedFile PDComplexFileSpecification.getEmbeddedFileDos()"})
-  void testGetEmbeddedFileDos_givenPDComplexFileSpecificationWithDictIsCOSDictionary() {
-    // Arrange, Act and Assert
-    assertNull(new PDComplexFileSpecification(new COSDictionary()).getEmbeddedFileDos());
-  }
-
-  /**
-   * Test {@link PDComplexFileSpecification#getEmbeddedFileDos()}.
-   *
-   * <ul>
    *   <li>Given {@link PDComplexFileSpecification#PDComplexFileSpecification()}.
    *   <li>Then return {@code null}.
    * </ul>
@@ -2021,27 +1791,6 @@ class PDComplexFileSpecificationDiffblueTest {
     verify(cOSDictionary).getCOSDictionary(isA(COSName.class));
     verify(cOSDictionary).getDictionaryObject(isA(COSName.class));
     assertNull(actualEmbeddedFileMac);
-  }
-
-  /**
-   * Test {@link PDComplexFileSpecification#getEmbeddedFileMac()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDComplexFileSpecification#PDComplexFileSpecification(COSDictionary)} with
-   *       dict is {@link COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDComplexFileSpecification#getEmbeddedFileMac()}
-   */
-  @Test
-  @DisplayName(
-      "Test getEmbeddedFileMac(); given PDComplexFileSpecification(COSDictionary) with dict is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDEmbeddedFile PDComplexFileSpecification.getEmbeddedFileMac()"})
-  void testGetEmbeddedFileMac_givenPDComplexFileSpecificationWithDictIsCOSDictionary() {
-    // Arrange, Act and Assert
-    assertNull(new PDComplexFileSpecification(new COSDictionary()).getEmbeddedFileMac());
   }
 
   /**
@@ -2211,27 +1960,6 @@ class PDComplexFileSpecificationDiffblueTest {
    * Test {@link PDComplexFileSpecification#getEmbeddedFileUnix()}.
    *
    * <ul>
-   *   <li>Given {@link PDComplexFileSpecification#PDComplexFileSpecification(COSDictionary)} with
-   *       dict is {@link COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDComplexFileSpecification#getEmbeddedFileUnix()}
-   */
-  @Test
-  @DisplayName(
-      "Test getEmbeddedFileUnix(); given PDComplexFileSpecification(COSDictionary) with dict is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDEmbeddedFile PDComplexFileSpecification.getEmbeddedFileUnix()"})
-  void testGetEmbeddedFileUnix_givenPDComplexFileSpecificationWithDictIsCOSDictionary() {
-    // Arrange, Act and Assert
-    assertNull(new PDComplexFileSpecification(new COSDictionary()).getEmbeddedFileUnix());
-  }
-
-  /**
-   * Test {@link PDComplexFileSpecification#getEmbeddedFileUnix()}.
-   *
-   * <ul>
    *   <li>Given {@link PDComplexFileSpecification#PDComplexFileSpecification()}.
    *   <li>Then return {@code null}.
    * </ul>
@@ -2305,21 +2033,6 @@ class PDComplexFileSpecificationDiffblueTest {
   @ManagedByDiffblue
   @MethodsUnderTest({"PDEmbeddedFile PDComplexFileSpecification.getEmbeddedFileUnicode()"})
   void testGetEmbeddedFileUnicode() {
-    // Arrange, Act and Assert
-    assertNull(new PDComplexFileSpecification(new COSDictionary()).getEmbeddedFileUnicode());
-  }
-
-  /**
-   * Test {@link PDComplexFileSpecification#getEmbeddedFileUnicode()}.
-   *
-   * <p>Method under test: {@link PDComplexFileSpecification#getEmbeddedFileUnicode()}
-   */
-  @Test
-  @DisplayName("Test getEmbeddedFileUnicode()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDEmbeddedFile PDComplexFileSpecification.getEmbeddedFileUnicode()"})
-  void testGetEmbeddedFileUnicode2() {
     // Arrange
     PDComplexFileSpecification pdComplexFileSpecification = new PDComplexFileSpecification();
     pdComplexFileSpecification.setEmbeddedFile(new PDEmbeddedFile(new COSStream()));
@@ -2338,7 +2051,7 @@ class PDComplexFileSpecificationDiffblueTest {
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"PDEmbeddedFile PDComplexFileSpecification.getEmbeddedFileUnicode()"})
-  void testGetEmbeddedFileUnicode3() {
+  void testGetEmbeddedFileUnicode2() {
     // Arrange
     COSStream str = new COSStream();
     COSObjectKey key = new COSObjectKey(1L, 1);
@@ -2593,47 +2306,6 @@ class PDComplexFileSpecificationDiffblueTest {
   @MethodsUnderTest({"void PDComplexFileSpecification.setEmbeddedFileUnicode(PDEmbeddedFile)"})
   void testSetEmbeddedFileUnicode3() throws IOException {
     // Arrange
-    PDComplexFileSpecification pdComplexFileSpecification =
-        new PDComplexFileSpecification(new COSDictionary());
-    COSStream str = new COSStream();
-
-    // Act
-    pdComplexFileSpecification.setEmbeddedFileUnicode(new PDEmbeddedFile(str));
-
-    // Assert
-    PDEmbeddedFile embeddedFileUnicode = pdComplexFileSpecification.getEmbeddedFileUnicode();
-    assertNull(embeddedFileUnicode.getCheckSum());
-    assertNull(embeddedFileUnicode.getMacCreator());
-    assertNull(embeddedFileUnicode.getMacResFork());
-    assertNull(embeddedFileUnicode.getMacSubtype());
-    assertNull(embeddedFileUnicode.getSubtype());
-    assertNull(embeddedFileUnicode.getCreationDate());
-    assertNull(embeddedFileUnicode.getModDate());
-    assertNull(embeddedFileUnicode.getDecodeParms());
-    assertNull(embeddedFileUnicode.getFileDecodeParams());
-    assertNull(embeddedFileUnicode.getMetadata());
-    assertNull(embeddedFileUnicode.getFile());
-    assertEquals(-1, embeddedFileUnicode.getDecodedStreamLength());
-    assertEquals(-1, embeddedFileUnicode.getSize());
-    assertEquals(0, embeddedFileUnicode.getLength());
-    COSDictionary cOSObject = pdComplexFileSpecification.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-    assertSame(str, embeddedFileUnicode.getCOSObject());
-  }
-
-  /**
-   * Test {@link PDComplexFileSpecification#setEmbeddedFileUnicode(PDEmbeddedFile)}.
-   *
-   * <p>Method under test: {@link PDComplexFileSpecification#setEmbeddedFileUnicode(PDEmbeddedFile)}
-   */
-  @Test
-  @DisplayName("Test setEmbeddedFileUnicode(PDEmbeddedFile)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDComplexFileSpecification.setEmbeddedFileUnicode(PDEmbeddedFile)"})
-  void testSetEmbeddedFileUnicode4() throws IOException {
-    // Arrange
     PDComplexFileSpecification pdComplexFileSpecification = new PDComplexFileSpecification();
     pdComplexFileSpecification.setEmbeddedFile(new PDEmbeddedFile(new COSStream()));
     COSStream str = new COSStream();
@@ -2673,7 +2345,7 @@ class PDComplexFileSpecificationDiffblueTest {
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void PDComplexFileSpecification.setEmbeddedFileUnicode(PDEmbeddedFile)"})
-  void testSetEmbeddedFileUnicode5() {
+  void testSetEmbeddedFileUnicode4() {
     // Arrange
     PDComplexFileSpecification pdComplexFileSpecification = new PDComplexFileSpecification();
     pdComplexFileSpecification.setEmbeddedFile(new PDEmbeddedFile(new COSStream()));
@@ -2697,7 +2369,7 @@ class PDComplexFileSpecificationDiffblueTest {
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void PDComplexFileSpecification.setEmbeddedFileUnicode(PDEmbeddedFile)"})
-  void testSetEmbeddedFileUnicode6() throws IOException {
+  void testSetEmbeddedFileUnicode5() throws IOException {
     // Arrange
     when(cOSDictionary.getCOSDictionary(Mockito.<COSName>any())).thenReturn(new COSDictionary());
     COSStream str = new COSStream();
@@ -2989,27 +2661,6 @@ class PDComplexFileSpecificationDiffblueTest {
     // Assert
     verify(cOSDictionary).getString(isA(COSName.class));
     assertEquals("String", actualFileDescription);
-  }
-
-  /**
-   * Test {@link PDComplexFileSpecification#getFileDescription()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDComplexFileSpecification#PDComplexFileSpecification(COSDictionary)} with
-   *       dict is {@link COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDComplexFileSpecification#getFileDescription()}
-   */
-  @Test
-  @DisplayName(
-      "Test getFileDescription(); given PDComplexFileSpecification(COSDictionary) with dict is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String PDComplexFileSpecification.getFileDescription()"})
-  void testGetFileDescription_givenPDComplexFileSpecificationWithDictIsCOSDictionary() {
-    // Arrange, Act and Assert
-    assertNull(new PDComplexFileSpecification(new COSDictionary()).getFileDescription());
   }
 
   /**

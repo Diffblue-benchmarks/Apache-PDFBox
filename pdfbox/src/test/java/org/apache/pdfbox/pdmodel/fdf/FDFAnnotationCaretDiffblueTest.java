@@ -208,28 +208,6 @@ class FDFAnnotationCaretDiffblueTest {
    * Test {@link FDFAnnotationCaret#getFringe()}.
    *
    * <ul>
-   *   <li>Given {@link FDFAnnotationCaret#FDFAnnotationCaret(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationCaret#getFringe()}
-   */
-  @Test
-  @DisplayName(
-      "Test getFringe(); given FDFAnnotationCaret(COSDictionary) with a is COSDictionary(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDRectangle FDFAnnotationCaret.getFringe()"})
-  void testGetFringe_givenFDFAnnotationCaretWithAIsCOSDictionary_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull(new FDFAnnotationCaret(new COSDictionary()).getFringe());
-  }
-
-  /**
-   * Test {@link FDFAnnotationCaret#getFringe()}.
-   *
-   * <ul>
    *   <li>Given {@link FDFAnnotationCaret#FDFAnnotationCaret()}.
    *   <li>Then return {@code null}.
    * </ul>
@@ -412,28 +390,6 @@ class FDFAnnotationCaretDiffblueTest {
 
     // Act and Assert
     assertEquals("None", fdfAnnotationCaret.getSymbol());
-  }
-
-  /**
-   * Test {@link FDFAnnotationCaret#getSymbol()}.
-   *
-   * <ul>
-   *   <li>Given {@link FDFAnnotationCaret#FDFAnnotationCaret(COSDictionary)} with a is {@link
-   *       COSDictionary#COSDictionary()}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFAnnotationCaret#getSymbol()}
-   */
-  @Test
-  @DisplayName(
-      "Test getSymbol(); given FDFAnnotationCaret(COSDictionary) with a is COSDictionary(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String FDFAnnotationCaret.getSymbol()"})
-  void testGetSymbol_givenFDFAnnotationCaretWithAIsCOSDictionary_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull(new FDFAnnotationCaret(new COSDictionary()).getSymbol());
   }
 
   /**

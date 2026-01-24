@@ -8,10 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
-import java.util.List;
-import org.apache.pdfbox.cos.COSBase;
 import org.apache.pdfbox.cos.COSDictionary;
-import org.apache.pdfbox.cos.COSStream;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -22,18 +19,19 @@ class PDAnnotationTextMarkupDiffblueTest {
    *
    * <ul>
    *   <li>When {@link COSDictionary#COSDictionary()}.
-   *   <li>Then {@link COSDictionary#COSDictionary()} size is one.
+   *   <li>Then return QuadPoints is {@code null}.
    * </ul>
    *
    * <p>Method under test: {@link PDAnnotationTextMarkup#PDAnnotationTextMarkup(COSDictionary)}
    */
   @Test
   @DisplayName(
-      "Test new PDAnnotationTextMarkup(COSDictionary); when COSDictionary(); then COSDictionary() size is one")
+      "Test new PDAnnotationTextMarkup(COSDictionary); when COSDictionary(); then return QuadPoints is 'null'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void PDAnnotationTextMarkup.<init>(COSDictionary)"})
-  void testNewPDAnnotationTextMarkup_whenCOSDictionary_thenCOSDictionarySizeIsOne() {
+  void testNewPDAnnotationTextMarkup_whenCOSDictionary_thenReturnQuadPointsIsNull()
+      throws IOException {
     // Arrange
     COSDictionary field = new COSDictionary();
 
@@ -41,44 +39,43 @@ class PDAnnotationTextMarkupDiffblueTest {
     PDAnnotationTextMarkup actualPdAnnotationTextMarkup = new PDAnnotationTextMarkup(field);
 
     // Assert
+    assertNull(actualPdAnnotationTextMarkup.getQuadPoints());
+    assertNull(actualPdAnnotationTextMarkup.getAnnotationName());
+    assertNull(actualPdAnnotationTextMarkup.getContents());
+    assertNull(actualPdAnnotationTextMarkup.getModifiedDate());
+    assertNull(actualPdAnnotationTextMarkup.getSubtype());
+    assertNull(actualPdAnnotationTextMarkup.getIntent());
+    assertNull(actualPdAnnotationTextMarkup.getRichContents());
+    assertNull(actualPdAnnotationTextMarkup.getSubject());
+    assertNull(actualPdAnnotationTextMarkup.getTitlePopup());
+    assertNull(actualPdAnnotationTextMarkup.getCreationDate());
+    assertNull(actualPdAnnotationTextMarkup.getAppearanceState());
+    assertNull(actualPdAnnotationTextMarkup.getPage());
+    assertNull(actualPdAnnotationTextMarkup.getRectangle());
+    assertNull(actualPdAnnotationTextMarkup.getOptionalContent());
+    assertNull(actualPdAnnotationTextMarkup.getColor());
+    assertNull(actualPdAnnotationTextMarkup.getInReplyTo());
+    assertNull(actualPdAnnotationTextMarkup.getPopup());
+    assertNull(actualPdAnnotationTextMarkup.getAppearance());
+    assertNull(actualPdAnnotationTextMarkup.getNormalAppearanceStream());
+    assertNull(actualPdAnnotationTextMarkup.getBorderStyle());
+    assertNull(actualPdAnnotationTextMarkup.getExternalData());
+    assertEquals(-1, actualPdAnnotationTextMarkup.getStructParent());
+    assertEquals(0, actualPdAnnotationTextMarkup.getAnnotationFlags());
     assertEquals(1, field.size());
-    List<? extends COSBase> toListResult = actualPdAnnotationTextMarkup.getBorder().toList();
-    assertEquals(3, toListResult.size());
+    assertEquals(1.0f, actualPdAnnotationTextMarkup.getConstantOpacity());
+    assertFalse(actualPdAnnotationTextMarkup.isHidden());
+    assertFalse(actualPdAnnotationTextMarkup.isInvisible());
+    assertFalse(actualPdAnnotationTextMarkup.isLocked());
+    assertFalse(actualPdAnnotationTextMarkup.isLockedContents());
+    assertFalse(actualPdAnnotationTextMarkup.isNoRotate());
+    assertFalse(actualPdAnnotationTextMarkup.isNoView());
+    assertFalse(actualPdAnnotationTextMarkup.isNoZoom());
+    assertFalse(actualPdAnnotationTextMarkup.isPrinted());
+    assertFalse(actualPdAnnotationTextMarkup.isReadOnly());
+    assertFalse(actualPdAnnotationTextMarkup.isToggleNoView());
+    assertEquals(PDAnnotationMarkup.RT_REPLY, actualPdAnnotationTextMarkup.getReplyType());
     assertSame(field, actualPdAnnotationTextMarkup.getCOSObject());
-    COSBase expectedGetResult = toListResult.get(0);
-    assertSame(expectedGetResult, toListResult.get(1));
-  }
-
-  /**
-   * Test {@link PDAnnotationTextMarkup#PDAnnotationTextMarkup(COSDictionary)}.
-   *
-   * <ul>
-   *   <li>When {@link COSStream#COSStream()}.
-   *   <li>Then {@link COSStream#COSStream()} size is two.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationTextMarkup#PDAnnotationTextMarkup(COSDictionary)}
-   */
-  @Test
-  @DisplayName(
-      "Test new PDAnnotationTextMarkup(COSDictionary); when COSStream(); then COSStream() size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDAnnotationTextMarkup.<init>(COSDictionary)"})
-  void testNewPDAnnotationTextMarkup_whenCOSStream_thenCOSStreamSizeIsTwo() {
-    // Arrange
-    COSStream field = new COSStream();
-
-    // Act
-    PDAnnotationTextMarkup actualPdAnnotationTextMarkup = new PDAnnotationTextMarkup(field);
-
-    // Assert
-    assertEquals(2, field.size());
-    List<? extends COSBase> toListResult = actualPdAnnotationTextMarkup.getBorder().toList();
-    assertEquals(3, toListResult.size());
-    assertSame(field, actualPdAnnotationTextMarkup.getCOSObject());
-    COSBase expectedGetResult = toListResult.get(0);
-    assertSame(expectedGetResult, toListResult.get(1));
   }
 
   /**

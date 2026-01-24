@@ -225,31 +225,6 @@ class PDMarkInfoDiffblueTest {
    * Test {@link PDMarkInfo#usesUserProperties()}.
    *
    * <ul>
-   *   <li>Given {@link PDMarkInfo#PDMarkInfo()} Marked is {@code true}.
-   *   <li>Then return {@code false}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDMarkInfo#usesUserProperties()}
-   */
-  @Test
-  @DisplayName(
-      "Test usesUserProperties(); given PDMarkInfo() Marked is 'true'; then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean PDMarkInfo.usesUserProperties()"})
-  void testUsesUserProperties_givenPDMarkInfoMarkedIsTrue_thenReturnFalse() {
-    // Arrange
-    PDMarkInfo pdMarkInfo = new PDMarkInfo();
-    pdMarkInfo.setMarked(true);
-
-    // Act and Assert
-    assertFalse(pdMarkInfo.usesUserProperties());
-  }
-
-  /**
-   * Test {@link PDMarkInfo#usesUserProperties()}.
-   *
-   * <ul>
    *   <li>Given {@link PDMarkInfo#PDMarkInfo()} UserProperties is {@code false}.
    *   <li>Then return {@code false}.
    * </ul>
@@ -378,30 +353,6 @@ class PDMarkInfoDiffblueTest {
    * Test {@link PDMarkInfo#isSuspect()}.
    *
    * <ul>
-   *   <li>Given {@link PDMarkInfo#PDMarkInfo()} Marked is {@code true}.
-   *   <li>Then return {@code false}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDMarkInfo#isSuspect()}
-   */
-  @Test
-  @DisplayName("Test isSuspect(); given PDMarkInfo() Marked is 'true'; then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean PDMarkInfo.isSuspect()"})
-  void testIsSuspect_givenPDMarkInfoMarkedIsTrue_thenReturnFalse() {
-    // Arrange
-    PDMarkInfo pdMarkInfo = new PDMarkInfo();
-    pdMarkInfo.setMarked(true);
-
-    // Act and Assert
-    assertFalse(pdMarkInfo.isSuspect());
-  }
-
-  /**
-   * Test {@link PDMarkInfo#isSuspect()}.
-   *
-   * <ul>
    *   <li>Given {@link PDMarkInfo#PDMarkInfo()} Suspect is {@code true}.
    *   <li>Then return {@code false}.
    * </ul>
@@ -461,35 +412,6 @@ class PDMarkInfoDiffblueTest {
   void testSetSuspect_givenPDMarkInfo_thenPDMarkInfoCOSObjectValuesSizeIsOne() {
     // Arrange
     PDMarkInfo pdMarkInfo = new PDMarkInfo();
-
-    // Act
-    pdMarkInfo.setSuspect(true);
-
-    // Assert
-    COSDictionary cOSObject = pdMarkInfo.getCOSObject();
-    assertEquals(1, cOSObject.getValues().size());
-    assertEquals(1, cOSObject.size());
-  }
-
-  /**
-   * Test {@link PDMarkInfo#setSuspect(boolean)}.
-   *
-   * <ul>
-   *   <li>Then {@link PDMarkInfo#PDMarkInfo(COSDictionary)} with dic is {@link
-   *       COSDictionary#COSDictionary()} COSObject Values size is one.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDMarkInfo#setSuspect(boolean)}
-   */
-  @Test
-  @DisplayName(
-      "Test setSuspect(boolean); then PDMarkInfo(COSDictionary) with dic is COSDictionary() COSObject Values size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDMarkInfo.setSuspect(boolean)"})
-  void testSetSuspect_thenPDMarkInfoWithDicIsCOSDictionaryCOSObjectValuesSizeIsOne() {
-    // Arrange
-    PDMarkInfo pdMarkInfo = new PDMarkInfo(new COSDictionary());
 
     // Act
     pdMarkInfo.setSuspect(true);

@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.apache.pdfbox.cos.COSDictionary;
+import org.apache.pdfbox.cos.COSObjectKey;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -60,21 +61,6 @@ class PDRectlinearMeasureDictionaryDiffblueTest {
     assertEquals(PDMeasureDictionary.TYPE, actualPdRectlinearMeasureDictionary.getType());
     assertEquals(
         PDRectlinearMeasureDictionary.SUBTYPE, actualPdRectlinearMeasureDictionary.getSubtype());
-  }
-
-  /**
-   * Test {@link PDRectlinearMeasureDictionary#getScaleRatio()}.
-   *
-   * <p>Method under test: {@link PDRectlinearMeasureDictionary#getScaleRatio()}
-   */
-  @Test
-  @DisplayName("Test getScaleRatio()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String PDRectlinearMeasureDictionary.getScaleRatio()"})
-  void testGetScaleRatio() {
-    // Arrange, Act and Assert
-    assertNull(new PDRectlinearMeasureDictionary(new COSDictionary()).getScaleRatio());
   }
 
   /**
@@ -162,27 +148,6 @@ class PDRectlinearMeasureDictionaryDiffblueTest {
    * Test {@link PDRectlinearMeasureDictionary#getChangeXs()}.
    *
    * <ul>
-   *   <li>Given {@link PDRectlinearMeasureDictionary#PDRectlinearMeasureDictionary(COSDictionary)}
-   *       with dictionary is {@link COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDRectlinearMeasureDictionary#getChangeXs()}
-   */
-  @Test
-  @DisplayName(
-      "Test getChangeXs(); given PDRectlinearMeasureDictionary(COSDictionary) with dictionary is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDNumberFormatDictionary[] PDRectlinearMeasureDictionary.getChangeXs()"})
-  void testGetChangeXs_givenPDRectlinearMeasureDictionaryWithDictionaryIsCOSDictionary() {
-    // Arrange, Act and Assert
-    assertNull(new PDRectlinearMeasureDictionary(new COSDictionary()).getChangeXs());
-  }
-
-  /**
-   * Test {@link PDRectlinearMeasureDictionary#getChangeXs()}.
-   *
-   * <ul>
    *   <li>Given {@link PDRectlinearMeasureDictionary#PDRectlinearMeasureDictionary()}.
    *   <li>Then return {@code null}.
    * </ul>
@@ -197,6 +162,40 @@ class PDRectlinearMeasureDictionaryDiffblueTest {
   void testGetChangeXs_givenPDRectlinearMeasureDictionary_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull(new PDRectlinearMeasureDictionary().getChangeXs());
+  }
+
+  /**
+   * Test {@link PDRectlinearMeasureDictionary#setChangeXs(PDNumberFormatDictionary[])}.
+   *
+   * <ul>
+   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.
+   * </ul>
+   *
+   * <p>Method under test: {@link
+   * PDRectlinearMeasureDictionary#setChangeXs(PDNumberFormatDictionary[])}
+   */
+  @Test
+  @DisplayName(
+      "Test setChangeXs(PDNumberFormatDictionary[]); given COSObjectKey(long, int) with num is one and gen is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDRectlinearMeasureDictionary.setChangeXs(PDNumberFormatDictionary[])"})
+  void testSetChangeXs_givenCOSObjectKeyWithNumIsOneAndGenIsOne() {
+    // Arrange
+    PDRectlinearMeasureDictionary pdRectlinearMeasureDictionary =
+        new PDRectlinearMeasureDictionary();
+
+    COSDictionary dictionary = new COSDictionary();
+    dictionary.setKey(new COSObjectKey(1L, 1));
+
+    // Act
+    pdRectlinearMeasureDictionary.setChangeXs(
+        new PDNumberFormatDictionary[] {new PDNumberFormatDictionary(dictionary)});
+
+    // Assert
+    COSDictionary cOSObject = pdRectlinearMeasureDictionary.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
   }
 
   /**
@@ -333,27 +332,6 @@ class PDRectlinearMeasureDictionaryDiffblueTest {
    * Test {@link PDRectlinearMeasureDictionary#getChangeYs()}.
    *
    * <ul>
-   *   <li>Given {@link PDRectlinearMeasureDictionary#PDRectlinearMeasureDictionary(COSDictionary)}
-   *       with dictionary is {@link COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDRectlinearMeasureDictionary#getChangeYs()}
-   */
-  @Test
-  @DisplayName(
-      "Test getChangeYs(); given PDRectlinearMeasureDictionary(COSDictionary) with dictionary is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDNumberFormatDictionary[] PDRectlinearMeasureDictionary.getChangeYs()"})
-  void testGetChangeYs_givenPDRectlinearMeasureDictionaryWithDictionaryIsCOSDictionary() {
-    // Arrange, Act and Assert
-    assertNull(new PDRectlinearMeasureDictionary(new COSDictionary()).getChangeYs());
-  }
-
-  /**
-   * Test {@link PDRectlinearMeasureDictionary#getChangeYs()}.
-   *
-   * <ul>
    *   <li>Given {@link PDRectlinearMeasureDictionary#PDRectlinearMeasureDictionary()}.
    *   <li>Then return {@code null}.
    * </ul>
@@ -368,6 +346,40 @@ class PDRectlinearMeasureDictionaryDiffblueTest {
   void testGetChangeYs_givenPDRectlinearMeasureDictionary_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull(new PDRectlinearMeasureDictionary().getChangeYs());
+  }
+
+  /**
+   * Test {@link PDRectlinearMeasureDictionary#setChangeYs(PDNumberFormatDictionary[])}.
+   *
+   * <ul>
+   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.
+   * </ul>
+   *
+   * <p>Method under test: {@link
+   * PDRectlinearMeasureDictionary#setChangeYs(PDNumberFormatDictionary[])}
+   */
+  @Test
+  @DisplayName(
+      "Test setChangeYs(PDNumberFormatDictionary[]); given COSObjectKey(long, int) with num is one and gen is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDRectlinearMeasureDictionary.setChangeYs(PDNumberFormatDictionary[])"})
+  void testSetChangeYs_givenCOSObjectKeyWithNumIsOneAndGenIsOne() {
+    // Arrange
+    PDRectlinearMeasureDictionary pdRectlinearMeasureDictionary =
+        new PDRectlinearMeasureDictionary();
+
+    COSDictionary dictionary = new COSDictionary();
+    dictionary.setKey(new COSObjectKey(1L, 1));
+
+    // Act
+    pdRectlinearMeasureDictionary.setChangeYs(
+        new PDNumberFormatDictionary[] {new PDNumberFormatDictionary(dictionary)});
+
+    // Assert
+    COSDictionary cOSObject = pdRectlinearMeasureDictionary.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
   }
 
   /**
@@ -504,27 +516,6 @@ class PDRectlinearMeasureDictionaryDiffblueTest {
    * Test {@link PDRectlinearMeasureDictionary#getDistances()}.
    *
    * <ul>
-   *   <li>Given {@link PDRectlinearMeasureDictionary#PDRectlinearMeasureDictionary(COSDictionary)}
-   *       with dictionary is {@link COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDRectlinearMeasureDictionary#getDistances()}
-   */
-  @Test
-  @DisplayName(
-      "Test getDistances(); given PDRectlinearMeasureDictionary(COSDictionary) with dictionary is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDNumberFormatDictionary[] PDRectlinearMeasureDictionary.getDistances()"})
-  void testGetDistances_givenPDRectlinearMeasureDictionaryWithDictionaryIsCOSDictionary() {
-    // Arrange, Act and Assert
-    assertNull(new PDRectlinearMeasureDictionary(new COSDictionary()).getDistances());
-  }
-
-  /**
-   * Test {@link PDRectlinearMeasureDictionary#getDistances()}.
-   *
-   * <ul>
    *   <li>Given {@link PDRectlinearMeasureDictionary#PDRectlinearMeasureDictionary()}.
    *   <li>Then return {@code null}.
    * </ul>
@@ -539,6 +530,40 @@ class PDRectlinearMeasureDictionaryDiffblueTest {
   void testGetDistances_givenPDRectlinearMeasureDictionary_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull(new PDRectlinearMeasureDictionary().getDistances());
+  }
+
+  /**
+   * Test {@link PDRectlinearMeasureDictionary#setDistances(PDNumberFormatDictionary[])}.
+   *
+   * <ul>
+   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.
+   * </ul>
+   *
+   * <p>Method under test: {@link
+   * PDRectlinearMeasureDictionary#setDistances(PDNumberFormatDictionary[])}
+   */
+  @Test
+  @DisplayName(
+      "Test setDistances(PDNumberFormatDictionary[]); given COSObjectKey(long, int) with num is one and gen is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDRectlinearMeasureDictionary.setDistances(PDNumberFormatDictionary[])"})
+  void testSetDistances_givenCOSObjectKeyWithNumIsOneAndGenIsOne() {
+    // Arrange
+    PDRectlinearMeasureDictionary pdRectlinearMeasureDictionary =
+        new PDRectlinearMeasureDictionary();
+
+    COSDictionary dictionary = new COSDictionary();
+    dictionary.setKey(new COSObjectKey(1L, 1));
+
+    // Act
+    pdRectlinearMeasureDictionary.setDistances(
+        new PDNumberFormatDictionary[] {new PDNumberFormatDictionary(dictionary)});
+
+    // Assert
+    COSDictionary cOSObject = pdRectlinearMeasureDictionary.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
   }
 
   /**
@@ -675,27 +700,6 @@ class PDRectlinearMeasureDictionaryDiffblueTest {
    * Test {@link PDRectlinearMeasureDictionary#getAreas()}.
    *
    * <ul>
-   *   <li>Given {@link PDRectlinearMeasureDictionary#PDRectlinearMeasureDictionary(COSDictionary)}
-   *       with dictionary is {@link COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDRectlinearMeasureDictionary#getAreas()}
-   */
-  @Test
-  @DisplayName(
-      "Test getAreas(); given PDRectlinearMeasureDictionary(COSDictionary) with dictionary is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDNumberFormatDictionary[] PDRectlinearMeasureDictionary.getAreas()"})
-  void testGetAreas_givenPDRectlinearMeasureDictionaryWithDictionaryIsCOSDictionary() {
-    // Arrange, Act and Assert
-    assertNull(new PDRectlinearMeasureDictionary(new COSDictionary()).getAreas());
-  }
-
-  /**
-   * Test {@link PDRectlinearMeasureDictionary#getAreas()}.
-   *
-   * <ul>
    *   <li>Given {@link PDRectlinearMeasureDictionary#PDRectlinearMeasureDictionary()}.
    *   <li>Then return {@code null}.
    * </ul>
@@ -710,6 +714,40 @@ class PDRectlinearMeasureDictionaryDiffblueTest {
   void testGetAreas_givenPDRectlinearMeasureDictionary_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull(new PDRectlinearMeasureDictionary().getAreas());
+  }
+
+  /**
+   * Test {@link PDRectlinearMeasureDictionary#setAreas(PDNumberFormatDictionary[])}.
+   *
+   * <ul>
+   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.
+   * </ul>
+   *
+   * <p>Method under test: {@link
+   * PDRectlinearMeasureDictionary#setAreas(PDNumberFormatDictionary[])}
+   */
+  @Test
+  @DisplayName(
+      "Test setAreas(PDNumberFormatDictionary[]); given COSObjectKey(long, int) with num is one and gen is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDRectlinearMeasureDictionary.setAreas(PDNumberFormatDictionary[])"})
+  void testSetAreas_givenCOSObjectKeyWithNumIsOneAndGenIsOne() {
+    // Arrange
+    PDRectlinearMeasureDictionary pdRectlinearMeasureDictionary =
+        new PDRectlinearMeasureDictionary();
+
+    COSDictionary dictionary = new COSDictionary();
+    dictionary.setKey(new COSObjectKey(1L, 1));
+
+    // Act
+    pdRectlinearMeasureDictionary.setAreas(
+        new PDNumberFormatDictionary[] {new PDNumberFormatDictionary(dictionary)});
+
+    // Assert
+    COSDictionary cOSObject = pdRectlinearMeasureDictionary.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
   }
 
   /**
@@ -845,27 +883,6 @@ class PDRectlinearMeasureDictionaryDiffblueTest {
    * Test {@link PDRectlinearMeasureDictionary#getAngles()}.
    *
    * <ul>
-   *   <li>Given {@link PDRectlinearMeasureDictionary#PDRectlinearMeasureDictionary(COSDictionary)}
-   *       with dictionary is {@link COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDRectlinearMeasureDictionary#getAngles()}
-   */
-  @Test
-  @DisplayName(
-      "Test getAngles(); given PDRectlinearMeasureDictionary(COSDictionary) with dictionary is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDNumberFormatDictionary[] PDRectlinearMeasureDictionary.getAngles()"})
-  void testGetAngles_givenPDRectlinearMeasureDictionaryWithDictionaryIsCOSDictionary() {
-    // Arrange, Act and Assert
-    assertNull(new PDRectlinearMeasureDictionary(new COSDictionary()).getAngles());
-  }
-
-  /**
-   * Test {@link PDRectlinearMeasureDictionary#getAngles()}.
-   *
-   * <ul>
    *   <li>Given {@link PDRectlinearMeasureDictionary#PDRectlinearMeasureDictionary()}.
    *   <li>Then return {@code null}.
    * </ul>
@@ -880,6 +897,90 @@ class PDRectlinearMeasureDictionaryDiffblueTest {
   void testGetAngles_givenPDRectlinearMeasureDictionary_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull(new PDRectlinearMeasureDictionary().getAngles());
+  }
+
+  /**
+   * Test {@link PDRectlinearMeasureDictionary#setAngles(PDNumberFormatDictionary[])}.
+   *
+   * <ul>
+   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.
+   * </ul>
+   *
+   * <p>Method under test: {@link
+   * PDRectlinearMeasureDictionary#setAngles(PDNumberFormatDictionary[])}
+   */
+  @Test
+  @DisplayName(
+      "Test setAngles(PDNumberFormatDictionary[]); given COSObjectKey(long, int) with num is one and gen is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDRectlinearMeasureDictionary.setAngles(PDNumberFormatDictionary[])"})
+  void testSetAngles_givenCOSObjectKeyWithNumIsOneAndGenIsOne() {
+    // Arrange
+    PDRectlinearMeasureDictionary pdRectlinearMeasureDictionary =
+        new PDRectlinearMeasureDictionary();
+
+    COSDictionary dictionary = new COSDictionary();
+    dictionary.setKey(new COSObjectKey(1L, 1));
+
+    // Act
+    pdRectlinearMeasureDictionary.setAngles(
+        new PDNumberFormatDictionary[] {new PDNumberFormatDictionary(dictionary)});
+
+    // Assert
+    COSDictionary cOSObject = pdRectlinearMeasureDictionary.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
+  }
+
+  /**
+   * Test {@link PDRectlinearMeasureDictionary#setAngles(PDNumberFormatDictionary[])}.
+   *
+   * <ul>
+   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is zero.
+   * </ul>
+   *
+   * <p>Method under test: {@link
+   * PDRectlinearMeasureDictionary#setAngles(PDNumberFormatDictionary[])}
+   */
+  @Test
+  @DisplayName(
+      "Test setAngles(PDNumberFormatDictionary[]); given COSObjectKey(long, int) with num is one and gen is zero")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDRectlinearMeasureDictionary.setAngles(PDNumberFormatDictionary[])"})
+  void testSetAngles_givenCOSObjectKeyWithNumIsOneAndGenIsZero() {
+    // Arrange
+    PDRectlinearMeasureDictionary pdRectlinearMeasureDictionary =
+        new PDRectlinearMeasureDictionary();
+
+    COSDictionary dictionary = new COSDictionary();
+    dictionary.setDirect(true);
+    dictionary.setKey(new COSObjectKey(1L, 0));
+
+    // Act
+    pdRectlinearMeasureDictionary.setAngles(
+        new PDNumberFormatDictionary[] {new PDNumberFormatDictionary(dictionary)});
+
+    // Assert
+    PDNumberFormatDictionary[] angles = pdRectlinearMeasureDictionary.getAngles();
+    PDNumberFormatDictionary pdNumberFormatDictionary = angles[0];
+    assertEquals(" ", pdNumberFormatDictionary.getLabelPrefixString());
+    assertEquals(" ", pdNumberFormatDictionary.getLabelSuffixString());
+    assertEquals(",", pdNumberFormatDictionary.getThousandsSeparator());
+    assertEquals(".", pdNumberFormatDictionary.getDecimalSeparator());
+    assertNull(pdNumberFormatDictionary.getUnits());
+    assertEquals(-1, pdNumberFormatDictionary.getDenominator());
+    assertEquals(-1.0f, pdNumberFormatDictionary.getConversionFactor());
+    assertEquals(1, angles.length);
+    assertFalse(pdNumberFormatDictionary.isFD());
+    assertEquals(
+        PDNumberFormatDictionary.FRACTIONAL_DISPLAY_DECIMAL,
+        pdNumberFormatDictionary.getFractionalDisplay());
+    assertEquals(
+        PDNumberFormatDictionary.LABEL_SUFFIX_TO_VALUE,
+        pdNumberFormatDictionary.getLabelPositionToValue());
+    assertSame(dictionary, pdNumberFormatDictionary.getCOSObject());
   }
 
   /**
@@ -970,7 +1071,8 @@ class PDRectlinearMeasureDictionaryDiffblueTest {
    * Test {@link PDRectlinearMeasureDictionary#setAngles(PDNumberFormatDictionary[])}.
    *
    * <ul>
-   *   <li>Then first element LabelPrefixString is space.
+   *   <li>When array of {@link PDNumberFormatDictionary} with {@link
+   *       PDNumberFormatDictionary#PDNumberFormatDictionary()}.
    * </ul>
    *
    * <p>Method under test: {@link
@@ -978,11 +1080,11 @@ class PDRectlinearMeasureDictionaryDiffblueTest {
    */
   @Test
   @DisplayName(
-      "Test setAngles(PDNumberFormatDictionary[]); then first element LabelPrefixString is space")
+      "Test setAngles(PDNumberFormatDictionary[]); when array of PDNumberFormatDictionary with PDNumberFormatDictionary()")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void PDRectlinearMeasureDictionary.setAngles(PDNumberFormatDictionary[])"})
-  void testSetAngles_thenFirstElementLabelPrefixStringIsSpace() {
+  void testSetAngles_whenArrayOfPDNumberFormatDictionaryWithPDNumberFormatDictionary() {
     // Arrange
     PDRectlinearMeasureDictionary pdRectlinearMeasureDictionary =
         new PDRectlinearMeasureDictionary();
@@ -1014,21 +1116,6 @@ class PDRectlinearMeasureDictionaryDiffblueTest {
   /**
    * Test {@link PDRectlinearMeasureDictionary#getLineSloaps()}.
    *
-   * <p>Method under test: {@link PDRectlinearMeasureDictionary#getLineSloaps()}
-   */
-  @Test
-  @DisplayName("Test getLineSloaps()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"PDNumberFormatDictionary[] PDRectlinearMeasureDictionary.getLineSloaps()"})
-  void testGetLineSloaps() {
-    // Arrange, Act and Assert
-    assertNull(new PDRectlinearMeasureDictionary(new COSDictionary()).getLineSloaps());
-  }
-
-  /**
-   * Test {@link PDRectlinearMeasureDictionary#getLineSloaps()}.
-   *
    * <ul>
    *   <li>Given {@link PDRectlinearMeasureDictionary#PDRectlinearMeasureDictionary()}.
    *   <li>Then return {@code null}.
@@ -1044,6 +1131,42 @@ class PDRectlinearMeasureDictionaryDiffblueTest {
   void testGetLineSloaps_givenPDRectlinearMeasureDictionary_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull(new PDRectlinearMeasureDictionary().getLineSloaps());
+  }
+
+  /**
+   * Test {@link PDRectlinearMeasureDictionary#setLineSloaps(PDNumberFormatDictionary[])}.
+   *
+   * <ul>
+   *   <li>Given {@link COSObjectKey#COSObjectKey(long, int)} with num is one and gen is one.
+   * </ul>
+   *
+   * <p>Method under test: {@link
+   * PDRectlinearMeasureDictionary#setLineSloaps(PDNumberFormatDictionary[])}
+   */
+  @Test
+  @DisplayName(
+      "Test setLineSloaps(PDNumberFormatDictionary[]); given COSObjectKey(long, int) with num is one and gen is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void PDRectlinearMeasureDictionary.setLineSloaps(PDNumberFormatDictionary[])"
+  })
+  void testSetLineSloaps_givenCOSObjectKeyWithNumIsOneAndGenIsOne() {
+    // Arrange
+    PDRectlinearMeasureDictionary pdRectlinearMeasureDictionary =
+        new PDRectlinearMeasureDictionary();
+
+    COSDictionary dictionary = new COSDictionary();
+    dictionary.setKey(new COSObjectKey(1L, 1));
+
+    // Act
+    pdRectlinearMeasureDictionary.setLineSloaps(
+        new PDNumberFormatDictionary[] {new PDNumberFormatDictionary(dictionary)});
+
+    // Assert
+    COSDictionary cOSObject = pdRectlinearMeasureDictionary.getCOSObject();
+    assertEquals(3, cOSObject.getValues().size());
+    assertEquals(3, cOSObject.size());
   }
 
   /**
@@ -1185,21 +1308,6 @@ class PDRectlinearMeasureDictionaryDiffblueTest {
   /**
    * Test {@link PDRectlinearMeasureDictionary#getCoordSystemOrigin()}.
    *
-   * <p>Method under test: {@link PDRectlinearMeasureDictionary#getCoordSystemOrigin()}
-   */
-  @Test
-  @DisplayName("Test getCoordSystemOrigin()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"float[] PDRectlinearMeasureDictionary.getCoordSystemOrigin()"})
-  void testGetCoordSystemOrigin() {
-    // Arrange, Act and Assert
-    assertNull(new PDRectlinearMeasureDictionary(new COSDictionary()).getCoordSystemOrigin());
-  }
-
-  /**
-   * Test {@link PDRectlinearMeasureDictionary#getCoordSystemOrigin()}.
-   *
    * <ul>
    *   <li>Given {@link PDRectlinearMeasureDictionary#PDRectlinearMeasureDictionary()}.
    *   <li>Then return {@code null}.
@@ -1244,27 +1352,6 @@ class PDRectlinearMeasureDictionaryDiffblueTest {
         new float[] {10.0f, 0.5f, 10.0f, 0.5f},
         pdRectlinearMeasureDictionary.getCoordSystemOrigin(),
         0.0f);
-  }
-
-  /**
-   * Test {@link PDRectlinearMeasureDictionary#getCYX()}.
-   *
-   * <ul>
-   *   <li>Given {@link PDRectlinearMeasureDictionary#PDRectlinearMeasureDictionary(COSDictionary)}
-   *       with dictionary is {@link COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDRectlinearMeasureDictionary#getCYX()}
-   */
-  @Test
-  @DisplayName(
-      "Test getCYX(); given PDRectlinearMeasureDictionary(COSDictionary) with dictionary is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"float PDRectlinearMeasureDictionary.getCYX()"})
-  void testGetCYX_givenPDRectlinearMeasureDictionaryWithDictionaryIsCOSDictionary() {
-    // Arrange, Act and Assert
-    assertEquals(-1.0f, new PDRectlinearMeasureDictionary(new COSDictionary()).getCYX());
   }
 
   /**

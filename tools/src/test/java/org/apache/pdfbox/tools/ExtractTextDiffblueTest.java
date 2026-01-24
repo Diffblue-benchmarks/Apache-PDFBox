@@ -9,7 +9,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
 import org.apache.pdfbox.cos.COSDictionary;
-import org.apache.pdfbox.cos.COSStream;
 import org.apache.pdfbox.pdmodel.font.PDMMType1Font;
 import org.apache.pdfbox.pdmodel.font.PDTrueTypeFont;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
@@ -184,6 +183,41 @@ class ExtractTextDiffblueTest {
   /**
    * Test {@link ExtractText#getAngle(TextPosition)}.
    *
+   * <p>Method under test: {@link ExtractText#getAngle(TextPosition)}
+   */
+  @Test
+  @DisplayName("Test getAngle(TextPosition)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"int ExtractText.getAngle(TextPosition)"})
+  void testGetAngle2() {
+    // Arrange
+    Matrix textMatrix = Matrix.getScaleInstance(10.0f, 10.0f);
+
+    // Act and Assert
+    assertEquals(
+        0,
+        ExtractText.getAngle(
+            new TextPosition(
+                1,
+                10.0f,
+                10.0f,
+                textMatrix,
+                10.0f,
+                10.0f,
+                10.0f,
+                10.0f,
+                10.0f,
+                "Unicode",
+                new int[] {1, -1, 1, -1},
+                new PDType1Font(FontName.TIMES_ROMAN),
+                10.0f,
+                3)));
+  }
+
+  /**
+   * Test {@link ExtractText#getAngle(TextPosition)}.
+   *
    * <ul>
    *   <li>When {@link PDTrueTypeFont#PDTrueTypeFont(COSDictionary)} with fontDictionary is {@link
    *       COSDictionary#COSDictionary()}.
@@ -228,47 +262,6 @@ class ExtractTextDiffblueTest {
    * Test {@link ExtractText#getAngle(TextPosition)}.
    *
    * <ul>
-   *   <li>When {@link PDType1Font#PDType1Font(FontName)} with baseFont is {@code TIMES_ROMAN}.
-   *   <li>Then return zero.
-   * </ul>
-   *
-   * <p>Method under test: {@link ExtractText#getAngle(TextPosition)}
-   */
-  @Test
-  @DisplayName(
-      "Test getAngle(TextPosition); when PDType1Font(FontName) with baseFont is 'TIMES_ROMAN'; then return zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"int ExtractText.getAngle(TextPosition)"})
-  void testGetAngle_whenPDType1FontWithBaseFontIsTimesRoman_thenReturnZero() {
-    // Arrange
-    Matrix textMatrix = Matrix.getScaleInstance(10.0f, 10.0f);
-
-    // Act and Assert
-    assertEquals(
-        0,
-        ExtractText.getAngle(
-            new TextPosition(
-                1,
-                10.0f,
-                10.0f,
-                textMatrix,
-                10.0f,
-                10.0f,
-                10.0f,
-                10.0f,
-                10.0f,
-                "Unicode",
-                new int[] {1, -1, 1, -1},
-                new PDType1Font(FontName.TIMES_ROMAN),
-                10.0f,
-                3)));
-  }
-
-  /**
-   * Test {@link ExtractText#getAngle(TextPosition)}.
-   *
-   * <ul>
    *   <li>When {@link PDType3Font#PDType3Font(COSDictionary)} with fontDictionary is {@link
    *       COSDictionary#COSDictionary()}.
    *   <li>Then return zero.
@@ -304,49 +297,6 @@ class ExtractTextDiffblueTest {
                 "Unicode",
                 new int[] {1, -1, 1, -1},
                 new PDType3Font(new COSDictionary()),
-                10.0f,
-                3)));
-  }
-
-  /**
-   * Test {@link ExtractText#getAngle(TextPosition)}.
-   *
-   * <ul>
-   *   <li>When {@link PDType3Font#PDType3Font(COSDictionary)} with fontDictionary is {@link
-   *       COSStream#COSStream()}.
-   *   <li>Then return zero.
-   * </ul>
-   *
-   * <p>Method under test: {@link ExtractText#getAngle(TextPosition)}
-   */
-  @Test
-  @DisplayName(
-      "Test getAngle(TextPosition); when PDType3Font(COSDictionary) with fontDictionary is COSStream(); then return zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"int ExtractText.getAngle(TextPosition)"})
-  void testGetAngle_whenPDType3FontWithFontDictionaryIsCOSStream_thenReturnZero()
-      throws IOException {
-    // Arrange
-    Matrix textMatrix = Matrix.getScaleInstance(10.0f, 10.0f);
-
-    // Act and Assert
-    assertEquals(
-        0,
-        ExtractText.getAngle(
-            new TextPosition(
-                1,
-                10.0f,
-                10.0f,
-                textMatrix,
-                10.0f,
-                10.0f,
-                10.0f,
-                10.0f,
-                10.0f,
-                "Unicode",
-                new int[] {1, -1, 1, -1},
-                new PDType3Font(new COSStream()),
                 10.0f,
                 3)));
   }

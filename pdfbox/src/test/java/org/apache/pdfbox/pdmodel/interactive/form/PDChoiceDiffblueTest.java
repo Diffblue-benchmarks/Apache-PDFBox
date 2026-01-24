@@ -1,7 +1,9 @@
 package org.apache.pdfbox.pdmodel.interactive.form;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.eq;
@@ -21,34 +23,13 @@ import org.apache.pdfbox.cos.COSBase;
 import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.cos.COSName;
 import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDResources;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 class PDChoiceDiffblueTest {
-  /**
-   * Test {@link PDChoice#getOptions()}.
-   *
-   * <p>Method under test: {@link PDChoice#getOptions()}
-   */
-  @Test
-  @DisplayName("Test getOptions()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"List PDChoice.getOptions()"})
-  void testGetOptions() {
-    // Arrange
-    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
-    COSDictionary field = new COSDictionary();
-    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
-
-    PDComboBox pdComboBox = new PDComboBox(acroForm, field, parent);
-
-    // Act and Assert
-    assertTrue(pdComboBox.getOptions().isEmpty());
-  }
-
   /**
    * Test {@link PDChoice#getOptions()}.
    *
@@ -140,42 +121,18 @@ class PDChoiceDiffblueTest {
   /**
    * Test {@link PDChoice#getOptionsDisplayValues()}.
    *
-   * <p>Method under test: {@link PDChoice#getOptionsDisplayValues()}
-   */
-  @Test
-  @DisplayName("Test getOptionsDisplayValues()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"List PDChoice.getOptionsDisplayValues()"})
-  void testGetOptionsDisplayValues() {
-    // Arrange
-    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
-    COSDictionary field = new COSDictionary();
-    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
-
-    PDComboBox pdComboBox = new PDComboBox(acroForm, field, parent);
-
-    // Act and Assert
-    assertTrue(pdComboBox.getOptionsDisplayValues().isEmpty());
-  }
-
-  /**
-   * Test {@link PDChoice#getOptionsDisplayValues()}.
-   *
    * <ul>
-   *   <li>Given {@link PDComboBox#PDComboBox(PDAcroForm)} with acroForm is {@link
-   *       PDAcroForm#PDAcroForm(PDDocument)}.
+   *   <li>Then return Empty.
    * </ul>
    *
    * <p>Method under test: {@link PDChoice#getOptionsDisplayValues()}
    */
   @Test
-  @DisplayName(
-      "Test getOptionsDisplayValues(); given PDComboBox(PDAcroForm) with acroForm is PDAcroForm(PDDocument)")
+  @DisplayName("Test getOptionsDisplayValues(); then return Empty")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"List PDChoice.getOptionsDisplayValues()"})
-  void testGetOptionsDisplayValues_givenPDComboBoxWithAcroFormIsPDAcroForm() {
+  void testGetOptionsDisplayValues_thenReturnEmpty() {
     // Arrange, Act and Assert
     assertTrue(
         new PDComboBox(new PDAcroForm(new PDDocument())).getOptionsDisplayValues().isEmpty());
@@ -184,42 +141,18 @@ class PDChoiceDiffblueTest {
   /**
    * Test {@link PDChoice#getOptionsExportValues()}.
    *
-   * <p>Method under test: {@link PDChoice#getOptionsExportValues()}
-   */
-  @Test
-  @DisplayName("Test getOptionsExportValues()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"List PDChoice.getOptionsExportValues()"})
-  void testGetOptionsExportValues() {
-    // Arrange
-    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
-    COSDictionary field = new COSDictionary();
-    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
-
-    PDComboBox pdComboBox = new PDComboBox(acroForm, field, parent);
-
-    // Act and Assert
-    assertTrue(pdComboBox.getOptionsExportValues().isEmpty());
-  }
-
-  /**
-   * Test {@link PDChoice#getOptionsExportValues()}.
-   *
    * <ul>
-   *   <li>Given {@link PDComboBox#PDComboBox(PDAcroForm)} with acroForm is {@link
-   *       PDAcroForm#PDAcroForm(PDDocument)}.
+   *   <li>Then return Empty.
    * </ul>
    *
    * <p>Method under test: {@link PDChoice#getOptionsExportValues()}
    */
   @Test
-  @DisplayName(
-      "Test getOptionsExportValues(); given PDComboBox(PDAcroForm) with acroForm is PDAcroForm(PDDocument)")
+  @DisplayName("Test getOptionsExportValues(); then return Empty")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"List PDChoice.getOptionsExportValues()"})
-  void testGetOptionsExportValues_givenPDComboBoxWithAcroFormIsPDAcroForm() {
+  void testGetOptionsExportValues_thenReturnEmpty() {
     // Arrange, Act and Assert
     assertTrue(new PDComboBox(new PDAcroForm(new PDDocument())).getOptionsExportValues().isEmpty());
   }
@@ -227,42 +160,18 @@ class PDChoiceDiffblueTest {
   /**
    * Test {@link PDChoice#getSelectedOptionsIndex()}.
    *
-   * <p>Method under test: {@link PDChoice#getSelectedOptionsIndex()}
-   */
-  @Test
-  @DisplayName("Test getSelectedOptionsIndex()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"List PDChoice.getSelectedOptionsIndex()"})
-  void testGetSelectedOptionsIndex() {
-    // Arrange
-    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
-    COSDictionary field = new COSDictionary();
-    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
-
-    PDComboBox pdComboBox = new PDComboBox(acroForm, field, parent);
-
-    // Act and Assert
-    assertTrue(pdComboBox.getSelectedOptionsIndex().isEmpty());
-  }
-
-  /**
-   * Test {@link PDChoice#getSelectedOptionsIndex()}.
-   *
    * <ul>
-   *   <li>Given {@link PDComboBox#PDComboBox(PDAcroForm)} with acroForm is {@link
-   *       PDAcroForm#PDAcroForm(PDDocument)}.
+   *   <li>Then return Empty.
    * </ul>
    *
    * <p>Method under test: {@link PDChoice#getSelectedOptionsIndex()}
    */
   @Test
-  @DisplayName(
-      "Test getSelectedOptionsIndex(); given PDComboBox(PDAcroForm) with acroForm is PDAcroForm(PDDocument)")
+  @DisplayName("Test getSelectedOptionsIndex(); then return Empty")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"List PDChoice.getSelectedOptionsIndex()"})
-  void testGetSelectedOptionsIndex_givenPDComboBoxWithAcroFormIsPDAcroForm() {
+  void testGetSelectedOptionsIndex_thenReturnEmpty() {
     // Arrange, Act and Assert
     assertTrue(
         new PDComboBox(new PDAcroForm(new PDDocument())).getSelectedOptionsIndex().isEmpty());
@@ -271,25 +180,22 @@ class PDChoiceDiffblueTest {
   /**
    * Test {@link PDChoice#setSelectedOptionsIndex(List)}.
    *
-   * <ul>
-   *   <li>Given {@code 2097152}.
-   *   <li>When {@link ArrayList#ArrayList()} add {@code 2097152}.
-   * </ul>
-   *
    * <p>Method under test: {@link PDChoice#setSelectedOptionsIndex(List)}
    */
   @Test
-  @DisplayName(
-      "Test setSelectedOptionsIndex(List); given '2097152'; when ArrayList() add '2097152'")
+  @DisplayName("Test setSelectedOptionsIndex(List)")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void PDChoice.setSelectedOptionsIndex(List)"})
-  void testSetSelectedOptionsIndex_given2097152_whenArrayListAdd2097152() {
+  void testSetSelectedOptionsIndex() {
     // Arrange
-    PDComboBox pdComboBox = new PDComboBox(new PDAcroForm(new PDDocument()));
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    COSDictionary field = new COSDictionary();
+    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
+
+    PDComboBox pdComboBox = new PDComboBox(acroForm, field, parent);
 
     ArrayList<Integer> values = new ArrayList<>();
-    values.add(2097152);
     values.add(2);
 
     // Act and Assert
@@ -300,27 +206,24 @@ class PDChoiceDiffblueTest {
    * Test {@link PDChoice#setSelectedOptionsIndex(List)}.
    *
    * <ul>
-   *   <li>Given {@link PDNonTerminalField#PDNonTerminalField(PDAcroForm)} with acroForm is {@link
-   *       PDAcroForm#PDAcroForm(PDDocument)}.
+   *   <li>Given {@code 2097152}.
+   *   <li>Then throw {@link IllegalArgumentException}.
    * </ul>
    *
    * <p>Method under test: {@link PDChoice#setSelectedOptionsIndex(List)}
    */
   @Test
   @DisplayName(
-      "Test setSelectedOptionsIndex(List); given PDNonTerminalField(PDAcroForm) with acroForm is PDAcroForm(PDDocument)")
+      "Test setSelectedOptionsIndex(List); given '2097152'; then throw IllegalArgumentException")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void PDChoice.setSelectedOptionsIndex(List)"})
-  void testSetSelectedOptionsIndex_givenPDNonTerminalFieldWithAcroFormIsPDAcroForm() {
+  void testSetSelectedOptionsIndex_given2097152_thenThrowIllegalArgumentException() {
     // Arrange
-    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
-    COSDictionary field = new COSDictionary();
-    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
-
-    PDComboBox pdComboBox = new PDComboBox(acroForm, field, parent);
+    PDComboBox pdComboBox = new PDComboBox(new PDAcroForm(new PDDocument()));
 
     ArrayList<Integer> values = new ArrayList<>();
+    values.add(2097152);
     values.add(2);
 
     // Act and Assert
@@ -809,21 +712,429 @@ class PDChoiceDiffblueTest {
   }
 
   /**
+   * Test {@link PDChoice#setValue(String)} with {@code value}.
+   *
+   * <p>Method under test: {@link PDChoice#setValue(String)}
+   */
+  @Test
+  @DisplayName("Test setValue(String) with 'value'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDChoice.setValue(String)"})
+  void testSetValueWithValue() throws IOException {
+    // Arrange
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    acroForm.setDefaultResources(new PDResources());
+    acroForm.setDefaultAppearance("42");
+    PDComboBox pdComboBox = new PDComboBox(acroForm);
+
+    // Act
+    pdComboBox.setValue("42");
+
+    // Assert
+    List<String> value = pdComboBox.getValue();
+    assertEquals(1, value.size());
+    assertEquals("42", value.get(0));
+    assertEquals("[42]", pdComboBox.getValueAsString());
+    COSDictionary cOSObject = pdComboBox.getCOSObject();
+    assertEquals(5, cOSObject.getValues().size());
+    assertEquals(5, cOSObject.size());
+  }
+
+  /**
+   * Test {@link PDChoice#setValue(String)} with {@code value}.
+   *
+   * <p>Method under test: {@link PDChoice#setValue(String)}
+   */
+  @Test
+  @DisplayName("Test setValue(String) with 'value'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDChoice.setValue(String)"})
+  void testSetValueWithValue2() throws IOException {
+    // Arrange
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    acroForm.setDefaultResources(new PDResources());
+    acroForm.setDefaultAppearance("Widget");
+    PDComboBox pdComboBox = new PDComboBox(acroForm);
+
+    // Act
+    pdComboBox.setValue("42");
+
+    // Assert
+    List<String> value = pdComboBox.getValue();
+    assertEquals(1, value.size());
+    assertEquals("42", value.get(0));
+    assertEquals("[42]", pdComboBox.getValueAsString());
+    COSDictionary cOSObject = pdComboBox.getCOSObject();
+    assertEquals(5, cOSObject.getValues().size());
+    assertEquals(5, cOSObject.size());
+  }
+
+  /**
+   * Test {@link PDChoice#setValue(String)} with {@code value}.
+   *
+   * <p>Method under test: {@link PDChoice#setValue(String)}
+   */
+  @Test
+  @DisplayName("Test setValue(String) with 'value'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDChoice.setValue(String)"})
+  void testSetValueWithValue3() throws IOException {
+    // Arrange
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    acroForm.setDefaultResources(new PDResources());
+    acroForm.setDefaultAppearance("org.apache.logging.log4j.util.StackLocator");
+    PDComboBox pdComboBox = new PDComboBox(acroForm);
+
+    // Act
+    pdComboBox.setValue("42");
+
+    // Assert
+    List<String> value = pdComboBox.getValue();
+    assertEquals(1, value.size());
+    assertEquals("42", value.get(0));
+    assertEquals("[42]", pdComboBox.getValueAsString());
+    COSDictionary cOSObject = pdComboBox.getCOSObject();
+    assertEquals(5, cOSObject.getValues().size());
+    assertEquals(5, cOSObject.size());
+  }
+
+  /**
+   * Test {@link PDChoice#setValue(String)} with {@code value}.
+   *
+   * <p>Method under test: {@link PDChoice#setValue(String)}
+   */
+  @Test
+  @DisplayName("Test setValue(String) with 'value'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDChoice.setValue(String)"})
+  void testSetValueWithValue4() throws IOException {
+    // Arrange
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    acroForm.setDefaultResources(new PDResources());
+    acroForm.setDefaultAppearance("org.apache.logging.log4j.util.StackLocator");
+
+    PDComboBox pdComboBox = new PDComboBox(acroForm);
+    pdComboBox.setMappingName("Widget");
+
+    // Act
+    pdComboBox.setValue("42");
+
+    // Assert
+    List<String> value = pdComboBox.getValue();
+    assertEquals(1, value.size());
+    assertEquals("42", value.get(0));
+    assertEquals("[42]", pdComboBox.getValueAsString());
+    COSDictionary cOSObject = pdComboBox.getCOSObject();
+    assertEquals(6, cOSObject.getValues().size());
+    assertEquals(6, cOSObject.size());
+  }
+
+  /**
+   * Test {@link PDChoice#setValue(String)} with {@code value}.
+   *
+   * <p>Method under test: {@link PDChoice#setValue(String)}
+   */
+  @Test
+  @DisplayName("Test setValue(String) with 'value'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDChoice.setValue(String)"})
+  void testSetValueWithValue5() throws IOException {
+    // Arrange
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    acroForm.setDefaultResources(new PDResources());
+    acroForm.setDefaultAppearance("42");
+
+    PDComboBox pdComboBox = new PDComboBox(acroForm);
+    pdComboBox.setPartialName("");
+
+    // Act
+    pdComboBox.setValue("42");
+
+    // Assert
+    List<String> value = pdComboBox.getValue();
+    assertEquals(1, value.size());
+    assertEquals("42", value.get(0));
+    assertEquals("[42]", pdComboBox.getValueAsString());
+    COSDictionary cOSObject = pdComboBox.getCOSObject();
+    assertEquals(6, cOSObject.getValues().size());
+    assertEquals(6, cOSObject.size());
+  }
+
+  /**
+   * Test {@link PDChoice#setValue(String)} with {@code value}.
+   *
+   * <ul>
+   *   <li>Given {@link PDAcroForm#PDAcroForm(PDDocument)} with doc is {@link
+   *       PDDocument#PDDocument()} DefaultAppearance is {@code BI}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDChoice#setValue(String)}
+   */
+  @Test
+  @DisplayName(
+      "Test setValue(String) with 'value'; given PDAcroForm(PDDocument) with doc is PDDocument() DefaultAppearance is 'BI'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDChoice.setValue(String)"})
+  void testSetValueWithValue_givenPDAcroFormWithDocIsPDDocumentDefaultAppearanceIsBi()
+      throws IOException {
+    // Arrange
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    acroForm.setDefaultResources(new PDResources());
+    acroForm.setDefaultAppearance("BI");
+
+    PDComboBox pdComboBox = new PDComboBox(acroForm);
+    pdComboBox.setMappingName("Widget");
+
+    // Act
+    pdComboBox.setValue("42");
+
+    // Assert
+    List<String> value = pdComboBox.getValue();
+    assertEquals(1, value.size());
+    assertEquals("42", value.get(0));
+    assertEquals("[42]", pdComboBox.getValueAsString());
+    COSDictionary cOSObject = pdComboBox.getCOSObject();
+    assertEquals(6, cOSObject.getValues().size());
+    assertEquals(6, cOSObject.size());
+  }
+
+  /**
+   * Test {@link PDChoice#setValue(String)} with {@code value}.
+   *
+   * <ul>
+   *   <li>Given {@link PDAcroForm#PDAcroForm(PDDocument)} with doc is {@link
+   *       PDDocument#PDDocument()} DefaultAppearance is {@code /}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDChoice#setValue(String)}
+   */
+  @Test
+  @DisplayName(
+      "Test setValue(String) with 'value'; given PDAcroForm(PDDocument) with doc is PDDocument() DefaultAppearance is '/'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDChoice.setValue(String)"})
+  void testSetValueWithValue_givenPDAcroFormWithDocIsPDDocumentDefaultAppearanceIsSlash()
+      throws IOException {
+    // Arrange
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    acroForm.setDefaultResources(new PDResources());
+    acroForm.setDefaultAppearance("/");
+
+    PDComboBox pdComboBox = new PDComboBox(acroForm);
+    pdComboBox.setMappingName("Widget");
+
+    // Act
+    pdComboBox.setValue("42");
+
+    // Assert
+    List<String> value = pdComboBox.getValue();
+    assertEquals(1, value.size());
+    assertEquals("42", value.get(0));
+    assertEquals("[42]", pdComboBox.getValueAsString());
+    COSDictionary cOSObject = pdComboBox.getCOSObject();
+    assertEquals(6, cOSObject.getValues().size());
+    assertEquals(6, cOSObject.size());
+  }
+
+  /**
+   * Test {@link PDChoice#setValue(String)} with {@code value}.
+   *
+   * <ul>
+   *   <li>Given {@link PDComboBox#PDComboBox(PDAcroForm)} with acroForm is {@link
+   *       PDAcroForm#PDAcroForm(PDDocument)} PartialName is {@code Widget}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDChoice#setValue(String)}
+   */
+  @Test
+  @DisplayName(
+      "Test setValue(String) with 'value'; given PDComboBox(PDAcroForm) with acroForm is PDAcroForm(PDDocument) PartialName is 'Widget'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDChoice.setValue(String)"})
+  void testSetValueWithValue_givenPDComboBoxWithAcroFormIsPDAcroFormPartialNameIsWidget()
+      throws IOException {
+    // Arrange
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    acroForm.setDefaultResources(new PDResources());
+    acroForm.setDefaultAppearance("42");
+
+    PDComboBox pdComboBox = new PDComboBox(acroForm);
+    pdComboBox.setPartialName("Widget");
+
+    // Act
+    pdComboBox.setValue("42");
+
+    // Assert
+    List<String> value = pdComboBox.getValue();
+    assertEquals(1, value.size());
+    assertEquals("42", value.get(0));
+    assertEquals("[42]", pdComboBox.getValueAsString());
+    COSDictionary cOSObject = pdComboBox.getCOSObject();
+    assertEquals(6, cOSObject.getValues().size());
+    assertEquals(6, cOSObject.size());
+  }
+
+  /**
+   * Test {@link PDChoice#setValue(List)} with {@code values}.
+   *
+   * <p>Method under test: {@link PDChoice#setValue(List)}
+   */
+  @Test
+  @DisplayName("Test setValue(List) with 'values'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDChoice.setValue(List)"})
+  void testSetValueWithValues() throws IOException {
+    // Arrange
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    COSDictionary field = new COSDictionary();
+    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
+
+    PDComboBox pdComboBox = new PDComboBox(acroForm, field, parent);
+    pdComboBox.setFieldFlags(2097152);
+
+    ArrayList<String> values = new ArrayList<>();
+    values.add("foo");
+
+    // Act and Assert
+    assertThrows(IllegalArgumentException.class, () -> pdComboBox.setValue(values));
+  }
+
+  /**
+   * Test {@link PDChoice#setValue(List)} with {@code values}.
+   *
+   * <p>Method under test: {@link PDChoice#setValue(List)}
+   */
+  @Test
+  @DisplayName("Test setValue(List) with 'values'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDChoice.setValue(List)"})
+  void testSetValueWithValues2() throws IOException {
+    // Arrange
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    acroForm.setDefaultResources(new PDResources());
+    acroForm.setDefaultAppearance("Widget");
+    PDComboBox pdComboBox = new PDComboBox(acroForm);
+
+    // Act and Assert
+    assertDoesNotThrow(() -> pdComboBox.setValue(new ArrayList<>()));
+  }
+
+  /**
+   * Test {@link PDChoice#setValue(List)} with {@code values}.
+   *
+   * <p>Method under test: {@link PDChoice#setValue(List)}
+   */
+  @Test
+  @DisplayName("Test setValue(List) with 'values'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDChoice.setValue(List)"})
+  void testSetValueWithValues3() throws IOException {
+    // Arrange
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    acroForm.setDefaultResources(new PDResources());
+    acroForm.setDefaultAppearance("org.apache.logging.log4j.util.StackLocator");
+    PDComboBox pdComboBox = new PDComboBox(acroForm);
+
+    // Act and Assert
+    assertDoesNotThrow(() -> pdComboBox.setValue(new ArrayList<>()));
+  }
+
+  /**
+   * Test {@link PDChoice#setValue(List)} with {@code values}.
+   *
+   * <p>Method under test: {@link PDChoice#setValue(List)}
+   */
+  @Test
+  @DisplayName("Test setValue(List) with 'values'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDChoice.setValue(List)"})
+  void testSetValueWithValues4() throws IOException {
+    // Arrange
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    acroForm.setDefaultResources(new PDResources());
+    acroForm.setDefaultAppearance("42");
+
+    PDComboBox pdComboBox = new PDComboBox(acroForm);
+    pdComboBox.setPartialName("Widget");
+
+    // Act and Assert
+    assertDoesNotThrow(() -> pdComboBox.setValue(new ArrayList<>()));
+  }
+
+  /**
+   * Test {@link PDChoice#setValue(List)} with {@code values}.
+   *
+   * <p>Method under test: {@link PDChoice#setValue(List)}
+   */
+  @Test
+  @DisplayName("Test setValue(List) with 'values'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDChoice.setValue(List)"})
+  void testSetValueWithValues5() throws IOException {
+    // Arrange
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    acroForm.setDefaultResources(new PDResources());
+    acroForm.setDefaultAppearance("org.apache.logging.log4j.util.StackLocator");
+
+    PDComboBox pdComboBox = new PDComboBox(acroForm);
+    pdComboBox.setReadOnly(true);
+
+    // Act and Assert
+    assertDoesNotThrow(() -> pdComboBox.setValue(new ArrayList<>()));
+  }
+
+  /**
+   * Test {@link PDChoice#setValue(List)} with {@code values}.
+   *
+   * <p>Method under test: {@link PDChoice#setValue(List)}
+   */
+  @Test
+  @DisplayName("Test setValue(List) with 'values'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDChoice.setValue(List)"})
+  void testSetValueWithValues6() throws IOException {
+    // Arrange
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    acroForm.setDefaultResources(new PDResources());
+    acroForm.setDefaultAppearance("42");
+
+    PDComboBox pdComboBox = new PDComboBox(acroForm);
+    pdComboBox.setPartialName("");
+
+    // Act and Assert
+    assertDoesNotThrow(() -> pdComboBox.setValue(new ArrayList<>()));
+  }
+
+  /**
    * Test {@link PDChoice#setValue(List)} with {@code values}.
    *
    * <ul>
    *   <li>Given {@code 42}.
-   *   <li>Then throw {@link IllegalArgumentException}.
+   *   <li>When {@link ArrayList#ArrayList()} add {@code 42}.
    * </ul>
    *
    * <p>Method under test: {@link PDChoice#setValue(List)}
    */
   @Test
-  @DisplayName("Test setValue(List) with 'values'; given '42'; then throw IllegalArgumentException")
+  @DisplayName("Test setValue(List) with 'values'; given '42'; when ArrayList() add '42'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void PDChoice.setValue(List)"})
-  void testSetValueWithValues_given42_thenThrowIllegalArgumentException() throws IOException {
+  void testSetValueWithValues_given42_whenArrayListAdd42() throws IOException {
     // Arrange
     PDComboBox pdComboBox = new PDComboBox(new PDAcroForm(new PDDocument()));
 
@@ -835,16 +1146,21 @@ class PDChoiceDiffblueTest {
   }
 
   /**
-   * Test {@link PDChoice#getValue()}.
+   * Test {@link PDChoice#setValue(List)} with {@code values}.
    *
-   * <p>Method under test: {@link PDChoice#getValue()}
+   * <ul>
+   *   <li>Given {@code 42}.
+   *   <li>When {@link ArrayList#ArrayList()} add {@code 42}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDChoice#setValue(List)}
    */
   @Test
-  @DisplayName("Test getValue()")
+  @DisplayName("Test setValue(List) with 'values'; given '42'; when ArrayList() add '42'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
-  @MethodsUnderTest({"List PDChoice.getValue()"})
-  void testGetValue() {
+  @MethodsUnderTest({"void PDChoice.setValue(List)"})
+  void testSetValueWithValues_given42_whenArrayListAdd422() throws IOException {
     // Arrange
     PDAcroForm acroForm = new PDAcroForm(new PDDocument());
     COSDictionary field = new COSDictionary();
@@ -852,8 +1168,133 @@ class PDChoiceDiffblueTest {
 
     PDComboBox pdComboBox = new PDComboBox(acroForm, field, parent);
 
+    ArrayList<String> values = new ArrayList<>();
+    values.add("42");
+    values.add("foo");
+
     // Act and Assert
-    assertTrue(pdComboBox.getValue().isEmpty());
+    assertThrows(IllegalArgumentException.class, () -> pdComboBox.setValue(values));
+  }
+
+  /**
+   * Test {@link PDChoice#setValue(List)} with {@code values}.
+   *
+   * <ul>
+   *   <li>Given {@link PDAcroForm#PDAcroForm(PDDocument)} with doc is {@link
+   *       PDDocument#PDDocument()} DefaultAppearance is {@code 42}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDChoice#setValue(List)}
+   */
+  @Test
+  @DisplayName(
+      "Test setValue(List) with 'values'; given PDAcroForm(PDDocument) with doc is PDDocument() DefaultAppearance is '42'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDChoice.setValue(List)"})
+  void testSetValueWithValues_givenPDAcroFormWithDocIsPDDocumentDefaultAppearanceIs42()
+      throws IOException {
+    // Arrange
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    acroForm.setDefaultResources(new PDResources());
+    acroForm.setDefaultAppearance("42");
+    PDComboBox pdComboBox = new PDComboBox(acroForm);
+
+    // Act and Assert
+    assertDoesNotThrow(() -> pdComboBox.setValue(new ArrayList<>()));
+  }
+
+  /**
+   * Test {@link PDChoice#setValue(List)} with {@code values}.
+   *
+   * <ul>
+   *   <li>Given {@link PDAcroForm#PDAcroForm(PDDocument)} with doc is {@link
+   *       PDDocument#PDDocument()} DefaultAppearance is {@code BI}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDChoice#setValue(List)}
+   */
+  @Test
+  @DisplayName(
+      "Test setValue(List) with 'values'; given PDAcroForm(PDDocument) with doc is PDDocument() DefaultAppearance is 'BI'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDChoice.setValue(List)"})
+  void testSetValueWithValues_givenPDAcroFormWithDocIsPDDocumentDefaultAppearanceIsBi()
+      throws IOException {
+    // Arrange
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    acroForm.setDefaultResources(new PDResources());
+    acroForm.setDefaultAppearance("BI");
+
+    PDComboBox pdComboBox = new PDComboBox(acroForm);
+    pdComboBox.setReadOnly(true);
+
+    // Act and Assert
+    assertDoesNotThrow(() -> pdComboBox.setValue(new ArrayList<>()));
+  }
+
+  /**
+   * Test {@link PDChoice#setValue(List)} with {@code values}.
+   *
+   * <ul>
+   *   <li>Then throw {@link IllegalArgumentException}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDChoice#setValue(List)}
+   */
+  @Test
+  @DisplayName("Test setValue(List) with 'values'; then throw IllegalArgumentException")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDChoice.setValue(List)"})
+  void testSetValueWithValues_thenThrowIllegalArgumentException() throws IOException {
+    // Arrange
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    COSDictionary field = new COSDictionary();
+    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
+
+    PDComboBox pdComboBox = new PDComboBox(acroForm, field, parent);
+
+    ArrayList<String> values = new ArrayList<>();
+    values.add("foo");
+
+    // Act and Assert
+    assertThrows(IllegalArgumentException.class, () -> pdComboBox.setValue(values));
+  }
+
+  /**
+   * Test {@link PDChoice#setDefaultValue(String)}.
+   *
+   * <p>Method under test: {@link PDChoice#setDefaultValue(String)}
+   */
+  @Test
+  @DisplayName("Test setDefaultValue(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDChoice.setDefaultValue(String)"})
+  void testSetDefaultValue() {
+    // Arrange
+    COSDictionary field = mock(COSDictionary.class);
+    doNothing().when(field).setString(Mockito.<COSName>any(), Mockito.<String>any());
+    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
+    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
+
+    PDComboBox pdComboBox = new PDComboBox(acroForm, field, parent);
+
+    // Act
+    pdComboBox.setDefaultValue("42");
+
+    // Assert that nothing has changed
+    verify(field).setString(isA(COSName.class), eq("42"));
+    List<String> defaultValue = pdComboBox.getDefaultValue();
+    assertTrue(defaultValue.isEmpty());
+    assertSame(defaultValue, pdComboBox.getAcroForm().getCalcOrder());
+    assertSame(defaultValue, pdComboBox.getOptions());
+    assertSame(defaultValue, pdComboBox.getOptionsDisplayValues());
+    assertSame(defaultValue, pdComboBox.getOptionsExportValues());
+    assertSame(defaultValue, pdComboBox.getSelectedOptionsIndex());
+    assertSame(defaultValue, pdComboBox.getValue());
   }
 
   /**
@@ -881,28 +1322,6 @@ class PDChoiceDiffblueTest {
   /**
    * Test {@link PDChoice#getDefaultValue()}.
    *
-   * <p>Method under test: {@link PDChoice#getDefaultValue()}
-   */
-  @Test
-  @DisplayName("Test getDefaultValue()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"List PDChoice.getDefaultValue()"})
-  void testGetDefaultValue() {
-    // Arrange
-    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
-    COSDictionary field = new COSDictionary();
-    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
-
-    PDComboBox pdComboBox = new PDComboBox(acroForm, field, parent);
-
-    // Act and Assert
-    assertTrue(pdComboBox.getDefaultValue().isEmpty());
-  }
-
-  /**
-   * Test {@link PDChoice#getDefaultValue()}.
-   *
    * <ul>
    *   <li>Given {@link PDComboBox#PDComboBox(PDAcroForm)} with acroForm is {@link
    *       PDAcroForm#PDAcroForm(PDDocument)}.
@@ -925,42 +1344,18 @@ class PDChoiceDiffblueTest {
   /**
    * Test {@link PDChoice#getValueAsString()}.
    *
-   * <p>Method under test: {@link PDChoice#getValueAsString()}
-   */
-  @Test
-  @DisplayName("Test getValueAsString()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String PDChoice.getValueAsString()"})
-  void testGetValueAsString() {
-    // Arrange
-    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
-    COSDictionary field = new COSDictionary();
-    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
-
-    PDComboBox pdComboBox = new PDComboBox(acroForm, field, parent);
-
-    // Act and Assert
-    assertEquals("[]", pdComboBox.getValueAsString());
-  }
-
-  /**
-   * Test {@link PDChoice#getValueAsString()}.
-   *
    * <ul>
-   *   <li>Given {@link PDComboBox#PDComboBox(PDAcroForm)} with acroForm is {@link
-   *       PDAcroForm#PDAcroForm(PDDocument)}.
+   *   <li>Then return {@code []}.
    * </ul>
    *
    * <p>Method under test: {@link PDChoice#getValueAsString()}
    */
   @Test
-  @DisplayName(
-      "Test getValueAsString(); given PDComboBox(PDAcroForm) with acroForm is PDAcroForm(PDDocument)")
+  @DisplayName("Test getValueAsString(); then return '[]'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"String PDChoice.getValueAsString()"})
-  void testGetValueAsString_givenPDComboBoxWithAcroFormIsPDAcroForm() {
+  void testGetValueAsString_thenReturnLeftSquareBracketRightSquareBracket() {
     // Arrange, Act and Assert
     assertEquals("[]", new PDComboBox(new PDAcroForm(new PDDocument())).getValueAsString());
   }

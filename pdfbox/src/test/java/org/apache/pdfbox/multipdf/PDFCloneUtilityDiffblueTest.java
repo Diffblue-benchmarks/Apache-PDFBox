@@ -10,6 +10,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import org.apache.pdfbox.cos.COSArray;
 import org.apache.pdfbox.cos.COSBase;
@@ -23,9 +24,14 @@ import org.apache.pdfbox.cos.COSObject;
 import org.apache.pdfbox.cos.COSObjectKey;
 import org.apache.pdfbox.cos.COSStream;
 import org.apache.pdfbox.cos.COSUpdateState;
+import org.apache.pdfbox.io.MemoryUsageSetting;
+import org.apache.pdfbox.io.RandomAccessReadBuffer;
 import org.apache.pdfbox.io.RandomAccessReadView;
 import org.apache.pdfbox.io.RandomAccessReadWriteBuffer;
+import org.apache.pdfbox.io.RandomAccessStreamCache;
+import org.apache.pdfbox.io.RandomAccessStreamCache.StreamCacheCreateFunction;
 import org.apache.pdfbox.io.RandomAccessStreamCacheImpl;
+import org.apache.pdfbox.io.ScratchFile;
 import org.apache.pdfbox.pdfparser.COSParser;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.common.COSObjectable;
@@ -111,18 +117,91 @@ class PDFCloneUtilityDiffblueTest {
   /**
    * Test {@link PDFCloneUtility#cloneForNewDocument(COSBase)}.
    *
+   * <p>Method under test: {@link PDFCloneUtility#cloneForNewDocument(COSBase)}
+   */
+  @Test
+  @DisplayName("Test cloneForNewDocument(COSBase)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"COSBase PDFCloneUtility.cloneForNewDocument(COSBase)"})
+  void testCloneForNewDocument3() throws IOException {
+    // Arrange
+    StreamCacheCreateFunction streamCacheCreateFunction = mock(StreamCacheCreateFunction.class);
+    MemoryUsageSetting memUsageSetting = MemoryUsageSetting.setupMainMemoryOnly(-100L);
+    when(streamCacheCreateFunction.create()).thenReturn(new ScratchFile(memUsageSetting));
+    PDDocument dest = new PDDocument(streamCacheCreateFunction);
+    PDFCloneUtility pdfCloneUtility = new PDFCloneUtility(dest);
+    RandomAccessStreamCacheImpl streamCache = new RandomAccessStreamCacheImpl();
+    COSStream cosStream =
+        new COSStream(
+            streamCache, new RandomAccessReadView(new RandomAccessReadWriteBuffer(), 1237L, 3L));
+
+    // Act
+    COSBase actualCloneForNewDocumentResult = pdfCloneUtility.cloneForNewDocument(cosStream);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertTrue(actualCloneForNewDocumentResult instanceof COSStream);
+    assertNull(((COSStream) actualCloneForNewDocumentResult).getFilters());
+    assertEquals(1, ((COSStream) actualCloneForNewDocumentResult).getValues().size());
+    assertEquals(1, ((COSStream) actualCloneForNewDocumentResult).size());
+    assertEquals(3L, ((COSStream) actualCloneForNewDocumentResult).getLength());
+    assertTrue(((COSStream) actualCloneForNewDocumentResult).hasData());
+  }
+
+  /**
+   * Test {@link PDFCloneUtility#cloneForNewDocument(COSBase)}.
+   *
    * <ul>
-   *   <li>Then return {@link COSStream}.
+   *   <li>Then return Length is minus one hundred.
    * </ul>
    *
    * <p>Method under test: {@link PDFCloneUtility#cloneForNewDocument(COSBase)}
    */
   @Test
-  @DisplayName("Test cloneForNewDocument(COSBase); then return COSStream")
+  @DisplayName("Test cloneForNewDocument(COSBase); then return Length is minus one hundred")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"COSBase PDFCloneUtility.cloneForNewDocument(COSBase)"})
-  void testCloneForNewDocument_thenReturnCOSStream() throws IOException {
+  void testCloneForNewDocument_thenReturnLengthIsMinusOneHundred() throws IOException {
+    // Arrange
+    StreamCacheCreateFunction streamCacheCreateFunction = mock(StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(null);
+    PDDocument dest = new PDDocument(streamCacheCreateFunction);
+    PDFCloneUtility pdfCloneUtility = new PDFCloneUtility(dest);
+    RandomAccessStreamCacheImpl streamCache = new RandomAccessStreamCacheImpl();
+    COSStream cosStream =
+        new COSStream(
+            streamCache, new RandomAccessReadView(new RandomAccessReadWriteBuffer(), 1237L, -100L));
+
+    // Act
+    COSBase actualCloneForNewDocumentResult = pdfCloneUtility.cloneForNewDocument(cosStream);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
+    assertTrue(actualCloneForNewDocumentResult instanceof COSStream);
+    assertNull(((COSStream) actualCloneForNewDocumentResult).getFilters());
+    assertEquals(-100L, ((COSStream) actualCloneForNewDocumentResult).getLength());
+    assertEquals(1, ((COSStream) actualCloneForNewDocumentResult).getValues().size());
+    assertEquals(1, ((COSStream) actualCloneForNewDocumentResult).size());
+    assertTrue(((COSStream) actualCloneForNewDocumentResult).hasData());
+  }
+
+  /**
+   * Test {@link PDFCloneUtility#cloneForNewDocument(COSBase)}.
+   *
+   * <ul>
+   *   <li>Then return Length is three.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDFCloneUtility#cloneForNewDocument(COSBase)}
+   */
+  @Test
+  @DisplayName("Test cloneForNewDocument(COSBase); then return Length is three")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"COSBase PDFCloneUtility.cloneForNewDocument(COSBase)"})
+  void testCloneForNewDocument_thenReturnLengthIsThree() throws IOException {
     // Arrange
     PDFCloneUtility pdfCloneUtility = new PDFCloneUtility(new PDDocument());
     RandomAccessStreamCacheImpl streamCache = new RandomAccessStreamCacheImpl();
@@ -134,6 +213,44 @@ class PDFCloneUtilityDiffblueTest {
     COSBase actualCloneForNewDocumentResult = pdfCloneUtility.cloneForNewDocument(cosStream);
 
     // Assert
+    assertTrue(actualCloneForNewDocumentResult instanceof COSStream);
+    assertNull(((COSStream) actualCloneForNewDocumentResult).getFilters());
+    assertEquals(1, ((COSStream) actualCloneForNewDocumentResult).getValues().size());
+    assertEquals(1, ((COSStream) actualCloneForNewDocumentResult).size());
+    assertEquals(3L, ((COSStream) actualCloneForNewDocumentResult).getLength());
+    assertTrue(((COSStream) actualCloneForNewDocumentResult).hasData());
+  }
+
+  /**
+   * Test {@link PDFCloneUtility#cloneForNewDocument(COSBase)}.
+   *
+   * <ul>
+   *   <li>Then return Length is three.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDFCloneUtility#cloneForNewDocument(COSBase)}
+   */
+  @Test
+  @DisplayName("Test cloneForNewDocument(COSBase); then return Length is three")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"COSBase PDFCloneUtility.cloneForNewDocument(COSBase)"})
+  void testCloneForNewDocument_thenReturnLengthIsThree2() throws IOException {
+    // Arrange
+    StreamCacheCreateFunction streamCacheCreateFunction = mock(StreamCacheCreateFunction.class);
+    when(streamCacheCreateFunction.create()).thenReturn(null);
+    PDDocument dest = new PDDocument(streamCacheCreateFunction);
+    PDFCloneUtility pdfCloneUtility = new PDFCloneUtility(dest);
+    RandomAccessStreamCacheImpl streamCache = new RandomAccessStreamCacheImpl();
+    COSStream cosStream =
+        new COSStream(
+            streamCache, new RandomAccessReadView(new RandomAccessReadWriteBuffer(), 1237L, 3L));
+
+    // Act
+    COSBase actualCloneForNewDocumentResult = pdfCloneUtility.cloneForNewDocument(cosStream);
+
+    // Assert
+    verify(streamCacheCreateFunction).create();
     assertTrue(actualCloneForNewDocumentResult instanceof COSStream);
     assertNull(((COSStream) actualCloneForNewDocumentResult).getFilters());
     assertEquals(1, ((COSStream) actualCloneForNewDocumentResult).getValues().size());
@@ -171,17 +288,17 @@ class PDFCloneUtilityDiffblueTest {
    *
    * <ul>
    *   <li>When {@link COSArray#COSArray()}.
-   *   <li>Then return {@link COSArray}.
+   *   <li>Then return toList Empty.
    * </ul>
    *
    * <p>Method under test: {@link PDFCloneUtility#cloneForNewDocument(COSBase)}
    */
   @Test
-  @DisplayName("Test cloneForNewDocument(COSBase); when COSArray(); then return COSArray")
+  @DisplayName("Test cloneForNewDocument(COSBase); when COSArray(); then return toList Empty")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"COSBase PDFCloneUtility.cloneForNewDocument(COSBase)"})
-  void testCloneForNewDocument_whenCOSArray_thenReturnCOSArray() throws IOException {
+  void testCloneForNewDocument_whenCOSArray_thenReturnToListEmpty() throws IOException {
     // Arrange
     PDFCloneUtility pdfCloneUtility = new PDFCloneUtility(new PDDocument());
 
@@ -354,6 +471,84 @@ class PDFCloneUtilityDiffblueTest {
    * Test {@link PDFCloneUtility#cloneMerge(COSObjectable, COSObjectable)}.
    *
    * <ul>
+   *   <li>Given {@code A}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDFCloneUtility#cloneMerge(COSObjectable, COSObjectable)}
+   */
+  @Test
+  @DisplayName("Test cloneMerge(COSObjectable, COSObjectable); given 'A'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDFCloneUtility.cloneMerge(COSObjectable, COSObjectable)"})
+  void testCloneMerge_givenA() throws IOException {
+    // Arrange
+    PDFCloneUtility pdfCloneUtility = new PDFCloneUtility(new PDDocument());
+
+    COSObjectable base = mock(COSObjectable.class);
+    COSObjectKey key = new COSObjectKey(1L, 1);
+    ByteArrayInputStream input =
+        new ByteArrayInputStream(new byte[] {'A', 1, 'A', 1, 'A', 1, 'A', 1});
+    RandomAccessReadBuffer source = new RandomAccessReadBuffer(input);
+    COSParser parser = new COSParser(source);
+
+    COSObject cosObject = new COSObject(key, parser);
+    when(base.getCOSObject()).thenReturn(cosObject);
+
+    COSObjectable target = mock(COSObjectable.class);
+    when(target.getCOSObject()).thenReturn(COSBoolean.FALSE);
+
+    // Act
+    pdfCloneUtility.cloneMerge(base, target);
+
+    // Assert
+    verify(base).getCOSObject();
+    verify(target).getCOSObject();
+  }
+
+  /**
+   * Test {@link PDFCloneUtility#cloneMerge(COSObjectable, COSObjectable)}.
+   *
+   * <ul>
+   *   <li>Given {@link COSArray#COSArray()} add {@link COSBoolean#FALSE}.
+   *   <li>When {@link COSObjectable} {@link COSObjectable#getCOSObject()} return {@link
+   *       COSArray#COSArray()}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDFCloneUtility#cloneMerge(COSObjectable, COSObjectable)}
+   */
+  @Test
+  @DisplayName(
+      "Test cloneMerge(COSObjectable, COSObjectable); given COSArray() add FALSE; when COSObjectable getCOSObject() return COSArray()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDFCloneUtility.cloneMerge(COSObjectable, COSObjectable)"})
+  void testCloneMerge_givenCOSArrayAddFalse_whenCOSObjectableGetCOSObjectReturnCOSArray()
+      throws IOException {
+    // Arrange
+    PDFCloneUtility pdfCloneUtility = new PDFCloneUtility(new PDDocument());
+
+    COSArray cosArray = new COSArray();
+    cosArray.add(COSBoolean.FALSE);
+
+    COSObjectable base = mock(COSObjectable.class);
+    when(base.getCOSObject()).thenReturn(cosArray);
+
+    COSObjectable target = mock(COSObjectable.class);
+    when(target.getCOSObject()).thenReturn(new COSArray());
+
+    // Act
+    pdfCloneUtility.cloneMerge(base, target);
+
+    // Assert
+    verify(base).getCOSObject();
+    verify(target).getCOSObject();
+  }
+
+  /**
+   * Test {@link PDFCloneUtility#cloneMerge(COSObjectable, COSObjectable)}.
+   *
+   * <ul>
    *   <li>Given {@link COSArray#COSArray()}.
    *   <li>When {@link COSObjectable} {@link COSObjectable#getCOSObject()} return {@link
    *       COSArray#COSArray()}.
@@ -390,6 +585,42 @@ class PDFCloneUtilityDiffblueTest {
    * Test {@link PDFCloneUtility#cloneMerge(COSObjectable, COSObjectable)}.
    *
    * <ul>
+   *   <li>Given {@link COSArray#COSArray()}.
+   *   <li>When {@link COSObjectable} {@link COSObjectable#getCOSObject()} return {@link
+   *       COSArray#COSArray()}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDFCloneUtility#cloneMerge(COSObjectable, COSObjectable)}
+   */
+  @Test
+  @DisplayName(
+      "Test cloneMerge(COSObjectable, COSObjectable); given COSArray(); when COSObjectable getCOSObject() return COSArray()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDFCloneUtility.cloneMerge(COSObjectable, COSObjectable)"})
+  void testCloneMerge_givenCOSArray_whenCOSObjectableGetCOSObjectReturnCOSArray2()
+      throws IOException {
+    // Arrange
+    PDFCloneUtility pdfCloneUtility = new PDFCloneUtility(new PDDocument());
+
+    COSObjectable base = mock(COSObjectable.class);
+    when(base.getCOSObject()).thenReturn(new COSArray());
+
+    COSObjectable target = mock(COSObjectable.class);
+    when(target.getCOSObject()).thenReturn(new COSArray());
+
+    // Act
+    pdfCloneUtility.cloneMerge(base, target);
+
+    // Assert
+    verify(base).getCOSObject();
+    verify(target).getCOSObject();
+  }
+
+  /**
+   * Test {@link PDFCloneUtility#cloneMerge(COSObjectable, COSObjectable)}.
+   *
+   * <ul>
    *   <li>Given {@link COSDictionary#COSDictionary()}.
    * </ul>
    *
@@ -406,6 +637,41 @@ class PDFCloneUtilityDiffblueTest {
 
     COSObjectable base = mock(COSObjectable.class);
     when(base.getCOSObject()).thenReturn(new COSDictionary());
+
+    COSObjectable target = mock(COSObjectable.class);
+    when(target.getCOSObject()).thenReturn(COSBoolean.FALSE);
+
+    // Act
+    pdfCloneUtility.cloneMerge(base, target);
+
+    // Assert
+    verify(base).getCOSObject();
+    verify(target).getCOSObject();
+  }
+
+  /**
+   * Test {@link PDFCloneUtility#cloneMerge(COSObjectable, COSObjectable)}.
+   *
+   * <ul>
+   *   <li>Given {@link COSObject#COSObject(COSObjectKey, ICOSParser)} with key is {@link
+   *       COSObjectKey#COSObjectKey(long, int)} and parser is {@code null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDFCloneUtility#cloneMerge(COSObjectable, COSObjectable)}
+   */
+  @Test
+  @DisplayName(
+      "Test cloneMerge(COSObjectable, COSObjectable); given COSObject(COSObjectKey, ICOSParser) with key is COSObjectKey(long, int) and parser is 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDFCloneUtility.cloneMerge(COSObjectable, COSObjectable)"})
+  void testCloneMerge_givenCOSObjectWithKeyIsCOSObjectKeyAndParserIsNull() throws IOException {
+    // Arrange
+    PDFCloneUtility pdfCloneUtility = new PDFCloneUtility(new PDDocument());
+
+    COSObjectable base = mock(COSObjectable.class);
+    COSObject cosObject = new COSObject(new COSObjectKey(1L, 1), null);
+    when(base.getCOSObject()).thenReturn(cosObject);
 
     COSObjectable target = mock(COSObjectable.class);
     when(target.getCOSObject()).thenReturn(COSBoolean.FALSE);
@@ -494,6 +760,48 @@ class PDFCloneUtilityDiffblueTest {
    * Test {@link PDFCloneUtility#cloneMerge(COSObjectable, COSObjectable)}.
    *
    * <ul>
+   *   <li>Given {@link COSObjectable} {@link COSObjectable#getCOSObject()} return {@link
+   *       COSBoolean#FALSE}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PDFCloneUtility#cloneMerge(COSObjectable, COSObjectable)}
+   */
+  @Test
+  @DisplayName(
+      "Test cloneMerge(COSObjectable, COSObjectable); given COSObjectable getCOSObject() return FALSE")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PDFCloneUtility.cloneMerge(COSObjectable, COSObjectable)"})
+  void testCloneMerge_givenCOSObjectableGetCOSObjectReturnFalse() throws IOException {
+    // Arrange
+    PDFCloneUtility pdfCloneUtility = new PDFCloneUtility(new PDDocument());
+
+    COSObjectable object = mock(COSObjectable.class);
+    when(object.getCOSObject()).thenReturn(COSBoolean.FALSE);
+
+    COSArray cosArray = new COSArray();
+    cosArray.add(COSBoolean.FALSE);
+    cosArray.add(object);
+
+    COSObjectable base = mock(COSObjectable.class);
+    when(base.getCOSObject()).thenReturn(cosArray);
+
+    COSObjectable target = mock(COSObjectable.class);
+    when(target.getCOSObject()).thenReturn(new COSArray());
+
+    // Act
+    pdfCloneUtility.cloneMerge(base, target);
+
+    // Assert
+    verify(base).getCOSObject();
+    verify(object).getCOSObject();
+    verify(target).getCOSObject();
+  }
+
+  /**
+   * Test {@link PDFCloneUtility#cloneMerge(COSObjectable, COSObjectable)}.
+   *
+   * <ul>
    *   <li>Given {@link COSParser#COSParser(RandomAccessRead)} with source is {@link
    *       RandomAccessReadWriteBuffer#RandomAccessReadWriteBuffer()}.
    * </ul>
@@ -530,6 +838,7 @@ class PDFCloneUtilityDiffblueTest {
    * Test {@link PDFCloneUtility#cloneMerge(COSObjectable, COSObjectable)}.
    *
    * <ul>
+   *   <li>Given {@link COSBoolean#FALSE}.
    *   <li>When {@link COSObjectable} {@link COSObjectable#getCOSObject()} return {@link
    *       COSBoolean#FALSE}.
    * </ul>
@@ -538,11 +847,11 @@ class PDFCloneUtilityDiffblueTest {
    */
   @Test
   @DisplayName(
-      "Test cloneMerge(COSObjectable, COSObjectable); when COSObjectable getCOSObject() return FALSE")
+      "Test cloneMerge(COSObjectable, COSObjectable); given FALSE; when COSObjectable getCOSObject() return FALSE")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void PDFCloneUtility.cloneMerge(COSObjectable, COSObjectable)"})
-  void testCloneMerge_whenCOSObjectableGetCOSObjectReturnFalse() throws IOException {
+  void testCloneMerge_givenFalse_whenCOSObjectableGetCOSObjectReturnFalse() throws IOException {
     // Arrange
     PDFCloneUtility pdfCloneUtility = new PDFCloneUtility(new PDDocument());
 

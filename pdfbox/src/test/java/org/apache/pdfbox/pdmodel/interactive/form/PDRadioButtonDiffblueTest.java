@@ -191,28 +191,6 @@ class PDRadioButtonDiffblueTest {
   /**
    * Test {@link PDRadioButton#getSelectedIndex()}.
    *
-   * <p>Method under test: {@link PDRadioButton#getSelectedIndex()}
-   */
-  @Test
-  @DisplayName("Test getSelectedIndex()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"int PDRadioButton.getSelectedIndex()"})
-  void testGetSelectedIndex() {
-    // Arrange
-    PDAcroForm acroForm = new PDAcroForm(new PDDocument());
-    COSDictionary field = new COSDictionary();
-    PDNonTerminalField parent = new PDNonTerminalField(new PDAcroForm(new PDDocument()));
-
-    PDRadioButton pdRadioButton = new PDRadioButton(acroForm, field, parent);
-
-    // Act and Assert
-    assertEquals(0, pdRadioButton.getSelectedIndex());
-  }
-
-  /**
-   * Test {@link PDRadioButton#getSelectedIndex()}.
-   *
    * <ul>
    *   <li>Given {@link PDRadioButton#PDRadioButton(PDAcroForm)} with acroForm is {@link
    *       PDAcroForm#PDAcroForm(PDDocument)}.
@@ -230,29 +208,6 @@ class PDRadioButtonDiffblueTest {
   void testGetSelectedIndex_givenPDRadioButtonWithAcroFormIsPDAcroForm_thenReturnZero() {
     // Arrange, Act and Assert
     assertEquals(0, new PDRadioButton(new PDAcroForm(new PDDocument())).getSelectedIndex());
-  }
-
-  /**
-   * Test {@link PDRadioButton#getSelectedExportValues()}.
-   *
-   * <p>Method under test: {@link PDRadioButton#getSelectedExportValues()}
-   */
-  @Test
-  @DisplayName("Test getSelectedExportValues()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"List PDRadioButton.getSelectedExportValues()"})
-  void testGetSelectedExportValues() {
-    // Arrange
-    PDDocument doc = new PDDocument();
-    PDAcroForm acroForm = new PDAcroForm(doc, new COSDictionary());
-
-    // Act
-    List<String> actualSelectedExportValues = new PDRadioButton(acroForm).getSelectedExportValues();
-
-    // Assert
-    assertEquals(1, actualSelectedExportValues.size());
-    assertEquals("Off", actualSelectedExportValues.get(0));
   }
 
   /**

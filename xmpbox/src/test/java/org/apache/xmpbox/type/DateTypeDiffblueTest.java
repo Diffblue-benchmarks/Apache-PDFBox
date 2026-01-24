@@ -467,6 +467,56 @@ class DateTypeDiffblueTest {
    * Test {@link DateType#setValue(Object)}.
    *
    * <ul>
+   *   <li>When forty-two.
+   *   <li>Then throw {@link IllegalArgumentException}.
+   * </ul>
+   *
+   * <p>Method under test: {@link DateType#setValue(Object)}
+   */
+  @Test
+  @DisplayName("Test setValue(Object); when forty-two; then throw IllegalArgumentException")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void DateType.setValue(Object)"})
+  void testSetValue_whenFortyTwo_thenThrowIllegalArgumentException() {
+    // Arrange
+    DateType dateType =
+        new DateType(
+            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "");
+
+    // Act and Assert
+    assertThrows(IllegalArgumentException.class, () -> dateType.setValue(42));
+  }
+
+  /**
+   * Test {@link DateType#setValue(Object)}.
+   *
+   * <ul>
+   *   <li>When {@code null}.
+   *   <li>Then throw {@link IllegalArgumentException}.
+   * </ul>
+   *
+   * <p>Method under test: {@link DateType#setValue(Object)}
+   */
+  @Test
+  @DisplayName("Test setValue(Object); when 'null'; then throw IllegalArgumentException")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void DateType.setValue(Object)"})
+  void testSetValue_whenNull_thenThrowIllegalArgumentException() {
+    // Arrange
+    DateType dateType =
+        new DateType(
+            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "");
+
+    // Act and Assert
+    assertThrows(IllegalArgumentException.class, () -> dateType.setValue(null));
+  }
+
+  /**
+   * Test {@link DateType#setValue(Object)}.
+   *
+   * <ul>
    *   <li>When {@code [-:T]}.
    *   <li>Then throw {@link IllegalArgumentException}.
    * </ul>

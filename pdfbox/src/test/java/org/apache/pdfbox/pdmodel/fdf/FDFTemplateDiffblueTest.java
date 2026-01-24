@@ -388,30 +388,6 @@ class FDFTemplateDiffblueTest {
    * Test {@link FDFTemplate#getFields()}.
    *
    * <ul>
-   *   <li>Given {@link FDFTemplate#FDFTemplate()} TemplateReference is {@link
-   *       FDFNamedPageReference#FDFNamedPageReference()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFTemplate#getFields()}
-   */
-  @Test
-  @DisplayName("Test getFields(); given FDFTemplate() TemplateReference is FDFNamedPageReference()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"List FDFTemplate.getFields()"})
-  void testGetFields_givenFDFTemplateTemplateReferenceIsFDFNamedPageReference() {
-    // Arrange
-    FDFTemplate fdfTemplate = new FDFTemplate();
-    fdfTemplate.setTemplateReference(new FDFNamedPageReference());
-
-    // Act and Assert
-    assertNull(fdfTemplate.getFields());
-  }
-
-  /**
-   * Test {@link FDFTemplate#getFields()}.
-   *
-   * <ul>
    *   <li>Given {@link FDFTemplate#FDFTemplate()}.
    *   <li>Then return {@code null}.
    * </ul>
@@ -639,31 +615,6 @@ class FDFTemplateDiffblueTest {
 
     // Act and Assert
     assertTrue(fdfTemplate.shouldRename());
-  }
-
-  /**
-   * Test {@link FDFTemplate#shouldRename()}.
-   *
-   * <ul>
-   *   <li>Given {@link FDFTemplate#FDFTemplate()} TemplateReference is {@link
-   *       FDFNamedPageReference#FDFNamedPageReference()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FDFTemplate#shouldRename()}
-   */
-  @Test
-  @DisplayName(
-      "Test shouldRename(); given FDFTemplate() TemplateReference is FDFNamedPageReference()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean FDFTemplate.shouldRename()"})
-  void testShouldRename_givenFDFTemplateTemplateReferenceIsFDFNamedPageReference() {
-    // Arrange
-    FDFTemplate fdfTemplate = new FDFTemplate();
-    fdfTemplate.setTemplateReference(new FDFNamedPageReference());
-
-    // Act and Assert
-    assertFalse(fdfTemplate.shouldRename());
   }
 
   /**

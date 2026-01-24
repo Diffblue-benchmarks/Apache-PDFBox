@@ -856,7 +856,7 @@ class XMPBasicSchemaDiffblueTest {
   void testSetCreateDateProperty2() {
     // Arrange
     XMPBasicSchema xmpBasicSchema = new XMPBasicSchema(XMPMetadata.createXMPMetadata());
-    xmpBasicSchema.addThumbnails(0, 3, "42", "42");
+    xmpBasicSchema.addThumbnails(1, 2, XMPBasicSchema.ADVISORY, XMPBasicSchema.ADVISORY);
     DateType date =
         new DateType(
             XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "");
@@ -884,8 +884,8 @@ class XMPBasicSchemaDiffblueTest {
   void testSetCreateDateProperty3() {
     // Arrange
     XMPBasicSchema xmpBasicSchema = new XMPBasicSchema(XMPMetadata.createXMPMetadata());
-    xmpBasicSchema.addAdvisory(XMPBasicSchema.THUMBNAILS);
-    xmpBasicSchema.addThumbnails(0, 3, "42", "42");
+    xmpBasicSchema.addAdvisory("Xpath");
+    xmpBasicSchema.addThumbnails(1, 2, XMPBasicSchema.ADVISORY, XMPBasicSchema.ADVISORY);
     DateType date =
         new DateType(
             XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "");
@@ -912,23 +912,32 @@ class XMPBasicSchemaDiffblueTest {
   @MethodsUnderTest({"void XMPBasicSchema.setCreateDateProperty(DateType)"})
   void testSetCreateDateProperty4() {
     // Arrange
-    XMPBasicSchema xmpBasicSchema = new XMPBasicSchema(XMPMetadata.createXMPMetadata());
-    xmpBasicSchema.addThumbnails(0, 3, "42", "42");
+    XMPMetadata metadata = XMPMetadata.createXMPMetadata();
+
+    XMPBasicSchema xmpBasicSchema = new XMPBasicSchema(metadata);
+    xmpBasicSchema.addBagValueAsSimple("Property Name", XMPBasicSchema.ADVISORY);
+    xmpBasicSchema.addAdvisory("Xpath");
+    xmpBasicSchema.addThumbnails(1, 2, XMPBasicSchema.ADVISORY, XMPBasicSchema.ADVISORY);
     DateType date =
         new DateType(
-            XMPMetadata.createXMPMetadata(),
-            "Namespace URI",
-            "Prefix",
-            XMPBasicSchema.THUMBNAILS,
-            "");
+            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "");
 
     // Act
     xmpBasicSchema.setCreateDateProperty(date);
 
     // Assert
     List<AbstractField> allProperties = xmpBasicSchema.getAllProperties();
-    assertEquals(1, allProperties.size());
-    assertSame(date, allProperties.get(0));
+    assertEquals(3, allProperties.size());
+    AbstractField getResult = allProperties.get(1);
+    assertTrue(getResult instanceof ArrayProperty);
+    assertEquals("http://ns.adobe.com/xap/1.0/", getResult.getNamespace());
+    assertEquals("xmp", getResult.getPrefix());
+    assertEquals(1, ((ArrayProperty) getResult).getAllProperties().size());
+    assertEquals(Cardinality.Alt, ((ArrayProperty) getResult).getArrayType());
+    assertTrue(getResult.getAllAttributes().isEmpty());
+    assertTrue(((ArrayProperty) getResult).getAllNamespacesWithPrefix().isEmpty());
+    assertEquals(XMPBasicSchema.THUMBNAILS, getResult.getPropertyName());
+    assertSame(metadata, getResult.getMetadata());
   }
 
   /**
@@ -1736,7 +1745,7 @@ class XMPBasicSchemaDiffblueTest {
   void testSetMetadataDateProperty2() {
     // Arrange
     XMPBasicSchema xmpBasicSchema = new XMPBasicSchema(XMPMetadata.createXMPMetadata());
-    xmpBasicSchema.addThumbnails(0, 3, "42", "42");
+    xmpBasicSchema.addThumbnails(1, 2, XMPBasicSchema.ADVISORY, XMPBasicSchema.ADVISORY);
     DateType date =
         new DateType(
             XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "");
@@ -1764,8 +1773,8 @@ class XMPBasicSchemaDiffblueTest {
   void testSetMetadataDateProperty3() {
     // Arrange
     XMPBasicSchema xmpBasicSchema = new XMPBasicSchema(XMPMetadata.createXMPMetadata());
-    xmpBasicSchema.addAdvisory(XMPBasicSchema.THUMBNAILS);
-    xmpBasicSchema.addThumbnails(0, 3, "42", "42");
+    xmpBasicSchema.addAdvisory("Xpath");
+    xmpBasicSchema.addThumbnails(1, 2, XMPBasicSchema.ADVISORY, XMPBasicSchema.ADVISORY);
     DateType date =
         new DateType(
             XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "");
@@ -1792,23 +1801,32 @@ class XMPBasicSchemaDiffblueTest {
   @MethodsUnderTest({"void XMPBasicSchema.setMetadataDateProperty(DateType)"})
   void testSetMetadataDateProperty4() {
     // Arrange
-    XMPBasicSchema xmpBasicSchema = new XMPBasicSchema(XMPMetadata.createXMPMetadata());
-    xmpBasicSchema.addThumbnails(0, 3, "42", "42");
+    XMPMetadata metadata = XMPMetadata.createXMPMetadata();
+
+    XMPBasicSchema xmpBasicSchema = new XMPBasicSchema(metadata);
+    xmpBasicSchema.addBagValueAsSimple("Property Name", XMPBasicSchema.ADVISORY);
+    xmpBasicSchema.addAdvisory("Xpath");
+    xmpBasicSchema.addThumbnails(1, 2, XMPBasicSchema.ADVISORY, XMPBasicSchema.ADVISORY);
     DateType date =
         new DateType(
-            XMPMetadata.createXMPMetadata(),
-            "Namespace URI",
-            "Prefix",
-            XMPBasicSchema.THUMBNAILS,
-            "");
+            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "");
 
     // Act
     xmpBasicSchema.setMetadataDateProperty(date);
 
     // Assert
     List<AbstractField> allProperties = xmpBasicSchema.getAllProperties();
-    assertEquals(1, allProperties.size());
-    assertSame(date, allProperties.get(0));
+    assertEquals(3, allProperties.size());
+    AbstractField getResult = allProperties.get(1);
+    assertTrue(getResult instanceof ArrayProperty);
+    assertEquals("http://ns.adobe.com/xap/1.0/", getResult.getNamespace());
+    assertEquals("xmp", getResult.getPrefix());
+    assertEquals(1, ((ArrayProperty) getResult).getAllProperties().size());
+    assertEquals(Cardinality.Alt, ((ArrayProperty) getResult).getArrayType());
+    assertTrue(getResult.getAllAttributes().isEmpty());
+    assertTrue(((ArrayProperty) getResult).getAllNamespacesWithPrefix().isEmpty());
+    assertEquals(XMPBasicSchema.THUMBNAILS, getResult.getPropertyName());
+    assertSame(metadata, getResult.getMetadata());
   }
 
   /**
@@ -2114,7 +2132,7 @@ class XMPBasicSchemaDiffblueTest {
   void testSetModifyDateProperty2() {
     // Arrange
     XMPBasicSchema xmpBasicSchema = new XMPBasicSchema(XMPMetadata.createXMPMetadata());
-    xmpBasicSchema.addThumbnails(0, 3, "42", "42");
+    xmpBasicSchema.addThumbnails(1, 2, XMPBasicSchema.ADVISORY, XMPBasicSchema.ADVISORY);
     DateType date =
         new DateType(
             XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "");
@@ -2142,8 +2160,8 @@ class XMPBasicSchemaDiffblueTest {
   void testSetModifyDateProperty3() {
     // Arrange
     XMPBasicSchema xmpBasicSchema = new XMPBasicSchema(XMPMetadata.createXMPMetadata());
-    xmpBasicSchema.addAdvisory(XMPBasicSchema.THUMBNAILS);
-    xmpBasicSchema.addThumbnails(0, 3, "42", "42");
+    xmpBasicSchema.addAdvisory("Xpath");
+    xmpBasicSchema.addThumbnails(1, 2, XMPBasicSchema.ADVISORY, XMPBasicSchema.ADVISORY);
     DateType date =
         new DateType(
             XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "");
@@ -2170,23 +2188,32 @@ class XMPBasicSchemaDiffblueTest {
   @MethodsUnderTest({"void XMPBasicSchema.setModifyDateProperty(DateType)"})
   void testSetModifyDateProperty4() {
     // Arrange
-    XMPBasicSchema xmpBasicSchema = new XMPBasicSchema(XMPMetadata.createXMPMetadata());
-    xmpBasicSchema.addThumbnails(0, 3, "42", "42");
+    XMPMetadata metadata = XMPMetadata.createXMPMetadata();
+
+    XMPBasicSchema xmpBasicSchema = new XMPBasicSchema(metadata);
+    xmpBasicSchema.addBagValueAsSimple("Property Name", XMPBasicSchema.ADVISORY);
+    xmpBasicSchema.addAdvisory("Xpath");
+    xmpBasicSchema.addThumbnails(1, 2, XMPBasicSchema.ADVISORY, XMPBasicSchema.ADVISORY);
     DateType date =
         new DateType(
-            XMPMetadata.createXMPMetadata(),
-            "Namespace URI",
-            "Prefix",
-            XMPBasicSchema.THUMBNAILS,
-            "");
+            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "");
 
     // Act
     xmpBasicSchema.setModifyDateProperty(date);
 
     // Assert
     List<AbstractField> allProperties = xmpBasicSchema.getAllProperties();
-    assertEquals(1, allProperties.size());
-    assertSame(date, allProperties.get(0));
+    assertEquals(3, allProperties.size());
+    AbstractField getResult = allProperties.get(1);
+    assertTrue(getResult instanceof ArrayProperty);
+    assertEquals("http://ns.adobe.com/xap/1.0/", getResult.getNamespace());
+    assertEquals("xmp", getResult.getPrefix());
+    assertEquals(1, ((ArrayProperty) getResult).getAllProperties().size());
+    assertEquals(Cardinality.Alt, ((ArrayProperty) getResult).getArrayType());
+    assertTrue(getResult.getAllAttributes().isEmpty());
+    assertTrue(((ArrayProperty) getResult).getAllNamespacesWithPrefix().isEmpty());
+    assertEquals(XMPBasicSchema.THUMBNAILS, getResult.getPropertyName());
+    assertSame(metadata, getResult.getMetadata());
   }
 
   /**
@@ -2228,7 +2255,7 @@ class XMPBasicSchemaDiffblueTest {
   void testSetModifierDateProperty2() {
     // Arrange
     XMPBasicSchema xmpBasicSchema = new XMPBasicSchema(XMPMetadata.createXMPMetadata());
-    xmpBasicSchema.addThumbnails(0, 3, "42", "42");
+    xmpBasicSchema.addThumbnails(1, 2, XMPBasicSchema.ADVISORY, XMPBasicSchema.ADVISORY);
     DateType date =
         new DateType(
             XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "");
@@ -2256,8 +2283,8 @@ class XMPBasicSchemaDiffblueTest {
   void testSetModifierDateProperty3() {
     // Arrange
     XMPBasicSchema xmpBasicSchema = new XMPBasicSchema(XMPMetadata.createXMPMetadata());
-    xmpBasicSchema.addAdvisory(XMPBasicSchema.THUMBNAILS);
-    xmpBasicSchema.addThumbnails(0, 3, "42", "42");
+    xmpBasicSchema.addAdvisory("Xpath");
+    xmpBasicSchema.addThumbnails(1, 2, XMPBasicSchema.ADVISORY, XMPBasicSchema.ADVISORY);
     DateType date =
         new DateType(
             XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "");
@@ -2284,23 +2311,32 @@ class XMPBasicSchemaDiffblueTest {
   @MethodsUnderTest({"void XMPBasicSchema.setModifierDateProperty(DateType)"})
   void testSetModifierDateProperty4() {
     // Arrange
-    XMPBasicSchema xmpBasicSchema = new XMPBasicSchema(XMPMetadata.createXMPMetadata());
-    xmpBasicSchema.addThumbnails(0, 3, "42", "42");
+    XMPMetadata metadata = XMPMetadata.createXMPMetadata();
+
+    XMPBasicSchema xmpBasicSchema = new XMPBasicSchema(metadata);
+    xmpBasicSchema.addBagValueAsSimple("Property Name", XMPBasicSchema.ADVISORY);
+    xmpBasicSchema.addAdvisory("Xpath");
+    xmpBasicSchema.addThumbnails(1, 2, XMPBasicSchema.ADVISORY, XMPBasicSchema.ADVISORY);
     DateType date =
         new DateType(
-            XMPMetadata.createXMPMetadata(),
-            "Namespace URI",
-            "Prefix",
-            XMPBasicSchema.THUMBNAILS,
-            "");
+            XMPMetadata.createXMPMetadata(), "Namespace URI", "Prefix", "Property Name", "");
 
     // Act
     xmpBasicSchema.setModifierDateProperty(date);
 
     // Assert
     List<AbstractField> allProperties = xmpBasicSchema.getAllProperties();
-    assertEquals(1, allProperties.size());
-    assertSame(date, allProperties.get(0));
+    assertEquals(3, allProperties.size());
+    AbstractField getResult = allProperties.get(1);
+    assertTrue(getResult instanceof ArrayProperty);
+    assertEquals("http://ns.adobe.com/xap/1.0/", getResult.getNamespace());
+    assertEquals("xmp", getResult.getPrefix());
+    assertEquals(1, ((ArrayProperty) getResult).getAllProperties().size());
+    assertEquals(Cardinality.Alt, ((ArrayProperty) getResult).getArrayType());
+    assertTrue(getResult.getAllAttributes().isEmpty());
+    assertTrue(((ArrayProperty) getResult).getAllNamespacesWithPrefix().isEmpty());
+    assertEquals(XMPBasicSchema.THUMBNAILS, getResult.getPropertyName());
+    assertSame(metadata, getResult.getMetadata());
   }
 
   /**

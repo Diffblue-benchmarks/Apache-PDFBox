@@ -18,7 +18,6 @@ import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.cos.COSName;
 import org.apache.pdfbox.pdmodel.DefaultResourceCache;
 import org.apache.pdfbox.pdmodel.PDResources;
-import org.apache.pdfbox.pdmodel.font.PDMMType1Font;
 import org.apache.pdfbox.pdmodel.graphics.pattern.PDShadingPattern;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -310,38 +309,6 @@ class PDPatternDiffblueTest {
    * Test {@link PDPattern#getPattern(PDColor)}.
    *
    * <ul>
-   *   <li>Given {@link PDResources#PDResources()} add {@link
-   *       PDMMType1Font#PDMMType1Font(COSDictionary)} with fontDictionary is {@link
-   *       COSDictionary#COSDictionary()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDPattern#getPattern(PDColor)}
-   */
-  @Test
-  @DisplayName(
-      "Test getPattern(PDColor); given PDResources() add PDMMType1Font(COSDictionary) with fontDictionary is COSDictionary()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "org.apache.pdfbox.pdmodel.graphics.pattern.PDAbstractPattern PDPattern.getPattern(PDColor)"
-  })
-  void testGetPattern_givenPDResourcesAddPDMMType1FontWithFontDictionaryIsCOSDictionary()
-      throws IOException {
-    // Arrange
-    PDResources resources = new PDResources();
-    resources.add(new PDMMType1Font(new COSDictionary()));
-    PDPattern pdPattern = new PDPattern(resources);
-
-    // Act and Assert
-    assertThrows(
-        IOException.class,
-        () -> pdPattern.getPattern(new PDColor(new COSArray(), PDDeviceGray.INSTANCE)));
-  }
-
-  /**
-   * Test {@link PDPattern#getPattern(PDColor)}.
-   *
-   * <ul>
    *   <li>Given {@link PDResources#PDResources()} add {@link PDShadingPattern#PDShadingPattern()}.
    *   <li>Then throw {@link IOException}.
    * </ul>
@@ -361,7 +328,6 @@ class PDPatternDiffblueTest {
     // Arrange
     PDResources resources = new PDResources();
     resources.add(new PDShadingPattern());
-    resources.add(new PDMMType1Font(new COSDictionary()));
     PDPattern pdPattern = new PDPattern(resources);
 
     // Act and Assert

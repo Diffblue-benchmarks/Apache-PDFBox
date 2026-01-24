@@ -16,7 +16,6 @@ import static org.mockito.Mockito.when;
 import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
-import java.util.List;
 import org.apache.pdfbox.cos.COSArray;
 import org.apache.pdfbox.cos.COSBase;
 import org.apache.pdfbox.cos.COSBoolean;
@@ -29,11 +28,14 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.graphics.color.PDCalGray;
 import org.apache.pdfbox.pdmodel.graphics.color.PDColor;
+import org.apache.pdfbox.pdmodel.graphics.color.PDColorSpace;
+import org.apache.pdfbox.pdmodel.graphics.color.PDDeviceCMYK;
 import org.apache.pdfbox.pdmodel.graphics.color.PDDeviceGray;
 import org.apache.pdfbox.pdmodel.interactive.annotation.handlers.PDCaretAppearanceHandler;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 
 class PDAnnotationPolygonDiffblueTest {
@@ -97,18 +99,18 @@ class PDAnnotationPolygonDiffblueTest {
    *
    * <ul>
    *   <li>When {@link COSDictionary#COSDictionary()}.
-   *   <li>Then {@link COSDictionary#COSDictionary()} size is one.
+   *   <li>Then return Vertices is {@code null}.
    * </ul>
    *
    * <p>Method under test: {@link PDAnnotationPolygon#PDAnnotationPolygon(COSDictionary)}
    */
   @Test
   @DisplayName(
-      "Test new PDAnnotationPolygon(COSDictionary); when COSDictionary(); then COSDictionary() size is one")
+      "Test new PDAnnotationPolygon(COSDictionary); when COSDictionary(); then return Vertices is 'null'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void PDAnnotationPolygon.<init>(COSDictionary)"})
-  void testNewPDAnnotationPolygon_whenCOSDictionary_thenCOSDictionarySizeIsOne() {
+  void testNewPDAnnotationPolygon_whenCOSDictionary_thenReturnVerticesIsNull() throws IOException {
     // Arrange
     COSDictionary dict = new COSDictionary();
 
@@ -116,44 +118,46 @@ class PDAnnotationPolygonDiffblueTest {
     PDAnnotationPolygon actualPdAnnotationPolygon = new PDAnnotationPolygon(dict);
 
     // Assert
+    assertNull(actualPdAnnotationPolygon.getVertices());
+    assertNull(actualPdAnnotationPolygon.getPath());
+    assertNull(actualPdAnnotationPolygon.getAnnotationName());
+    assertNull(actualPdAnnotationPolygon.getContents());
+    assertNull(actualPdAnnotationPolygon.getModifiedDate());
+    assertNull(actualPdAnnotationPolygon.getSubtype());
+    assertNull(actualPdAnnotationPolygon.getIntent());
+    assertNull(actualPdAnnotationPolygon.getRichContents());
+    assertNull(actualPdAnnotationPolygon.getSubject());
+    assertNull(actualPdAnnotationPolygon.getTitlePopup());
+    assertNull(actualPdAnnotationPolygon.getCreationDate());
+    assertNull(actualPdAnnotationPolygon.getAppearanceState());
+    assertNull(actualPdAnnotationPolygon.getPage());
+    assertNull(actualPdAnnotationPolygon.getRectangle());
+    assertNull(actualPdAnnotationPolygon.getOptionalContent());
+    assertNull(actualPdAnnotationPolygon.getColor());
+    assertNull(actualPdAnnotationPolygon.getInteriorColor());
+    assertNull(actualPdAnnotationPolygon.getInReplyTo());
+    assertNull(actualPdAnnotationPolygon.getPopup());
+    assertNull(actualPdAnnotationPolygon.getAppearance());
+    assertNull(actualPdAnnotationPolygon.getNormalAppearanceStream());
+    assertNull(actualPdAnnotationPolygon.getBorderEffect());
+    assertNull(actualPdAnnotationPolygon.getBorderStyle());
+    assertNull(actualPdAnnotationPolygon.getExternalData());
+    assertEquals(-1, actualPdAnnotationPolygon.getStructParent());
+    assertEquals(0, actualPdAnnotationPolygon.getAnnotationFlags());
     assertEquals(1, dict.size());
-    List<? extends COSBase> toListResult = actualPdAnnotationPolygon.getBorder().toList();
-    assertEquals(3, toListResult.size());
+    assertEquals(1.0f, actualPdAnnotationPolygon.getConstantOpacity());
+    assertFalse(actualPdAnnotationPolygon.isHidden());
+    assertFalse(actualPdAnnotationPolygon.isInvisible());
+    assertFalse(actualPdAnnotationPolygon.isLocked());
+    assertFalse(actualPdAnnotationPolygon.isLockedContents());
+    assertFalse(actualPdAnnotationPolygon.isNoRotate());
+    assertFalse(actualPdAnnotationPolygon.isNoView());
+    assertFalse(actualPdAnnotationPolygon.isNoZoom());
+    assertFalse(actualPdAnnotationPolygon.isPrinted());
+    assertFalse(actualPdAnnotationPolygon.isReadOnly());
+    assertFalse(actualPdAnnotationPolygon.isToggleNoView());
+    assertEquals(PDAnnotationMarkup.RT_REPLY, actualPdAnnotationPolygon.getReplyType());
     assertSame(dict, actualPdAnnotationPolygon.getCOSObject());
-    COSBase expectedGetResult = toListResult.get(0);
-    assertSame(expectedGetResult, toListResult.get(1));
-  }
-
-  /**
-   * Test {@link PDAnnotationPolygon#PDAnnotationPolygon(COSDictionary)}.
-   *
-   * <ul>
-   *   <li>When {@link COSStream#COSStream()}.
-   *   <li>Then {@link COSStream#COSStream()} size is two.
-   * </ul>
-   *
-   * <p>Method under test: {@link PDAnnotationPolygon#PDAnnotationPolygon(COSDictionary)}
-   */
-  @Test
-  @DisplayName(
-      "Test new PDAnnotationPolygon(COSDictionary); when COSStream(); then COSStream() size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PDAnnotationPolygon.<init>(COSDictionary)"})
-  void testNewPDAnnotationPolygon_whenCOSStream_thenCOSStreamSizeIsTwo() {
-    // Arrange
-    COSStream dict = new COSStream();
-
-    // Act
-    PDAnnotationPolygon actualPdAnnotationPolygon = new PDAnnotationPolygon(dict);
-
-    // Assert
-    assertEquals(2, dict.size());
-    List<? extends COSBase> toListResult = actualPdAnnotationPolygon.getBorder().toList();
-    assertEquals(3, toListResult.size());
-    assertSame(dict, actualPdAnnotationPolygon.getCOSObject());
-    COSBase expectedGetResult = toListResult.get(0);
-    assertSame(expectedGetResult, toListResult.get(1));
   }
 
   /**
@@ -1206,7 +1210,7 @@ class PDAnnotationPolygonDiffblueTest {
     // Arrange
     PDAnnotationCaret annotation = mock(PDAnnotationCaret.class);
     doNothing().when(annotation).setRectangle(Mockito.<PDRectangle>any());
-    doNothing().when(annotation).setRectDifferences(anyFloat());
+    doNothing().when(annotation).setRectDifferences(ArgumentMatchers.anyFloat());
     when(annotation.getConstantOpacity()).thenReturn(10.0f);
     when(annotation.getCOSObject()).thenReturn(new COSDictionary());
     when(annotation.getNormalAppearanceStream())

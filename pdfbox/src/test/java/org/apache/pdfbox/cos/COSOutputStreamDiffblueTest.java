@@ -7,6 +7,7 @@ import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.ByteArrayOutputStream;
@@ -15,11 +16,14 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.pdfbox.filter.Filter;
+import org.apache.pdfbox.filter.JPXFilter;
+import org.apache.pdfbox.io.RandomAccessReadWriteBuffer;
 import org.apache.pdfbox.io.RandomAccessStreamCache;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -88,13 +92,13 @@ class COSOutputStreamDiffblueTest {
   void testWriteWithByteIntInt_givenOutputStreamWriteDoesNothing_whenOne_thenCallsWrite()
       throws IOException {
     // Arrange
-    doNothing().when(outputStream).write(anyInt());
+    doNothing().when(outputStream).write(ArgumentMatchers.anyInt());
 
     // Act
     cOSOutputStream.write("AXAXAXAX".getBytes("UTF-8"), 1, 3);
 
     // Assert
-    verify(outputStream, atLeast(1)).write(anyInt());
+    verify(outputStream, atLeast(1)).write(ArgumentMatchers.anyInt());
   }
 
   /**
@@ -114,7 +118,7 @@ class COSOutputStreamDiffblueTest {
   @MethodsUnderTest({"void COSOutputStream.write(byte[], int, int)"})
   void testWriteWithByteIntInt_thenThrowIOException() throws IOException {
     // Arrange
-    doThrow(new IOException()).when(outputStream).write(anyInt());
+    doThrow(new IOException()).when(outputStream).write(ArgumentMatchers.anyInt());
 
     // Act and Assert
     assertThrows(
@@ -162,13 +166,13 @@ class COSOutputStreamDiffblueTest {
   @MethodsUnderTest({"void COSOutputStream.write(byte[])"})
   void testWriteWithByte_givenOutputStreamWriteDoesNothing_thenCallsWrite() throws IOException {
     // Arrange
-    doNothing().when(outputStream).write(anyInt());
+    doNothing().when(outputStream).write(ArgumentMatchers.anyInt());
 
     // Act
     cOSOutputStream.write("AXAXAXAX".getBytes("UTF-8"));
 
     // Assert
-    verify(outputStream, atLeast(1)).write(anyInt());
+    verify(outputStream, atLeast(1)).write(ArgumentMatchers.anyInt());
   }
 
   /**
@@ -191,7 +195,7 @@ class COSOutputStreamDiffblueTest {
   void testWriteWithByte_givenOutputStreamWriteThrowIOException_thenThrowIOException()
       throws IOException {
     // Arrange
-    doThrow(new IOException()).when(outputStream).write(anyInt());
+    doThrow(new IOException()).when(outputStream).write(ArgumentMatchers.anyInt());
 
     // Act and Assert
     assertThrows(IOException.class, () -> cOSOutputStream.write("AXAXAXAX".getBytes("UTF-8")));
@@ -234,7 +238,7 @@ class COSOutputStreamDiffblueTest {
   @MethodsUnderTest({"void COSOutputStream.write(int)"})
   void testWriteWithInt_givenOutputStreamWriteDoesNothing() throws IOException {
     // Arrange
-    doNothing().when(outputStream).write(anyInt());
+    doNothing().when(outputStream).write(ArgumentMatchers.anyInt());
 
     // Act
     cOSOutputStream.write(19088743);
@@ -263,7 +267,7 @@ class COSOutputStreamDiffblueTest {
   void testWriteWithInt_givenOutputStreamWriteThrowIOException_thenThrowIOException()
       throws IOException {
     // Arrange
-    doThrow(new IOException()).when(outputStream).write(anyInt());
+    doThrow(new IOException()).when(outputStream).write(ArgumentMatchers.anyInt());
 
     // Act and Assert
     assertThrows(IOException.class, () -> cOSOutputStream.write(19088743));
